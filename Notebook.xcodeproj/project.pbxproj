@@ -1,0 +1,584 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
+		8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBD0221BECFC0067C321 /* ViewController.m */; };
+		8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD2221BECFC0067C321 /* Main.storyboard */; };
+		8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD5221BECFE0067C321 /* Assets.xcassets */; };
+		8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD7221BECFE0067C321 /* LaunchScreen.storyboard */; };
+		8F65DBDC221BECFE0067C321 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBDB221BECFE0067C321 /* main.m */; };
+		8F65DBE6221BECFE0067C321 /* NotebookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBE5221BECFE0067C321 /* NotebookTests.m */; };
+		8F65DBF1221BECFE0067C321 /* NotebookUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBF0221BECFE0067C321 /* NotebookUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F65DBE2221BECFE0067C321 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F65DBC1221BECFC0067C321 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F65DBC8221BECFC0067C321;
+			remoteInfo = Notebook;
+		};
+		8F65DBED221BECFE0067C321 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F65DBC1221BECFC0067C321 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F65DBC8221BECFC0067C321;
+			remoteInfo = Notebook;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8F65DBC9221BECFC0067C321 /* Notebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F65DBCC221BECFC0067C321 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8F65DBCD221BECFC0067C321 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8F65DBCF221BECFC0067C321 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8F65DBD0221BECFC0067C321 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8F65DBD3221BECFC0067C321 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8F65DBD5221BECFE0067C321 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8F65DBD8221BECFE0067C321 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8F65DBDA221BECFE0067C321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F65DBDB221BECFE0067C321 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8F65DBE1221BECFE0067C321 /* NotebookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotebookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F65DBE5221BECFE0067C321 /* NotebookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotebookTests.m; sourceTree = "<group>"; };
+		8F65DBE7221BECFE0067C321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F65DBEC221BECFE0067C321 /* NotebookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotebookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F65DBF0221BECFE0067C321 /* NotebookUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotebookUITests.m; sourceTree = "<group>"; };
+		8F65DBF2221BECFE0067C321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8F65DBC6221BECFC0067C321 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F65DBDE221BECFE0067C321 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F65DBE9221BECFE0067C321 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8F65DBC0221BECFC0067C321 = {
+			isa = PBXGroup;
+			children = (
+				8F65DBCB221BECFC0067C321 /* Notebook */,
+				8F65DBE4221BECFE0067C321 /* NotebookTests */,
+				8F65DBEF221BECFE0067C321 /* NotebookUITests */,
+				8F65DBCA221BECFC0067C321 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8F65DBCA221BECFC0067C321 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F65DBC9221BECFC0067C321 /* Notebook.app */,
+				8F65DBE1221BECFE0067C321 /* NotebookTests.xctest */,
+				8F65DBEC221BECFE0067C321 /* NotebookUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8F65DBCB221BECFC0067C321 /* Notebook */ = {
+			isa = PBXGroup;
+			children = (
+				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
+				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
+				8F65DBCF221BECFC0067C321 /* ViewController.h */,
+				8F65DBD0221BECFC0067C321 /* ViewController.m */,
+				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
+				8F65DBD5221BECFE0067C321 /* Assets.xcassets */,
+				8F65DBD7221BECFE0067C321 /* LaunchScreen.storyboard */,
+				8F65DBDA221BECFE0067C321 /* Info.plist */,
+				8F65DBDB221BECFE0067C321 /* main.m */,
+			);
+			path = Notebook;
+			sourceTree = "<group>";
+		};
+		8F65DBE4221BECFE0067C321 /* NotebookTests */ = {
+			isa = PBXGroup;
+			children = (
+				8F65DBE5221BECFE0067C321 /* NotebookTests.m */,
+				8F65DBE7221BECFE0067C321 /* Info.plist */,
+			);
+			path = NotebookTests;
+			sourceTree = "<group>";
+		};
+		8F65DBEF221BECFE0067C321 /* NotebookUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8F65DBF0221BECFE0067C321 /* NotebookUITests.m */,
+				8F65DBF2221BECFE0067C321 /* Info.plist */,
+			);
+			path = NotebookUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8F65DBC8221BECFC0067C321 /* Notebook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F65DBF5221BECFE0067C321 /* Build configuration list for PBXNativeTarget "Notebook" */;
+			buildPhases = (
+				8F65DBC5221BECFC0067C321 /* Sources */,
+				8F65DBC6221BECFC0067C321 /* Frameworks */,
+				8F65DBC7221BECFC0067C321 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Notebook;
+			productName = Notebook;
+			productReference = 8F65DBC9221BECFC0067C321 /* Notebook.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8F65DBE0221BECFE0067C321 /* NotebookTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F65DBF8221BECFE0067C321 /* Build configuration list for PBXNativeTarget "NotebookTests" */;
+			buildPhases = (
+				8F65DBDD221BECFE0067C321 /* Sources */,
+				8F65DBDE221BECFE0067C321 /* Frameworks */,
+				8F65DBDF221BECFE0067C321 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F65DBE3221BECFE0067C321 /* PBXTargetDependency */,
+			);
+			name = NotebookTests;
+			productName = NotebookTests;
+			productReference = 8F65DBE1221BECFE0067C321 /* NotebookTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8F65DBEB221BECFE0067C321 /* NotebookUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F65DBFB221BECFE0067C321 /* Build configuration list for PBXNativeTarget "NotebookUITests" */;
+			buildPhases = (
+				8F65DBE8221BECFE0067C321 /* Sources */,
+				8F65DBE9221BECFE0067C321 /* Frameworks */,
+				8F65DBEA221BECFE0067C321 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F65DBEE221BECFE0067C321 /* PBXTargetDependency */,
+			);
+			name = NotebookUITests;
+			productName = NotebookUITests;
+			productReference = 8F65DBEC221BECFE0067C321 /* NotebookUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8F65DBC1221BECFC0067C321 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = teason23;
+				TargetAttributes = {
+					8F65DBC8221BECFC0067C321 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					8F65DBE0221BECFE0067C321 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 8F65DBC8221BECFC0067C321;
+					};
+					8F65DBEB221BECFE0067C321 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 8F65DBC8221BECFC0067C321;
+					};
+				};
+			};
+			buildConfigurationList = 8F65DBC4221BECFC0067C321 /* Build configuration list for PBXProject "Notebook" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8F65DBC0221BECFC0067C321;
+			productRefGroup = 8F65DBCA221BECFC0067C321 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8F65DBC8221BECFC0067C321 /* Notebook */,
+				8F65DBE0221BECFE0067C321 /* NotebookTests */,
+				8F65DBEB221BECFE0067C321 /* NotebookUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8F65DBC7221BECFC0067C321 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
+				8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */,
+				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F65DBDF221BECFE0067C321 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F65DBEA221BECFE0067C321 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8F65DBC5221BECFC0067C321 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */,
+				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
+				8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F65DBDD221BECFE0067C321 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F65DBE6221BECFE0067C321 /* NotebookTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F65DBE8221BECFE0067C321 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F65DBF1221BECFE0067C321 /* NotebookUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F65DBE3221BECFE0067C321 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F65DBC8221BECFC0067C321 /* Notebook */;
+			targetProxy = 8F65DBE2221BECFE0067C321 /* PBXContainerItemProxy */;
+		};
+		8F65DBEE221BECFE0067C321 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F65DBC8221BECFC0067C321 /* Notebook */;
+			targetProxy = 8F65DBED221BECFE0067C321 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8F65DBD2221BECFC0067C321 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F65DBD3221BECFC0067C321 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8F65DBD7221BECFE0067C321 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F65DBD8221BECFE0067C321 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8F65DBF3221BECFE0067C321 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8F65DBF4221BECFE0067C321 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8F65DBF6221BECFE0067C321 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z35T9799TW;
+				INFOPLIST_FILE = Notebook/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.Notebook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8F65DBF7221BECFE0067C321 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z35T9799TW;
+				INFOPLIST_FILE = Notebook/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.Notebook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8F65DBF9221BECFE0067C321 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z35T9799TW;
+				INFOPLIST_FILE = NotebookTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.NotebookTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notebook.app/Notebook";
+			};
+			name = Debug;
+		};
+		8F65DBFA221BECFE0067C321 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z35T9799TW;
+				INFOPLIST_FILE = NotebookTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.NotebookTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notebook.app/Notebook";
+			};
+			name = Release;
+		};
+		8F65DBFC221BECFE0067C321 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z35T9799TW;
+				INFOPLIST_FILE = NotebookUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.NotebookUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Notebook;
+			};
+			name = Debug;
+		};
+		8F65DBFD221BECFE0067C321 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z35T9799TW;
+				INFOPLIST_FILE = NotebookUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.NotebookUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Notebook;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8F65DBC4221BECFC0067C321 /* Build configuration list for PBXProject "Notebook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F65DBF3221BECFE0067C321 /* Debug */,
+				8F65DBF4221BECFE0067C321 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F65DBF5221BECFE0067C321 /* Build configuration list for PBXNativeTarget "Notebook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F65DBF6221BECFE0067C321 /* Debug */,
+				8F65DBF7221BECFE0067C321 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F65DBF8221BECFE0067C321 /* Build configuration list for PBXNativeTarget "NotebookTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F65DBF9221BECFE0067C321 /* Debug */,
+				8F65DBFA221BECFE0067C321 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F65DBFB221BECFE0067C321 /* Build configuration list for PBXNativeTarget "NotebookUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F65DBFC221BECFE0067C321 /* Debug */,
+				8F65DBFD221BECFE0067C321 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8F65DBC1221BECFC0067C321 /* Project object */;
+}
