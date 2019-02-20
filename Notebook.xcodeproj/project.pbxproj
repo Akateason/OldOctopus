@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F626345221C02350066A429 /* NoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F626344221C02350066A429 /* NoteModel.m */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
 		8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBD0221BECFC0067C321 /* ViewController.m */; };
 		8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD2221BECFC0067C321 /* Main.storyboard */; };
@@ -15,6 +16,18 @@
 		8F65DBDC221BECFE0067C321 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBDB221BECFE0067C321 /* main.m */; };
 		8F65DBE6221BECFE0067C321 /* NotebookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBE5221BECFE0067C321 /* NotebookTests.m */; };
 		8F65DBF1221BECFE0067C321 /* NotebookUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBF0221BECFE0067C321 /* NotebookUITests.m */; };
+		8F65DC12221BED280067C321 /* RichImages.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBFF221BED280067C321 /* RichImages.bundle */; };
+		8F65DC13221BED280067C321 /* PlacehoderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC02221BED280067C321 /* PlacehoderTextView.m */; };
+		8F65DC14221BED280067C321 /* UIView+NXBXYWH.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC06221BED280067C321 /* UIView+NXBXYWH.m */; };
+		8F65DC15221BED280067C321 /* NXBSelectPhotosModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC09221BED280067C321 /* NXBSelectPhotosModel.m */; };
+		8F65DC16221BED280067C321 /* NXBLocalImageInOutModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC0A221BED280067C321 /* NXBLocalImageInOutModel.m */; };
+		8F65DC17221BED280067C321 /* UIImage+NXMScaleSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC0C221BED280067C321 /* UIImage+NXMScaleSize.m */; };
+		8F65DC18221BED280067C321 /* UIView+XBXYWH.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC0D221BED280067C321 /* UIView+XBXYWH.m */; };
+		8F65DC19221BED280067C321 /* NXBImageTextEditModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC0E221BED280067C321 /* NXBImageTextEditModel.m */; };
+		8F65DC1A221BED280067C321 /* RichTextImageEditorBaseViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC0F221BED280067C321 /* RichTextImageEditorBaseViewCtrl.m */; };
+		8F65DC1B221BED280067C321 /* NXBRichTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC10221BED280067C321 /* NXBRichTextView.m */; };
+		8F65DC1E221BF8840067C321 /* EditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DC1D221BF8840067C321 /* EditVC.m */; };
+		C371690FA8B8F8976235DDEE /* Pods_Notebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +48,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F626343221C02350066A429 /* NoteModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteModel.h; sourceTree = "<group>"; };
+		8F626344221C02350066A429 /* NoteModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteModel.m; sourceTree = "<group>"; };
 		8F65DBC9221BECFC0067C321 /* Notebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F65DBCC221BECFC0067C321 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8F65DBCD221BECFC0067C321 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -51,6 +67,29 @@
 		8F65DBEC221BECFE0067C321 /* NotebookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotebookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F65DBF0221BECFE0067C321 /* NotebookUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotebookUITests.m; sourceTree = "<group>"; };
 		8F65DBF2221BECFE0067C321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F65DBFF221BED280067C321 /* RichImages.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RichImages.bundle; sourceTree = "<group>"; };
+		8F65DC00221BED280067C321 /* NXBSelectPhotosModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXBSelectPhotosModel.h; sourceTree = "<group>"; };
+		8F65DC01221BED280067C321 /* UIImage+NXMScaleSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NXMScaleSize.h"; sourceTree = "<group>"; };
+		8F65DC02221BED280067C321 /* PlacehoderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacehoderTextView.m; sourceTree = "<group>"; };
+		8F65DC03221BED280067C321 /* NXBLocalImageInOutModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXBLocalImageInOutModel.h; sourceTree = "<group>"; };
+		8F65DC04221BED280067C321 /* NXBImageTextEditModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXBImageTextEditModel.h; sourceTree = "<group>"; };
+		8F65DC05221BED280067C321 /* UIView+XBXYWH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XBXYWH.h"; sourceTree = "<group>"; };
+		8F65DC06221BED280067C321 /* UIView+NXBXYWH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NXBXYWH.m"; sourceTree = "<group>"; };
+		8F65DC07221BED280067C321 /* NXBRichTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXBRichTextView.h; sourceTree = "<group>"; };
+		8F65DC08221BED280067C321 /* RichTextImageEditorBaseViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichTextImageEditorBaseViewCtrl.h; sourceTree = "<group>"; };
+		8F65DC09221BED280067C321 /* NXBSelectPhotosModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXBSelectPhotosModel.m; sourceTree = "<group>"; };
+		8F65DC0A221BED280067C321 /* NXBLocalImageInOutModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXBLocalImageInOutModel.m; sourceTree = "<group>"; };
+		8F65DC0B221BED280067C321 /* PlacehoderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacehoderTextView.h; sourceTree = "<group>"; };
+		8F65DC0C221BED280067C321 /* UIImage+NXMScaleSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NXMScaleSize.m"; sourceTree = "<group>"; };
+		8F65DC0D221BED280067C321 /* UIView+XBXYWH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XBXYWH.m"; sourceTree = "<group>"; };
+		8F65DC0E221BED280067C321 /* NXBImageTextEditModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXBImageTextEditModel.m; sourceTree = "<group>"; };
+		8F65DC0F221BED280067C321 /* RichTextImageEditorBaseViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichTextImageEditorBaseViewCtrl.m; sourceTree = "<group>"; };
+		8F65DC10221BED280067C321 /* NXBRichTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXBRichTextView.m; sourceTree = "<group>"; };
+		8F65DC11221BED280067C321 /* UIView+NXBXYWH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NXBXYWH.h"; sourceTree = "<group>"; };
+		8F65DC1C221BF8840067C321 /* EditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditVC.h; sourceTree = "<group>"; };
+		8F65DC1D221BF8840067C321 /* EditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditVC.m; sourceTree = "<group>"; };
+		DB88ED0C7D8CDC5EED692867 /* Pods-Notebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notebook/Pods-Notebook.debug.xcconfig"; sourceTree = "<group>"; };
+		EE24592E01D8FF4728985E55 /* Pods-Notebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notebook.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notebook/Pods-Notebook.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C371690FA8B8F8976235DDEE /* Pods_Notebook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +118,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2366BB8312859B51C204C163 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3C14D06B4850ECE84B3E54C3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DB88ED0C7D8CDC5EED692867 /* Pods-Notebook.debug.xcconfig */,
+				EE24592E01D8FF4728985E55 /* Pods-Notebook.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8F626342221C02030066A429 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8F626343221C02350066A429 /* NoteModel.h */,
+				8F626344221C02350066A429 /* NoteModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8F65DBC0221BECFC0067C321 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +151,8 @@
 				8F65DBE4221BECFE0067C321 /* NotebookTests */,
 				8F65DBEF221BECFE0067C321 /* NotebookUITests */,
 				8F65DBCA221BECFC0067C321 /* Products */,
+				3C14D06B4850ECE84B3E54C3 /* Pods */,
+				2366BB8312859B51C204C163 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,10 +169,14 @@
 		8F65DBCB221BECFC0067C321 /* Notebook */ = {
 			isa = PBXGroup;
 			children = (
+				8F65DBFE221BED280067C321 /* NXBRichTextImageEditor */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
+				8F626342221C02030066A429 /* Model */,
 				8F65DBCF221BECFC0067C321 /* ViewController.h */,
 				8F65DBD0221BECFC0067C321 /* ViewController.m */,
+				8F65DC1C221BF8840067C321 /* EditVC.h */,
+				8F65DC1D221BF8840067C321 /* EditVC.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
 				8F65DBD5221BECFE0067C321 /* Assets.xcassets */,
 				8F65DBD7221BECFE0067C321 /* LaunchScreen.storyboard */,
@@ -132,6 +204,32 @@
 			path = NotebookUITests;
 			sourceTree = "<group>";
 		};
+		8F65DBFE221BED280067C321 /* NXBRichTextImageEditor */ = {
+			isa = PBXGroup;
+			children = (
+				8F65DBFF221BED280067C321 /* RichImages.bundle */,
+				8F65DC00221BED280067C321 /* NXBSelectPhotosModel.h */,
+				8F65DC09221BED280067C321 /* NXBSelectPhotosModel.m */,
+				8F65DC01221BED280067C321 /* UIImage+NXMScaleSize.h */,
+				8F65DC0C221BED280067C321 /* UIImage+NXMScaleSize.m */,
+				8F65DC0B221BED280067C321 /* PlacehoderTextView.h */,
+				8F65DC02221BED280067C321 /* PlacehoderTextView.m */,
+				8F65DC03221BED280067C321 /* NXBLocalImageInOutModel.h */,
+				8F65DC0A221BED280067C321 /* NXBLocalImageInOutModel.m */,
+				8F65DC04221BED280067C321 /* NXBImageTextEditModel.h */,
+				8F65DC0E221BED280067C321 /* NXBImageTextEditModel.m */,
+				8F65DC05221BED280067C321 /* UIView+XBXYWH.h */,
+				8F65DC0D221BED280067C321 /* UIView+XBXYWH.m */,
+				8F65DC11221BED280067C321 /* UIView+NXBXYWH.h */,
+				8F65DC06221BED280067C321 /* UIView+NXBXYWH.m */,
+				8F65DC07221BED280067C321 /* NXBRichTextView.h */,
+				8F65DC10221BED280067C321 /* NXBRichTextView.m */,
+				8F65DC08221BED280067C321 /* RichTextImageEditorBaseViewCtrl.h */,
+				8F65DC0F221BED280067C321 /* RichTextImageEditorBaseViewCtrl.m */,
+			);
+			path = NXBRichTextImageEditor;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,9 +237,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F65DBF5221BECFE0067C321 /* Build configuration list for PBXNativeTarget "Notebook" */;
 			buildPhases = (
+				DB2C7E1C05E390AEB9D1482F /* [CP] Check Pods Manifest.lock */,
 				8F65DBC5221BECFC0067C321 /* Sources */,
 				8F65DBC6221BECFC0067C321 /* Frameworks */,
 				8F65DBC7221BECFC0067C321 /* Resources */,
+				31FBD785FDD11C7DC00B8994 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -236,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
+				8F65DC12221BED280067C321 /* RichImages.bundle in Resources */,
 				8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
 			);
@@ -257,14 +358,116 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		31FBD785FDD11C7DC00B8994 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Notebook/Pods-Notebook-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework",
+				"${BUILT_PRODUCTS_DIR}/CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.framework",
+				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/FTPopOverMenu/FTPopOverMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
+				"${BUILT_PRODUCTS_DIR}/RxWebViewController/RxWebViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/UIFontWDCustomLoader/UIFontWDCustomLoader.framework",
+				"${BUILT_PRODUCTS_DIR}/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework",
+				"${BUILT_PRODUCTS_DIR}/Valet/Valet.framework",
+				"${BUILT_PRODUCTS_DIR}/XTBase/XTBase.framework",
+				"${BUILT_PRODUCTS_DIR}/XTColor/XTColor.framework",
+				"${BUILT_PRODUCTS_DIR}/XTFMDB/XTFMDB.framework",
+				"${BUILT_PRODUCTS_DIR}/XTReq/XTReq.framework",
+				"${BUILT_PRODUCTS_DIR}/XTlib/XTlib.framework",
+				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BlocksKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CYLTableViewPlaceHolder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FTPopOverMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxWebViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIFontWDCustomLoader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITableView_FDTemplateLayoutCell.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Valet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XTBase.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XTColor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XTFMDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XTReq.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XTlib.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Notebook/Pods-Notebook-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB2C7E1C05E390AEB9D1482F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Notebook-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8F65DBC5221BECFC0067C321 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */,
+				8F65DC1A221BED280067C321 /* RichTextImageEditorBaseViewCtrl.m in Sources */,
+				8F65DC1B221BED280067C321 /* NXBRichTextView.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
+				8F65DC13221BED280067C321 /* PlacehoderTextView.m in Sources */,
+				8F65DC18221BED280067C321 /* UIView+XBXYWH.m in Sources */,
+				8F65DC17221BED280067C321 /* UIImage+NXMScaleSize.m in Sources */,
+				8F65DC19221BED280067C321 /* NXBImageTextEditModel.m in Sources */,
+				8F65DC16221BED280067C321 /* NXBLocalImageInOutModel.m in Sources */,
+				8F65DC15221BED280067C321 /* NXBSelectPhotosModel.m in Sources */,
+				8F65DC1E221BF8840067C321 /* EditVC.m in Sources */,
 				8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */,
+				8F65DC14221BED280067C321 /* UIView+NXBXYWH.m in Sources */,
+				8F626345221C02350066A429 /* NoteModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,16 +636,18 @@
 		};
 		8F65DBF6221BECFE0067C321 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB88ED0C7D8CDC5EED692867 /* Pods-Notebook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				INFOPLIST_FILE = Notebook/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.Notebook;
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.demo3.Notebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -450,16 +655,18 @@
 		};
 		8F65DBF7221BECFE0067C321 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE24592E01D8FF4728985E55 /* Pods-Notebook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				INFOPLIST_FILE = Notebook/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.Notebook;
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.demo3.Notebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

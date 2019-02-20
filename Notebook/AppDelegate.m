@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <XTlib/XTlib.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [XTlibConfig sharedInstance].isDebug = YES ;
+    [XTFMDBBase sharedInstance].isDebugMode = YES ;
+    
+    [[XTFMDBBase sharedInstance] configureDBWithPath:XT_DOCUMENTS_PATH_TRAIL_(@"noteDB")] ;
+    
     return YES;
 }
 

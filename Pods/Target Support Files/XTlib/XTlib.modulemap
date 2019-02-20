@@ -1,0 +1,6 @@
+framework module XTlib {
+  umbrella header "XTlib-umbrella.h"
+
+  export *
+  module * { export * }
+}
