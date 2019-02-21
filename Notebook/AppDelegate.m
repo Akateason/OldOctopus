@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <XTlib/XTlib.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -22,6 +23,11 @@
     [XTFMDBBase sharedInstance].isDebugMode = YES ;
     
     [[XTFMDBBase sharedInstance] configureDBWithPath:XT_DOCUMENTS_PATH_TRAIL_(@"noteDB")] ;
+    
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES ;// 控制整个功能是否启用。
+    manager.enableAutoToolbar = NO ;// 控制是否显示键盘上的工具条
+
     
     return YES;
 }

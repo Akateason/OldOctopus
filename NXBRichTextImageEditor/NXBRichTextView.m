@@ -19,7 +19,7 @@
 - (void)drawRect:(CGRect)rect delegate:(id)delegate FontOfSize:(CGFloat)fontSize placehoder:(NSString*)placehoder {
     if (self) {
         self.frame = rect;
-        self.placehoder = placehoder;
+//        self.placehoder = placehoder;
         self.delegate = delegate;
         self.textDelegate = delegate;
         self.font = [UIFont systemFontOfSize:fontSize];
