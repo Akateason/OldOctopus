@@ -188,12 +188,33 @@
             [self applyFontAttributesToSelectedRangeWithBoldTrait:[NSNumber numberWithBool:![font isBold]] italicTrait:nil fontName:nil fontSize:nil];
         } break;
         case RichTextEditorFeatureItalic: {
+            UIFont *font = [self fontAtIndex:self.selectedRange.location];
+            [self applyFontAttributesToSelectedRangeWithBoldTrait:nil italicTrait:[NSNumber numberWithBool:![font isItalic]] fontName:nil fontSize:nil];
         } break;
         case RichTextEditorFeatureUnderline: {
+            NSDictionary *dictionary         = [self dictionaryAtIndex:self.selectedRange.location];
+            NSNumber *existingUnderlineStyle = [dictionary objectForKey:NSUnderlineStyleAttributeName];
+            existingUnderlineStyle           = (!existingUnderlineStyle || existingUnderlineStyle.intValue == NSUnderlineStyleNone) ? [NSNumber numberWithInteger:NSUnderlineStyleSingle] : [NSNumber numberWithInteger:NSUnderlineStyleNone];
+            [self applyAttrubutesToSelectedRange:existingUnderlineStyle forKey:NSUnderlineStyleAttributeName];
         } break;
         case RichTextEditorFeatureStrikeThrough: {
+            NSDictionary *dictionary         = [self dictionaryAtIndex:self.selectedRange.location];
+            NSNumber *existingUnderlineStyle = [dictionary objectForKey:NSStrikethroughStyleAttributeName];
+            existingUnderlineStyle           = (!existingUnderlineStyle || existingUnderlineStyle.intValue == NSUnderlineStyleNone) ? [NSNumber numberWithInteger:NSUnderlineStyleSingle] : [NSNumber numberWithInteger:NSUnderlineStyleNone];
+            [self applyAttrubutesToSelectedRange:existingUnderlineStyle forKey:NSStrikethroughStyleAttributeName];
         } break;
         case RichTextEditorFeatureParagraphFirstLineIndentation: {
+            [self enumarateThroughParagraphsInRange:self.selectedRange withBlock:^(NSRange paragraphRange) {
+                NSDictionary *dictionary                = [self dictionaryAtIndex:paragraphRange.location];
+                NSMutableParagraphStyle *paragraphStyle = [[dictionary objectForKey:NSParagraphStyleAttributeName] mutableCopy];
+                if (!paragraphStyle) paragraphStyle     = [[NSMutableParagraphStyle alloc] init];
+
+                if (paragraphStyle.headIndent == paragraphStyle.firstLineHeadIndent)
+                    paragraphStyle.firstLineHeadIndent += self.defaultIndentationSize;
+                else
+                    paragraphStyle.firstLineHeadIndent = paragraphStyle.headIndent;
+                [self applyAttributes:paragraphStyle forKey:NSParagraphStyleAttributeName atRange:paragraphRange];
+            }];
         } break;
         case RichTextEditorFeatureFontSize: {
         } break;
@@ -209,30 +230,39 @@
     }
 }
 
-- (void)toolbarButtonDidSelectParagraphIndent:(ParagraphIndentation)ParagraphIndentation {
-    switch (ParagraphIndentation) {
-        case ParagraphIndentationIncrease: {
-        } break;
-        case ParagraphIndentationDecrease: {
-        } break;
-        default:
-            break;
-    }
+- (void)toolbarButtonDidSelectParagraphIndent:(ParagraphIndentation)paragraphIndentation {
+    [self enumarateThroughParagraphsInRange:self.selectedRange withBlock:^(NSRange paragraphRange) {
+        NSDictionary *dictionary                = [self dictionaryAtIndex:paragraphRange.location];
+        NSMutableParagraphStyle *paragraphStyle = [[dictionary objectForKey:NSParagraphStyleAttributeName] mutableCopy];
+
+        if (!paragraphStyle) paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+
+        if (paragraphIndentation == ParagraphIndentationIncrease) {
+            paragraphStyle.headIndent += self.defaultIndentationSize;
+            paragraphStyle.firstLineHeadIndent += self.defaultIndentationSize;
+        }
+        else if (paragraphIndentation == ParagraphIndentationDecrease) {
+            paragraphStyle.headIndent -= self.defaultIndentationSize;
+            paragraphStyle.firstLineHeadIndent -= self.defaultIndentationSize;
+
+            if (paragraphStyle.headIndent < 0) paragraphStyle.headIndent = 0;
+
+            if (paragraphStyle.firstLineHeadIndent < 0) paragraphStyle.firstLineHeadIndent = 0;
+        }
+
+        [self applyAttributes:paragraphStyle forKey:NSParagraphStyleAttributeName atRange:paragraphRange];
+    }];
 }
 
 - (void)toolbarButtonDidSelectTextAlignment:(NSTextAlignment)textAlignment {
-    switch (textAlignment) {
-        case NSTextAlignmentLeft: {
-        } break;
-        case NSTextAlignmentCenter: {
-        } break;
-        case NSTextAlignmentRight: {
-        } break;
-        case NSTextAlignmentJustified: {
-        } break;
-        default:
-            break;
-    }
+    [self enumarateThroughParagraphsInRange:self.selectedRange withBlock:^(NSRange paragraphRange) {
+        NSDictionary *dictionary                = [self dictionaryAtIndex:paragraphRange.location];
+        NSMutableParagraphStyle *paragraphStyle = [[dictionary objectForKey:NSParagraphStyleAttributeName] mutableCopy];
+        if (!paragraphStyle) paragraphStyle     = [[NSMutableParagraphStyle alloc] init];
+
+        paragraphStyle.alignment = textAlignment;
+        [self applyAttributes:paragraphStyle forKey:NSParagraphStyleAttributeName atRange:paragraphRange];
+    }];
 }
 
 

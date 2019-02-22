@@ -314,25 +314,20 @@
     self.btnBold = [self buttonWithTitle:@"B"
                              andSelector:@selector(boldSelected:)];
 
-
     self.btnItalic = [self buttonWithTitle:@"I"
                                andSelector:@selector(italicSelected:)];
-
 
     self.btnUnderline = [self buttonWithTitle:@"U"
                                   andSelector:@selector(underLineSelected:)];
 
-    self.btnStrikeThrough = [self buttonWithTitle:@"划线"
+    self.btnStrikeThrough = [self buttonWithTitle:@"Delete"
                                       andSelector:@selector(strikeThroughSelected:)];
-
 
     self.btnTextAlignmentLeft = [self buttonWithTitle:@"aL"
                                           andSelector:@selector(textAlignmentSelected:)];
 
-
     self.btnTextAlignmentCenter = [self buttonWithTitle:@"aC"
                                             andSelector:@selector(textAlignmentSelected:)];
-
 
     self.btnTextAlignmentRight = [self buttonWithTitle:@"aR"
                                            andSelector:@selector(textAlignmentSelected:)];
@@ -371,11 +366,9 @@
     return button;
 }
 
-
 - (UIView *)separatorView {
     UIView *view         = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, self.frame.size.height)];
     view.backgroundColor = [UIColor lightGrayColor];
-
     return view;
 }
 
@@ -386,8 +379,7 @@
     CGRect otherViewRect = (otherView) ? otherView.frame : CGRectZero;
     CGRect rect          = view.frame;
     rect.origin.x        = otherViewRect.size.width + otherViewRect.origin.x;
-    if (space)
-        rect.origin.x += ITEM_SEPARATOR_SPACE;
+    if (space) rect.origin.x += ITEM_SEPARATOR_SPACE;
 
     rect.origin.y         = ITEM_TOP_AND_BOTTOM_BORDER;
     rect.size.height      = self.frame.size.height - (2 * ITEM_TOP_AND_BOTTOM_BORDER);
@@ -400,14 +392,10 @@
 
 - (void)updateContentSize {
     NSInteger maxViewlocation = 0;
-
     for (UIView *view in self.subviews) {
-        NSInteger endLocation = view.frame.size.width + view.frame.origin.x;
-
-        if (endLocation > maxViewlocation)
-            maxViewlocation = endLocation;
+        NSInteger endLocation                              = view.frame.size.width + view.frame.origin.x;
+        if (endLocation > maxViewlocation) maxViewlocation = endLocation;
     }
-
     self.contentSize = CGSizeMake(maxViewlocation + ITEM_SEPARATOR_SPACE, self.frame.size.height);
 }
 
