@@ -12,14 +12,18 @@
 #import "NSAttributedString+RichTextEditor.h"
 #import "UIView+RichTextEditor.h"
 #import "UITextView+XTAddition.h"
+#import <XTlib/XTlib.h>
+#import "NBRTEColorPickerView.h"
 
 
 @interface NBRichTextEditor () <NBRTEToolbarDatasource, NBRTEToolbarDelegate>
 @property (nonatomic, strong) NBRTEToolbar *toolBar;
-
+@property (nonatomic, strong) NBRTEColorPickerView *colorPickerView;
 // Gets set to YES when the user starts chaning attributes when there is no text selection (selecting bold, italic, etc)
 // Gets set to NO  when the user changes selection or starts typing
 @property (nonatomic, assign) BOOL typingAttributesInProgress;
+
+@property (nonatomic) float heightForKeyboard;
 @end
 
 
@@ -52,9 +56,7 @@
 }
 
 - (void)commonInitialization {
-    self.toolBar = [[NBRTEToolbar alloc] initWithFrame:CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, 40)
-                                              delegate:self
-                                            dataSource:self];
+    [self toolBar];
     self.typingAttributesInProgress = NO;
     self.defaultIndentationSize     = 15;
 
@@ -63,6 +65,22 @@
 
     //If there is text already, then we do want to update the toolbar. Otherwise we don't.
     if ([self hasText]) [self updateToolbarState];
+
+    //Keyboard noti
+    [self setupKeyboardNotification];
+}
+
+- (void)setupKeyboardNotification {
+    @weakify(self)
+        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
+            @strongify(self)
+                NSDictionary *info = [x userInfo];
+            CGSize kbSize          = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+            NSLog(@"keyboard changed, keyboard width = %f, height = %f", kbSize.width, kbSize.height);
+            self.heightForKeyboard = kbSize.height;
+
+            [self colorPickerView];
+        }];
 }
 
 #pragma mark - apply attr
@@ -221,6 +239,15 @@
         case RichTextEditorFeatureFont: {
         } break;
         case RichTextEditorFeatureTextBackgroundColor: {
+            for (UIView *window in [UIApplication sharedApplication].windows) {
+                if ([window isKindOfClass:NSClassFromString(@"UIRemoteKeyboardWindow")]) {
+                    [window addSubview:self.colorPickerView];
+                    [self.colorPickerView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.bottom.left.right.equalTo(window);
+                        make.height.equalTo(@(self.heightForKeyboard));
+                    }];
+                }
+            }
         } break;
         case RichTextEditorFeatureTextForegroundColor: {
         } break;
@@ -267,6 +294,12 @@
 
 - (void)toolbarDidSelectShutDownKeyboard {
     [self resignFirstResponder];
+
+    // remove color picker .
+    if (self.colorPickerView.window) {
+        [self.colorPickerView removeFromSuperview];
+        self.colorPickerView = nil;
+    }
 }
 
 
@@ -322,5 +355,25 @@
 //    return [super canPerformAction:action withSender:sender];
 //}
 
+
+- (NBRTEColorPickerView *)colorPickerView {
+    if (!_colorPickerView) {
+        _colorPickerView = ({
+            NBRTEColorPickerView *object = [[NBRTEColorPickerView alloc] initWithHeight:self.heightForKeyboard toolBarHandler:self];
+            object;
+        });
+    }
+    return _colorPickerView;
+}
+
+- (NBRTEToolbar *)toolBar {
+    if (!_toolBar) {
+        _toolBar = ({
+            NBRTEToolbar *object = [[NBRTEToolbar alloc] initWithFrame:CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, 40) delegate:self dataSource:self];
+            object;
+        });
+    }
+    return _toolBar;
+}
 
 @end

@@ -34,6 +34,7 @@
 		8FACF6DA221E8D610067DDA4 /* UIView+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6D4221E8D600067DDA4 /* UIView+RichTextEditor.m */; };
 		8FACF6DB221E8D610067DDA4 /* UIFont+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6D5221E8D600067DDA4 /* UIFont+RichTextEditor.m */; };
 		8FACF6DC221E8D610067DDA4 /* NSAttributedString+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6D6221E8D600067DDA4 /* NSAttributedString+RichTextEditor.m */; };
+		8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6DE222002BB0067DDA4 /* NBRTEColorPickerView.m */; };
 		C371690FA8B8F8976235DDEE /* Pods_Notebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,8 @@
 		8FACF6D7221E8D600067DDA4 /* UIFont+RichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+RichTextEditor.h"; sourceTree = "<group>"; };
 		8FACF6D8221E8D600067DDA4 /* UIView+RichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RichTextEditor.h"; sourceTree = "<group>"; };
 		8FACF6D9221E8D600067DDA4 /* NSAttributedString+RichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+RichTextEditor.h"; sourceTree = "<group>"; };
+		8FACF6DD222002BB0067DDA4 /* NBRTEColorPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRTEColorPickerView.h; sourceTree = "<group>"; };
+		8FACF6DE222002BB0067DDA4 /* NBRTEColorPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NBRTEColorPickerView.m; sourceTree = "<group>"; };
 		DB88ED0C7D8CDC5EED692867 /* Pods-Notebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notebook/Pods-Notebook.debug.xcconfig"; sourceTree = "<group>"; };
 		EE24592E01D8FF4728985E55 /* Pods-Notebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notebook.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notebook/Pods-Notebook.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -270,6 +273,8 @@
 				8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */,
 				8FACF6CD221E7F3C0067DDA4 /* NBRTEToolbar.h */,
 				8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */,
+				8FACF6DD222002BB0067DDA4 /* NBRTEColorPickerView.h */,
+				8FACF6DE222002BB0067DDA4 /* NBRTEColorPickerView.m */,
 			);
 			path = customEdit;
 			sourceTree = "<group>";
@@ -531,6 +536,7 @@
 				8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */,
 				8F65DC14221BED280067C321 /* UIView+NXBXYWH.m in Sources */,
 				8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */,
+				8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8F626345221C02350066A429 /* NoteModel.m in Sources */,
 				8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */,
