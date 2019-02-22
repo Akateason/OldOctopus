@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-@class NBRTEToolbar ;
+@class NBRTEToolbar;
 
 NS_ASSUME_NONNULL_BEGIN
+
 
 @interface NBRTEColorPickerView : UIView
 
 - (instancetype)initWithHeight:(float)height
-                toolBarHandler:(id)handler ;
+                toolBarHandler:(id)handler;
 
 @end
 
