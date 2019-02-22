@@ -52,7 +52,7 @@ typedef enum {
 @property (weak, nonatomic) id<NBRTEToolbarDelegate> tb_Delegate;
 @property (weak, nonatomic) id<NBRTEToolbarDatasource> tb_Datasource;
 
-//- (id)initWithFrame:(CGRect)frame delegate:(id <RichTextEditorToolbarDelegate>)delegate dataSource:(id <RichTextEditorToolbarDataSource>)dataSource;
+- (id)initWithFrame:(CGRect)frame delegate:(id<NBRTEToolbarDelegate>)delegate dataSource:(id<NBRTEToolbarDatasource>)dataSource;
 - (void)updateStateWithAttributes:(NSDictionary *)attributes;
 - (void)redraw;
 

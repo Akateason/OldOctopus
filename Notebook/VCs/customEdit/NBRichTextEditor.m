@@ -14,7 +14,9 @@
 #import "UITextView+XTAddition.h"
 
 
-@interface NBRichTextEditor ()
+@interface NBRichTextEditor () <NBRTEToolbarDatasource, NBRTEToolbarDelegate>
+@property (nonatomic, strong) NBRTEToolbar *toolBar;
+
 // Gets set to YES when the user starts chaning attributes when there is no text selection (selecting bold, italic, etc)
 // Gets set to NO  when the user changes selection or starts typing
 @property (nonatomic, assign) BOOL typingAttributesInProgress;
@@ -23,11 +25,45 @@
 
 @implementation NBRichTextEditor
 
-- (void)setBold:(BOOL)isBold {
-    UIFont *font = [self fontAtIndex:self.selectedRange.location];
-    [self applyFontAttributesToSelectedRangeWithBoldTrait:[NSNumber numberWithBool:![font isBold]] italicTrait:nil fontName:nil fontSize:nil];
+#pragma mark - init
+
+- (id)init {
+    if (self = [super init]) {
+        [self commonInitialization];
+    }
+
+    return self;
 }
 
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self commonInitialization];
+    }
+
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        [self commonInitialization];
+    }
+
+    return self;
+}
+
+- (void)commonInitialization {
+    self.toolBar = [[NBRTEToolbar alloc] initWithFrame:CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, 40)
+                                              delegate:self
+                                            dataSource:self];
+    self.typingAttributesInProgress = NO;
+    self.defaultIndentationSize     = 15;
+
+    // ToDo menu
+    //    [self setupMenuItems];
+
+    //If there is text already, then we do want to update the toolbar. Otherwise we don't.
+    if ([self hasText]) [self updateToolbarState];
+}
 
 #pragma mark - apply attr
 
@@ -124,7 +160,77 @@
 #pragma mark - toolbar
 
 - (void)updateToolbarState {
+    // If no text exists or typing attributes is in progress update toolbar using typing attributes instead of selected text
+    if (self.typingAttributesInProgress || ![self hasText]) {
+        [self.toolBar updateStateWithAttributes:self.typingAttributes];
+    }
+    else {
+        int location = [self offsetFromPosition:self.beginningOfDocument toPosition:self.selectedTextRange.start];
+
+        if (location == self.text.length)
+            location--;
+
+        [self.toolBar updateStateWithAttributes:[self.attributedText attributesAtIndex:location effectiveRange:nil]];
+    }
 }
+
+- (RichTextEditorFeature)featuresEnabledForRichTextEditorToolbar {
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(featuresEnabledForRichTextEditor:)]) {
+        return [self.dataSource featuresEnabledForRichTextEditor:self];
+    }
+
+    return RichTextEditorFeatureAll;
+}
+
+#pragma mark - Override Methods -
+
+- (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
+    [super setSelectedTextRange:selectedTextRange];
+
+    [self updateToolbarState];
+    self.typingAttributesInProgress = NO;
+}
+
+- (BOOL)canBecomeFirstResponder {
+    if (![self.dataSource respondsToSelector:@selector(shouldDisplayToolbarForRichTextEditor:)] ||
+        [self.dataSource shouldDisplayToolbarForRichTextEditor:self]) {
+        self.inputAccessoryView = self.toolBar;
+
+        // Redraw in case enabbled features have changes
+        [self.toolBar redraw];
+    }
+    else {
+        self.inputAccessoryView = nil;
+    }
+
+    return [super canBecomeFirstResponder];
+}
+
+//- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+//{
+//    RichTextEditorFeature features = [self featuresEnabledForRichTextEditorToolbar];
+//
+//    if ([self.dataSource respondsToSelector:@selector(shouldDisplayRichTextOptionsInMenuControllerForRichTextEditor:)] &&
+//        [self.dataSource shouldDisplayRichTextOptionsInMenuControllerForRichTextEditor:self])
+//    {
+//        if (action == @selector(richTextEditorToolbarDidSelectBold) && (features & RichTextEditorFeatureBold  || features & RichTextEditorFeatureAll))
+//            return YES;
+//
+//        if (action == @selector(richTextEditorToolbarDidSelectItalic) && (features & RichTextEditorFeatureItalic  || features & RichTextEditorFeatureAll))
+//            return YES;
+//
+//        if (action == @selector(richTextEditorToolbarDidSelectUnderline) && (features & RichTextEditorFeatureUnderline  || features & RichTextEditorFeatureAll))
+//            return YES;
+//
+//        if (action == @selector(richTextEditorToolbarDidSelectStrikeThrough) && (features & RichTextEditorFeatureStrikeThrough  || features & RichTextEditorFeatureAll))
+//            return YES;
+//    }
+//
+//    if (action == @selector(selectParagraph:) && self.selectedRange.length > 0)
+//        return YES;
+//
+//    return [super canPerformAction:action withSender:sender];
+//}
 
 
 @end

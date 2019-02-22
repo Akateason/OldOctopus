@@ -326,15 +326,15 @@
                                       andSelector:@selector(strikeThroughSelected:)];
 
 
-    self.btnTextAlignmentLeft = [self buttonWithTitle:@"aLeft"
+    self.btnTextAlignmentLeft = [self buttonWithTitle:@"aL"
                                           andSelector:@selector(textAlignmentSelected:)];
 
 
-    self.btnTextAlignmentCenter = [self buttonWithTitle:@"aCenter"
+    self.btnTextAlignmentCenter = [self buttonWithTitle:@"aC"
                                             andSelector:@selector(textAlignmentSelected:)];
 
 
-    self.btnTextAlignmentRight = [self buttonWithTitle:@"aRight"
+    self.btnTextAlignmentRight = [self buttonWithTitle:@"aR"
                                            andSelector:@selector(textAlignmentSelected:)];
 
     self.btnTextAlignmentJustified = [self buttonWithTitle:@"aFull"
@@ -355,14 +355,14 @@
     self.btnParagraphOutdent = [self buttonWithTitle:@"outdent"
                                          andSelector:@selector(paragraphOutdentSelected:)];
 
-    self.btnParagraphFirstLineHeadIndent = [self buttonWithTitle:@"firstLineIndent"
+    self.btnParagraphFirstLineHeadIndent = [self buttonWithTitle:@"1stLineIndent"
                                                      andSelector:@selector(paragraphHeadIndentOutdentSelected:)];
 }
 
 - (UIButton *)buttonWithTitle:(NSString *)title andSelector:(SEL)selector {
     UIButton *button = [[UIButton alloc] init];
     [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, 40, 0)];
+    [button setFrame:CGRectMake(0, 0, 50, 0)];
     [button.titleLabel setFont:[UIFont boldSystemFontOfSize:10]];
     [button.titleLabel setTextColor:[UIColor blackColor]];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
