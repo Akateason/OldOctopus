@@ -85,62 +85,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="FOx-lK-VNV">
-                                <rect key="frame" x="16" y="305" width="342" height="40"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clP-TH-2Sa">
-                                        <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
-                                        <state key="normal" title="B"/>
-                                        <connections>
-                                            <action selector="actionBold:" destination="Kx0-dR-g5U" eventType="touchUpInside" id="R4L-tI-SCI"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29W-QN-zmY">
-                                        <rect key="frame" x="75" y="0.0" width="30" height="40"/>
-                                        <state key="normal" title="I"/>
-                                        <connections>
-                                            <action selector="actionI:" destination="Kx0-dR-g5U" eventType="touchUpInside" id="MpS-on-VnL"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ze0-RL-v2K">
-                                        <rect key="frame" x="150" y="0.0" width="30" height="40"/>
-                                        <state key="normal" title="U"/>
-                                        <connections>
-                                            <action selector="actionU:" destination="Kx0-dR-g5U" eventType="touchUpInside" id="3IM-Vy-Pyi"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSk-M4-KOj">
-                                        <rect key="frame" x="225" y="0.0" width="40" height="40"/>
-                                        <state key="normal" title="photo"/>
-                                        <connections>
-                                            <action selector="actionPhoto:" destination="Kx0-dR-g5U" eventType="touchUpInside" id="OOO-ED-Eli"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JJK-p8-8ZM">
-                                        <rect key="frame" x="310" y="0.0" width="32" height="40"/>
-                                        <state key="normal" title="fsize"/>
-                                        <connections>
-                                            <action selector="actionFontSize:" destination="Kx0-dR-g5U" eventType="touchUpInside" id="HGZ-HI-53E"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="fSk-M4-KOj" firstAttribute="height" secondItem="clP-TH-2Sa" secondAttribute="height" id="2g3-Vo-aEI"/>
-                                    <constraint firstItem="Ze0-RL-v2K" firstAttribute="height" secondItem="clP-TH-2Sa" secondAttribute="height" id="F0z-NH-qUk"/>
-                                    <constraint firstAttribute="height" constant="40" id="PMo-dQ-qv9"/>
-                                    <constraint firstItem="29W-QN-zmY" firstAttribute="height" secondItem="clP-TH-2Sa" secondAttribute="height" id="Qam-KR-kiU"/>
-                                    <constraint firstItem="JJK-p8-8ZM" firstAttribute="height" secondItem="clP-TH-2Sa" secondAttribute="height" id="mml-oX-PHf"/>
-                                </constraints>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8ou-v2-U3P" firstAttribute="top" secondItem="2Ae-dh-9wE" secondAttribute="top" constant="17" id="Co2-EV-8gN"/>
-                            <constraint firstItem="2Ae-dh-9wE" firstAttribute="trailing" secondItem="FOx-lK-VNV" secondAttribute="trailing" constant="17" id="Mm0-fQ-QiH"/>
                             <constraint firstItem="8ou-v2-U3P" firstAttribute="leading" secondItem="2Ae-dh-9wE" secondAttribute="leading" id="QvQ-dK-86C"/>
                             <constraint firstItem="2Ae-dh-9wE" firstAttribute="trailing" secondItem="8ou-v2-U3P" secondAttribute="trailing" id="Zbk-lR-RK7"/>
-                            <constraint firstItem="FOx-lK-VNV" firstAttribute="leading" secondItem="2Ae-dh-9wE" secondAttribute="leading" constant="16" id="dMr-FZ-0my"/>
-                            <constraint firstItem="FOx-lK-VNV" firstAttribute="top" secondItem="8ou-v2-U3P" secondAttribute="bottom" constant="8" id="f5X-F2-9da"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2Ae-dh-9wE"/>
                     </view>

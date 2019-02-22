@@ -22,23 +22,5 @@
     [super viewDidLoad];
 }
 
-- (IBAction)actionBold:(UIButton *)sender {
-    sender.selected = !sender.selected;
-
-    [self.textview setBold:sender.selected];
-}
-
-- (IBAction)actionI:(id)sender {
-}
-
-- (IBAction)actionU:(id)sender {
-}
-
-- (IBAction)actionPhoto:(id)sender {
-}
-
-- (IBAction)actionFontSize:(id)sender {
-}
-
 
 @end

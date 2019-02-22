@@ -66,8 +66,8 @@
     UIFont *font                    = [attributes objectForKey:NSFontAttributeName];
     NSParagraphStyle *paragraphTyle = [attributes objectForKey:NSParagraphStyleAttributeName];
 
-    [self.btnFontSize setTitle:[NSString stringWithFormat:@"%.f", font.pointSize] forState:UIControlStateNormal];
-    [self.btnFont setTitle:font.familyName forState:UIControlStateNormal];
+    //    [self.btnFontSize setTitle:[NSString stringWithFormat:@"%.f", font.pointSize] forState:UIControlStateNormal];
+    //    [self.btnFont setTitle:font.familyName forState:UIControlStateNormal];
 
     self.btnBold.selected   = [font isBold];
     self.btnItalic.selected = [font isItalic];
@@ -360,7 +360,7 @@
 }
 
 - (UIButton *)buttonWithTitle:(NSString *)title andSelector:(SEL)selector {
-    UIButton *button = [[UIButton alloc] init];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
     [button setFrame:CGRectMake(0, 0, 50, 0)];
     [button.titleLabel setFont:[UIFont boldSystemFontOfSize:10]];

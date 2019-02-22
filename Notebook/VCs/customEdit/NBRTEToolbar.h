@@ -38,12 +38,14 @@ typedef enum {
 
 
 @protocol NBRTEToolbarDelegate <NSObject>
+@required
 - (void)toolbarButtonDidSelectCommonFeature:(RichTextEditorFeature)feature;
 - (void)toolbarButtonDidSelectParagraphIndent:(ParagraphIndentation)ParagraphIndentation;
 - (void)toolbarButtonDidSelectTextAlignment:(NSTextAlignment)textAlignment;
 @end
 
 @protocol NBRTEToolbarDatasource <NSObject>
+@required
 - (RichTextEditorFeature)featuresEnabledForRichTextEditorToolbar;
 @end
 

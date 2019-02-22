@@ -165,22 +165,76 @@
         [self.toolBar updateStateWithAttributes:self.typingAttributes];
     }
     else {
-        int location = [self offsetFromPosition:self.beginningOfDocument toPosition:self.selectedTextRange.start];
-
-        if (location == self.text.length)
-            location--;
+        long location = [self offsetFromPosition:self.beginningOfDocument toPosition:self.selectedTextRange.start];
+        if (location == self.text.length) location--;
 
         [self.toolBar updateStateWithAttributes:[self.attributedText attributesAtIndex:location effectiveRange:nil]];
     }
 }
 
+#pragma mark - toolbar callback
+
 - (RichTextEditorFeature)featuresEnabledForRichTextEditorToolbar {
     if (self.dataSource && [self.dataSource respondsToSelector:@selector(featuresEnabledForRichTextEditor:)]) {
         return [self.dataSource featuresEnabledForRichTextEditor:self];
     }
-
     return RichTextEditorFeatureAll;
 }
+
+- (void)toolbarButtonDidSelectCommonFeature:(RichTextEditorFeature)feature {
+    switch (feature) {
+        case RichTextEditorFeatureBold: {
+            UIFont *font = [self fontAtIndex:self.selectedRange.location];
+            [self applyFontAttributesToSelectedRangeWithBoldTrait:[NSNumber numberWithBool:![font isBold]] italicTrait:nil fontName:nil fontSize:nil];
+        } break;
+        case RichTextEditorFeatureItalic: {
+        } break;
+        case RichTextEditorFeatureUnderline: {
+        } break;
+        case RichTextEditorFeatureStrikeThrough: {
+        } break;
+        case RichTextEditorFeatureParagraphFirstLineIndentation: {
+        } break;
+        case RichTextEditorFeatureFontSize: {
+        } break;
+        case RichTextEditorFeatureFont: {
+        } break;
+        case RichTextEditorFeatureTextBackgroundColor: {
+        } break;
+        case RichTextEditorFeatureTextForegroundColor: {
+        } break;
+
+        default:
+            break;
+    }
+}
+
+- (void)toolbarButtonDidSelectParagraphIndent:(ParagraphIndentation)ParagraphIndentation {
+    switch (ParagraphIndentation) {
+        case ParagraphIndentationIncrease: {
+        } break;
+        case ParagraphIndentationDecrease: {
+        } break;
+        default:
+            break;
+    }
+}
+
+- (void)toolbarButtonDidSelectTextAlignment:(NSTextAlignment)textAlignment {
+    switch (textAlignment) {
+        case NSTextAlignmentLeft: {
+        } break;
+        case NSTextAlignmentCenter: {
+        } break;
+        case NSTextAlignmentRight: {
+        } break;
+        case NSTextAlignmentJustified: {
+        } break;
+        default:
+            break;
+    }
+}
+
 
 #pragma mark - Override Methods -
 
@@ -206,6 +260,8 @@
     return [super canBecomeFirstResponder];
 }
 
+
+// ToDo menu ...
 //- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 //{
 //    RichTextEditorFeature features = [self featuresEnabledForRichTextEditorToolbar];

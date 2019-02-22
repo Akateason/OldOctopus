@@ -26,9 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<NBRichTextEditorDatasource> dataSource;
 @property (nonatomic) CGFloat defaultIndentationSize;
 
-- (void)setBold:(BOOL)isBold;
-
-
 @end
 
 NS_ASSUME_NONNULL_END
