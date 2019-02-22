@@ -9,9 +9,12 @@
 #import "NBRTEToolbar.h"
 #import <CoreText/CoreText.h>
 #import "UIFont+RichTextEditor.h"
+#import <Masonry/Masonry.h>
 
 
 @interface NBRTEToolbar ()
+
+@property (strong, nonatomic) UIScrollView *mainBar;
 
 @property (nonatomic, strong) UIButton *btnBold;
 @property (nonatomic, strong) UIButton *btnItalic;
@@ -29,6 +32,8 @@
 @property (nonatomic, strong) UIButton *btnParagraphOutdent;
 @property (nonatomic, strong) UIButton *btnParagraphFirstLineHeadIndent;
 @property (nonatomic, strong) UIButton *btnBulletPoint;
+
+@property (strong, nonatomic) UIButton *btnKeyboardShutdown;
 
 @end
 
@@ -79,24 +84,11 @@
     self.btnParagraphFirstLineHeadIndent.selected = (paragraphTyle.firstLineHeadIndent > paragraphTyle.headIndent) ? YES : NO;
 
     switch (paragraphTyle.alignment) {
-        case NSTextAlignmentLeft:
-            self.btnTextAlignmentLeft.selected = YES;
-            break;
-        case NSTextAlignmentCenter:
-            self.btnTextAlignmentCenter.selected = YES;
-            break;
-
-        case NSTextAlignmentRight:
-            self.btnTextAlignmentRight.selected = YES;
-            break;
-
-        case NSTextAlignmentJustified:
-            self.btnTextAlignmentJustified.selected = YES;
-            break;
-
-        default:
-            self.btnTextAlignmentLeft.selected = YES;
-            break;
+        case NSTextAlignmentLeft: self.btnTextAlignmentLeft.selected           = YES; break;
+        case NSTextAlignmentCenter: self.btnTextAlignmentCenter.selected       = YES; break;
+        case NSTextAlignmentRight: self.btnTextAlignmentRight.selected         = YES; break;
+        case NSTextAlignmentJustified: self.btnTextAlignmentJustified.selected = YES; break;
+        default: self.btnTextAlignmentLeft.selected                            = YES; break;
     }
 
     NSNumber *existingUnderlineStyle = [attributes objectForKey:NSUnderlineStyleAttributeName];
@@ -175,7 +167,7 @@
 
 - (void)populateToolbar {
     // Remove any existing subviews.
-    for (UIView *subView in self.subviews) {
+    for (UIView *subView in self.mainBar.subviews) {
         [subView removeFromSuperview];
     }
 
@@ -352,6 +344,12 @@
 
     self.btnParagraphFirstLineHeadIndent = [self buttonWithTitle:@"1stLineIndent"
                                                      andSelector:@selector(paragraphHeadIndentOutdentSelected:)];
+
+    // main scrollview toolbar
+    [self mainBar];
+
+    // Shutdown keyboard
+    [self btnKeyboardShutdown];
 }
 
 - (UIButton *)buttonWithTitle:(NSString *)title andSelector:(SEL)selector {
@@ -382,21 +380,63 @@
     if (space) rect.origin.x += ITEM_SEPARATOR_SPACE;
 
     rect.origin.y         = ITEM_TOP_AND_BOTTOM_BORDER;
-    rect.size.height      = self.frame.size.height - (2 * ITEM_TOP_AND_BOTTOM_BORDER);
+    rect.size.height      = self.mainBar.frame.size.height - (2 * ITEM_TOP_AND_BOTTOM_BORDER);
     view.frame            = rect;
     view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 
-    [self addSubview:view];
+    [self.mainBar addSubview:view];
     [self updateContentSize];
 }
 
 - (void)updateContentSize {
     NSInteger maxViewlocation = 0;
-    for (UIView *view in self.subviews) {
+    for (UIView *view in self.mainBar.subviews) {
         NSInteger endLocation                              = view.frame.size.width + view.frame.origin.x;
         if (endLocation > maxViewlocation) maxViewlocation = endLocation;
     }
-    self.contentSize = CGSizeMake(maxViewlocation + ITEM_SEPARATOR_SPACE, self.frame.size.height);
+    self.mainBar.contentSize = CGSizeMake(maxViewlocation + ITEM_SEPARATOR_SPACE, self.frame.size.height);
 }
+
+- (void)btnKeyboardShutdownAction {
+    [self.tb_Delegate toolbarDidSelectShutDownKeyboard];
+}
+
+- (UIButton *)btnKeyboardShutdown {
+    if (!_btnKeyboardShutdown) {
+        _btnKeyboardShutdown = ({
+            UIButton *button = [[UIButton alloc] init];
+            [button setFrame:CGRectMake(0, 0, 50, 40)];
+            [button.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
+            [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            button.backgroundColor = [UIColor greenColor];
+            [button setTitle:@"收起" forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(btnKeyboardShutdownAction) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:button];
+            [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self);
+                make.centerY.equalTo(self);
+                make.size.mas_equalTo(CGSizeMake(50, 40));
+            }];
+            button;
+        });
+    }
+    return _btnKeyboardShutdown;
+}
+
+- (UIScrollView *)mainBar {
+    if (!_mainBar) {
+        _mainBar = ({
+            UIScrollView *object = [[UIScrollView alloc] init];
+            [self addSubview:object];
+            [object mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.bottom.equalTo(self);
+                make.right.equalTo(@-50);
+            }];
+            object;
+        });
+    }
+    return _mainBar;
+}
+
 
 @end

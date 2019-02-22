@@ -265,6 +265,10 @@
     }];
 }
 
+- (void)toolbarDidSelectShutDownKeyboard {
+    [self resignFirstResponder];
+}
+
 
 #pragma mark - Override Methods -
 

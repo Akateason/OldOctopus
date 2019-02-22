@@ -42,6 +42,7 @@ typedef enum {
 - (void)toolbarButtonDidSelectCommonFeature:(RichTextEditorFeature)feature;
 - (void)toolbarButtonDidSelectParagraphIndent:(ParagraphIndentation)ParagraphIndentation;
 - (void)toolbarButtonDidSelectTextAlignment:(NSTextAlignment)textAlignment;
+- (void)toolbarDidSelectShutDownKeyboard;
 @end
 
 @protocol NBRTEToolbarDatasource <NSObject>
@@ -50,7 +51,7 @@ typedef enum {
 @end
 
 
-@interface NBRTEToolbar : UIScrollView
+@interface NBRTEToolbar : UIView
 @property (weak, nonatomic) id<NBRTEToolbarDelegate> tb_Delegate;
 @property (weak, nonatomic) id<NBRTEToolbarDatasource> tb_Datasource;
 
