@@ -10,8 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface EditVC : RichTextImageEditorBaseViewCtrl
-- (void)config:(NSString *)htmlstr ;
+- (void)config:(NSString *)htmlstr;
 @end
 
 NS_ASSUME_NONNULL_END

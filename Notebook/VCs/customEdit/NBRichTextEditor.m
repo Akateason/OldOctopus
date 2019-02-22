@@ -13,11 +13,13 @@
 #import "UIView+RichTextEditor.h"
 #import "UITextView+XTAddition.h"
 
+
 @interface NBRichTextEditor ()
 // Gets set to YES when the user starts chaning attributes when there is no text selection (selecting bold, italic, etc)
 // Gets set to NO  when the user changes selection or starts typing
 @property (nonatomic, assign) BOOL typingAttributesInProgress;
 @end
+
 
 @implementation NBRichTextEditor
 
@@ -25,7 +27,6 @@
     UIFont *font = [self fontAtIndex:self.selectedRange.location];
     [self applyFontAttributesToSelectedRangeWithBoldTrait:[NSNumber numberWithBool:![font isBold]] italicTrait:nil fontName:nil fontSize:nil];
 }
-
 
 
 #pragma mark - apply attr
@@ -43,15 +44,15 @@
     // If any text selected apply attributes to text
     if (range.length > 0) {
         NSMutableAttributedString *attributedString = [self.attributedText mutableCopy];
-        
+
         // Workaround for when there is only one paragraph,
         // sometimes the attributedString is actually longer by one then the displayed text,
         // and this results in not being able to set to lef align anymore.
-        if (range.length == attributedString.length-1 && range.length == self.text.length)
+        if (range.length == attributedString.length - 1 && range.length == self.text.length)
             ++range.length;
-        
+
         [attributedString addAttributes:[NSDictionary dictionaryWithObject:attribute forKey:key] range:range];
-        
+
         [self setAttributedText:attributedString];
         [self setSelectedRange:range];
     }
@@ -60,7 +61,7 @@
         self.typingAttributesInProgress = YES;
         [self applyAttributeToTypingAttribute:attribute forKey:key];
     }
-    
+
     [self updateToolbarState];
 }
 
@@ -84,30 +85,30 @@
     // If any text selected apply attributes to text
     if (range.length > 0) {
         NSMutableAttributedString *attributedString = [self.attributedText mutableCopy];
-        
+
         [attributedString beginEditing];
         [attributedString enumerateAttributesInRange:range
                                              options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
-                                          usingBlock:^(NSDictionary *dictionary, NSRange range, BOOL *stop){
-                                              
+                                          usingBlock:^(NSDictionary *dictionary, NSRange range, BOOL *stop) {
+
                                               UIFont *newFont = [self fontwithBoldTrait:isBold
                                                                             italicTrait:isItalic
                                                                                fontName:fontName
                                                                                fontSize:fontSize
                                                                          fromDictionary:dictionary];
-                                              
+
                                               if (newFont)
                                                   [attributedString addAttributes:[NSDictionary dictionaryWithObject:newFont forKey:NSFontAttributeName] range:range];
                                           }];
         [attributedString endEditing];
         self.attributedText = attributedString;
-        
+
         [self setSelectedRange:range];
     }
     // If no text is selected apply attributes to typingAttribute
     else {
         self.typingAttributesInProgress = YES;
-        
+
         UIFont *newFont = [self fontwithBoldTrait:isBold
                                       italicTrait:isItalic
                                          fontName:fontName
@@ -116,14 +117,13 @@
         if (newFont)
             [self applyAttributeToTypingAttribute:newFont forKey:NSFontAttributeName];
     }
-    
+
     [self updateToolbarState];
 }
 
 #pragma mark - toolbar
 
 - (void)updateToolbarState {
-    
 }
 
 

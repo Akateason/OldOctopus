@@ -13,8 +13,9 @@
 - (void)selectImageBtnClick;
 @end
 
-@interface NXBRichTextView : UITextView
-@property(nonatomic, weak) id<NXBTextViewDelegate> textDelegate;
 
-- (void)drawRect:(CGRect)rect delegate:(id)delegate FontOfSize:(CGFloat)fontSize placehoder:(NSString*)placehoder;
+@interface NXBRichTextView : UITextView
+@property (nonatomic, weak) id<NXBTextViewDelegate> textDelegate;
+
+- (void)drawRect:(CGRect)rect delegate:(id)delegate FontOfSize:(CGFloat)fontSize placehoder:(NSString *)placehoder;
 @end

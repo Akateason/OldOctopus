@@ -8,12 +8,14 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #define ActivityHomepageSaveDataArray @"ActivityHomepageSaveDataArray"
+
+
 @interface NXBLocalImageInOutModel : NSObject
-+ (void)saveNSUserDefaults:(NSArray*)objectArray forKey:(NSString*)Vkey;
-+ (NSArray*)readNSUserDefaultsForKey:(NSString*)Vkey;
-+ (void)DeleteUserDefaultsDataForKey:(NSString*)Vkey;
-#pragma mark- 保存图片文件
-+ (NSMutableArray *)saveImageArray:(NSArray*)imageArray;
-+ (UIImage*)getImageFileWithName:(NSString*)filePath;
++ (void)saveNSUserDefaults:(NSArray *)objectArray forKey:(NSString *)Vkey;
++ (NSArray *)readNSUserDefaultsForKey:(NSString *)Vkey;
++ (void)DeleteUserDefaultsDataForKey:(NSString *)Vkey;
+#pragma mark - 保存图片文件
++ (NSMutableArray *)saveImageArray:(NSArray *)imageArray;
++ (UIImage *)getImageFileWithName:(NSString *)filePath;
 + (UIImage *)handleImage:(UIImage *)originalImage withSize:(CGSize)size;
 @end

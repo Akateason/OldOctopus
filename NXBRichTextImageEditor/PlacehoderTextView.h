@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface PlacehoderTextView : UITextView
 @property (nonatomic, copy) NSString *placehoder;
 @property (nonatomic, strong) UIColor *placehoderColor;

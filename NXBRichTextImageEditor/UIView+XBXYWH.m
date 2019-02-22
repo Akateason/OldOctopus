@@ -8,91 +8,78 @@
 
 #import "UIView+XBXYWH.h"
 
+
 @implementation UIView (XBXYWH)
 
-- (void)setX:(CGFloat)x
-{
-    CGRect frame = self.frame;
+- (void)setX:(CGFloat)x {
+    CGRect frame   = self.frame;
     frame.origin.x = x;
-    self.frame = frame;
+    self.frame     = frame;
 }
 
-- (CGFloat)x
-{
+- (CGFloat)x {
     return self.frame.origin.x;
 }
 
-- (void)setY:(CGFloat)y
-{
-    CGRect frame = self.frame;
+- (void)setY:(CGFloat)y {
+    CGRect frame   = self.frame;
     frame.origin.y = y;
-    self.frame = frame;
+    self.frame     = frame;
 }
 
-- (CGFloat)y
-{
+- (CGFloat)y {
     return self.frame.origin.y;
 }
 
-- (void)setCenterX:(CGFloat)centerX
-{
+- (void)setCenterX:(CGFloat)centerX {
     CGPoint center = self.center;
-    center.x = centerX;
-    self.center = center;
+    center.x       = centerX;
+    self.center    = center;
 }
 
-- (CGFloat)centerX
-{
+- (CGFloat)centerX {
     return self.center.x;
 }
 
-- (void)setCenterY:(CGFloat)centerY
-{
+- (void)setCenterY:(CGFloat)centerY {
     CGPoint center = self.center;
-    center.y = centerY;
-    self.center = center;
+    center.y       = centerY;
+    self.center    = center;
 }
 
-- (CGFloat)centerY
-{
+- (CGFloat)centerY {
     return self.center.y;
 }
 
-- (void)setWidth:(CGFloat)width
-{
-    CGRect frame = self.frame;
+- (void)setWidth:(CGFloat)width {
+    CGRect frame     = self.frame;
     frame.size.width = width;
-    self.frame = frame;
+    self.frame       = frame;
 }
 
-- (CGFloat)width
-{
+- (CGFloat)width {
     return self.frame.size.width;
 }
 
-- (void)setHeight:(CGFloat)height
-{
-    CGRect frame = self.frame;
+- (void)setHeight:(CGFloat)height {
+    CGRect frame      = self.frame;
     frame.size.height = height;
-    self.frame = frame;
+    self.frame        = frame;
 }
 
-- (CGFloat)height
-{
+- (CGFloat)height {
     return self.frame.size.height;
 }
 
-- (void)setSize:(CGSize)size
-{
+- (void)setSize:(CGSize)size {
     //    self.width = size.width;
     //    self.height = size.height;
     CGRect frame = self.frame;
-    frame.size = size;
-    self.frame = frame;
+    frame.size   = size;
+    self.frame   = frame;
 }
 
-- (CGSize)size
-{
+- (CGSize)size {
     return self.frame.size;
 }
 

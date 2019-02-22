@@ -10,25 +10,27 @@
 #import <XTlib/XTlib.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 
+
 @interface AppDelegate ()
 
 @end
+
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [XTlibConfig sharedInstance].isDebug = YES ;
-    [XTFMDBBase sharedInstance].isDebugMode = YES ;
-    
-    [[XTFMDBBase sharedInstance] configureDBWithPath:XT_DOCUMENTS_PATH_TRAIL_(@"noteDB")] ;
-    
-    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
-    manager.enable = YES ;// 控制整个功能是否启用。
-    manager.enableAutoToolbar = NO ;// 控制是否显示键盘上的工具条
+    [XTlibConfig sharedInstance].isDebug    = YES;
+    [XTFMDBBase sharedInstance].isDebugMode = YES;
 
-    
+    [[XTFMDBBase sharedInstance] configureDBWithPath:XT_DOCUMENTS_PATH_TRAIL_(@"noteDB")];
+
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable             = YES; // 控制整个功能是否启用。
+    manager.enableAutoToolbar  = NO;  // 控制是否显示键盘上的工具条
+
+
     return YES;
 }
 

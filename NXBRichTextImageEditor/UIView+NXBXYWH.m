@@ -8,12 +8,13 @@
 
 #import "UIView+NXBXYWH.h"
 
+
 @implementation UIView (NXBXYWH)
 
 - (void)setX:(CGFloat)x {
-    CGRect frame = self.frame;
+    CGRect frame   = self.frame;
     frame.origin.x = x;
-    self.frame = frame;
+    self.frame     = frame;
 }
 
 - (CGFloat)x {
@@ -21,9 +22,9 @@
 }
 
 - (void)setY:(CGFloat)y {
-    CGRect frame = self.frame;
+    CGRect frame   = self.frame;
     frame.origin.y = y;
-    self.frame = frame;
+    self.frame     = frame;
 }
 
 - (CGFloat)y {
@@ -32,8 +33,8 @@
 
 - (void)setCenterX:(CGFloat)centerX {
     CGPoint center = self.center;
-    center.x = centerX;
-    self.center = center;
+    center.x       = centerX;
+    self.center    = center;
 }
 
 - (CGFloat)centerX {
@@ -42,8 +43,8 @@
 
 - (void)setCenterY:(CGFloat)centerY {
     CGPoint center = self.center;
-    center.y = centerY;
-    self.center = center;
+    center.y       = centerY;
+    self.center    = center;
 }
 
 - (CGFloat)centerY {
@@ -51,9 +52,9 @@
 }
 
 - (void)setWidth:(CGFloat)width {
-    CGRect frame = self.frame;
+    CGRect frame     = self.frame;
     frame.size.width = width;
-    self.frame = frame;
+    self.frame       = frame;
 }
 
 - (CGFloat)width {
@@ -61,9 +62,9 @@
 }
 
 - (void)setHeight:(CGFloat)height {
-    CGRect frame = self.frame;
+    CGRect frame      = self.frame;
     frame.size.height = height;
-    self.frame = frame;
+    self.frame        = frame;
 }
 
 - (CGFloat)height {
@@ -74,8 +75,8 @@
     //    self.width = size.width;
     //    self.height = size.height;
     CGRect frame = self.frame;
-    frame.size = size;
-    self.frame = frame;
+    frame.size   = size;
+    self.frame   = frame;
 }
 
 - (CGSize)size {

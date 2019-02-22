@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface UIImage (NXMScaleSize)
 //缩放图片
 - (UIImage *)scaleToSize:(CGSize)size;

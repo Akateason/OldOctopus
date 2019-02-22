@@ -11,15 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface NoteModel : NSObject
 
-@property (nonatomic, copy) NSString *title ;
-@property (nonatomic, copy) NSString *htmlString ;
-@property (nonatomic, copy) NSString *base64HtmlString ;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *htmlString;
+@property (nonatomic, copy) NSString *base64HtmlString;
 
 
-+ (NSString *)getHTMLWithAttributedString:(NSAttributedString *)attributedString ;
-+ (NSAttributedString *)getAttributedStringWithHTML:(NSString *)htmlString ;
++ (NSString *)getHTMLWithAttributedString:(NSAttributedString *)attributedString;
++ (NSAttributedString *)getAttributedStringWithHTML:(NSString *)htmlString;
 
 @end
 

@@ -9,9 +9,11 @@
 #import "EditVC.h"
 #import "NoteModel.h"
 
+
 @interface EditVC ()
 
 @end
+
 
 @implementation EditVC
 
@@ -21,25 +23,21 @@
 }
 
 - (IBAction)saveAction:(id)sender {
-    NSString *html = [NoteModel getHTMLWithAttributedString:self.textView.attributedText] ;
-    NSLog(@"html : %@", html) ;
-    
-    NoteModel *model = [NoteModel new] ;
-    model.title = [self.textView.text substringToIndex:1] ;
-    
-    model.htmlString = html ;
-    [model xt_insert] ;
-    
-    [self.navigationController popViewControllerAnimated:YES] ;
+    NSString *html = [NoteModel getHTMLWithAttributedString:self.textView.attributedText];
+    NSLog(@"html : %@", html);
+
+    NoteModel *model = [NoteModel new];
+    model.title      = [self.textView.text substringToIndex:1];
+
+    model.htmlString = html;
+    [model xt_insert];
+
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)config:(NSString *)htmlstr {
-    self.textView.attributedText = [NoteModel getAttributedStringWithHTML:htmlstr] ;
+    self.textView.attributedText = [NoteModel getAttributedStringWithHTML:htmlstr];
 }
-
-
-
-
 
 
 /*

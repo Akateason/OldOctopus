@@ -28,6 +28,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+
 @interface UIView (RichTextEditor)
 
 - (UIColor *)colorOfPoint:(CGPoint)point;

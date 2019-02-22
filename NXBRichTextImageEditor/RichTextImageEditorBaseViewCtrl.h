@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "NXBRichTextView.h"
 
+
 @interface RichTextImageEditorBaseViewCtrl : UIViewController
 //本地存储数据
 @property (nonatomic, strong) NSArray *infoArray;
 @property (nonatomic, strong) NXBRichTextView *textView;
 
-- (void)back_btn_click ;
+- (void)back_btn_click;
 @end

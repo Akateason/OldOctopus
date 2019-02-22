@@ -10,9 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface NBRichTextEditor : UITextView
 
-- (void)setBold:(BOOL)isBold ;
+- (void)setBold:(BOOL)isBold;
 
 
 @end

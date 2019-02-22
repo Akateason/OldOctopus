@@ -9,24 +9,23 @@
 #import "SMSHEditorVC.h"
 #import "NBRichTextEditor.h"
 
+
 @interface SMSHEditorVC ()
 @property (weak, nonatomic) IBOutlet NBRichTextEditor *textview;
 
 @end
 
+
 @implementation SMSHEditorVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-    
 }
 
 - (IBAction)actionBold:(UIButton *)sender {
-    sender.selected = !sender.selected ;
-    
-    [self.textview setBold:sender.selected] ;
+    sender.selected = !sender.selected;
+
+    [self.textview setBold:sender.selected];
 }
 
 - (IBAction)actionI:(id)sender {
@@ -40,12 +39,6 @@
 
 - (IBAction)actionFontSize:(id)sender {
 }
-
-
-
-
-
-
 
 
 @end

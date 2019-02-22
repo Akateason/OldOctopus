@@ -10,9 +10,11 @@
 @protocol SelectPhotosDelegate <NSObject>
 //- (void)getSelectImage:(UIImage*)image;
 @end
+
+
 @interface NXBSelectPhotosModel : NSObject
-@property(nonatomic, weak) id<SelectPhotosDelegate> delegate;
+@property (nonatomic, weak) id<SelectPhotosDelegate> delegate;
 
 #pragma mark - 上传头像 代理方法
-- (void)callActionSheetWithCtrl:(UIViewController*)Ctrl;
+- (void)callActionSheetWithCtrl:(UIViewController *)Ctrl;
 @end
