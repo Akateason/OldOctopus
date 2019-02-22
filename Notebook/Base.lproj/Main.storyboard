@@ -76,8 +76,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor sit er elit lamet ." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-v2-U3P">
-                                <rect key="frame" x="16" y="81" width="343" height="216"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor sit er elit lamet ." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-v2-U3P" customClass="NBRichTextEditor">
+                                <rect key="frame" x="0.0" y="81" width="375" height="216"/>
                                 <color key="backgroundColor" red="0.89799207449999996" green="0.89807194469999996" blue="0.89792543650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="216" id="11q-bZ-aks"/>
@@ -137,8 +137,8 @@
                         <constraints>
                             <constraint firstItem="8ou-v2-U3P" firstAttribute="top" secondItem="2Ae-dh-9wE" secondAttribute="top" constant="17" id="Co2-EV-8gN"/>
                             <constraint firstItem="2Ae-dh-9wE" firstAttribute="trailing" secondItem="FOx-lK-VNV" secondAttribute="trailing" constant="17" id="Mm0-fQ-QiH"/>
-                            <constraint firstItem="8ou-v2-U3P" firstAttribute="leading" secondItem="2Ae-dh-9wE" secondAttribute="leading" constant="16" id="QvQ-dK-86C"/>
-                            <constraint firstItem="2Ae-dh-9wE" firstAttribute="trailing" secondItem="8ou-v2-U3P" secondAttribute="trailing" constant="16" id="Zbk-lR-RK7"/>
+                            <constraint firstItem="8ou-v2-U3P" firstAttribute="leading" secondItem="2Ae-dh-9wE" secondAttribute="leading" id="QvQ-dK-86C"/>
+                            <constraint firstItem="2Ae-dh-9wE" firstAttribute="trailing" secondItem="8ou-v2-U3P" secondAttribute="trailing" id="Zbk-lR-RK7"/>
                             <constraint firstItem="FOx-lK-VNV" firstAttribute="leading" secondItem="2Ae-dh-9wE" secondAttribute="leading" constant="16" id="dMr-FZ-0my"/>
                             <constraint firstItem="FOx-lK-VNV" firstAttribute="top" secondItem="8ou-v2-U3P" secondAttribute="bottom" constant="8" id="f5X-F2-9da"/>
                         </constraints>

@@ -193,9 +193,9 @@
 				8F65DBFE221BED280067C321 /* NXBRichTextImageEditor */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
+				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
 				8F626342221C02030066A429 /* Model */,
 				8FACF6C2221D2AF70067DDA4 /* VCs */,
-				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
 				8F65DBD5221BECFE0067C321 /* Assets.xcassets */,
 				8F65DBD7221BECFE0067C321 /* LaunchScreen.storyboard */,
 				8F65DBDA221BECFE0067C321 /* Info.plist */,
@@ -268,8 +268,6 @@
 				8FACF6D3221E8D600067DDA4 /* Categories */,
 				8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */,
 				8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */,
-				8FACF6D0221E8C4A0067DDA4 /* UITextView+XTAddition.h */,
-				8FACF6D1221E8C4A0067DDA4 /* UITextView+XTAddition.m */,
 				8FACF6CD221E7F3C0067DDA4 /* NBRTEToolbar.h */,
 				8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */,
 			);
@@ -279,6 +277,8 @@
 		8FACF6D3221E8D600067DDA4 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8FACF6D0221E8C4A0067DDA4 /* UITextView+XTAddition.h */,
+				8FACF6D1221E8C4A0067DDA4 /* UITextView+XTAddition.m */,
 				8FACF6D8221E8D600067DDA4 /* UIView+RichTextEditor.h */,
 				8FACF6D4221E8D600067DDA4 /* UIView+RichTextEditor.m */,
 				8FACF6D7221E8D600067DDA4 /* UIFont+RichTextEditor.h */,
