@@ -239,10 +239,10 @@
         case RichTextEditorFeatureFont: {
         } break;
         case RichTextEditorFeatureTextBackgroundColor: {
-            [self.colorPickerView addColorPickerAboveKeyboardViewWithKeyboardHeight:self.heightForKeyboard type:NBRTEColorPickerView_typeTextBackGroundColor] ;
+            [self.colorPickerView addColorPickerAboveKeyboardViewWithKeyboardHeight:self.heightForKeyboard type:NBRTEColorPickerView_typeTextBackGroundColor];
         } break;
         case RichTextEditorFeatureTextForegroundColor: {
-            [self.colorPickerView addColorPickerAboveKeyboardViewWithKeyboardHeight:self.heightForKeyboard type:NBRTEColorPickerView_typeTextColor] ;
+            [self.colorPickerView addColorPickerAboveKeyboardViewWithKeyboardHeight:self.heightForKeyboard type:NBRTEColorPickerView_typeTextColor];
         } break;
 
         default:
@@ -309,7 +309,6 @@
 }
 
 - (void)returnToKeyboard {
-    
 }
 
 
@@ -369,7 +368,7 @@
 - (NBRTEColorPickerView *)colorPickerView {
     if (!_colorPickerView) {
         _colorPickerView = ({
-            NBRTEColorPickerView *object = [[NBRTEColorPickerView alloc] initWithHeight:self.heightForKeyboard toolBarHandler:self] ;
+            NBRTEColorPickerView *object = [[NBRTEColorPickerView alloc] initWithHeight:self.heightForKeyboard toolBarHandler:self];
             object;
         });
     }
