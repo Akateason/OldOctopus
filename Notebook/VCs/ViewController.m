@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import <XTlib/XTlib.h>
 #import "NoteModel.h"
-#import "EditVC.h"
 
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate>
@@ -57,10 +56,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NoteModel *model = self.datasource[indexPath.row];
-    EditVC *eVC      = [EditVC getCtrllerFromStory:@"Main" controllerIdentifier:@"EditVC"];
-    [eVC config:model.htmlString];
-    [self.navigationController pushViewController:eVC animated:YES];
 }
 
 

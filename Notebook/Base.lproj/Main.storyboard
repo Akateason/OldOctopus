@@ -47,18 +47,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="0hg-LM-tCp">
-                        <rightBarButtonItems>
-                            <barButtonItem title="add" id="inG-oS-zMj">
-                                <connections>
-                                    <segue destination="8vA-G6-Aim" kind="show" id="kWS-Rr-B6p"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="custom" id="fN7-CO-amL">
-                                <connections>
-                                    <segue destination="Kx0-dR-g5U" kind="show" id="lml-8V-3lk"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="custom" id="fN7-CO-amL">
+                            <connections>
+                                <segue destination="Kx0-dR-g5U" kind="show" id="lml-8V-3lk"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="table" destination="d0t-t9-UsC" id="pZW-Bq-owk"/>
@@ -101,28 +94,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ryf-24-nOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1908" y="876.61169415292363"/>
-        </scene>
-        <!--EditVC-->
-        <scene sceneID="7MF-6o-p0s">
-            <objects>
-                <viewController storyboardIdentifier="EditVC" id="8vA-G6-Aim" customClass="EditVC" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="9tU-5q-jlC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Nh6-5J-ZHp"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="wa1-Zi-60S">
-                        <barButtonItem key="rightBarButtonItem" title="save" id="Tu5-1T-kK0">
-                            <connections>
-                                <action selector="saveAction:" destination="8vA-G6-Aim" id="fuh-cn-vBV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4mh-wo-l9T" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1908" y="87.706146926536732"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="d4p-N0-ZjY">

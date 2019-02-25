@@ -136,7 +136,6 @@
     //    self = nil ;
 }
 
-
 - (UIButton *)btCurrentColor {
     if (!_btCurrentColor) {
         _btCurrentColor = ({
@@ -158,4 +157,5 @@
     }
     return _btCurrentColor;
 }
+
 @end

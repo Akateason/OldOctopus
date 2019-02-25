@@ -14,6 +14,7 @@
 #import "UITextView+XTAddition.h"
 #import <XTlib/XTlib.h>
 #import "NBRTEColorPickerView.h"
+#import "UIFont+RichTextEditor.h"
 
 
 @interface NBRichTextEditor () <NBRTEToolbarDatasource, NBRTEToolbarDelegate, NBRTEColorPickerViewDelegate>

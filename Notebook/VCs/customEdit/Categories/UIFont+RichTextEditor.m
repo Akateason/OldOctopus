@@ -36,14 +36,45 @@
 }
 
 + (UIFont *)fontWithName:(NSString *)name size:(CGFloat)size boldTrait:(BOOL)isBold italicTrait:(BOOL)isItalic {
+    NSMutableDictionary *tmpDic = [@{ UIFontDescriptorFamilyAttribute : name } mutableCopy];
+
+    //    UIFont *oldApiFont = [self oldfontWithName:name size:size boldTrait:isBold] ;
+    //    UIFontDescriptor *fontDescriptor = oldApiFont.fontDescriptor ;
+
+    UIFontDescriptor *fontDescriptor = [UIFontDescriptor fontDescriptorWithFontAttributes:tmpDic];
+
+    if (isBold) {
+        //        fontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] ;
+
+        //        fontDescriptor = [fontDescriptor fontDescriptorWithFace:@"Bold"] ;
+
+        //        NSDictionary *fontTraitsDictionary = @{UIFontWeightTrait : @(1.0)};
+        //        [tmpDic setObject:fontTraitsDictionary forKey:UIFontDescriptorTraitsAttribute] ;
+
+        [tmpDic setObject:@{ UIFontWeightTrait : @.4 } forKey:UIFontDescriptorTraitsAttribute];
+    }
+    else {
+        [tmpDic setObject:@{ UIFontWeightTrait : @0 } forKey:UIFontDescriptorTraitsAttribute];
+    }
+
+    if (isItalic) {
+        NSValue *matrix = [NSValue valueWithCGAffineTransform:CGAffineTransformIdentity];
+        matrix          = [NSValue valueWithCGAffineTransform:CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0)];
+        [tmpDic setObject:matrix forKey:UIFontDescriptorMatrixAttribute];
+    }
+
+    fontDescriptor = [fontDescriptor fontDescriptorByAddingAttributes:tmpDic];
+    UIFont *font   = [UIFont fontWithDescriptor:fontDescriptor size:size];
+    return font;
+}
+
+// core text old api
++ (UIFont *)oldfontWithName:(NSString *)name size:(CGFloat)size boldTrait:(BOOL)isBold {
     NSString *postScriptName = [UIFont postscriptNameFromFullName:name];
 
     CTFontSymbolicTraits traits = 0;
     CTFontRef newFontRef;
     CTFontRef fontWithoutTrait = CTFontCreateWithName((__bridge CFStringRef)(postScriptName), size, NULL);
-
-    if (isItalic)
-        traits |= kCTFontItalicTrait;
 
     if (isBold)
         traits |= kCTFontBoldTrait;
@@ -57,11 +88,13 @@
 
     if (newFontRef) {
         NSString *fontNameKey = (__bridge NSString *)(CTFontCopyName(newFontRef, kCTFontPostScriptNameKey));
-        return [UIFont fontWithName:fontNameKey size:CTFontGetSize(newFontRef)];
+        UIFont *font          = [UIFont fontWithName:fontNameKey size:CTFontGetSize(newFontRef)];
+        CFRelease(newFontRef);
+        return font;
     }
-
     return nil;
 }
+
 
 - (UIFont *)fontWithBoldTrait:(BOOL)bold italicTrait:(BOOL)italic andSize:(CGFloat)size {
     CTFontRef fontRef        = (__bridge CTFontRef)self;
@@ -75,21 +108,20 @@
 }
 
 - (BOOL)isBold {
-    CTFontSymbolicTraits trait = CTFontGetSymbolicTraits((__bridge CTFontRef)self);
-
-    if ((trait & kCTFontTraitBold) == kCTFontTraitBold)
-        return YES;
-
-    return NO;
+    //    UIFontDescriptor *descroptor = self.fontDescriptor;
+    //    BOOL isbold = (descroptor.symbolicTraits & UIFontDescriptorTraitBold) != 0;
+    //    return isbold ;
+    CTFontRef ctFont            = CTFontCreateWithName((__bridge CFStringRef)self.fontName, self.pointSize, NULL);
+    CTFontSymbolicTraits traits = CTFontGetSymbolicTraits(ctFont);
+    BOOL isBold                 = ((traits & kCTFontBoldTrait) == kCTFontBoldTrait);
+    CFRelease(ctFont);
+    return isBold;
 }
 
 - (BOOL)isItalic {
-    CTFontSymbolicTraits trait = CTFontGetSymbolicTraits((__bridge CTFontRef)self);
-
-    if ((trait & kCTFontTraitItalic) == kCTFontTraitItalic)
-        return YES;
-
-    return NO;
+    UIFontDescriptor *descroptor = self.fontDescriptor;
+    BOOL isItalic                = descroptor.fontAttributes[@"NSCTFontMatrixAttribute"] != nil;
+    return isItalic;
 }
 
 @end
