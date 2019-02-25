@@ -16,7 +16,7 @@
 #import "NBRTEColorPickerView.h"
 
 
-@interface NBRichTextEditor () <NBRTEToolbarDatasource, NBRTEToolbarDelegate>
+@interface NBRichTextEditor () <NBRTEToolbarDatasource, NBRTEToolbarDelegate, NBRTEColorPickerViewDelegate>
 @property (nonatomic, strong) NBRTEToolbar *toolBar;
 @property (nonatomic, strong) NBRTEColorPickerView *colorPickerView;
 // Gets set to YES when the user starts chaning attributes when there is no text selection (selecting bold, italic, etc)
@@ -239,17 +239,10 @@
         case RichTextEditorFeatureFont: {
         } break;
         case RichTextEditorFeatureTextBackgroundColor: {
-            for (UIView *window in [UIApplication sharedApplication].windows) {
-                if ([window isKindOfClass:NSClassFromString(@"UIRemoteKeyboardWindow")]) {
-                    [window addSubview:self.colorPickerView];
-                    [self.colorPickerView mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.bottom.left.right.equalTo(window);
-                        make.height.equalTo(@(self.heightForKeyboard));
-                    }];
-                }
-            }
+            [self.colorPickerView addColorPickerAboveKeyboardViewWithKeyboardHeight:self.heightForKeyboard type:NBRTEColorPickerView_typeTextBackGroundColor] ;
         } break;
         case RichTextEditorFeatureTextForegroundColor: {
+            [self.colorPickerView addColorPickerAboveKeyboardViewWithKeyboardHeight:self.heightForKeyboard type:NBRTEColorPickerView_typeTextColor] ;
         } break;
 
         default:
@@ -293,13 +286,30 @@
 }
 
 - (void)toolbarDidSelectShutDownKeyboard {
-    [self resignFirstResponder];
-
-    // remove color picker .
     if (self.colorPickerView.window) {
+        // remove color picker .
         [self.colorPickerView removeFromSuperview];
         self.colorPickerView = nil;
     }
+    else {
+        // remove keyboard
+        [self resignFirstResponder];
+    }
+}
+
+#pragma mark - NBRTEColorPickerViewDelegate <NSObject>
+
+- (void)onNBRTEColorPickerView:(NBRTEColorPickerView *)colorPicker didPickColor:(UIColor *)color type:(NBRTEColorPickerViewType)type {
+    if (type == NBRTEColorPickerView_typeTextColor) {
+        [self applyAttrubutesToSelectedRange:color forKey:NSForegroundColorAttributeName];
+    }
+    else if (type == NBRTEColorPickerView_typeTextBackGroundColor) {
+        [self applyAttrubutesToSelectedRange:color forKey:NSBackgroundColorAttributeName];
+    }
+}
+
+- (void)returnToKeyboard {
+    
 }
 
 
@@ -359,7 +369,7 @@
 - (NBRTEColorPickerView *)colorPickerView {
     if (!_colorPickerView) {
         _colorPickerView = ({
-            NBRTEColorPickerView *object = [[NBRTEColorPickerView alloc] initWithHeight:self.heightForKeyboard toolBarHandler:self];
+            NBRTEColorPickerView *object = [[NBRTEColorPickerView alloc] initWithHeight:self.heightForKeyboard toolBarHandler:self] ;
             object;
         });
     }
