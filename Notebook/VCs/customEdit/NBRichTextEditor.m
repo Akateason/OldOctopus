@@ -179,15 +179,18 @@
 
 - (void)updateToolbarState {
     // If no text exists or typing attributes is in progress update toolbar using typing attributes instead of selected text
+    NSDictionary *attr = @{};
     if (self.typingAttributesInProgress || ![self hasText]) {
-        [self.toolBar updateStateWithAttributes:self.typingAttributes];
+        attr = self.typingAttributes;
     }
     else {
         long location = [self offsetFromPosition:self.beginningOfDocument toPosition:self.selectedTextRange.start];
         if (location == self.text.length) location--;
-
-        [self.toolBar updateStateWithAttributes:[self.attributedText attributesAtIndex:location effectiveRange:nil]];
+        attr = [self.attributedText attributesAtIndex:location effectiveRange:nil];
     }
+
+    [self.toolBar updateStateWithAttributes:attr];
+    [self.colorPickerView updateStateByCurrentAttr:attr];
 }
 
 #pragma mark - toolbar callback
@@ -285,16 +288,9 @@
     }];
 }
 
+// remove keyboard
 - (void)toolbarDidSelectShutDownKeyboard {
-    if (self.colorPickerView.window) {
-        // remove color picker .
-        [self.colorPickerView removeFromSuperview];
-        self.colorPickerView = nil;
-    }
-    else {
-        // remove keyboard
-        [self resignFirstResponder];
-    }
+    [self resignFirstResponder];
 }
 
 #pragma mark - NBRTEColorPickerViewDelegate <NSObject>
@@ -309,6 +305,7 @@
 }
 
 - (void)returnToKeyboard {
+    self.colorPickerView = nil; // call dealloc ;
 }
 
 

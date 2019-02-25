@@ -11,16 +11,27 @@
 #import <Masonry/Masonry.h>
 #import "NBRichTextEditor.h"
 #import "UITextView+XTAddition.h"
+#import <XTlib/XTlib.h>
 
 
 @interface NBRTEColorPickerView ()
-//@property (strong, nonatomic) NBRTEToolbar *toolBar;
 @property (nonatomic) NBRTEColorPickerViewType type;
 @property (strong, nonatomic) UIButton *btBack;
+
+@property (strong, nonatomic) UIButton *btCurrentColor;
 @end
 
 
 @implementation NBRTEColorPickerView
+
+- (void)updateStateByCurrentAttr:(NSDictionary *)attrDic {
+    if (self.type == NBRTEColorPickerView_typeTextColor) {
+        self.btCurrentColor.backgroundColor = attrDic[NSForegroundColorAttributeName];
+    }
+    else if (self.type == NBRTEColorPickerView_typeTextBackGroundColor) {
+        self.btCurrentColor.backgroundColor = attrDic[NSBackgroundColorAttributeName];
+    }
+}
 
 - (void)addColorPickerAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight
                                                      type:(NBRTEColorPickerViewType)type {
@@ -40,19 +51,14 @@
                 toolBarHandler:(id)handler {
     self = [super init];
     if (self) {
-        //        NBRTEToolbar *toolbar = [[NBRTEToolbar alloc] initWithFrame:CGRectMake(0, 0, [(UITextView *)handler currentScreenBoundsDependOnOrientation].size.width, 40) delegate:handler dataSource:handler];
         self.backgroundColor = [UIColor yellowColor];
-        //        [self addSubview:toolbar];
-        //        [toolbar mas_makeConstraints:^(MASConstraintMaker *make) {
-        //            make.top.left.right.equalTo(self);
-        //            make.height.equalTo(@40);
-        //        }];
 
         self.delegate = handler;
-        //        self.toolBar = toolbar;
+
         [self btBack];
 
         [self customButtons];
+        [self btCurrentColor];
     }
     return self;
 }
@@ -70,9 +76,9 @@
     [self addSubview:btRed];
     [btRed mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(30, 30));
-        make.center.equalTo(self);
+        make.centerY.equalTo(self);
+        make.left.equalTo(self).offset(5);
     }];
-
 
     UIButton *btBlue = [UIButton new];
     [btBlue setBackgroundColor:[UIColor blueColor]];
@@ -130,4 +136,26 @@
     //    self = nil ;
 }
 
+
+- (UIButton *)btCurrentColor {
+    if (!_btCurrentColor) {
+        _btCurrentColor = ({
+            UIButton *btCurrent        = [UIButton new];
+            btCurrent.xt_borderColor   = [UIColor blackColor];
+            btCurrent.xt_borderWidth   = 1;
+            btCurrent.xt_completeRound = 1;
+
+            [btCurrent setTitle:@"当前" forState:0];
+            [btCurrent setTitleColor:[UIColor blackColor] forState:0];
+
+            [self addSubview:btCurrent];
+            [btCurrent mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(40, 40));
+                make.center.equalTo(self);
+            }];
+            btCurrent;
+        });
+    }
+    return _btCurrentColor;
+}
 @end

@@ -31,6 +31,8 @@ typedef enum : NSUInteger {
                 toolBarHandler:(id)handler; // handle delegate .
 
 - (void)addColorPickerAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight type:(NBRTEColorPickerViewType)type;
+
+- (void)updateStateByCurrentAttr:(NSDictionary *)attrDic;
 @end
 
 NS_ASSUME_NONNULL_END
