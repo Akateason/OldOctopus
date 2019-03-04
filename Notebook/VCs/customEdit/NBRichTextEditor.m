@@ -17,13 +17,15 @@
 #import "UIFont+RichTextEditor.h"
 
 
+
+
 @interface NBRichTextEditor () <NBRTEToolbarDatasource, NBRTEToolbarDelegate, NBRTEColorPickerViewDelegate>
 @property (nonatomic, strong) NBRTEToolbar *toolBar;
 @property (nonatomic, strong) NBRTEColorPickerView *colorPickerView;
+
 // Gets set to YES when the user starts chaning attributes when there is no text selection (selecting bold, italic, etc)
 // Gets set to NO  when the user changes selection or starts typing
 @property (nonatomic, assign) BOOL typingAttributesInProgress;
-
 @property (nonatomic) float heightForKeyboard;
 @end
 
@@ -67,7 +69,7 @@
     //If there is text already, then we do want to update the toolbar. Otherwise we don't.
     if ([self hasText]) [self updateToolbarState];
 
-    //Keyboard noti
+    //setup Keyboard Notification
     [self setupKeyboardNotification];
 }
 
@@ -77,14 +79,15 @@
             @strongify(self)
                 NSDictionary *info = [x userInfo];
             CGSize kbSize          = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-            NSLog(@"keyboard changed, keyboard width = %f, height = %f", kbSize.width, kbSize.height);
-            self.heightForKeyboard = kbSize.height;
 
+            // get keyboard height
+            self.heightForKeyboard = kbSize.height;
+            // setup colorpicker view .
             [self colorPickerView];
         }];
 }
 
-#pragma mark - apply attr
+#pragma mark - apply attrs func
 
 - (void)applyAttributeToTypingAttribute:(id)attribute
                                  forKey:(NSString *)key {
@@ -289,6 +292,29 @@
     }];
 }
 
+- (void)toolbarDidSelectPhotoInsert {
+//    [self toolbarDidSelectShutDownKeyboard] ;
+    
+    UIImage *imgTest = [UIImage imageNamed:@"test"] ;
+    NSMutableAttributedString *mutaAttrStr = [self.attributedText mutableCopy];
+    //获取光标的位置
+    NSRange range = self.selectedRange;
+    //    NSLog(@"%lu %lu",(unsigned long)range.location,(unsigned long)range.length);
+    //声明表情资源 NSTextAttachment类型
+    NSTextAttachment *attachment = [[NSTextAttachment alloc]init];
+    attachment.image = imgTest ;
+    CGFloat tvWid = self.width - 10 ;
+    CGSize resultImgSize = CGSizeMake(tvWid, tvWid / imgTest.size.width * imgTest.size.height) ;
+    CGRect rect = (CGRect) {CGPointZero, resultImgSize} ;
+    attachment.bounds = rect ;
+    
+    NSAttributedString *attrStr = [NSAttributedString attributedStringWithAttachment:attachment];
+    [mutaAttrStr insertAttributedString:attrStr atIndex:range.location];
+    self.attributedText = mutaAttrStr;
+    
+    
+}
+
 // remove keyboard
 - (void)toolbarDidSelectShutDownKeyboard {
     [self resignFirstResponder];
@@ -362,6 +388,7 @@
 //    return [super canPerformAction:action withSender:sender];
 //}
 
+#pragma mark - props
 
 - (NBRTEColorPickerView *)colorPickerView {
     if (!_colorPickerView) {

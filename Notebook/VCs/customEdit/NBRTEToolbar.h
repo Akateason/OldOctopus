@@ -32,6 +32,7 @@ typedef enum {
     RichTextEditorFeatureTextForegroundColor           = 1 << 11,
     RichTextEditorFeatureParagraphIndentation          = 1 << 12,
     RichTextEditorFeatureParagraphFirstLineIndentation = 1 << 13,
+    RichTextEditorFeaturePhotoInsert                   = 1 << 14,
 
     RichTextEditorFeatureAll = 1 << 50
 } RichTextEditorFeature;
@@ -43,6 +44,7 @@ typedef enum {
 - (void)toolbarButtonDidSelectParagraphIndent:(ParagraphIndentation)ParagraphIndentation;
 - (void)toolbarButtonDidSelectTextAlignment:(NSTextAlignment)textAlignment;
 - (void)toolbarDidSelectShutDownKeyboard;
+- (void)toolbarDidSelectPhotoInsert ;
 @end
 
 @protocol NBRTEToolbarDatasource <NSObject>

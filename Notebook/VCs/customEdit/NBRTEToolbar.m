@@ -31,8 +31,10 @@
 @property (nonatomic, strong) UIButton *btnParagraphIndent;
 @property (nonatomic, strong) UIButton *btnParagraphOutdent;
 @property (nonatomic, strong) UIButton *btnParagraphFirstLineHeadIndent;
-@property (nonatomic, strong) UIButton *btnBulletPoint;
 
+
+
+@property (strong, nonatomic) UIButton *btnPhotoInsert ;
 @property (strong, nonatomic) UIButton *btnKeyboardShutdown;
 
 @end
@@ -116,10 +118,6 @@
     [self.tb_Delegate toolbarButtonDidSelectCommonFeature:RichTextEditorFeatureStrikeThrough];
 }
 
-- (void)bulletPointSelected:(UIButton *)sender {
-    //[self.tb_Delegate toolbarButtonDidSelectCommonFeature:bull];
-}
-
 - (void)paragraphIndentSelected:(UIButton *)sender {
     [self.tb_Delegate toolbarButtonDidSelectParagraphIndent:ParagraphIndentationIncrease];
 }
@@ -163,6 +161,10 @@
     [self.tb_Delegate toolbarButtonDidSelectTextAlignment:textAlignment];
 }
 
+- (void)photoInsertSelected:(UIButton *)sender {
+    [self.tb_Delegate toolbarDidSelectPhotoInsert] ;
+}
+
 #pragma mark - Private Methods -
 
 - (void)populateToolbar {
@@ -177,6 +179,15 @@
 
     self.hidden = (features == RichTextEditorFeatureNone);
     if (self.hidden) return;
+    
+    
+    // Photo insert
+    if (features & RichTextEditorFeaturePhotoInsert || features & RichTextEditorFeatureAll) {
+        UIView *separatorView = [self separatorView];
+        [self addView:self.btnPhotoInsert afterView:lastAddedView withSpacing:YES];
+        [self addView:separatorView afterView:self.btnPhotoInsert withSpacing:YES];
+        lastAddedView = separatorView ;
+    }
 
     // Font selection
     if (features & RichTextEditorFeatureFont || features & RichTextEditorFeatureAll) {
@@ -332,22 +343,21 @@
 
     self.btnBackgroundColor = [self buttonWithTitle:@"backColor"
                                         andSelector:@selector(textBackgroundColorSelected:)];
-
-    self.btnBulletPoint = [self buttonWithTitle:@"bullet"
-                                    andSelector:@selector(bulletPointSelected:)];
-
+    
     self.btnParagraphIndent = [self buttonWithTitle:@"indent"
                                         andSelector:@selector(paragraphIndentSelected:)];
 
     self.btnParagraphOutdent = [self buttonWithTitle:@"outdent"
                                          andSelector:@selector(paragraphOutdentSelected:)];
-
+    
     self.btnParagraphFirstLineHeadIndent = [self buttonWithTitle:@"1stLineIndent"
                                                      andSelector:@selector(paragraphHeadIndentOutdentSelected:)];
-
+    
+    self.btnPhotoInsert = [self buttonWithTitle:@"photo" andSelector:@selector(photoInsertSelected:)] ;
+    
     // main scrollview toolbar
     [self mainBar];
-
+    
     // Shutdown keyboard
     [self btnKeyboardShutdown];
 }
