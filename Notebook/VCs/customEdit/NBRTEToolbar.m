@@ -33,8 +33,7 @@
 @property (nonatomic, strong) UIButton *btnParagraphFirstLineHeadIndent;
 
 
-
-@property (strong, nonatomic) UIButton *btnPhotoInsert ;
+@property (strong, nonatomic) UIButton *btnPhotoInsert;
 @property (strong, nonatomic) UIButton *btnKeyboardShutdown;
 
 @end
@@ -162,7 +161,7 @@
 }
 
 - (void)photoInsertSelected:(UIButton *)sender {
-    [self.tb_Delegate toolbarDidSelectPhotoInsert] ;
+    [self.tb_Delegate toolbarDidSelectPhotoInsert];
 }
 
 #pragma mark - Private Methods -
@@ -179,14 +178,14 @@
 
     self.hidden = (features == RichTextEditorFeatureNone);
     if (self.hidden) return;
-    
-    
+
+
     // Photo insert
     if (features & RichTextEditorFeaturePhotoInsert || features & RichTextEditorFeatureAll) {
         UIView *separatorView = [self separatorView];
         [self addView:self.btnPhotoInsert afterView:lastAddedView withSpacing:YES];
         [self addView:separatorView afterView:self.btnPhotoInsert withSpacing:YES];
-        lastAddedView = separatorView ;
+        lastAddedView = separatorView;
     }
 
     // Font selection
@@ -343,21 +342,21 @@
 
     self.btnBackgroundColor = [self buttonWithTitle:@"backColor"
                                         andSelector:@selector(textBackgroundColorSelected:)];
-    
+
     self.btnParagraphIndent = [self buttonWithTitle:@"indent"
                                         andSelector:@selector(paragraphIndentSelected:)];
 
     self.btnParagraphOutdent = [self buttonWithTitle:@"outdent"
                                          andSelector:@selector(paragraphOutdentSelected:)];
-    
+
     self.btnParagraphFirstLineHeadIndent = [self buttonWithTitle:@"1stLineIndent"
                                                      andSelector:@selector(paragraphHeadIndentOutdentSelected:)];
-    
-    self.btnPhotoInsert = [self buttonWithTitle:@"photo" andSelector:@selector(photoInsertSelected:)] ;
-    
+
+    self.btnPhotoInsert = [self buttonWithTitle:@"photo" andSelector:@selector(photoInsertSelected:)];
+
     // main scrollview toolbar
     [self mainBar];
-    
+
     // Shutdown keyboard
     [self btnKeyboardShutdown];
 }

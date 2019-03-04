@@ -44,7 +44,7 @@ typedef enum {
 - (void)toolbarButtonDidSelectParagraphIndent:(ParagraphIndentation)ParagraphIndentation;
 - (void)toolbarButtonDidSelectTextAlignment:(NSTextAlignment)textAlignment;
 - (void)toolbarDidSelectShutDownKeyboard;
-- (void)toolbarDidSelectPhotoInsert ;
+- (void)toolbarDidSelectPhotoInsert;
 @end
 
 @protocol NBRTEToolbarDatasource <NSObject>

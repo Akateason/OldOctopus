@@ -17,8 +17,6 @@
 #import "UIFont+RichTextEditor.h"
 
 
-
-
 @interface NBRichTextEditor () <NBRTEToolbarDatasource, NBRTEToolbarDelegate, NBRTEColorPickerViewDelegate>
 @property (nonatomic, strong) NBRTEToolbar *toolBar;
 @property (nonatomic, strong) NBRTEColorPickerView *colorPickerView;
@@ -293,26 +291,24 @@
 }
 
 - (void)toolbarDidSelectPhotoInsert {
-//    [self toolbarDidSelectShutDownKeyboard] ;
-    
-    UIImage *imgTest = [UIImage imageNamed:@"test"] ;
+    //    [self toolbarDidSelectShutDownKeyboard] ;
+
+    UIImage *imgTest                       = [UIImage imageNamed:@"test"];
     NSMutableAttributedString *mutaAttrStr = [self.attributedText mutableCopy];
     //获取光标的位置
     NSRange range = self.selectedRange;
     //    NSLog(@"%lu %lu",(unsigned long)range.location,(unsigned long)range.length);
     //声明表情资源 NSTextAttachment类型
-    NSTextAttachment *attachment = [[NSTextAttachment alloc]init];
-    attachment.image = imgTest ;
-    CGFloat tvWid = self.width - 10 ;
-    CGSize resultImgSize = CGSizeMake(tvWid, tvWid / imgTest.size.width * imgTest.size.height) ;
-    CGRect rect = (CGRect) {CGPointZero, resultImgSize} ;
-    attachment.bounds = rect ;
-    
+    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+    attachment.image             = imgTest;
+    CGFloat tvWid                = self.width - 10;
+    CGSize resultImgSize         = CGSizeMake(tvWid, tvWid / imgTest.size.width * imgTest.size.height);
+    CGRect rect                  = (CGRect){CGPointZero, resultImgSize};
+    attachment.bounds            = rect;
+
     NSAttributedString *attrStr = [NSAttributedString attributedStringWithAttachment:attachment];
     [mutaAttrStr insertAttributedString:attrStr atIndex:range.location];
     self.attributedText = mutaAttrStr;
-    
-    
 }
 
 // remove keyboard
