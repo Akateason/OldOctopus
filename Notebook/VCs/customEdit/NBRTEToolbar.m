@@ -34,6 +34,7 @@
 
 
 @property (strong, nonatomic) UIButton *btnPhotoInsert;
+@property (strong, nonatomic) UIButton *btnLinkInsert;
 @property (strong, nonatomic) UIButton *btnKeyboardShutdown;
 
 @end
@@ -164,6 +165,10 @@
     [self.tb_Delegate toolbarDidSelectPhotoInsert];
 }
 
+- (void)linkInsertSelected:(UIButton *)sender {
+    [self.tb_Delegate toolbarDidSelectLinkInsert];
+}
+
 #pragma mark - Private Methods -
 
 - (void)populateToolbar {
@@ -182,9 +187,15 @@
 
     // Photo insert
     if (features & RichTextEditorFeaturePhotoInsert || features & RichTextEditorFeatureAll) {
-        UIView *separatorView = [self separatorView];
         [self addView:self.btnPhotoInsert afterView:lastAddedView withSpacing:YES];
-        [self addView:separatorView afterView:self.btnPhotoInsert withSpacing:YES];
+        lastAddedView = self.btnPhotoInsert;
+    }
+
+    // Link insert
+    if (features & RichTextEditorFeatureLinkInsert || features & RichTextEditorFeatureAll) {
+        UIView *separatorView = [self separatorView];
+        [self addView:self.btnLinkInsert afterView:lastAddedView withSpacing:YES];
+        [self addView:separatorView afterView:self.btnLinkInsert withSpacing:YES];
         lastAddedView = separatorView;
     }
 
@@ -353,6 +364,9 @@
                                                      andSelector:@selector(paragraphHeadIndentOutdentSelected:)];
 
     self.btnPhotoInsert = [self buttonWithTitle:@"photo" andSelector:@selector(photoInsertSelected:)];
+
+
+    self.btnLinkInsert = [self buttonWithTitle:@"Link" andSelector:@selector(linkInsertSelected:)];
 
     // main scrollview toolbar
     [self mainBar];

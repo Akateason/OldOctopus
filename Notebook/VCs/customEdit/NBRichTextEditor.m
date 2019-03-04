@@ -17,7 +17,10 @@
 #import "UIFont+RichTextEditor.h"
 
 
-@interface NBRichTextEditor () <NBRTEToolbarDatasource, NBRTEToolbarDelegate, NBRTEColorPickerViewDelegate>
+@interface NBRichTextEditor () <NBRTEToolbarDatasource,
+                                NBRTEToolbarDelegate,
+                                NBRTEColorPickerViewDelegate,
+                                UITextViewDelegate>
 @property (nonatomic, strong) NBRTEToolbar *toolBar;
 @property (nonatomic, strong) NBRTEColorPickerView *colorPickerView;
 
@@ -60,6 +63,9 @@
     [self toolBar];
     self.typingAttributesInProgress = NO;
     self.defaultIndentationSize     = 15;
+    self.selectable                 = YES;
+    self.editable                   = YES;
+    self.delegate                   = self;
 
     // ToDo menu
     //    [self setupMenuItems];
@@ -290,6 +296,7 @@
     }];
 }
 
+// todo .
 - (void)toolbarDidSelectPhotoInsert {
     //    [self toolbarDidSelectShutDownKeyboard] ;
 
@@ -307,6 +314,16 @@
     attachment.bounds            = rect;
 
     NSAttributedString *attrStr = [NSAttributedString attributedStringWithAttachment:attachment];
+    [mutaAttrStr insertAttributedString:attrStr atIndex:range.location];
+    self.attributedText = mutaAttrStr;
+}
+
+- (void)toolbarDidSelectLinkInsert {
+    NSMutableAttributedString *mutaAttrStr = [self.attributedText mutableCopy];
+    NSRange range                          = self.selectedRange;
+
+    NSDictionary *dictAttr      = @{ NSLinkAttributeName : [NSURL URLWithString:@"http://www.baidu.com"] };
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:@"百度123" attributes:dictAttr];
     [mutaAttrStr insertAttributedString:attrStr atIndex:range.location];
     self.attributedText = mutaAttrStr;
 }
@@ -329,6 +346,17 @@
 
 - (void)returnToKeyboard {
     self.colorPickerView = nil; // call dealloc ;
+}
+
+#pragma mark -
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
+    //在这里是可以做一些判定什么的，用来确定对应的操作。
+    return YES;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    return YES;
 }
 
 
