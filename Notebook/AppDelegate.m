@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <XTlib/XTlib.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import "XTCloudHandler.h"
 
 
 @interface AppDelegate ()
@@ -17,6 +18,39 @@
 
 
 @implementation AppDelegate
+
+
+- (void)test {
+    XTCloudHandler *handle = [[XTCloudHandler alloc] init];
+    //    [handle iCloudStatus] ;
+
+    //    [handle fetchUser] ;
+
+    //    [handle insert] ;
+
+    //    CKRecordID *recId = [[CKRecordID alloc] initWithRecordName:@"11111"];
+    //    CKRecord *rec = [[CKRecord alloc] initWithRecordType:@"TestTargetRefObj" recordID:recId];
+    //    [rec setObject:@"嘻嘻" forKey:@"name"];
+    //    [handle insert:rec] ;
+    //
+    //    recId = [[CKRecordID alloc] initWithRecordName:@"11112"];
+    //    rec = [[CKRecord alloc] initWithRecordType:@"TestTargetRefObj" recordID:recId];
+    //    [rec setObject:@"哈哈" forKey:@"name"];
+    //    [handle insert:rec] ;
+
+    //    [handle setReferenceWithReferenceKey:@"book" andSourceRecordID:@"abcxtc" andTargetRecordID:@"11111"] ;
+
+    //    [handle searchReferWithRefID:rec.recordID sourceType:@"Test"] ;
+
+
+    //    [handle fetchWithId:@"abcxtc"] ;
+
+    //    [handle fetchListWithTypeName:@"Test"] ;
+
+    //    [handle updateWithRecId:@"abcxtc"] ;
+
+    //    [handle deleteWithId:@"abcxtc"] ;
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -30,6 +64,8 @@
     manager.enable             = YES; // 控制整个功能是否启用。
     manager.enableAutoToolbar  = NO;  // 控制是否显示键盘上的工具条
 
+
+    //    [self test] ;
 
     return YES;
 }

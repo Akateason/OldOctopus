@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
+		8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F579FE0222FB65B00C54929 /* XTCloudHandler.m */; };
 		8F626345221C02350066A429 /* NoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F626344221C02350066A429 /* NoteModel.m */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
 		8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBD0221BECFC0067C321 /* ViewController.m */; };
@@ -46,6 +48,10 @@
 
 /* Begin PBXFileReference section */
 		3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F579FDC222E547F00C54929 /* Notebook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notebook.entitlements; sourceTree = "<group>"; };
+		8F579FDD222E54A500C54929 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		8F579FDF222FB65B00C54929 /* XTCloudHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTCloudHandler.h; sourceTree = "<group>"; };
+		8F579FE0222FB65B00C54929 /* XTCloudHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTCloudHandler.m; sourceTree = "<group>"; };
 		8F626343221C02350066A429 /* NoteModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteModel.h; sourceTree = "<group>"; };
 		8F626344221C02350066A429 /* NoteModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteModel.m; sourceTree = "<group>"; };
 		8F65DBC9221BECFC0067C321 /* Notebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C371690FA8B8F8976235DDEE /* Pods_Notebook.framework in Frameworks */,
+				8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +120,7 @@
 		2366BB8312859B51C204C163 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F579FDD222E54A500C54929 /* CloudKit.framework */,
 				3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */,
 			);
 			name = Frameworks;
@@ -132,6 +140,9 @@
 			children = (
 				8F626343221C02350066A429 /* NoteModel.h */,
 				8F626344221C02350066A429 /* NoteModel.m */,
+				8F579FDF222FB65B00C54929 /* XTCloudHandler.h */,
+				8F579FE0222FB65B00C54929 /* XTCloudHandler.m */,
+				8FACF6C3221D2B070067DDA4 /* customEdit */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -161,6 +172,7 @@
 		8F65DBCB221BECFC0067C321 /* Notebook */ = {
 			isa = PBXGroup;
 			children = (
+				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -197,7 +209,6 @@
 			children = (
 				8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */,
 				8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */,
-				8FACF6C3221D2B070067DDA4 /* customEdit */,
 				8F65DBCF221BECFC0067C321 /* ViewController.h */,
 				8F65DBD0221BECFC0067C321 /* ViewController.m */,
 			);
@@ -302,6 +313,14 @@
 				TargetAttributes = {
 					8F65DBC8221BECFC0067C321 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					8F65DBE0221BECFE0067C321 = {
 						CreatedOnToolsVersion = 10.1;
@@ -463,6 +482,7 @@
 				8FACF6DB221E8D610067DDA4 /* UIFont+RichTextEditor.m in Sources */,
 				8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
+				8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */,
 				8FACF6DC221E8D610067DDA4 /* NSAttributedString+RichTextEditor.m in Sources */,
 				8FACF6DA221E8D610067DDA4 /* UIView+RichTextEditor.m in Sources */,
 				8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */,
@@ -643,6 +663,7 @@
 			baseConfigurationReference = DB88ED0C7D8CDC5EED692867 /* Pods-Notebook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				INFOPLIST_FILE = Notebook/Info.plist;
@@ -651,7 +672,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.demo3.Notebook;
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -662,6 +683,7 @@
 			baseConfigurationReference = EE24592E01D8FF4728985E55 /* Pods-Notebook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				INFOPLIST_FILE = Notebook/Info.plist;
@@ -670,7 +692,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.demo3.Notebook;
+				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
