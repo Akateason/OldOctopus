@@ -18,48 +18,86 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d0t-t9-UsC">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="aCell" id="I8v-XW-6kD">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="I8v-XW-6kD" id="kdA-oP-w4I">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YX5-NL-H0D">
+                                <rect key="frame" x="161.5" y="119" width="52" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="52" id="f6F-yT-nTp"/>
+                                    <constraint firstAttribute="height" constant="30" id="w4N-e2-f5m"/>
+                                </constraints>
+                                <state key="normal" title="richtext"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="ESk-7f-SV3"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Rjo-Nt-EmD"/>
+                                    <segue destination="Kx0-dR-g5U" kind="show" id="PZl-c0-O5S"/>
                                 </connections>
-                            </tableView>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="otG-Ln-vHL">
+                                <rect key="frame" x="151.5" y="180" width="72" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="BKM-Mi-5sg"/>
+                                    <constraint firstAttribute="height" constant="30" id="NbS-Dh-BKP"/>
+                                </constraints>
+                                <state key="normal" title="markdown"/>
+                                <connections>
+                                    <segue destination="dM8-u1-VBX" kind="show" id="pvw-7K-ZaQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="d0t-t9-UsC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WhZ-2q-hql"/>
-                            <constraint firstItem="d0t-t9-UsC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="a5D-vt-X0y"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="d0t-t9-UsC" secondAttribute="trailing" id="hGB-Sz-wcO"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="d0t-t9-UsC" secondAttribute="bottom" id="heA-hO-gpQ"/>
+                            <constraint firstItem="YX5-NL-H0D" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-199.5" id="CRG-Xx-sYk"/>
+                            <constraint firstItem="otG-Ln-vHL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ewk-fM-s4r"/>
+                            <constraint firstItem="otG-Ln-vHL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-138.5" id="drJ-WL-fkE"/>
+                            <constraint firstItem="YX5-NL-H0D" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="w3c-QH-D3E"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0hg-LM-tCp">
-                        <barButtonItem key="rightBarButtonItem" title="custom" id="fN7-CO-amL">
-                            <connections>
-                                <segue destination="Kx0-dR-g5U" kind="show" id="lml-8V-3lk"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="table" destination="d0t-t9-UsC" id="pZW-Bq-owk"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="0hg-LM-tCp"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1068" y="87.706146926536732"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="JC0-N7-ShV">
+            <objects>
+                <viewController id="dM8-u1-VBX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EWm-za-0rw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yJf-5E-Qog" customClass="MarkdownEditor">
+                                <rect key="frame" x="0.0" y="64" width="375" height="301"/>
+                                <color key="backgroundColor" red="0.98304289580000004" green="0.32683729090000002" blue="0.36478200849999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="301" id="I0X-GQ-5fc"/>
+                                </constraints>
+                                <string key="text">普通的字123123123  # 这是 H1 标题
+
+## 这是 H2 标题
+
+### 这是 H3 标题
+
+#### 这是 H4 标题
+
+##### 这是 H5 标题
+
+###### 这是 H6 标题
+</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yJf-5E-Qog" firstAttribute="leading" secondItem="7c4-Da-U9W" secondAttribute="leading" id="FuE-0M-mAd"/>
+                            <constraint firstItem="yJf-5E-Qog" firstAttribute="trailing" secondItem="7c4-Da-U9W" secondAttribute="trailing" id="tb4-VF-rOr"/>
+                            <constraint firstItem="yJf-5E-Qog" firstAttribute="top" secondItem="7c4-Da-U9W" secondAttribute="top" id="vYH-s0-4nO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7c4-Da-U9W"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kPh-5V-2AR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1933.5999999999999" y="305.39730134932535"/>
         </scene>
         <!--EditorVC-->
         <scene sceneID="OZb-lO-NII">
@@ -93,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ryf-24-nOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1908" y="876.61169415292363"/>
+            <point key="canvasLocation" x="1937" y="-470"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="d4p-N0-ZjY">
@@ -111,7 +149,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRe-I0-b1N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="712.79999999999995" y="-609.44527736131943"/>
+            <point key="canvasLocation" x="316" y="88"/>
         </scene>
     </scenes>
 </document>

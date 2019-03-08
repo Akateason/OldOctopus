@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
 		8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F579FE0222FB65B00C54929 /* XTCloudHandler.m */; };
-		8F626345221C02350066A429 /* NoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F626344221C02350066A429 /* NoteModel.m */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
 		8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBD0221BECFC0067C321 /* ViewController.m */; };
 		8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD2221BECFC0067C321 /* Main.storyboard */; };
@@ -18,6 +17,10 @@
 		8F65DBDC221BECFE0067C321 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBDB221BECFE0067C321 /* main.m */; };
 		8F65DBE6221BECFE0067C321 /* NotebookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBE5221BECFE0067C321 /* NotebookTests.m */; };
 		8F65DBF1221BECFE0067C321 /* NotebookUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBF0221BECFE0067C321 /* NotebookUITests.m */; };
+		8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679DFB2232436B008DE1BC /* MarkdownVC.m */; };
+		8F679E00223243B2008DE1BC /* MarkdownEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679DFF223243B2008DE1BC /* MarkdownEditor.m */; };
+		8F679E0322324631008DE1BC /* MarkdownPaser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E0222324631008DE1BC /* MarkdownPaser.m */; };
+		8F679E072232469C008DE1BC /* MarkdownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E062232469C008DE1BC /* MarkdownModel.m */; };
 		8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */; };
 		8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */; };
 		8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */; };
@@ -52,8 +55,6 @@
 		8F579FDD222E54A500C54929 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		8F579FDF222FB65B00C54929 /* XTCloudHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTCloudHandler.h; sourceTree = "<group>"; };
 		8F579FE0222FB65B00C54929 /* XTCloudHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTCloudHandler.m; sourceTree = "<group>"; };
-		8F626343221C02350066A429 /* NoteModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteModel.h; sourceTree = "<group>"; };
-		8F626344221C02350066A429 /* NoteModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteModel.m; sourceTree = "<group>"; };
 		8F65DBC9221BECFC0067C321 /* Notebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F65DBCC221BECFC0067C321 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8F65DBCD221BECFC0067C321 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -70,6 +71,14 @@
 		8F65DBEC221BECFE0067C321 /* NotebookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotebookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F65DBF0221BECFE0067C321 /* NotebookUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotebookUITests.m; sourceTree = "<group>"; };
 		8F65DBF2221BECFE0067C321 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F679DFA2232436B008DE1BC /* MarkdownVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownVC.h; sourceTree = "<group>"; };
+		8F679DFB2232436B008DE1BC /* MarkdownVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownVC.m; sourceTree = "<group>"; };
+		8F679DFE223243B2008DE1BC /* MarkdownEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownEditor.h; sourceTree = "<group>"; };
+		8F679DFF223243B2008DE1BC /* MarkdownEditor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownEditor.m; sourceTree = "<group>"; };
+		8F679E0122324631008DE1BC /* MarkdownPaser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownPaser.h; sourceTree = "<group>"; };
+		8F679E0222324631008DE1BC /* MarkdownPaser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownPaser.m; sourceTree = "<group>"; };
+		8F679E052232469C008DE1BC /* MarkdownModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownModel.h; sourceTree = "<group>"; };
+		8F679E062232469C008DE1BC /* MarkdownModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownModel.m; sourceTree = "<group>"; };
 		8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMSHEditorVC.h; sourceTree = "<group>"; };
 		8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMSHEditorVC.m; sourceTree = "<group>"; };
 		8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRichTextEditor.h; sourceTree = "<group>"; };
@@ -138,11 +147,10 @@
 		8F626342221C02030066A429 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8F626343221C02350066A429 /* NoteModel.h */,
-				8F626344221C02350066A429 /* NoteModel.m */,
 				8F579FDF222FB65B00C54929 /* XTCloudHandler.h */,
 				8F579FE0222FB65B00C54929 /* XTCloudHandler.m */,
-				8FACF6C3221D2B070067DDA4 /* customEdit */,
+				8F679DFD2232437E008DE1BC /* markdownEditor */,
+				8FACF6C3221D2B070067DDA4 /* richTextEditor */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,18 +212,57 @@
 			path = NotebookUITests;
 			sourceTree = "<group>";
 		};
-		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
+		8F679DF822324333008DE1BC /* richtext */ = {
 			isa = PBXGroup;
 			children = (
 				8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */,
 				8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */,
+			);
+			path = richtext;
+			sourceTree = "<group>";
+		};
+		8F679DF922324341008DE1BC /* markdown */ = {
+			isa = PBXGroup;
+			children = (
+				8F679DFA2232436B008DE1BC /* MarkdownVC.h */,
+				8F679DFB2232436B008DE1BC /* MarkdownVC.m */,
+			);
+			path = markdown;
+			sourceTree = "<group>";
+		};
+		8F679DFD2232437E008DE1BC /* markdownEditor */ = {
+			isa = PBXGroup;
+			children = (
+				8F679DFE223243B2008DE1BC /* MarkdownEditor.h */,
+				8F679DFF223243B2008DE1BC /* MarkdownEditor.m */,
+				8F679E042232468C008DE1BC /* model */,
+			);
+			path = markdownEditor;
+			sourceTree = "<group>";
+		};
+		8F679E042232468C008DE1BC /* model */ = {
+			isa = PBXGroup;
+			children = (
+				8F679E0122324631008DE1BC /* MarkdownPaser.h */,
+				8F679E0222324631008DE1BC /* MarkdownPaser.m */,
+				8F679E052232469C008DE1BC /* MarkdownModel.h */,
+				8F679E062232469C008DE1BC /* MarkdownModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
 				8F65DBCF221BECFC0067C321 /* ViewController.h */,
 				8F65DBD0221BECFC0067C321 /* ViewController.m */,
+				8F679DF922324341008DE1BC /* markdown */,
+				8F679DF822324333008DE1BC /* richtext */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
 		};
-		8FACF6C3221D2B070067DDA4 /* customEdit */ = {
+		8FACF6C3221D2B070067DDA4 /* richTextEditor */ = {
 			isa = PBXGroup;
 			children = (
 				8FACF6D3221E8D600067DDA4 /* Categories */,
@@ -226,7 +273,7 @@
 				8FACF6DD222002BB0067DDA4 /* NBRTEColorPickerView.h */,
 				8FACF6DE222002BB0067DDA4 /* NBRTEColorPickerView.m */,
 			);
-			path = customEdit;
+			path = richTextEditor;
 			sourceTree = "<group>";
 		};
 		8FACF6D3221E8D600067DDA4 /* Categories */ = {
@@ -482,6 +529,7 @@
 				8FACF6DB221E8D610067DDA4 /* UIFont+RichTextEditor.m in Sources */,
 				8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
+				8F679E0322324631008DE1BC /* MarkdownPaser.m in Sources */,
 				8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */,
 				8FACF6DC221E8D610067DDA4 /* NSAttributedString+RichTextEditor.m in Sources */,
 				8FACF6DA221E8D610067DDA4 /* UIView+RichTextEditor.m in Sources */,
@@ -490,8 +538,10 @@
 				8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */,
 				8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
-				8F626345221C02350066A429 /* NoteModel.m in Sources */,
 				8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */,
+				8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */,
+				8F679E072232469C008DE1BC /* MarkdownModel.m in Sources */,
+				8F679E00223243B2008DE1BC /* MarkdownEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

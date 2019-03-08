@@ -8,12 +8,10 @@
 
 #import "ViewController.h"
 #import <XTlib/XTlib.h>
-#import "NoteModel.h"
+
 
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *table;
-@property (copy, nonatomic) NSArray *datasource;
 
 @end
 
@@ -23,52 +21,52 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.table xt_setup];
-    self.table.xt_Delegate = self;
+//    [self.table xt_setup];
+//    self.table.xt_Delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    [self.table xt_loadNewInfoInBackGround:YES];
+//    [self.table xt_loadNewInfoInBackGround:YES];
 }
 
 #pragma mark - table
-
-- (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
-    self.datasource = [NoteModel xt_findAll];
-    endRefresh();
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.datasource.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell" forIndexPath:indexPath];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"aCell"];
-    }
-
-    NoteModel *model    = self.datasource[indexPath.row];
-    cell.textLabel.text = model.title;
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-}
-
-
-#pragma mark - props
-
-- (NSArray *)datasource {
-    if (!_datasource) {
-        _datasource = ({
-            NSArray *object = [[NSArray alloc] init];
-            object;
-        });
-    }
-    return _datasource;
-}
+//
+//- (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
+//    self.datasource = [NoteModel xt_findAll];
+//    endRefresh();
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return self.datasource.count;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"aCell" forIndexPath:indexPath];
+//    if (!cell) {
+//        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"aCell"];
+//    }
+//
+//    NoteModel *model    = self.datasource[indexPath.row];
+//    cell.textLabel.text = model.title;
+//    return cell;
+//}
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//}
+//
+//
+//#pragma mark - props
+//
+//- (NSArray *)datasource {
+//    if (!_datasource) {
+//        _datasource = ({
+//            NSArray *object = [[NSArray alloc] init];
+//            object;
+//        });
+//    }
+//    return _datasource;
+//}
 
 @end
