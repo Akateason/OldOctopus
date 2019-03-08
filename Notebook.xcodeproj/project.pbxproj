@@ -21,6 +21,7 @@
 		8F679E00223243B2008DE1BC /* MarkdownEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679DFF223243B2008DE1BC /* MarkdownEditor.m */; };
 		8F679E0322324631008DE1BC /* MarkdownPaser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E0222324631008DE1BC /* MarkdownPaser.m */; };
 		8F679E072232469C008DE1BC /* MarkdownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E062232469C008DE1BC /* MarkdownModel.m */; };
+		8F679E0C22329376008DE1BC /* MDPreviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E0B22329376008DE1BC /* MDPreviewVC.m */; };
 		8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */; };
 		8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */; };
 		8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */; };
@@ -79,6 +80,8 @@
 		8F679E0222324631008DE1BC /* MarkdownPaser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownPaser.m; sourceTree = "<group>"; };
 		8F679E052232469C008DE1BC /* MarkdownModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownModel.h; sourceTree = "<group>"; };
 		8F679E062232469C008DE1BC /* MarkdownModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownModel.m; sourceTree = "<group>"; };
+		8F679E0A22329376008DE1BC /* MDPreviewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDPreviewVC.h; sourceTree = "<group>"; };
+		8F679E0B22329376008DE1BC /* MDPreviewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDPreviewVC.m; sourceTree = "<group>"; };
 		8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMSHEditorVC.h; sourceTree = "<group>"; };
 		8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMSHEditorVC.m; sourceTree = "<group>"; };
 		8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRichTextEditor.h; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 			children = (
 				8F679DFA2232436B008DE1BC /* MarkdownVC.h */,
 				8F679DFB2232436B008DE1BC /* MarkdownVC.m */,
+				8F679E0A22329376008DE1BC /* MDPreviewVC.h */,
+				8F679E0B22329376008DE1BC /* MDPreviewVC.m */,
 			);
 			path = markdown;
 			sourceTree = "<group>";
@@ -537,6 +542,7 @@
 				8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */,
 				8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */,
 				8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */,
+				8F679E0C22329376008DE1BC /* MDPreviewVC.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */,
 				8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */,

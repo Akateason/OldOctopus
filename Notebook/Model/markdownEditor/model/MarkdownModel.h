@@ -13,7 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxUnknown,
-    MarkdownSyntaxHeaders,
+    
+    MarkdownSyntaxHeaders_h1,
+    MarkdownSyntaxHeaders_h2,
+    MarkdownSyntaxHeaders_h3,
+    MarkdownSyntaxHeaders_h4,
+    MarkdownSyntaxHeaders_h5,
+    MarkdownSyntaxHeaders_h6,
+    
+    
     MarkdownSyntaxLinks,
     MarkdownSyntaxBold,
     MarkdownSyntaxEmphasis,
@@ -27,6 +35,7 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     NumberOfMarkdownSyntax,
     
     // new
+//    MD_Header_Type ,
     
 };
 

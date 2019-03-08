@@ -1,36 +1,29 @@
 //
-//  MarkdownVC.m
+//  MDPreviewVC.m
 //  Notebook
 //
 //  Created by teason23 on 2019/3/8.
 //  Copyright © 2019 teason23. All rights reserved.
 //
 
-#import "MarkdownVC.h"
-#import "MarkdownEditor.h"
+#import "MDPreviewVC.h"
+//#import <GHMarkdownParser/GHMarkdownParser.h>
 
-@interface MarkdownVC ()
-@property (weak, nonatomic) IBOutlet MarkdownEditor *textView;
+
+@interface MDPreviewVC ()
+@property (weak, nonatomic) IBOutlet UITextView *textview;
 
 @end
 
-@implementation MarkdownVC
+@implementation MDPreviewVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    
     
     
 }
-
-- (IBAction)undo:(id)sender {
-    [[self.textView undoManager] undo];
-}
-
-- (IBAction)redo:(id)sender {
-    [[self.textView undoManager] redo];
-}
-
 
 /*
 #pragma mark - Navigation

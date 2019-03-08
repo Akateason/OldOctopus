@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TGs-dz-IdT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="teN-vi-DrL">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -36,9 +36,6 @@
                                     <constraint firstAttribute="height" constant="30" id="NbS-Dh-BKP"/>
                                 </constraints>
                                 <state key="normal" title="markdown"/>
-                                <connections>
-                                    <segue destination="dM8-u1-VBX" kind="show" id="pvw-7K-ZaQ"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -54,23 +51,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1068" y="87.706146926536732"/>
+            <point key="canvasLocation" x="1084" y="-583"/>
         </scene>
-        <!--View Controller-->
+        <!--MarkdownVC-->
         <scene sceneID="JC0-N7-ShV">
             <objects>
-                <viewController id="dM8-u1-VBX" sceneMemberID="viewController">
+                <viewController id="dM8-u1-VBX" customClass="MarkdownVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EWm-za-0rw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yJf-5E-Qog" customClass="MarkdownEditor">
                                 <rect key="frame" x="0.0" y="64" width="375" height="301"/>
-                                <color key="backgroundColor" red="0.98304289580000004" green="0.32683729090000002" blue="0.36478200849999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="301" id="I0X-GQ-5fc"/>
                                 </constraints>
-                                <string key="text">普通的字123123123  # 这是 H1 标题
+                                <string key="text">### 标题
+
+# 这是 H1 标题
 
 ## 这是 H2 标题
 
@@ -81,23 +80,255 @@
 ##### 这是 H5 标题
 
 ###### 这是 H6 标题
-</string>
+
+这 markdown 语法中，标题是由不同数目的 # 文字组成，文字和 `#` 之间至少有一个空格。当光标点击到 `#` 和文字之间时，才展示 `#`，其它时候，`#` 符号都是隐藏的。
+
+### 列表
+
+-   这是无序列表项 1，通过输入一个 `*` 或者`-` 后面紧接`.`和一个空格，在输入文字，就会自动生成一个无序列表。
+    
+-   这是无序列表项 2
+    
+
+0.  这是有序列表项 0
+    
+1.  这是有序列表项
+    
+2.  有序列表最小可以从 0 开始，不能为负数。
+    
+
+-   [ ] 
+    
+    这是 task list，未被选中状态。
+    
+-   [x] 
+    
+    这是 task list，处于选中状态。
+    
+
+-   ```javascript
+    // 列表可以嵌套代码块
+    ```
+    
+-   &gt; 列表可以嵌套引用块
+    
+-   列表可以嵌套其它任何块状元素，包括 代码块、HTML 块、数学公式块、表格以及其它列表。例如嵌套表格如下：
+    
+-   34fdaf
+    
+-   asdff
+    
+-   -   fads asdfsdf
+        
+    -   -   fads ads dsf
+            
+        -   ads
+            
+-   | header1 | header2 | sdd | 33 |
+    | --- | --- | --- | --- |
+    | 萝卜 | 白菜 | aaa | bb |
+    
+
+列表的键盘交互略微复杂，复杂的地方主要在于键盘操作，而界面设计主要就是上面这些。三种列表、以及列表之间的嵌套。
+
+对于某一种类的列表又分为：loose list 和 tight list。
+
+这是一个 loose list：
+
+-   我和下面的列表项之间的距离比 tight list 宽。
+    
+-   我是一个 loose list 项。
+    
+
+这是一个 tight list：
+
+-   我和下面的列表项之间的距离比 loose list 窄。
+    
+-   我是一个 tight list。
+    
+
+### 引用
+
+通过输入`&gt;` + 文字生成引用块，如下
+
+&gt; 我是一个引用快，我可以嵌套其它任何块状元素，比如 列表、表格、数学块、代码块、HTML 块等。
+&gt; 
+&gt; -   你看，我是一个被嵌套的列表
+&gt;     
+&gt; 
+&gt; $$
+&gt; a \ne b
+&gt; $$
+
+### 代码块
+
+通过输入 \`\`\` 加语言名，然后回车就会生成代码块，下面是一个 `javascript` 代码块。
+
+```javascript
+const a = 'hello world'
+// 我是一个 javascript 代码块
+```
+
+代码块不能够被嵌套，所以代码块里面不能够包含列表、引用等块状元素。当代码块获取焦点后，\`\`\` 和 语言名就会显示出来，你可以点击上面的代码块试试，也可以修改成你熟悉的计算机语言，来切换代码块。
+
+### HTML 块
+
+通过输入&lt;div&gt;，然后回车，就会生成一个 HTML 块，当然你也可以选择其他 HTML 块状元素。下面是一个 HTML 块：
+
+&lt;div&gt;
+&lt;a href="www.google.com"&gt;Google&lt;/a&gt;
+&lt;/div&gt;
+
+当你点击上面 Google 字时，HTML 块获取焦点，处于可编辑状态，在可编辑状态，你可以修改代码，点击编辑器其他地方，HTML 块进入预览模式。
+
+### 数学公式块
+
+通过输入 $$ 然后回车来生成一个数学公式块。如下：
+
+$$
+\begin{cases}
+a_1x+b_1y+c_1z=d_1\\
+a_2x+b_2y+c_2z=d_2\\
+a_3x+b_3y+c_3z=d_3\\
+\end{cases}
+$$
+
+上面是一个数学公式，你点击上面公式，数学公式块获取焦点，然后编辑数学公式。
+
+### 表格
+
+通过输入 |foo|bar| 然后回车，就会自动生成一个表格，当然还有快捷键输入。下面是一个表格：
+
+| head1 | head2 |
+| --- | --- |
+| cell1 | cell2 |
+
+当你点击表格的任意单元格时候，表格获取焦点，表格上面会出现工具栏，你可以尝试点击工具栏查看效果，包括修改表格的行和列的数目，以及表格列的对其方式。
+
+### 分割线
+
+输入 --- 然后回车，会自动生成分割线如下：
+
+* * *
+
+当你通过方向键，移动到分割线时，分割线有回到了当初输入的字符，正如你们第一次相见。
+
+上面是编辑器常用的 块状元素，在接下来，我们会了解下编辑器的行内样式。
+
+### 行内元素
+
+这是全部的行内样式，**强调**、*斜体*、[连接](www.google.com)、~~删除~~、`行内代码`、:smile: 当然我是一个表情符号。
+
+你可以通过方向键或者鼠标，点击上面的行内样式，当行内样式获取焦点后，会出现 markdown 的语法符号，当你将光标移出的时候，一切又回到了初始的状态，markdown 语法符号消失。
+
+### 一些工具
+
+1.  当你选中一些文字后，会出现 float box，你可以选择前面的 `float box` 试试，这个需要设计样式，:jack_o_lantern:。
+    
+2.  当你在代码块的语言输入框中输入文字时候，会根据你的输入搜索推荐。
+    
+
+```javascript
+const a = 'b'
+```
+
+你可以在上面的代码块试试，点击代码块，点击语言输入框，会自动出现一个下拉菜单，这些都是可以通过方向键来选择的。
+
+3.  表情符号也可以搜索，:man:,点击前面的表情符号，应该就明白了，会有一个表情符号的弹出框。</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T5V-Rl-Xeq">
+                                <rect key="frame" x="16" y="373" width="35" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5Tu-sj-1gk"/>
+                                    <constraint firstAttribute="width" constant="35" id="IsZ-6R-q7g"/>
+                                </constraints>
+                                <state key="normal" title="undo"/>
+                                <connections>
+                                    <action selector="undo:" destination="dM8-u1-VBX" eventType="touchUpInside" id="iZ4-19-sDy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zF-IL-9pK">
+                                <rect key="frame" x="84" y="373" width="32" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="5Pt-6Y-DXK"/>
+                                    <constraint firstAttribute="height" constant="30" id="chI-fM-kTe"/>
+                                </constraints>
+                                <state key="normal" title="redo"/>
+                                <connections>
+                                    <action selector="redo:" destination="dM8-u1-VBX" eventType="touchUpInside" id="I8b-9G-rYm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSG-rj-8EE">
+                                <rect key="frame" x="160" y="373" width="54" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="GO5-zD-rWj"/>
+                                    <constraint firstAttribute="height" constant="30" id="bOs-nc-iJB"/>
+                                </constraints>
+                                <state key="normal" title="preview"/>
+                                <connections>
+                                    <segue destination="3oX-Ft-4WD" kind="show" id="5NK-9i-xxo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.89799207449999996" green="0.89807194469999996" blue="0.89792543650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="T5V-Rl-Xeq" firstAttribute="leading" secondItem="7c4-Da-U9W" secondAttribute="leading" constant="16" id="0mu-Yr-N6I"/>
+                            <constraint firstItem="T5V-Rl-Xeq" firstAttribute="top" secondItem="yJf-5E-Qog" secondAttribute="bottom" constant="8" id="3Pz-iu-arl"/>
+                            <constraint firstItem="FSG-rj-8EE" firstAttribute="top" secondItem="yJf-5E-Qog" secondAttribute="bottom" constant="8" id="CTG-CM-lNs"/>
+                            <constraint firstItem="yJf-5E-Qog" firstAttribute="leading" secondItem="7c4-Da-U9W" secondAttribute="leading" id="FuE-0M-mAd"/>
+                            <constraint firstItem="4zF-IL-9pK" firstAttribute="top" secondItem="yJf-5E-Qog" secondAttribute="bottom" constant="8" id="Ypc-AL-uqd"/>
+                            <constraint firstItem="yJf-5E-Qog" firstAttribute="trailing" secondItem="7c4-Da-U9W" secondAttribute="trailing" id="tb4-VF-rOr"/>
+                            <constraint firstItem="yJf-5E-Qog" firstAttribute="top" secondItem="7c4-Da-U9W" secondAttribute="top" id="vYH-s0-4nO"/>
+                            <constraint firstItem="FSG-rj-8EE" firstAttribute="leading" secondItem="4zF-IL-9pK" secondAttribute="trailing" constant="44" id="vna-Kz-ex2"/>
+                            <constraint firstItem="4zF-IL-9pK" firstAttribute="leading" secondItem="T5V-Rl-Xeq" secondAttribute="trailing" constant="33" id="zUz-OF-8G0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7c4-Da-U9W"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="2Xv-VG-rjp"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="textView" destination="yJf-5E-Qog" id="C9H-vx-0ov"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kPh-5V-2AR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2872.8000000000002" y="305.39730134932535"/>
+        </scene>
+        <!--PreviewVC-->
+        <scene sceneID="fU9-Fh-Iid">
+            <objects>
+                <viewController id="3oX-Ft-4WD" customClass="MDPreviewVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FGh-zg-AeE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rja-pY-Bnu">
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="yJf-5E-Qog" firstAttribute="leading" secondItem="7c4-Da-U9W" secondAttribute="leading" id="FuE-0M-mAd"/>
-                            <constraint firstItem="yJf-5E-Qog" firstAttribute="trailing" secondItem="7c4-Da-U9W" secondAttribute="trailing" id="tb4-VF-rOr"/>
-                            <constraint firstItem="yJf-5E-Qog" firstAttribute="top" secondItem="7c4-Da-U9W" secondAttribute="top" id="vYH-s0-4nO"/>
+                            <constraint firstItem="rja-pY-Bnu" firstAttribute="top" secondItem="zjX-xa-ueu" secondAttribute="top" id="Tcc-EL-ZIt"/>
+                            <constraint firstItem="zjX-xa-ueu" firstAttribute="trailing" secondItem="rja-pY-Bnu" secondAttribute="trailing" id="e5e-V0-dgn"/>
+                            <constraint firstItem="rja-pY-Bnu" firstAttribute="leading" secondItem="zjX-xa-ueu" secondAttribute="leading" id="wXV-xy-wOw"/>
+                            <constraint firstItem="zjX-xa-ueu" firstAttribute="bottom" secondItem="rja-pY-Bnu" secondAttribute="bottom" id="yjY-Wm-XFY"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="7c4-Da-U9W"/>
+                        <viewLayoutGuide key="safeArea" id="zjX-xa-ueu"/>
                     </view>
+                    <connections>
+                        <outlet property="textview" destination="rja-pY-Bnu" id="Nny-Ty-5R1"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kPh-5V-2AR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P2U-QG-MOE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1933.5999999999999" y="305.39730134932535"/>
+            <point key="canvasLocation" x="3679.1999999999998" y="304.4977511244378"/>
         </scene>
         <!--EditorVC-->
         <scene sceneID="OZb-lO-NII">
@@ -150,6 +381,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRe-I0-b1N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="316" y="88"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XeV-h3-5wL">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="teN-vi-DrL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EfZ-fx-B4M">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dM8-u1-VBX" kind="relationship" relationship="rootViewController" id="tTl-j6-zw4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hkg-cu-iew" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1933.5999999999999" y="305.39730134932535"/>
         </scene>
     </scenes>
 </document>

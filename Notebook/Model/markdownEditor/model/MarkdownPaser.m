@@ -16,8 +16,20 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
     switch (v) {
         case MarkdownSyntaxUnknown:
             return nil;
-        case MarkdownSyntaxHeaders:
-            return regexp("(#+)(.*)", NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxHeaders_h1:
+            return regexp("^ *(#) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxHeaders_h2:
+            return regexp("^ *(##) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxHeaders_h3:
+            return regexp("^ *(###) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxHeaders_h4:
+            return regexp("^ *(####) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxHeaders_h5:
+            return regexp("^ *(#####) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxHeaders_h6:
+            return regexp("^ *(######) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
+            
+            
         case MarkdownSyntaxLinks:
             return regexp("\\[([^\\[]+)\\]\\(([^\\)]+)\\)", 0);
         case MarkdownSyntaxBold:
@@ -35,49 +47,120 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
         case MarkdownSyntaxBlockquotes:
             return regexp("\n(&gt;|\\>)(.*)",0);
         case MarkdownSyntaxULLists:
-            return regexp("^\\*([^\\*]*)", NSRegularExpressionAnchorsMatchLines);
+            return regexp("^( *)([*+-]) [\\s\\S]+?(?:hr|def|\\n{2,}(?! )(?!\\1[*+-] )\\n*|\\s*$)", NSRegularExpressionAnchorsMatchLines); // ^( *)([*+-]) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1[*+-] )\n*|\s*$)   // ^\\*([^\\*]*)
         case MarkdownSyntaxOLLists:
             return regexp("^[0-9]+\\.(.*)", NSRegularExpressionAnchorsMatchLines);
         case NumberOfMarkdownSyntax:
             break;
+            
+            
+        
+
     }
     return nil;
 }
 
+UIFont *defaultFont() {
+    return [UIFont systemFontOfSize:16] ;
+}
+
+NSDictionary *Md_defaultStyle() {
+//    NSMutableParagraphStyle* pParagraphStyle = [[NSMutableParagraphStyle alloc]init];
+//    pParagraphStyle.paragraphSpacing = 12;
+//    pParagraphStyle.paragraphSpacingBefore = 12;
+    NSDictionary *resultDic = @{
+                                NSFontAttributeName : defaultFont(),
+//                                NSParagraphStyleAttributeName : pParagraphStyle,
+                                };
+    return resultDic ;
+}
+
 NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
+    NSDictionary *resultDic = Md_defaultStyle() ;
+    UIFont *paragraphFont = defaultFont() ;
+    
     switch (v) {
         case MarkdownSyntaxUnknown:
-            return @{};
-        case MarkdownSyntaxHeaders:
-            return @{
-                     NSFontAttributeName : [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]
-                     };
+            break ;
+        case MarkdownSyntaxHeaders_h1:
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:32]};
+            break ;
+        case MarkdownSyntaxHeaders_h2:
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:24]};
+            break ;
+        case MarkdownSyntaxHeaders_h3:
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]};
+            break ;
+        case MarkdownSyntaxHeaders_h4:
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:16]};
+            break ;
+        case MarkdownSyntaxHeaders_h5:
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:14]};
+            break ;
+        case MarkdownSyntaxHeaders_h6:
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:12]};
+            break ;
+            
+            
         case MarkdownSyntaxLinks:
-            return @{NSForegroundColorAttributeName : [UIColor blueColor]};
+            resultDic = @{NSForegroundColorAttributeName : [UIColor blueColor],
+                          NSFontAttributeName : paragraphFont
+                          };
+            break ;
         case MarkdownSyntaxBold:
-            return @{NSFontAttributeName : [UIFont boldSystemFontOfSize:[UIFont systemFontSize]]};
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:16]};
+            break ;
         case MarkdownSyntaxEmphasis:
-            return @{NSFontAttributeName : [UIFont boldSystemFontOfSize:[UIFont systemFontSize]]};
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:16]};
+            break ;
         case MarkdownSyntaxDeletions:
-            return @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)};
+            resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
+                          NSFontAttributeName : paragraphFont
+                          };
+            break ;
         case MarkdownSyntaxQuotes:
-            return @{NSForegroundColorAttributeName : [UIColor lightGrayColor]};
+            resultDic = @{NSForegroundColorAttributeName : [UIColor lightGrayColor],
+                          NSFontAttributeName : paragraphFont
+                          };
+            break ;
         case MarkdownSyntaxInlineCode:
-            return @{NSForegroundColorAttributeName : [UIColor brownColor]};
+            resultDic = @{NSForegroundColorAttributeName : [UIColor brownColor],
+                          NSFontAttributeName : paragraphFont
+                          };
+            break ;
         case MarkdownSyntaxCodeBlock:
-            return @{
-                     NSBackgroundColorAttributeName : [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0]
-                     };
+            resultDic = @{
+                          NSBackgroundColorAttributeName : [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0],
+                          NSFontAttributeName : paragraphFont
+                          };
+            break ;
         case MarkdownSyntaxBlockquotes:
-            return @{NSBackgroundColorAttributeName : [UIColor lightGrayColor]};
-        case MarkdownSyntaxULLists:
-            return @{};
-        case MarkdownSyntaxOLLists:
-            return @{};
-        case NumberOfMarkdownSyntax:
-            break;
+            resultDic = @{NSBackgroundColorAttributeName : [UIColor lightGrayColor],
+                          NSFontAttributeName : paragraphFont
+                          };
+            break ;
+        case MarkdownSyntaxULLists: {
+            NSMutableParagraphStyle* listParagraphStyle = [[NSMutableParagraphStyle alloc]init];
+            listParagraphStyle.headIndent = 16.0;
+            resultDic = @{NSFontAttributeName : paragraphFont,
+                          NSParagraphStyleAttributeName : listParagraphStyle,
+                          NSForegroundColorAttributeName : [UIColor redColor]
+                          } ;
+        }
+            break ;
+        case MarkdownSyntaxOLLists: {
+            NSMutableParagraphStyle* listItemParagraphStyle = [[NSMutableParagraphStyle alloc]init];
+            listItemParagraphStyle.headIndent = 16.0;
+            resultDic = @{NSFontAttributeName : paragraphFont,
+                          NSParagraphStyleAttributeName : listItemParagraphStyle,
+                          NSForegroundColorAttributeName : [UIColor greenColor]
+                          };
+        }
+            break ;
+            
+        case NumberOfMarkdownSyntax: break;
     }
-    return nil;
+    return resultDic;
 }
 
 

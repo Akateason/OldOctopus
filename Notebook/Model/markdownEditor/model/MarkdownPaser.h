@@ -11,6 +11,7 @@
 
 extern NSRegularExpression* NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxType v);
 extern NSDictionary* AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v);
+extern NSDictionary* Md_defaultStyle(void) ;
 
 
 NS_ASSUME_NONNULL_BEGIN

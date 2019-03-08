@@ -9,6 +9,8 @@
 #import "MarkdownEditor.h"
 #import "MarkdownPaser.h"
 
+static const CGFloat kFlexValue = 30.f ;
+
 @interface MarkdownEditor ()
 @property(nonatomic, strong) MarkdownPaser *markdownPaser  ;
 
@@ -23,11 +25,18 @@
 }
 
 - (void)setup {
+    self.font = [UIFont systemFontOfSize:16.] ;
+    
+    self.contentInset = UIEdgeInsetsMake(0, kFlexValue, 0, kFlexValue) ;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationDidTextChangeText:)
                                                  name:UITextViewTextDidChangeNotification
                                                object:nil];
-    [self updateSyntax];
+    [self updateSyntax] ;
+    
+    self.contentOffset = CGPointZero ;
+    
 //    [KOKeyboardRow applyToTextView:self];
 }
 
@@ -62,11 +71,17 @@
 - (void)updateSyntax {
     NSArray *models = [self.markdownPaser syntaxModelsForText:self.text];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
+    [attributedString addAttributes:Md_defaultStyle()
+                              range:NSMakeRange(0, self.text.length)] ;
+    
     for (MarkdownModel *model in models) {
         [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type)
                                   range:model.range];
     }
-    [self updateAttributedText:attributedString];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateAttributedText:attributedString];
+    }) ;
 }
 
 - (void)updateAttributedText:(NSAttributedString *) attributedString {
@@ -85,8 +100,6 @@
     }
     return _markdownPaser;
 }
-
-
 
 @end
 
