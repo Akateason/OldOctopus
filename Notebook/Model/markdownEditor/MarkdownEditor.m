@@ -71,6 +71,8 @@ static const CGFloat kFlexValue = 30.f ;
 - (void)updateSyntax {
     NSArray *models = [self.markdownPaser syntaxModelsForText:self.text];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
+    [attributedString beginEditing];
+    
     [attributedString addAttributes:Md_defaultStyle()
                               range:NSMakeRange(0, self.text.length)] ;
     
@@ -78,9 +80,11 @@ static const CGFloat kFlexValue = 30.f ;
         [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type)
                                   range:model.range];
     }
+    [attributedString endEditing];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateAttributedText:attributedString];
+        self.contentOffset = CGPointZero ;
     }) ;
 }
 
