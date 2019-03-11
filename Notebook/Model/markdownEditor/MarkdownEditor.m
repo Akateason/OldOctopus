@@ -8,34 +8,40 @@
 
 #import "MarkdownEditor.h"
 #import "MarkdownPaser.h"
+#import <XTlib/XTlib.h>
+
 
 static const CGFloat kFlexValue = 30.f ;
 
-@interface MarkdownEditor ()
+@interface MarkdownEditor () {
+    BOOL fstTimeLoaded ;
+}
 @property(nonatomic, strong) MarkdownPaser *markdownPaser  ;
 
 @end
 
 @implementation MarkdownEditor
 
-#pragma -
+#pragma mark -
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setup {
-    self.font = [UIFont systemFontOfSize:16.] ;
+//    self.delegate = self ;
     
+    self.font = [UIFont systemFontOfSize:16.] ;
     self.contentInset = UIEdgeInsetsMake(0, kFlexValue, 0, kFlexValue) ;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationDidTextChangeText:)
                                                  name:UITextViewTextDidChangeNotification
                                                object:nil];
-    [self updateSyntax] ;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateSyntax] ;
+    }) ;
     
-    self.contentOffset = CGPointZero ;
     
 //    [KOKeyboardRow applyToTextView:self];
 }
@@ -71,20 +77,24 @@ static const CGFloat kFlexValue = 30.f ;
 - (void)updateSyntax {
     NSArray *models = [self.markdownPaser syntaxModelsForText:self.text];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
-    [attributedString beginEditing];
-    
+    [attributedString beginEditing] ;
     [attributedString addAttributes:Md_defaultStyle()
                               range:NSMakeRange(0, self.text.length)] ;
     
     for (MarkdownModel *model in models) {
         [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type)
-                                  range:model.range];
+                                  range:model.range] ;
+        
     }
-    [attributedString endEditing];
+    [attributedString endEditing] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateAttributedText:attributedString];
-        self.contentOffset = CGPointZero ;
+        
+        if (!self->fstTimeLoaded) {
+            self.contentOffset = CGPointMake(-30, 0) ;
+            self->fstTimeLoaded = YES ;
+        }
     }) ;
 }
 
@@ -96,7 +106,22 @@ static const CGFloat kFlexValue = 30.f ;
     self.scrollEnabled = YES;
 }
 
-#pragma - props
+#pragma mark -
+// 光标移动 和 选择
+- (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
+    [super setSelectedTextRange:selectedTextRange] ;
+    NSLog(@"%@",selectedTextRange) ;
+    
+    CGRect caretRect = [self caretRectForPosition:selectedTextRange.start];
+    NSLog(@"caret rect %@", NSStringFromCGRect(caretRect)) ;
+    
+    
+    
+}
+
+
+
+#pragma mark - props
 
 - (MarkdownPaser *)markdownPaser {
     if (_markdownPaser == nil) {

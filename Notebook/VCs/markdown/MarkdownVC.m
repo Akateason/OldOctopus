@@ -1,4 +1,4 @@
-//
+ //
 //  MarkdownVC.m
 //  Notebook
 //
@@ -10,7 +10,7 @@
 #import "MarkdownEditor.h"
 
 @interface MarkdownVC ()
-@property (weak, nonatomic) IBOutlet MarkdownEditor *textView;
+@property (strong, nonatomic) MarkdownEditor *textView;
 
 @end
 
@@ -18,9 +18,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample" ofType:@"md"] ;
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
+    NSData *data = [fileHandle readDataToEndOfFile] ;
+    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
+    [self textView] ;
+    self.textView.text = str ;
 }
 
 - (IBAction)undo:(id)sender {
@@ -32,14 +37,22 @@
 }
 
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+
+- (MarkdownEditor *)textView{
+    if(!_textView){
+        _textView = ({
+            MarkdownEditor * editor = [[MarkdownEditor alloc]init];
+            [self.view addSubview:editor] ;
+            [editor mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view) ;
+                make.top.equalTo(self.mas_topLayoutGuideBottom) ;
+                make.height.equalTo(@300) ;
+            }] ;
+            editor;
+       });
+    }
+    return _textView;
 }
-*/
-
 @end

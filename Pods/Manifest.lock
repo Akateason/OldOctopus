@@ -92,11 +92,13 @@ PODS:
     - XTFMDB (> 2.0.0)
     - YYModel
   - YYModel (1.0.4)
+  - YYText (1.0.7)
 
 DEPENDENCIES:
   - XTlib
   - XTlib/Animations
   - XTlib/CustomUIs
+  - YYText
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -125,6 +127,7 @@ SPEC REPOS:
     - XTlib
     - XTReq
     - YYModel
+    - YYText
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -152,7 +155,8 @@ SPEC CHECKSUMS:
   XTlib: 52e6bcdca340c27cf795426ac1d692c72a647e76
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: e1466f092816d3b895589bbcc7051483d0be7d81
+PODFILE CHECKSUM: 03a961d315d90b6dedc1f8cadab8db55c61d693d
 
 COCOAPODS: 1.6.1

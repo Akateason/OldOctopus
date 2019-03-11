@@ -9,7 +9,7 @@ pod 'XTlib/Animations'
 pod 'XTlib/CustomUIs'
 
 # pod 'ZLPhotoBrowser'
-
+pod 'YYText'
 
 
 end
