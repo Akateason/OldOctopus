@@ -15,10 +15,14 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxUnknown,
     
     MarkdownSyntaxNewLine, // 换行
-    MarkdownSyntaxHeaders, // 标题
     
+    // 标题
+    MarkdownSyntaxHeaders,
+    
+    // 行内样式
     MarkdownSyntaxBold, // 粗体
     MarkdownSyntaxItalic, // 斜体
+    MarkdownSyntaxBoldItalic, // 粗体+斜体
     MarkdownSyntaxDeletions, // 删除线
     MarkdownSyntaxInlineCode, // 行内代码
     
@@ -42,7 +46,6 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
 @interface MarkdownModel : NSObject
 
 @property (nonatomic) NSRange range ; // 绝对定位 range
-@property (nonatomic) NSRange displayRange ; // 渲染range
 @property (nonatomic) MarkdownSyntaxType type ;
 @property (copy, nonatomic) NSString *str ;
 
@@ -69,12 +72,8 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
 
 #pragma mark -
 - (NSAttributedString *)parseText:(NSString *)text ;
-
-
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position ;
 + (NSString *)stringTitleOfModel:(MarkdownModel *)model ;
-
-
 @end
 
 NS_ASSUME_NONNULL_END
