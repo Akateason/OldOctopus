@@ -10,20 +10,22 @@
 
 @implementation MarkdownModel
 
-- (instancetype)initWithType:(enum MarkdownSyntaxType) type range:(NSRange) range {
+- (instancetype)initWithType:(MarkdownSyntaxType)type
+                       range:(NSRange)range
+                         str:(NSString *)str {
     self = [super init];
-    if (self == nil) {
-        return nil;
+    if (self) {
+        _type = type;
+        _range = range;
+        _str = str ;
     }
-    
-    self.type = type;
-    self.range = range;
-    
     return self;
 }
 
-+ (instancetype)modelWithType:(enum MarkdownSyntaxType) type range:(NSRange) range {
-    return [[self alloc] initWithType:type range:range];
++ (instancetype)modelWithType:(MarkdownSyntaxType)type
+                        range:(NSRange)range
+                          str:(NSString *)str {
+    return [[self alloc] initWithType:type range:range str:str] ;
 }
 
 @end

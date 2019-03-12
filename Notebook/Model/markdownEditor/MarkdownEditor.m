@@ -16,8 +16,8 @@ static const CGFloat kFlexValue = 30.f ;
 @interface MarkdownEditor () {
     BOOL fstTimeLoaded ;
 }
-@property(nonatomic, strong) MarkdownPaser *markdownPaser  ;
-
+@property (strong, nonatomic) MarkdownPaser *markdownPaser  ;
+@property (strong, nonatomic) UILabel *lbLeftCornerMarker ;
 @end
 
 @implementation MarkdownEditor
@@ -34,14 +34,21 @@ static const CGFloat kFlexValue = 30.f ;
     self.font = [UIFont systemFontOfSize:16.] ;
     self.contentInset = UIEdgeInsetsMake(0, kFlexValue, 0, kFlexValue) ;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(notificationDidTextChangeText:)
-                                                 name:UITextViewTextDidChangeNotification
-                                               object:nil];
+    @weakify(self)
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self updateSyntax] ;
+    }] ;
+    
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self.lbLeftCornerMarker removeFromSuperview] ;
+        self->_lbLeftCornerMarker = nil ;
+    }] ;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateSyntax] ;
     }) ;
-    
     
 //    [KOKeyboardRow applyToTextView:self];
 }
@@ -70,21 +77,14 @@ static const CGFloat kFlexValue = 30.f ;
     return self;
 }
 
-- (void)notificationDidTextChangeText:(id)sender {
-    [self updateSyntax];
-}
-
 - (void)updateSyntax {
     NSArray *models = [self.markdownPaser syntaxModelsForText:self.text];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
     [attributedString beginEditing] ;
-    [attributedString addAttributes:Md_defaultStyle()
-                              range:NSMakeRange(0, self.text.length)] ;
+    [attributedString addAttributes:self.markdownPaser.defaultStyle range:NSMakeRange(0, self.text.length)] ;
     
     for (MarkdownModel *model in models) {
-        [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type)
-                                  range:model.range] ;
-        
+        [attributedString addAttributes:[self.markdownPaser attributesFromMarkdownSyntaxModel:model] range:model.range] ;
     }
     [attributedString endEditing] ;
     
@@ -92,34 +92,43 @@ static const CGFloat kFlexValue = 30.f ;
         [self updateAttributedText:attributedString];
         
         if (!self->fstTimeLoaded) {
-            self.contentOffset = CGPointMake(-30, 0) ;
+            self.contentOffset = CGPointMake(- kFlexValue, 0) ;
             self->fstTimeLoaded = YES ;
         }
     }) ;
 }
 
 - (void)updateAttributedText:(NSAttributedString *) attributedString {
-    self.scrollEnabled = NO;
-    NSRange selectedRange = self.selectedRange;
-    self.attributedText = attributedString;
-    self.selectedRange = selectedRange;
-    self.scrollEnabled = YES;
+    self.scrollEnabled = NO ;
+    NSRange selectedRange = self.selectedRange ;
+    self.attributedText = attributedString ;
+    self.selectedRange = selectedRange ;
+    self.scrollEnabled = YES ;
 }
 
 #pragma mark -
 // 光标移动 和 选择
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
     [super setSelectedTextRange:selectedTextRange] ;
-    NSLog(@"%@",selectedTextRange) ;
+    NSLog(@"selectedTextRange %@",selectedTextRange) ;
     
     CGRect caretRect = [self caretRectForPosition:selectedTextRange.start];
     NSLog(@"caret rect %@", NSStringFromCGRect(caretRect)) ;
     
+    if (self.lbLeftCornerMarker.superview) {
+        [self.lbLeftCornerMarker removeFromSuperview] ;
+        _lbLeftCornerMarker = nil ;
+    }
     
+    self.lbLeftCornerMarker.text = [MarkdownPaser stringTitleOfModel:[self.markdownPaser modelForRangePosition:self.selectedRange.location]] ;    
     
+    [self addSubview:self.lbLeftCornerMarker] ;
+    [self.lbLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.superview).offset(3) ;
+        make.top.equalTo(@(caretRect.origin.y)) ;
+        make.size.mas_equalTo(CGSizeMake(kFlexValue, caretRect.size.height)) ;
+    }] ;
 }
-
-
 
 #pragma mark - props
 
@@ -128,6 +137,19 @@ static const CGFloat kFlexValue = 30.f ;
         _markdownPaser = [[MarkdownPaser alloc] init];
     }
     return _markdownPaser;
+}
+
+- (UILabel *)lbLeftCornerMarker{
+    if(!_lbLeftCornerMarker){
+        _lbLeftCornerMarker = ({
+            UILabel * object = [[UILabel alloc] init] ;
+            object.font = [UIFont systemFontOfSize:16] ;
+            object.textColor = [UIColor lightGrayColor] ;
+            object.textAlignment = NSTextAlignmentCenter ;
+            object;
+       });
+    }
+    return _lbLeftCornerMarker;
 }
 
 @end

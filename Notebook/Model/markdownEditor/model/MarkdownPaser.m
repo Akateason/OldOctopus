@@ -9,26 +9,38 @@
 #import "MarkdownPaser.h"
 #import "MarkdownModel.h"
 #import <UIKit/UIKit.h>
+#import <XTlib/XTlib.h>
 
 #define regexp(reg,option) [NSRegularExpression regularExpressionWithPattern:@reg options:option error:NULL]
 
-NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxType v) {
+@implementation MarkdownPaser
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _currentPaserResultList = @[] ;
+    }
+    return self;
+}
+
+- (UIFont *)defaultFont {
+    return [UIFont systemFontOfSize:16] ;
+}
+
+- (NSDictionary *)defaultStyle {
+    NSDictionary *resultDic = @{
+                                NSFontAttributeName : [self defaultFont],
+//                                NSParagraphStyleAttributeName : pParagraphStyle,
+                                };
+    return resultDic ;
+}
+
+- (NSRegularExpression *)getRegularExpressionFromMarkdownSyntaxType:(MarkdownSyntaxType)v {
     switch (v) {
         case MarkdownSyntaxUnknown:
             return nil;
-        case MarkdownSyntaxHeaders_h1:
-            return regexp("^ *(#) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxHeaders_h2:
-            return regexp("^ *(##) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxHeaders_h3:
-            return regexp("^ *(###) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxHeaders_h4:
-            return regexp("^ *(####) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxHeaders_h5:
-            return regexp("^ *(#####) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxHeaders_h6:
-            return regexp("^ *(######) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
-            
+        case MarkdownSyntaxHeaders:
+            return regexp("^ *(#{1,6}) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines);
             
         case MarkdownSyntaxLinks:
             return regexp("\\[([^\\[]+)\\]\\(([^\\)]+)\\)", 0);
@@ -52,56 +64,33 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
             return regexp("^[0-9]+\\.(.*)", NSRegularExpressionAnchorsMatchLines);
         case NumberOfMarkdownSyntax:
             break;
-            
-            
-        
-
     }
     return nil;
 }
 
-UIFont *defaultFont() {
-    return [UIFont systemFontOfSize:16] ;
-}
-
-NSDictionary *Md_defaultStyle() {
-//    NSMutableParagraphStyle* pParagraphStyle = [[NSMutableParagraphStyle alloc]init];
-//    pParagraphStyle.paragraphSpacing = 12;
-//    pParagraphStyle.paragraphSpacingBefore = 12;
-    NSDictionary *resultDic = @{
-                                NSFontAttributeName : defaultFont(),
-//                                NSParagraphStyleAttributeName : pParagraphStyle,
-                                };
-    return resultDic ;
-}
-
-NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
-    NSDictionary *resultDic = Md_defaultStyle() ;
-    UIFont *paragraphFont = defaultFont() ;
+- (NSDictionary *)attributesFromMarkdownSyntaxModel:(MarkdownModel *)model {
+    MarkdownSyntaxType v = model.type ;
+    NSDictionary *resultDic = [self defaultStyle] ;
+    UIFont *paragraphFont = [self defaultFont] ;
     
     switch (v) {
         case MarkdownSyntaxUnknown:
             break ;
-        case MarkdownSyntaxHeaders_h1:
-            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:32]};
+        case MarkdownSyntaxHeaders: {
+            NSString *prefix = [[model.str componentsSeparatedByString:@" "] firstObject] ;
+            NSUInteger numberOfmark = prefix.length ;
+            switch (numberOfmark) {
+                case 1: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:32]}; break;
+                case 2: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:24]}; break;
+                case 3: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]}; break;
+                case 4: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:16]}; break;
+                case 5: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:14]}; break;
+                case 6: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:12]}; break;
+                default: break;
+            }
+        }
             break ;
-        case MarkdownSyntaxHeaders_h2:
-            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:24]};
-            break ;
-        case MarkdownSyntaxHeaders_h3:
-            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]};
-            break ;
-        case MarkdownSyntaxHeaders_h4:
-            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:16]};
-            break ;
-        case MarkdownSyntaxHeaders_h5:
-            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:14]};
-            break ;
-        case MarkdownSyntaxHeaders_h6:
-            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:12]};
-            break ;
-            
-            
+        
         case MarkdownSyntaxLinks:
             resultDic = @{NSForegroundColorAttributeName : [UIColor blueColor],
                           NSFontAttributeName : paragraphFont
@@ -164,21 +153,59 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
 }
 
 
-
-@implementation MarkdownPaser
-
-- (NSArray *)syntaxModelsForText:(NSString *) text {
-    NSMutableArray *markdownSyntaxModels = [NSMutableArray array];
+- (NSArray *)syntaxModelsForText:(NSString *)text {
+    NSMutableArray *markdownSyntaxModels = [@[] mutableCopy] ;
+    
     for (MarkdownSyntaxType i = MarkdownSyntaxUnknown; i < NumberOfMarkdownSyntax; i++) {
-        NSRegularExpression *expression = NSRegularExpressionFromMarkdownSyntaxType(i);
-        NSArray *matches = [expression matchesInString:text
-                                               options:0
-                                                 range:NSMakeRange(0, [text length])];
+        NSRegularExpression *expression = [self getRegularExpressionFromMarkdownSyntaxType:i] ;
+        NSArray *matches = [expression matchesInString:text options:0 range:NSMakeRange(0, [text length])] ;
         for (NSTextCheckingResult *result in matches) {
-            [markdownSyntaxModels addObject:[MarkdownModel modelWithType:i range:result.range]];
+            MarkdownModel *model = [MarkdownModel modelWithType:i range:result.range str:[text substringWithRange:result.range]] ;
+            [markdownSyntaxModels addObject:model] ;
         }
     }
+    self.currentPaserResultList = markdownSyntaxModels ;
     return markdownSyntaxModels;
+}
+
+- (MarkdownModel *)modelForRangePosition:(NSUInteger)position {
+    NSArray *list = self.currentPaserResultList ;
+    for (int i = 0; i < list.count; i++) {
+        MarkdownModel *model = list[i] ;
+        BOOL isInRange = NSLocationInRange(position, model.range) ;
+                
+        if (isInRange) {
+            return model ;
+        }
+    }
+    return nil ;
+}
+
++ (NSString *)stringTitleOfModel:(MarkdownModel *)model {
+    NSString *str = @"" ;
+    
+    switch (model.type) {
+        case MarkdownSyntaxHeaders: {
+            NSString *prefix = [[model.str componentsSeparatedByString:@" "] firstObject] ;
+            NSUInteger numberOfmark = prefix.length ;
+            str = STR_FORMAT(@"H%lu",(unsigned long)numberOfmark) ;
+        }  break ;
+        case MarkdownSyntaxLinks: str = @"link" ; break ;
+        case MarkdownSyntaxBold: str = @"B" ; break ;
+        case MarkdownSyntaxEmphasis: str = @"B" ; break ;
+        case MarkdownSyntaxDeletions: str = @"D" ; break ;
+        case MarkdownSyntaxQuotes: str = @"q" ; break ;
+        case MarkdownSyntaxInlineCode: str = @"inline code" ; break ;
+        case MarkdownSyntaxCodeBlock: str = @"code block" ; break ;
+        case MarkdownSyntaxBlockquotes: str = @"block quotes" ; break ;
+        
+        case MarkdownSyntaxULLists: str = @"ul" ; break ;
+        case MarkdownSyntaxOLLists: str = @"ol" ; break ;
+        
+        
+        default: break;
+    }
+    return str ;
 }
 
 @end

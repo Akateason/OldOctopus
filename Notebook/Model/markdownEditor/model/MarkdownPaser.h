@@ -8,16 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import "MarkdownModel.h"
-
-extern NSRegularExpression* NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxType v);
-extern NSDictionary* AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v);
-extern NSDictionary* Md_defaultStyle(void) ;
-
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownPaser : NSObject
-- (NSArray *)syntaxModelsForText:(NSString *) text;
+@property (copy, nonatomic) NSArray *currentPaserResultList ;
+
+- (UIFont *)defaultFont ;
+- (NSDictionary *)defaultStyle ;
+- (NSRegularExpression *)getRegularExpressionFromMarkdownSyntaxType:(MarkdownSyntaxType)v ;
+- (NSDictionary *)attributesFromMarkdownSyntaxModel:(MarkdownModel *)model ;
+
+
+- (NSArray *)syntaxModelsForText:(NSString *)text ;
+- (MarkdownModel *)modelForRangePosition:(NSUInteger)position ;
++ (NSString *)stringTitleOfModel:(MarkdownModel *)model ;
 
 @end
 

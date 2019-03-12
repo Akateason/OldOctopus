@@ -14,14 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxUnknown,
     
-    MarkdownSyntaxHeaders_h1,
-    MarkdownSyntaxHeaders_h2,
-    MarkdownSyntaxHeaders_h3,
-    MarkdownSyntaxHeaders_h4,
-    MarkdownSyntaxHeaders_h5,
-    MarkdownSyntaxHeaders_h6,
-    
-    
+    MarkdownSyntaxHeaders,
     MarkdownSyntaxLinks,
     MarkdownSyntaxBold,
     MarkdownSyntaxEmphasis,
@@ -42,14 +35,17 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
 
 
 @interface MarkdownModel : NSObject
-@property(nonatomic) NSRange range;
-@property(nonatomic) MarkdownSyntaxType type;
+@property (nonatomic) NSRange range;
+@property (nonatomic) MarkdownSyntaxType type;
+@property (copy, nonatomic) NSString *str ;
 
-- (instancetype)initWithType:(enum MarkdownSyntaxType)type
-                       range:(NSRange) range;
+- (instancetype)initWithType:(MarkdownSyntaxType)type
+                       range:(NSRange)range
+                         str:(NSString *)str ;
 
-+ (instancetype)modelWithType:(enum MarkdownSyntaxType)type
-                        range:(NSRange) range;
++ (instancetype)modelWithType:(MarkdownSyntaxType)type
+                        range:(NSRange)range
+                          str:(NSString *)str ;
 @end
 
 NS_ASSUME_NONNULL_END
