@@ -20,7 +20,6 @@
 		8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679DFB2232436B008DE1BC /* MarkdownVC.m */; };
 		8F679E00223243B2008DE1BC /* MarkdownEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679DFF223243B2008DE1BC /* MarkdownEditor.m */; };
 		8F679E0322324631008DE1BC /* MarkdownPaser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E0222324631008DE1BC /* MarkdownPaser.m */; };
-		8F679E072232469C008DE1BC /* MarkdownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E062232469C008DE1BC /* MarkdownModel.m */; };
 		8F679E0C22329376008DE1BC /* MDPreviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E0B22329376008DE1BC /* MDPreviewVC.m */; };
 		8F679E10223614FC008DE1BC /* YYTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E0F223614FC008DE1BC /* YYTextVC.m */; };
 		8F679E1222363EB7008DE1BC /* zample.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F679E1122363EB7008DE1BC /* zample.md */; };
@@ -80,8 +79,6 @@
 		8F679DFF223243B2008DE1BC /* MarkdownEditor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownEditor.m; sourceTree = "<group>"; };
 		8F679E0122324631008DE1BC /* MarkdownPaser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownPaser.h; sourceTree = "<group>"; };
 		8F679E0222324631008DE1BC /* MarkdownPaser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownPaser.m; sourceTree = "<group>"; };
-		8F679E052232469C008DE1BC /* MarkdownModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownModel.h; sourceTree = "<group>"; };
-		8F679E062232469C008DE1BC /* MarkdownModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownModel.m; sourceTree = "<group>"; };
 		8F679E0A22329376008DE1BC /* MDPreviewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDPreviewVC.h; sourceTree = "<group>"; };
 		8F679E0B22329376008DE1BC /* MDPreviewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDPreviewVC.m; sourceTree = "<group>"; };
 		8F679E0E223614FC008DE1BC /* YYTextVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextVC.h; sourceTree = "<group>"; };
@@ -256,8 +253,6 @@
 			children = (
 				8F679E0122324631008DE1BC /* MarkdownPaser.h */,
 				8F679E0222324631008DE1BC /* MarkdownPaser.m */,
-				8F679E052232469C008DE1BC /* MarkdownModel.h */,
-				8F679E062232469C008DE1BC /* MarkdownModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -566,7 +561,6 @@
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */,
 				8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */,
-				8F679E072232469C008DE1BC /* MarkdownModel.m in Sources */,
 				8F679E00223243B2008DE1BC /* MarkdownEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

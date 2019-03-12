@@ -7,23 +7,73 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MarkdownModel.h"
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
+    MarkdownSyntaxUnknown,
+    
+    MarkdownSyntaxNewLine, // 换行
+    MarkdownSyntaxHeaders, // 标题
+    
+    MarkdownSyntaxBold, // 粗体
+    MarkdownSyntaxItalic, // 斜体
+    MarkdownSyntaxDeletions, // 删除线
+    MarkdownSyntaxInlineCode, // 行内代码
+    
+    
+    
+    MarkdownSyntaxLinks, // 链接
+    MarkdownSyntaxQuotes,
+    MarkdownSyntaxCodeBlock,
+    MarkdownSyntaxBlockquotes,
+    MarkdownSyntaxULLists,
+    MarkdownSyntaxOLLists,
+    
+    
+    NumberOfMarkdownSyntax
+};
+
+
+
+@class MarkdownPaser ;
+
+@interface MarkdownModel : NSObject
+
+@property (nonatomic) NSRange range ; // 绝对定位 range
+@property (nonatomic) NSRange displayRange ; // 渲染range
+@property (nonatomic) MarkdownSyntaxType type ;
+@property (copy, nonatomic) NSString *str ;
+
+- (instancetype)initWithType:(MarkdownSyntaxType)type
+                       range:(NSRange)range
+                         str:(NSString *)str ;
+
++ (instancetype)modelWithType:(MarkdownSyntaxType)type
+                        range:(NSRange)range
+                          str:(NSString *)str ;
+@end
+
+
+
+
+
+
+
+
 @interface MarkdownPaser : NSObject
 @property (copy, nonatomic) NSArray *currentPaserResultList ;
 
-- (UIFont *)defaultFont ;
-- (NSDictionary *)defaultStyle ;
-- (NSRegularExpression *)getRegularExpressionFromMarkdownSyntaxType:(MarkdownSyntaxType)v ;
-- (NSDictionary *)attributesFromMarkdownSyntaxModel:(MarkdownModel *)model ;
 
 
-- (NSArray *)syntaxModelsForText:(NSString *)text ;
+#pragma mark -
+- (NSAttributedString *)parseText:(NSString *)text ;
+
+
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position ;
 + (NSString *)stringTitleOfModel:(MarkdownModel *)model ;
+
 
 @end
 

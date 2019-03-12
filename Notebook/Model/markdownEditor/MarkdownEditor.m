@@ -38,6 +38,7 @@ static const CGFloat kFlexValue = 30.f ;
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self updateSyntax] ;
+        [self makeLeftDisplayLabel] ;
     }] ;
     
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
@@ -78,15 +79,7 @@ static const CGFloat kFlexValue = 30.f ;
 }
 
 - (void)updateSyntax {
-    NSArray *models = [self.markdownPaser syntaxModelsForText:self.text];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
-    [attributedString beginEditing] ;
-    [attributedString addAttributes:self.markdownPaser.defaultStyle range:NSMakeRange(0, self.text.length)] ;
-    
-    for (MarkdownModel *model in models) {
-        [attributedString addAttributes:[self.markdownPaser attributesFromMarkdownSyntaxModel:model] range:model.range] ;
-    }
-    [attributedString endEditing] ;
+    NSAttributedString *attributedString = [self.markdownPaser parseText:self.text] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateAttributedText:attributedString];
@@ -106,21 +99,16 @@ static const CGFloat kFlexValue = 30.f ;
     self.scrollEnabled = YES ;
 }
 
-#pragma mark -
-// 光标移动 和 选择
-- (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
-    [super setSelectedTextRange:selectedTextRange] ;
-    NSLog(@"selectedTextRange %@",selectedTextRange) ;
-    
-    CGRect caretRect = [self caretRectForPosition:selectedTextRange.start];
+- (void)makeLeftDisplayLabel {
+    CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start];
     NSLog(@"caret rect %@", NSStringFromCGRect(caretRect)) ;
-    
+
     if (self.lbLeftCornerMarker.superview) {
         [self.lbLeftCornerMarker removeFromSuperview] ;
         _lbLeftCornerMarker = nil ;
     }
     
-    self.lbLeftCornerMarker.text = [MarkdownPaser stringTitleOfModel:[self.markdownPaser modelForRangePosition:self.selectedRange.location]] ;    
+    self.lbLeftCornerMarker.text = [MarkdownPaser stringTitleOfModel:[self.markdownPaser modelForRangePosition:self.selectedRange.location]] ;
     
     [self addSubview:self.lbLeftCornerMarker] ;
     [self.lbLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -129,6 +117,18 @@ static const CGFloat kFlexValue = 30.f ;
         make.size.mas_equalTo(CGSizeMake(kFlexValue, caretRect.size.height)) ;
     }] ;
 }
+
+#pragma mark - rewrite
+// 光标移动 和 选择
+- (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
+    [super setSelectedTextRange:selectedTextRange] ;
+    
+    NSLog(@"selectedTextRange %@",selectedTextRange) ;
+    
+    [self makeLeftDisplayLabel] ;
+}
+
+
 
 #pragma mark - props
 
