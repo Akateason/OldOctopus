@@ -7,51 +7,24 @@
 //
 
 #import "MarkdownEditor.h"
-#import "MarkdownPaser.h"
+#import "MDThemeConfiguration.h"
 #import <XTlib/XTlib.h>
-
 
 static const CGFloat kFlexValue = 30.f ;
 
 @interface MarkdownEditor () {
     BOOL fstTimeLoaded ;
 }
-@property (strong, nonatomic) MarkdownPaser *markdownPaser  ;
+
 @property (strong, nonatomic) UILabel *lbLeftCornerMarker ;
 @end
 
 @implementation MarkdownEditor
 
-#pragma mark -
+#pragma mark - life
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)setup {
-//    self.delegate = self ;
-    
-    self.font = [UIFont systemFontOfSize:16.] ;
-    self.contentInset = UIEdgeInsetsMake(0, kFlexValue, 0, kFlexValue) ;
-    
-    @weakify(self)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        [self updateSyntax] ;
-        [self makeLeftDisplayLabel] ;
-    }] ;
-    
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        [self.lbLeftCornerMarker removeFromSuperview] ;
-        self->_lbLeftCornerMarker = nil ;
-    }] ;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateSyntax] ;
-    }) ;
-    
-//    [KOKeyboardRow applyToTextView:self];
 }
 
 - (id)initWithCoder:(NSCoder *) coder {
@@ -78,9 +51,33 @@ static const CGFloat kFlexValue = 30.f ;
     return self;
 }
 
+- (void)setup {
+    self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.fontSize] ;
+    self.contentInset = UIEdgeInsetsMake(0, kFlexValue, 0, kFlexValue) ;
+    
+    @weakify(self)
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self updateSyntax] ;
+        [self makeLeftDisplayLabel] ;
+    }] ;
+    
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self.lbLeftCornerMarker removeFromSuperview] ;
+        self->_lbLeftCornerMarker = nil ;
+    }] ;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateSyntax] ;
+    }) ;
+    
+}
+
+#pragma mark - func
+
 - (void)updateSyntax {
     NSAttributedString *attributedString = [self.markdownPaser parseText:self.text] ;
-    
     [self updateAttributedText:attributedString];
     
     if (!self->fstTimeLoaded) {
@@ -117,6 +114,7 @@ static const CGFloat kFlexValue = 30.f ;
 }
 
 #pragma mark - rewrite
+
 // 光标移动 和 选择
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
     [super setSelectedTextRange:selectedTextRange] ;
@@ -132,7 +130,8 @@ static const CGFloat kFlexValue = 30.f ;
 
 - (MarkdownPaser *)markdownPaser {
     if (_markdownPaser == nil) {
-        _markdownPaser = [[MarkdownPaser alloc] init];
+        MDThemeConfiguration *config = [MDThemeConfiguration new] ;
+        _markdownPaser = [[MarkdownPaser alloc] initWithConfig:config] ;
     }
     return _markdownPaser;
 }

@@ -14,16 +14,9 @@
 typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxUnknown,
     
-    MarkdownSyntaxNewLine, // 换行
-    
-    MarkdownSyntaxCode, // 代码缩进格式
-    MarkdownSyntaxHr, // 分割线
-    MarkdownSyntaxDef,
-    
     // 标题
     MarkdownSyntaxHeaders, // h1-h6
-    MarkdownSyntaxLHeader, // line header  ==== 上面一行
-    
+    MarkdownSyntaxLHeader, // line header  ====的上面一行
     
     // 行内样式
     MarkdownSyntaxBold, // 粗体
@@ -43,12 +36,16 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     // block
     MarkdownSyntaxBlockquotes, // 块引用
     MarkdownSyntaxCodeBlock, // 代码块
+    MarkdownSyntaxHr, // 分割线
     
     // other
-    MarkdownSyntaxParagraph, // 段落 ?
+    MarkdownSyntaxNewLine, // 换行
+    MarkdownSyntaxCode, // 代码缩进格式
+    MarkdownSyntaxDef,
+    MarkdownSyntaxParagraph,
     MarkdownSyntaxText,
     MarkdownSyntaxFrontMatter,
-    MarkdownSyntaxMultipleMath,
+    MarkdownSyntaxMultipleMath, //  数学
     
     NumberOfMarkdownSyntax // count
 };
