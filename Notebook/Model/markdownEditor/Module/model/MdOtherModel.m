@@ -11,7 +11,14 @@
 @implementation MdOtherModel
 
 - (NSString *)displayStringForLeftLabel {
-    return [super displayStringForLeftLabel] ;
+    NSString *str = [super displayStringForLeftLabel] ;
+    
+    switch (self.type) {
+        case MarkdownSyntaxMultipleMath: str = @"数学"; break;
+        
+        default: break;
+    }
+    return str ;
 }
 
 - (NSMutableAttributedString *)addForAttributeString:(NSMutableAttributedString *)attributedString

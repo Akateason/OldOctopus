@@ -76,7 +76,6 @@ static const CGFloat kFlexValue = 30.f ;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateSyntax] ;
     }) ;
-    
 }
 
 #pragma mark - func
@@ -101,14 +100,16 @@ static const CGFloat kFlexValue = 30.f ;
 
 - (void)makeLeftDisplayLabel {
     CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start];
-    NSLog(@"caret rect %@", NSStringFromCGRect(caretRect)) ;
-
+//    NSLog(@"caret rect %@", NSStringFromCGRect(caretRect)) ;
+    
     if (self.lbLeftCornerMarker.superview) {
         [self.lbLeftCornerMarker removeFromSuperview] ;
         _lbLeftCornerMarker = nil ;
     }
     
-    self.lbLeftCornerMarker.text = [MarkdownPaser stringTitleOfModel:[self.markdownPaser modelForRangePosition:self.selectedRange.location]] ;
+    MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
+    self.lbLeftCornerMarker.text = [MarkdownPaser stringTitleOfModel:model] ;
+    NSLog(@"choose model : %@",[model yy_modelToJSONString]) ;
     
     [self addSubview:self.lbLeftCornerMarker] ;
     [self.lbLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -125,7 +126,6 @@ static const CGFloat kFlexValue = 30.f ;
     [super setSelectedTextRange:selectedTextRange] ;
     
     NSLog(@"selectedTextRange %@",selectedTextRange) ;
-    
     [self makeLeftDisplayLabel] ;
 }
 

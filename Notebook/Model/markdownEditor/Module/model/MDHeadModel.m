@@ -21,7 +21,7 @@
             if (![self.str containsString:@" "] || numberOfmark > 6) str = @"" ;
         }
             break;
-        case MarkdownSyntaxLHeader: str = @"H1"; break ;
+//        case MarkdownSyntaxLHeader: str = @"H1"; break ;
             
         default: break;
     }
@@ -56,14 +56,14 @@
             [attributedString addAttributes:configuration.markStyle range:markRange] ;
         }
             break;
-        case MarkdownSyntaxLHeader: {
+//        case MarkdownSyntaxLHeader: {
 //            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:32]} ;
 //            [attributedString addAttributes:resultDic range:self.range] ;
 //
 //            NSString *nail = [[self.str componentsSeparatedByString:@"\n"] lastObject] ;
 //            NSRange markRange = NSMakeRange(location + length - nail.length, nail.length) ;
 //            [attributedString addAttributes:configuration.markStyle range:markRange] ;
-        }
+//        }
             
         default:
             break;

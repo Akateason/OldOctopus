@@ -40,8 +40,8 @@
             
         case MarkdownSyntaxHeaders:
             return regexp(MDPR_heading, NSRegularExpressionAnchorsMatchLines) ;
-        case MarkdownSyntaxLHeader:
-            return regexp(MDPR_lheading, NSRegularExpressionAnchorsMatchLines) ;
+//        case MarkdownSyntaxLHeader:
+//            return regexp(MDPR_lheading, NSRegularExpressionAnchorsMatchLines) ;
             
         case MarkdownSyntaxBold:
             return regexp("(?<!\\*)\\*{2}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{2}(?!\\*)", 0);
@@ -80,12 +80,12 @@
             return regexp(MDPR_code, NSRegularExpressionAnchorsMatchLines) ;
         case MarkdownSyntaxDef:
             return regexp(MDPR_def, NSRegularExpressionAnchorsMatchLines) ;
-        case MarkdownSyntaxParagraph:
-            return regexp(MDPR_paragraph, NSRegularExpressionAnchorsMatchLines) ;
-        case MarkdownSyntaxText:
-            return regexp(MDPR_text, NSRegularExpressionAnchorsMatchLines) ;
-        case MarkdownSyntaxFrontMatter:
-            return regexp(MDPR_frontmatter, NSRegularExpressionAnchorsMatchLines) ;
+//        case MarkdownSyntaxParagraph:
+//            return regexp(MDPR_paragraph, NSRegularExpressionAnchorsMatchLines) ;
+//        case MarkdownSyntaxText:
+//            return regexp(MDPR_text, NSRegularExpressionAnchorsMatchLines) ;
+//        case MarkdownSyntaxFrontMatter:
+//            return regexp(MDPR_frontmatter, NSRegularExpressionAnchorsMatchLines) ;
         case MarkdownSyntaxMultipleMath:
             return regexp(MDPR_multiplemath, NSRegularExpressionAnchorsMatchLines) ;
             
@@ -103,8 +103,8 @@
         for (NSTextCheckingResult *result in matches) {
             id model = nil ;
             switch (i) {
-                case MarkdownSyntaxHeaders:
-                case MarkdownSyntaxLHeader: {
+                case MarkdownSyntaxHeaders: {
+                //case MarkdownSyntaxLHeader:
                     model = [MDHeadModel modelWithType:i range:result.range str:[text substringWithRange:result.range]] ;
                 }
                     break;
@@ -164,7 +164,7 @@
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
         BOOL isInRange = NSLocationInRange(position, model.range) ;
-                
+        
         if (isInRange) {
             return model ;
         }
@@ -193,6 +193,5 @@
 - (NSMutableAttributedString *)makeAttributeString:(NSMutableAttributedString *)attributedString model:(MarkdownModel *)model {
     return [model addForAttributeString:attributedString config:self.configuration] ;
 }
-
 
 @end

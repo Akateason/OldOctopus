@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     
     // 标题
     MarkdownSyntaxHeaders, // h1-h6
-    MarkdownSyntaxLHeader, // line header  ====的上面一行
+//    MarkdownSyntaxLHeader, // line header  ====的上面一行
     
     // 行内样式
     MarkdownSyntaxBold, // 粗体
@@ -48,17 +48,16 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxMultipleMath, //  数学
     
     NumberOfMarkdownSyntax // count
-};
+} ;
 
 
 #define MDPR_newline            "^\\n+"
 #define MDPR_code               "^( {4}[^\\n]+\\n*)+"
-#define MDPR_hr                 "^( *[-*_]){3,}"    //"^( *[-*_]){3,} *(?:\\n+|$)"
+#define MDPR_hr                 "^( *[-*_]){3,} *(?:\\n)"
 #define MDPR_heading            "^ *(#{1,6}) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)"
 #define MDPR_lheading           "^([^\\n]+)\\n *(=|-){2,} *(?:\\n+|$)"
 
 #define MDPR_blockquote         "^( {0,3}> ?(^([^\\n]+(?:\\n?(?!^( *[-*_]){3,} *(?:\\n+|$)|^ *(#{1,6}) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)|^([^\\n]+)\\n *(=|-){2,} *(?:\\n+|$)| {0,3}>)[^\\n]+)+)|[^\\n]*)(?:\\n|$))+"
-
 
 #define MDPR_tasklist           "^( *)([*+-] \\[(?:X|x|\\s)\\]) [\\s\\S]+?(?:^( *[-*_]){3,} *(?:\\n+|$)|^ {0,3}\\[([^\\]]+)\\]: *<?([^\\s>]+)>?(?: +['(]([^\\n]+)[')])? *(?:\\n+|$)|\\n{2,}(?! )(?!\\1(?:[*+-] \\[(?:X|x|\\s)\\]))\\n*|\\s*$)"
 #define MDPR_orderlist          "^( *)(\\d+\\.) [\\s\\S]+?(?:^( *[-*_]){3,} *(?:\\n+|$)|^ {0,3}\\[([^\\]]+)\\]: *<?([^\\s>]+)>?(?: +['(]([^\\n]+)[')])? *(?:\\n+|$)|\\n{2,}(?! )(?!\\1\\d+\\. )\\n*|\\s*$)"
