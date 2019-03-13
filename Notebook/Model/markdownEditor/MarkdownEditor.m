@@ -141,7 +141,8 @@ static const CGFloat kFlexValue = 30.f ;
     if(!_lbLeftCornerMarker){
         _lbLeftCornerMarker = ({
             UILabel * object = [[UILabel alloc] init] ;
-            object.font = [UIFont systemFontOfSize:16] ;
+            object.font = [UIFont systemFontOfSize:14] ;
+            object.numberOfLines = 0 ;
             object.textColor = [UIColor lightGrayColor] ;
             object.textAlignment = NSTextAlignmentCenter ;
             object;

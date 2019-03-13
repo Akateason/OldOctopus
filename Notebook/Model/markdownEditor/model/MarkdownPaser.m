@@ -183,6 +183,9 @@ static int kDefaultFontSize = 16 ;
     NSString *str = @"" ;
     
     switch (model.type) {
+        case MarkdownSyntaxCode: str = @"缩进"; break ;
+        case MarkdownSyntaxHr: str = @"分割线"; break ;
+            
         case MarkdownSyntaxHeaders: {
             NSString *prefix = [[model.str componentsSeparatedByString:@" "] firstObject] ;
             NSUInteger numberOfmark = [NSString rangesOfString:prefix referString:@"#"].count ;
@@ -190,22 +193,21 @@ static int kDefaultFontSize = 16 ;
             if (![model.str containsString:@" "] || numberOfmark > 6) str = @"" ;
             
         }  break ;
+        case MarkdownSyntaxLHeader: str = @"H1"; break ;
+            
         case MarkdownSyntaxBold: str = @"B" ; break ;
         case MarkdownSyntaxItalic: str = @"I" ; break ;
         case MarkdownSyntaxBoldItalic: str = @"BI" ; break ;
         case MarkdownSyntaxDeletions: str = @"D" ; break ;
-        case MarkdownSyntaxInlineCode: str = @"inline code" ; break ;
-            
-        case MarkdownSyntaxLinks: str = @"link" ; break ;
+        case MarkdownSyntaxInlineCode: str = @"行内代码" ; break ;
+        case MarkdownSyntaxLinks: str = @"链接" ; break ;
         
         case MarkdownSyntaxTaskLists: str = @"tl" ; break ;
         case MarkdownSyntaxULLists: str = @"ul" ; break ;
         case MarkdownSyntaxOLLists: str = @"ol" ; break ;
             
-        case MarkdownSyntaxCodeBlock: str = @"code block" ; break ;
-        case MarkdownSyntaxBlockquotes: str = @"block quotes" ; break ;
-        
-        
+        case MarkdownSyntaxBlockquotes: str = @"引用" ; break ;
+        case MarkdownSyntaxCodeBlock: str = @"代码块" ; break ;
         
         default: break ;
     }
