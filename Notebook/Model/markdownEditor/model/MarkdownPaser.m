@@ -38,7 +38,6 @@
 
 
 
-#define regexp(reg,option)      [NSRegularExpression regularExpressionWithPattern:@reg options:option error:NULL]
 
 static int kDefaultFontSize = 16 ;
 
@@ -93,14 +92,22 @@ static int kDefaultFontSize = 16 ;
     switch (type) {
         case MarkdownSyntaxUnknown:
             return nil;
-        case MarkdownSyntaxNewLine:
-            return regexp("^\\n+", NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxHeaders:
-            return regexp("^ *(#{1,6}) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)", NSRegularExpressionAnchorsMatchLines); //(#{1,6})\s*(.*?)\s*$
-//^ *(#{1,6}) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)
-        
             
-        
+        case MarkdownSyntaxNewLine:
+            return regexp(MDPR_newline, NSRegularExpressionAnchorsMatchLines);
+            
+        case MarkdownSyntaxCode:
+            return regexp(MDPR_code, NSRegularExpressionAnchorsMatchLines) ;
+        case MarkdownSyntaxHr:
+            return regexp(MDPR_hr, NSRegularExpressionAnchorsMatchLines) ;
+        case MarkdownSyntaxDef:
+            return regexp(MDPR_def, NSRegularExpressionAnchorsMatchLines) ;
+            
+        case MarkdownSyntaxHeaders:
+            return regexp(MDPR_heading, NSRegularExpressionAnchorsMatchLines) ;
+        case MarkdownSyntaxLHeader:
+            return regexp(MDPR_lheading, NSRegularExpressionAnchorsMatchLines) ;
+            
         case MarkdownSyntaxBold:
             return regexp("(?<!\\*)\\*{2}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{2}(?!\\*)", 0);
         case MarkdownSyntaxItalic:
@@ -111,22 +118,34 @@ static int kDefaultFontSize = 16 ;
             return regexp("\\~\\~(.*?)\\~\\~", 0);
         case MarkdownSyntaxInlineCode:
             return regexp("`(.*?)`", 0);
-            
-            
         case MarkdownSyntaxLinks:
             return regexp("\\[([^\\[]+)\\]\\(([^\\)]+)\\)", 0);
-        case MarkdownSyntaxQuotes:
-            return regexp("\\:\\\"(.*?)\\\"\\:", 0);
-        
-        case MarkdownSyntaxCodeBlock:
-            return regexp("```([\\s\\S]*?)```", 0);
-        case MarkdownSyntaxBlockquotes:
-            return regexp("\n(&gt;|\\>)(.*)",0);
-        case MarkdownSyntaxULLists:
-            return regexp("^( *)([*+-]) [\\s\\S]+?(?:hr|def|\\n{2,}(?! )(?!\\1[*+-] )\\n*|\\s*$)", NSRegularExpressionAnchorsMatchLines);
+            
+        case MarkdownSyntaxTaskLists:
+            return regexp(MDPR_tasklist, NSRegularExpressionAnchorsMatchLines) ;
         case MarkdownSyntaxOLLists:
-            return regexp("^[0-9]+\\.(.*)", NSRegularExpressionAnchorsMatchLines);
-        
+            return regexp(MDPR_orderlist, NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxULLists:
+            return regexp(MDPR_bulletlist, NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxTaskList_Checkbox:
+            return regexp(MDPR_checkbox, NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxULLists_Bullet:
+            return regexp(MDPR_bullet, NSRegularExpressionAnchorsMatchLines);
+            
+        case MarkdownSyntaxBlockquotes:
+            return regexp(MDPR_blockquote,NSRegularExpressionAnchorsMatchLines); // "(&gt;|\\>)(.*)"
+        case MarkdownSyntaxCodeBlock:
+            return regexp("```([\\s\\S]*?)```[\\s]?",NSRegularExpressionAnchorsMatchLines);
+            
+        case MarkdownSyntaxParagraph:
+            return regexp(MDPR_paragraph, NSRegularExpressionAnchorsMatchLines) ;
+        case MarkdownSyntaxText:
+            return regexp(MDPR_text, NSRegularExpressionAnchorsMatchLines) ;
+        case MarkdownSyntaxFrontMatter:
+            return regexp(MDPR_frontmatter, NSRegularExpressionAnchorsMatchLines) ;
+        case MarkdownSyntaxMultipleMath:
+            return regexp(MDPR_multiplemath, NSRegularExpressionAnchorsMatchLines) ;
+            
         case NumberOfMarkdownSyntax: break ;
     }
     return nil;
@@ -178,12 +197,15 @@ static int kDefaultFontSize = 16 ;
         case MarkdownSyntaxInlineCode: str = @"inline code" ; break ;
             
         case MarkdownSyntaxLinks: str = @"link" ; break ;
-        case MarkdownSyntaxQuotes: str = @"q" ; break ;
+        
+        case MarkdownSyntaxTaskLists: str = @"tl" ; break ;
+        case MarkdownSyntaxULLists: str = @"ul" ; break ;
+        case MarkdownSyntaxOLLists: str = @"ol" ; break ;
+            
         case MarkdownSyntaxCodeBlock: str = @"code block" ; break ;
         case MarkdownSyntaxBlockquotes: str = @"block quotes" ; break ;
         
-        case MarkdownSyntaxULLists: str = @"ul" ; break ;
-        case MarkdownSyntaxOLLists: str = @"ol" ; break ;
+        
         
         default: break ;
     }
@@ -217,6 +239,15 @@ static int kDefaultFontSize = 16 ;
         case MarkdownSyntaxUnknown: break ;
             
         case MarkdownSyntaxNewLine: break ;
+            
+        case MarkdownSyntaxCode: break ;
+        case MarkdownSyntaxHr: { // 分割线 ___
+            
+        }
+            break ;
+        case MarkdownSyntaxDef: break ; // 未知
+            
+        // header
         case MarkdownSyntaxHeaders: {
             NSString *prefix = [[model.str componentsSeparatedByString:@" "] firstObject] ;
             NSUInteger numberOfmark = prefix.length ;
@@ -231,13 +262,21 @@ static int kDefaultFontSize = 16 ;
             }
             [attributedString addAttributes:resultDic range:model.range] ;
             
-            // mark color
             NSRange markRange = NSMakeRange(location, numberOfmark) ;
             [attributedString addAttributes:[self defaultMarkStyle] range:markRange] ;
         }
             break ;
+        case MarkdownSyntaxLHeader: {
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:32]} ;
+            [attributedString addAttributes:resultDic range:model.range] ;
             
-        //
+            NSString *nail = [[model.str componentsSeparatedByString:@"\n"] lastObject] ;
+            NSRange markRange = NSMakeRange(location + length - nail.length, nail.length) ;
+            [attributedString addAttributes:[self defaultMarkStyle] range:markRange] ;
+        }
+            break ;
+            
+        // inline
         case MarkdownSyntaxBold: {
             [attributedString addAttributes:[self defaultMarkStyle] range:NSMakeRange(location, 2)] ;
             [attributedString addAttributes:[self defaultMarkStyle] range:NSMakeRange(location + length - 2, 2)] ;
@@ -282,9 +321,6 @@ static int kDefaultFontSize = 16 ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
             break ;
-            
-            
-            
         case MarkdownSyntaxLinks: {
             resultDic = @{NSForegroundColorAttributeName : [UIColor blueColor],
                           NSFontAttributeName : paragraphFont
@@ -293,46 +329,61 @@ static int kDefaultFontSize = 16 ;
         }
             break ;
             
-        case MarkdownSyntaxQuotes: {
-            resultDic = @{NSForegroundColorAttributeName : [UIColor lightGrayColor],
-                          NSFontAttributeName : paragraphFont
+        // 列表
+        case MarkdownSyntaxOLLists: {
+            resultDic = @{NSFontAttributeName : paragraphFont} ;
+            [attributedString addAttributes:resultDic range:model.range] ;
+        }
+            break ;
+        case MarkdownSyntaxTaskLists: {
+            resultDic = @{NSFontAttributeName : paragraphFont} ;
+            [attributedString addAttributes:resultDic range:model.range] ;
+        }
+            break ;
+        case MarkdownSyntaxULLists: {
+            resultDic = @{NSFontAttributeName : paragraphFont} ;
+            [attributedString addAttributes:resultDic range:model.range] ;
+        }
+            break ;
+        case MarkdownSyntaxTaskList_Checkbox: break ;
+        case MarkdownSyntaxULLists_Bullet: break ;
+            
+        // block
+        case MarkdownSyntaxBlockquotes: {
+            // todo 引用 的 竖线
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.headIndent += 16;
+            paragraphStyle.firstLineHeadIndent += 16;
+            resultDic = @{NSForegroundColorAttributeName : UIColorHex(@"777777"),
+                          NSFontAttributeName : paragraphFont,
+                          NSParagraphStyleAttributeName :paragraphStyle
                           };
             [attributedString addAttributes:resultDic range:model.range] ;
         }
             break ;
         case MarkdownSyntaxCodeBlock: {
-            resultDic = @{
-                          NSBackgroundColorAttributeName : [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0],
+            resultDic = @{NSBackgroundColorAttributeName : UIColorHex(@"f0f1f1"),
                           NSFontAttributeName : paragraphFont
                           };
             [attributedString addAttributes:resultDic range:model.range] ;
-        }
-            break ;
-        case MarkdownSyntaxBlockquotes: {
-            resultDic = @{NSBackgroundColorAttributeName : [UIColor lightGrayColor],
-                          NSFontAttributeName : paragraphFont
-                          };
-        }
-            break ;
-        case MarkdownSyntaxULLists: {
-            NSMutableParagraphStyle* listParagraphStyle = [[NSMutableParagraphStyle alloc]init];
-            listParagraphStyle.headIndent = 16.0;
-            resultDic = @{NSFontAttributeName : paragraphFont,
-                          NSParagraphStyleAttributeName : listParagraphStyle,
-                          NSForegroundColorAttributeName : [UIColor redColor]
-                          } ;
-        }
-            break ;
-        case MarkdownSyntaxOLLists: {
-            NSMutableParagraphStyle* listItemParagraphStyle = [[NSMutableParagraphStyle alloc]init];
-            listItemParagraphStyle.headIndent = 16.0;
-            resultDic = @{NSFontAttributeName : paragraphFont,
-                          NSParagraphStyleAttributeName : listItemParagraphStyle,
-                          NSForegroundColorAttributeName : [UIColor greenColor]
-                          };
+            
+            [attributedString addAttributes:[self defaultMarkStyle] range:NSMakeRange(location, 3)] ;
+            [attributedString addAttributes:[self defaultMarkStyle] range:NSMakeRange(location + length - 3, 3)] ;
         }
             break ;
             
+        // other
+        case MarkdownSyntaxParagraph: break ; // 段落
+        case MarkdownSyntaxText: break ; // 文字
+        case MarkdownSyntaxFrontMatter: break ; // 未知
+        case MarkdownSyntaxMultipleMath: { // 数学
+            resultDic = @{NSBackgroundColorAttributeName : [UIColor brownColor],} ;
+            [attributedString addAttributes:resultDic range:model.range] ;
+        }
+            break ;
+            
+            
+        // end
         case NumberOfMarkdownSyntax: break ;
     }
     

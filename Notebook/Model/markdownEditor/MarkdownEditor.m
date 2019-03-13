@@ -81,14 +81,12 @@ static const CGFloat kFlexValue = 30.f ;
 - (void)updateSyntax {
     NSAttributedString *attributedString = [self.markdownPaser parseText:self.text] ;
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateAttributedText:attributedString];
-        
-        if (!self->fstTimeLoaded) {
-            self.contentOffset = CGPointMake(- kFlexValue, 0) ;
-            self->fstTimeLoaded = YES ;
-        }
-    }) ;
+    [self updateAttributedText:attributedString];
+    
+    if (!self->fstTimeLoaded) {
+        self.contentOffset = CGPointMake(- kFlexValue, 0) ;
+        self->fstTimeLoaded = YES ;
+    }
 }
 
 - (void)updateAttributedText:(NSAttributedString *) attributedString {

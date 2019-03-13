@@ -12,6 +12,8 @@
 #import "XTCloudHandler.h"
 
 
+
+
 @interface AppDelegate ()
 
 @end
@@ -21,7 +23,10 @@
 
 
 - (void)test {
-    XTCloudHandler *handle = [[XTCloudHandler alloc] init];
+    
+    
+    
+//    XTCloudHandler *handle = [[XTCloudHandler alloc] init];
     //    [handle iCloudStatus] ;
 
     //    [handle fetchUser] ;
@@ -65,7 +70,7 @@
     manager.enableAutoToolbar  = NO;  // 控制是否显示键盘上的工具条
 
 
-    //    [self test] ;
+        [self test] ;
 
     return YES;
 }

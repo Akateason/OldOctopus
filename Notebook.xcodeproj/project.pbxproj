@@ -84,6 +84,7 @@
 		8F679E0E223614FC008DE1BC /* YYTextVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextVC.h; sourceTree = "<group>"; };
 		8F679E0F223614FC008DE1BC /* YYTextVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextVC.m; sourceTree = "<group>"; };
 		8F679E1122363EB7008DE1BC /* zample.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = zample.md; sourceTree = "<group>"; };
+		8F679E152238A957008DE1BC /* MdParserRegexpHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MdParserRegexpHeader.h; sourceTree = "<group>"; };
 		8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMSHEditorVC.h; sourceTree = "<group>"; };
 		8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMSHEditorVC.m; sourceTree = "<group>"; };
 		8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRichTextEditor.h; sourceTree = "<group>"; };
@@ -253,6 +254,7 @@
 			children = (
 				8F679E0122324631008DE1BC /* MarkdownPaser.h */,
 				8F679E0222324631008DE1BC /* MarkdownPaser.m */,
+				8F679E152238A957008DE1BC /* MdParserRegexpHeader.h */,
 			);
 			path = model;
 			sourceTree = "<group>";
