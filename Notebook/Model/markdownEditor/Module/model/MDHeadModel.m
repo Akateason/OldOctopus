@@ -57,12 +57,12 @@
         }
             break;
         case MarkdownSyntaxLHeader: {
-            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:32]} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
-            
-            NSString *nail = [[self.str componentsSeparatedByString:@"\n"] lastObject] ;
-            NSRange markRange = NSMakeRange(location + length - nail.length, nail.length) ;
-            [attributedString addAttributes:configuration.markStyle range:markRange] ;
+//            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:32]} ;
+//            [attributedString addAttributes:resultDic range:self.range] ;
+//
+//            NSString *nail = [[self.str componentsSeparatedByString:@"\n"] lastObject] ;
+//            NSRange markRange = NSMakeRange(location + length - nail.length, nail.length) ;
+//            [attributedString addAttributes:configuration.markStyle range:markRange] ;
         }
             
         default:

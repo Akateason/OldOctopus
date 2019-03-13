@@ -53,7 +53,7 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
 
 #define MDPR_newline            "^\\n+"
 #define MDPR_code               "^( {4}[^\\n]+\\n*)+"
-#define MDPR_hr                 "^( *[-*_]){3,} *(?:\\n+|$)"
+#define MDPR_hr                 "^( *[-*_]){3,}"    //"^( *[-*_]){3,} *(?:\\n+|$)"
 #define MDPR_heading            "^ *(#{1,6}) *([^\\n]+?) *(?:#+ *)?(?:\\n+|$)"
 #define MDPR_lheading           "^([^\\n]+)\\n *(=|-){2,} *(?:\\n+|$)"
 

@@ -55,7 +55,9 @@
         }
             break ;
         case MarkdownSyntaxHr: { // todo 分割线
-            
+            resultDic = @{NSBackgroundColorAttributeName : [UIColor redColor],
+                          };
+            [attributedString addAttributes:resultDic range:self.range] ;
         }
             break ;
 

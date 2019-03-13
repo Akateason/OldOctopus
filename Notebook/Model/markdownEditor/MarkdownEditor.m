@@ -54,6 +54,11 @@ static const CGFloat kFlexValue = 30.f ;
 - (void)setup {
     self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.fontSize] ;
     self.contentInset = UIEdgeInsetsMake(0, kFlexValue, 0, kFlexValue) ;
+    if (@available(iOS 11.0, *)) self.smartDashesType = UITextSmartDashesTypeNo ;
+        
+//    self.autocorrectionType = UITextAutocorrectionTypeNo ;
+//    self.spellCheckingType = UITextSpellCheckingTypeNo ;
+    
     
     @weakify(self)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {

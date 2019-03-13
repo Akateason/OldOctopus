@@ -74,7 +74,6 @@
         case MarkdownSyntaxHr:
             return regexp(MDPR_hr, NSRegularExpressionAnchorsMatchLines) ;
             
-            
         case MarkdownSyntaxNewLine:
             return regexp(MDPR_newline, NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxCode:
