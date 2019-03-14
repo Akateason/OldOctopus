@@ -95,7 +95,7 @@
     return nil;
 }
 
-- (NSArray *)syntaxModelsForText:(NSString *)text {
+- (NSArray *)parsingModelsForText:(NSString *)text {
     NSMutableArray *markdownSyntaxModels = [@[] mutableCopy] ;
     
     for (MarkdownSyntaxType i = MarkdownSyntaxUnknown; i < NumberOfMarkdownSyntax; i++) {
@@ -156,7 +156,7 @@
             [markdownSyntaxModels addObject:model] ;
         }
     }
-    self.modelList = markdownSyntaxModels ;
+
     return markdownSyntaxModels;
 }
 
@@ -203,6 +203,19 @@
     return [model displayStringForLeftLabel] ;
 }
 
+- (void)setModelList:(NSArray *)modelList {
+    _modelList = modelList ;
+    
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    [modelList enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.type == MarkdownSyntaxBlockquotes) {
+            [tmplist addObject:model] ;
+        }
+    }] ;
+    
+    if (self.delegate) [self.delegate quoteBlockParsingFinished:tmplist] ;
+}
+
 
 /**
  parse / update attr .
@@ -214,7 +227,7 @@
                          position:(NSUInteger)position {
     
     self.originalText = text ;
-    NSArray *tmpModelList = [self syntaxModelsForText:text] ; // get model list, all in preview state at first .
+    NSArray *tmpModelList = [self parsingModelsForText:text] ; // get model list, all in preview state at first .
     __block NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text] ;
     
     [attributedString beginEditing] ;

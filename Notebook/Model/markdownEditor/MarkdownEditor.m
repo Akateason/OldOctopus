@@ -11,8 +11,9 @@
 #import <XTlib/XTlib.h>
 
 static const CGFloat kFlexValue = 30.f ;
+static const int kTag_QuoteMarkView = 66777 ;
 
-@interface MarkdownEditor () {
+@interface MarkdownEditor ()<MarkdownParserDelegate> {
     BOOL fstTimeLoaded ;
 }
 @property (strong, nonatomic) UILabel *lbLeftCornerMarker ;
@@ -23,7 +24,7 @@ static const CGFloat kFlexValue = 30.f ;
 #pragma mark - life
 
 - (void)dealloc {
-    NSLog(@"******** MarkdownEditor DEALLOC") ;
+    NSLog(@"******** MarkdownEditor DEALLOC ********") ;
 }
 
 - (id)initWithCoder:(NSCoder *) coder {
@@ -107,8 +108,8 @@ static const CGFloat kFlexValue = 30.f ;
     [self show_lbLeftCornerMarker] ;
 }
 
-#pragma mark - rewrite father
 
+#pragma mark - rewrite father
 #pragma mark - cursor moving and selecting
 
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
@@ -125,6 +126,7 @@ static const CGFloat kFlexValue = 30.f ;
     if (_markdownPaser == nil) {
         MDThemeConfiguration *config = [MDThemeConfiguration new] ;
         _markdownPaser = [[MarkdownPaser alloc] initWithConfig:config] ;
+        _markdownPaser.delegate = self ;
     }
     return _markdownPaser;
 }
@@ -157,6 +159,34 @@ static const CGFloat kFlexValue = 30.f ;
     if (self.lbLeftCornerMarker.superview) {
         [self.lbLeftCornerMarker removeFromSuperview] ;
         _lbLeftCornerMarker = nil ;
+    }
+}
+
+#pragma mark - MarkdownParserDelegate <NSObject>
+
+- (void)quoteBlockParsingFinished:(NSArray *)list {
+
+    for (UIView *subView in self.subviews) {
+        if (subView.tag == kTag_QuoteMarkView) {
+            [subView removeFromSuperview] ;
+        }
+    }
+
+    for (int i = 0; i < list.count; i++) {
+        MarkdownModel *model = list[i] ;
+        CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
+//        NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
+        
+        UIView *quoteItem = [UIView new] ;
+        quoteItem.tag = kTag_QuoteMarkView ;
+        quoteItem.backgroundColor = self.markdownPaser.configuration.quoteLeftBarColor ;
+        [self addSubview:quoteItem] ;
+        [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self) ;
+            make.top.equalTo(self).offset(rectForQuote.origin.y) ;
+            make.width.equalTo(@5) ;
+            make.height.equalTo(@(rectForQuote.size.height)) ;
+        }] ;
     }
 }
 

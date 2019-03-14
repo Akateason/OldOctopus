@@ -10,16 +10,24 @@
 #import <UIKit/UIKit.h>
 #import "MdParserRegexpHeader.h"
 #import "MarkdownModel.h"
-@class MDThemeConfiguration ;
+@class MDThemeConfiguration,MarkdownPaser ;
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol MarkdownParserDelegate <NSObject>
+@required
+- (void)quoteBlockParsingFinished:(NSArray *)list ;
+@end
+
+
+
 @interface MarkdownPaser : NSObject
-@property (readonly, strong, nonatomic) MDThemeConfiguration *configuration;
+@property (weak, nonatomic)             id<MarkdownParserDelegate>  delegate ;
+@property (readonly, strong, nonatomic) MDThemeConfiguration        *configuration ;
 - (instancetype)initWithConfig:(MDThemeConfiguration *)config ;
 
 #pragma mark -
 
-//- (NSAttributedString *)parseText:(NSString *)text ;
 - (NSAttributedString *)parseText:(NSString *)text
                          position:(NSUInteger)position ;
 

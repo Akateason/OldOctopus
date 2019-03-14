@@ -24,6 +24,16 @@
     return str ;
 }
 
+- (NSDictionary *)attrQuoteBlockHideMark {
+    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+    paraStyle.minimumLineHeight = 16;
+    NSDictionary *tmpStyle = @{NSForegroundColorAttributeName:[UIColor whiteColor] ,
+                               NSBackgroundColorAttributeName:[UIColor whiteColor] ,
+                               NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
+                               } ;
+    return tmpStyle ;
+}
+
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
@@ -34,20 +44,14 @@
     
     switch (self.type) {
         case MarkdownSyntaxBlockquotes: {
-            // todo 引用 的 竖线
             [attributedString addAttributes:configuration.quoteStyle range:self.range] ;
             
             // hide ">" mark
-            NSDictionary *tmpStyle = @{NSForegroundColorAttributeName:[UIColor whiteColor] ,
-                                       NSBackgroundColorAttributeName:[UIColor whiteColor] ,
-                                       NSFontAttributeName : [UIFont systemFontOfSize:0.1]
-                                       } ;
-            
             NSRegularExpression *expression = regexp("(^\\>\\s)|(^\\>)", NSRegularExpressionAnchorsMatchLines) ;
             NSArray *matches = [expression matchesInString:self.str options:0 range:NSMakeRange(0, [self.str length])] ;
             for (NSTextCheckingResult *result in matches) {
                 NSRange bqRange = NSMakeRange(location + result.range.location, result.range.length) ;
-                [attributedString addAttributes:tmpStyle range:bqRange] ;
+                [attributedString addAttributes:[self attrQuoteBlockHideMark] range:bqRange] ;
             }
         }
             break ;
@@ -94,11 +98,12 @@
         case MarkdownSyntaxBlockquotes: {
             [attributedString addAttributes:configuration.quoteStyle range:self.range] ;
             
+            // hide mark
             NSRegularExpression *expression = regexp("(^\\>\\s)|(^\\>)", NSRegularExpressionAnchorsMatchLines) ;
             NSArray *matches = [expression matchesInString:self.str options:0 range:NSMakeRange(0, [self.str length])] ;
             for (NSTextCheckingResult *result in matches) {
                 NSRange bqRange = NSMakeRange(location + result.range.location, result.range.length) ;
-                [attributedString addAttributes:configuration.markStyle range:bqRange] ;
+                [attributedString addAttributes:[self attrQuoteBlockHideMark] range:bqRange] ;
             }
         }
             break ;

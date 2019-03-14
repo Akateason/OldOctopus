@@ -66,6 +66,8 @@
 #import "UIAlertController+XTAddition.h"
 #import "NSArray+XT.h"
 #import "NSDictionary+XT.h"
+#import "UITextView+XT.h"
+#import "NSAttributedString+XT.h"
 
 // Util
 #import "NSString+MD5.h"

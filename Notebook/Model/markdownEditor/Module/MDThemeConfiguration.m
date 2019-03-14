@@ -90,11 +90,11 @@ static int kDefaultFontSize = 16 ;
 - (NSDictionary *)quoteStyle {
     if (!_quoteStyle) {
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.headIndent += 16;
-        paragraphStyle.firstLineHeadIndent += 16;
-        _quoteStyle = @{NSForegroundColorAttributeName : self.quoteTextColor,
-                        NSFontAttributeName : self.font,
-                        NSParagraphStyleAttributeName :paragraphStyle
+        paragraphStyle.headIndent = 16 ;
+        paragraphStyle.firstLineHeadIndent = 16 ;
+        _quoteStyle = @{NSForegroundColorAttributeName : self.quoteTextColor ,
+                        NSFontAttributeName : self.font ,
+                        NSParagraphStyleAttributeName : paragraphStyle
                       };
     }
     return _quoteStyle ;
@@ -145,6 +145,13 @@ static int kDefaultFontSize = 16 ;
         _quoteTextColor = UIColorHex(@"777777") ;
     }
     return _quoteTextColor ;
+}
+
+- (UIColor *)quoteLeftBarColor {
+    if (!_quoteLeftBarColor) {
+        _quoteLeftBarColor = UIColorHex(@"dddddd") ;
+    }
+    return _quoteLeftBarColor ;
 }
 
 @end
