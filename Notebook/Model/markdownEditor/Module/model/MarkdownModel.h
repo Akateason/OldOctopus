@@ -29,14 +29,19 @@ NS_ASSUME_NONNULL_BEGIN
                         range:(NSRange)range
                           str:(NSString *)str ;
 
-// rewrite in subcls
+// ********* rewrite in subcls ********* //
+
 - (NSString *)displayStringForLeftLabel ;
 
+// preview state
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration ;
 
+// edit state
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration ;
+
+// ********* rewrite in subcls ********* //
 
 @end
 

@@ -15,9 +15,9 @@
                          str:(NSString *)str {
     self = [super init];
     if (self) {
-        _type = type;
-        _range = range;
-        _str = str ;
+        _type   = type;
+        _range  = range;
+        _str    = str ;
     }
     return self;
 }

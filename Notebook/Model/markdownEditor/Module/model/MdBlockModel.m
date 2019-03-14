@@ -55,11 +55,14 @@
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 3, 3)] ;
         }
             break ;
-        case MarkdownSyntaxHr: { // todo 分割线
+        case MarkdownSyntaxHr: { 
+            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+            paraStyle.paragraphSpacing = 16 ;
             UIFont *hrFont = [UIFont systemFontOfSize:4] ;
             resultDic = @{NSBackgroundColorAttributeName : UIColorHex(@"dcdcdc") ,
                           NSForegroundColorAttributeName : UIColorHex(@"dcdcdc") ,
-                          NSFontAttributeName : hrFont
+                          NSFontAttributeName : hrFont ,
+                          NSParagraphStyleAttributeName : paraStyle
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
         }
@@ -81,7 +84,7 @@
         case MarkdownSyntaxHr: {
             resultDic = @{NSBackgroundColorAttributeName : [UIColor clearColor] ,
                           NSForegroundColorAttributeName : configuration.markColor ,
-                          NSFontAttributeName : configuration.font
+                          NSFontAttributeName : configuration.font,
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
         }
