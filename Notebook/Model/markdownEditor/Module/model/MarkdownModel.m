@@ -45,7 +45,4 @@
     return attributedString ;
 }
 
-
-
-
 @end
