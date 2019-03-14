@@ -97,6 +97,15 @@ static int kDefaultFontSize = 16 ;
     return _markStyle;
 }
 
+- (NSDictionary *)invisibleMarkStyle {
+    if (!_invisibleMarkStyle) {
+        _invisibleMarkStyle = @{NSForegroundColorAttributeName : self.markColor,
+                                NSFontAttributeName : [UIFont systemFontOfSize:0]
+                                } ;
+    }
+    return _invisibleMarkStyle ;
+}
+
 - (UIColor *)textColor {
     if (!_textColor) {
         _textColor = [UIColor blackColor] ;

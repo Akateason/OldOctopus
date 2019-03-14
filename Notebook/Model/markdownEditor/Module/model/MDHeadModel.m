@@ -58,9 +58,7 @@
             
             // hide "# " marks
             NSRange markRange = NSMakeRange(location, numberOfmark+1) ;
-            NSMutableDictionary *attrMark = [configuration.markStyle mutableCopy] ;
-            [attrMark setObject:[UIFont systemFontOfSize:0] forKey:NSFontAttributeName] ;
-            [attributedString addAttributes:attrMark range:markRange] ;
+            [attributedString addAttributes:configuration.invisibleMarkStyle range:markRange] ;
         }
             break;
             
