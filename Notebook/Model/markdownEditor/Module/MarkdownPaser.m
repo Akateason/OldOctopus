@@ -20,6 +20,7 @@
 @interface MarkdownPaser ()
 @property (strong, nonatomic) MDThemeConfiguration *configuration;
 @property (copy, nonatomic) NSArray *currentPaserResultList ;
+@property (copy, nonatomic) NSString *originalText ;
 @end
 
 @implementation MarkdownPaser
@@ -172,11 +173,38 @@
     return nil ;
 }
 
-+ (NSString *)stringTitleOfModel:(MarkdownModel *)model {
+- (NSArray *)modelListForRangePosition:(NSUInteger)position {
+    NSArray *list = self.currentPaserResultList ;
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    for (int i = 0; i < list.count; i++) {
+        MarkdownModel *model = list[i] ;
+        BOOL isInRange = NSLocationInRange(position, model.range) ;
+        
+        if (isInRange) {
+            [tmplist addObject:model] ;
+        }
+    }
+    return tmplist ;
+}
+
+- (NSString *)stringTitleOfPosition:(NSUInteger)position {
+    MarkdownModel *model = [self modelForRangePosition:position] ;
+    return [self stringTitleOfPosition:position model:model] ;
+}
+
+- (NSString *)stringTitleOfPosition:(NSUInteger)position model:(MarkdownModel *)model {
+    if (model.type == MarkdownSyntaxHeaders) {
+        // header
+        NSString *lastString = [self.originalText substringWithRange:NSMakeRange(position - 1, 1)] ;
+        if ([lastString isEqualToString:@"\n"]) {
+            return @"" ;
+        }
+    }
     return [model displayStringForLeftLabel] ;
 }
 
 - (NSAttributedString *)parseText:(NSString *)text {
+    self.originalText = text ;
     NSArray *models = [self syntaxModelsForText:text];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
     [attributedString beginEditing] ;

@@ -108,7 +108,7 @@ static const CGFloat kFlexValue = 30.f ;
     }
     
     MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
-    self.lbLeftCornerMarker.text = [MarkdownPaser stringTitleOfModel:model] ;
+    self.lbLeftCornerMarker.text = [self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model] ;
     NSLog(@"choose model : %@",[model yy_modelToJSONString]) ;
     
     [self addSubview:self.lbLeftCornerMarker] ;
@@ -145,9 +145,9 @@ static const CGFloat kFlexValue = 30.f ;
     if(!_lbLeftCornerMarker){
         _lbLeftCornerMarker = ({
             UILabel * object = [[UILabel alloc] init] ;
-            object.font = [UIFont systemFontOfSize:14] ;
+            object.font = [UIFont systemFontOfSize:9] ;
             object.numberOfLines = 0 ;
-            object.textColor = [UIColor lightGrayColor] ;
+            object.textColor = [UIColor redColor] ; //[UIColor lightGrayColor] ;
             object.textAlignment = NSTextAlignmentCenter ;
             object;
        });

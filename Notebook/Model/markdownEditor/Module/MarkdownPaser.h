@@ -18,9 +18,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithConfig:(MDThemeConfiguration *)config ;
 
 #pragma mark -
+
 - (NSAttributedString *)parseText:(NSString *)text ;
+
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position ;
-+ (NSString *)stringTitleOfModel:(MarkdownModel *)model ;
+- (NSArray *)modelListForRangePosition:(NSUInteger)position ;
+
+- (NSString *)stringTitleOfPosition:(NSUInteger)position ;
+- (NSString *)stringTitleOfPosition:(NSUInteger)position
+                              model:(MarkdownModel *)model ;
+
 @end
 
 NS_ASSUME_NONNULL_END

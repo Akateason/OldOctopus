@@ -18,8 +18,8 @@
         case MarkdownSyntaxItalic: str = @"I" ; break ;
         case MarkdownSyntaxBoldItalic: str = @"BI" ; break ;
         case MarkdownSyntaxDeletions: str = @"D" ; break ;
-        case MarkdownSyntaxInlineCode: str = @"行内代码" ; break ;
-        case MarkdownSyntaxLinks: str = @"链接" ; break ;
+        case MarkdownSyntaxInlineCode: str = @"hn代码" ; break ;
+        case MarkdownSyntaxLinks: str = @"link" ; break ;
         default: break;
     }
     
