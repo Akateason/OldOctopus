@@ -14,9 +14,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownModel : NSObject
-@property (nonatomic) NSRange range ;
-@property (nonatomic) MarkdownSyntaxType type ;
-@property (copy, nonatomic) NSString *str ;
+@property (nonatomic) NSRange               range ;
+@property (nonatomic) MarkdownSyntaxType    type ;
+@property (copy, nonatomic) NSString        *str ;
+@property (nonatomic) BOOL                  isOnEditState ; // yes - edit, no - preview  . state for display
 
 
 // construct
@@ -30,8 +31,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 // rewrite in subcls
 - (NSString *)displayStringForLeftLabel ;
-- (NSMutableAttributedString *)addForAttributeString:(NSMutableAttributedString *)attributedString
+
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration ;
+
+- (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
+                                           config:(MDThemeConfiguration *)configuration ;
 
 @end
 

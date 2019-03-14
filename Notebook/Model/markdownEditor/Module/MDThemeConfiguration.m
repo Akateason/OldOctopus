@@ -90,7 +90,7 @@ static int kDefaultFontSize = 16 ;
 - (NSDictionary *)markStyle{
     if(!_markStyle){
         _markStyle = ({
-            NSDictionary * object = @{NSForegroundColorAttributeName : UIColorHex(@"909399")} ;
+            NSDictionary * object = @{NSForegroundColorAttributeName : self.markColor} ;
             object;
        });
     }
@@ -102,6 +102,13 @@ static int kDefaultFontSize = 16 ;
         _textColor = [UIColor blackColor] ;
     }
     return _textColor ;
+}
+
+- (UIColor *)markColor {
+    if (!_markColor) {
+        _markColor = UIColorHex(@"909399") ;
+    }
+    return _markColor ;
 }
 
 - (UIColor *)codeTextBGColor {

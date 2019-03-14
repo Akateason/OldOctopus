@@ -26,7 +26,7 @@
     return str ;
 }
 
-- (NSMutableAttributedString *)addForAttributeString:(NSMutableAttributedString *)attributedString
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
     NSDictionary *resultDic = configuration.basicStyle ;
@@ -91,6 +91,11 @@
             break;
     }
     
+    return attributedString ;
+}
+
+- (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
+                                           config:(MDThemeConfiguration *)configuration {
     return attributedString ;
 }
 

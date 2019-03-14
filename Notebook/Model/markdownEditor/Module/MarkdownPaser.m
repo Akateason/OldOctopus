@@ -19,7 +19,7 @@
 
 @interface MarkdownPaser ()
 @property (strong, nonatomic) MDThemeConfiguration *configuration;
-@property (copy, nonatomic) NSArray *currentPaserResultList ;
+@property (copy, nonatomic) NSArray *modelList ;
 @property (copy, nonatomic) NSString *originalText ;
 @end
 
@@ -29,7 +29,7 @@
     self = [super init];
     if (self) {
         _configuration = config ;
-        _currentPaserResultList = @[] ;
+        _modelList = @[] ;
     }
     return self;
 }
@@ -156,12 +156,12 @@
             [markdownSyntaxModels addObject:model] ;
         }
     }
-    self.currentPaserResultList = markdownSyntaxModels ;
+    self.modelList = markdownSyntaxModels ;
     return markdownSyntaxModels;
 }
 
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position {
-    NSArray *list = self.currentPaserResultList ;
+    NSArray *list = self.modelList ;
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
         BOOL isInRange = NSLocationInRange(position, model.range) ;
@@ -174,7 +174,7 @@
 }
 
 - (NSArray *)modelListForRangePosition:(NSUInteger)position {
-    NSArray *list = self.currentPaserResultList ;
+    NSArray *list = self.modelList ;
     NSMutableArray *tmplist = [@[] mutableCopy] ;
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
@@ -203,23 +203,41 @@
     return [model displayStringForLeftLabel] ;
 }
 
-- (NSAttributedString *)parseText:(NSString *)text {
-    self.originalText = text ;
-    NSArray *models = [self syntaxModelsForText:text];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
-    [attributedString beginEditing] ;
-    [attributedString addAttributes:self.configuration.basicStyle range:NSMakeRange(0, text.length)] ;
+
+/**
+ parse / update attr .
+
+ @param text \
+ @param position  for model state .
+ */
+- (NSAttributedString *)parseText:(NSString *)text
+                         position:(NSUInteger)position {
     
-    for (MarkdownModel *model in models) {
-        attributedString = [self makeAttributeString:attributedString model:model] ;
-    }
+    self.originalText = text ;
+    NSArray *tmpModelList = [self syntaxModelsForText:text] ; // get model list, all in preview state at first .
+    __block NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text] ;
+    
+    [attributedString beginEditing] ;
+    [attributedString addAttributes:self.configuration.basicStyle range:NSMakeRange(0, text.length)] ; // add default style
+    
+    [tmpModelList enumerateObjectsUsingBlock:^(MarkdownModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (NSLocationInRange(position, model.range)) {
+            model.isOnEditState = YES ;
+        }
+        
+        // add any style
+        if (!model.isOnEditState) {
+            attributedString = [model addAttrOnPreviewState:attributedString config:self.configuration] ;
+        }
+        else {
+            attributedString = [model addAttrOnEditState:attributedString config:self.configuration] ;
+        }
+    }] ;
+    
     [attributedString endEditing] ;
+    self.modelList = tmpModelList ;
     
     return attributedString ;
-}
-
-- (NSMutableAttributedString *)makeAttributeString:(NSMutableAttributedString *)attributedString model:(MarkdownModel *)model {
-    return [model addForAttributeString:attributedString config:self.configuration] ;
 }
 
 @end

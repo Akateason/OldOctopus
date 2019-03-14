@@ -7,6 +7,7 @@
 //
 
 #import "MdBlockModel.h"
+#import <XTlib/XTlib.h>
 
 @implementation MdBlockModel
 
@@ -23,7 +24,7 @@
     return str ;
 }
 
-- (NSMutableAttributedString *)addForAttributeString:(NSMutableAttributedString *)attributedString
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
     NSDictionary *resultDic = configuration.basicStyle ;
@@ -55,9 +56,12 @@
         }
             break ;
         case MarkdownSyntaxHr: { // todo 分割线
-//            resultDic = @{NSBackgroundColorAttributeName : [UIColor redColor]};
-//            [attributedString addAttributes:resultDic range:self.range] ;
-            
+            UIFont *hrFont = [UIFont systemFontOfSize:4] ;
+            resultDic = @{NSBackgroundColorAttributeName : UIColorHex(@"dcdcdc") ,
+                          NSForegroundColorAttributeName : UIColorHex(@"dcdcdc") ,
+                          NSFontAttributeName : hrFont
+                          } ;
+            [attributedString addAttributes:resultDic range:self.range] ;
         }
             break ;
 
@@ -69,5 +73,25 @@
     return attributedString ;
 }
 
+- (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
+                                           config:(MDThemeConfiguration *)configuration {
+    
+    NSDictionary *resultDic = configuration.basicStyle ;
+    switch (self.type) {
+        case MarkdownSyntaxHr: {
+            resultDic = @{NSBackgroundColorAttributeName : [UIColor clearColor] ,
+                          NSForegroundColorAttributeName : configuration.markColor ,
+                          NSFontAttributeName : configuration.font
+                          } ;
+            [attributedString addAttributes:resultDic range:self.range] ;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return attributedString ;
+}
 
 @end

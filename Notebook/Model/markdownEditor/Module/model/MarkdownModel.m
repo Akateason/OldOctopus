@@ -28,19 +28,23 @@
     return [[self alloc] initWithType:type range:range str:str] ;
 }
 
-
-
 - (NSString *)displayStringForLeftLabel {
     return @"" ;
 }
 
-- (NSMutableAttributedString *)addForAttributeString:(NSMutableAttributedString *)attributedString
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
 //    NSDictionary *resultDic = configuration.basicStyle ;
 //    UIFont *paragraphFont = configuration.font ;
 //    NSUInteger location = self.range.location ;
 //    NSUInteger length = self.range.length ;
+    
+    return attributedString ;
+}
+
+- (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
+                                           config:(MDThemeConfiguration *)configuration {
     
     return attributedString ;
 }

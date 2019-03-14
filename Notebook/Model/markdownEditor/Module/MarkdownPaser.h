@@ -19,7 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -
 
-- (NSAttributedString *)parseText:(NSString *)text ;
+//- (NSAttributedString *)parseText:(NSString *)text ;
+- (NSAttributedString *)parseText:(NSString *)text
+                         position:(NSUInteger)position ;
 
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position ;
 - (NSArray *)modelListForRangePosition:(NSUInteger)position ;

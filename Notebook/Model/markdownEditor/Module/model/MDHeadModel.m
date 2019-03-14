@@ -29,9 +29,9 @@
     return str ;
 }
 
-- (NSMutableAttributedString *)addForAttributeString:(NSMutableAttributedString *)attributedString
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
-    
+
     NSDictionary *resultDic = configuration.basicStyle ;
 //    UIFont *paragraphFont = configuration.font ;
     NSUInteger location = self.range.location ;
@@ -69,6 +69,11 @@
             break;
     }
     
+    return attributedString ;
+}
+
+- (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
+                                           config:(MDThemeConfiguration *)configuration {
     return attributedString ;
 }
 
