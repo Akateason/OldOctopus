@@ -87,6 +87,19 @@ static int kDefaultFontSize = 16 ;
     return _basicStyle;
 }
 
+- (NSDictionary *)quoteStyle {
+    if (!_quoteStyle) {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.headIndent += 16;
+        paragraphStyle.firstLineHeadIndent += 16;
+        _quoteStyle = @{NSForegroundColorAttributeName : self.quoteTextColor,
+                        NSFontAttributeName : self.font,
+                        NSParagraphStyleAttributeName :paragraphStyle
+                      };
+    }
+    return _quoteStyle ;
+}
+
 - (NSDictionary *)markStyle{
     if(!_markStyle){
         _markStyle = ({

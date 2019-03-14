@@ -35,14 +35,20 @@
     switch (self.type) {
         case MarkdownSyntaxBlockquotes: {
             // todo 引用 的 竖线
-            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.headIndent += 16;
-            paragraphStyle.firstLineHeadIndent += 16;
-            resultDic = @{NSForegroundColorAttributeName : configuration.quoteTextColor,
-                          NSFontAttributeName : paragraphFont,
-                          NSParagraphStyleAttributeName :paragraphStyle
-                          };
-            [attributedString addAttributes:resultDic range:self.range] ;
+            [attributedString addAttributes:configuration.quoteStyle range:self.range] ;
+            
+            // hide ">" mark
+            NSDictionary *tmpStyle = @{NSForegroundColorAttributeName:[UIColor whiteColor] ,
+                                       NSBackgroundColorAttributeName:[UIColor whiteColor] ,
+                                       NSFontAttributeName : [UIFont systemFontOfSize:0.1]
+                                       } ;
+            
+            NSRegularExpression *expression = regexp("(^\\>\\s)|(^\\>)", NSRegularExpressionAnchorsMatchLines) ;
+            NSArray *matches = [expression matchesInString:self.str options:0 range:NSMakeRange(0, [self.str length])] ;
+            for (NSTextCheckingResult *result in matches) {
+                NSRange bqRange = NSMakeRange(location + result.range.location, result.range.length) ;
+                [attributedString addAttributes:tmpStyle range:bqRange] ;
+            }
         }
             break ;
         case MarkdownSyntaxCodeBlock: {
@@ -55,7 +61,7 @@
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 3, 3)] ;
         }
             break ;
-        case MarkdownSyntaxHr: { 
+        case MarkdownSyntaxHr: {
             NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
             paraStyle.paragraphSpacing = 16 ;
             UIFont *hrFont = [UIFont systemFontOfSize:4] ;
@@ -80,7 +86,32 @@
                                            config:(MDThemeConfiguration *)configuration {
     
     NSDictionary *resultDic = configuration.basicStyle ;
+    UIFont *paragraphFont = configuration.font ;
+    NSUInteger location = self.range.location ;
+    NSUInteger length = self.range.length ;
+    
     switch (self.type) {
+        case MarkdownSyntaxBlockquotes: {
+            [attributedString addAttributes:configuration.quoteStyle range:self.range] ;
+            
+            NSRegularExpression *expression = regexp("(^\\>\\s)|(^\\>)", NSRegularExpressionAnchorsMatchLines) ;
+            NSArray *matches = [expression matchesInString:self.str options:0 range:NSMakeRange(0, [self.str length])] ;
+            for (NSTextCheckingResult *result in matches) {
+                NSRange bqRange = NSMakeRange(location + result.range.location, result.range.length) ;
+                [attributedString addAttributes:configuration.markStyle range:bqRange] ;
+            }
+        }
+            break ;
+        case MarkdownSyntaxCodeBlock: {
+            resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
+                          NSFontAttributeName : paragraphFont
+                          };
+            [attributedString addAttributes:resultDic range:self.range] ;
+            
+            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 3)] ;
+            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 3, 3)] ;
+        }
+            break ;
         case MarkdownSyntaxHr: {
             resultDic = @{NSBackgroundColorAttributeName : [UIColor clearColor] ,
                           NSForegroundColorAttributeName : configuration.markColor ,

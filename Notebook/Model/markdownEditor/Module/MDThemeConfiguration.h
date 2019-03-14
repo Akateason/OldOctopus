@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIFont *italicFont ;
 @property (strong, nonatomic) UIFont *boldItalicFont ;
 @property (copy, nonatomic) NSDictionary *basicStyle ;
+@property (copy, nonatomic) NSDictionary *quoteStyle ;
 @property (copy, nonatomic) NSDictionary *markStyle ;
 @property (copy, nonatomic) NSDictionary *invisibleMarkStyle ;
 
