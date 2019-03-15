@@ -70,8 +70,8 @@
         }
             break ;
         case MarkdownSyntaxInlineCode: {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
+//            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
+//            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
             
             resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
                           NSFontAttributeName : paragraphFont

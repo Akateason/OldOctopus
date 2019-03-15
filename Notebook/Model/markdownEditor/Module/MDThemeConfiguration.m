@@ -121,7 +121,7 @@ static int kDefaultFontSize = 16 ;
 
 - (UIColor *)textColor {
     if (!_textColor) {
-        _textColor = [UIColor blackColor] ;
+        _textColor = UIColorHex(@"303133") ;
     }
     return _textColor ;
 }

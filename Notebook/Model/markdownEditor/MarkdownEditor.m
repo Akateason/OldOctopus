@@ -176,6 +176,9 @@ static const int kTag_QuoteMarkView = 66777 ;
         MarkdownModel *model = list[i] ;
         CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
 //        NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
+        if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) {
+            continue ;
+        }
         
         UIView *quoteItem = [UIView new] ;
         quoteItem.tag = kTag_QuoteMarkView ;

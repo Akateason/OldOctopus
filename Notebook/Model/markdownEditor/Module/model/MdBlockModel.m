@@ -61,8 +61,9 @@
                           };
             [attributedString addAttributes:resultDic range:self.range] ;
             
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 3)] ;
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 3, 3)] ;
+            resultDic = [self attrQuoteBlockHideMark] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location, 3)] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 3, 3)] ;
         }
             break ;
         case MarkdownSyntaxHr: {
@@ -98,7 +99,7 @@
         case MarkdownSyntaxBlockquotes: {
             [attributedString addAttributes:configuration.quoteStyle range:self.range] ;
             
-            // hide mark
+            // hide ">" mark
             NSRegularExpression *expression = regexp("(^\\>\\s)|(^\\>)", NSRegularExpressionAnchorsMatchLines) ;
             NSArray *matches = [expression matchesInString:self.str options:0 range:NSMakeRange(0, [self.str length])] ;
             for (NSTextCheckingResult *result in matches) {
@@ -110,11 +111,12 @@
         case MarkdownSyntaxCodeBlock: {
             resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
                           NSFontAttributeName : paragraphFont
-                          };
-            [attributedString addAttributes:resultDic range:self.range] ;
+                          } ;
+            NSRange rangeTmp = NSMakeRange(location + 3, length - 6) ;
+            [attributedString addAttributes:resultDic range:rangeTmp] ;
             
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 3)] ;
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 3, 3)] ;
+//            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 3)] ;
+//            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 3, 3)] ;
         }
             break ;
         case MarkdownSyntaxHr: {

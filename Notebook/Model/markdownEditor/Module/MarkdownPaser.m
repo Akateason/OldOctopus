@@ -53,7 +53,8 @@
         case MarkdownSyntaxDeletions:
             return regexp("\\~\\~(.*?)\\~\\~", 0);
         case MarkdownSyntaxInlineCode:
-            return regexp("`(.*?)`", 0);
+            return regexp("\\`(.*?)\\`", 0); // MDPR_code //`(.*?)`
+            
         case MarkdownSyntaxLinks:
             return regexp("\\[([^\\[]+)\\]\\(([^\\)]+)\\)", 0);
             
@@ -71,16 +72,16 @@
         case MarkdownSyntaxBlockquotes:
             return regexp(MDPR_blockquote,NSRegularExpressionAnchorsMatchLines); // "(&gt;|\\>)(.*)"
         case MarkdownSyntaxCodeBlock:
-            return regexp("```([\\s\\S]*?)```[\\s]?",NSRegularExpressionAnchorsMatchLines);
+            return regexp("(```)([\\s\\S]*?)(```)",NSRegularExpressionAnchorsMatchLines); //"```([\\s\\S]*?)```"  // "```([\\s\\S]*?)```[\\s]?"
         case MarkdownSyntaxHr:
             return regexp(MDPR_hr, NSRegularExpressionAnchorsMatchLines) ;
             
         case MarkdownSyntaxNewLine:
             return regexp(MDPR_newline, NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxCode:
-            return regexp(MDPR_code, NSRegularExpressionAnchorsMatchLines) ;
-        case MarkdownSyntaxDef:
-            return regexp(MDPR_def, NSRegularExpressionAnchorsMatchLines) ;
+//        case MarkdownSyntaxCode:
+//            return regexp(MDPR_code, NSRegularExpressionAnchorsMatchLines) ;
+//        case MarkdownSyntaxDef:
+//            return regexp(MDPR_def, NSRegularExpressionAnchorsMatchLines) ;
 //        case MarkdownSyntaxParagraph:
 //            return regexp(MDPR_paragraph, NSRegularExpressionAnchorsMatchLines) ;
 //        case MarkdownSyntaxText:
