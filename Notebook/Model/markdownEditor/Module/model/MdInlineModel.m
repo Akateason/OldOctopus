@@ -14,12 +14,12 @@
     
     NSString *str = [super displayStringForLeftLabel] ;
     switch (self.type) {
-        case MarkdownSyntaxBold: str = @"B" ; break ;
-        case MarkdownSyntaxItalic: str = @"I" ; break ;
-        case MarkdownSyntaxBoldItalic: str = @"BI" ; break ;
-        case MarkdownSyntaxDeletions: str = @"D" ; break ;
-        case MarkdownSyntaxInlineCode: str = @"hn代码" ; break ;
-        case MarkdownSyntaxLinks: str = @"link" ; break ;
+        case MarkdownInlineBold: str = @"B" ; break ;
+        case MarkdownInlineItalic: str = @"I" ; break ;
+        case MarkdownInlineBoldItalic: str = @"BI" ; break ;
+        case MarkdownInlineDeletions: str = @"D" ; break ;
+        case MarkdownInlineInlineCode: str = @"hn代码" ; break ;
+        case MarkdownInlineLinks: str = @"link" ; break ;
         default: break;
     }
     
@@ -35,7 +35,7 @@
     NSUInteger length = self.range.length ;
 
     switch (self.type) {
-        case MarkdownSyntaxBold: {
+        case MarkdownInlineBold: {
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 2, 2)] ;
             
@@ -43,7 +43,7 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 2, length - 4)] ;
         }
             break ;
-        case MarkdownSyntaxItalic: {
+        case MarkdownInlineItalic: {
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
             
@@ -51,7 +51,7 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
             break ;
-        case MarkdownSyntaxBoldItalic: {
+        case MarkdownInlineBoldItalic: {
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 3)] ;
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 3, 3)] ;
             
@@ -59,7 +59,7 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 3, length - 6)] ;
         }
             break ;
-        case MarkdownSyntaxDeletions: {
+        case MarkdownInlineDeletions: {
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 2, 2)] ;
             
@@ -69,9 +69,9 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 2, length - 4)] ;
         }
             break ;
-        case MarkdownSyntaxInlineCode: {
-//            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
-//            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
+        case MarkdownInlineInlineCode: {
+            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
+            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
             
             resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
                           NSFontAttributeName : paragraphFont
@@ -79,7 +79,7 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
             break ;
-        case MarkdownSyntaxLinks: {
+        case MarkdownInlineLinks: {
             // todo links with attr str
             resultDic = @{NSForegroundColorAttributeName : [UIColor blueColor],
                           NSFontAttributeName : paragraphFont
@@ -104,7 +104,7 @@
     NSUInteger length = self.range.length ;
     
     switch (self.type) {
-        case MarkdownSyntaxBold: {
+        case MarkdownInlineBold: {
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 2)] ;
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 2, 2)] ;
             
@@ -112,7 +112,7 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 2, length - 4)] ;
         }
             break ;
-        case MarkdownSyntaxItalic: {
+        case MarkdownInlineItalic: {
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 1)] ;
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 1, 1)] ;
             
@@ -120,7 +120,7 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
             break ;
-        case MarkdownSyntaxBoldItalic: {
+        case MarkdownInlineBoldItalic: {
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 3)] ;
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 3, 3)] ;
             
@@ -128,7 +128,7 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 3, length - 6)] ;
         }
             break ;
-        case MarkdownSyntaxDeletions: {
+        case MarkdownInlineDeletions: {
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 2)] ;
             [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 2, 2)] ;
             
@@ -138,9 +138,9 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 2, length - 4)] ;
         }
             break ;
-        case MarkdownSyntaxInlineCode: {
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 1)] ;
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 1, 1)] ;
+        case MarkdownInlineInlineCode: {
+//            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 1)] ;
+//            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 1, 1)] ;
             
             resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
                           NSFontAttributeName : paragraphFont
@@ -148,7 +148,7 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
             break ;
-        case MarkdownSyntaxLinks: {
+        case MarkdownInlineLinks: {
             resultDic = @{NSForegroundColorAttributeName : [UIColor blueColor],
                           NSFontAttributeName : paragraphFont
                           };

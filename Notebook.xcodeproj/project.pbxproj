@@ -30,6 +30,7 @@
 		8F679E282238F9DE008DE1BC /* MdListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E272238F9DE008DE1BC /* MdListModel.m */; };
 		8F679E2B2238FA17008DE1BC /* MdOtherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E2A2238FA17008DE1BC /* MdOtherModel.m */; };
 		8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E2D2238FA58008DE1BC /* MdBlockModel.m */; };
+		8F7A8436223BD1780099E905 /* zample2.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A8435223BD1770099E905 /* zample2.md */; };
 		8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */; };
 		8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */; };
 		8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */; };
@@ -106,6 +107,7 @@
 		8F679E2A2238FA17008DE1BC /* MdOtherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MdOtherModel.m; sourceTree = "<group>"; };
 		8F679E2C2238FA58008DE1BC /* MdBlockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MdBlockModel.h; sourceTree = "<group>"; };
 		8F679E2D2238FA58008DE1BC /* MdBlockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MdBlockModel.m; sourceTree = "<group>"; };
+		8F7A8435223BD1770099E905 /* zample2.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = zample2.md; sourceTree = "<group>"; };
 		8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMSHEditorVC.h; sourceTree = "<group>"; };
 		8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMSHEditorVC.m; sourceTree = "<group>"; };
 		8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRichTextEditor.h; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
+				8F7A8435223BD1770099E905 /* zample2.md */,
 				8F679E1122363EB7008DE1BC /* zample.md */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
 				8F626342221C02030066A429 /* Model */,
@@ -467,6 +470,7 @@
 			files = (
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
 				8F679E1222363EB7008DE1BC /* zample.md in Resources */,
+				8F7A8436223BD1780099E905 /* zample2.md in Resources */,
 				8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
 			);

@@ -15,17 +15,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownModel : NSObject
 @property (nonatomic) NSRange               range ;
-@property (nonatomic) MarkdownSyntaxType    type ;
+@property (nonatomic) NSUInteger            type ;  // synax type or inline type
 @property (copy, nonatomic) NSString        *str ;
 @property (nonatomic) BOOL                  isOnEditState ; // yes - edit, no - preview  . state for display
 
 
 // construct
-- (instancetype)initWithType:(MarkdownSyntaxType)type
+- (instancetype)initWithType:(NSUInteger)type
                        range:(NSRange)range
                          str:(NSString *)str ;
 
-+ (instancetype)modelWithType:(MarkdownSyntaxType)type
++ (instancetype)modelWithType:(NSUInteger)type
                         range:(NSRange)range
                           str:(NSString *)str ;
 

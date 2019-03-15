@@ -7,10 +7,11 @@
 //
 
 #import "MarkdownModel.h"
+#import <XTlib/XTlib.h>
 
 @implementation MarkdownModel
 
-- (instancetype)initWithType:(MarkdownSyntaxType)type
+- (instancetype)initWithType:(NSUInteger)type
                        range:(NSRange)range
                          str:(NSString *)str {
     self = [super init];
@@ -22,10 +23,12 @@
     return self;
 }
 
-+ (instancetype)modelWithType:(MarkdownSyntaxType)type
++ (instancetype)modelWithType:(NSUInteger)type
                         range:(NSRange)range
                           str:(NSString *)str {
-    return [[self alloc] initWithType:type range:range str:str] ;
+    return [[self alloc] initWithType:type
+                                range:range
+                                  str:str] ;
 }
 
 - (NSString *)displayStringForLeftLabel {
@@ -35,10 +38,16 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
-//    NSDictionary *resultDic = configuration.basicStyle ;
+    NSDictionary *resultDic = configuration.basicStyle ;
 //    UIFont *paragraphFont = configuration.font ;
 //    NSUInteger location = self.range.location ;
 //    NSUInteger length = self.range.length ;
+    
+    if (self.type == -1) {
+        resultDic = @{NSBackgroundColorAttributeName : [[XTColorFetcher sharedInstance] randomColor],} ;
+        [attributedString addAttributes:resultDic range:self.range] ;
+    }
+    
     
     return attributedString ;
 }

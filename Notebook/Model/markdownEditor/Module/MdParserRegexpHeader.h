@@ -11,6 +11,9 @@
 
 #define regexp(reg,option)      [NSRegularExpression regularExpressionWithPattern:@reg options:option error:NULL]
 
+//    MarkdownSyntaxParagraph, -1
+
+// 段落样式
 typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxUnknown,
     
@@ -27,27 +30,34 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxTaskLists, // tasklist
     MarkdownSyntaxOLLists, // orderlist
     MarkdownSyntaxULLists, // bulletlist
-    MarkdownSyntaxTaskList_Checkbox ,
-    MarkdownSyntaxULLists_Bullet ,
+    MarkdownSyntaxTaskList_Checkbox ,   // not in parse
+    MarkdownSyntaxULLists_Bullet ,      // not in parse
     
-    // 行内样式
-    MarkdownSyntaxBold, // 粗体
-    MarkdownSyntaxItalic, // 斜体
-    MarkdownSyntaxBoldItalic, // 粗体+斜体
-    MarkdownSyntaxDeletions, // 删除线
-    MarkdownSyntaxInlineCode, // 行内代码
-    MarkdownSyntaxLinks, // 链接
     
     // other
     MarkdownSyntaxNewLine, // 换行
     MarkdownSyntaxCode, // 代码缩进格式
     MarkdownSyntaxDef,
-    MarkdownSyntaxParagraph,
     MarkdownSyntaxText,
     MarkdownSyntaxFrontMatter,
     MarkdownSyntaxMultipleMath, //  数学
     
     NumberOfMarkdownSyntax // count  优先级从高到低.
+} ;
+
+
+// 行内样式
+typedef NS_ENUM(NSUInteger, MarkdownInlineType){
+    MarkdownInlineUnknown = 99,
+    
+    MarkdownInlineBold, // 粗体
+    MarkdownInlineItalic, // 斜体
+    MarkdownInlineBoldItalic, // 粗体+斜体
+    MarkdownInlineDeletions, // 删除线
+    MarkdownInlineInlineCode, // 行内代码
+    MarkdownInlineLinks, // 链接
+    
+    NumberOfMarkdownInline
 } ;
 
 

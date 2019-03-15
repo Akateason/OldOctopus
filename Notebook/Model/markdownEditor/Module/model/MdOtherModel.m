@@ -7,6 +7,7 @@
 //
 
 #import "MdOtherModel.h"
+#import <XTlib/XTlib.h>
 
 @implementation MdOtherModel
 
@@ -35,6 +36,11 @@
             [attributedString addAttributes:resultDic range:self.range] ;
         }
             break;
+//        case MarkdownSyntaxParagraph : {
+//            resultDic = @{NSBackgroundColorAttributeName : [[XTColorFetcher sharedInstance] randomColor],} ;
+//            [attributedString addAttributes:resultDic range:self.range] ;
+//        }
+            break ;
         default: break;
     }
     
