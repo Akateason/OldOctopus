@@ -35,6 +35,11 @@
         case MarkdownSyntaxOLLists: {
             resultDic = @{NSFontAttributeName : paragraphFont} ;
             [attributedString addAttributes:resultDic range:self.range] ;
+            
+            NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
+            NSUInteger lenOfMark = prefix.length + 1 ;
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize]} ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location, lenOfMark + 1)] ;
         }
             break ;
         case MarkdownSyntaxTaskLists: {
@@ -60,6 +65,43 @@
 
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration {
+    
+    NSDictionary *resultDic = configuration.basicStyle ;
+    UIFont *paragraphFont = configuration.font ;
+    NSUInteger location = self.range.location ;
+    NSUInteger length = self.range.length ;
+    
+    switch (self.type) {
+        case MarkdownSyntaxOLLists: {
+            resultDic = @{NSFontAttributeName : paragraphFont} ;
+            [attributedString addAttributes:resultDic range:self.range] ;
+            
+            NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
+            NSUInteger lenOfMark = prefix.length + 1 ;
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize],
+                          NSForegroundColorAttributeName : configuration.markColor
+                          } ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location, lenOfMark + 1)] ;
+        }
+            break ;
+        case MarkdownSyntaxTaskLists: {
+            resultDic = @{NSFontAttributeName : paragraphFont} ;
+            [attributedString addAttributes:resultDic range:self.range] ;
+        }
+            break ;
+        case MarkdownSyntaxULLists: {
+            resultDic = @{NSFontAttributeName : paragraphFont} ;
+            [attributedString addAttributes:resultDic range:self.range] ;
+        }
+            break ;
+        case MarkdownSyntaxTaskList_Checkbox: break ;
+        case MarkdownSyntaxULLists_Bullet: break ;
+            
+            
+        default:
+            break;
+    }
+    
     return attributedString ;
 }
 

@@ -9,7 +9,7 @@
 #import "MDThemeConfiguration.h"
 #import <XTlib/XTlib.h>
 
-static int kDefaultFontSize = 16 ;
+
 
 @interface MDThemeConfiguration ()
 

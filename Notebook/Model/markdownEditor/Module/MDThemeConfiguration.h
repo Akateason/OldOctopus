@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-
+static const int kDefaultFontSize = 16 ;
 
 NS_ASSUME_NONNULL_BEGIN
 

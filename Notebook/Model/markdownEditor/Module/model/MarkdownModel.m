@@ -43,7 +43,7 @@
 //    NSUInteger location = self.range.location ;
 //    NSUInteger length = self.range.length ;
     
-    if (self.type == -1) {
+    if (self.type == -1) { // paragraph
         resultDic = @{NSBackgroundColorAttributeName : [[XTColorFetcher sharedInstance] randomColor],} ;
         [attributedString addAttributes:resultDic range:self.range] ;
     }
