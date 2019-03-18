@@ -295,7 +295,12 @@
             model.isOnEditState = YES ;
         }
         
-        // add any style
+        // judge bullet
+        if (model.type == MarkdownSyntaxULLists) {
+            [attributedString replaceCharactersInRange:NSMakeRange(model.range.location, 1) withString:kMark_Bullet] ;
+        }
+        
+        // render any style
         if (!model.isOnEditState) {
             attributedString = [model addAttrOnPreviewState:attributedString config:self.configuration] ;
         }

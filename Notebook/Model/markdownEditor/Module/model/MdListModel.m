@@ -14,9 +14,9 @@
     NSString *str = [super displayStringForLeftLabel] ;
     
     switch (self.type) {
-        case MarkdownSyntaxTaskLists: str = @"tl" ; break ;
-        case MarkdownSyntaxULLists: str = @"ul" ; break ;
-        case MarkdownSyntaxOLLists: str = @"ol" ; break ;
+        case MarkdownSyntaxTaskLists:   str = @"tl" ; break ;
+        case MarkdownSyntaxULLists:     str = @"ul" ; break ;
+        case MarkdownSyntaxOLLists:     str = @"ol" ; break ;
         default: break;
     }
     
@@ -49,9 +49,7 @@
         case MarkdownSyntaxULLists: {
             [attributedString addAttributes:configuration.listStyle range:self.range] ;
             // bullet
-//            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize]} ;
-//            [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
-            // •
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize]} ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
         }
             break ;
@@ -97,11 +95,10 @@
                           NSForegroundColorAttributeName : configuration.markColor
                           } ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
-        }
+       }
             break ;
         case MarkdownSyntaxTaskList_Checkbox: break ;
         case MarkdownSyntaxULLists_Bullet: break ;
-            
             
         default:
             break;

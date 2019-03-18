@@ -9,11 +9,27 @@
 #ifndef MdParserRegexpHeader_h
 #define MdParserRegexpHeader_h
 
+
+
 #define regexp(reg,option)      [NSRegularExpression regularExpressionWithPattern:@reg options:option error:NULL]
+static NSString *const kMark_Bullet = @"•" ;
 
-//    MarkdownSyntaxParagraph, -1
+// Notification
+//static NSString *const kNotificationIdentifier_bulletListStateChanged = @"kNotification_Identifier_bulletList_StateChanged" ;
 
-// 段落样式
+
+
+
+
+
+
+
+/** MarkStyle TYPE
+ *
+ *** MarkdownSyntaxParagraph == -1 ;
+ */
+
+// block TYPE
 typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxUnknown,
     
@@ -45,20 +61,21 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     NumberOfMarkdownSyntax // count  优先级从高到低.
 } ;
 
-
-// 行内样式
+// inline TYPE
 typedef NS_ENUM(NSUInteger, MarkdownInlineType){
     MarkdownInlineUnknown = 99,
     
-    MarkdownInlineBold, // 粗体
-    MarkdownInlineItalic, // 斜体
-    MarkdownInlineBoldItalic, // 粗体+斜体
-    MarkdownInlineDeletions, // 删除线
-    MarkdownInlineInlineCode, // 行内代码
-    MarkdownInlineLinks, // 链接
+    MarkdownInlineBold,
+    MarkdownInlineItalic,
+    MarkdownInlineBoldItalic,
+    MarkdownInlineDeletions,
+    MarkdownInlineInlineCode,
+    MarkdownInlineLinks,
     
     NumberOfMarkdownInline
 } ;
+
+
 
 
 #define MDPR_newline            "^\\n+"
@@ -73,7 +90,7 @@ typedef NS_ENUM(NSUInteger, MarkdownInlineType){
 
 #define MDPR_tasklist           "^( *)([*+-] \\[(?:X|x|\\s)\\]) [\\s\\S]+?(?:^( *[-*_]){3,} *(?:\\n+|$)|^ {0,3}\\[([^\\]]+)\\]: *<?([^\\s>]+)>?(?: +['(]([^\\n]+)[')])? *(?:\\n+|$)|\\n{2,}(?! )(?!\\1(?:[*+-] \\[(?:X|x|\\s)\\]))\\n*|\\s*$)"
 #define MDPR_orderlist          "^( *)(\\d+\\.) [\\s\\S]+?(?:^( *[-*_]){3,} *(?:\\n+|$)|^ {0,3}\\[([^\\]]+)\\]: *<?([^\\s>]+)>?(?: +['(]([^\\n]+)[')])? *(?:\\n+|$)|\\n{2,}(?! )(?!\\1\\d+\\. )\\n*|\\s*$)"
-#define MDPR_bulletlist         "^( *)([*+-]) [\\s\\S]+?(?:^( *[-*_]){3,} *(?:\\n+|$)|^ {0,3}\\[([^\\]]+)\\]: *<?([^\\s>]+)>?(?: +['(]([^\\n]+)[')])? *(?:\\n+|$)|\\n{2,}(?! )(?!\1[*+-] )\\n*|\\s*$)"
+#define MDPR_bulletlist         "^( *)([*+-•]) [\\s\\S]+?(?:^( *[-*_]){3,} *(?:\\n+|$)|^ {0,3}\\[([^\\]]+)\\]: *<?([^\\s>]+)>?(?: +['(]([^\\n]+)[')])? *(?:\\n+|$)|\\n{2,}(?! )(?!\1[*+-] )\\n*|\\s*$)"
 
 #define MDPR_def                "^ {0,3}\\[([^\\]]+)\\]: *<?([^\\s>]+)>?(?: +['(]([^\\n]+)[')])? *(?:\\n+|$)"
 
@@ -88,12 +105,12 @@ typedef NS_ENUM(NSUInteger, MarkdownInlineType){
 #define MDPR_bullet             "(?:[*+-] \\[(?:X|x|\\s)\\]|[*+-]|\\d+\\.)"
 
 
-#define MDIL_BOLD   "(?<!\\*)\\*{2}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{2}(?!\\*)"
-#define MDIL_ITALIC "((?<!\\*)\\*(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*(?!\\*)|(?<!_)_(?=[^ \\t_])(.+?)(?<=[^ \\t_])_(?!_))"
-#define MDIL_BOLDITALIC "((?<!\\*)\\*{3}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{3}(?!\\*)|(?<!_)_{3}(?=[^ \\t_])(.+?)(?<=[^ \\t_])_{3}(?!_))"
-#define MDIL_DELETION   "\\~\\~(.*?)\\~\\~"
-#define MDIL_INLINECODE "\\`(.*?)\\`"
-#define MDIL_LINKS      "\\[([^\\[]+)\\]\\(([^\\)]+)\\)"
+#define MDIL_BOLD                "(?<!\\*)\\*{2}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{2}(?!\\*)"
+#define MDIL_ITALIC              "((?<!\\*)\\*(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*(?!\\*)|(?<!_)_(?=[^ \\t_])(.+?)(?<=[^ \\t_])_(?!_))"
+#define MDIL_BOLDITALIC          "((?<!\\*)\\*{3}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{3}(?!\\*)|(?<!_)_{3}(?=[^ \\t_])(.+?)(?<=[^ \\t_])_{3}(?!_))"
+#define MDIL_DELETION            "\\~\\~(.*?)\\~\\~"
+#define MDIL_INLINECODE          "\\`(.*?)\\`"
+#define MDIL_LINKS               "\\[([^\\[]+)\\]\\(([^\\)]+)\\)"
 
 
 #endif /* MdParserRegexpHeader_h */

@@ -9,6 +9,8 @@
 #import "MarkdownEditor.h"
 #import "MDThemeConfiguration.h"
 #import <XTlib/XTlib.h>
+#import "MdListModel.h"
+
 
 static const CGFloat kFlexValue = 30.f ;
 static const int kTag_QuoteMarkView = 66777 ;
@@ -61,7 +63,7 @@ static const int kTag_QuoteMarkView = 66777 ;
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self updateTextStyle] ;
-        [self makeLeftDisplayLabel] ;
+        [self doSomethingWhenUserSelectPartOfArticle] ;
     }] ;
     
     // keyboard hiding
@@ -96,18 +98,38 @@ static const int kTag_QuoteMarkView = 66777 ;
     self.scrollEnabled = YES ;
 }
 
-- (void)makeLeftDisplayLabel {
-    [self hide_lbLeftCornerMarker] ;
-    
+- (void)doSomethingWhenUserSelectPartOfArticle {
 //    CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start];
 //    NSLog(@"caret rect %@", NSStringFromCGRect(caretRect)) ;
     MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
-    self.lbLeftCornerMarker.text = [self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model] ;
     NSLog(@"choose model : %@",[model yy_modelToJSONString]) ;
     
+    // left lb
+    [self drawLeftDisplayLabel:model] ;
+    // bullet
+    [self drawBullet:model] ;
+}
+
+- (void)drawLeftDisplayLabel:(MarkdownModel *)model {
+    [self hide_lbLeftCornerMarker] ;
+    self.lbLeftCornerMarker.text = [self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model] ;
     [self show_lbLeftCornerMarker] ;
 }
 
+- (void)drawBullet:(MarkdownModel *)model {
+    if (model.type != MarkdownSyntaxULLists) return ;
+    
+    if (model.isOnEditState) {
+        NSMutableAttributedString *attr = [self.attributedText mutableCopy] ;
+        [attr replaceCharactersInRange:NSMakeRange(model.range.location, 1) withString:@"*"] ;
+        [self updateAttributedText:attr] ;
+    }
+    else {
+        NSMutableAttributedString *attr = [self.attributedText mutableCopy] ;
+        [attr replaceCharactersInRange:NSMakeRange(model.range.location, 1) withString:kMark_Bullet] ;
+        [self updateAttributedText:attr] ;
+    }
+}
 
 #pragma mark - rewrite father
 #pragma mark - cursor moving and selecting
@@ -117,7 +139,7 @@ static const int kTag_QuoteMarkView = 66777 ;
 //    NSLog(@"selectedTextRange %@",selectedTextRange) ;
     
     [self updateTextStyle] ;
-    [self makeLeftDisplayLabel] ;
+    [self doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 #pragma mark - props
