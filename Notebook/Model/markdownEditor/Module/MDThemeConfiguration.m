@@ -119,6 +119,21 @@
     return _invisibleMarkStyle ;
 }
 
+- (NSDictionary *)listStyle {
+    if (!_listStyle) {
+        int indentation = 12 ;
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.tabStops = @[[[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentLeft location:indentation options:@{}]];
+        paragraphStyle.defaultTabInterval = indentation;
+        paragraphStyle.headIndent = indentation;
+        
+        _listStyle = @{NSFontAttributeName : self.font,
+                      NSParagraphStyleAttributeName: paragraphStyle
+                      } ;
+    }
+    return _listStyle ;
+}
+
 - (UIColor *)textColor {
     if (!_textColor) {
         _textColor = UIColorHex(@"303133") ;

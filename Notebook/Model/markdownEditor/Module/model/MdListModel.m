@@ -33,9 +33,8 @@
 
     switch (self.type) {
         case MarkdownSyntaxOLLists: {
-            resultDic = @{NSFontAttributeName : paragraphFont} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
-            
+            [attributedString addAttributes:configuration.listStyle range:self.range] ;
+            // number
             NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
             NSUInteger lenOfMark = prefix.length + 1 ;
             resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize]} ;
@@ -48,8 +47,15 @@
         }
             break ;
         case MarkdownSyntaxULLists: {
-            resultDic = @{NSFontAttributeName : paragraphFont} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
+            [attributedString addAttributes:configuration.listStyle range:self.range] ;
+            // bullet
+//            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize]} ;
+//            [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
+            // •
+//            UILabel *label = [[UILabel alloc] initWithFrame:self.view.bounds];
+            UIFont *font = [UIFont fontWithName:@"icomoon" size:16] ;
+            resultDic = @{NSFontAttributeName : font} ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
         }
             break ;
         case MarkdownSyntaxTaskList_Checkbox: break ;
@@ -73,9 +79,8 @@
     
     switch (self.type) {
         case MarkdownSyntaxOLLists: {
-            resultDic = @{NSFontAttributeName : paragraphFont} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
-            
+            [attributedString addAttributes:configuration.listStyle range:self.range] ;
+            // number
             NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
             NSUInteger lenOfMark = prefix.length + 1 ;
             resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize],
@@ -90,8 +95,12 @@
         }
             break ;
         case MarkdownSyntaxULLists: {
-            resultDic = @{NSFontAttributeName : paragraphFont} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
+            [attributedString addAttributes:configuration.listStyle range:self.range] ;
+            // bullet
+            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize],
+                          NSForegroundColorAttributeName : configuration.markColor
+                          } ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
         }
             break ;
         case MarkdownSyntaxTaskList_Checkbox: break ;
