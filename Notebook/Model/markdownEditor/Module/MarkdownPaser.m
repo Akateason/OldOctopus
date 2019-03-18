@@ -61,9 +61,9 @@
             return regexp(MDPR_bullet, NSRegularExpressionAnchorsMatchLines);
             
         case MarkdownSyntaxBlockquotes:
-            return regexp(MDPR_blockquote,NSRegularExpressionAnchorsMatchLines); // "(&gt;|\\>)(.*)"
+            return regexp(MDPR_blockquote,NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxCodeBlock:
-            return regexp("(```)([\\s\\S]*?)(```)",NSRegularExpressionAnchorsMatchLines); //"```([\\s\\S]*?)```"  // "```([\\s\\S]*?)```[\\s]?"
+            return regexp(MDPR_codeBlock,NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxHr:
             return regexp(MDPR_hr, NSRegularExpressionAnchorsMatchLines) ;
             
@@ -90,17 +90,17 @@
         case MarkdownInlineUnknown: break ;
             
         case MarkdownInlineBold:
-            return regexp("(?<!\\*)\\*{2}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{2}(?!\\*)", 0);
+            return regexp(MDIL_BOLD, 0);
         case MarkdownInlineItalic:
-            return regexp("((?<!\\*)\\*(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*(?!\\*)|(?<!_)_(?=[^ \\t_])(.+?)(?<=[^ \\t_])_(?!_))", 0);
+            return regexp(MDIL_ITALIC, 0);
         case MarkdownInlineBoldItalic:
-            return regexp("((?<!\\*)\\*{3}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{3}(?!\\*)|(?<!_)_{3}(?=[^ \\t_])(.+?)(?<=[^ \\t_])_{3}(?!_))", 0);
+            return regexp(MDIL_BOLDITALIC, 0);
         case MarkdownInlineDeletions:
-            return regexp("\\~\\~(.*?)\\~\\~", 0);
+            return regexp(MDIL_DELETION, 0);
         case MarkdownInlineInlineCode:
-            return regexp("\\`(.*?)\\`", 0); // MDPR_code //`(.*?)`
+            return regexp(MDIL_INLINECODE, 0);
         case MarkdownInlineLinks:
-            return regexp("\\[([^\\[]+)\\]\\(([^\\)]+)\\)", 0);
+            return regexp(MDIL_LINKS, 0);
         
         default: break;
     }

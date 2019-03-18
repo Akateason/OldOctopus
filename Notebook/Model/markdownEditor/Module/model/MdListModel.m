@@ -52,16 +52,12 @@
 //            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize]} ;
 //            [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
             // •
-//            UILabel *label = [[UILabel alloc] initWithFrame:self.view.bounds];
-            UIFont *font = [UIFont fontWithName:@"icomoon" size:16] ;
-            resultDic = @{NSFontAttributeName : font} ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
         }
             break ;
         case MarkdownSyntaxTaskList_Checkbox: break ;
         case MarkdownSyntaxULLists_Bullet: break ;
-
-            
+        
         default:
             break;
     }
