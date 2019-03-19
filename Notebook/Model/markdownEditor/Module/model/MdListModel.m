@@ -15,8 +15,8 @@
     
     switch (self.type) {
         case MarkdownSyntaxTaskLists:   str = @"tl" ; break ;
-        case MarkdownSyntaxULLists:     str = @"ul" ; break ;
         case MarkdownSyntaxOLLists:     str = @"ol" ; break ;
+        case MarkdownSyntaxULLists:     str = @"ul" ; break ;
         default: break;
     }
     
@@ -53,8 +53,7 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
         }
             break ;
-        case MarkdownSyntaxTaskList_Checkbox: break ;
-        case MarkdownSyntaxULLists_Bullet: break ;
+
         
         default:
             break;
@@ -97,8 +96,8 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
        }
             break ;
-        case MarkdownSyntaxTaskList_Checkbox: break ;
-        case MarkdownSyntaxULLists_Bullet: break ;
+
+            
             
         default:
             break;

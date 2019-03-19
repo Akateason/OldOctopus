@@ -40,13 +40,16 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxTaskLists, // tasklist
     MarkdownSyntaxOLLists, // orderlist
     MarkdownSyntaxULLists, // bulletlist
-    MarkdownSyntaxTaskList_Checkbox ,   // not in parse
-    MarkdownSyntaxULLists_Bullet ,      // not in parse
+//    MarkdownSyntaxTaskList_Checkbox ,   // not in parse
+//    MarkdownSyntaxULLists_Bullet ,      // not in parse
     
     
     // other
     MarkdownSyntaxMultipleMath, //  数学
     MarkdownSyntaxHr, // 分割线
+    
+    MarkdownSyntaxTable ,
+    MarkdownSyntaxNpTable ,
     
     NumberOfMarkdownSyntax // count  优先级从低到高.
 } ;
@@ -94,6 +97,8 @@ typedef NS_ENUM(NSUInteger, MarkdownInlineType){
 #define MDPR_checkbox           "^\\[([ x])\\] +"
 #define MDPR_bullet             "(?:[*+-] \\[(?:X|x|\\s)\\]|[*+-]|\\d+\\.)"
 
+#define MDPR_NpTable            "^ *([^|\\n ].*\\|.*)\\n *([-:]+ *\\|[-| :]*)(?:\\n((?:.*[^>\\n ].*(?:\\n|$))*)\\n*|$)"
+#define MDPR_table              "^ *\\|(.+)\\n *\\|?( *[-:]+[-| :]*)(?:\\n((?: *[^>\\n ].*(?:\\n|$))*)\\n*|$)"
 
 #define MDIL_BOLD                "(?<!\\*)\\*{2}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{2}(?!\\*)"
 #define MDIL_ITALIC              "((?<!\\*)\\*(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*(?!\\*)|(?<!_)_(?=[^ \\t_])(.+?)(?<=[^ \\t_])_(?!_))"
@@ -101,6 +106,9 @@ typedef NS_ENUM(NSUInteger, MarkdownInlineType){
 #define MDIL_DELETION            "\\~\\~(.*?)\\~\\~"
 #define MDIL_INLINECODE          "\\`(.*?)\\`"
 #define MDIL_LINKS               "\\[([^\\[]+)\\]\\(([^\\)]+)\\)"
+
+
+
 
 
 #endif /* MdParserRegexpHeader_h */

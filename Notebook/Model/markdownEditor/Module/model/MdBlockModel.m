@@ -17,7 +17,7 @@
     switch (self.type) {
         case MarkdownSyntaxBlockquotes: str = @"引用" ; break ;
         case MarkdownSyntaxCodeBlock: str = @"代码块" ; break ;
-        case MarkdownSyntaxHr: str = @"分割线" ; break ;
+        
         default:
             break;
     }

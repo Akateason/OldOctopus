@@ -20,12 +20,7 @@
 @interface MarkdownPaser ()
 @property (strong, nonatomic) MDThemeConfiguration *configuration;
 
-//@property (copy, nonatomic) NSArray *paragraphList ; // get paralist first. then judge this para is a block ?
-//@property (copy, nonatomic) NSArray *blockList ;
-
 @property (copy, nonatomic) NSArray *modelList ;
-
-
 @property (copy, nonatomic) NSString *originalText ;
 @end
 
@@ -48,37 +43,27 @@
             return regexp(MDPR_heading, NSRegularExpressionAnchorsMatchLines) ;
 //        case MarkdownSyntaxLHeader:
 //            return regexp(MDPR_lheading, NSRegularExpressionAnchorsMatchLines) ;
-            
+        
         case MarkdownSyntaxTaskLists:
             return regexp(MDPR_tasklist, NSRegularExpressionAnchorsMatchLines) ;
         case MarkdownSyntaxOLLists:
             return regexp(MDPR_orderlist, NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxULLists:
             return regexp(MDPR_bulletlist, NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxTaskList_Checkbox:
-            return regexp(MDPR_checkbox, NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxULLists_Bullet:
-            return regexp(MDPR_bullet, NSRegularExpressionAnchorsMatchLines);
             
         case MarkdownSyntaxBlockquotes:
             return regexp(MDPR_blockquote,NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxCodeBlock:
             return regexp(MDPR_codeBlock,NSRegularExpressionAnchorsMatchLines);
+        
         case MarkdownSyntaxHr:
             return regexp(MDPR_hr, NSRegularExpressionAnchorsMatchLines) ;
-            
-//        case MarkdownSyntaxNewLine:
-//            return regexp(MDPR_newline, NSRegularExpressionAnchorsMatchLines);
-//        case MarkdownSyntaxCode: break ;
-//            return regexp(MDPR_code, NSRegularExpressionAnchorsMatchLines) ;
-//        case MarkdownSyntaxDef: break ;
-//            return regexp(MDPR_def, NSRegularExpressionAnchorsMatchLines) ;
-//        case MarkdownSyntaxText: break ;
-//            return regexp(MDPR_text, NSRegularExpressionAnchorsMatchLines) ;
-//        case MarkdownSyntaxFrontMatter: break ;
-//            return regexp(MDPR_frontmatter, NSRegularExpressionAnchorsMatchLines) ;
         case MarkdownSyntaxMultipleMath:
             return regexp(MDPR_multiplemath, NSRegularExpressionAnchorsMatchLines) ;
+        case MarkdownSyntaxNpTable:
+            return regexp(MDPR_NpTable, NSRegularExpressionAnchorsMatchLines) ;
+        case MarkdownSyntaxTable :
+            return regexp(MDPR_table, NSRegularExpressionAnchorsMatchLines) ;
             
         case NumberOfMarkdownSyntax: break ;
     }
@@ -109,7 +94,7 @@
 
 - (NSArray *)parsingModelsForText:(NSString *)text {
     NSMutableArray *resultModelList = [@[] mutableCopy] ;
-
+    
     NSMutableArray *paralist = [@[] mutableCopy] ;
     // parse for paragraphs
     NSRegularExpression *expPara = regexp(MDPR_paragraph, NSRegularExpressionAnchorsMatchLines) ;
@@ -149,10 +134,10 @@
     }
     
     return resultModelList ;
+//    return paralist ;
 }
 
 - (id)parsingGetABlockStyleModelFromParaModel:(MarkdownModel *)pModel {
-    id tempModel = nil ;
 
     for (MarkdownSyntaxType i = NumberOfMarkdownSyntax - 1; i > 0 ; i--) {
         NSRegularExpression *expression = [self getRegularExpressionFromMarkdownSyntaxType:i] ;
@@ -161,35 +146,35 @@
             NSRange tmpRange = NSMakeRange(pModel.range.location + result.range.location, result.range.length) ;
             // model is block model
             switch (i) {
+                case MarkdownSyntaxUnknown: break ;
+                    
                 case MarkdownSyntaxHeaders: {
-                    tempModel = [MDHeadModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                    return [MDHeadModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
                 }
-                    break;
                     
                 case MarkdownSyntaxTaskLists:
                 case MarkdownSyntaxOLLists:
                 case MarkdownSyntaxULLists: {
-                    tempModel = [MdListModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                    return [MdListModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
                 }
-                    break;
                     
                 case MarkdownSyntaxBlockquotes:
                 case MarkdownSyntaxCodeBlock: {
-                    tempModel = [MdBlockModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                    return [MdBlockModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
                 }
-                    break;
                     
-                case MarkdownSyntaxMultipleMath: {
-                    tempModel = [MdOtherModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                case MarkdownSyntaxMultipleMath:
+                case MarkdownSyntaxNpTable:
+                case MarkdownSyntaxTable: {
+                    return [MdOtherModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
                 }
-                    break;
                     
-                default: break;
+                case NumberOfMarkdownSyntax: break ;
             }
         }
     }
     
-    return tempModel ;
+    return nil ;
 }
 
 - (NSArray *)parsingModelForInlineStyleWithOneParagraphModel:(MarkdownModel *)paraModel {

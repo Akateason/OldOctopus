@@ -16,7 +16,9 @@
     
     switch (self.type) {
         case MarkdownSyntaxMultipleMath: str = @"数学"; break;
-        
+        case MarkdownSyntaxHr: str = @"分割线" ; break ;
+        case MarkdownSyntaxTable: str = @"表格1" ; break ;
+        case MarkdownSyntaxNpTable: str = @"表格2" ; break ;
         default: break;
     }
     return str ;
@@ -45,6 +47,16 @@
                           NSFontAttributeName : hrFont ,
                           NSParagraphStyleAttributeName : paraStyle
                           } ;
+            [attributedString addAttributes:resultDic range:self.range] ;
+        }
+            break ;
+        case MarkdownSyntaxNpTable: {
+            resultDic = @{NSBackgroundColorAttributeName : [UIColor redColor],} ;
+            [attributedString addAttributes:resultDic range:self.range] ;
+        }
+            break ;
+        case MarkdownSyntaxTable: {
+            resultDic = @{NSBackgroundColorAttributeName : [UIColor xt_skyBlue],} ;
             [attributedString addAttributes:resultDic range:self.range] ;
         }
             break ;
