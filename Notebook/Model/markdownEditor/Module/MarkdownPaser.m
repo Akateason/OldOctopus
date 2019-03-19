@@ -67,15 +67,15 @@
         case MarkdownSyntaxHr:
             return regexp(MDPR_hr, NSRegularExpressionAnchorsMatchLines) ;
             
-        case MarkdownSyntaxNewLine:
-            return regexp(MDPR_newline, NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxCode: break ;
+//        case MarkdownSyntaxNewLine:
+//            return regexp(MDPR_newline, NSRegularExpressionAnchorsMatchLines);
+//        case MarkdownSyntaxCode: break ;
 //            return regexp(MDPR_code, NSRegularExpressionAnchorsMatchLines) ;
-        case MarkdownSyntaxDef: break ;
+//        case MarkdownSyntaxDef: break ;
 //            return regexp(MDPR_def, NSRegularExpressionAnchorsMatchLines) ;
-        case MarkdownSyntaxText: break ;
+//        case MarkdownSyntaxText: break ;
 //            return regexp(MDPR_text, NSRegularExpressionAnchorsMatchLines) ;
-        case MarkdownSyntaxFrontMatter: break ;
+//        case MarkdownSyntaxFrontMatter: break ;
 //            return regexp(MDPR_frontmatter, NSRegularExpressionAnchorsMatchLines) ;
         case MarkdownSyntaxMultipleMath:
             return regexp(MDPR_multiplemath, NSRegularExpressionAnchorsMatchLines) ;
@@ -140,56 +140,56 @@
         }
     }] ;
     
+    // parse for hr
+    NSRegularExpression *expHr = regexp(MDPR_hr, NSRegularExpressionAnchorsMatchLines) ;
+    NSArray *matsHr = [expHr matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
+    for (NSTextCheckingResult *result in matsHr) {
+        MdOtherModel *model = [MdOtherModel modelWithType:MarkdownSyntaxHr range:result.range str:[text substringWithRange:result.range]] ;
+        [resultModelList addObject:model] ;
+    }
+    
     return resultModelList ;
 }
 
 - (id)parsingGetABlockStyleModelFromParaModel:(MarkdownModel *)pModel {
-    id resModel = nil ;
-    
-    for (MarkdownSyntaxType i = MarkdownSyntaxUnknown; i < NumberOfMarkdownSyntax; i++) {
+    id tempModel = nil ;
+
+    for (MarkdownSyntaxType i = NumberOfMarkdownSyntax - 1; i > 0 ; i--) {
         NSRegularExpression *expression = [self getRegularExpressionFromMarkdownSyntaxType:i] ;
-        NSTextCheckingResult *result = [[expression matchesInString:pModel.str
-                                                            options:0
-                                                              range:NSMakeRange(0, [pModel.str length])] firstObject] ;
-        if (!result) continue ;
-        
-        NSRange tmpRange = NSMakeRange(pModel.range.location + result.range.location, result.range.length) ;
-        // model is block model
-        switch (i) {
-            case MarkdownSyntaxHeaders: {
-                resModel = [MDHeadModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+        NSArray *matches = [expression matchesInString:pModel.str options:0 range:NSMakeRange(0, [pModel.str length])] ;
+        for (NSTextCheckingResult *result in matches) {
+            NSRange tmpRange = NSMakeRange(pModel.range.location + result.range.location, result.range.length) ;
+            // model is block model
+            switch (i) {
+                case MarkdownSyntaxHeaders: {
+                    tempModel = [MDHeadModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                }
+                    break;
+                    
+                case MarkdownSyntaxTaskLists:
+                case MarkdownSyntaxOLLists:
+                case MarkdownSyntaxULLists: {
+                    tempModel = [MdListModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                }
+                    break;
+                    
+                case MarkdownSyntaxBlockquotes:
+                case MarkdownSyntaxCodeBlock: {
+                    tempModel = [MdBlockModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                }
+                    break;
+                    
+                case MarkdownSyntaxMultipleMath: {
+                    tempModel = [MdOtherModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                }
+                    break;
+                    
+                default: break;
             }
-                break;
-                
-            case MarkdownSyntaxTaskLists:
-            case MarkdownSyntaxOLLists:
-            case MarkdownSyntaxULLists: {
-                resModel = [MdListModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
-            }
-                break;
-                
-            case MarkdownSyntaxBlockquotes:
-            case MarkdownSyntaxCodeBlock:
-            case MarkdownSyntaxHr: {
-                resModel = [MdBlockModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
-            }
-                break;
-                
-            case MarkdownSyntaxNewLine:
-            case MarkdownSyntaxCode:
-            case MarkdownSyntaxDef:
-            case MarkdownSyntaxText:
-            case MarkdownSyntaxFrontMatter:
-            case MarkdownSyntaxMultipleMath: {
-                resModel = [MdOtherModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
-            }
-                break;
-                
-            default: break;
         }
     }
     
-    return resModel ;
+    return tempModel ;
 }
 
 - (NSArray *)parsingModelForInlineStyleWithOneParagraphModel:(MarkdownModel *)paraModel {

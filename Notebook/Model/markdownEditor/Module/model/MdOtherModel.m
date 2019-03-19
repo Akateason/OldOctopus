@@ -36,11 +36,20 @@
             [attributedString addAttributes:resultDic range:self.range] ;
         }
             break;
-//        case MarkdownSyntaxParagraph : {
-//            resultDic = @{NSBackgroundColorAttributeName : [[XTColorFetcher sharedInstance] randomColor],} ;
-//            [attributedString addAttributes:resultDic range:self.range] ;
-//        }
+        case MarkdownSyntaxHr: {
+            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+            paraStyle.paragraphSpacing = 16 ;
+            UIFont *hrFont = [UIFont systemFontOfSize:4] ;
+            resultDic = @{NSBackgroundColorAttributeName : UIColorHex(@"dcdcdc") ,
+                          NSForegroundColorAttributeName : UIColorHex(@"dcdcdc") ,
+                          NSFontAttributeName : hrFont ,
+                          NSParagraphStyleAttributeName : paraStyle
+                          } ;
+            [attributedString addAttributes:resultDic range:self.range] ;
+        }
             break ;
+
+
         default: break;
     }
     
@@ -49,6 +58,26 @@
 
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration {
+    
+    NSDictionary *resultDic = configuration.basicStyle ;
+    UIFont *paragraphFont = configuration.font ;
+    NSUInteger location = self.range.location ;
+    NSUInteger length = self.range.length ;
+
+    switch (self.type) {
+        case MarkdownSyntaxHr: {
+            resultDic = @{NSBackgroundColorAttributeName : [UIColor clearColor] ,
+                          NSForegroundColorAttributeName : configuration.markColor ,
+                          NSFontAttributeName : configuration.font,
+                          } ;
+            [attributedString addAttributes:resultDic range:self.range] ;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
     return attributedString ;
 }
 

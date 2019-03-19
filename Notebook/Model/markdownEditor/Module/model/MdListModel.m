@@ -49,7 +49,7 @@
         case MarkdownSyntaxULLists: {
             [attributedString addAttributes:configuration.listStyle range:self.range] ;
             // bullet
-            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize]} ;
+            resultDic = @{NSFontAttributeName : [UIFont systemFontOfSize:20]} ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
         }
             break ;
@@ -91,7 +91,7 @@
         case MarkdownSyntaxULLists: {
             [attributedString addAttributes:configuration.listStyle range:self.range] ;
             // bullet
-            resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:kDefaultFontSize],
+            resultDic = @{NSFontAttributeName : configuration.font ,
                           NSForegroundColorAttributeName : configuration.markColor
                           } ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;

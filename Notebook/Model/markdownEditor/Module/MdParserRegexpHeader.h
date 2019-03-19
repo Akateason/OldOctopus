@@ -12,20 +12,14 @@
 
 
 #define regexp(reg,option)      [NSRegularExpression regularExpressionWithPattern:@reg options:option error:NULL]
-static NSString *const kMark_Bullet = @"•" ;
-
-// Notification
-//static NSString *const kNotificationIdentifier_bulletListStateChanged = @"kNotification_Identifier_bulletList_StateChanged" ;
-
-
-
+static NSString *const kMark_Bullet = @"•" ;  // @"●●○⦿・◉"  // same mark in MDPR_bulletlist
 
 
 
 
 
 /** MarkStyle TYPE
- *
+ * the priroty from low to high
  *** MarkdownSyntaxParagraph == -1 ;
  */
 
@@ -40,7 +34,7 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     // block
     MarkdownSyntaxBlockquotes, // 块引用
     MarkdownSyntaxCodeBlock, // 代码块
-    MarkdownSyntaxHr, // 分割线
+    
     
     // 列表
     MarkdownSyntaxTaskLists, // tasklist
@@ -51,14 +45,10 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     
     
     // other
-    MarkdownSyntaxNewLine, // 换行
-    MarkdownSyntaxCode, // 代码缩进格式
-    MarkdownSyntaxDef,
-    MarkdownSyntaxText,
-    MarkdownSyntaxFrontMatter,
     MarkdownSyntaxMultipleMath, //  数学
+    MarkdownSyntaxHr, // 分割线
     
-    NumberOfMarkdownSyntax // count  优先级从高到低.
+    NumberOfMarkdownSyntax // count  优先级从低到高.
 } ;
 
 // inline TYPE

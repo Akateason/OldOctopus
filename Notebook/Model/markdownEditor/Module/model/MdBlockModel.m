@@ -66,18 +66,6 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 3, 3)] ;
         }
             break ;
-        case MarkdownSyntaxHr: {
-            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-            paraStyle.paragraphSpacing = 16 ;
-            UIFont *hrFont = [UIFont systemFontOfSize:4] ;
-            resultDic = @{NSBackgroundColorAttributeName : UIColorHex(@"dcdcdc") ,
-                          NSForegroundColorAttributeName : UIColorHex(@"dcdcdc") ,
-                          NSFontAttributeName : hrFont ,
-                          NSParagraphStyleAttributeName : paraStyle
-                          } ;
-            [attributedString addAttributes:resultDic range:self.range] ;
-        }
-            break ;
 
             
         default:
@@ -114,19 +102,8 @@
                           } ;
             NSRange rangeTmp = NSMakeRange(location + 3, length - 6) ;
             [attributedString addAttributes:resultDic range:rangeTmp] ;
-            
-//            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 3)] ;
-//            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 3, 3)] ;
         }
             break ;
-        case MarkdownSyntaxHr: {
-            resultDic = @{NSBackgroundColorAttributeName : [UIColor clearColor] ,
-                          NSForegroundColorAttributeName : configuration.markColor ,
-                          NSFontAttributeName : configuration.font,
-                          } ;
-            [attributedString addAttributes:resultDic range:self.range] ;
-        }
-            break;
             
         default:
             break;
