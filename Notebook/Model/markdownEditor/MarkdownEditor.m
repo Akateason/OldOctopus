@@ -37,14 +37,6 @@ static const int kTag_QuoteMarkView = 66777 ;
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setup] ;
-    }
-    return self;
-}
-
 - (instancetype)init {
     self = [super init];
     if (self) {

@@ -37,9 +37,11 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     
     
     // 列表
-    MarkdownSyntaxTaskLists, // tasklist
+//    MarkdownSyntaxTaskLists, // tasklist
     MarkdownSyntaxOLLists, // orderlist
     MarkdownSyntaxULLists, // bulletlist
+    MarkdownSyntaxTaskLists, // tasklist
+    
 //    MarkdownSyntaxTaskList_Checkbox ,   // not in parse
 //    MarkdownSyntaxULLists_Bullet ,      // not in parse
     

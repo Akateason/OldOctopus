@@ -7,6 +7,7 @@
 //
 
 #import "MdListModel.h"
+#import <XTlib/XTlib.h>
 
 @implementation MdListModel
 
@@ -41,11 +42,6 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location, lenOfMark + 1)] ;
         }
             break ;
-        case MarkdownSyntaxTaskLists: {
-            resultDic = @{NSFontAttributeName : paragraphFont} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
-        }
-            break ;
         case MarkdownSyntaxULLists: {
             [attributedString addAttributes:configuration.listStyle range:self.range] ;
             // bullet
@@ -53,7 +49,44 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
         }
             break ;
+        case MarkdownSyntaxTaskLists: {
+//            BOOL select = NO ;
+//            NSInteger fontSize = kDefaultFontSize ;
+//            UIImage *image = [UIImage imageNamed:select == YES ? @"check-box-on" : @"check-box-off"];
+//            CGSize size = CGSizeMake(fontSize + 2, fontSize + 2);
+//            UIGraphicsBeginImageContextWithOptions(size, false, 0);
+//            [image drawInRect:CGRectMake(0, 2, size.width, size.height)];
+//            UIImage *resizeImage = UIGraphicsGetImageFromCurrentImageContext();
+//            UIGraphicsEndImageContext();
+//
+//            NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+//            textAttachment.image = resizeImage ;
+//            NSMutableAttributedString *imageString = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy] ;
+//            [imageString addAttribute:NSLinkAttributeName
+//                                value:@"checkbox://"
+//                                range:NSMakeRange(0, imageString.length)];
+//            [attributedString insertAttributedString:imageString atIndex:location];
+//            [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0, attributedString.length)];
+            
+//            _textview.attributedText = attributedString;
+//            _textview.linkTextAttributes = @{NSForegroundColorAttributeName: [UIColor blueColor],
+//                                             NSUnderlineColorAttributeName: [UIColor lightGrayColor],
+//                                             NSUnderlineStyleAttributeName: @(NSUnderlinePatternSolid)};
+            
+//            _textview.delegate = self;
+//            _textview.editable = NO;        //必须禁止输入，否则点击将弹出输入键盘
+//            _textview.scrollEnabled = NO;
+            
+            resultDic = @{NSBackgroundColorAttributeName : [UIColor xt_facePink]} ;
+            [attributedString addAttributes:resultDic range:self.range] ;
+            
+//            if ([attributedString.string hasPrefix:@"\\U0000fffc"]) {
+//                NSRange range = NSMakeRange(location, @"\\U0000fffc".length) ;
+//                [attributedString deleteCharactersInRange:range] ;
+//            }
 
+        }
+            break ;
         
         default:
             break;
@@ -82,11 +115,6 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location, lenOfMark + 1)] ;
         }
             break ;
-        case MarkdownSyntaxTaskLists: {
-            resultDic = @{NSFontAttributeName : paragraphFont} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
-        }
-            break ;
         case MarkdownSyntaxULLists: {
             [attributedString addAttributes:configuration.listStyle range:self.range] ;
             // bullet
@@ -95,6 +123,30 @@
                           } ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 2)] ;
        }
+            break ;
+        case MarkdownSyntaxTaskLists: {
+//            resultDic = @{NSFontAttributeName : paragraphFont} ;
+//            [attributedString addAttributes:resultDic range:self.range] ;
+            
+//            BOOL select = YES ;
+//            NSInteger fontSize = kDefaultFontSize ;
+//            UIImage *image = [UIImage imageNamed:select == YES ? @"check-box-on" : @"check-box-off"] ;
+//            CGSize size = CGSizeMake(fontSize, fontSize) ;
+//
+//            UIGraphicsBeginImageContextWithOptions(size, false, 0);
+//            [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+//            UIImage *resizeImage = UIGraphicsGetImageFromCurrentImageContext();
+//            UIGraphicsEndImageContext();
+//
+//            NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init] ;
+//            textAttachment.image = resizeImage ;
+//            NSMutableAttributedString *imageString = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy] ;
+//            [imageString addAttribute:NSLinkAttributeName
+//                                value:@"checkbox://"
+//                                range:NSMakeRange(0, imageString.length)] ;
+//            [attributedString insertAttributedString:imageString atIndex:location];
+            
+        }
             break ;
 
             
