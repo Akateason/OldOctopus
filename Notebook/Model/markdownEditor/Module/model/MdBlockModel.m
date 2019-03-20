@@ -26,10 +26,10 @@
 
 - (NSDictionary *)attrQuoteBlockHideMark {
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-    paraStyle.minimumLineHeight = 16;
+    paraStyle.paragraphSpacing = 16;
     NSDictionary *tmpStyle = @{NSForegroundColorAttributeName:[UIColor whiteColor] ,
                                NSBackgroundColorAttributeName:[UIColor whiteColor] ,
-                               NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
+                               NSFontAttributeName : [UIFont systemFontOfSize:.1] ,
                                } ;
     return tmpStyle ;
 }

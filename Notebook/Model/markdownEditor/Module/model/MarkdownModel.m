@@ -48,7 +48,6 @@
         [attributedString addAttributes:resultDic range:self.range] ;
     }
     
-    
     return attributedString ;
 }
 

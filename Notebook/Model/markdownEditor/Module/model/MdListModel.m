@@ -50,23 +50,26 @@
         }
             break ;
         case MarkdownSyntaxTaskLists: {
-//            BOOL select = NO ;
+//            BOOL select = YES ;
 //            NSInteger fontSize = kDefaultFontSize ;
 //            UIImage *image = [UIImage imageNamed:select == YES ? @"check-box-on" : @"check-box-off"];
-//            CGSize size = CGSizeMake(fontSize + 2, fontSize + 2);
+//            CGSize size = CGSizeMake(fontSize, fontSize);
+//
 //            UIGraphicsBeginImageContextWithOptions(size, false, 0);
 //            [image drawInRect:CGRectMake(0, 2, size.width, size.height)];
 //            UIImage *resizeImage = UIGraphicsGetImageFromCurrentImageContext();
 //            UIGraphicsEndImageContext();
 //
-//            NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+//            NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init] ;
 //            textAttachment.image = resizeImage ;
 //            NSMutableAttributedString *imageString = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy] ;
 //            [imageString addAttribute:NSLinkAttributeName
 //                                value:@"checkbox://"
 //                                range:NSMakeRange(0, imageString.length)];
-//            [attributedString insertAttributedString:imageString atIndex:location];
-//            [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0, attributedString.length)];
+//
+//            NSString *prefix = [[self.str componentsSeparatedByString:@"]"] firstObject] ;
+//            [attributedString insertAttributedString:imageString atIndex:location + prefix.length + 1];
+//
             
 //            _textview.attributedText = attributedString;
 //            _textview.linkTextAttributes = @{NSForegroundColorAttributeName: [UIColor blueColor],
@@ -80,10 +83,8 @@
             resultDic = @{NSBackgroundColorAttributeName : [UIColor xt_facePink]} ;
             [attributedString addAttributes:resultDic range:self.range] ;
             
-//            if ([attributedString.string hasPrefix:@"\\U0000fffc"]) {
-//                NSRange range = NSMakeRange(location, @"\\U0000fffc".length) ;
-//                [attributedString deleteCharactersInRange:range] ;
-//            }
+
+            
 
         }
             break ;

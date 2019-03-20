@@ -294,8 +294,8 @@
         }
     }] ;
     
-    [attributedString endEditing] ;
     self.modelList = tmpModelList ;
+    [attributedString endEditing] ;
     
     return attributedString ;
 }

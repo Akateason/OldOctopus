@@ -31,13 +31,8 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxHeaders, // h1-h6
 //    MarkdownSyntaxLHeader, // line header  ====的上面一行
     
-    // block
-    MarkdownSyntaxBlockquotes, // 块引用
-    MarkdownSyntaxCodeBlock, // 代码块
-    
     
     // 列表
-//    MarkdownSyntaxTaskLists, // tasklist
     MarkdownSyntaxOLLists, // orderlist
     MarkdownSyntaxULLists, // bulletlist
     MarkdownSyntaxTaskLists, // tasklist
@@ -45,6 +40,9 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
 //    MarkdownSyntaxTaskList_Checkbox ,   // not in parse
 //    MarkdownSyntaxULLists_Bullet ,      // not in parse
     
+    // block
+    MarkdownSyntaxBlockquotes, // 块引用
+    MarkdownSyntaxCodeBlock, // 代码块
     
     // other
     MarkdownSyntaxMultipleMath, //  数学

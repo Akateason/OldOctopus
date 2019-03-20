@@ -10,7 +10,7 @@
 #import "MarkdownEditor.h"
 
 @interface MarkdownVC ()
-@property (strong, nonatomic) MarkdownEditor *textView;
+@property (strong, nonatomic) MarkdownEditor *textView ;
 
 @end
 
@@ -37,6 +37,9 @@
     [[self.textView undoManager] redo];
 }
 
+- (IBAction)exit:(id)sender {
+    [self.textView resignFirstResponder] ;
+}
 
 
 
