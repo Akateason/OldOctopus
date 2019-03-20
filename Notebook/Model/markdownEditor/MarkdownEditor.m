@@ -48,6 +48,7 @@ static const int kTag_QuoteMarkView = 66777 ;
 - (void)setup {
     self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.fontSize] ;
     self.contentInset = UIEdgeInsetsMake(0, kFlexValue, 0, kFlexValue) ;
+//    self.editable = NO ;
     if (@available(iOS 11.0, *)) self.smartDashesType = UITextSmartDashesTypeNo ;
     
     @weakify(self)
@@ -115,7 +116,23 @@ static const int kTag_QuoteMarkView = 66777 ;
 }
 
 - (void)insertPhoto:(UIImage *)image {
+    NSMutableAttributedString *mutaAttrStr = [self.attributedText mutableCopy] ;
     
+    NSRange range = self.selectedRange;
+    NSLog(@"插入图片loc在: %lu", (unsigned long)range.location) ;
+    
+    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+    attachment.image             = image;
+    CGFloat tvWid                = self.width - 10 - kFlexValue ;
+    CGSize resultImgSize         = CGSizeMake(tvWid, tvWid / image.size.width * image.size.height);
+    CGRect rect                  = (CGRect){CGPointZero, resultImgSize};
+    attachment.bounds            = rect;
+    NSAttributedString *attrStr = [NSAttributedString attributedStringWithAttachment:attachment];
+    [mutaAttrStr insertAttributedString:attrStr atIndex:range.location];
+    
+    [self.markdownPaser updateAttributedText:mutaAttrStr textView:self] ;
+    
+    NSLog(@"text%@\n attrtext%@",self.text, self.attributedText) ;
 }
 
 #pragma mark - rewrite father

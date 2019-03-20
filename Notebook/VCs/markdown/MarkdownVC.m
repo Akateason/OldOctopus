@@ -8,9 +8,8 @@
 
 #import "MarkdownVC.h"
 #import "MarkdownEditor.h"
-#import <XTlib/XTCameraHandler.h>
-#import <XTlib/XTPACropImageVC.h>
-#import <XTlib/XTPhotoAlbumVC.h>
+#import <XTlib/XTPhotoAlbum.h>
+
 
 @interface MarkdownVC ()
 @property (strong, nonatomic) MarkdownEditor *textView ;
@@ -23,8 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample" ofType:@"md"] ;
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample2" ofType:@"md"] ;
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample" ofType:@"md"] ;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample2" ofType:@"md"] ;
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
     NSData *data = [fileHandle readDataToEndOfFile] ;
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -54,7 +53,6 @@
             default:
                 break;
         }
-        
     }];
 }
 
@@ -73,7 +71,7 @@
             @strongify(vc)
             [vc dismissViewControllerAnimated:YES completion:nil];
             
-            
+            [self.textView insertPhoto:image] ;
         }];
     }];
 }
@@ -87,6 +85,7 @@
         @strongify(self)
         [XTPACropImageVC showFromCtrller:self imageOrigin:imageResult croppedImageCallback:^(UIImage *_Nonnull image){
             
+            [self.textView insertPhoto:image] ;
         }];
     }];
     self.handler = handler;

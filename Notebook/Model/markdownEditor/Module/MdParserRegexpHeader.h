@@ -65,6 +65,8 @@ typedef NS_ENUM(NSUInteger, MarkdownInlineType){
     MarkdownInlineInlineCode,
     MarkdownInlineLinks,
     
+    MarkdownInlineImage = 200,
+    
     NumberOfMarkdownInline
 } ;
 
@@ -105,7 +107,8 @@ typedef NS_ENUM(NSUInteger, MarkdownInlineType){
 #define MDIL_BOLDITALIC          "((?<!\\*)\\*{3}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{3}(?!\\*)|(?<!_)_{3}(?=[^ \\t_])(.+?)(?<=[^ \\t_])_{3}(?!_))"
 #define MDIL_DELETION            "\\~\\~(.*?)\\~\\~"
 #define MDIL_INLINECODE          "\\`(.*?)\\`"
-#define MDIL_LINKS               "\\[([^\\[]+)\\]\\(([^\\)]+)\\)"
+#define MDIL_LINKS               "!?\\[[^\\]]+\\]\\([^\\)]+\\)"
+
 
 
 

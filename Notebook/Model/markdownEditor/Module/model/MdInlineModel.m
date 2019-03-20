@@ -7,6 +7,7 @@
 //
 
 #import "MdInlineModel.h"
+#import <XTlib/XTlib.h>
 
 @implementation MdInlineModel
 
@@ -20,6 +21,7 @@
         case MarkdownInlineDeletions: str = @"D" ; break ;
         case MarkdownInlineInlineCode: str = @"hn代码" ; break ;
         case MarkdownInlineLinks: str = @"link" ; break ;
+        case MarkdownInlineImage: str = @"image" ; break ;
         default: break;
     }
     
@@ -87,6 +89,13 @@
             [attributedString addAttributes:resultDic range:self.range] ;
         }
             break ;
+        case MarkdownInlineImage : {
+            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_lightOrange],
+                          NSFontAttributeName : paragraphFont
+                          };
+            [attributedString addAttributes:resultDic range:self.range] ;
+        }
+            break ;
             
         default:
             break;
@@ -139,9 +148,6 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
-//            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 1)] ;
-//            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 1, 1)] ;
-            
             resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
                           NSFontAttributeName : paragraphFont
                           };
@@ -150,6 +156,13 @@
             break ;
         case MarkdownInlineLinks: {
             resultDic = @{NSForegroundColorAttributeName : [UIColor blueColor],
+                          NSFontAttributeName : paragraphFont
+                          };
+            [attributedString addAttributes:resultDic range:self.range] ;
+        }
+            break ;
+        case MarkdownInlineImage : {
+            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_lightOrange],
                           NSFontAttributeName : paragraphFont
                           };
             [attributedString addAttributes:resultDic range:self.range] ;
