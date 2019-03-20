@@ -198,8 +198,8 @@ static const int kTag_QuoteMarkView = 66777 ;
         }
     }
     
-    [self setNeedsLayout] ;
-    [self layoutIfNeeded] ;
+//    [self setNeedsLayout] ;
+//    [self layoutIfNeeded] ;
 
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
@@ -221,6 +221,32 @@ static const int kTag_QuoteMarkView = 66777 ;
         }] ;
     }
 }
+
+
+#pragma mark - touch
+
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    // 获取当前触摸位置的字符所属的字母(提示：触摸位置需向下调整10个点，以便与文本元素对齐)
+//    UITouch *touch = [touches anyObject];
+//    CGPoint touchPoint = [touch locationInView:self];
+//    touchPoint.y -= 10;
+//
+//    // 获取点击的字母的位置
+//    NSInteger characterIndex = [self.layoutManager characterIndexForPoint:touchPoint
+//                                                          inTextContainer:self.textContainer
+//                                 fractionOfDistanceBetweenInsertionPoints:NULL];
+//
+//    // 获取单词的范围。range 由起始位置和长度构成。
+//    MarkdownModel *modelPressed = [self.markdownPaser modelForRangePosition:characterIndex] ;
+//    if (modelPressed.type == MarkdownInlineLinks) {
+//        NSLog(@"链接点解了 ? ? ??!!") ;
+//    }
+//
+//
+//
+//    //调用父类的方法
+//    [super touchesBegan: touches withEvent: event];
+//}
 
 @end
 

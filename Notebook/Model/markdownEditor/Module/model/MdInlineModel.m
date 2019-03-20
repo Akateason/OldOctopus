@@ -83,10 +83,15 @@
             break ;
         case MarkdownInlineLinks: {
             // todo links with attr str
-            resultDic = @{NSForegroundColorAttributeName : [UIColor blueColor],
-                          NSFontAttributeName : paragraphFont
+            [attributedString addAttributes:configuration.invisibleMarkStyle range:self.range] ;
+            
+            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_skyBlue],
+                          NSFontAttributeName : paragraphFont,
+                          NSUnderlineStyleAttributeName : @1
                           };
-            [attributedString addAttributes:resultDic range:self.range] ;
+            NSString *prefixAddFKH = [[self.str componentsSeparatedByString:@"]"] firstObject] ;
+            NSRange tmpRange = NSMakeRange(location + 1, prefixAddFKH.length - 1) ;
+            [attributedString addAttributes:resultDic range:tmpRange] ;
         }
             break ;
         case MarkdownInlineImage : {
@@ -155,10 +160,15 @@
         }
             break ;
         case MarkdownInlineLinks: {
-            resultDic = @{NSForegroundColorAttributeName : [UIColor blueColor],
-                          NSFontAttributeName : paragraphFont
+            [attributedString addAttributes:configuration.markStyle range:self.range] ;
+            
+            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_skyBlue],
+                          NSFontAttributeName : paragraphFont,
+                          NSUnderlineStyleAttributeName : @1
                           };
-            [attributedString addAttributes:resultDic range:self.range] ;
+            NSString *prefixAddFKH = [[self.str componentsSeparatedByString:@"]"] firstObject] ;
+            NSRange tmpRange = NSMakeRange(location + 1, prefixAddFKH.length - 1) ;
+            [attributedString addAttributes:resultDic range:tmpRange] ;
         }
             break ;
         case MarkdownInlineImage : {
