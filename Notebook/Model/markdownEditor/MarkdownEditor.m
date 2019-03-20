@@ -114,6 +114,10 @@ static const int kTag_QuoteMarkView = 66777 ;
     }
 }
 
+- (void)insertPhoto:(UIImage *)image {
+    
+}
+
 #pragma mark - rewrite father
 #pragma mark - cursor moving and selecting
 
@@ -194,13 +198,6 @@ static const int kTag_QuoteMarkView = 66777 ;
         [self addSubview:quoteItem] ;
         [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self) ;
-//            make.top.equalTo(self).offset(rectForQuote.origin.y) ;
-//            if (@available(iOS 11.0, *)) {
-//                make.top.equalTo(self.xt_viewController.mas_topLayoutGuideBottom).offset(rectForQuote.origin.y) ;
-//            } else {
-                // Fallback on earlier versions
-//                make.top.equalTo(self).offset(rectForQuote.origin.y) ;
-//            }
             make.top.equalTo(self).offset(rectForQuote.origin.y) ;
             make.width.equalTo(@5) ;
             make.height.equalTo(@(rectForQuote.size.height)) ;

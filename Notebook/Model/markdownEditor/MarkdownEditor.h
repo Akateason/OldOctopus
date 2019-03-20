@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownEditor : UITextView <UITextViewDelegate>
 @property (strong, nonatomic) MarkdownPaser *markdownPaser ; // paser with configuration .
+
+- (void)insertPhoto:(UIImage *)image ;
+
 @end
 
 NS_ASSUME_NONNULL_END
