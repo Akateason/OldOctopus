@@ -28,8 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -
 
-- (NSAttributedString *)parseText:(NSString *)text
-                         position:(NSUInteger)position ;
+- (void)parseText:(NSString *)text
+         position:(NSUInteger)position
+         textView:(UITextView *)textView ;
+
+- (void)updateAttributedText:(NSAttributedString *)attributedString
+                    textView:(UITextView *)textView ;
 
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position ;
 - (NSArray *)modelListForRangePosition:(NSUInteger)position ;

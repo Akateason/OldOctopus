@@ -19,8 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample" ofType:@"md"] ;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample2" ofType:@"md"] ;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample" ofType:@"md"] ;
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample2" ofType:@"md"] ;
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
     NSData *data = [fileHandle readDataToEndOfFile] ;
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];

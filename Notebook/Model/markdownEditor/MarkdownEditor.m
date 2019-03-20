@@ -78,16 +78,7 @@ static const int kTag_QuoteMarkView = 66777 ;
 #pragma mark - func
 
 - (void)updateTextStyle {
-    NSAttributedString *attributedString = [self.markdownPaser parseText:self.text position:self.selectedRange.location] ; // create models
-    [self updateAttributedText:attributedString];
-}
-
-- (void)updateAttributedText:(NSAttributedString *)attributedString {
-    self.scrollEnabled = NO ;
-    NSRange selectedRange = self.selectedRange ;
-    self.attributedText = attributedString ;
-    self.selectedRange = selectedRange ;
-    self.scrollEnabled = YES ;
+    [self.markdownPaser parseText:self.text position:self.selectedRange.location textView:self] ; // create models
 }
 
 - (void)doSomethingWhenUserSelectPartOfArticle {
@@ -114,12 +105,12 @@ static const int kTag_QuoteMarkView = 66777 ;
     if (model.isOnEditState) {
         NSMutableAttributedString *attr = [self.attributedText mutableCopy] ;
         [attr replaceCharactersInRange:NSMakeRange(model.range.location, 1) withString:@"*"] ;
-        [self updateAttributedText:attr] ;
+        [self.markdownPaser updateAttributedText:attr textView:self] ;
     }
     else {
         NSMutableAttributedString *attr = [self.attributedText mutableCopy] ;
         [attr replaceCharactersInRange:NSMakeRange(model.range.location, 1) withString:kMark_Bullet] ;
-        [self updateAttributedText:attr] ;
+        [self.markdownPaser updateAttributedText:attr textView:self] ;
     }
 }
 

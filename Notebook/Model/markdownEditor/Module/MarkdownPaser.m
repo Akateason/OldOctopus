@@ -265,8 +265,13 @@
  @param text \
  @param position  for model state .
  */
-- (NSAttributedString *)parseText:(NSString *)text
-                         position:(NSUInteger)position {
+//- (NSAttributedString *)parseText:(NSString *)text
+//                         position:(NSUInteger)position {
+
+
+- (void)parseText:(NSString *)text
+         position:(NSUInteger)position
+         textView:(UITextView *)textView {
     
     self.originalText = text ;
     NSArray *tmpModelList = [self parsingModelsForText:text] ; // get model list, all in preview state at first .
@@ -294,10 +299,24 @@
         }
     }] ;
     
-    self.modelList = tmpModelList ;
+    
     [attributedString endEditing] ;
     
-    return attributedString ;
+    [self updateAttributedText:attributedString textView:textView] ;
+    
+    self.modelList = tmpModelList ;
 }
+
+
+- (void)updateAttributedText:(NSAttributedString *)attributedString
+                    textView:(UITextView *)textView {
+    
+    textView.scrollEnabled = NO ;
+    NSRange selectedRange = textView.selectedRange ;
+    textView.attributedText = attributedString ;
+    textView.selectedRange = selectedRange ;
+    textView.scrollEnabled = YES ;
+}
+
 
 @end
