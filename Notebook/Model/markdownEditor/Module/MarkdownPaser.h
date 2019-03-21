@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MarkdownParserDelegate <NSObject>
 @required
 - (void)quoteBlockParsingFinished:(NSArray *)list ;
+- (void)imageSelectedAtNewPosition:(NSInteger)position ;
 @end
 
 

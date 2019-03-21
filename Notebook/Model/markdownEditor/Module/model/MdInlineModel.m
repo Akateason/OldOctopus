@@ -95,10 +95,7 @@
         }
             break ;
         case MarkdownInlineImage : {
-            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_lightOrange],
-                          NSFontAttributeName : paragraphFont
-                          };
-            [attributedString addAttributes:resultDic range:self.range] ;
+            [attributedString addAttributes:configuration.invisibleMarkStyle range:self.range] ;
         }
             break ;
             
@@ -172,10 +169,7 @@
         }
             break ;
         case MarkdownInlineImage : {
-            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_lightOrange],
-                          NSFontAttributeName : paragraphFont
-                          };
-            [attributedString addAttributes:resultDic range:self.range] ;
+            [attributedString addAttributes:configuration.markStyle range:self.range] ;
         }
             break ;
 

@@ -218,6 +218,13 @@
 }
 
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position {
+    NSString *strSelect = [self.editAttrStr.string substringWithRange:NSMakeRange(position - 1, 1)] ;
+    if ([strSelect isEqualToString:@"\uFFFC"]) {
+        MarkdownModel *model = [self modelForRangePosition:position - 3] ;
+        if (self.delegate) [self.delegate imageSelectedAtNewPosition:model.range.location] ;
+        return model ;
+    }
+
     NSArray *list = self.modelList ;
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
@@ -288,7 +295,7 @@
     NSArray *tmpModelList = [self parsingModelsForText:attributedString.string] ;
 
     
-    self.modelList = tmpModelList ;    
+    self.modelList = tmpModelList ;
     
     // render attr
     [attributedString beginEditing] ;

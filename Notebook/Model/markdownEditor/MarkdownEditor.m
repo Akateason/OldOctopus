@@ -204,6 +204,10 @@ static const int kTag_QuoteMarkView = 66777 ;
     }
 }
 
+- (void)imageSelectedAtNewPosition:(NSInteger)position {
+    self.selectedRange = NSMakeRange(position, 0) ;
+    [self updateTextStyle] ;
+}
 
 #pragma mark - touch
 
