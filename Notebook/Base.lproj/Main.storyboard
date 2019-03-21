@@ -78,10 +78,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T5V-Rl-Xeq">
-                                <rect key="frame" x="16" y="373" width="35" height="30"/>
+                                <rect key="frame" x="0.0" y="573" width="35" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="5Tu-sj-1gk"/>
-                                    <constraint firstAttribute="width" constant="35" id="IsZ-6R-q7g"/>
+                                    <constraint firstAttribute="height" constant="30" id="hc2-YD-eXK"/>
+                                    <constraint firstAttribute="width" constant="35" id="kul-Ks-H94"/>
                                 </constraints>
                                 <state key="normal" title="undo"/>
                                 <connections>
@@ -89,10 +89,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zF-IL-9pK">
-                                <rect key="frame" x="84" y="373" width="32" height="30"/>
+                                <rect key="frame" x="68" y="573" width="32" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="5Pt-6Y-DXK"/>
-                                    <constraint firstAttribute="height" constant="30" id="chI-fM-kTe"/>
+                                    <constraint firstAttribute="width" constant="32" id="UAB-0Q-CzI"/>
+                                    <constraint firstAttribute="height" constant="30" id="wkQ-BH-CgZ"/>
                                 </constraints>
                                 <state key="normal" title="redo"/>
                                 <connections>
@@ -100,10 +100,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSG-rj-8EE">
-                                <rect key="frame" x="160" y="373" width="54" height="30"/>
+                                <rect key="frame" x="144" y="573" width="54" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="54" id="GO5-zD-rWj"/>
-                                    <constraint firstAttribute="height" constant="30" id="bOs-nc-iJB"/>
+                                    <constraint firstAttribute="width" constant="54" id="LUD-yH-3Hl"/>
+                                    <constraint firstAttribute="height" constant="30" id="zGP-r4-RNm"/>
                                 </constraints>
                                 <state key="normal" title="exit"/>
                                 <connections>
@@ -111,10 +111,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6P-Gu-DKF">
-                                <rect key="frame" x="235" y="373" width="40" height="30"/>
+                                <rect key="frame" x="219" y="573" width="40" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="r4s-N9-bQd"/>
-                                    <constraint firstAttribute="width" constant="40" id="xiJ-BO-7QW"/>
+                                    <constraint firstAttribute="height" constant="30" id="UeA-XY-i9F"/>
+                                    <constraint firstAttribute="width" constant="40" id="bXA-aU-G2K"/>
                                 </constraints>
                                 <state key="normal" title="photo"/>
                                 <connections>
@@ -124,14 +124,14 @@
                         </subviews>
                         <color key="backgroundColor" red="0.89799207449999996" green="0.89807194469999996" blue="0.89792543650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="T5V-Rl-Xeq" firstAttribute="leading" secondItem="7c4-Da-U9W" secondAttribute="leading" constant="16" id="0mu-Yr-N6I"/>
-                            <constraint firstItem="FSG-rj-8EE" firstAttribute="top" secondItem="7c4-Da-U9W" secondAttribute="top" constant="309" id="MPy-F9-a7f"/>
-                            <constraint firstItem="d6P-Gu-DKF" firstAttribute="top" secondItem="7c4-Da-U9W" secondAttribute="top" constant="309" id="Onz-3N-eJ4"/>
-                            <constraint firstItem="T5V-Rl-Xeq" firstAttribute="top" secondItem="7c4-Da-U9W" secondAttribute="top" constant="309" id="Yoa-zv-oSx"/>
-                            <constraint firstItem="4zF-IL-9pK" firstAttribute="top" secondItem="7c4-Da-U9W" secondAttribute="top" constant="309" id="pC3-q2-h9p"/>
-                            <constraint firstItem="d6P-Gu-DKF" firstAttribute="leading" secondItem="FSG-rj-8EE" secondAttribute="trailing" constant="21" id="sfh-EX-SlW"/>
-                            <constraint firstItem="FSG-rj-8EE" firstAttribute="leading" secondItem="4zF-IL-9pK" secondAttribute="trailing" constant="44" id="vna-Kz-ex2"/>
-                            <constraint firstItem="4zF-IL-9pK" firstAttribute="leading" secondItem="T5V-Rl-Xeq" secondAttribute="trailing" constant="33" id="zUz-OF-8G0"/>
+                            <constraint firstItem="7c4-Da-U9W" firstAttribute="bottom" secondItem="d6P-Gu-DKF" secondAttribute="bottom" constant="20" id="9MD-5g-lke"/>
+                            <constraint firstItem="7c4-Da-U9W" firstAttribute="bottom" secondItem="T5V-Rl-Xeq" secondAttribute="bottom" constant="20" id="AAt-mD-bLS"/>
+                            <constraint firstItem="7c4-Da-U9W" firstAttribute="bottom" secondItem="4zF-IL-9pK" secondAttribute="bottom" constant="20" id="BYl-fh-45i"/>
+                            <constraint firstItem="7c4-Da-U9W" firstAttribute="bottom" secondItem="FSG-rj-8EE" secondAttribute="bottom" constant="20" id="Rpu-HI-Khp"/>
+                            <constraint firstItem="4zF-IL-9pK" firstAttribute="leading" secondItem="T5V-Rl-Xeq" secondAttribute="trailing" constant="33" id="Xxq-dh-gct"/>
+                            <constraint firstItem="T5V-Rl-Xeq" firstAttribute="leading" secondItem="7c4-Da-U9W" secondAttribute="leading" id="ZwB-H0-k5r"/>
+                            <constraint firstItem="d6P-Gu-DKF" firstAttribute="leading" secondItem="FSG-rj-8EE" secondAttribute="trailing" constant="21" id="lic-fX-E98"/>
+                            <constraint firstItem="FSG-rj-8EE" firstAttribute="leading" secondItem="4zF-IL-9pK" secondAttribute="trailing" constant="44" id="nG2-hN-JAM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7c4-Da-U9W"/>
                     </view>

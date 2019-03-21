@@ -222,6 +222,7 @@
     if ([strSelect isEqualToString:@"\uFFFC"]) {
         MarkdownModel *model = [self modelForRangePosition:position - 3] ;
         if (self.delegate) [self.delegate imageSelectedAtNewPosition:model.range.location] ;
+        
         return model ;
     }
 

@@ -103,7 +103,7 @@
             [editor mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view) ;
                 make.top.equalTo(self.mas_topLayoutGuideBottom) ;
-                make.height.equalTo(@300) ;
+                make.bottom.equalTo(self.mas_bottomLayoutGuideTop).offset(-60) ;
             }] ;
             editor;
        });
