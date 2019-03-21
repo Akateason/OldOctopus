@@ -285,13 +285,10 @@
     
     __block NSMutableAttributedString *attributedString = [self updateImages:text textView:textView] ;
     self.editAttrStr = attributedString ;
-//     get model list, all in preview state at first .
     NSArray *tmpModelList = [self parsingModelsForText:attributedString.string] ;
-//    NSArray *tmpModelList = [self parsingModelsForText:text] ;
-//    __block NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text] ;
+
     
-    self.modelList = tmpModelList ;
-    [self drawQuoteBlk] ;
+    self.modelList = tmpModelList ;    
     
     // render attr
     [attributedString beginEditing] ;
@@ -321,6 +318,7 @@
     
     // update
     [self updateAttributedText:attributedString textView:textView] ;
+    [self drawQuoteBlk] ;
 }
 
 - (void)updateAttributedText:(NSAttributedString *)attributedString
@@ -383,7 +381,7 @@
     return str ;
 }
 
-// in parse time
+// in parse time . update image or download image.
 - (NSMutableAttributedString *)updateImages:(NSString *)text
                                    textView:(UITextView *)textView {
     NSMutableArray *imageModelList = [@[] mutableCopy] ;
@@ -418,9 +416,9 @@
         }
         
         NSTextAttachment *attach = [self attachmentStandardFromImage:imgResult] ;
-        NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
-        [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
+        NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;        [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
     }] ;
+    [str endEditing] ;
     
     return str ;
 }
