@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic)     NSDictionary *quoteStyle ;
 @property (copy, nonatomic)     NSDictionary *markStyle ;
 @property (copy, nonatomic)     NSDictionary *invisibleMarkStyle ;
-@property (copy, nonatomic)     NSDictionary *listStyle ;
 
 
 @property (strong, nonatomic) UIColor *textColor ;
