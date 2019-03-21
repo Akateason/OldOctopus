@@ -10,10 +10,11 @@
 #import "MDThemeConfiguration.h"
 #import <XTlib/XTlib.h>
 #import "MdListModel.h"
+#import <BlocksKit+UIKit.h>
 
-
-const CGFloat kMDEditor_FlexValue = 30.f ;
+const CGFloat kMDEditor_FlexValue   = 30.f  ;
 static const int kTag_QuoteMarkView = 66777 ;
+static const int kTag_ListMarkView  = 32342 ;
 
 @interface MarkdownEditor ()<MarkdownParserDelegate> {
     BOOL fstTimeLoaded ;
@@ -48,7 +49,6 @@ static const int kTag_QuoteMarkView = 66777 ;
 - (void)setup {
     self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.fontSize] ;
     self.contentInset = UIEdgeInsetsMake(0, kMDEditor_FlexValue, 0, kMDEditor_FlexValue) ;
-//    self.editable = NO ;
     if (@available(iOS 11.0, *)) self.smartDashesType = UITextSmartDashesTypeNo ;
     
     @weakify(self)
@@ -91,29 +91,12 @@ static const int kTag_QuoteMarkView = 66777 ;
     
     // left lb
     [self drawLeftDisplayLabel:model] ;
-    // bullet
-    [self drawBullet:model] ;
 }
 
 - (void)drawLeftDisplayLabel:(MarkdownModel *)model {
     [self hide_lbLeftCornerMarker] ;
     self.lbLeftCornerMarker.text = [self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model] ;
     [self show_lbLeftCornerMarker] ;
-}
-
-- (void)drawBullet:(MarkdownModel *)model {
-    if (model.type != MarkdownSyntaxULLists) return ;
-    
-    if (model.isOnEditState) {
-        NSMutableAttributedString *attr = [self.attributedText mutableCopy] ;
-        [attr replaceCharactersInRange:NSMakeRange(model.range.location, 1) withString:@"*"] ;
-        [self.markdownPaser updateAttributedText:attr textView:self] ;
-    }
-    else {
-        NSMutableAttributedString *attr = [self.attributedText mutableCopy] ;
-        [attr replaceCharactersInRange:NSMakeRange(model.range.location, 1) withString:kMark_Bullet] ;
-        [self.markdownPaser updateAttributedText:attr textView:self] ;
-    }
 }
 
 - (void)insertPhoto:(UIImage *)image position:(NSUInteger)position {
@@ -188,7 +171,7 @@ static const int kTag_QuoteMarkView = 66777 ;
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
         CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
-        NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
+//        NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
         if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) continue ;
         
         UIView *quoteItem = [UIView new] ;
@@ -207,6 +190,71 @@ static const int kTag_QuoteMarkView = 66777 ;
 - (void)imageSelectedAtNewPosition:(NSInteger)position {
     self.selectedRange = NSMakeRange(position, 0) ;
     [self updateTextStyle] ;
+}
+
+- (void)listBlockParsingFinished:(NSArray *)list {
+    for (UIView *subView in self.subviews) {
+        if (subView.tag == kTag_ListMarkView) {
+            [subView removeFromSuperview] ;
+        }
+    }
+    
+    for (int i = 0; i < list.count; i++) {
+        MdListModel *model = list[i] ;
+        CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
+        NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
+        if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) continue ;
+        
+        UIView *item ;
+        if (model.type == MarkdownSyntaxULLists) {
+            UILabel *lb = [UILabel new] ;
+            lb.text = @"   •" ;
+            lb.font = [UIFont boldSystemFontOfSize:16] ;
+            lb.textAlignment = NSTextAlignmentCenter ;
+            item = lb ;
+        }
+        else if (model.type == MarkdownSyntaxOLLists) {
+            UILabel *lb = [UILabel new] ;
+            lb.text = [[[model.str componentsSeparatedByString:@"."] firstObject] stringByAppendingString:@"."] ;
+            lb.font = [UIFont systemFontOfSize:16] ;
+            lb.textAlignment = NSTextAlignmentRight ;
+            item = lb ;
+        }
+        else if (model.type == MarkdownSyntaxTaskLists) {
+            
+            UIImageView *imgView = [UIImageView new] ;
+            [imgView setImage:model.taskItemImageState] ;
+            imgView.contentMode = UIViewContentModeScaleAspectFit ;
+            imgView.userInteractionEnabled = YES ;
+            WEAK_SELF
+            [imgView bk_whenTapped:^{
+                NSMutableString *tmpStr = [[NSMutableString alloc] initWithString:weakSelf.text] ;
+                model.taskItemSelected
+                ?
+                [tmpStr replaceCharactersInRange:NSMakeRange(model.range.location + 3, 1) withString:@"x"]
+                :
+                [tmpStr replaceCharactersInRange:NSMakeRange(model.range.location + 3, 1) withString:@" "] ;
+                [weakSelf.markdownPaser parseText:tmpStr position:weakSelf.selectedRange.location textView:weakSelf] ;
+            }] ;
+            item = imgView ;
+        }
+        
+        item.tag = kTag_ListMarkView ;
+        
+        [self addSubview:item] ;
+        [item mas_makeConstraints:^(MASConstraintMaker *make) {
+            if (model.type == MarkdownSyntaxTaskLists) {
+                make.width.equalTo(@(21)) ;
+                make.right.equalTo(self.window.mas_left).offset(kMDEditor_FlexValue) ;
+            }
+            else {
+                make.left.equalTo(self.window.mas_left) ;
+                make.width.equalTo(@(kMDEditor_FlexValue)) ;
+            }
+            make.top.equalTo(self).offset(rectForQuote.origin.y) ;
+            make.height.equalTo(@(21)) ;
+        }] ;
+    }
 }
 
 #pragma mark - touch

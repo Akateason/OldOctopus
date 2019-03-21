@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MdListModel : MarkdownModel
 
+- (BOOL)taskItemSelected ;
+
+- (UIImage *)taskItemImageState ;
+
 @end
 
 NS_ASSUME_NONNULL_END

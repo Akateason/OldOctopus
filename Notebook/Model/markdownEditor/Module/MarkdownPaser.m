@@ -180,7 +180,7 @@
 
 - (NSArray *)parsingModelForInlineStyleWithOneParagraphModel:(MarkdownModel *)paraModel {
     NSMutableArray *tmpInlineList = [@[] mutableCopy] ;
-
+    
     for (MarkdownInlineType i = MarkdownInlineUnknown; i < NumberOfMarkdownInline ; i++) {
         NSRegularExpression *expression = [self getRegularExpressionFromMarkdownInlineType:i] ;
         NSArray *matches = [expression matchesInString:paraModel.str options:0 range:NSMakeRange(0, [paraModel.str length])] ;
@@ -277,8 +277,17 @@
             [tmplist addObject:model] ;
         }
     }] ;
-    
     if (self.delegate) [self.delegate quoteBlockParsingFinished:tmplist] ;
+}
+
+- (void)drawListBlk {
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    [self.modelList enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists || model.type == MarkdownSyntaxTaskLists) {
+            [tmplist addObject:model] ;
+        }
+    }] ;
+    if (self.delegate) [self.delegate listBlockParsingFinished:tmplist] ;
 }
 
 /**
@@ -294,7 +303,6 @@
     __block NSMutableAttributedString *attributedString = [self updateImages:text textView:textView] ;
     self.editAttrStr = attributedString ;
     NSArray *tmpModelList = [self parsingModelsForText:attributedString.string] ;
-
     
     self.modelList = tmpModelList ;
     
@@ -308,11 +316,6 @@
             model.isOnEditState = YES ;
         }
         
-        // judge bullet
-        if (model.type == MarkdownSyntaxULLists) {
-            [attributedString replaceCharactersInRange:NSMakeRange(model.range.location, 1) withString:kMark_Bullet] ;
-        }
-        
         // render any style
         if (!model.isOnEditState) {
             attributedString = [model addAttrOnPreviewState:attributedString config:self.configuration] ;
@@ -323,10 +326,10 @@
     }] ;
     [attributedString endEditing] ;
     
-    
     // update
     [self updateAttributedText:attributedString textView:textView] ;
     [self drawQuoteBlk] ;
+    [self drawListBlk] ;
 }
 
 - (void)updateAttributedText:(NSAttributedString *)attributedString
@@ -368,7 +371,7 @@
             [imageModelList addObject:resModel] ;
         }
     }
-
+    
     [imageModelList enumerateObjectsUsingBlock:^(MdInlineModel * _Nonnull imgModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSString *imgUrl = [imgModel imageUrl] ;
@@ -385,7 +388,7 @@
     
     [str endEditing] ;
     [self updateAttributedText:str textView:textView] ;
-
+    
     return str ;
 }
 
@@ -405,7 +408,7 @@
             [imageModelList addObject:resModel] ;
         }
     }
-
+    
     [imageModelList enumerateObjectsUsingBlock:^(MdInlineModel * _Nonnull imgModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSString *imgUrl = [imgModel imageUrl] ;
@@ -430,6 +433,5 @@
     
     return str ;
 }
-
 
 @end

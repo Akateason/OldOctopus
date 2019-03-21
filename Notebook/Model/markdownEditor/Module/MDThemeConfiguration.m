@@ -124,7 +124,7 @@
 
 - (NSDictionary *)listStyle {
     if (!_listStyle) {
-        int indentation = 12 ;
+        int indentation = 30 ; //12 ;
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
         paragraphStyle.tabStops = @[[[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentLeft location:indentation options:@{}]];
         paragraphStyle.defaultTabInterval = indentation;

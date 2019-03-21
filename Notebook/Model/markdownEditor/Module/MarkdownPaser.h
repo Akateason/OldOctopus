@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 - (void)quoteBlockParsingFinished:(NSArray *)list ;
 - (void)imageSelectedAtNewPosition:(NSInteger)position ;
+- (void)listBlockParsingFinished:(NSArray *)list ;
 @end
 
 
