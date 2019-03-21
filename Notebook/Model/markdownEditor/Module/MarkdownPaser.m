@@ -15,13 +15,14 @@
 #import "model/MdListModel.h"
 #import "model/MdBlockModel.h"
 #import "model/MdOtherModel.h"
-
+#import "MarkdownEditor.h"
+#import "MDImageManager.h"
 
 @interface MarkdownPaser ()
-@property (strong, nonatomic) MDThemeConfiguration *configuration;
+@property (strong, nonatomic) MDThemeConfiguration *configuration ;
 
 @property (copy, nonatomic) NSArray *modelList ;
-@property (copy, nonatomic) NSString *originalText ;
+@property (strong, nonatomic) NSMutableAttributedString *editAttrStr ;
 @end
 
 @implementation MarkdownPaser
@@ -216,7 +217,6 @@
     return tmpInlineList ;
 }
 
-
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position {
     NSArray *list = self.modelList ;
     for (int i = 0; i < list.count; i++) {
@@ -254,7 +254,7 @@
         // header
         if (!position) position++ ;
         
-        NSString *lastString = [self.originalText substringWithRange:NSMakeRange(position - 1, 1)] ;
+        NSString *lastString = [self.editAttrStr.string substringWithRange:NSMakeRange(position - 1, 1)] ;
         if ([lastString isEqualToString:@"\n"]) {
             return @"" ;
         }
@@ -262,11 +262,9 @@
     return [model displayStringForLeftLabel] ;
 }
 
-- (void)setModelList:(NSArray *)modelList {
-    _modelList = modelList ;
-    
+- (void)drawQuoteBlk {
     NSMutableArray *tmplist = [@[] mutableCopy] ;
-    [modelList enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.modelList enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         if (model.type == MarkdownSyntaxBlockquotes) {
             [tmplist addObject:model] ;
         }
@@ -275,28 +273,31 @@
     if (self.delegate) [self.delegate quoteBlockParsingFinished:tmplist] ;
 }
 
-
 /**
- parse / update attr .
+ parse and update attr .
 
- @param text \
- @param position  for model state .
+ @param text .      clean text
+ @param position    pos for model state .
  */
-//- (NSAttributedString *)parseText:(NSString *)text
-//                         position:(NSUInteger)position {
-
-
 - (void)parseText:(NSString *)text
          position:(NSUInteger)position
          textView:(UITextView *)textView {
     
-    self.originalText = text ;
-    NSArray *tmpModelList = [self parsingModelsForText:text] ; // get model list, all in preview state at first .
-    __block NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text] ;
+    __block NSMutableAttributedString *attributedString = [self updateImages:text textView:textView] ;
+    self.editAttrStr = attributedString ;
+//     get model list, all in preview state at first .
+    NSArray *tmpModelList = [self parsingModelsForText:attributedString.string] ;
+//    NSArray *tmpModelList = [self parsingModelsForText:text] ;
+//    __block NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text] ;
     
+    self.modelList = tmpModelList ;
+    [self drawQuoteBlk] ;
+    
+    // render attr
     [attributedString beginEditing] ;
-    [attributedString addAttributes:self.configuration.basicStyle range:NSMakeRange(0, text.length)] ; // add default style
-    
+    // add default style
+    [attributedString addAttributes:self.configuration.basicStyle range:NSMakeRange(0, text.length)] ;
+    // render every node
     [tmpModelList enumerateObjectsUsingBlock:^(MarkdownModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         if (NSLocationInRange(position, model.range)) {
             model.isOnEditState = YES ;
@@ -315,24 +316,113 @@
             attributedString = [model addAttrOnEditState:attributedString config:self.configuration] ;
         }
     }] ;
-    
-    
     [attributedString endEditing] ;
     
-    [self updateAttributedText:attributedString textView:textView] ;
     
-    self.modelList = tmpModelList ;
+    // update
+    [self updateAttributedText:attributedString textView:textView] ;
 }
-
 
 - (void)updateAttributedText:(NSAttributedString *)attributedString
                     textView:(UITextView *)textView {
     
     textView.scrollEnabled = NO ;
     NSRange selectedRange = textView.selectedRange ;
+    textView.text = attributedString.string ;
     textView.attributedText = attributedString ;
+    
     textView.selectedRange = selectedRange ;
     textView.scrollEnabled = YES ;
+    self.editAttrStr = [attributedString mutableCopy] ;
+}
+
+- (NSTextAttachment *)attachmentStandardFromImage:(UIImage *)image {
+    NSTextAttachment *attachment = [[NSTextAttachment alloc] init] ;
+    attachment.image             = image;
+    CGFloat tvWid                = APP_WIDTH - 10 - kMDEditor_FlexValue ;
+    CGSize resultImgSize         = CGSizeMake(tvWid, tvWid / image.size.width * image.size.height);
+    CGRect rect                  = (CGRect){CGPointZero, resultImgSize};
+    attachment.bounds            = rect;
+    return attachment ;
+}
+
+// do when editor launch . (insert img placeholder)
+- (NSMutableAttributedString *)readArticleFirstTimeAndInsertImagePHWhenEditorDidLaunching:(NSString *)text
+                                                                                 textView:(UITextView *)textView {
+    NSMutableArray *imageModelList = [@[] mutableCopy] ;
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text] ;
+    [str beginEditing] ;
+    
+    NSRegularExpression *expLink = regexp(MDIL_LINKS, NSRegularExpressionAnchorsMatchLines) ;
+    NSArray *matsLink = [expLink matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
+    for (NSTextCheckingResult *result in matsLink) {
+        NSString *prefixCha = [[text substringWithRange:result.range] substringWithRange:NSMakeRange(0, 1)] ;
+        if ([prefixCha isEqualToString:@"!"]) {
+            MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineImage range:result.range str:[text substringWithRange:result.range]] ;
+            [imageModelList addObject:resModel] ;
+        }
+    }
+
+    [imageModelList enumerateObjectsUsingBlock:^(MdInlineModel * _Nonnull imgModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        NSString *imgUrl = [imgModel imageUrl] ;
+
+        NSInteger loc = imgModel.range.location + imgModel.range.length + idx ;
+        UIImage *imgResult = [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:imgUrl] ;
+        if (!imgResult) {
+            imgResult = [MDImageManager sharedInstance].imagePlaceHolder ;
+        }
+        NSTextAttachment *attach = [self attachmentStandardFromImage:imgResult] ;
+        NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
+        [str insertAttributedString:attrAttach atIndex:loc] ;
+    }] ;
+    
+    [str endEditing] ;
+    [self updateAttributedText:str textView:textView] ;
+
+    return str ;
+}
+
+// in parse time
+- (NSMutableAttributedString *)updateImages:(NSString *)text
+                                   textView:(UITextView *)textView {
+    NSMutableArray *imageModelList = [@[] mutableCopy] ;
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text] ;
+    [str beginEditing] ;
+    
+    NSRegularExpression *expLink = regexp(MDIL_LINKS, NSRegularExpressionAnchorsMatchLines) ;
+    NSArray *matsLink = [expLink matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
+    for (NSTextCheckingResult *result in matsLink) {
+        NSString *prefixCha = [[text substringWithRange:result.range] substringWithRange:NSMakeRange(0, 1)] ;
+        if ([prefixCha isEqualToString:@"!"]) {
+            MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineImage range:result.range str:[text substringWithRange:result.range]] ;
+            [imageModelList addObject:resModel] ;
+        }
+    }
+
+    [imageModelList enumerateObjectsUsingBlock:^(MdInlineModel * _Nonnull imgModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        NSString *imgUrl = [imgModel imageUrl] ;
+        
+        NSInteger loc = imgModel.range.location + imgModel.range.length ;
+        UIImage *imgResult = [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:imgUrl] ;
+        if (!imgResult) {
+            imgResult = [MDImageManager sharedInstance].imagePlaceHolder ;
+            [[MDImageManager sharedInstance] imageWithUrlStr:imgUrl complete:^(UIImage * _Nonnull image) {
+                
+                NSTextAttachment *attach = [self attachmentStandardFromImage:image] ;
+                NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
+                [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
+                [self updateAttributedText:str textView:textView] ;
+            }] ;
+        }
+        
+        NSTextAttachment *attach = [self attachmentStandardFromImage:imgResult] ;
+        NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
+        [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
+    }] ;
+    
+    return str ;
 }
 
 

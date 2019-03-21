@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MdInlineModel : MarkdownModel
 
+- (NSString *)imageUrl ;
+
 @end
 
 NS_ASSUME_NONNULL_END

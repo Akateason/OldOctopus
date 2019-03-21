@@ -45,15 +45,17 @@
 }
 
 - (IBAction)photo:(id)sender {
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@[ @"album+crop", @"camera+crop" ] callBackBlock:^(NSInteger btnIndex) {
-        
-        switch (btnIndex) {
-            case 1: [self albumAddCrop]; break;
-            case 2: [self cameraAddCrop]; break;
-            default:
-                break;
-        }
-    }];
+    [self.textView insertPhoto:[UIImage imageNamed:@"test"] position:0] ;
+    
+//    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@[ @"album+crop", @"camera+crop" ] callBackBlock:^(NSInteger btnIndex) {
+//
+//        switch (btnIndex) {
+//            case 1: [self albumAddCrop]; break;
+//            case 2: [self cameraAddCrop]; break;
+//            default:
+//                break;
+//        }
+//    }];
 }
 
 - (void)albumAddCrop {
@@ -71,7 +73,7 @@
             @strongify(vc)
             [vc dismissViewControllerAnimated:YES completion:nil];
             
-            [self.textView insertPhoto:image] ;
+//            [self.textView insertPhoto:image] ;
         }];
     }];
 }
@@ -85,7 +87,7 @@
         @strongify(self)
         [XTPACropImageVC showFromCtrller:self imageOrigin:imageResult croppedImageCallback:^(UIImage *_Nonnull image){
             
-            [self.textView insertPhoto:image] ;
+//            [self.textView insertPhoto:image] ;
         }];
     }];
     self.handler = handler;
@@ -108,4 +110,5 @@
     }
     return _textView;
 }
+
 @end

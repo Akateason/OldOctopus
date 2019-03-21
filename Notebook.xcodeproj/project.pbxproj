@@ -33,6 +33,7 @@
 		8F7A8436223BD1780099E905 /* zample2.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A8435223BD1770099E905 /* zample2.md */; };
 		8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843C2240C7460099E905 /* check-box-off@2x.png */; };
 		8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843D2240C7470099E905 /* check-box-on@2x.png */; };
+		8F7A8443224235960099E905 /* MDImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A8442224235960099E905 /* MDImageManager.m */; };
 		8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */; };
 		8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */; };
 		8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */; };
@@ -112,6 +113,8 @@
 		8F7A8435223BD1770099E905 /* zample2.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = zample2.md; sourceTree = "<group>"; };
 		8F7A843C2240C7460099E905 /* check-box-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box-off@2x.png"; sourceTree = "<group>"; };
 		8F7A843D2240C7470099E905 /* check-box-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box-on@2x.png"; sourceTree = "<group>"; };
+		8F7A8441224235960099E905 /* MDImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDImageManager.h; sourceTree = "<group>"; };
+		8F7A8442224235960099E905 /* MDImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDImageManager.m; sourceTree = "<group>"; };
 		8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMSHEditorVC.h; sourceTree = "<group>"; };
 		8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMSHEditorVC.m; sourceTree = "<group>"; };
 		8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRichTextEditor.h; sourceTree = "<group>"; };
@@ -286,6 +289,8 @@
 				8F679E0222324631008DE1BC /* MarkdownPaser.m */,
 				8F679E162238F047008DE1BC /* MDThemeConfiguration.h */,
 				8F679E172238F047008DE1BC /* MDThemeConfiguration.m */,
+				8F7A8441224235960099E905 /* MDImageManager.h */,
+				8F7A8442224235960099E905 /* MDImageManager.m */,
 				8F679E1F2238F973008DE1BC /* model */,
 			);
 			path = Module;
@@ -621,6 +626,7 @@
 				8F679E0322324631008DE1BC /* MarkdownPaser.m in Sources */,
 				8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */,
 				8F679E10223614FC008DE1BC /* YYTextVC.m in Sources */,
+				8F7A8443224235960099E905 /* MDImageManager.m in Sources */,
 				8F679E252238F9D1008DE1BC /* MdInlineModel.m in Sources */,
 				8FACF6DC221E8D610067DDA4 /* NSAttributedString+RichTextEditor.m in Sources */,
 				8FACF6DA221E8D610067DDA4 /* UIView+RichTextEditor.m in Sources */,

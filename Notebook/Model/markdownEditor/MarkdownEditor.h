@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "MarkdownPaser.h"
 
+extern const CGFloat kMDEditor_FlexValue ;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownEditor : UITextView <UITextViewDelegate>
 @property (strong, nonatomic) MarkdownPaser *markdownPaser ; // paser with configuration .
 
-- (void)insertPhoto:(UIImage *)image ;
+- (void)insertPhoto:(UIImage *)image position:(NSUInteger)position ;
 
 @end
 

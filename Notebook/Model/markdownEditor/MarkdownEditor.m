@@ -12,7 +12,7 @@
 #import "MdListModel.h"
 
 
-static const CGFloat kFlexValue = 30.f ;
+const CGFloat kMDEditor_FlexValue = 30.f ;
 static const int kTag_QuoteMarkView = 66777 ;
 
 @interface MarkdownEditor ()<MarkdownParserDelegate> {
@@ -47,7 +47,7 @@ static const int kTag_QuoteMarkView = 66777 ;
 
 - (void)setup {
     self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.fontSize] ;
-    self.contentInset = UIEdgeInsetsMake(0, kFlexValue, 0, kFlexValue) ;
+    self.contentInset = UIEdgeInsetsMake(0, kMDEditor_FlexValue, 0, kMDEditor_FlexValue) ;
 //    self.editable = NO ;
     if (@available(iOS 11.0, *)) self.smartDashesType = UITextSmartDashesTypeNo ;
     
@@ -67,10 +67,11 @@ static const int kTag_QuoteMarkView = 66777 ;
     }] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.markdownPaser readArticleFirstTimeAndInsertImagePHWhenEditorDidLaunching:self.text textView:self] ;
         [self updateTextStyle] ;
         
         if (!self->fstTimeLoaded) {
-            self.contentOffset = CGPointMake(- kFlexValue, 0) ;
+            self.contentOffset = CGPointMake(- kMDEditor_FlexValue, 0) ;
             self->fstTimeLoaded = YES ;
         }
     }) ;
@@ -115,32 +116,19 @@ static const int kTag_QuoteMarkView = 66777 ;
     }
 }
 
-- (void)insertPhoto:(UIImage *)image {
-    NSMutableAttributedString *mutaAttrStr = [self.attributedText mutableCopy] ;
+- (void)insertPhoto:(UIImage *)image position:(NSUInteger)position {
+//    插入图片只需要插入 markdown格式的url ![] , 即先上传完成.
     
-    NSRange range = self.selectedRange;
-    NSLog(@"插入图片loc在: %lu", (unsigned long)range.location) ;
-    
-    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
-    attachment.image             = image;
-    CGFloat tvWid                = self.width - 10 - kFlexValue ;
-    CGSize resultImgSize         = CGSizeMake(tvWid, tvWid / image.size.width * image.size.height);
-    CGRect rect                  = (CGRect){CGPointZero, resultImgSize};
-    attachment.bounds            = rect;
-    NSAttributedString *attrStr = [NSAttributedString attributedStringWithAttachment:attachment];
-    [mutaAttrStr insertAttributedString:attrStr atIndex:range.location];
-    
-    [self.markdownPaser updateAttributedText:mutaAttrStr textView:self] ;
-    
-    NSLog(@"text%@\n attrtext%@",self.text, self.attributedText) ;
 }
+
+
+
 
 #pragma mark - rewrite father
 #pragma mark - cursor moving and selecting
 
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
     [super setSelectedTextRange:selectedTextRange] ;
-//    NSLog(@"selectedTextRange %@",selectedTextRange) ;
     
     [self updateTextStyle] ;
     [self doSomethingWhenUserSelectPartOfArticle] ;
@@ -177,7 +165,7 @@ static const int kTag_QuoteMarkView = 66777 ;
     [self.lbLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.superview).offset(3) ;
         make.top.equalTo(@(caretRect.origin.y)) ;
-        make.size.mas_equalTo(CGSizeMake(kFlexValue, caretRect.size.height)) ;
+        make.size.mas_equalTo(CGSizeMake(kMDEditor_FlexValue, caretRect.size.height)) ;
     }] ;
 }
 
@@ -191,23 +179,17 @@ static const int kTag_QuoteMarkView = 66777 ;
 #pragma mark - MarkdownParserDelegate <NSObject>
 
 - (void)quoteBlockParsingFinished:(NSArray *)list {
-
     for (UIView *subView in self.subviews) {
         if (subView.tag == kTag_QuoteMarkView) {
             [subView removeFromSuperview] ;
         }
     }
     
-//    [self setNeedsLayout] ;
-//    [self layoutIfNeeded] ;
-
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
         CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
         NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
-        if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) {
-            continue ;
-        }
+        if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) continue ;
         
         UIView *quoteItem = [UIView new] ;
         quoteItem.tag = kTag_QuoteMarkView ;
@@ -225,28 +207,8 @@ static const int kTag_QuoteMarkView = 66777 ;
 
 #pragma mark - touch
 
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//    // 获取当前触摸位置的字符所属的字母(提示：触摸位置需向下调整10个点，以便与文本元素对齐)
-//    UITouch *touch = [touches anyObject];
-//    CGPoint touchPoint = [touch locationInView:self];
-//    touchPoint.y -= 10;
-//
-//    // 获取点击的字母的位置
-//    NSInteger characterIndex = [self.layoutManager characterIndexForPoint:touchPoint
-//                                                          inTextContainer:self.textContainer
-//                                 fractionOfDistanceBetweenInsertionPoints:NULL];
-//
-//    // 获取单词的范围。range 由起始位置和长度构成。
-//    MarkdownModel *modelPressed = [self.markdownPaser modelForRangePosition:characterIndex] ;
-//    if (modelPressed.type == MarkdownInlineLinks) {
-//        NSLog(@"链接点解了 ? ? ??!!") ;
-//    }
-//
-//
-//
-//    //调用父类的方法
-//    [super touchesBegan: touches withEvent: event];
-//}
+
+
 
 @end
 

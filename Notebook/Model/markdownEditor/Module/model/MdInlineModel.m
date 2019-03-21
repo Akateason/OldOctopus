@@ -186,4 +186,14 @@
     return attributedString ;
 }
 
+- (NSString *)imageUrl {
+    if (self.type != MarkdownInlineImage) return nil ;
+        
+    NSRange startRange = [self.str rangeOfString:@"("];
+    NSRange endRange = [self.str rangeOfString:@")"];
+    NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length) ;
+    NSString *result = [self.str substringWithRange:range];
+    return result ;
+}
+
 @end

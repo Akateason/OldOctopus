@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -
 
+- (NSMutableAttributedString *)readArticleFirstTimeAndInsertImagePHWhenEditorDidLaunching:(NSString *)text
+                                                                                 textView:(UITextView *)textView ;
+
 - (void)parseText:(NSString *)text
          position:(NSUInteger)position
          textView:(UITextView *)textView ;
@@ -41,6 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)stringTitleOfPosition:(NSUInteger)position ;
 - (NSString *)stringTitleOfPosition:(NSUInteger)position
                               model:(MarkdownModel *)model ;
+
+
+
 
 @end
 
