@@ -20,6 +20,12 @@ XT_SINGLETON_H(MDImageManager)
 - (void)imageWithUrlStr:(NSString *)urlStr
                complete:(void(^)(UIImage *image))complete ;
 
+
+- (void)uploadImage:(UIImage *)image
+           progress:(nullable void (^)(float))progressValueBlock
+            success:(void (^)(NSURLResponse *response, id responseObject))success
+            failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail ;
+
 @end
 
 NS_ASSUME_NONNULL_END

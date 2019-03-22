@@ -12,13 +12,34 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface XTIcloudUser : NSObject <NSCoding>
+
+@property (copy, nonatomic) NSString *userRecordName ;
+@property (copy, nonatomic) NSString *name ;
+@property (copy, nonatomic) NSString *givenName ;
+@property (copy, nonatomic) NSString *familyName ;
+
++ (NSString *)pathForUserSave ;
++ (instancetype)userInCacheSyncGet ;
+@end
+
+
+
+
+
 @interface XTCloudHandler : NSObject
 XT_SINGLETON_H(XTCloudHandler)
 @property (strong, nonatomic) CKContainer *container ;
 
+
 - (void)iCloudStatus:(void(^)(bool bOpen))blkICloudOpen ;
-- (void)fetchUser ;
-- (void)insert ; //todo
+- (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser ;
+
+    
+    
+    
+//todo
+- (void)insert ;
 - (void)insert:(CKRecord *)record ;
 
 - (void)fetchWithId:(NSString *)recordID ;

@@ -8,8 +8,27 @@
 
 #import "XTCloudHandler.h"
 
-static NSString *const kIdContainer = @"iCloud.container.id.octupus" ;
+@implementation XTIcloudUser
 
++ (NSString *)pathForUserSave {
+    return XT_LIBRARY_PATH_TRAIL_(@"iclouduser.arc") ;
+}
+
++ (instancetype)userInCacheSyncGet {
+    return [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
+}
+
+XT_encodeWithCoderRuntimeCls(XTIcloudUser)
+XT_initWithCoderRuntimeCls(XTIcloudUser)
+
+@end
+
+
+
+
+
+
+static NSString *const kIdContainer = @"iCloud.container.id.octupus" ;
 
 @implementation XTCloudHandler
 XT_SINGLETON_M(XTCloudHandler)
@@ -25,15 +44,35 @@ XT_SINGLETON_M(XTCloudHandler)
     }];
 }
 
-- (void)fetchUser {
+- (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser {
+    XTIcloudUser *user = [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
+    if (user != nil) {
+        blkUser(user) ;
+        return ;
+    }
+    
     [self.container requestApplicationPermission:(CKApplicationPermissionUserDiscoverability) completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
-        
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
-    
-    
+            if (!recordID) {
+                blkUser(nil) ;
+                [SVProgressHUD showInfoWithStatus:@"请登录您的icloud"] ;
+                return ;
+            }
+            
             [self.container discoverUserIdentityWithUserRecordID:recordID completionHandler:^(CKUserIdentity * _Nullable userInfo, NSError * _Nullable error) {
-    
-                NSLog(@"user : %@", [userInfo yy_modelToJSONString]) ;
+                
+                if (error) {
+                    [SVProgressHUD showInfoWithStatus:@"请登录您的icloud"] ;
+                    return ;
+                }
+                
+                XTIcloudUser *user = [XTIcloudUser new] ;
+                user.userRecordName = userInfo.userRecordID.recordName ;
+                user.familyName = userInfo.nameComponents.familyName ;
+                user.givenName = userInfo.nameComponents.givenName ;
+                user.name = [user.familyName stringByAppendingString:user.givenName] ;
+                blkUser(user) ;
+                [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
             }] ;
         }] ;
     }] ;

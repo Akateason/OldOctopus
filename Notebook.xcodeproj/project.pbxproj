@@ -34,6 +34,9 @@
 		8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843C2240C7460099E905 /* check-box-off@2x.png */; };
 		8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843D2240C7470099E905 /* check-box-on@2x.png */; };
 		8F7A8443224235960099E905 /* MDImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A8442224235960099E905 /* MDImageManager.m */; };
+		8F7A84452244BA9D0099E905 /* nav_back_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84442244BA9C0099E905 /* nav_back_item@2x.png */; };
+		8F7A84482244BD6B0099E905 /* MDNavVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A84472244BD6B0099E905 /* MDNavVC.m */; };
+		8F7A844B2244CA5F0099E905 /* MDToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A844A2244CA5F0099E905 /* MDToolbar.m */; };
 		8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */; };
 		8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */; };
 		8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */; };
@@ -115,6 +118,11 @@
 		8F7A843D2240C7470099E905 /* check-box-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box-on@2x.png"; sourceTree = "<group>"; };
 		8F7A8441224235960099E905 /* MDImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDImageManager.h; sourceTree = "<group>"; };
 		8F7A8442224235960099E905 /* MDImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDImageManager.m; sourceTree = "<group>"; };
+		8F7A84442244BA9C0099E905 /* nav_back_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_item@2x.png"; sourceTree = "<group>"; };
+		8F7A84462244BD6B0099E905 /* MDNavVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDNavVC.h; sourceTree = "<group>"; };
+		8F7A84472244BD6B0099E905 /* MDNavVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDNavVC.m; sourceTree = "<group>"; };
+		8F7A84492244CA5F0099E905 /* MDToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDToolbar.h; sourceTree = "<group>"; };
+		8F7A844A2244CA5F0099E905 /* MDToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDToolbar.m; sourceTree = "<group>"; };
 		8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMSHEditorVC.h; sourceTree = "<group>"; };
 		8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMSHEditorVC.m; sourceTree = "<group>"; };
 		8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRichTextEditor.h; sourceTree = "<group>"; };
@@ -266,6 +274,8 @@
 				8F679DFB2232436B008DE1BC /* MarkdownVC.m */,
 				8F679E0A22329376008DE1BC /* MDPreviewVC.h */,
 				8F679E0B22329376008DE1BC /* MDPreviewVC.m */,
+				8F7A84462244BD6B0099E905 /* MDNavVC.h */,
+				8F7A84472244BD6B0099E905 /* MDNavVC.m */,
 			);
 			path = markdown;
 			sourceTree = "<group>";
@@ -275,6 +285,8 @@
 			children = (
 				8F679DFE223243B2008DE1BC /* MarkdownEditor.h */,
 				8F679DFF223243B2008DE1BC /* MarkdownEditor.m */,
+				8F7A84492244CA5F0099E905 /* MDToolbar.h */,
+				8F7A844A2244CA5F0099E905 /* MDToolbar.m */,
 				8F7A843B2240C7340099E905 /* source */,
 				8F679E042232468C008DE1BC /* Module */,
 			);
@@ -327,6 +339,7 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F7A84442244BA9C0099E905 /* nav_back_item@2x.png */,
 				8F7A843C2240C7460099E905 /* check-box-off@2x.png */,
 				8F7A843D2240C7470099E905 /* check-box-on@2x.png */,
 			);
@@ -491,6 +504,7 @@
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
 				8F679E1222363EB7008DE1BC /* zample.md in Resources */,
 				8F7A8436223BD1780099E905 /* zample2.md in Resources */,
+				8F7A84452244BA9D0099E905 /* nav_back_item@2x.png in Resources */,
 				8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */,
 				8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
@@ -619,6 +633,7 @@
 				8F679E182238F047008DE1BC /* MDThemeConfiguration.m in Sources */,
 				8F679E2B2238FA17008DE1BC /* MdOtherModel.m in Sources */,
 				8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */,
+				8F7A844B2244CA5F0099E905 /* MDToolbar.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,
@@ -628,6 +643,7 @@
 				8F679E10223614FC008DE1BC /* YYTextVC.m in Sources */,
 				8F7A8443224235960099E905 /* MDImageManager.m in Sources */,
 				8F679E252238F9D1008DE1BC /* MdInlineModel.m in Sources */,
+				8F7A84482244BD6B0099E905 /* MDNavVC.m in Sources */,
 				8FACF6DC221E8D610067DDA4 /* NSAttributedString+RichTextEditor.m in Sources */,
 				8FACF6DA221E8D610067DDA4 /* UIView+RichTextEditor.m in Sources */,
 				8F679E282238F9DE008DE1BC /* MdListModel.m in Sources */,
