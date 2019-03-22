@@ -45,7 +45,7 @@
 }
 
 - (IBAction)photo:(id)sender {
-    [self.textView insertPhoto:[UIImage imageNamed:@"test"] position:0] ;
+//    [self.textView insertPhoto:[UIImage imageNamed:@"test"] position:0] ;
     
 //    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@[ @"album+crop", @"camera+crop" ] callBackBlock:^(NSInteger btnIndex) {
 //

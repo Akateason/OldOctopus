@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <XTlib/XTlib.h>
 
-
+#import "MDToolBar.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate>
 
@@ -23,6 +23,15 @@
 
 //    [self.table xt_setup];
 //    self.table.xt_Delegate = self;
+    
+    
+    MDToolbar *toolbar = [[MDToolbar alloc] initWithConfigList:nil] ;
+    [self.view addSubview:toolbar] ;
+    [toolbar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop) ;
+        make.right.left.equalTo(self.view) ;
+        make.height.equalTo(@41) ;
+    }] ;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

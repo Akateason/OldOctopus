@@ -11,15 +11,17 @@
 #import <XTlib/XTlib.h>
 #import "MdListModel.h"
 #import <BlocksKit+UIKit.h>
+#import "MDToolbar.h"
 
 const CGFloat kMDEditor_FlexValue   = 30.f  ;
 static const int kTag_QuoteMarkView = 66777 ;
 static const int kTag_ListMarkView  = 32342 ;
 
-@interface MarkdownEditor ()<MarkdownParserDelegate> {
+@interface MarkdownEditor ()<MarkdownParserDelegate, MDToolbarDelegate> {
     BOOL fstTimeLoaded ;
 }
 @property (strong, nonatomic) UILabel *lbLeftCornerMarker ;
+@property (strong, nonatomic) MDToolbar *toolBar ;
 @end
 
 @implementation MarkdownEditor
@@ -99,13 +101,6 @@ static const int kTag_ListMarkView  = 32342 ;
     [self show_lbLeftCornerMarker] ;
 }
 
-- (void)insertPhoto:(UIImage *)image position:(NSUInteger)position {
-//    插入图片只需要插入 markdown格式的url ![] , 即先上传完成.
-    
-}
-
-
-
 
 #pragma mark - rewrite father
 #pragma mark - cursor moving and selecting
@@ -115,6 +110,14 @@ static const int kTag_ListMarkView  = 32342 ;
     
     [self updateTextStyle] ;
     [self doSomethingWhenUserSelectPartOfArticle] ;
+}
+
+- (BOOL)canBecomeFirstResponder {
+    self.inputAccessoryView = self.toolBar ;
+    // Redraw in case enabbled features have changes
+//    [self.toolBar redraw];
+    
+    return [super canBecomeFirstResponder];
 }
 
 #pragma mark - props
@@ -157,6 +160,15 @@ static const int kTag_ListMarkView  = 32342 ;
         [self.lbLeftCornerMarker removeFromSuperview] ;
         _lbLeftCornerMarker = nil ;
     }
+}
+
+- (MDToolbar *)toolBar {
+    if (!_toolBar) {
+        _toolBar = [[MDToolbar alloc] initWithConfigList:nil] ;
+        _toolBar.frame = CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, 41) ;
+        _toolBar.mdt_delegate = self ;
+    }
+    return _toolBar ;
 }
 
 #pragma mark - MarkdownParserDelegate <NSObject>
@@ -257,8 +269,95 @@ static const int kTag_ListMarkView  = 32342 ;
     }
 }
 
+#pragma mark - MDToolbarDelegate <NSObject>
+
+- (void)toolbarDidSelectH {
+    
+}
+- (void)toolbarDidSelectH1 {
+    
+}
+- (void)toolbarDidSelectH2 {
+    
+}
+- (void)toolbarDidSelectH3 {
+    
+}
+- (void)toolbarDidSelectH4 {
+    
+}
+- (void)toolbarDidSelectH5 {
+    
+}
+- (void)toolbarDidSelectH6 {
+    
+}
+- (void)toolbarDidSelectSepLine {
+    
+}
+
+- (void)toolbarDidSelectBold {
+    
+}
+- (void)toolbarDidSelectItalic {
+    
+}
+- (void)toolbarDidSelectUnderline {
+    
+}
+- (void)toolbarDidSelectDeletion {
+    
+}
+
+- (void)toolbarDidSelectPhoto {
+    
+}
+- (void)toolbarDidSelectLink {
+    
+}
+
+- (void)toolbarDidSelectUList {
+    
+}
+- (void)toolbarDidSelectOrderlist {
+    
+}
+- (void)toolbarDidSelectTaskList {
+    
+}
+
+- (void)toolbarDidSelectCodeBlock {
+    
+}
+- (void)toolbarDidSelectQuoteBlock {
+    
+}
+
+- (void)toolbarDidSelectUndo {
+    
+}
+- (void)toolbarDidSelectRedo {
+    
+}
+
+
 #pragma mark -
 
+- (CGRect)currentScreenBoundsDependOnOrientation {
+    CGRect screenBounds                         = [UIScreen mainScreen].bounds;
+    CGFloat width                               = CGRectGetWidth(screenBounds);
+    CGFloat height                              = CGRectGetHeight(screenBounds);
+    UIInterfaceOrientation interfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+    if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) {
+        screenBounds.size = CGSizeMake(width, height);
+    }
+    else if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
+        screenBounds.size = CGSizeMake(height, width);
+    }
+    
+    return screenBounds;
+}
 
 
 

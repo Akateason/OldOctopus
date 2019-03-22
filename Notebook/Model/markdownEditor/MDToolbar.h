@@ -9,42 +9,82 @@
 #import <UIKit/UIKit.h>
 #import "MarkdownModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 // H - // B I U S // photo link // ul ol tl // code quote // undo redo //
 
 @protocol MDToolbarDelegate <NSObject>
-
+- (void)toolbarDidSelectH ;
 - (void)toolbarDidSelectH1 ;
 - (void)toolbarDidSelectH2 ;
 - (void)toolbarDidSelectH3 ;
 - (void)toolbarDidSelectH4 ;
 - (void)toolbarDidSelectH5 ;
 - (void)toolbarDidSelectH6 ;
+- (void)toolbarDidSelectSepLine ;
 
 - (void)toolbarDidSelectBold ;
 - (void)toolbarDidSelectItalic ;
+- (void)toolbarDidSelectUnderline ;
 - (void)toolbarDidSelectDeletion ;
 
-- (void)toolbarDidSelectLink ;
 - (void)toolbarDidSelectPhoto ;
+- (void)toolbarDidSelectLink ;
 
-- (void)toolbarDidSelectOrderlist ;
 - (void)toolbarDidSelectUList ;
+- (void)toolbarDidSelectOrderlist ;
 - (void)toolbarDidSelectTaskList ;
 
-- (void)toolbarDidSelectQuoteBlock ;
 - (void)toolbarDidSelectCodeBlock ;
-- (void)toolbarDidSelectSepLine ;
+- (void)toolbarDidSelectQuoteBlock ;
 
+- (void)toolbarDidSelectUndo ;
+- (void)toolbarDidSelectRedo ;
 @end
+
+
+typedef enum : NSUInteger {
+    MDB_H ,
+    
+    MDB_H1 ,
+    MDB_H2 ,
+    MDB_H3 ,
+    MDB_H4 ,
+    MDB_H5 ,
+    MDB_H6 ,
+    MDB_Sepline ,
+    
+    MDB_B ,
+    MDB_I ,
+    MDB_U ,
+    MDB_D ,
+    
+    MDB_Photo ,
+    MDB_Link ,
+    
+    MDB_UL ,
+    MDB_OL ,
+    MDB_TL ,
+    
+    MDB_Code ,
+    MDB_Quote ,
+    
+    MDB_Undo ,
+    MDB_Redo ,
+    
+    MDB_flex
+} MDToolbar_Buttons_Types ;
+
 
 @interface MDToolbar : UIView
 
-@property (weak, nonatomic) id <MDToolbarDelegate> delegate ;
+@property (weak, nonatomic) id <MDToolbarDelegate> mdt_delegate ;
+
+// H - // B I U S // photo link // ul ol tl // code quote // undo redo //
+- (instancetype)initWithConfigList:(NSArray *)list ;
 
 - (void)renderWithModel:(MarkdownModel *)model ;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

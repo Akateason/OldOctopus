@@ -38,7 +38,7 @@ XT_SINGLETON_M(MDImageManager)
 
 
 /**
- action: 'https://shimodev.com/octopus-api/files',
+ https://shimodev.com/octopus-api/files?uploadType=media
  headers: {
  Authorization: `Basic ${Base64.encode(userRecordName + ':' + '123456')}`
  }
@@ -48,21 +48,22 @@ XT_SINGLETON_M(MDImageManager)
             success:(void (^)(NSURLResponse *response, id responseObject))success
             failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail {
 
-//    NSString *url = @"https://shimodev.com/octopus-api/files" ;
-    NSString *url = @"https://172.17.4.66:3000/octopus-api/files" ;
+//    NSString *url = @"https://shimodev.com/octopus-api/files?uploadType=media" ;
+    NSString *url = @"http://172.17.4.66:9001/files?uploadType=media" ;
     NSData *data = UIImageJPEGRepresentation(image, 1) ;
     
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName) ;
     NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
-    NSDictionary *header = @{@"Authorization" : code} ;
+    NSDictionary *header = @{@"Authorization" : code,
+                             @"Content-Type":@"image/jpeg"
+                             } ;
     
     [XTRequest uploadFileWithData:data urlStr:url header:header progress:^(float flt) {
 
     } success:^(NSURLResponse *response, id responseObject) {
-
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-
-
+        
     }] ;
     
     
