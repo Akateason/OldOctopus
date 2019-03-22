@@ -271,9 +271,6 @@ static const int kTag_ListMarkView  = 32342 ;
 
 #pragma mark - MDToolbarDelegate <NSObject>
 
-- (void)toolbarDidSelectH {
-    
-}
 - (void)toolbarDidSelectH1 {
     
 }

@@ -14,7 +14,7 @@
 // H - // B I U S // photo link // ul ol tl // code quote // undo redo //
 
 @protocol MDToolbarDelegate <NSObject>
-- (void)toolbarDidSelectH ;
+
 - (void)toolbarDidSelectH1 ;
 - (void)toolbarDidSelectH2 ;
 - (void)toolbarDidSelectH3 ;
