@@ -65,7 +65,7 @@
         _boldItalicFont = ({
             NSDictionary *fontDict = @{
                                        UIFontDescriptorMatrixAttribute:[NSValue valueWithCGAffineTransform:CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0)],
-                                       UIFontDescriptorFaceAttribute: @"Bold"
+                                       UIFontDescriptorFaceAttribute:@"Bold"
                                        } ;
             UIFontDescriptor *attributeFontDescriptor = [UIFontDescriptor fontDescriptorWithFontAttributes:fontDict] ;
             UIFont * object = [UIFont fontWithDescriptor:attributeFontDescriptor size:kDefaultFontSize] ;

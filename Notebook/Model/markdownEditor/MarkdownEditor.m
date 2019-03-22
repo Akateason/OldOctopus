@@ -202,7 +202,7 @@ static const int kTag_ListMarkView  = 32342 ;
     for (int i = 0; i < list.count; i++) {
         MdListModel *model = list[i] ;
         CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
-        NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
+//        NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
         if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) continue ;
         
         UIView *item ;
@@ -257,7 +257,7 @@ static const int kTag_ListMarkView  = 32342 ;
     }
 }
 
-#pragma mark - touch
+#pragma mark -
 
 
 
