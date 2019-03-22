@@ -40,7 +40,7 @@
             NSInteger markLoc = [[self.str componentsSeparatedByString:@"]"] firstObject].length + 1 ;
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, markLoc)] ;
             
-            if (!self.taskItemSelected) {
+            if (self.taskItemSelected) {
                 resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
                               NSFontAttributeName : paragraphFont
                               };
@@ -80,7 +80,7 @@
             NSInteger markLoc = [[self.str componentsSeparatedByString:@"]"] firstObject].length + 1 ;
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, markLoc)] ;
             
-            if (!self.taskItemSelected) {
+            if (self.taskItemSelected) {
                 resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
                               NSFontAttributeName : paragraphFont
                               };
