@@ -170,28 +170,9 @@
                     <view key="view" contentMode="scaleToFill" id="95i-nd-CIV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="aaaabbbbbbbbcccccccc" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-v2-U3P" customClass="NBRichTextEditor">
-                                <rect key="frame" x="0.0" y="81" width="375" height="216"/>
-                                <color key="backgroundColor" red="0.89799207449999996" green="0.89807194469999996" blue="0.89792543650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="11q-bZ-aks"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="8ou-v2-U3P" firstAttribute="top" secondItem="2Ae-dh-9wE" secondAttribute="top" constant="17" id="Co2-EV-8gN"/>
-                            <constraint firstItem="8ou-v2-U3P" firstAttribute="leading" secondItem="2Ae-dh-9wE" secondAttribute="leading" id="QvQ-dK-86C"/>
-                            <constraint firstItem="2Ae-dh-9wE" firstAttribute="trailing" secondItem="8ou-v2-U3P" secondAttribute="trailing" id="Zbk-lR-RK7"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2Ae-dh-9wE"/>
                     </view>
-                    <connections>
-                        <outlet property="textview" destination="8ou-v2-U3P" id="d1J-ej-kX5"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ryf-24-nOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

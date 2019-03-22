@@ -11,7 +11,7 @@
 
 
 @interface SMSHEditorVC ()
-@property (weak, nonatomic) IBOutlet NBRichTextEditor *textview;
+@property (strong, nonatomic) NBRichTextEditor *textview;
 
 @end
 
@@ -20,8 +20,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    //    self.textview.selectable = YES ;
+    
+    NBRichTextEditor *tv = [[NBRichTextEditor alloc] init] ;
+    [self.view addSubview:tv] ;
+    [tv mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view) ;
+    }] ;
 }
 
 
