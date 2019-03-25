@@ -11,7 +11,7 @@
 #import <BlocksKit+UIKit.h>
 #import <XTlib/XTlib.h>
 
-static const float kFlexOfButtons = 10 ;
+static const float kFlexOfButtons = 20 ;
 static const float kMarginOfButtons = 10 ;
 
 @interface MDToolbar ()
@@ -67,7 +67,8 @@ static const float kMarginOfButtons = 10 ;
 
 - (NSArray *)defaultConfigList {
     return @[@(MDB_H),@(MDB_Sepline),@(MDB_flex),
-             @(MDB_B),@(MDB_I),@(MDB_U),@(MDB_D),@(MDB_flex),
+//             @(MDB_B),@(MDB_I),@(MDB_U),@(MDB_D),@(MDB_flex),
+             @(MDB_B),@(MDB_I),@(MDB_D),@(MDB_flex),
              @(MDB_Photo),@(MDB_Link),@(MDB_flex),
              @(MDB_UL),@(MDB_OL),@(MDB_TL),@(MDB_flex),
              @(MDB_Code),@(MDB_Quote),@(MDB_flex),
@@ -108,7 +109,7 @@ static const float kMarginOfButtons = 10 ;
             
         case MDB_B: [self.mdt_delegate toolbarDidSelectBold] ; break ;
         case MDB_I: [self.mdt_delegate toolbarDidSelectItalic] ; break ;
-        case MDB_U: [self.mdt_delegate toolbarDidSelectUnderline] ; break ;
+//        case MDB_U: [self.mdt_delegate toolbarDidSelectUnderline] ; break ;
         case MDB_D: [self.mdt_delegate toolbarDidSelectDeletion] ; break ;
             
         case MDB_Photo: [self.mdt_delegate toolbarDidSelectPhoto] ; break ;
@@ -143,7 +144,7 @@ static const float kMarginOfButtons = 10 ;
             
         case MDB_B: imgStr = @"md_tb_bt_bold" ; break ;
         case MDB_I: imgStr = @"md_tb_bt_italic" ; break ;
-        case MDB_U: imgStr = @"md_tb_bt_underline" ; break ;
+//        case MDB_U: imgStr = @"md_tb_bt_underline" ; break ;
         case MDB_D: imgStr = @"md_tb_bt_deletion" ; break ;
             
         case MDB_Photo: imgStr = @"md_tb_bt_photo" ; break ;

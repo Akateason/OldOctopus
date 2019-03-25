@@ -271,37 +271,98 @@ static const int kTag_ListMarkView  = 32342 ;
 
 #pragma mark - MDToolbarDelegate <NSObject>
 
-- (void)toolbarDidSelectH1 {
-    
-}
-- (void)toolbarDidSelectH2 {
-    
-}
-- (void)toolbarDidSelectH3 {
-    
-}
-- (void)toolbarDidSelectH4 {
-    
-}
-- (void)toolbarDidSelectH5 {
-    
-}
-- (void)toolbarDidSelectH6 {
-    
-}
-- (void)toolbarDidSelectSepLine {
-    
+- (void)makeHeaderWithSize:(NSString *)mark {
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    MarkdownModel *paraModel = [self.markdownPaser paraModelForPosition:self.selectedRange.location] ;
+    if ([paraModel.str hasPrefix:@"#"]) {
+        NSString *prefix = [[paraModel.str componentsSeparatedByString:@" "] firstObject] ;
+        NSInteger delNum = prefix.length + 1 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(paraModel.range.location, delNum)] ;
+    }
+    [tmpString insertString:mark atIndex:paraModel.range.location] ;
+    [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
 }
 
+- (void)toolbarDidSelectH1 {
+    [self makeHeaderWithSize:@"# "] ;
+}
+- (void)toolbarDidSelectH2 {
+    [self makeHeaderWithSize:@"## "] ;
+}
+- (void)toolbarDidSelectH3 {
+    [self makeHeaderWithSize:@"### "] ;
+}
+- (void)toolbarDidSelectH4 {
+    [self makeHeaderWithSize:@"#### "] ;
+}
+- (void)toolbarDidSelectH5 {
+    [self makeHeaderWithSize:@"##### "] ;
+}
+- (void)toolbarDidSelectH6 {
+    [self makeHeaderWithSize:@"###### "] ;
+}
+- (void)toolbarDidSelectSepLine {
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    [tmpString insertString:@"\n---\n" atIndex:self.selectedRange.location] ;
+    [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+    self.selectedRange = NSMakeRange(self.selectedRange.location + 5, 0) ;
+}
+
+
 - (void)toolbarDidSelectBold {
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
+    // del
+    if (model.type == MarkdownInlineBold) {
+        NSInteger numOfStr = model.str.length - 4 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 2 + numOfStr, 2)] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 2)] ;
+        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        return ;
+    }
     
+    if (model.type == MarkdownInlineBoldItalic) {
+        NSInteger numOfStr = model.str.length - 6 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 3 + numOfStr, 3)] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 3)] ;
+        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        [self toolbarDidSelectItalic] ;
+        return ;
+    }
+    
+    // add
+    [tmpString insertString:@"****" atIndex:self.selectedRange.location] ;
+    [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+    self.selectedRange = NSMakeRange(self.selectedRange.location + 2, 0) ;
 }
+
 - (void)toolbarDidSelectItalic {
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
+    // del
+    if (model.type == MarkdownInlineItalic) {
+        NSInteger numOfStr = model.str.length - 2 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 1 + numOfStr, 1)] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 1)] ;
+        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        return ;
+    }
     
-}
-- (void)toolbarDidSelectUnderline {
+    if (model.type == MarkdownInlineBoldItalic) {
+        NSInteger numOfStr = model.str.length - 6 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 3 + numOfStr, 3)] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 3)] ;
+        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        [self toolbarDidSelectBold] ;
+        return ;
+    }
     
+    // add
+    [tmpString insertString:@"**" atIndex:self.selectedRange.location] ;
+    [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+    self.selectedRange = NSMakeRange(self.selectedRange.location + 1, 0) ;
 }
+
 - (void)toolbarDidSelectDeletion {
     
 }

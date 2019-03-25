@@ -21,6 +21,7 @@
 @interface MarkdownPaser ()
 @property (strong, nonatomic) MDThemeConfiguration *configuration ;
 
+@property (copy, nonatomic) NSArray *paraList ;
 @property (copy, nonatomic) NSArray *modelList ;
 @property (strong, nonatomic) NSMutableAttributedString *editAttrStr ;
 @end
@@ -106,6 +107,7 @@
                                                         str:[text substringWithRange:result.range]] ;
         [paralist addObject:model] ;
     }
+    self.paraList = paralist ;
     
     // parsing get block list first . if is block then parse for inline attr , if not a block parse this para's inline attr .
     [paralist enumerateObjectsUsingBlock:^(MarkdownModel *pModel, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -250,6 +252,17 @@
         }
     }
     return tmplist ;
+}
+
+- (MarkdownModel *)paraModelForPosition:(NSUInteger)position {
+    for (int i = 0; i < self.paraList.count; i++) {
+        MarkdownModel *model = self.paraList[i] ;
+        BOOL isInRange = NSLocationInRange(position, model.range) ;
+        if (isInRange) {
+            return model ;
+        }
+    }
+    return nil ;
 }
 
 - (NSString *)stringTitleOfPosition:(NSUInteger)position {
