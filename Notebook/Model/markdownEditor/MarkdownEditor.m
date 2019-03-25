@@ -283,6 +283,16 @@ static const int kTag_ListMarkView  = 32342 ;
     [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
 }
 
+- (void)toolbarDidSelectRemoveTitle {
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    MarkdownModel *paraModel = [self.markdownPaser paraModelForPosition:self.selectedRange.location] ;
+    if ([paraModel.str hasPrefix:@"#"]) {
+        NSString *prefix = [[paraModel.str componentsSeparatedByString:@" "] firstObject] ;
+        NSInteger delNum = prefix.length + 1 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(paraModel.range.location, delNum)] ;
+    }
+    [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+}
 - (void)toolbarDidSelectH1 {
     [self makeHeaderWithSize:@"# "] ;
 }
@@ -412,7 +422,7 @@ static const int kTag_ListMarkView  = 32342 ;
         [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
         self.selectedRange = NSMakeRange(self.selectedRange.location + 2, 0) ;
     }
-    else {
+    else { // todo
         [tmpString insertString:@"~~" atIndex:self.selectedRange.location + self.selectedRange.length] ;
         [tmpString insertString:@"~~" atIndex:self.selectedRange.location] ;
         self.selectedRange = NSMakeRange(self.selectedRange.location + 2, self.selectedRange.length) ;
@@ -445,10 +455,10 @@ static const int kTag_ListMarkView  = 32342 ;
 }
 
 - (void)toolbarDidSelectUndo {
-    
+    [[self undoManager] undo];
 }
 - (void)toolbarDidSelectRedo {
-    
+    [[self undoManager] redo];
 }
 
 

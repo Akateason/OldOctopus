@@ -10,13 +10,13 @@
 #import "MDToolbar.h"
 #import <BlocksKit+UIKit.h>
 #import <XTlib/XTlib.h>
+#import <XTlib/XTSIAlertView.h>
 
 static const float kFlexOfButtons = 20 ;
 static const float kMarginOfButtons = 10 ;
 
 @interface MDToolbar ()
 @property (strong, nonatomic) UIScrollView *scrollview ;
-@property (strong, nonatomic) UIScrollView *scrollviewForHeader ;
 @end
 
 @implementation MDToolbar
@@ -99,12 +99,12 @@ static const float kMarginOfButtons = 10 ;
 - (void)buttonOnClick:(UIButton *)button type:(MDToolbar_Buttons_Types)type {
     switch (type) {
         case MDB_H: [self buttonH_onClicked] ; break ;
-        case MDB_H1: [self.mdt_delegate toolbarDidSelectH1] ; break ;
-        case MDB_H2: [self.mdt_delegate toolbarDidSelectH2] ; break ;
-        case MDB_H3: [self.mdt_delegate toolbarDidSelectH3] ; break ;
-        case MDB_H4: [self.mdt_delegate toolbarDidSelectH4] ; break ;
-        case MDB_H5: [self.mdt_delegate toolbarDidSelectH5] ; break ;
-        case MDB_H6: [self.mdt_delegate toolbarDidSelectH6] ; break ;
+//        case MDB_H1: [self.mdt_delegate toolbarDidSelectH1] ; break ;
+//        case MDB_H2: [self.mdt_delegate toolbarDidSelectH2] ; break ;
+//        case MDB_H3: [self.mdt_delegate toolbarDidSelectH3] ; break ;
+//        case MDB_H4: [self.mdt_delegate toolbarDidSelectH4] ; break ;
+//        case MDB_H5: [self.mdt_delegate toolbarDidSelectH5] ; break ;
+//        case MDB_H6: [self.mdt_delegate toolbarDidSelectH6] ; break ;
         case MDB_Sepline: [self.mdt_delegate toolbarDidSelectSepLine] ; break ;
             
         case MDB_B: [self.mdt_delegate toolbarDidSelectBold] ; break ;
@@ -168,9 +168,34 @@ static const float kMarginOfButtons = 10 ;
 }
 
 - (void)buttonH_onClicked {
-    self.scrollviewForHeader.hidden = NO ;
+    XTSIAlertView *alert = [[XTSIAlertView alloc] initWithTitle:nil andMessage:nil] ;
+    WEAK_SELF
+    [alert addButtonWithTitle:@"H1" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
+        [weakSelf.mdt_delegate toolbarDidSelectH1] ;
+    }] ;
+    [alert addButtonWithTitle:@"H2" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
+        [weakSelf.mdt_delegate toolbarDidSelectH2] ;
+    }] ;
+    [alert addButtonWithTitle:@"H3" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
+        [weakSelf.mdt_delegate toolbarDidSelectH3] ;
+    }] ;
+    [alert addButtonWithTitle:@"H4" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
+        [weakSelf.mdt_delegate toolbarDidSelectH4] ;
+    }] ;
+    [alert addButtonWithTitle:@"H5" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
+        [weakSelf.mdt_delegate toolbarDidSelectH5] ;
+    }] ;
+    [alert addButtonWithTitle:@"H6" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
+        [weakSelf.mdt_delegate toolbarDidSelectH6] ;
+    }] ;
+    [alert addButtonWithTitle:@"非标题" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
+        [weakSelf.mdt_delegate toolbarDidSelectRemoveTitle] ;
+    }] ;
+    [alert addButtonWithTitle:@"取消" type:XTSIAlertViewButtonTypeCancel handler:^(XTSIAlertView *alertView) {
+    }] ;
+    
+    [alert show] ;
 }
-
 
 - (UIScrollView *)scrollview{
     if(!_scrollview){
@@ -188,57 +213,4 @@ static const float kMarginOfButtons = 10 ;
     return _scrollview;
 }
 
-
-- (UIScrollView *)scrollviewForHeader{
-    if(!_scrollviewForHeader){
-        _scrollviewForHeader = ({
-            UIScrollView * object = [[UIScrollView alloc]init];
-            object.backgroundColor = [UIColor whiteColor] ;
-            
-            [self addSubview:object] ;
-            [object mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self).offset(1) ;
-                make.left.right.bottom.equalTo(self) ;
-            }] ;
-            
-            UIButton *btBack = [UIButton new] ;
-            [btBack setTitle:@"👈" forState:0] ;
-//            btBack.backgroundColor = [UIColor greenColor] ;
-            WEAK_SELF
-            [btBack bk_addEventHandler:^(id sender) {
-                weakSelf.scrollviewForHeader.hidden = YES ;
-            } forControlEvents:UIControlEventTouchUpInside] ;
-            [object addSubview:btBack] ;
-            [btBack mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(object).offset(10) ;
-                make.centerY.equalTo(object) ;
-                make.size.mas_equalTo(CGSizeMake(30, 20)) ;
-            }] ;
-            
-            __block float lastLeft = 10+30+10 ;
-            NSArray *headerlist = [self headerList] ;
-            [headerlist enumerateObjectsUsingBlock:^(NSNumber *number, NSUInteger idx, BOOL * _Nonnull stop) {
-                MDToolbar_Buttons_Types type = number.intValue ;
-                UIButton *bt = [self buttonWithMDTBtype:type] ;
-                if (!bt) {
-                    lastLeft += (kFlexOfButtons) ;
-                    return ;
-                }
-                
-                [object addSubview:bt] ;
-                [bt mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.size.mas_equalTo(CGSizeMake(20, 20)) ;
-                    make.centerY.equalTo(object) ;
-                    make.left.equalTo(object.mas_left).offset(lastLeft) ;
-                }] ;
-                lastLeft += (20 + kMarginOfButtons) ;
-            }] ;
-            
-            object.contentSize = CGSizeMake(lastLeft - kMarginOfButtons + kFlexOfButtons, 40) ;
-            
-            object;
-       });
-    }
-    return _scrollviewForHeader;
-}
 @end

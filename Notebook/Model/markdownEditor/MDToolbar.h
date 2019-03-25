@@ -15,6 +15,7 @@
 
 @protocol MDToolbarDelegate <NSObject>
 
+- (void)toolbarDidSelectRemoveTitle ;
 - (void)toolbarDidSelectH1 ;
 - (void)toolbarDidSelectH2 ;
 - (void)toolbarDidSelectH3 ;
