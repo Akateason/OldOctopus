@@ -12,9 +12,6 @@
 
 
 #define regexp(reg,option)      [NSRegularExpression regularExpressionWithPattern:@reg options:option error:NULL]
-//static NSString *const kMark_Bullet = @"•" ;  // @"●●○⦿・◉"  // same mark in MDPR_bulletlist
-
-
 
 
 

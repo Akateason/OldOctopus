@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
+		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
 		8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F579FE0222FB65B00C54929 /* XTCloudHandler.m */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
@@ -56,8 +58,6 @@
 		8F7A84912244E4600099E905 /* md_tb_bt_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84902244E4600099E905 /* md_tb_bt_photo@2x.png */; };
 		8F7A84932244E4DA0099E905 /* md_tb_bt_underline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84922244E4DA0099E905 /* md_tb_bt_underline@2x.png */; };
 		8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */; };
-		8F7A84982244F81C0099E905 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84962244F81C0099E905 /* md_tb_bt_undo@2x.png */; };
-		8F7A84992244F81C0099E905 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84972244F81C0099E905 /* md_tb_bt_redo@2x.png */; };
 		8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A849E2248A6050099E905 /* MDEditUrlView.xib */; };
 		8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */; };
 		8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */; };
@@ -90,6 +90,8 @@
 
 /* Begin PBXFileReference section */
 		3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
+		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
 		8F579FDC222E547F00C54929 /* Notebook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notebook.entitlements; sourceTree = "<group>"; };
 		8F579FDD222E54A500C54929 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		8F579FDF222FB65B00C54929 /* XTCloudHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTCloudHandler.h; sourceTree = "<group>"; };
@@ -165,8 +167,6 @@
 		8F7A84902244E4600099E905 /* md_tb_bt_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_photo@2x.png"; sourceTree = "<group>"; };
 		8F7A84922244E4DA0099E905 /* md_tb_bt_underline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_underline@2x.png"; sourceTree = "<group>"; };
 		8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_h@2x.png"; sourceTree = "<group>"; };
-		8F7A84962244F81C0099E905 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
-		8F7A84972244F81C0099E905 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
 		8F7A849E2248A6050099E905 /* MDEditUrlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEditUrlView.xib; sourceTree = "<group>"; };
 		8F7A84A02248AB7A0099E905 /* MDEditUrlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEditUrlView.h; sourceTree = "<group>"; };
 		8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEditUrlView.m; sourceTree = "<group>"; };
@@ -389,8 +389,8 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				8F7A84962244F81C0099E905 /* md_tb_bt_undo@2x.png */,
-				8F7A84972244F81C0099E905 /* md_tb_bt_redo@2x.png */,
+				8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */,
+				8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */,
 				8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */,
 				8F7A84922244E4DA0099E905 /* md_tb_bt_underline@2x.png */,
 				8F7A84902244E4600099E905 /* md_tb_bt_photo@2x.png */,
@@ -576,8 +576,8 @@
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
 				8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */,
 				8F679E1222363EB7008DE1BC /* zample.md in Resources */,
-				8F7A84992244F81C0099E905 /* md_tb_bt_redo@2x.png in Resources */,
 				8F7A84932244E4DA0099E905 /* md_tb_bt_underline@2x.png in Resources */,
+				8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */,
 				8F7A84762244E1EB0099E905 /* md_tb_bt_code@2x.png in Resources */,
 				8F7A8436223BD1780099E905 /* zample2.md in Resources */,
 				8F7A84452244BA9D0099E905 /* nav_back_item@2x.png in Resources */,
@@ -587,6 +587,7 @@
 				8F7A84912244E4600099E905 /* md_tb_bt_photo@2x.png in Resources */,
 				8F7A848D2244E44B0099E905 /* md_tb_bt_italic@2x.png in Resources */,
 				8F7A847D2244E1EB0099E905 /* md_tb_bt_ulist@2x.png in Resources */,
+				8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */,
 				8F7A84792244E1EB0099E905 /* md_tb_bt_quote@2x.png in Resources */,
 				8F7A84852244E2550099E905 /* md_tb_bt_h3@2x.png in Resources */,
 				8F7A84722244E1EB0099E905 /* md_tb_bt_h5@2x.png in Resources */,
@@ -595,7 +596,6 @@
 				8F7A84682244E1EB0099E905 /* md_tb_bt_h4@2x.png in Resources */,
 				8F7A847C2244E1EB0099E905 /* md_tb_bt_tasklist@2x.png in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
-				8F7A84982244F81C0099E905 /* md_tb_bt_undo@2x.png in Resources */,
 				8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */,
 				8F7A84712244E1EB0099E905 /* md_tb_bt_olist@2x.png in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
