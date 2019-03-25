@@ -14,20 +14,23 @@
 - (MarkdownModel *)cleanMarkOfParagraph {
     NSMutableString *tmpString = [self.text mutableCopy] ;
     NSInteger position = self.selectedRange.location ;
-    MarkdownModel *paraModel ;
-    while (paraModel == nil) {
-        paraModel = [self.markdownPaser paraModelForPosition:position] ;
+    MarkdownModel *blkModel ;
+    while (blkModel == nil) {
+        blkModel = [self.markdownPaser blkModelForRangePosition:position] ;
         position -- ;
     }
     
-    NSString *tmpPrefixStr = paraModel.str ;
-    if (paraModel.str.length > 10) tmpPrefixStr = [paraModel.str substringToIndex:10] ;
-    
-    tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@" "] firstObject] ;
-    [tmpString deleteCharactersInRange:NSMakeRange(paraModel.range.location, tmpPrefixStr.length + 1)] ;
-    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
-    
-    return paraModel ;
+    NSString *tmpPrefixStr = blkModel.str ;
+    if (blkModel.type == MarkdownSyntaxTaskLists) {
+        tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@"]"] firstObject] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 2)] ;
+    }
+    else {
+        tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@" "] firstObject] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
+    }
+    [self.markdownPaser parseText:tmpString position:blkModel.range.location textView:self] ;
+    return blkModel ;
 }
 
 #pragma mark - MDToolbarDelegate <NSObject>
@@ -39,6 +42,7 @@
     NSMutableString *tmpString = [self.text mutableCopy] ;
     [tmpString insertString:mark atIndex:paraModel.range.location] ;
     [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
+    [self doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 - (void)toolbarDidSelectRemoveTitle {
@@ -234,20 +238,38 @@
 }
 
 - (void)toolbarDidSelectUList {
+    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
+    if (!paraModel) return ;
     
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    [tmpString insertString:@"* " atIndex:paraModel.range.location] ;
+    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
+    [self doSomethingWhenUserSelectPartOfArticle] ;
 }
 - (void)toolbarDidSelectOrderlist {
     
 }
 - (void)toolbarDidSelectTaskList {
+    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
+    if (!paraModel) return ;
     
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    [tmpString insertString:@"* [ ] " atIndex:paraModel.range.location] ;
+    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
+    [self doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 - (void)toolbarDidSelectCodeBlock {
     
 }
 - (void)toolbarDidSelectQuoteBlock {
+    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
+    if (!paraModel) return ;
     
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    [tmpString insertString:@"> " atIndex:paraModel.range.location] ;
+    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
+    [self doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 - (void)toolbarDidSelectUndo {

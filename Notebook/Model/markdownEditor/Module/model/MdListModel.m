@@ -100,7 +100,7 @@
     if (self.type != MarkdownSyntaxTaskLists) return NO ;
         
     NSString *prefix = [[self.str componentsSeparatedByString:@"]"] firstObject] ;
-    return ![prefix containsString:@"x"] ;
+    return [prefix containsString:@"x"] ;
 }
 
 - (UIImage *)taskItemImageState {

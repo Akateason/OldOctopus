@@ -251,7 +251,7 @@ static const int kTag_ListMarkView  = 32342 ;
             WEAK_SELF
             [imgView bk_whenTapped:^{
                 NSMutableString *tmpStr = [[NSMutableString alloc] initWithString:weakSelf.text] ;
-                model.taskItemSelected
+                !model.taskItemSelected
                 ?
                 [tmpStr replaceCharactersInRange:NSMakeRange(model.range.location + 3, 1) withString:@"x"]
                 :

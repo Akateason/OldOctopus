@@ -246,6 +246,21 @@
     return blockModel ;
 }
 
+- (MarkdownModel *)blkModelForRangePosition:(NSUInteger)position {
+    NSArray *list = self.modelList ;
+    for (int i = 0; i < list.count; i++) {
+        MarkdownModel *model = list[i] ;
+        BOOL isInRange = NSLocationInRange(position, model.range) ;
+        
+        if (isInRange) {
+            if (model.type < MarkdownInlineUnknown) {
+                return model ; // 优先 块
+            }
+        }
+    }
+    return nil ;
+}
+
 - (NSArray *)modelListForRangePosition:(NSUInteger)position {
     NSArray *list = self.modelList ;
     NSMutableArray *tmplist = [@[] mutableCopy] ;
