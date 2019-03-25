@@ -26,7 +26,7 @@
 
 - (void)toolbarDidSelectBold ;
 - (void)toolbarDidSelectItalic ;
-- (void)toolbarDidSelectUnderline ;
+//- (void)toolbarDidSelectUnderline ;
 - (void)toolbarDidSelectDeletion ;
 
 - (void)toolbarDidSelectPhoto ;

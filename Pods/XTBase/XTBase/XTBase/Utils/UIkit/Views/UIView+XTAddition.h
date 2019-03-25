@@ -16,6 +16,8 @@
 
 + (UIWindow *)xt_topWindow;
 
++ (CGRect)currentScreenBoundsDependOnOrientation ;
+
 @end
 
 

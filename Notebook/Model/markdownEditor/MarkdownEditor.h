@@ -14,6 +14,10 @@ extern const CGFloat kMDEditor_FlexValue ;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownEditor : UITextView <UITextViewDelegate>
+{
+    BOOL fstTimeLoaded ;
+    CGFloat keyboardHeight ;
+}
 @property (strong, nonatomic) MarkdownPaser *markdownPaser ; // paser with configuration .
 
 @end

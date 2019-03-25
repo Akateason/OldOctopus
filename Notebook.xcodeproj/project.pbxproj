@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F0688EE2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */; };
 		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
@@ -90,6 +91,8 @@
 
 /* Begin PBXFileReference section */
 		3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F0688EC2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownEditor+UtilOfToolbar.h"; sourceTree = "<group>"; };
+		8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownEditor+UtilOfToolbar.m"; sourceTree = "<group>"; };
 		8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
 		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
 		8F579FDC222E547F00C54929 /* Notebook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notebook.entitlements; sourceTree = "<group>"; };
@@ -332,6 +335,8 @@
 			children = (
 				8F679DFE223243B2008DE1BC /* MarkdownEditor.h */,
 				8F679DFF223243B2008DE1BC /* MarkdownEditor.m */,
+				8F0688EC2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.h */,
+				8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */,
 				8F7A84492244CA5F0099E905 /* MDToolbar.h */,
 				8F7A844A2244CA5F0099E905 /* MDToolbar.m */,
 				8F7A849E2248A6050099E905 /* MDEditUrlView.xib */,
@@ -729,6 +734,7 @@
 				8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */,
 				8F7A844B2244CA5F0099E905 /* MDToolbar.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
+				8F0688EE2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
