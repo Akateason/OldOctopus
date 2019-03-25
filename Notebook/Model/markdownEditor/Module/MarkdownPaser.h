@@ -40,6 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateAttributedText:(NSAttributedString *)attributedString
                     textView:(UITextView *)textView ;
 
+
+- (id)parsingGetABlockStyleModelFromParaModel:(MarkdownModel *)pModel ;
+
+
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position ;
 - (NSArray *)modelListForRangePosition:(NSUInteger)position ;
 

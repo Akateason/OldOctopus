@@ -14,22 +14,39 @@
 - (MarkdownModel *)cleanMarkOfParagraph {
     NSMutableString *tmpString = [self.text mutableCopy] ;
     NSInteger position = self.selectedRange.location ;
-    MarkdownModel *blkModel ;
-    while (blkModel == nil) {
-        blkModel = [self.markdownPaser blkModelForRangePosition:position] ;
+    MarkdownModel *paraModel ;
+    while (paraModel == nil) {
+        paraModel = [self.markdownPaser paraModelForPosition:position] ;
         position -- ;
     }
     
-    NSString *tmpPrefixStr = blkModel.str ;
-    if (blkModel.type == MarkdownSyntaxTaskLists) {
-        tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@"]"] firstObject] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 2)] ;
+    MarkdownModel *blkModel = [self.markdownPaser parsingGetABlockStyleModelFromParaModel:paraModel] ;
+    if (blkModel) {
+        NSString *tmpPrefixStr = blkModel.str ;
+        if (blkModel.type == MarkdownSyntaxTaskLists) {
+            tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@"]"] firstObject] ;
+            [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 2)] ;
+            blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 2)) ;
+        }
+        else if (blkModel.type == MarkdownSyntaxCodeBlock) {
+            [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location + blkModel.range.length - 4, 4)] ;
+            tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@"\n"] firstObject] ;
+            [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
+            blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 1 + 4)) ;
+        }
+        else {
+            tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@" "] firstObject] ;
+            [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
+            blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 1)) ;
+        }
+        [self.markdownPaser parseText:tmpString position:blkModel.range.location textView:self] ;
     }
     else {
-        tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@" "] firstObject] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
+        blkModel = paraModel ;
+//        self.selectedRange = NSMakeRange(paraModel.range.location, 0) ; // 必须在操作之后再加selectionRange
     }
-    [self.markdownPaser parseText:tmpString position:blkModel.range.location textView:self] ;
+    [self doSomethingWhenUserSelectPartOfArticle] ;
+    
     return blkModel ;
 }
 
@@ -121,6 +138,8 @@
         self.selectedRange = NSMakeRange(self.selectedRange.location + 2, self.selectedRange.length) ;
         [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
     }
+    
+    [self doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 - (void)toolbarDidSelectItalic {
@@ -163,6 +182,8 @@
         self.selectedRange = NSMakeRange(self.selectedRange.location + 1, self.selectedRange.length) ;
         [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
     }
+    
+    [self doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 - (void)toolbarDidSelectDeletion {
@@ -212,6 +233,12 @@
         self.selectedRange = NSMakeRange(self.selectedRange.location + 2, self.selectedRange.length) ;
         [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
     }
+    
+    [self doSomethingWhenUserSelectPartOfArticle] ;
+}
+
+- (void)toolbarDidSelectInlineCode {
+    
 }
 
 - (void)toolbarDidSelectPhoto {
@@ -239,6 +266,7 @@
 
 - (void)toolbarDidSelectUList {
     MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
+    if (paraModel.type == MarkdownSyntaxULLists) return ;
     if (!paraModel) return ;
     
     NSMutableString *tmpString = [self.text mutableCopy] ;
@@ -251,6 +279,7 @@
 }
 - (void)toolbarDidSelectTaskList {
     MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
+    if (paraModel.type == MarkdownSyntaxTaskLists) return ;
     if (!paraModel) return ;
     
     NSMutableString *tmpString = [self.text mutableCopy] ;
@@ -260,10 +289,21 @@
 }
 
 - (void)toolbarDidSelectCodeBlock {
-    
+    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
+    if (paraModel.type == MarkdownSyntaxCodeBlock) return ;
+    if (!paraModel) return ;
+
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    [tmpString insertString:@"\n```" atIndex:paraModel.range.location + paraModel.range.length] ;
+    [tmpString insertString:@"```\n" atIndex:paraModel.range.location] ;
+//    self.selectedRange = NSMakeRange(paraModel.range.location, 0) ;
+    [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+    [self doSomethingWhenUserSelectPartOfArticle] ;
 }
+
 - (void)toolbarDidSelectQuoteBlock {
     MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
+    if (paraModel.type == MarkdownSyntaxBlockquotes) return ;
     if (!paraModel) return ;
     
     NSMutableString *tmpString = [self.text mutableCopy] ;

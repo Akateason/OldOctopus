@@ -19,7 +19,7 @@
         case MarkdownInlineItalic: str = @"I" ; break ;
         case MarkdownInlineBoldItalic: str = @"BI" ; break ;
         case MarkdownInlineDeletions: str = @"D" ; break ;
-        case MarkdownInlineInlineCode: str = @"hn代码" ; break ;
+        case MarkdownInlineInlineCode: str = @"Code" ; break ;
         case MarkdownInlineLinks: str = @"link" ; break ;
         case MarkdownInlineImage: str = @"image" ; break ;
         default: break;

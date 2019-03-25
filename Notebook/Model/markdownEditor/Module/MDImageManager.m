@@ -41,6 +41,7 @@ XT_SINGLETON_M(MDImageManager)
  https://shimodev.com/octopus-api/files?uploadType=media
  headers: {
  Authorization: `Basic ${Base64.encode(userRecordName + ':' + '123456')}`
+ Content-Type:image/jpeg
  }
  */
 - (void)uploadImage:(UIImage *)image
@@ -64,9 +65,7 @@ XT_SINGLETON_M(MDImageManager)
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
-    }] ;
-    
-    
+    }] ;    
 }
 
 @end

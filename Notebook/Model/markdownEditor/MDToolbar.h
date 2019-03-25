@@ -28,6 +28,7 @@
 - (void)toolbarDidSelectItalic ;
 //- (void)toolbarDidSelectUnderline ;
 - (void)toolbarDidSelectDeletion ;
+- (void)toolbarDidSelectInlineCode ;
 
 - (void)toolbarDidSelectPhoto ;
 - (void)toolbarDidSelectLink ;
@@ -59,6 +60,7 @@ typedef enum : NSUInteger {
     MDB_I ,
 //    MDB_U ,
     MDB_D ,
+    MDB_InlineCode ,
     
     MDB_Photo ,
     MDB_Link ,
