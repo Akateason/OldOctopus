@@ -58,6 +58,8 @@
 		8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */; };
 		8F7A84982244F81C0099E905 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84962244F81C0099E905 /* md_tb_bt_undo@2x.png */; };
 		8F7A84992244F81C0099E905 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84972244F81C0099E905 /* md_tb_bt_redo@2x.png */; };
+		8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A849E2248A6050099E905 /* MDEditUrlView.xib */; };
+		8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */; };
 		8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */; };
 		8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */; };
 		8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */; };
@@ -165,6 +167,9 @@
 		8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_h@2x.png"; sourceTree = "<group>"; };
 		8F7A84962244F81C0099E905 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
 		8F7A84972244F81C0099E905 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
+		8F7A849E2248A6050099E905 /* MDEditUrlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEditUrlView.xib; sourceTree = "<group>"; };
+		8F7A84A02248AB7A0099E905 /* MDEditUrlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEditUrlView.h; sourceTree = "<group>"; };
+		8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEditUrlView.m; sourceTree = "<group>"; };
 		8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMSHEditorVC.h; sourceTree = "<group>"; };
 		8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMSHEditorVC.m; sourceTree = "<group>"; };
 		8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRichTextEditor.h; sourceTree = "<group>"; };
@@ -329,6 +334,9 @@
 				8F679DFF223243B2008DE1BC /* MarkdownEditor.m */,
 				8F7A84492244CA5F0099E905 /* MDToolbar.h */,
 				8F7A844A2244CA5F0099E905 /* MDToolbar.m */,
+				8F7A849E2248A6050099E905 /* MDEditUrlView.xib */,
+				8F7A84A02248AB7A0099E905 /* MDEditUrlView.h */,
+				8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */,
 				8F7A843B2240C7340099E905 /* source */,
 				8F679E042232468C008DE1BC /* Module */,
 			);
@@ -588,6 +596,7 @@
 				8F7A847C2244E1EB0099E905 /* md_tb_bt_tasklist@2x.png in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
 				8F7A84982244F81C0099E905 /* md_tb_bt_undo@2x.png in Resources */,
+				8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */,
 				8F7A84712244E1EB0099E905 /* md_tb_bt_olist@2x.png in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
@@ -716,6 +725,7 @@
 				8FACF6DB221E8D610067DDA4 /* UIFont+RichTextEditor.m in Sources */,
 				8F679E182238F047008DE1BC /* MDThemeConfiguration.m in Sources */,
 				8F679E2B2238FA17008DE1BC /* MdOtherModel.m in Sources */,
+				8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */,
 				8F65DBD1221BECFC0067C321 /* ViewController.m in Sources */,
 				8F7A844B2244CA5F0099E905 /* MDToolbar.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,

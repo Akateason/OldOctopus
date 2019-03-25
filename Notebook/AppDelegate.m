@@ -32,13 +32,13 @@
         
     }] ;
     
-    [[MDImageManager sharedInstance] uploadImage:[UIImage imageNamed:@"test"] progress:^(float flt) {
-        
-    } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
-        
-    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        
-    }] ;
+//    [[MDImageManager sharedInstance] uploadImage:[UIImage imageNamed:@"test"] progress:^(float flt) {
+//
+//    } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
+//
+//    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+//
+//    }] ;
 
     //    [handle insert] ;
 

@@ -12,6 +12,8 @@
 #import "MdListModel.h"
 #import <BlocksKit+UIKit.h>
 #import "MDToolbar.h"
+#import "MDEditUrlView.h"
+
 
 const CGFloat kMDEditor_FlexValue   = 30.f  ;
 static const int kTag_QuoteMarkView = 66777 ;
@@ -19,6 +21,7 @@ static const int kTag_ListMarkView  = 32342 ;
 
 @interface MarkdownEditor ()<MarkdownParserDelegate, MDToolbarDelegate> {
     BOOL fstTimeLoaded ;
+    CGFloat keyboardHeight ;
 }
 @property (strong, nonatomic) UILabel *lbLeftCornerMarker ;
 @property (strong, nonatomic) MDToolbar *toolBar ;
@@ -67,6 +70,16 @@ static const int kTag_ListMarkView  = 32342 ;
         [self.lbLeftCornerMarker removeFromSuperview] ;
         self->_lbLeftCornerMarker = nil ;
     }] ;
+    // keyboard showing
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
+        @strongify(self)
+        NSDictionary *info = [x userInfo];
+        CGSize kbSize          = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+        
+        // get keyboard height
+        self->keyboardHeight = kbSize.height;
+    }];
+
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.markdownPaser readArticleFirstTimeAndInsertImagePHWhenEditorDidLaunching:self.text textView:self] ;
@@ -433,8 +446,24 @@ static const int kTag_ListMarkView  = 32342 ;
 - (void)toolbarDidSelectPhoto {
     
 }
+
 - (void)toolbarDidSelectLink {
+    MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
     
+    @weakify(self)
+    [MDEditUrlView showOnView:self window:self.window model:model keyboardHeight:keyboardHeight callback:^(BOOL isConfirm, NSString *title, NSString *url) {
+        @strongify(self)
+        NSMutableString *tmpString = [self.text mutableCopy] ;
+        NSString *linkStr = STR_FORMAT(@"[%@](%@)",title,url) ;
+        if (model && model.type == MarkdownInlineLinks) {
+            [tmpString deleteCharactersInRange:model.range] ;
+            [tmpString insertString:linkStr atIndex:model.range.location] ;
+        }
+        else {
+            [tmpString insertString:linkStr atIndex:self.selectedRange.location] ;
+        }
+        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+    }] ;
 }
 
 - (void)toolbarDidSelectUList {

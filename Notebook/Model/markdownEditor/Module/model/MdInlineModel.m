@@ -190,4 +190,18 @@
     return result ;
 }
 
+- (NSString *)linkTitle {
+    if (self.type != MarkdownInlineLinks) return nil ;
+    
+    NSString *str = [[self.str componentsSeparatedByString:@"]"] firstObject] ;
+    return [str substringFromIndex:1] ;
+}
+
+- (NSString *)linkUrl {
+    if (self.type != MarkdownInlineLinks) return nil ;
+    
+    NSString *str = [[self.str componentsSeparatedByString:@"("] lastObject] ;
+    return [str substringToIndex:str.length - 1] ;
+}
+
 @end
