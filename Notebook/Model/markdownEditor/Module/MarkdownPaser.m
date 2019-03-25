@@ -220,24 +220,30 @@
 }
 
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position {
+    
     NSString *strSelect = [self.editAttrStr.string substringWithRange:NSMakeRange(position - 1, 1)] ;
     if ([strSelect isEqualToString:@"\uFFFC"]) {
         MarkdownModel *model = [self modelForRangePosition:position - 3] ;
-        if (self.delegate) [self.delegate imageSelectedAtNewPosition:model.range.location] ;
+        if (self.delegate) [self.delegate imageSelectedAtNewPosition:model.range.location] ; // 图片选择
         
         return model ;
     }
 
+    id blockModel ;
     NSArray *list = self.modelList ;
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
         BOOL isInRange = NSLocationInRange(position, model.range) ;
         
         if (isInRange) {
-            return model ;
+            if (model.type > MarkdownInlineUnknown) {
+                return model ; // 优先 行内
+            }
+            blockModel = model ;
         }
     }
-    return nil ;
+    
+    return blockModel ;
 }
 
 - (NSArray *)modelListForRangePosition:(NSUInteger)position {
