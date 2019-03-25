@@ -11,18 +11,34 @@
 
 @implementation MarkdownEditor (UtilOfToolbar)
 
+- (MarkdownModel *)cleanMarkOfParagraph {
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    NSInteger position = self.selectedRange.location ;
+    MarkdownModel *paraModel ;
+    while (paraModel == nil) {
+        paraModel = [self.markdownPaser paraModelForPosition:position] ;
+        position -- ;
+    }
+    
+    NSString *tmpPrefixStr = paraModel.str ;
+    if (paraModel.str.length > 10) tmpPrefixStr = [paraModel.str substringToIndex:10] ;
+    
+    tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@" "] firstObject] ;
+    [tmpString deleteCharactersInRange:NSMakeRange(paraModel.range.location, tmpPrefixStr.length + 1)] ;
+    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
+    
+    return paraModel ;
+}
+
 #pragma mark - MDToolbarDelegate <NSObject>
 
 - (void)makeHeaderWithSize:(NSString *)mark {
+    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
+    if (!paraModel) return ;
+    
     NSMutableString *tmpString = [self.text mutableCopy] ;
-    MarkdownModel *paraModel = [self.markdownPaser paraModelForPosition:self.selectedRange.location] ;
-    if ([paraModel.str hasPrefix:@"#"]) {
-        NSString *prefix = [[paraModel.str componentsSeparatedByString:@" "] firstObject] ;
-        NSInteger delNum = prefix.length + 1 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(paraModel.range.location, delNum)] ;
-    }
     [tmpString insertString:mark atIndex:paraModel.range.location] ;
-    [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
 }
 
 - (void)toolbarDidSelectRemoveTitle {

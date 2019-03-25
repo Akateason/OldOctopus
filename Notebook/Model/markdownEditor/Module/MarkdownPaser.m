@@ -261,6 +261,7 @@
 }
 
 - (MarkdownModel *)paraModelForPosition:(NSUInteger)position {
+        
     for (int i = 0; i < self.paraList.count; i++) {
         MarkdownModel *model = self.paraList[i] ;
         BOOL isInRange = NSLocationInRange(position, model.range) ;
