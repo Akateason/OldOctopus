@@ -116,8 +116,8 @@
 
 
 + (void)toolbarEventForTasklist:(MarkdownEditor *)editor {
-    NSMutableString *tmpString = [editor.text mutableCopy] ;
     MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    NSMutableString *tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
         [tmpString insertString:@"* [ ]  " atIndex:editor.selectedRange.location] ;
@@ -135,8 +135,8 @@
 }
 
 + (void)toolbarEventForUlist:(MarkdownEditor *)editor {
-    NSMutableString *tmpString = [editor.text mutableCopy] ;
     MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    NSMutableString *tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
         [tmpString insertString:@"*  " atIndex:editor.selectedRange.location] ;

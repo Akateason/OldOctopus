@@ -18,6 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)linkTitle ;
 - (NSString *)linkUrl ;
 
+// clear inline mark .
+- (NSMutableString *)clearAllInlineMark:(MarkdownEditor *)editor ;
+
+
+
++ (void)toolbarEventDeletion:(MarkdownEditor *)editor ;
++ (void)toolbarEventCode:(MarkdownEditor *)editor ;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -111,8 +111,8 @@
 //}
 
 + (void)makeHeaderWithSize:(NSString *)mark editor:(MarkdownEditor *)editor {
-    NSMutableString *tmpString = [editor.text mutableCopy] ;
     MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    NSMutableString *tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
         [tmpString insertString:mark atIndex:editor.selectedRange.location] ;

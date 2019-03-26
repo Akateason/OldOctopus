@@ -1,8 +1,12 @@
+这是全部的行内样式，**强调**、*斜体*、[连接](www.google.com)、~~删除~~、`行内代码`、:smile: $a\ne b$ 当然我是一个表情符号。
+
+![5c7c9d9a12d67](https://i.loli.net/2019/03/04/5c7c9d9a12d67.gif)
+
+你可以通过方向键或者鼠标，点击上面的行内样式，当行内样式获取焦点后，会出现 markdown 的语法符号，当你将光标移出的时候，一切又回到了初始的状态，markdown 语法符号消失。
 
 
-```
-是无序列表项 1，通过输入一个 `*` 或者`-` 后面紧接一个空格，在输入文字，就会自动生成一个无序列表。。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。
-```
+
+
 
 ```
 是无序列表项 1，通过输入一个 `*` 或者`-` 后面紧接一个空格，在输入文字，就会自动生成一个无序列表。。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。这是 task list，处于选中状态。

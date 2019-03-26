@@ -11,6 +11,7 @@
 #import "MDHeadModel.h"
 #import "MdListModel.h"
 #import "MdBlockModel.h"
+#import "MdInlineModel.h"
 
 @implementation MarkdownEditor (UtilOfToolbar)
 
@@ -183,64 +184,16 @@
 }
 
 - (void)toolbarDidSelectDeletion {
-    NSMutableString *tmpString = [self.text mutableCopy] ;
-    MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
-    // del
-    if (model.type == MarkdownInlineDeletions) {
-        NSInteger numOfStr = model.str.length - 4 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 2 + numOfStr, 2)] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 2)] ;
-        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
-        self.selectedRange = NSMakeRange(self.selectedRange.location - 2, numOfStr) ;
-        return ;
-    }
-    
-    if (model.type == MarkdownInlineBold) {
-        NSInteger numOfStr = model.str.length - 4 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 2 + numOfStr, 2)] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 2)] ;
-        self.selectedRange = NSMakeRange(model.range.location, numOfStr) ;
-        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
-    }
-    else if (model.type == MarkdownInlineItalic) {
-        NSInteger numOfStr = model.str.length - 2 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 1 + numOfStr, 1)] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 1)] ;
-        self.selectedRange = NSMakeRange(model.range.location, numOfStr) ;
-        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
-    }
-    else if (model.type == MarkdownInlineBoldItalic) {
-        NSInteger numOfStr = model.str.length - 6 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 3 + numOfStr, 3)] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 3)] ;
-        self.selectedRange = NSMakeRange(model.range.location, numOfStr) ;
-        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
-    }
-    
-    // add
-    if (!self.selectedRange.length) {
-        [tmpString insertString:@"~~~~" atIndex:self.selectedRange.location] ;
-        self.selectedRange = NSMakeRange(self.selectedRange.location + 2, 0) ;
-        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
-    }
-    else { // todo
-        [tmpString insertString:@"~~" atIndex:self.selectedRange.location + self.selectedRange.length] ;
-        [tmpString insertString:@"~~" atIndex:self.selectedRange.location] ;
-        self.selectedRange = NSMakeRange(self.selectedRange.location + 2, self.selectedRange.length) ;
-        [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
-    }
-    
-    [self doSomethingWhenUserSelectPartOfArticle] ;
+    [MdInlineModel toolbarEventDeletion:self] ;
 }
 
 - (void)toolbarDidSelectInlineCode {
-    
+    [MdInlineModel toolbarEventCode:self] ;
 }
 
 - (void)toolbarDidSelectPhoto {
     
 }
-
 - (void)toolbarDidSelectLink {
     MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
     
