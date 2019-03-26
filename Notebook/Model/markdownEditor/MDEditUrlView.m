@@ -9,6 +9,11 @@
 #import "MDEditUrlView.h"
 #import <XTlib/XTlib.h>
 #import "MdInlineModel.h"
+#import <XTBase/XTTextField.h>
+
+@interface MDEditUrlView () <XTTextFieldDelegate>
+
+@end
 
 @implementation MDEditUrlView
 
@@ -21,6 +26,12 @@
 }
 
 
+
+- (CGFloat)xt_textfieldFlexWidth {
+    return 12.f ;
+}
+
+
 + (void)showOnView:(UITextView *)editor
             window:(UIWindow *)window
              model:(MarkdownModel *)model
@@ -28,6 +39,8 @@
           callback:(CallbackBlk)blk {
     
     MDEditUrlView *urlView = [MDEditUrlView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+    urlView.tfTitle.xt_delegate = urlView ;
+    urlView.tfUrl.xt_delegate = urlView ;
     urlView.xt_cornerRadius = 8 ;
     
     UIView *hud = [UIView new] ;
@@ -61,7 +74,7 @@
     } ;
 }
 
-
-
-
 @end
+
+
+

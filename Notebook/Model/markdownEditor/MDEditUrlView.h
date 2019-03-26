@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "MarkdownModel.h"
 
+@class XTTextField ;
 
 typedef void(^CallbackBlk)(BOOL isConfirm, NSString *title, NSString *url) ;
 
 @interface MDEditUrlView : UIView
-@property (weak, nonatomic) IBOutlet UITextField *tfTitle;
-@property (weak, nonatomic) IBOutlet UITextField *tfUrl;
+@property (weak, nonatomic) IBOutlet XTTextField *tfTitle;
+@property (weak, nonatomic) IBOutlet XTTextField *tfUrl;
 @property (copy, nonatomic) CallbackBlk blk ;
 
 + (void)showOnView:(UITextView *)editor
