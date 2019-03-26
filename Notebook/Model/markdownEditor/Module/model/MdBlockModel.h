@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MdBlockModel : MarkdownModel
-
++ (void)toolbarEventQuoteBlock:(MarkdownEditor *)editor ;
++ (void)toolbarEventCodeBlock:(MarkdownEditor *)editor ;
 @end
 
 NS_ASSUME_NONNULL_END

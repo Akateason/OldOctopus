@@ -8,6 +8,8 @@
 
 #import "MdBlockModel.h"
 #import <XTlib/XTlib.h>
+#import "MarkdownEditor.h"
+#import "MarkdownEditor+UtilOfToolbar.h"
 
 @implementation MdBlockModel
 
@@ -110,6 +112,43 @@
     }
     
     return attributedString ;
+}
+
++ (void)toolbarEventQuoteBlock:(MarkdownEditor *)editor {
+    NSMutableString *tmpString = [editor.text mutableCopy] ;
+    MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    // add
+    if (!paraModel) {
+        [tmpString insertString:@">  " atIndex:editor.selectedRange.location] ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
+        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        return ;
+    }
+    // replace
+    if (paraModel.type == MarkdownSyntaxBlockquotes) return ;
+    [tmpString insertString:@"> " atIndex:paraModel.range.location] ;
+    [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
+    [editor doSomethingWhenUserSelectPartOfArticle] ;
+}
+
++ (void)toolbarEventCodeBlock:(MarkdownEditor *)editor {
+    MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    NSMutableString *tmpString = [editor.text mutableCopy] ;
+    // add
+    if (!paraModel) {
+        [tmpString insertString:@"```\n \n```" atIndex:editor.selectedRange.location] ;
+        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 4, 0) ;
+        [editor doSomethingWhenUserSelectPartOfArticle] ;
+        return ;
+    }
+    
+    // replace
+    if (paraModel.type == MarkdownSyntaxCodeBlock) return ;
+    [tmpString insertString:@"\n```" atIndex:paraModel.range.location + paraModel.range.length] ;
+    [tmpString insertString:@"```\n" atIndex:paraModel.range.location] ;
+    [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+    [editor doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 @end

@@ -9,11 +9,13 @@
 #import "MarkdownEditor.h"
 #import <XTlib/XTlib.h>
 #import "MDToolbar.h"
-#import "MDEditUrlView.h"
+@class MarkdownModel ;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownEditor (UtilOfToolbar) <MDToolbarDelegate>
+- (MarkdownModel *)cleanMarkOfParagraph ;
+
 
 @end
 

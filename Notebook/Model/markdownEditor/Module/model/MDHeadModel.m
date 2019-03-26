@@ -7,6 +7,9 @@
 //
 
 #import "MDHeadModel.h"
+#import "MarkdownEditor.h"
+#import "MarkdownEditor+UtilOfToolbar.h"
+
 
 @implementation MDHeadModel
 
@@ -21,7 +24,6 @@
             if (![self.str containsString:@" "] || numberOfmark > 6) str = @"" ;
         }
             break;
-//        case MarkdownSyntaxLHeader: str = @"H1"; break ;
             
         default: break;
     }
@@ -103,5 +105,28 @@
     
     return attributedString ;
 }
+
+//- (void)doToolbarEventForEditor:(MarkdownEditor *)editor {
+//
+//}
+
++ (void)makeHeaderWithSize:(NSString *)mark editor:(MarkdownEditor *)editor {
+    NSMutableString *tmpString = [editor.text mutableCopy] ;
+    MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    // add
+    if (!paraModel) {
+        [tmpString insertString:mark atIndex:editor.selectedRange.location] ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + mark.length, 0) ;
+        [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
+        return ;
+    }
+    
+    // replace
+    [tmpString insertString:mark atIndex:paraModel.range.location] ;
+    [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
+    [editor doSomethingWhenUserSelectPartOfArticle] ;
+}
+
+
 
 @end

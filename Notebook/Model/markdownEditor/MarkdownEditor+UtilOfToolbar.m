@@ -7,7 +7,10 @@
 //
 
 #import "MarkdownEditor+UtilOfToolbar.h"
-
+#import "MDEditUrlView.h"
+#import "MDHeadModel.h"
+#import "MdListModel.h"
+#import "MdBlockModel.h"
 
 @implementation MarkdownEditor (UtilOfToolbar)
 
@@ -15,12 +18,15 @@
     NSMutableString *tmpString = [self.text mutableCopy] ;
     NSInteger position = self.selectedRange.location ;
     MarkdownModel *paraModel ;
-    while (paraModel == nil) {
+    paraModel = [self.markdownPaser paraModelForPosition:position] ;
+    if (paraModel == nil) {
+        position -- ; // 至多退一格, 标题容错
         paraModel = [self.markdownPaser paraModelForPosition:position] ;
-        position -- ;
+        if (paraModel.type > MarkdownSyntaxHeaders) paraModel = nil ;
     }
     
-    MarkdownModel *blkModel = [self.markdownPaser parsingGetABlockStyleModelFromParaModel:paraModel] ;
+    MarkdownModel *blkModel ;
+    if (paraModel) blkModel = [self.markdownPaser parsingGetABlockStyleModelFromParaModel:paraModel] ;
     if (blkModel) {
         NSString *tmpPrefixStr = blkModel.str ;
         if (blkModel.type == MarkdownSyntaxTaskLists) {
@@ -52,16 +58,6 @@
 
 #pragma mark - MDToolbarDelegate <NSObject>
 
-- (void)makeHeaderWithSize:(NSString *)mark {
-    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
-    if (!paraModel) return ;
-    
-    NSMutableString *tmpString = [self.text mutableCopy] ;
-    [tmpString insertString:mark atIndex:paraModel.range.location] ;
-    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
-    [self doSomethingWhenUserSelectPartOfArticle] ;
-}
-
 - (void)toolbarDidSelectRemoveTitle {
     NSMutableString *tmpString = [self.text mutableCopy] ;
     MarkdownModel *paraModel = [self.markdownPaser paraModelForPosition:self.selectedRange.location] ;
@@ -73,22 +69,22 @@
     [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
 }
 - (void)toolbarDidSelectH1 {
-    [self makeHeaderWithSize:@"# "] ;
+    [MDHeadModel makeHeaderWithSize:@"# " editor:self] ;
 }
 - (void)toolbarDidSelectH2 {
-    [self makeHeaderWithSize:@"## "] ;
+    [MDHeadModel makeHeaderWithSize:@"## " editor:self] ;
 }
 - (void)toolbarDidSelectH3 {
-    [self makeHeaderWithSize:@"### "] ;
+    [MDHeadModel makeHeaderWithSize:@"### " editor:self] ;
 }
 - (void)toolbarDidSelectH4 {
-    [self makeHeaderWithSize:@"#### "] ;
+    [MDHeadModel makeHeaderWithSize:@"#### " editor:self] ;
 }
 - (void)toolbarDidSelectH5 {
-    [self makeHeaderWithSize:@"##### "] ;
+    [MDHeadModel makeHeaderWithSize:@"##### " editor:self] ;
 }
 - (void)toolbarDidSelectH6 {
-    [self makeHeaderWithSize:@"###### "] ;
+    [MDHeadModel makeHeaderWithSize:@"###### " editor:self] ;;
 }
 - (void)toolbarDidSelectSepLine {
     NSMutableString *tmpString = [self.text mutableCopy] ;
@@ -265,51 +261,21 @@
 }
 
 - (void)toolbarDidSelectUList {
-    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
-    if (paraModel.type == MarkdownSyntaxULLists) return ;
-    if (!paraModel) return ;
-    
-    NSMutableString *tmpString = [self.text mutableCopy] ;
-    [tmpString insertString:@"* " atIndex:paraModel.range.location] ;
-    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
-    [self doSomethingWhenUserSelectPartOfArticle] ;
+    [MdListModel toolbarEventForUlist:self] ;
 }
 - (void)toolbarDidSelectOrderlist {
     
 }
 - (void)toolbarDidSelectTaskList {
-    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
-    if (paraModel.type == MarkdownSyntaxTaskLists) return ;
-    if (!paraModel) return ;
-    
-    NSMutableString *tmpString = [self.text mutableCopy] ;
-    [tmpString insertString:@"* [ ] " atIndex:paraModel.range.location] ;
-    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
-    [self doSomethingWhenUserSelectPartOfArticle] ;
+    [MdListModel toolbarEventForTasklist:self] ;
 }
 
 - (void)toolbarDidSelectCodeBlock {
-    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
-    if (paraModel.type == MarkdownSyntaxCodeBlock) return ;
-    if (!paraModel) return ;
-
-    NSMutableString *tmpString = [self.text mutableCopy] ;
-    [tmpString insertString:@"\n```" atIndex:paraModel.range.location + paraModel.range.length] ;
-    [tmpString insertString:@"```\n" atIndex:paraModel.range.location] ;
-//    self.selectedRange = NSMakeRange(paraModel.range.location, 0) ;
-    [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
-    [self doSomethingWhenUserSelectPartOfArticle] ;
+    [MdBlockModel toolbarEventCodeBlock:self] ;
 }
 
 - (void)toolbarDidSelectQuoteBlock {
-    MarkdownModel *paraModel = [self cleanMarkOfParagraph] ;
-    if (paraModel.type == MarkdownSyntaxBlockquotes) return ;
-    if (!paraModel) return ;
-    
-    NSMutableString *tmpString = [self.text mutableCopy] ;
-    [tmpString insertString:@"> " atIndex:paraModel.range.location] ;
-    [self.markdownPaser parseText:tmpString position:paraModel.range.location textView:self] ;
-    [self doSomethingWhenUserSelectPartOfArticle] ;
+    [MdBlockModel toolbarEventQuoteBlock:self] ;
 }
 
 - (void)toolbarDidSelectUndo {

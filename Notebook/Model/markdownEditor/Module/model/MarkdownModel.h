@@ -11,6 +11,9 @@
 #import "MdParserRegexpHeader.h"
 #import "MDThemeConfiguration.h"
 
+
+@class MarkdownEditor ;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownModel : NSObject
@@ -33,13 +36,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)displayStringForLeftLabel ;
 
-// preview state
+// RENDER preview state
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration ;
 
-// edit state
+// RENDER edit state
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration ;
+
 
 // ********* rewrite in subcls ********* //
 

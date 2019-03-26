@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MarkdownModel.h"
 
+@class MarkdownModel ;
 
 
 // H - // B I U S // photo link // ul ol tl // code quote // undo redo //

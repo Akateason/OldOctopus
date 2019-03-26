@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MDHeadModel : MarkdownModel
 
++ (void)makeHeaderWithSize:(NSString *)mark
+                    editor:(MarkdownEditor *)editor ;
+    
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,7 @@
 #import <BlocksKit+UIKit.h>
 #import <XTlib/XTlib.h>
 #import <XTlib/XTSIAlertView.h>
+#import "MarkdownModel.h"
 
 static const float kFlexOfButtons = 20 ;
 static const float kMarginOfButtons = 10 ;
