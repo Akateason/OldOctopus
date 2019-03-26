@@ -302,6 +302,29 @@
     return nil ;
 }
 
+// 返回此p之前的那个para
+- (MarkdownModel *)lastParaModelForPosition:(NSUInteger)position {
+    id lastModel = nil ;
+    for (int i = 0; i < self.paraList.count; i++) {
+        MarkdownModel *model = self.paraList[i] ;
+        BOOL isInRange = NSLocationInRange(position, model.range) ;
+        if (isInRange) {
+            return lastModel ;
+        }
+        else {
+            if (i > 0) {
+                MarkdownModel *sygModel = self.paraList[i - 1] ;
+                if (position > sygModel.range.location + sygModel.range.length &&
+                    position < model.range.location) {
+                    return sygModel ;
+                }
+            }
+        }
+        lastModel = model ;
+    }
+    return nil ;
+}
+
 - (NSString *)stringTitleOfPosition:(NSUInteger)position {
     MarkdownModel *model = [self modelForRangePosition:position] ;
     return [self stringTitleOfPosition:position model:model] ;

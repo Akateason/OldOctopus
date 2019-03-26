@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)toolbarEventForTasklist:(MarkdownEditor *)editor ;
 + (void)toolbarEventForUlist:(MarkdownEditor *)editor ;
++ (void)toolbarEventForOrderList:(MarkdownEditor *)editor ;
+
 @end
 
 NS_ASSUME_NONNULL_END

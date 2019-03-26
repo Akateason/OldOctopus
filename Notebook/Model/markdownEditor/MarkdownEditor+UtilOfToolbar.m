@@ -57,6 +57,18 @@
     return blkModel ;
 }
 
+- (MarkdownModel *)lastOneParagraphMarkdownModel {
+    return [self lastOneParagraphMarkdownModelWithPosition:self.selectedRange.location] ;
+}
+
+- (MarkdownModel *)lastOneParagraphMarkdownModelWithPosition:(NSUInteger)position {
+    MarkdownModel *lastParaModel = [self.markdownPaser lastParaModelForPosition:position] ;
+    if (!lastParaModel) return nil ;
+    
+    MarkdownModel *lastBlkModel = [self.markdownPaser parsingGetABlockStyleModelFromParaModel:lastParaModel] ;
+    return lastBlkModel ;
+}
+
 #pragma mark - MDToolbarDelegate <NSObject>
 
 - (void)toolbarDidSelectRemoveTitle {
@@ -217,7 +229,7 @@
     [MdListModel toolbarEventForUlist:self] ;
 }
 - (void)toolbarDidSelectOrderlist {
-    
+    [MdListModel toolbarEventForOrderList:self] ;
 }
 - (void)toolbarDidSelectTaskList {
     [MdListModel toolbarEventForTasklist:self] ;

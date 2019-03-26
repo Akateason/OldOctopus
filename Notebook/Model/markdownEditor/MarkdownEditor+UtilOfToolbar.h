@@ -14,8 +14,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownEditor (UtilOfToolbar) <MDToolbarDelegate>
-- (MarkdownModel *)cleanMarkOfParagraph ;
 
+- (MarkdownModel *)cleanMarkOfParagraph ;
+- (MarkdownModel *)lastOneParagraphMarkdownModel ;
+- (MarkdownModel *)lastOneParagraphMarkdownModelWithPosition:(NSUInteger)position ;
 
 @end
 

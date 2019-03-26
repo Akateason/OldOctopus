@@ -49,15 +49,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)modelListForRangePosition:(NSUInteger)position ;
 
 - (MarkdownModel *)paraModelForPosition:(NSUInteger)position ;
+- (MarkdownModel *)lastParaModelForPosition:(NSUInteger)position ;
+
 - (MarkdownModel *)blkModelForRangePosition:(NSUInteger)position ;
 - (MarkdownModel *)inlineModelForRangePosition:(NSUInteger)position ;
 
 - (NSString *)stringTitleOfPosition:(NSUInteger)position ;
 - (NSString *)stringTitleOfPosition:(NSUInteger)position
                               model:(MarkdownModel *)model ;
-
-
-
 
 @end
 

@@ -70,11 +70,11 @@
             // number
             NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
             NSUInteger lenOfMark = prefix.length + 1 ;
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, lenOfMark + 1)] ;
+            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, lenOfMark + 1)] ;
         }
             break ;
         case MarkdownSyntaxULLists: {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
+            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 2)] ;
         }
             break ;
         case MarkdownSyntaxTaskLists: {
@@ -123,7 +123,7 @@
         [tmpString insertString:@"* [ ]  " atIndex:editor.selectedRange.location] ;
         [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 6, 0) ;
-        [editor doSomethingWhenUserSelectPartOfArticle] ;
+//        [editor doSomethingWhenUserSelectPartOfArticle] ;
         return ;
     }
     
@@ -131,7 +131,7 @@
     if (paraModel.type == MarkdownSyntaxTaskLists) return ;
     [tmpString insertString:@"* [ ] " atIndex:paraModel.range.location] ;
     [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
-    [editor doSomethingWhenUserSelectPartOfArticle] ;
+//    [editor doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 + (void)toolbarEventForUlist:(MarkdownEditor *)editor {
@@ -142,7 +142,7 @@
         [tmpString insertString:@"*  " atIndex:editor.selectedRange.location] ;
         [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
-        [editor doSomethingWhenUserSelectPartOfArticle] ;
+//        [editor doSomethingWhenUserSelectPartOfArticle] ;
         return ;
     }
     
@@ -150,7 +150,43 @@
     if (paraModel.type == MarkdownSyntaxULLists) return ;
     [tmpString insertString:@"* " atIndex:paraModel.range.location] ;
     [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
-    [editor doSomethingWhenUserSelectPartOfArticle] ;
+//    [editor doSomethingWhenUserSelectPartOfArticle] ;
 }
+
++ (void)toolbarEventForOrderList:(MarkdownEditor *)editor {
+    MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    NSMutableString *tmpString = [editor.text mutableCopy] ;
+    
+    int orderNum = 0 ;
+    MarkdownModel *lastParaModel = [editor lastOneParagraphMarkdownModel] ;
+    if (lastParaModel.type == MarkdownSyntaxOLLists) {
+        orderNum = [[[lastParaModel.str componentsSeparatedByString:@"."] firstObject] intValue] ;
+    }
+    orderNum ++ ;
+    
+    NSString *orderStr = STR_FORMAT(@"%d",orderNum) ;
+    // add
+    if (!paraModel) {
+        [tmpString insertString:STR_FORMAT(@"%@.  ",orderStr) atIndex:editor.selectedRange.location] ;
+        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + orderStr.length + 2, 0) ;
+//        [editor doSomethingWhenUserSelectPartOfArticle] ;
+        return ;
+    }
+    
+    // replace
+    if (paraModel.type == MarkdownSyntaxOLLists) return ;
+    [tmpString insertString:STR_FORMAT(@"%@. ",orderStr) atIndex:paraModel.range.location] ;
+    [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
+//    [editor doSomethingWhenUserSelectPartOfArticle] ;
+    
+}
+
+
+
+
+
+
+
 
 @end
