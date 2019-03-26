@@ -208,7 +208,6 @@
 }
 - (void)toolbarDidSelectLink {
     MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
-    
     @weakify(self)
     [MDEditUrlView showOnView:self window:self.window model:model keyboardHeight:keyboardHeight callback:^(BOOL isConfirm, NSString *title, NSString *url) {
         @strongify(self)
@@ -216,7 +215,7 @@
             [self becomeFirstResponder] ;
             return ;
         }
-                
+        
         NSMutableString *tmpString = [self.text mutableCopy] ;
         NSString *linkStr = STR_FORMAT(@"[%@](%@)",title,url) ;
         if (model && model.type == MarkdownInlineLinks) {

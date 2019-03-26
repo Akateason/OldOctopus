@@ -70,6 +70,10 @@
 		8FACF6DB221E8D610067DDA4 /* UIFont+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6D5221E8D600067DDA4 /* UIFont+RichTextEditor.m */; };
 		8FACF6DC221E8D610067DDA4 /* NSAttributedString+RichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6D6221E8D600067DDA4 /* NSAttributedString+RichTextEditor.m */; };
 		8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6DE222002BB0067DDA4 /* NBRTEColorPickerView.m */; };
+		8FFBBB3D224A4CAF00A304C7 /* MDEKeyboardPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */; };
+		8FFBBB3F224A4CD900A304C7 /* MDEKeyboardPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */; };
+		8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB42224A4FE500A304C7 /* md_tb_bt_camera@2x.png */; };
+		8FFBBB45224A500800A304C7 /* md_tb_bt_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB44224A500700A304C7 /* md_tb_bt_photo@2x.png */; };
 		C371690FA8B8F8976235DDEE /* Pods_Notebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */; };
 /* End PBXBuildFile section */
 
@@ -191,6 +195,11 @@
 		8FACF6D9221E8D600067DDA4 /* NSAttributedString+RichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+RichTextEditor.h"; sourceTree = "<group>"; };
 		8FACF6DD222002BB0067DDA4 /* NBRTEColorPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRTEColorPickerView.h; sourceTree = "<group>"; };
 		8FACF6DE222002BB0067DDA4 /* NBRTEColorPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NBRTEColorPickerView.m; sourceTree = "<group>"; };
+		8FFBBB3B224A4CAF00A304C7 /* MDEKeyboardPhotoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEKeyboardPhotoView.h; sourceTree = "<group>"; };
+		8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEKeyboardPhotoView.m; sourceTree = "<group>"; };
+		8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEKeyboardPhotoView.xib; sourceTree = "<group>"; };
+		8FFBBB42224A4FE500A304C7 /* md_tb_bt_camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_camera@2x.png"; sourceTree = "<group>"; };
+		8FFBBB44224A500700A304C7 /* md_tb_bt_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "md_tb_bt_photo@2x.png"; path = "../../../../../../../Desktop/notebook/md_tb_bt_photo@2x.png"; sourceTree = "<group>"; };
 		DB88ED0C7D8CDC5EED692867 /* Pods-Notebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notebook/Pods-Notebook.debug.xcconfig"; sourceTree = "<group>"; };
 		EE24592E01D8FF4728985E55 /* Pods-Notebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notebook.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notebook/Pods-Notebook.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -344,6 +353,9 @@
 				8F7A849E2248A6050099E905 /* MDEditUrlView.xib */,
 				8F7A84A02248AB7A0099E905 /* MDEditUrlView.h */,
 				8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */,
+				8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */,
+				8FFBBB3B224A4CAF00A304C7 /* MDEKeyboardPhotoView.h */,
+				8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */,
 				8F7A843B2240C7340099E905 /* source */,
 				8F679E042232468C008DE1BC /* Module */,
 			);
@@ -396,6 +408,8 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8FFBBB44224A500700A304C7 /* md_tb_bt_photo@2x.png */,
+				8FFBBB42224A4FE500A304C7 /* md_tb_bt_camera@2x.png */,
 				8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */,
 				8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */,
 				8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */,
@@ -579,6 +593,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FFBBB45224A500800A304C7 /* md_tb_bt_photo@2x.png in Resources */,
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
 				8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */,
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
@@ -600,12 +615,14 @@
 				8F7A84792244E1EB0099E905 /* md_tb_bt_quote@2x.png in Resources */,
 				8F7A84852244E2550099E905 /* md_tb_bt_h3@2x.png in Resources */,
 				8F7A84722244E1EB0099E905 /* md_tb_bt_h5@2x.png in Resources */,
+				8FFBBB3F224A4CD900A304C7 /* MDEKeyboardPhotoView.xib in Resources */,
 				8F7A848B2244E4440099E905 /* md_tb_bt_deletion@2x.png in Resources */,
 				8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */,
 				8F7A84682244E1EB0099E905 /* md_tb_bt_h4@2x.png in Resources */,
 				8F7A847C2244E1EB0099E905 /* md_tb_bt_tasklist@2x.png in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
 				8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */,
+				8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */,
 				8F7A84712244E1EB0099E905 /* md_tb_bt_olist@2x.png in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
@@ -756,6 +773,7 @@
 				8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */,
 				8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */,
 				8F679E0C22329376008DE1BC /* MDPreviewVC.m in Sources */,
+				8FFBBB3D224A4CAF00A304C7 /* MDEKeyboardPhotoView.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */,
 				8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */,
