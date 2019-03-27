@@ -107,7 +107,7 @@
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="VqO-MH-tX7">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.96857684850000003" green="0.96866267920000004" blue="0.96850520370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="116" id="qeY-3T-PbR"/>
                     </constraints>

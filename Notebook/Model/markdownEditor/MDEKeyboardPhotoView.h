@@ -16,6 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *btViewAlbum;
 @property (weak, nonatomic) IBOutlet UIButton *btCancel;
 
++ (instancetype)showViewFromCtrller:(UIViewController *)ctrller
+                           kbheight:(CGFloat)height
+         WhenUserPressedPhotoOnList:(void(^)(UIImage *image))blkPressedPhotoList
+                    cameraOnPressed:(void(^)(UIImage *image))blkPressCameraBt
+                     albumOnPressed:(void(^)(UIImage *image))blkPressAlbum
+                             cancel:(void(^)(void))blkCancel ;
+
 @end
 
 NS_ASSUME_NONNULL_END

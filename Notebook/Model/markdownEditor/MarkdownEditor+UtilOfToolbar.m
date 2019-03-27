@@ -12,6 +12,7 @@
 #import "MdListModel.h"
 #import "MdBlockModel.h"
 #import "MdInlineModel.h"
+#import "MDEKeyboardPhotoView.h"
 
 @implementation MarkdownEditor (UtilOfToolbar)
 
@@ -204,8 +205,17 @@
 }
 
 - (void)toolbarDidSelectPhoto {
-    
+    [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
+        
+    } cameraOnPressed:^(UIImage * _Nonnull image) {
+        
+    } albumOnPressed:^(UIImage * _Nonnull image) {
+        
+    } cancel:^{
+        
+    }] ;
 }
+
 - (void)toolbarDidSelectLink {
     MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
     @weakify(self)

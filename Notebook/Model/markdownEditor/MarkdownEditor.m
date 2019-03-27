@@ -16,6 +16,7 @@
 #import "MarkdownEditor+UtilOfToolbar.h"
 
 
+
 const CGFloat kMDEditor_FlexValue   = 30.f  ;
 static const int kTag_QuoteMarkView = 66777 ;
 static const int kTag_ListMarkView  = 32342 ;
@@ -52,6 +53,7 @@ static const int kTag_ListMarkView  = 32342 ;
 - (void)setup {
     self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.fontSize] ;
     self.contentInset = UIEdgeInsetsMake(0, kMDEditor_FlexValue, 0, kMDEditor_FlexValue) ;
+    self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     self.delegate = self ;
     if (@available(iOS 11.0, *)) self.smartDashesType = UITextSmartDashesTypeNo ;
     
@@ -111,6 +113,7 @@ static const int kTag_ListMarkView  = 32342 ;
     self.lbLeftCornerMarker.text = [self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model] ;
     [self show_lbLeftCornerMarker] ;
 }
+
 
 #pragma mark - rewrite father
 #pragma mark - cursor moving and selecting
@@ -181,6 +184,8 @@ static const int kTag_ListMarkView  = 32342 ;
     return _toolBar ;
 }
 
+
+
 #pragma mark - MarkdownParserDelegate <NSObject>
 
 - (void)quoteBlockParsingFinished:(NSArray *)list {
@@ -215,12 +220,8 @@ static const int kTag_ListMarkView  = 32342 ;
 }
 
 - (void)listBlockParsingFinished:(NSArray *)list {
-    for (UIView *subView in self.subviews) {
-        if (subView.tag == kTag_ListMarkView) {
-            [subView removeFromSuperview] ;
-        }
-    }
-    
+    for (UIView *subView in self.subviews) if (subView.tag == kTag_ListMarkView) [subView removeFromSuperview] ;
+        
     for (int i = 0; i < list.count; i++) {
         MdListModel *model = list[i] ;
         CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
@@ -330,7 +331,7 @@ static const int kTag_ListMarkView  = 32342 ;
         return NO ;
     }
     
-// return NO ;//这里返回NO，就代表return键值失效，即页面上按下return，不会出现换行，如果为yes，则输入页面会换行
+// return NO ;//返回NO，就代表return键值失效，即页面上按下return，不会出现换行，如果为yes，则输入页面会换行
     return YES ;
 }
 

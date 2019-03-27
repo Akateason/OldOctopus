@@ -23,7 +23,7 @@ ASSOCIATED(xt_indexPath, setXt_indexPath, NSIndexPath *, OBJC_ASSOCIATION_RETAIN
 #pragma mark - regist
 + (void)xt_registerNibFromCollection:(UICollectionView *)collection {
     NSString *clsName = NSStringFromClass([self class]);
-    [collection registerNib:[UINib nibWithNibName:clsName bundle:nil] forCellWithReuseIdentifier:clsName];
+    [collection registerNib:[UINib nibWithNibName:clsName bundle:[NSBundle bundleForClass:self.class]] forCellWithReuseIdentifier:clsName];
 }
 
 + (void)xt_registerClsFromCollection:(UICollectionView *)collection {

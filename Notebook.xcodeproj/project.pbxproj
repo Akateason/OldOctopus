@@ -57,7 +57,6 @@
 		8F7A848B2244E4440099E905 /* md_tb_bt_deletion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A848A2244E4440099E905 /* md_tb_bt_deletion@2x.png */; };
 		8F7A848D2244E44B0099E905 /* md_tb_bt_italic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A848C2244E44B0099E905 /* md_tb_bt_italic@2x.png */; };
 		8F7A848F2244E4510099E905 /* md_tb_bt_link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A848E2244E4500099E905 /* md_tb_bt_link@2x.png */; };
-		8F7A84912244E4600099E905 /* md_tb_bt_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84902244E4600099E905 /* md_tb_bt_photo@2x.png */; };
 		8F7A84932244E4DA0099E905 /* md_tb_bt_underline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84922244E4DA0099E905 /* md_tb_bt_underline@2x.png */; };
 		8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */; };
 		8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A849E2248A6050099E905 /* MDEditUrlView.xib */; };
@@ -74,6 +73,8 @@
 		8FFBBB3F224A4CD900A304C7 /* MDEKeyboardPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */; };
 		8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB42224A4FE500A304C7 /* md_tb_bt_camera@2x.png */; };
 		8FFBBB45224A500800A304C7 /* md_tb_bt_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB44224A500700A304C7 /* md_tb_bt_photo@2x.png */; };
+		8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFBBB47224B278000A304C7 /* MDEKPhotoViewCell.m */; };
+		8FFBBB4A224B278000A304C7 /* MDEKPhotoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB48224B278000A304C7 /* MDEKPhotoViewCell.xib */; };
 		C371690FA8B8F8976235DDEE /* Pods_Notebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */; };
 /* End PBXBuildFile section */
 
@@ -173,7 +174,6 @@
 		8F7A848A2244E4440099E905 /* md_tb_bt_deletion@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_deletion@2x.png"; sourceTree = "<group>"; };
 		8F7A848C2244E44B0099E905 /* md_tb_bt_italic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_italic@2x.png"; sourceTree = "<group>"; };
 		8F7A848E2244E4500099E905 /* md_tb_bt_link@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_link@2x.png"; sourceTree = "<group>"; };
-		8F7A84902244E4600099E905 /* md_tb_bt_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_photo@2x.png"; sourceTree = "<group>"; };
 		8F7A84922244E4DA0099E905 /* md_tb_bt_underline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_underline@2x.png"; sourceTree = "<group>"; };
 		8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_h@2x.png"; sourceTree = "<group>"; };
 		8F7A849E2248A6050099E905 /* MDEditUrlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEditUrlView.xib; sourceTree = "<group>"; };
@@ -200,6 +200,9 @@
 		8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEKeyboardPhotoView.xib; sourceTree = "<group>"; };
 		8FFBBB42224A4FE500A304C7 /* md_tb_bt_camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_camera@2x.png"; sourceTree = "<group>"; };
 		8FFBBB44224A500700A304C7 /* md_tb_bt_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "md_tb_bt_photo@2x.png"; path = "../../../../../../../Desktop/notebook/md_tb_bt_photo@2x.png"; sourceTree = "<group>"; };
+		8FFBBB46224B278000A304C7 /* MDEKPhotoViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEKPhotoViewCell.h; sourceTree = "<group>"; };
+		8FFBBB47224B278000A304C7 /* MDEKPhotoViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEKPhotoViewCell.m; sourceTree = "<group>"; };
+		8FFBBB48224B278000A304C7 /* MDEKPhotoViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEKPhotoViewCell.xib; sourceTree = "<group>"; };
 		DB88ED0C7D8CDC5EED692867 /* Pods-Notebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notebook/Pods-Notebook.debug.xcconfig"; sourceTree = "<group>"; };
 		EE24592E01D8FF4728985E55 /* Pods-Notebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notebook.release.xcconfig"; path = "Pods/Target Support Files/Pods-Notebook/Pods-Notebook.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -356,6 +359,9 @@
 				8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */,
 				8FFBBB3B224A4CAF00A304C7 /* MDEKeyboardPhotoView.h */,
 				8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */,
+				8FFBBB46224B278000A304C7 /* MDEKPhotoViewCell.h */,
+				8FFBBB47224B278000A304C7 /* MDEKPhotoViewCell.m */,
+				8FFBBB48224B278000A304C7 /* MDEKPhotoViewCell.xib */,
 				8F7A843B2240C7340099E905 /* source */,
 				8F679E042232468C008DE1BC /* Module */,
 			);
@@ -414,7 +420,6 @@
 				8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */,
 				8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */,
 				8F7A84922244E4DA0099E905 /* md_tb_bt_underline@2x.png */,
-				8F7A84902244E4600099E905 /* md_tb_bt_photo@2x.png */,
 				8F7A848E2244E4500099E905 /* md_tb_bt_link@2x.png */,
 				8F7A848C2244E44B0099E905 /* md_tb_bt_italic@2x.png */,
 				8F7A848A2244E4440099E905 /* md_tb_bt_deletion@2x.png */,
@@ -608,7 +613,6 @@
 				8F7A84872244E2810099E905 /* md_tb_bt_h6@2x.png in Resources */,
 				8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */,
 				8F7A848F2244E4510099E905 /* md_tb_bt_link@2x.png in Resources */,
-				8F7A84912244E4600099E905 /* md_tb_bt_photo@2x.png in Resources */,
 				8F7A848D2244E44B0099E905 /* md_tb_bt_italic@2x.png in Resources */,
 				8F7A847D2244E1EB0099E905 /* md_tb_bt_ulist@2x.png in Resources */,
 				8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */,
@@ -625,6 +629,7 @@
 				8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */,
 				8F7A84712244E1EB0099E905 /* md_tb_bt_olist@2x.png in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
+				8FFBBB4A224B278000A304C7 /* MDEKPhotoViewCell.xib in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
 				8F7A84892244E4380099E905 /* md_tb_bt_bold@2x.png in Resources */,
 			);
@@ -757,6 +762,7 @@
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
 				8F0688EE2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
+				8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
 				8F679E0322324631008DE1BC /* MarkdownPaser.m in Sources */,

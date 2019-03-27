@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MarkdownPaser.h"
 
+
 extern const CGFloat kMDEditor_FlexValue ;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat keyboardHeight ;
 }
 @property (strong, nonatomic) MarkdownPaser *markdownPaser ; // paser with configuration .
+
 - (void)doSomethingWhenUserSelectPartOfArticle ;
 
 @end
