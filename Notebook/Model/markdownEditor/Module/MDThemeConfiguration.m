@@ -16,6 +16,8 @@
 @end
 
 @implementation MDThemeConfiguration
+XT_SINGLETON_M(MDThemeConfiguration)
+
 
 #pragma mark - lazyload default style
 
@@ -155,6 +157,13 @@
         _quoteLeftBarColor = UIColorHex(@"dddddd") ;
     }
     return _quoteLeftBarColor ;
+}
+
+- (UIColor *)imagePlaceHolderColor {
+    if (!_imagePlaceHolderColor) {
+        _imagePlaceHolderColor = UIColorHexA(@"000000", .04) ;
+    }
+    return _imagePlaceHolderColor ;
 }
 
 @end

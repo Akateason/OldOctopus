@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <XTlib/XTlib.h>
 
 static const int kDefaultFontSize = 16 ;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MDThemeConfiguration : NSObject
+XT_SINGLETON_H(MDThemeConfiguration)
 
 @property (strong, nonatomic)   UIFont          *font ;
 @property (nonatomic)           int             fontSize ;
@@ -31,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIColor *codeTextBGColor ;
 @property (strong, nonatomic) UIColor *quoteTextColor ;
 @property (strong, nonatomic) UIColor *quoteLeftBarColor ;
+@property (strong, nonatomic) UIColor *imagePlaceHolderColor ;
 
 @end
 

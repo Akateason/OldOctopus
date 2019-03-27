@@ -10,6 +10,7 @@
 #import <SDWebImage/SDWebImageManager.h>
 #import <XTReq/XTReq.h>
 #import "XTCloudHandler.h"
+#import "MDThemeConfiguration.h"
 
 @interface MDImageManager ()
 
@@ -18,7 +19,8 @@
 @implementation MDImageManager
 
 - (UIImage *)imagePlaceHolder {
-    return [UIImage imageNamed:@"test"] ;
+    return
+    [UIImage imageWithColor:MDThemeConfiguration.sharedInstance.imagePlaceHolderColor size:CGSizeMake(680, 382.5)] ;
 }
 
 - (void)imageWithUrlStr:(NSString *)urlStr
