@@ -13,8 +13,12 @@
 #import "MdBlockModel.h"
 #import "MdInlineModel.h"
 #import "MDEKeyboardPhotoView.h"
+#import "MDImageManager.h"
+#import <XTlib/XTlib.h>
 
 @implementation MarkdownEditor (UtilOfToolbar)
+
+ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RETAIN_NONATOMIC) ;
 
 - (MarkdownModel *)cleanMarkOfParagraph {
     NSMutableString *tmpString = [self.text mutableCopy] ;
@@ -205,16 +209,53 @@
 }
 
 - (void)toolbarDidSelectPhoto {
+    @weakify(self)
+    self.photoView =
     [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
-        
+        @strongify(self)
+        [self uploadImage:image] ;
     } cameraOnPressed:^(UIImage * _Nonnull image) {
-        
+        @strongify(self)
+        [self uploadImage:image] ;
     } albumOnPressed:^(UIImage * _Nonnull image) {
-        
+        @strongify(self)
+        [self uploadImage:image] ;
     } cancel:^{
         
     }] ;
 }
+
+- (void)uploadImage:(UIImage *)image {
+    @weakify(self)
+    [self.markdownPaser.imgManager uploadImage:image progress:^(float pgs) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showProgress:pgs status:@"正在上传图片"]  ;
+        }) ;
+    } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
+        @strongify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss] ;
+            
+            NSString *url = responseObject[@"url"] ;
+            if (!url) {
+                    [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
+            }
+            else { // success .
+                NSMutableString *tmpString = [self.text mutableCopy] ;
+                NSString *tickStr = @([[NSDate date] xt_getTick]).stringValue ;
+                NSString *imgStringWillInsert = XT_STR_FORMAT(@"![%@](%@)\n",tickStr,url) ;
+                [tmpString insertString:imgStringWillInsert atIndex:self.selectedRange.location] ;
+                self.selectedRange = NSMakeRange(self.selectedRange.location + imgStringWillInsert.length, 0) ;
+                [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+            }
+        }) ;
+    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
+        }) ;
+    }] ;
+}
+
 
 - (void)toolbarDidSelectLink {
     MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;

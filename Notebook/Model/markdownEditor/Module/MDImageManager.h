@@ -13,14 +13,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MDImageManager : NSObject
-XT_SINGLETON_H(MDImageManager)
 
 - (UIImage *)imagePlaceHolder ;
 
+// download
 - (void)imageWithUrlStr:(NSString *)urlStr
                complete:(void(^)(UIImage *image))complete ;
 
-
+// upload
 - (void)uploadImage:(UIImage *)image
            progress:(nullable void (^)(float))progressValueBlock
             success:(void (^)(NSURLResponse *response, id responseObject))success

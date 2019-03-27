@@ -9,11 +9,13 @@
 #import "MarkdownEditor.h"
 #import <XTlib/XTlib.h>
 #import "MDToolbar.h"
-@class MarkdownModel ;
+@class MarkdownModel,MDEKeyboardPhotoView ;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownEditor (UtilOfToolbar) <MDToolbarDelegate>
+
+@property (strong, nonatomic) MDEKeyboardPhotoView *photoView ;
 
 - (MarkdownModel *)cleanMarkOfParagraph ;
 - (MarkdownModel *)lastOneParagraphMarkdownModel ;

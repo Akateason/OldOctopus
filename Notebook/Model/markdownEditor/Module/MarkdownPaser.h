@@ -11,7 +11,7 @@
 #import "MdParserRegexpHeader.h"
 #import "MarkdownModel.h"
 
-@class MDThemeConfiguration,MarkdownPaser ;
+@class MDThemeConfiguration,MarkdownPaser,MDImageManager ;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MarkdownPaser : NSObject
 @property (weak, nonatomic)             id<MarkdownParserDelegate>  delegate ;
 @property (readonly, strong, nonatomic) MDThemeConfiguration        *configuration ;
+@property (readonly, strong, nonatomic) MDImageManager              *imgManager ;
+
 - (instancetype)initWithConfig:(MDThemeConfiguration *)config ;
 
 #pragma mark -
@@ -41,9 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateAttributedText:(NSAttributedString *)attributedString
                     textView:(UITextView *)textView ;
 
-
 - (id)parsingGetABlockStyleModelFromParaModel:(MarkdownModel *)pModel ;
-
 
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position ;
 - (NSArray *)modelListForRangePosition:(NSUInteger)position ;

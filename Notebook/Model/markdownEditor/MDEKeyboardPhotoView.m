@@ -55,19 +55,16 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
         [photoView removeFromSuperview] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
-    
     [photoView addMeAboveKeyboardViewWithKeyboardHeight:height] ;
     
     return photoView ;
 }
 
 - (void)albumAddCrop:(void(^)(UIImage *image))blkGetImage {
-    XTPAConfig *config           = [[XTPAConfig alloc] init];
+    XTPAConfig *config = [[XTPAConfig alloc] init];
     config.albumSelectedMaxCount = 1;
     
-//    @weakify(self)
     [XTPhotoAlbumVC openAlbumWithConfig:config fromCtrller:self.ctrller willDismiss:NO getResult:^(NSArray<UIImage *> *_Nonnull imageList, NSArray<PHAsset *> *_Nonnull assetList, XTPhotoAlbumVC *vc) {
-//        @strongify(self)
         if (!imageList) return;
         
         @weakify(vc)
@@ -180,16 +177,21 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     options.synchronous            = YES;
     @weakify(self)
     [self.manager requestImageForAsset:photo
-                            targetSize:CGSizeMake(100, 100)
-                           contentMode:PHImageContentModeAspectFill
-                               options:nil
+                            targetSize:PHImageManagerMaximumSize
+                           contentMode:PHImageContentModeDefault
+                               options:options
                          resultHandler:^(UIImage *result, NSDictionary *info) {
                              @strongify(self)
-                             if (result) self.blkFlowPressed(result) ;
+                             if (result) {
+                                 @weakify(self)
+                                 [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:result croppedImageCallback:^(UIImage *_Nonnull image){
+                                     @strongify(self)
+                                     self.blkFlowPressed(image) ;
+                                 }];
+                             }
                              [self removeFromSuperview] ;
                          }] ;
 }
-
 
 #pragma mark - props
 
@@ -199,7 +201,5 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     }
     return _manager;
 }
-
-
 
 @end

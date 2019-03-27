@@ -16,7 +16,6 @@
 @end
 
 @implementation MDImageManager
-XT_SINGLETON_M(MDImageManager)
 
 - (UIImage *)imagePlaceHolder {
     return [UIImage imageNamed:@"test"] ;
@@ -45,7 +44,7 @@ XT_SINGLETON_M(MDImageManager)
  }
  */
 - (void)uploadImage:(UIImage *)image
-           progress:(nullable void (^)(float))progressValueBlock
+           progress:(nullable void (^)(float progress))progressValueBlock
             success:(void (^)(NSURLResponse *response, id responseObject))success
             failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail {
 
@@ -60,11 +59,11 @@ XT_SINGLETON_M(MDImageManager)
                              } ;
     
     [XTRequest uploadFileWithData:data urlStr:url header:header progress:^(float flt) {
-
+        progressValueBlock(flt) ;
     } success:^(NSURLResponse *response, id responseObject) {
-        
+        success(response, responseObject) ;
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        fail(task, error) ;
     }] ;    
 }
 

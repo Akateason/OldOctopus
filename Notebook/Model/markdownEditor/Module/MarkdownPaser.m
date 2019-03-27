@@ -20,6 +20,7 @@
 
 @interface MarkdownPaser ()
 @property (strong, nonatomic) MDThemeConfiguration *configuration ;
+@property (strong, nonatomic) MDImageManager *imgManager ;
 
 @property (copy, nonatomic) NSArray *paraList ;
 @property (copy, nonatomic) NSArray *modelList ;
@@ -33,6 +34,7 @@
     if (self) {
         _configuration = config ;
         _modelList = @[] ;
+        _imgManager = [MDImageManager new] ;
     }
     return self;
 }
@@ -43,8 +45,6 @@
             
         case MarkdownSyntaxHeaders:
             return regexp(MDPR_heading, NSRegularExpressionAnchorsMatchLines) ;
-//        case MarkdownSyntaxLHeader:
-//            return regexp(MDPR_lheading, NSRegularExpressionAnchorsMatchLines) ;
         
         case MarkdownSyntaxTaskLists:
             return regexp(MDPR_tasklist, NSRegularExpressionAnchorsMatchLines) ;
@@ -452,7 +452,7 @@
         NSInteger loc = imgModel.range.location + imgModel.range.length + idx ;
         UIImage *imgResult = [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:imgUrl] ;
         if (!imgResult) {
-            imgResult = [MDImageManager sharedInstance].imagePlaceHolder ;
+            imgResult = self.imgManager.imagePlaceHolder ;
         }
         NSTextAttachment *attach = [self attachmentStandardFromImage:imgResult] ;
         NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
@@ -489,8 +489,8 @@
         NSInteger loc = imgModel.range.location + imgModel.range.length ;
         UIImage *imgResult = [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:imgUrl] ;
         if (!imgResult) {
-            imgResult = [MDImageManager sharedInstance].imagePlaceHolder ;
-            [[MDImageManager sharedInstance] imageWithUrlStr:imgUrl complete:^(UIImage * _Nonnull image) {
+            imgResult = self.imgManager.imagePlaceHolder ;
+            [self.imgManager imageWithUrlStr:imgUrl complete:^(UIImage * _Nonnull image) {
                 
                 NSTextAttachment *attach = [self attachmentStandardFromImage:image] ;
                 NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
