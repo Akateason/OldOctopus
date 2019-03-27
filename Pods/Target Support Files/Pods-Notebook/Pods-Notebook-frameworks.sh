@@ -156,6 +156,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CWLateralSlide/CWLateralSlide.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework"
@@ -178,12 +179,12 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/XTReq/XTReq.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XTlib/XTlib.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/YYText/YYText.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CWLateralSlide/CWLateralSlide.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework"
@@ -206,7 +207,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/XTReq/XTReq.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XTlib/XTlib.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/YYText/YYText.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

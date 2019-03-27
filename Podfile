@@ -9,7 +9,7 @@ target 'Notebook' do
   pod 'XTlib/CustomUIs'
 
 
-  pod 'YYText'
+  pod 'CWLateralSlide'
 
 
 end

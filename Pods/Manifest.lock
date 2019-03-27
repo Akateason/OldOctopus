@@ -32,6 +32,7 @@ PODS:
   - CHTCollectionViewWaterfallLayout (0.9.7):
     - CHTCollectionViewWaterfallLayout/ObjC (= 0.9.7)
   - CHTCollectionViewWaterfallLayout/ObjC (0.9.7)
+  - CWLateralSlide (1.6.4)
   - CYLTableViewPlaceHolder (1.0.9)
   - FDFullscreenPopGesture (1.1)
   - FMDB (2.7.5):
@@ -92,19 +93,19 @@ PODS:
     - XTFMDB (> 2.0.0)
     - YYModel
   - YYModel (1.0.4)
-  - YYText (1.0.7)
 
 DEPENDENCIES:
+  - CWLateralSlide
   - XTlib
   - XTlib/Animations
   - XTlib/CustomUIs
-  - YYText
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - BlocksKit
     - CHTCollectionViewWaterfallLayout
+    - CWLateralSlide
     - CYLTableViewPlaceHolder
     - FDFullscreenPopGesture
     - FMDB
@@ -127,12 +128,12 @@ SPEC REPOS:
     - XTlib
     - XTReq
     - YYModel
-    - YYText
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   CHTCollectionViewWaterfallLayout: 9d11068fafecac106695bb5a5d6d0f738483b598
+  CWLateralSlide: b7933f4a03d652fbec6789bb45dc567011e892ca
   CYLTableViewPlaceHolder: 678e070180a24e2f241adc7830d5d7f5e2abbaa5
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -155,8 +156,7 @@ SPEC CHECKSUMS:
   XTlib: 13be9ed97af506b84f18ed1c9789e53234189b7e
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
-  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 5c60e9934683e43d1b90ba5a37583684ccead276
+PODFILE CHECKSUM: 273ff723dc0bbd7afaacf9a9c86826b370e5e7e4
 
 COCOAPODS: 1.6.1
