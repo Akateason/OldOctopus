@@ -12,7 +12,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LeftDrawerVC : BasicVC
+
 @property (nonatomic) CGFloat distance ;
+
+- (void)render ;
+
 @end
 
 NS_ASSUME_NONNULL_END

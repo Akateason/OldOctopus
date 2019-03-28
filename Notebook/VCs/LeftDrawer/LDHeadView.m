@@ -8,13 +8,14 @@
 
 #import "LDHeadView.h"
 #import "XTCloudHandler.h"
+#import "MDThemeConfiguration.h"
 
 @implementation LDHeadView
 
 - (void)setupUser {
     XTIcloudUser *user = [XTIcloudUser userInCacheSyncGet] ;
     self.lbHead.text = [user.givenName substringToIndex:1] ;
-    self.lbHead.backgroundColor = [UIColor redColor] ;
+    self.lbHead.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
     self.lbHead.textColor = [UIColor whiteColor] ;
     
     self.lbName.text = user.name ;

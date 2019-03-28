@@ -16,8 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbEmoji;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UIImageView *imgView;
-- (void)setDistance:(float)distance ;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *flexGrayWid;
+- (void)setDistance:(float)distance ;
+
+//- (void)setSelectedState:
+
 @end
 
 NS_ASSUME_NONNULL_END

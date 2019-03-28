@@ -9,22 +9,23 @@
 #import "LDNotebookCell.h"
 #import <XTlib/XTlib.h>
 #import "NoteBooks.h"
+#import "MDThemeConfiguration.h"
 
 @implementation LDNotebookCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-    _lbEmoji.backgroundColor = [UIColor redColor] ;
 
-//    _flexGrayWid.constant = 66 ; //distance - 20. ;
-
+    self.selectionStyle = 0 ;
+    self.imgView.hidden = YES ;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
+    self.bgViewOnChoose.backgroundColor = selected ? UIColorHexA(@"000000", .03) : [UIColor clearColor] ;
+    self.redMark.hidden = !selected ;
+    self.lbName.textColor = selected ? [MDThemeConfiguration sharedInstance].themeColor : UIColorHexA(@"000000", .6) ;
 }
 
 + (CGFloat)xt_cellHeight {
@@ -39,9 +40,6 @@
 
 - (void)setDistance:(float)distance {
     _flexGrayWid.constant = distance - 20. ;
-    
-    [self setNeedsDisplay] ;
-    [self layoutIfNeeded] ;
 }
 
 

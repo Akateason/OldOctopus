@@ -11,7 +11,10 @@
 #import "LDNotebookCell.h"
 #import "NoteBooks.h"
 
-@interface LeftDrawerVC () <UITableViewDelegate,UITableViewDataSource,UITableViewXTReloaderDelegate>
+@interface LeftDrawerVC () <UITableViewDelegate,UITableViewDataSource>
+{
+    BOOL isFirst ;
+}
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (copy, nonatomic) NSArray *booklist ;
 @end
@@ -27,31 +30,57 @@
 
 - (void)prepareUI {
     [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
+    self.table.separatorStyle = 0 ;
     self.table.dataSource = self ;
     self.table.delegate = self ;
-    [self.table xt_setup] ;
-    self.table.xt_Delegate = self ;
+    self.table.estimatedRowHeight           = 0;
+    self.table.estimatedSectionHeaderHeight = 0;
+    self.table.estimatedSectionFooterHeight = 0;
 }
 
 #pragma mark -
 
-- (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
+- (void)render {
     
     [NoteBooks fetchAllNoteBook:^(NSArray<NoteBooks *> * _Nonnull array) {
-        
         self.booklist = array ;
-        endRefresh() ;
+        [self.table reloadData] ;
+        
+        if (!self->isFirst) {
+            self->isFirst = YES ;
+            [self.table selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:(UITableViewScrollPositionNone)] ;
+        }
     }] ;
 }
 
+#pragma mark -
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.booklist.count ;
+    return self.booklist.count + 2 ;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row ;
     LDNotebookCell *cell = [LDNotebookCell xt_fetchFromTable:tableView] ;
-    [cell xt_configure:self.booklist[indexPath.row] indexPath:indexPath] ;
-    [cell setDistance:self.distance] ;
+    if (row < self.booklist.count) {
+        cell.imgView.hidden = YES ;
+        cell.lbEmoji.hidden = NO ;
+        [cell xt_configure:self.booklist[indexPath.row] indexPath:indexPath] ;
+        [cell setDistance:self.distance] ;
+    }
+    else if (row == self.booklist.count) { // recent
+        cell.imgView.hidden = NO ;
+        cell.lbEmoji.hidden = YES ;
+        cell.imgView.image = [UIImage imageNamed:@"ld_bt_recent"] ;
+        cell.lbName.text = @"最近使用" ;
+    }
+    else if (row == self.booklist.count + 1) { // trash
+        cell.imgView.hidden = NO ;
+        cell.lbEmoji.hidden = YES ;
+        cell.imgView.image = [UIImage imageNamed:@"ld_bt_trash"] ;
+        cell.lbName.text = @"垃圾桶" ;
+    }
+    
     return cell ;
 }
 
@@ -72,6 +101,18 @@
     return 78.f ;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row ;
+    if (row < self.booklist.count) { // book
+        
+    }
+    else if (row == self.booklist.count) { // recent
+        
+    }
+    else if (row == self.booklist.count + 1) { // trash
+        
+    }
 
+}
 
 @end

@@ -45,10 +45,6 @@
             [self openDrawer] ;
         }
     }] ;
-
-//    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"Note" completionHandler:^(NSArray<CKRecord *> * _Nonnull results, NSError * _Nonnull error) {
-//
-//    }] ;
     
 }
 
@@ -57,17 +53,19 @@
 }
 
 - (void)openDrawer {
-    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.4 scaleY:1 direction:CWDrawerTransitionFromLeft backImage:nil];
+    [self.leftVC render] ;
+    // 0.01
+    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.3 scaleY:1 direction:CWDrawerTransitionFromLeft backImage:nil];
     [self cw_showDrawerViewController:self.leftVC animationType:0 configuration:conf];
 }
 
-- (void)prepareUI {    
-    
+- (void)prepareUI {
+    self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     self.nameOfNoteBook.textColor = UIColorHex(@"222222") ;
     self.topArea.backgroundColor = [UIColor whiteColor] ;
     self.vSearchBar.xt_borderColor = UIColorRGBA(20, 20, 20, .1) ;
     
-    self.lbUserName.backgroundColor = [UIColor redColor] ;
+    self.lbUserName.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser * _Nonnull user) {
         self.lbUserName.text = [user.givenName substringToIndex:1] ;
     }] ;
