@@ -21,6 +21,8 @@ XT_SINGLETON_M(MDThemeConfiguration)
 
 #pragma mark - lazyload default style
 
+// editor
+
 - (int)fontSize {
     if (!_fontSize) {
         _fontSize = kDefaultFontSize ;
@@ -165,5 +167,17 @@ XT_SINGLETON_M(MDThemeConfiguration)
     }
     return _imagePlaceHolderColor ;
 }
+
+
+
+// skin
+- (UIColor *)themeColor {
+    if (!_themeColor) {
+        _themeColor = UIColorHex(@"f05d4a") ;
+    }
+    return _themeColor ;
+}
+
+
 
 @end

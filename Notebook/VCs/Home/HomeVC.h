@@ -6,11 +6,11 @@
 //  Copyright © 2019 teason23. All rights reserved.
 //
 
-#import <XTBase/XTBase.h>
+#import "BasicVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeVC : RootCtrl
+@interface HomeVC : BasicVC
 
 @end
 

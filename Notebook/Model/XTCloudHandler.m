@@ -33,6 +33,22 @@ static NSString *const kIdContainer = @"iCloud.container.id.octupus" ;
 @implementation XTCloudHandler
 XT_SINGLETON_M(XTCloudHandler)
 
+- (NSString *)createUniqueIdentifier {
+    NSDate *now = [NSDate date] ;
+    NSString *getString = [now xt_getStr] ;
+    getString = XT_STR_FORMAT(@"%@_%lld",getString, [now xt_getTick]) ;
+    getString = [getString base64EncodedString] ;
+    return getString ;
+}
+
+- (CKRecordZoneID *)zoneID {
+    if (!_zoneID) {
+        CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"OCTOPUS"] ;
+        _zoneID = zone.zoneID ;
+    }
+    return _zoneID ;
+}
+
 - (void)iCloudStatus:(void(^)(bool bOpen))blkICloudOpen {
     [[CKContainer defaultContainer] accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus,NSError *_Nullableerror) {
         if (accountStatus == CKAccountStatusNoAccount) {
@@ -55,14 +71,18 @@ XT_SINGLETON_M(XTCloudHandler)
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
             if (!recordID) {
                 blkUser(nil) ;
-                [SVProgressHUD showInfoWithStatus:@"请登录您的icloud"] ;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SVProgressHUD showInfoWithStatus:@"请登录您的icloud"] ;
+                }) ;
                 return ;
             }
             
             [self.container discoverUserIdentityWithUserRecordID:recordID completionHandler:^(CKUserIdentity * _Nullable userInfo, NSError * _Nullable error) {
                 
                 if (error) {
-                    [SVProgressHUD showInfoWithStatus:@"请登录您的icloud"] ;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [SVProgressHUD showInfoWithStatus:@"请登录您的icloud"] ;
+                    }) ;
                     return ;
                 }
                 
@@ -77,6 +97,11 @@ XT_SINGLETON_M(XTCloudHandler)
         }] ;
     }] ;
 }
+
+
+
+
+
 
 
 - (void)insert {
@@ -126,9 +151,11 @@ XT_SINGLETON_M(XTCloudHandler)
     }];
 }
 
-- (void)fetchListWithTypeName:(NSString *)typeName {
-    CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
-
+- (void)fetchListWithTypeName:(NSString *)typeName
+            completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
+    
+    CKDatabase *database = self.container.privateCloudDatabase ;
+    
 //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name != %@",@"xiaowang"];
 //    CKQuery *query = [[CKQuery alloc] initWithRecordType:recordTypeName predicate:predicate];
     
@@ -137,21 +164,12 @@ XT_SINGLETON_M(XTCloudHandler)
     
 //    query.sortDescriptors = @[firstDescriptor,secondDescriptor];
     
-
+    
     NSPredicate *predicate = [NSPredicate predicateWithValue:YES] ;
     CKQuery *query = [[CKQuery alloc] initWithRecordType:typeName predicate:predicate];
-
-    //通过谓词查找记录
-    [database performQuery:query //query
-              inZoneWithID:nil
-         completionHandler:^(NSArray<CKRecord*>  *_Nullable results,NSError *_Nullable error) {
-        if(!error) {
-            NSLog(@"results 查询成功 : %@",results);
-        }
-        else {
-            NSLog(@"查询失败: %@",error);
-        }
-    }] ;
+    [database performQuery:query
+              inZoneWithID:self.zoneID
+         completionHandler:completionHandler] ;
 }
 
 - (void)updateWithRecId:(NSString *)recId {
@@ -253,7 +271,6 @@ XT_SINGLETON_M(XTCloudHandler)
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"book = %@", refrecID];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:sourceType predicate:predicate] ; // "Test"
-
     
     CKDatabase *db = self.container.privateCloudDatabase ;
     [db performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {

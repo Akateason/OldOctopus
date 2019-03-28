@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MDThemeConfiguration : NSObject
 XT_SINGLETON_H(MDThemeConfiguration)
 
+// editor
 @property (strong, nonatomic)   UIFont          *font ;
 @property (nonatomic)           int             fontSize ;
 @property (strong, nonatomic)   UIFont          *boldFont ;
@@ -34,6 +35,10 @@ XT_SINGLETON_H(MDThemeConfiguration)
 @property (strong, nonatomic) UIColor *quoteTextColor ;
 @property (strong, nonatomic) UIColor *quoteLeftBarColor ;
 @property (strong, nonatomic) UIColor *imagePlaceHolderColor ;
+
+// skin
+@property (strong, nonatomic) UIColor *themeColor ;
+
 
 @end
 

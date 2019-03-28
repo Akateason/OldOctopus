@@ -30,8 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XTCloudHandler : NSObject
 XT_SINGLETON_H(XTCloudHandler)
 @property (strong, nonatomic) CKContainer *container ;
+@property (strong, nonatomic) CKRecordZoneID *zoneID ;
 
-
+- (NSString *)createUniqueIdentifier ;
 - (void)iCloudStatus:(void(^)(bool bOpen))blkICloudOpen ;
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser ;
 
@@ -43,7 +44,10 @@ XT_SINGLETON_H(XTCloudHandler)
 - (void)insert:(CKRecord *)record ;
 
 - (void)fetchWithId:(NSString *)recordID ;
-- (void)fetchListWithTypeName:(NSString *)typeName ;
+
+- (void)fetchListWithTypeName:(NSString *)typeName
+            completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler ;
+
 - (void)updateWithRecId:(NSString *)recId ;
 - (void)deleteWithId:(NSString *)recId ;
 
