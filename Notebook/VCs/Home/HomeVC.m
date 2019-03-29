@@ -79,9 +79,8 @@
 }
 
 - (void)openDrawer {
-    [self.leftVC render] ;
-    // 0.01
-    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.3 scaleY:1 direction:CWDrawerTransitionFromLeft backImage:nil];
+    [self.leftVC render] ;    
+    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.06 scaleY:1 direction:CWDrawerTransitionFromLeft backImage:nil] ;
     [self cw_showDrawerViewController:self.leftVC animationType:0 configuration:conf];
 }
 
