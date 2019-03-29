@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NoteBooks *currentBook ;
 
 - (void)render ;
+- (void)currentBookChanged:(void(^)(NoteBooks *book))blkChange ;
 
 @end
 

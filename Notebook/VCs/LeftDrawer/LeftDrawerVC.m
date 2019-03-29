@@ -11,12 +11,14 @@
 #import "LDNotebookCell.h"
 #import "NoteBooks.h"
 
-@interface LeftDrawerVC () <UITableViewDelegate,UITableViewDataSource>
-{
+typedef void(^BlkBookSelectedChange)(NoteBooks *book);
+
+@interface LeftDrawerVC () <UITableViewDelegate,UITableViewDataSource> {
     BOOL isFirst ;
 }
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (copy, nonatomic) NSArray *booklist ;
+@property (copy, nonatomic) BlkBookSelectedChange blkBookChange ;
 @end
 
 @implementation LeftDrawerVC
@@ -25,6 +27,12 @@
     [super viewDidLoad];
     
     _booklist = @[] ;
+    
+    @weakify(self)
+    [RACObserve(self.currentBook, icRecordName) subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        self.blkBookChange(self.currentBook) ;
+    }] ;
 }
 
 - (void)prepareUI {
@@ -50,6 +58,7 @@
         if (!self->isFirst) {
             self->isFirst = YES ;
             [self setCurrentBook:[self.booklist firstObject]] ;
+            self.blkBookChange([self.booklist firstObject]) ;
         }
     }] ;
 }
@@ -62,6 +71,10 @@
             [self.table selectRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0] animated:YES scrollPosition:(UITableViewScrollPositionNone)] ;
         }
     }] ;
+}
+
+- (void)currentBookChanged:(void (^)(NoteBooks * _Nonnull))blkChange {
+    self.blkBookChange = blkChange ;
 }
 
 #pragma mark -
@@ -99,7 +112,5 @@
     [self setCurrentBook:self.booklist[row]] ;
 
 }
-
-
 
 @end

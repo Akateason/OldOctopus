@@ -37,18 +37,35 @@ XT_SINGLETON_H(XTCloudHandler)
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser ;
 
     
-    
-    
-//todo
-- (void)insert ;
-- (void)insert:(CKRecord *)record ;
 
 - (void)fetchWithId:(NSString *)recordID ;
+
+/**
+ fetch list
+ //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name != %@",@"xiaowang"];
+ //    CKQuery *query = [[CKQuery alloc] initWithRecordType:recordTypeName predicate:predicate];
+ 
+ //    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"gender" ascending:NO];
+ //    NSSortDescriptor *secondDescriptor = [[NSSortDescriptor alloc] initWithKey:@"age" ascending:NO];
+ 
+ //    query.sortDescriptors = @[firstDescriptor,secondDescriptor];
+ */
+- (void)fetchListWithTypeName:(NSString *)typeName
+                    predicate:(NSPredicate *)predicate
+                         sort:(NSArray<NSSortDescriptor *> *)sortlist
+            completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler ;
 
 - (void)fetchListWithTypeName:(NSString *)typeName
             completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler ;
 
+
+
+//todo
+- (void)insert ;
+- (void)insert:(CKRecord *)record ;
+
 - (void)updateWithRecId:(NSString *)recId ;
+
 - (void)deleteWithId:(NSString *)recId ;
 
 /**

@@ -8,14 +8,32 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+@class NoteBooks,CKRecord ;
+
+
 
 @interface Note : NSObject
+@property (copy, nonatomic) NSString *icRecordName ;
+@property (strong, nonatomic) CKRecord *record ;
+
 @property (copy, nonatomic) NSString *content ;
 @property (nonatomic)       int      isDeleted ;
 @property (copy, nonatomic) NSString *noteBookId ;
 @property (copy, nonatomic) NSString *title ;
 
+
+
+
++ (instancetype)recordToNote:(CKRecord *)record ;
+
+- (instancetype)initWithBookID:(NSString *)bookID
+                       content:(NSString *)content
+                         title:(NSString *)title ;
+
++ (void)noteListWithNoteBook:(NoteBooks *)book
+                  completion:(void(^)(NSArray *list))completion ;
+
+
 @end
 
-NS_ASSUME_NONNULL_END
+

@@ -10,10 +10,13 @@
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import <UIViewController+CWLateralSlide.h>
 #import "LeftDrawerVC.h"
+#import "NoteBooks.h"
+#import "Note.h"
+#import "NoteCell.h"
 
 
-
-@interface HomeVC ()
+@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate>
+@property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
 @property (weak, nonatomic) IBOutlet UILabel *nameOfNoteBook;
@@ -25,6 +28,7 @@
 @property (strong, nonatomic) UIView *btAdd ;
 
 @property (strong, nonatomic) LeftDrawerVC *leftVC ;
+@property (copy, nonatomic) NSArray *listNotes ;
 @end
 
 @implementation HomeVC
@@ -34,22 +38,44 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.listNotes = @[] ;
+    
     self.fd_prefersNavigationBarHidden = YES ;
     
-    @weakify(self)
-    // 第一个参数为是否开启边缘手势，开启则默认从边缘50距离内有效，第二个block为手势过程中我们希望做的操作
-    [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
-        @strongify(self)
-        //NSLog(@"direction = %ld", direction);
-        if (direction == CWDrawerTransitionFromLeft) { // 左侧滑出
-            [self openDrawer] ;
-        }
-    }] ;
     
+    @weakify(self)
+    [self.leftVC currentBookChanged:^(NoteBooks * _Nonnull book) {
+        @strongify(self)
+        if (book.vType == Notebook_Type_recent) {
+            // todo
+            return ;
+        }
+        else if (book.vType == Notebook_Type_trash) {
+            // todo
+            return ;
+        }
+        
+        // note book
+        [self renderTable:^{
+            [self.table reloadData] ;
+        }] ;
+//        self.nameOfNoteBook.text = book.name ;
+//        [Note noteListWithNoteBook:book completion:^(NSArray * _Nonnull list) {
+//            self.listNotes = list ;
+////            [self.table re]
+//        }] ;
+        
+    }] ;
 }
 
-- (CGFloat)movingDistance {
-    return  265. / 375. * APP_WIDTH ;
+- (void)renderTable:(void(^)(void))completion {
+    self.nameOfNoteBook.text = self.leftVC.currentBook.name ;
+    @weakify(self)
+    [Note noteListWithNoteBook:self.leftVC.currentBook completion:^(NSArray * _Nonnull list) {
+        @strongify(self)
+        self.listNotes = list ;
+        completion() ;
+    }] ;
 }
 
 - (void)openDrawer {
@@ -60,10 +86,28 @@
 }
 
 - (void)prepareUI {
+    [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
+    [self.table xt_setup] ;
+    self.table.dataSource = self ;
+    self.table.delegate = self ;
+    self.table.xt_Delegate = self ;
+    self.table.backgroundColor = nil ;
+    
+    self.table.contentInset = UIEdgeInsetsMake(12, 0, 0, 0) ;
+    
+    self.topSafeAreaView.backgroundColor = [UIColor whiteColor] ;
+    
+    self.topArea.layer.shadowColor = UIColorHexA(@"000000", .05).CGColor ;
+    self.topArea.layer.shadowOffset = CGSizeMake(0, 13) ;
+    self.topArea.layer.shadowRadius = 40 ;
+    self.topArea.layer.shadowOpacity = 1;
+    
+    self.nameOfNoteBook.text = @"";
     self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     self.nameOfNoteBook.textColor = UIColorHex(@"222222") ;
     self.topArea.backgroundColor = [UIColor whiteColor] ;
     self.vSearchBar.xt_borderColor = UIColorRGBA(20, 20, 20, .1) ;
+    self.lbUserName.text = @"🐙" ;
     
     self.lbUserName.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser * _Nonnull user) {
@@ -81,6 +125,12 @@
         @strongify(self)
         [self openDrawer] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
+    
+    [self.leftVC render] ;
+    [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
+        @strongify(self)
+        if (direction == CWDrawerTransitionFromLeft) [self openDrawer] ;
+    }] ;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -90,9 +140,35 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
-//    [self.navigationController setNavigationBarHidden:NO animated:NO] ;
 }
 
+#pragma mark - table
+
+- (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
+    [self renderTable:^{
+        endRefresh() ;
+    }] ;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.listNotes.count ;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NoteCell *cell = [NoteCell xt_fetchFromTable:tableView] ;
+    [cell xt_configure:self.listNotes[indexPath.row] indexPath:indexPath] ;
+    return cell ;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [NoteCell xt_cellHeight] ;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row ;
+    
+    
+}
 
 
 #pragma mark - prop
@@ -152,5 +228,8 @@
     return _leftVC;
 }
 
+- (CGFloat)movingDistance {
+    return  265. / 375. * APP_WIDTH ;
+}
 
 @end

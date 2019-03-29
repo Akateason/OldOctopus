@@ -153,24 +153,38 @@ XT_SINGLETON_M(XTCloudHandler)
 
 - (void)fetchListWithTypeName:(NSString *)typeName
             completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
-    
+    [self fetchListWithTypeName:typeName predicate:nil sort:nil completionHandler:completionHandler] ;
+}
+
+
+/**
+ fetch list
+ //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name != %@",@"xiaowang"];
+ //    CKQuery *query = [[CKQuery alloc] initWithRecordType:recordTypeName predicate:predicate];
+ 
+ //    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"gender" ascending:NO];
+ //    NSSortDescriptor *secondDescriptor = [[NSSortDescriptor alloc] initWithKey:@"age" ascending:NO];
+ 
+ //    query.sortDescriptors = @[firstDescriptor,secondDescriptor];
+ */
+- (void)fetchListWithTypeName:(NSString *)typeName
+                    predicate:(NSPredicate *)predicate
+                         sort:(NSArray<NSSortDescriptor *> *)sortlist
+            completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
+
     CKDatabase *database = self.container.privateCloudDatabase ;
     
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name != %@",@"xiaowang"];
-//    CKQuery *query = [[CKQuery alloc] initWithRecordType:recordTypeName predicate:predicate];
     
-//    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"gender" ascending:NO];
-//    NSSortDescriptor *secondDescriptor = [[NSSortDescriptor alloc] initWithKey:@"age" ascending:NO];
-    
-//    query.sortDescriptors = @[firstDescriptor,secondDescriptor];
-    
-    
-    NSPredicate *predicate = [NSPredicate predicateWithValue:YES] ;
+    if (!predicate) predicate = [NSPredicate predicateWithValue:YES] ;
     CKQuery *query = [[CKQuery alloc] initWithRecordType:typeName predicate:predicate];
+    if (sortlist) query.sortDescriptors = sortlist ;
+    
     [database performQuery:query
               inZoneWithID:self.zoneID
          completionHandler:completionHandler] ;
 }
+
+
 
 - (void)updateWithRecId:(NSString *)recId {
     CKRecordID *noteId = [[CKRecordID alloc] initWithRecordName:recId];
