@@ -13,6 +13,7 @@
 #import "NoteBooks.h"
 #import "Note.h"
 #import "NoteCell.h"
+#import "MarkdownVC.h"
 
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate>
@@ -79,7 +80,7 @@
 }
 
 - (void)openDrawer {
-    [self.leftVC render] ;    
+    [self.leftVC render] ;
     CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.06 scaleY:1 direction:CWDrawerTransitionFromLeft backImage:nil] ;
     [self cw_showDrawerViewController:self.leftVC animationType:0 configuration:conf];
 }
@@ -116,8 +117,8 @@
     self.btAdd.userInteractionEnabled = YES ;
     @weakify(self)
     [self.btAdd bk_whenTapped:^{
-        NSLog(@"bt add") ;
-        
+        @strongify(self)
+        [MarkdownVC newWithNote:nil fromCtrller:self] ;
     }] ;
     
     [self.btLeftDrawer bk_addEventHandler:^(id sender) {

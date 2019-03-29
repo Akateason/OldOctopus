@@ -7,11 +7,15 @@
 //
 
 #import <XTBase/XTBase.h>
+@class Note ;
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @interface MarkdownVC : RootCtrl
 
++ (instancetype)newWithNote:(Note *)note
+                fromCtrller:(UIViewController *)ctrller ;
+
 @end
 
-NS_ASSUME_NONNULL_END
+

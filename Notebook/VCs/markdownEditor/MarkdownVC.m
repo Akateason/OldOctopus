@@ -9,15 +9,27 @@
 #import "MarkdownVC.h"
 #import "MarkdownEditor.h"
 #import <XTlib/XTPhotoAlbum.h>
+#import "Note.h"
 
 
 @interface MarkdownVC ()
 @property (strong, nonatomic) MarkdownEditor *textView ;
 @property (strong, nonatomic) XTCameraHandler *handler;
 
+@property (strong, nonatomic) Note *aNote ;
+
 @end
 
 @implementation MarkdownVC
+
++ (instancetype)newWithNote:(Note *)note
+                fromCtrller:(UIViewController *)ctrller {
+    
+    MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarddownVC"] ;
+    vc.aNote = note ;
+    [ctrller.navigationController pushViewController:vc animated:YES] ;
+    return vc ;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

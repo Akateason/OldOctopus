@@ -380,8 +380,6 @@
 			children = (
 				8F679DFA2232436B008DE1BC /* MarkdownVC.h */,
 				8F679DFB2232436B008DE1BC /* MarkdownVC.m */,
-				8F7A84462244BD6B0099E905 /* MDNavVC.h */,
-				8F7A84472244BD6B0099E905 /* MDNavVC.m */,
 			);
 			path = markdownEditor;
 			sourceTree = "<group>";
@@ -484,6 +482,8 @@
 		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				8F7A84462244BD6B0099E905 /* MDNavVC.h */,
+				8F7A84472244BD6B0099E905 /* MDNavVC.m */,
 				8F07D654224CD8CE005BA86D /* BasicVC.h */,
 				8F07D655224CD8CE005BA86D /* BasicVC.m */,
 				8FE5A3D5224B6C6800947D14 /* Home */,

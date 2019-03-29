@@ -238,7 +238,7 @@
         <!--MarkdownVC-->
         <scene sceneID="JC0-N7-ShV">
             <objects>
-                <viewController id="dM8-u1-VBX" customClass="MarkdownVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MarddownVC" id="dM8-u1-VBX" customClass="MarkdownVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EWm-za-0rw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -286,10 +286,10 @@
             </objects>
             <point key="canvasLocation" x="-367" y="-672"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--NavVC-->
         <scene sceneID="kXl-13-VxD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uUC-Bj-7Mf" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uUC-Bj-7Mf" customClass="MDNavVC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xPh-Dn-AZg">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
