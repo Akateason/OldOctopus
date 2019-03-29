@@ -36,6 +36,16 @@
     
     _lbName.text = book.name ;
     _lbEmoji.text = book.emoji ;
+    
+    if (book.vType == Notebook_Type_notebook) {
+        self.imgView.hidden = YES ;
+        self.lbEmoji.hidden = NO ;
+    }
+    else if (book.vType != Notebook_Type_notebook) {
+        self.imgView.hidden = NO ;
+        self.lbEmoji.hidden = YES ;
+        self.imgView.image = [UIImage imageNamed:book.emoji] ;
+    }
 }
 
 - (void)setDistance:(float)distance {

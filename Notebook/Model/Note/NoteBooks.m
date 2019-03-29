@@ -50,4 +50,29 @@
     }] ;
 }
 
++ (NoteBooks *)createOtherBookWithType:(Notebook_Type)type {
+    NoteBooks *book1 = [NoteBooks new] ;
+    book1.vType = type ;
+    book1.canUpload = NO ;
+    if (type == Notebook_Type_recent) {
+        book1.emoji = @"ld_bt_recent" ;
+        book1.name = @"最近使用" ;
+    }
+    else if (type == Notebook_Type_trash) {
+        book1.emoji = @"ld_bt_trash" ;
+        book1.name = @"垃圾桶" ;
+    }
+    return book1 ;
+}
+
++ (NSArray *)appendWithArray:(NSArray *)booklist {
+    NSMutableArray *list = [booklist mutableCopy] ;
+    NoteBooks *book1 = [self createOtherBookWithType:(Notebook_Type_recent)] ;
+    NoteBooks *book2 = [self createOtherBookWithType:(Notebook_Type_trash)] ;
+    [list addObject:book1] ;
+    [list addObject:book2] ;
+    return list ;
+}
+
+
 @end

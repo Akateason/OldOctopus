@@ -7,13 +7,14 @@
 //
 
 #import "BasicVC.h"
-
+@class NoteBooks ;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LeftDrawerVC : BasicVC
 
 @property (nonatomic) CGFloat distance ;
+@property (strong, nonatomic) NoteBooks *currentBook ;
 
 - (void)render ;
 

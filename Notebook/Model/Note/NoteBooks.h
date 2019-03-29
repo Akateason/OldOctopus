@@ -10,9 +10,18 @@
 #import <XTlib/XTlib.h>
 #import "XTCloudHandler.h"
 
+typedef enum : NSUInteger {
+    Notebook_Type_notebook ,
+    Notebook_Type_recent,
+    Notebook_Type_trash
+} Notebook_Type;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NoteBooks : NSObject
+@property (nonatomic)       Notebook_Type vType ;
+@property (nonatomic)       BOOL     canUpload ;
+@property (nonatomic)       BOOL     isOnSelect ;
 @property (copy, nonatomic) NSString *icRecordName ;
 
 @property (copy, nonatomic) NSString *emoji ;
@@ -25,6 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithName:(NSString *)name
                        emoji:(NSString *)emoji ;
+
++ (NoteBooks *)createOtherBookWithType:(Notebook_Type)type ;
+
++ (NSArray *)appendWithArray:(NSArray *)booklist ;
 
 @end
 
