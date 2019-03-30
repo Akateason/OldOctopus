@@ -61,6 +61,8 @@ static const int kTag_ListMarkView  = 32342 ;
     // user typing
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
+        if (self.markedTextRange != nil) return ;
+        
         [self updateTextStyle] ;
         [self doSomethingWhenUserSelectPartOfArticle] ;
     }] ;
