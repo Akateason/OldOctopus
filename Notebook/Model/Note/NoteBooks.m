@@ -21,14 +21,20 @@
 }
 
 - (instancetype)initWithName:(NSString *)name
-                       emoji:(NSString *)emoji
-{
+                       emoji:(NSString *)emoji {
+    
     self = [super init];
     if (self) {
         _icRecordName = [XTCloudHandler sharedInstance].createUniqueIdentifier ;
         _emoji = emoji ;
         _isDeleted = 0 ;
         _name = name ;
+        
+        CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
+        _record = [[CKRecord alloc] initWithRecordType:@"NoteBook" recordID:recordID] ;
+        [_record setObject:@0 forKey:@"isDeleted"] ;
+        [_record setObject:emoji forKey:@"emoji"] ;
+        [_record setObject:name forKey:@"name"] ;
     }
     return self;
 }
@@ -36,7 +42,12 @@
 + (void)fetchAllNoteBook:(void(^)(NSArray<NoteBooks *> *array))completion {
     
     NSMutableArray *tmplist = [@[] mutableCopy] ;
-    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" completionHandler:^(NSArray<CKRecord *> * _Nonnull results, NSError * _Nonnull error) {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isDeleted == 0"] ;
+    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"modificationDate" ascending:NO] ;
+    NSArray *sortDescriptors = @[firstDescriptor] ;
+    
+    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" predicate:predicate sort:sortDescriptors completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
         
         [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NoteBooks *book = [NoteBooks recordToNoteBooks:obj] ;
@@ -74,5 +85,36 @@
     return list ;
 }
 
++ (void)createNewBook:(NoteBooks *)book {
+    
+    [[XTCloudHandler sharedInstance] insert:book.record completionHandler:^(CKRecord *record, NSError *error) {
+        
+        if (!error) {
+            // succcess
+        }
+        else {
+            // false
+        }
+
+    }] ;
+}
+
++ (void)updateMyBook:(NoteBooks *)book {
+    
+    NSDictionary *dic = @{@"emoji" : book.emoji,
+                          @"isDeleted" : @(book.isDeleted),
+                          @"name" : book.name
+                          } ;
+    
+    [[XTCloudHandler sharedInstance] updateWithRecId:book.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+        
+        if (!error) {
+            // succcess
+        }
+        else {
+            // false
+        }
+    }] ;        
+}
 
 @end

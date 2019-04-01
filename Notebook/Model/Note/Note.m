@@ -46,11 +46,11 @@
 + (void)noteListWithNoteBook:(NoteBooks *)book
                   completion:(void(^)(NSArray *list))completion {
     
-    if (!book) return ;
+    if (!book || book.vType != Notebook_Type_notebook) return ;
 
     NSMutableArray *tmplist = [@[] mutableCopy] ;
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"noteBookId == %@",book.icRecordName];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"noteBookId == %@ && isDeleted == 0",book.icRecordName];
     NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"modificationDate" ascending:NO] ;
     NSArray *sortDescriptors = @[firstDescriptor];
     
@@ -101,7 +101,6 @@
         else {
             // false
         }
-        
     }] ;
 }
 

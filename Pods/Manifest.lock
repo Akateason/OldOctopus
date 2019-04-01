@@ -39,7 +39,7 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - FTPopOverMenu (2.0.3)
-  - IQKeyboardManager (6.2.0)
+  - IQKeyboardManager (6.2.1)
   - Masonry (1.1.0)
   - MJRefresh (3.1.16)
   - ReactiveObjC (3.1.0)
@@ -53,7 +53,7 @@ PODS:
   - UIFontWDCustomLoader (0.1.0)
   - "UITableView+FDTemplateLayoutCell (1.6)"
   - Valet (2.4.2)
-  - XTBase (1.0.2):
+  - XTBase (1.0.3):
     - CYLTableViewPlaceHolder
     - FTPopOverMenu
     - Masonry
@@ -138,7 +138,7 @@ SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FTPopOverMenu: 8aa89de66e72b53db3e7eeab42243d393237768f
-  IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
+  IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
@@ -150,7 +150,7 @@ SPEC CHECKSUMS:
   UIFontWDCustomLoader: 233f0f83e543b8f24a6299d7fc773be9d704fe22
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   Valet: 14463ef24fab8fd5809044ecedb61484b799fdd6
-  XTBase: 63718c78d08569ca96eee2f0e8c595df9b47ff34
+  XTBase: c1fb26eb38e1f1bd258d6d3197492cbcf96a9360
   XTColor: 0151b3b61e3b1de2dc29fcdb4a0a22758c8a38df
   XTFMDB: c22446d1eeb347974fb579bd9284c9b48a6d4410
   XTlib: 13be9ed97af506b84f18ed1c9789e53234189b7e

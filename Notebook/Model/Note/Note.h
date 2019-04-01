@@ -16,6 +16,7 @@
 @property (copy, nonatomic) NSString *icRecordName ;
 @property (strong, nonatomic) CKRecord *record ;
 
+// icloud
 @property (copy, nonatomic) NSString *content ;
 @property (nonatomic)       int      isDeleted ;
 @property (copy, nonatomic) NSString *noteBookId ;

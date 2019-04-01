@@ -14,6 +14,8 @@
 		8F07D656224CD8CE005BA86D /* BasicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F07D655224CD8CE005BA86D /* BasicVC.m */; };
 		8F07D658224CF583005BA86D /* ld_bt_recent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F07D657224CF583005BA86D /* ld_bt_recent@2x.png */; };
 		8F07D65A224CF614005BA86D /* ld_bt_trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F07D659224CF614005BA86D /* ld_bt_trash@2x.png */; };
+		8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F303997225217A300DEB656 /* HomeEmptyPHView.m */; };
+		8F30399A225217AB00DEB656 /* HomeEmptyPHView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */; };
 		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
@@ -123,6 +125,9 @@
 		8F07D655224CD8CE005BA86D /* BasicVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicVC.m; sourceTree = "<group>"; };
 		8F07D657224CF583005BA86D /* ld_bt_recent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_bt_recent@2x.png"; sourceTree = "<group>"; };
 		8F07D659224CF614005BA86D /* ld_bt_trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_bt_trash@2x.png"; sourceTree = "<group>"; };
+		8F303996225217A300DEB656 /* HomeEmptyPHView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeEmptyPHView.h; sourceTree = "<group>"; };
+		8F303997225217A300DEB656 /* HomeEmptyPHView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeEmptyPHView.m; sourceTree = "<group>"; };
+		8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEmptyPHView.xib; sourceTree = "<group>"; };
 		8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
 		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
 		8F579FDC222E547F00C54929 /* Notebook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notebook.entitlements; sourceTree = "<group>"; };
@@ -534,6 +539,9 @@
 			children = (
 				8FE5A3D7224B6CE800947D14 /* HomeVC.h */,
 				8FE5A3D8224B6CE800947D14 /* HomeVC.m */,
+				8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */,
+				8F303996225217A300DEB656 /* HomeEmptyPHView.h */,
+				8F303997225217A300DEB656 /* HomeEmptyPHView.m */,
 				8FA232D3224E07C400163685 /* NoteCell.h */,
 				8FA232D4224E07C400163685 /* NoteCell.m */,
 				8FA232D5224E07C400163685 /* NoteCell.xib */,
@@ -710,6 +718,7 @@
 				8F7A84712244E1EB0099E905 /* md_tb_bt_olist@2x.png in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
 				8FFBBB4A224B278000A304C7 /* MDEKPhotoViewCell.xib in Resources */,
+				8F30399A225217AB00DEB656 /* HomeEmptyPHView.xib in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
 				8FE5A3DF224B707900947D14 /* md_home_search@2x.png in Resources */,
 				8F7A84892244E4380099E905 /* md_tb_bt_bold@2x.png in Resources */,
@@ -861,6 +870,7 @@
 				8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */,
 				8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */,
 				8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */,
+				8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */,
 				8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */,
 				8FFBBB3D224A4CAF00A304C7 /* MDEKeyboardPhotoView.m in Sources */,
 				8FE5A3D9224B6CE800947D14 /* HomeVC.m in Sources */,

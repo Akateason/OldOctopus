@@ -50,9 +50,12 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
     [self.btAdd bk_whenTapped:^{
         @strongify(self)
         
-        [UIAlertController xt_showTextFieldAlertWithTitle:@"新建笔记本" subtitle:nil cancel:@"取消" commit:@"确认" placeHolder:@"笔记本" callback:^(NSString *text) {
+        [UIAlertController xt_showTextFieldAlertWithTitle:@"笔记本的名字" subtitle:nil cancel:@"取消" commit:@"确认" placeHolder:@"笔记本" callback:^(BOOL isConfirm, NSString *text) {
             
-            
+            if (!isConfirm) return ;
+            // create new book
+            NoteBooks *aBook = [[NoteBooks alloc] initWithName:text emoji:@"🐙"] ;
+            [NoteBooks createNewBook:aBook] ;
             
         }] ;
         

@@ -64,7 +64,7 @@
                                 cancel:(NSString *)cancelStr
                                 commit:(NSString *)commitStr
                            placeHolder:(NSString *)placeHolderStr
-                              callback:(void (^)(NSString *text))textBlock {
+                              callback:(void (^)(BOOL isConfirm, NSString *text))textBlock {
     UIViewController *rootCtrller = [UIViewController xt_topViewController];
 
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
@@ -72,7 +72,7 @@
                                                             preferredStyle:UIAlertControllerStyleAlert];
     if (cancelStr.length) {
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelStr style:UIAlertActionStyleCancel handler:^(UIAlertAction *_Nonnull action){
-
+            textBlock(NO, nil) ;
         }];
         [alert addAction:cancelAction];
     }
@@ -82,7 +82,7 @@
 
             if (alert.textFields.count > 0) {
                 UITextField *textField = [alert.textFields firstObject];
-                if (textBlock) textBlock(textField.text);
+                if (textBlock) textBlock(YES, textField.text) ;
             }
         }];
         [alert addAction:submit];

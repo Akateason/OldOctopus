@@ -68,6 +68,8 @@ XT_SINGLETON_M(XTCloudHandler)
     }
     
     [self.container requestApplicationPermission:(CKApplicationPermissionUserDiscoverability) completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
+        //1. 提醒用户开 icloud drive
+        
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
             if (!recordID) {
                 blkUser(nil) ;

@@ -14,9 +14,11 @@
 #import "Note.h"
 #import "NoteCell.h"
 #import "MarkdownVC.h"
+#import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
+#import "HomeEmptyPHView.h"
 
 
-@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate>
+@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
@@ -57,14 +59,11 @@
         }
         
         // note book
+        @weakify(self)
         [self renderTable:^{
+            @strongify(self)
             [self.table reloadData] ;
         }] ;
-//        self.nameOfNoteBook.text = book.name ;
-//        [Note noteListWithNoteBook:book completion:^(NSArray * _Nonnull list) {
-//            self.listNotes = list ;
-////            [self.table re]
-//        }] ;
         
     }] ;
 }
@@ -169,6 +168,20 @@
     Note *aNote = self.listNotes[row] ;
     [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
 }
+
+- (UIView *)makePlaceHolderView {
+    HomeEmptyPHView *phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+    WEAK_SELF
+    [phView.btNewNote bk_addEventHandler:^(id sender) {
+        [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
+    } forControlEvents:(UIControlEventTouchUpInside)] ;
+    return phView ;
+}
+
+- (BOOL)enableScrollWhenPlaceHolderViewShowing {
+    return YES ;
+}
+
 
 
 #pragma mark - prop

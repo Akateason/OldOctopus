@@ -23,7 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)       BOOL     canUpload ;
 @property (nonatomic)       BOOL     isOnSelect ;
 @property (copy, nonatomic) NSString *icRecordName ;
+@property (strong, nonatomic) CKRecord *record ;
 
+// icloud
 @property (copy, nonatomic) NSString *emoji ;
 @property (nonatomic)       int      isDeleted ;
 @property (copy, nonatomic) NSString *name ;
@@ -39,6 +41,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)appendWithArray:(NSArray *)booklist ;
 
++ (void)createNewBook:(NoteBooks *)book ;
+    
++ (void)updateMyBook:(NoteBooks *)book ;
+    
 @end
 
 NS_ASSUME_NONNULL_END

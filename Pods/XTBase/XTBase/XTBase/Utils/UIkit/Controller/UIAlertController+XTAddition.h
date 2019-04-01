@@ -43,5 +43,5 @@
                                 cancel:(NSString *)cancelStr
                                 commit:(NSString *)commitStr
                            placeHolder:(NSString *)placeHolderStr
-                              callback:(void (^)(NSString *text))textBlock;
+                              callback:(void (^)(BOOL isConfirm, NSString *text))textBlock ;
 @end
