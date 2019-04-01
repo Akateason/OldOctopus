@@ -6,14 +6,15 @@
 //  Copyright © 2019 teason23. All rights reserved.
 //
 
-#import <XTBase/XTBase.h>
+#import "BasicVC.h"
 @class Note ;
 
 
 
-@interface MarkdownVC : RootCtrl
+@interface MarkdownVC : BasicVC
 
 + (instancetype)newWithNote:(Note *)note
+                     bookID:(NSString *)bookID
                 fromCtrller:(UIViewController *)ctrller ;
 
 @end

@@ -37,7 +37,7 @@
 
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {
     _lbTitle.text = note.title ;
-    _lbContent.text = note.content ;
+    _lbContent.text = [self filterMarkdownString:note.content] ;
     _lbDate.text = [note.record.modificationDate xt_timeInfo] ;
 }
 
@@ -45,5 +45,14 @@
     return 118 ;
 }
 
+- (NSString *)filterMarkdownString:(NSString *)markdownStr {
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"#" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"*" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"_" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"~" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"`" withString:@""] ;
+    return markdownStr ;
+}
 
 @end

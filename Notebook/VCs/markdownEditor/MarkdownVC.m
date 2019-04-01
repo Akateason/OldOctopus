@@ -17,16 +17,20 @@
 @property (strong, nonatomic) XTCameraHandler *handler;
 
 @property (strong, nonatomic) Note *aNote ;
-
+@property (copy, nonatomic) NSString *myBookID ;
 @end
 
 @implementation MarkdownVC
 
+#pragma mark - life
+
 + (instancetype)newWithNote:(Note *)note
+                     bookID:(NSString *)bookID
                 fromCtrller:(UIViewController *)ctrller {
     
     MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarddownVC"] ;
     vc.aNote = note ;
+    vc.myBookID = bookID ;
     [ctrller.navigationController pushViewController:vc animated:YES] ;
     return vc ;
 }
@@ -34,15 +38,58 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample" ofType:@"md"] ;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"zample2" ofType:@"md"] ;
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
-    NSData *data = [fileHandle readDataToEndOfFile] ;
-    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (self.aNote) {
+        self.textView.text =self.aNote.content ;
+    }
+    else {
+        // Create New Note
+        [self createNewNote] ;
+    }
     
-    [self textView] ;
-    self.textView.text = str ;
+    @weakify(self)
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3.] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        // Update Your Note
+        [self updateMyNote] ;
+    }] ;
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated] ;
+    
+    // Update Your Note
+    [self updateMyNote] ;
+}
+
+#pragma mark - Func
+
+- (void)createNewNote {
+    Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:@"美好的故事，从小章鱼开始..." title:@"一篇没有名字的笔记"] ;
+    self.aNote = newNote ;
+    self.textView.text = self.aNote.content ;
+    [Note createNewNote:self.aNote] ;
+}
+
+- (void)updateMyNote {
+    self.aNote.content = self.textView.text ;
+    [Note updateMyNote:self.aNote] ;
+}
+
+#pragma mark - UI
+
+- (void)prepareUI {
+    [self textView] ;
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"md_ed_more"] style:UIBarButtonItemStylePlain target:self action:@selector(more)] ;
+    self.navigationItem.rightBarButtonItem = item ;
+}
+
+- (void)more {
+    
+}
+
+#pragma mark - prop
 
 - (MarkdownEditor *)textView{
     if(!_textView){

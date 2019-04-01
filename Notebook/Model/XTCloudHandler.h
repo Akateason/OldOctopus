@@ -10,7 +10,6 @@
 #import <XTlib/XTlib.h>
 #import <CloudKit/CloudKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface XTIcloudUser : NSObject <NSCoding>
 
@@ -27,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+
+
 @interface XTCloudHandler : NSObject
 XT_SINGLETON_H(XTCloudHandler)
 @property (strong, nonatomic) CKContainer *container ;
@@ -37,8 +38,8 @@ XT_SINGLETON_H(XTCloudHandler)
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser ;
 
     
-
-- (void)fetchWithId:(NSString *)recordID ;
+// Fetch
+- (void)fetchWithId:(NSString *)recordID completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler ;
 
 /**
  fetch list
@@ -59,14 +60,18 @@ XT_SINGLETON_H(XTCloudHandler)
             completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler ;
 
 
+// Insert
+- (void)insert:(CKRecord *)record completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler ;
+// Update
+- (void)updateWithRecId:(NSString *)recId
+              updateDic:(NSDictionary *)dic
+      completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler ;
 
-//todo
-- (void)insert ;
-- (void)insert:(CKRecord *)record ;
-
-- (void)updateWithRecId:(NSString *)recId ;
 
 - (void)deleteWithId:(NSString *)recId ;
+
+
+
 
 /**
  add ref
@@ -86,4 +91,4 @@ XT_SINGLETON_H(XTCloudHandler)
 
 @end
 
-NS_ASSUME_NONNULL_END
+

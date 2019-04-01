@@ -16,7 +16,7 @@
 #import "MarkdownEditor+UtilOfToolbar.h"
 
 
-
+NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue   = 30.f  ;
 static const int kTag_QuoteMarkView = 66777 ;
 static const int kTag_ListMarkView  = 32342 ;
@@ -65,6 +65,8 @@ static const int kTag_ListMarkView  = 32342 ;
         
         [self updateTextStyle] ;
         [self doSomethingWhenUserSelectPartOfArticle] ;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
     }] ;
     
     // keyboard hiding
@@ -73,12 +75,12 @@ static const int kTag_ListMarkView  = 32342 ;
         [self.lbLeftCornerMarker removeFromSuperview] ;
         self->_lbLeftCornerMarker = nil ;
     }] ;
+    
     // keyboard showing
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
         NSDictionary *info = [x userInfo];
         CGSize kbSize          = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-        
         // get keyboard height
         self->keyboardHeight = kbSize.height;
     }];

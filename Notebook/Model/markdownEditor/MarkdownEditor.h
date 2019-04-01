@@ -9,13 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MarkdownPaser.h"
 
-
+extern NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE ;
 extern const CGFloat kMDEditor_FlexValue ;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MarkdownEditor : UITextView <UITextViewDelegate>
-{
+@interface MarkdownEditor : UITextView <UITextViewDelegate> {
     BOOL fstTimeLoaded ;
     CGFloat keyboardHeight ;
 }

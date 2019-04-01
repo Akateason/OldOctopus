@@ -118,7 +118,7 @@
     @weakify(self)
     [self.btAdd bk_whenTapped:^{
         @strongify(self)
-        [MarkdownVC newWithNote:nil fromCtrller:self] ;
+        [MarkdownVC newWithNote:nil bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
     }] ;
     
     [self.btLeftDrawer bk_addEventHandler:^(id sender) {
@@ -166,8 +166,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row ;
-    
-    
+    Note *aNote = self.listNotes[row] ;
+    [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
 }
 
 

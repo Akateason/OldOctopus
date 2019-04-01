@@ -98,57 +98,14 @@ XT_SINGLETON_M(XTCloudHandler)
     }] ;
 }
 
-
-
-
-
-
-
-- (void)insert {
-    //创建主键ID  这个ID到时查找有用到
-    CKRecordID *noteId = [[CKRecordID alloc] initWithRecordName:@"abcxtc"];
-    
-    //创建CKRecord 保存数据
-    CKRecord *noteRecord = [[CKRecord alloc] initWithRecordType:@"Test" recordID:noteId];
-    //设置数据
-    [noteRecord setObject:@"123" forKey:@"c1"];
-    [noteRecord setObject:@"234" forKey:@"c2"];
-    
-    //保存操作
-    [self.container.privateCloudDatabase saveRecord:noteRecord completionHandler:^(CKRecord *_Nullablerecord,NSError *_Nullable error) {
-        if(!error) {
-            NSLog(@"保存成功");
-        }
-        else {
-            NSLog(@"保存失败: %@",error);
-        }
-    }];
+- (void)insert:(CKRecord *)record completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
+    [self.container.privateCloudDatabase saveRecord:record completionHandler:completionHandler] ;
 }
 
-- (void)insert:(CKRecord *)record {
-    [self.container.privateCloudDatabase saveRecord:record completionHandler:^(CKRecord *_Nullablerecord,NSError *_Nullable error) {
-        if(!error) {
-            NSLog(@"保存成功");
-        }
-        else {
-            NSLog(@"保存失败: %@",error);
-        }
-    }];
-}
-
-- (void)fetchWithId:(NSString *)recordID {
-    CKRecordID *noteId = [[CKRecordID alloc] initWithRecordName:recordID]; // recordID
-    CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
-    
-    //通过主键ID查找记录
-    [database fetchRecordWithID:noteId completionHandler:^(CKRecord *_Nullable record,NSError *_Nullable error) {
-        if(!error) {
-            NSLog(@"查询成功: %@",record);
-        }
-        else {
-            NSLog(@"查询失败: %@",error);
-        }
-    }];
+- (void)fetchWithId:(NSString *)recordID completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
+    CKRecordID *noteId = [[CKRecordID alloc] initWithRecordName:recordID zoneID:self.zoneID] ;
+    CKDatabase *database = self.container.privateCloudDatabase ;
+    [database fetchRecordWithID:noteId completionHandler:completionHandler];
 }
 
 - (void)fetchListWithTypeName:(NSString *)typeName
@@ -186,30 +143,21 @@ XT_SINGLETON_M(XTCloudHandler)
 
 
 
-- (void)updateWithRecId:(NSString *)recId {
-    CKRecordID *noteId = [[CKRecordID alloc] initWithRecordName:recId];
-    CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
-
-    //先找到记录，再修改记录
-    [database fetchRecordWithID:noteId completionHandler:^(CKRecord *_Nullable record,NSError *_Nullable error) {
+- (void)updateWithRecId:(NSString *)recId
+              updateDic:(NSDictionary *)dic
+      completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
+    
+    [self fetchWithId:recId completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
         if(!error) {
-            [record setObject:@"改了 1" forKey:@"c1"];
-            [record setObject:@"改了 2" forKey:@"c2"];
-            
-            //修改后保存记录
-            [database saveRecord:record completionHandler:^(CKRecord *_Nullable  record,NSError *_Nullable error) {
-                if(!error) {
-                    NSLog(@"修改成功 %@",record);
-                }
-                else {
-                    NSLog(@"修改失败: %@",error);
-                }
-            }];
+            for (NSString *key in dic) {
+                [record setObject:dic[key] forKey:key] ;
+            }
+            [self.container.privateCloudDatabase saveRecord:record completionHandler:completionHandler];
         }
         else {
-            NSLog(@"找不到该记录，查询失败: %@",error);
+            completionHandler(record, error) ; // query failed
         }
-    }];
+    }] ;
 }
 
 - (void)deleteWithId:(NSString *)recId {

@@ -33,6 +33,10 @@
 + (void)noteListWithNoteBook:(NoteBooks *)book
                   completion:(void(^)(NSArray *list))completion ;
 
++ (void)createNewNote:(Note *)aNote ;
+
++ (void)updateMyNote:(Note *)aNote ;
+
 
 @end
 

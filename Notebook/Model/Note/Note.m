@@ -28,9 +28,17 @@
     
     self = [super init];
     if (self) {
+        _icRecordName = [XTCloudHandler sharedInstance].createUniqueIdentifier ;
         _noteBookId = bookID ;
         _content = content ;
         _title = title ;
+        
+        CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
+        _record = [[CKRecord alloc] initWithRecordType:@"Note" recordID:recordID] ;
+        [_record setObject:_noteBookId forKey:@"noteBookId"] ;
+        [_record setObject:_content forKey:@"content"] ;
+        [_record setObject:_title forKey:@"title"] ;
+        [_record setObject:@0 forKey:@"isDeleted"] ;
     }
     return self;
 }
@@ -42,7 +50,6 @@
 
     NSMutableArray *tmplist = [@[] mutableCopy] ;
     
-
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"noteBookId == %@",book.icRecordName];
     NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"modificationDate" ascending:NO] ;
     NSArray *sortDescriptors = @[firstDescriptor];
@@ -57,10 +64,45 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             completion(tmplist) ;
         }) ;
-        
     }] ;
-    
 }
 
++ (void)createNewNote:(Note *)aNote {
+    
+    [[XTCloudHandler sharedInstance] insert:aNote.record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+        
+        if (!error) {
+            // succcess
+        }
+        else {
+            // false
+        }
+        
+    }] ;
+}
+
++ (void)updateMyNote:(Note *)aNote {
+//    @property (copy, nonatomic) NSString *content ;
+//    @property (nonatomic)       int      isDeleted ;
+//    @property (copy, nonatomic) NSString *noteBookId ;
+//    @property (copy, nonatomic) NSString *title ;
+    
+    NSDictionary *dic = @{@"content" : aNote.content,
+                          @"isDeleted" : @(aNote.isDeleted),
+                          @"noteBookId" : aNote.noteBookId,
+                          @"title" : aNote.title
+                          } ;
+    
+    [[XTCloudHandler sharedInstance] updateWithRecId:aNote.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+        
+        if (!error) {
+            // succcess
+        }
+        else {
+            // false
+        }
+        
+    }] ;
+}
 
 @end
