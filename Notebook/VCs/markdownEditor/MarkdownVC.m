@@ -73,7 +73,7 @@
 
 - (void)updateMyNote {
     self.aNote.content = self.textView.text ;
-    [Note updateMyNote:self.aNote] ;
+    [Note updateMyNote:self.aNote] ;        
 }
 
 #pragma mark - UI

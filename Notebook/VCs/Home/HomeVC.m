@@ -211,10 +211,10 @@
                 make.size.mas_equalTo(CGSizeMake(28, 28)) ;
                 make.center.equalTo(view) ;
             }] ;
-            view;
-       });
+            view ;
+       }) ;
     }
-    return _btAdd;
+    return _btAdd ;
 }
 
 - (LeftDrawerVC *)leftVC{

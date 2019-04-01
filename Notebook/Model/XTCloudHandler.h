@@ -39,7 +39,7 @@ XT_SINGLETON_H(XTCloudHandler)
 
     
 // Fetch
-- (void)fetchWithId:(NSString *)recordID completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler ;
+- (void)fetchWithId:(NSString *)recordID completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHandler ;
 
 /**
  fetch list
@@ -61,17 +61,17 @@ XT_SINGLETON_H(XTCloudHandler)
 
 
 // Insert
-- (void)insert:(CKRecord *)record completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler ;
+- (void)insert:(CKRecord *)record completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHandler ;
 // Update
 - (void)updateWithRecId:(NSString *)recId
               updateDic:(NSDictionary *)dic
-      completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler ;
+      completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHandler ;
 
 
 - (void)deleteWithId:(NSString *)recId ;
 
 
-
+- (void)saveSubscription ;
 
 /**
  add ref

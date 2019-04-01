@@ -175,7 +175,29 @@ XT_SINGLETON_M(XTCloudHandler)
     }];
 }
 
-
+- (void)saveSubscription {
+    // Subscript Note
+    CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
+    NSPredicate *predicate = [NSPredicate predicateWithValue:YES] ;
+    CKSubscription *subscription = [[CKSubscription alloc] initWithRecordType:@"Note" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate] ;
+    
+    CKNotificationInfo *info = [CKNotificationInfo new] ;
+    info.alertLocalizationKey = @"Note_Changed" ;
+    info.shouldBadge = YES ;
+    subscription.notificationInfo = info;
+    
+    [database saveSubscription:subscription
+             completionHandler:^(CKSubscription *subscription, NSError *error) {
+             }] ;
+    
+    // Subscript NoteBook
+    subscription = [[CKSubscription alloc] initWithRecordType:@"NoteBook" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate] ;
+    info.alertLocalizationKey = @"NoteBook_Changed" ;
+    subscription.notificationInfo = info;
+    [database saveSubscription:subscription
+             completionHandler:^(CKSubscription *subscription, NSError *error) {
+             }] ;
+}
 
 
 

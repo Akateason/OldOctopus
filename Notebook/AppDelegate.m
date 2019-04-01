@@ -10,7 +10,6 @@
 #import <XTlib/XTlib.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "XTCloudHandler.h"
-
 #import "MDImageManager.h"
 
 
@@ -24,53 +23,25 @@
 
 
 - (void)test {
-    XTCloudHandler *handle = [[XTCloudHandler alloc] init];
-//        [handle iCloudStatus] ;
-
-    [handle fetchUser:^(XTIcloudUser * _Nonnull user) {
-        NSLog(@"user : %@", [user yy_modelToJSONString]) ;
-        
-    }] ;
     
-//    [[MDImageManager sharedInstance] uploadImage:[UIImage imageNamed:@"test"] progress:^(float flt) {
-//
-//    } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
-//
-//    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-//
-//    }] ;
-
-    //    [handle insert] ;
-
-    //    CKRecordID *recId = [[CKRecordID alloc] initWithRecordName:@"11111"];
-    //    CKRecord *rec = [[CKRecord alloc] initWithRecordType:@"TestTargetRefObj" recordID:recId];
-    //    [rec setObject:@"嘻嘻" forKey:@"name"];
-    //    [handle insert:rec] ;
-    //
-    //    recId = [[CKRecordID alloc] initWithRecordName:@"11112"];
-    //    rec = [[CKRecord alloc] initWithRecordType:@"TestTargetRefObj" recordID:recId];
-    //    [rec setObject:@"哈哈" forKey:@"name"];
-    //    [handle insert:rec] ;
-
-    //    [handle setReferenceWithReferenceKey:@"book" andSourceRecordID:@"abcxtc" andTargetRecordID:@"11111"] ;
-
-    //    [handle searchReferWithRefID:rec.recordID sourceType:@"Test"] ;
-
-
-    //    [handle fetchWithId:@"abcxtc"] ;
-
-    //    [handle fetchListWithTypeName:@"Test"] ;
-
-    //    [handle updateWithRecId:@"abcxtc"] ;
-
-    //    [handle deleteWithId:@"abcxtc"] ;
 }
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil];
+    [application registerUserNotificationSettings:notificationSettings];
+    [application registerForRemoteNotifications] ;
+    
     [self setupDB] ;
     [self setupNaviStyle] ;
     [self setupIqKeyboard] ;
+    
+    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser * _Nonnull user) {
+        NSLog(@"user : %@", [user yy_modelToJSONString]) ;
+    }] ;
+    
+    [[XTCloudHandler sharedInstance] saveSubscription] ;
     
     [self test] ;
 
@@ -81,19 +52,37 @@
     [XTlibConfig sharedInstance].isDebug    = YES;
     [XTFMDBBase sharedInstance].isDebugMode = YES;
     [[XTFMDBBase sharedInstance] configureDBWithPath:XT_DOCUMENTS_PATH_TRAIL_(@"noteDB")];
-
 }
 
 - (void)setupNaviStyle {
     [[UIApplication sharedApplication] keyWindow].tintColor = [UIColor whiteColor] ;
-
-    
 }
 
 - (void)setupIqKeyboard {
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
     manager.enable             = YES; // 控制整个功能是否启用。
     manager.enableAutoToolbar  = NO;  // 控制是否显示键盘上的工具条
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    
+    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
+    NSString *alertBody = cloudKitNotification.alertBody;
+    NSString *alertLocalizationKey = cloudKitNotification.alertLocalizationKey ;
+    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID] ;
+        // todo Update ID
+        if ([alertLocalizationKey isEqualToString:@"Note_Changed"]) {
+            
+        }
+        else if ([alertLocalizationKey isEqualToString:@"NoteBook_Changed"]) {
+            
+        }
+    }
+//    Update views or notify the user according to the record changes.
+    
+    
+    
 }
 
 
