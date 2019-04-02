@@ -40,6 +40,7 @@
     [super viewDidLoad];
     
     if (self.aNote) {
+        [self.textView setArticleTitle:self.aNote.title] ;
         self.textView.text =self.aNote.content ;
     }
     else {

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import <XTlib/XTlib.h>
-#import <IQKeyboardManager/IQKeyboardManager.h>
+//#import <IQKeyboardManager/IQKeyboardManager.h>
 #import "XTCloudHandler.h"
 #import "MDImageManager.h"
 #import "Note.h"
@@ -38,7 +38,7 @@
     
     [self setupDB] ;
     [self setupNaviStyle] ;
-    [self setupIqKeyboard] ;
+//    [self setupIqKeyboard] ;
     [self setupIcloudEvent] ;
     
     
@@ -51,18 +51,18 @@
 - (void)setupDB {
     [XTlibConfig sharedInstance].isDebug    = YES;
     [XTFMDBBase sharedInstance].isDebugMode = YES;
-    [[XTFMDBBase sharedInstance] configureDBWithPath:XT_DOCUMENTS_PATH_TRAIL_(@"noteDB")];
+    [[XTFMDBBase sharedInstance] configureDBWithPath:XT_LIBRARY_PATH_TRAIL_(@"noteDB")];
 }
 
 - (void)setupNaviStyle {
     [[UIApplication sharedApplication] keyWindow].tintColor = [UIColor whiteColor] ;
 }
 
-- (void)setupIqKeyboard {
-    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
-    manager.enable             = YES; // 控制整个功能是否启用。
-    manager.enableAutoToolbar  = NO;  // 控制是否显示键盘上的工具条
-}
+//- (void)setupIqKeyboard {
+//    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+//    manager.enable             = YES; // 控制整个功能是否启用。
+//    manager.enableAutoToolbar  = NO;  // 控制是否显示键盘上的工具条
+//}
 
 NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 - (void)setupIcloudEvent {

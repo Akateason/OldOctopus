@@ -221,14 +221,12 @@
 - (void)firstLoadAllPhotos {
     if (self.allPhotos.count) return;
 
-    PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
-    // 只取图片
-    allPhotosOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", PHAssetMediaTypeImage];
-    // 按时间排序
-    allPhotosOptions.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ];
-    // 获取图片
-    PHFetchResult *allPhotos = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
-    self.allPhotos           = allPhotos;
+    PHFetchOptions *allPhotosOptions         = [[PHFetchOptions alloc] init];
+    allPhotosOptions.predicate               = [NSPredicate predicateWithFormat:@"mediaType == %d", PHAssetMediaTypeImage];
+    allPhotosOptions.sortDescriptors         = @[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ];
+    allPhotosOptions.includeAssetSourceTypes = PHAssetSourceTypeUserLibrary;
+    PHFetchResult *allPhotos                 = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
+    self.allPhotos                           = allPhotos;
 }
 
 - (void)didReceiveMemoryWarning {

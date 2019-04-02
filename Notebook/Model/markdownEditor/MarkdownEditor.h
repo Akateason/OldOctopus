@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) MarkdownPaser *markdownPaser ; // paser with configuration .
 
 - (void)doSomethingWhenUserSelectPartOfArticle ;
+- (void)setArticleTitle:(NSString *)title ;
 
 @end
 

@@ -45,17 +45,21 @@
     
     self.fd_prefersNavigationBarHidden = YES ;
     
-    
     @weakify(self)
     [self.leftVC currentBookChanged:^(NoteBooks * _Nonnull book) {
         @strongify(self)
         [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+    [[[[[[NSNotificationCenter defaultCenter]
+    rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
+        takeUntil:self.rac_willDeallocSignal]
+       deliverOnMainThread]
+      throttle:3] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
         [self.table xt_loadNewInfo] ;
+//        [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
 }
 
