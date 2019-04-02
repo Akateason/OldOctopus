@@ -59,7 +59,7 @@
     
     if (!book || book.vType != Notebook_Type_notebook) return ;
 
-    NSArray *tmplist = [Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@' and isDeleted == 0",book.icRecordName)] ;
+    NSArray *tmplist = [[Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@' and isDeleted == 0",book.icRecordName)] xt_orderby:@"xt_updateTime" descOrAsc:1] ;
     dispatch_async(dispatch_get_main_queue(), ^{
         completion(tmplist) ;
     }) ;
@@ -114,6 +114,7 @@
         NSMutableArray *tmplist = [@[] mutableCopy] ;
         [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             Note *aNote = [Note recordToNote:obj] ;
+            aNote.xt_createTime = [obj.creationDate xt_getTick] ;
             aNote.xt_updateTime = [obj.modificationDate xt_getTick] ;
             [tmplist addObject:aNote] ;
         }] ;

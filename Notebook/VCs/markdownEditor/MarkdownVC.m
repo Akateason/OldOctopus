@@ -30,6 +30,7 @@
     
     MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarddownVC"] ;
     vc.aNote = note ;
+    vc.delegate = ctrller ;
     vc.myBookID = bookID ;
     [ctrller.navigationController pushViewController:vc animated:YES] ;
     return vc ;
@@ -69,11 +70,13 @@
     self.aNote = newNote ;
     self.textView.text = self.aNote.content ;
     [Note createNewNote:self.aNote] ;
+    [self.delegate addNoteComplete:self.aNote] ;
 }
 
 - (void)updateMyNote {
     self.aNote.content = self.textView.text ;
-    [Note updateMyNote:self.aNote] ;        
+    [Note updateMyNote:self.aNote] ;
+    [self.delegate editNoteComplete:self.aNote] ;
 }
 
 #pragma mark - UI

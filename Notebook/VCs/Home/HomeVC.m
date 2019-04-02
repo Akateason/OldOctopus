@@ -18,7 +18,7 @@
 #import "HomeEmptyPHView.h"
 #import "AppDelegate.h"
 
-@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
+@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
@@ -191,6 +191,27 @@
     return YES ;
 }
 
+#pragma mark - MarkdownVCDelegate <NSObject>
+
+- (void)addNoteComplete:(Note *)aNote {
+    NSMutableArray *tmplist = [self.listNotes mutableCopy] ;
+    [tmplist insertObject:aNote atIndex:0] ;
+    self.listNotes = tmplist ;
+    [self.table reloadData] ;
+}
+
+- (void)editNoteComplete:(Note *)aNote {
+    NSMutableArray *tmplist = [self.listNotes mutableCopy] ;
+    [self.listNotes enumerateObjectsUsingBlock:^(Note  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.icRecordName isEqualToString:aNote.icRecordName]) {
+            [tmplist replaceObjectAtIndex:idx withObject:aNote] ;
+            *stop = YES;
+            return;
+        }
+    }] ;
+    self.listNotes = tmplist ;
+    [self.table reloadData] ;
+}
 
 
 #pragma mark - prop

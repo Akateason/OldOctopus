@@ -9,9 +9,13 @@
 #import "BasicVC.h"
 @class Note ;
 
-
+@protocol MarkdownVCDelegate <NSObject>
+- (void)addNoteComplete:(Note *)aNote ;
+- (void)editNoteComplete:(Note *)aNote ;
+@end
 
 @interface MarkdownVC : BasicVC
+@property (weak, nonatomic) id <MarkdownVCDelegate> delegate ;
 
 + (instancetype)newWithNote:(Note *)note
                      bookID:(NSString *)bookID
