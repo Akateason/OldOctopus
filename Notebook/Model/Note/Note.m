@@ -10,6 +10,17 @@
 #import "NoteBooks.h"
 
 @implementation Note
+@synthesize content = _content ;
+
+- (void)setContent:(NSString *)content {
+    _content = content ;
+    
+    self.baseContent = [content base64EncodedString] ;
+}
+
+- (NSString *)content {
+    return [self.baseContent base64DecodedString] ?: @"" ;
+}
 
 + (instancetype)recordToNote:(CKRecord *)record {
     Note *note = [Note new] ;
@@ -48,44 +59,33 @@
     
     if (!book || book.vType != Notebook_Type_notebook) return ;
 
-    NSMutableArray *tmplist = [@[] mutableCopy] ;
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"noteBookId == %@ && isDeleted == 0",book.icRecordName];
-    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"modificationDate" ascending:NO] ;
-    NSArray *sortDescriptors = @[firstDescriptor];
-    
-    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"Note" predicate:predicate sort:sortDescriptors completionHandler:^(NSArray<CKRecord *> * _Nonnull results, NSError * _Nonnull error) {
-        
-        [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            Note *note = [Note recordToNote:obj] ;
-            [tmplist addObject:note] ;
-        }] ;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(tmplist) ;
-        }) ;
-    }] ;
+    NSArray *tmplist = [Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@' and isDeleted == 0",book.icRecordName)] ;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        completion(tmplist) ;
+    }) ;
 }
 
 + (void)createNewNote:(Note *)aNote {
+    aNote.isSendOnICloud = NO ;
+    [aNote xt_insert] ;
     
     [[XTCloudHandler sharedInstance] insert:aNote.record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
         
         if (!error) {
             // succcess
+            aNote.isSendOnICloud = YES ;
+            aNote.xt_updateTime = [record.modificationDate xt_getTick] ;
+            [aNote xt_update] ;
         }
         else {
             // false
+            
         }
-        
     }] ;
 }
 
 + (void)updateMyNote:(Note *)aNote {
-//    @property (copy, nonatomic) NSString *content ;
-//    @property (nonatomic)       int      isDeleted ;
-//    @property (copy, nonatomic) NSString *noteBookId ;
-//    @property (copy, nonatomic) NSString *title ;
+    [aNote xt_upsertWhereByProp:@"icRecordName"] ;
     
     NSDictionary *dic = @{@"content" : aNote.content,
                           @"isDeleted" : @(aNote.isDeleted),
@@ -97,11 +97,46 @@
         
         if (!error) {
             // succcess
+            aNote.isSendOnICloud = YES ;
+            aNote.xt_updateTime = [record.modificationDate xt_getTick] ;
+            [aNote xt_update] ;
         }
         else {
             // false
         }
+    
     }] ;
 }
+
++ (void)getFromServerComplete:(void(^)(void))completion {
+    
+    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"Note" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
+        NSMutableArray *tmplist = [@[] mutableCopy] ;
+        [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            Note *aNote = [Note recordToNote:obj] ;
+            aNote.xt_updateTime = [obj.modificationDate xt_getTick] ;
+            [tmplist addObject:aNote] ;
+        }] ;
+        
+        [Note xt_insertOrReplaceWithList:tmplist] ;
+        completion() ;
+    }] ;
+}
+
+#pragma mark - db
+
+// set sqlite Constraints of property
+// props Sqlite Keywords
++ (NSDictionary *)modelPropertiesSqliteKeywords {
+    return @{@"icRecordName":@"UNIQUE"} ;
+}
+
+// ignore Properties . these properties will not join db CURD .
++ (NSArray *)ignoreProperties {
+    return @[@"record",@"content"] ;
+}
+// Container property , value should be Class or Class name. Same as YYmodel .
+//+ (NSDictionary *)modelContainerPropertyGenericClass;
+
 
 @end

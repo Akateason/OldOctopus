@@ -30,7 +30,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
     _booklist = @[] ;
     
     @weakify(self)
-    [RACObserve(self.currentBook, icRecordName) subscribeNext:^(id  _Nullable x) {
+    [[RACObserve(self, currentBook) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
         @strongify(self)
         self.blkBookChange(self.currentBook) ;
     }] ;
@@ -69,6 +69,8 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
     
     [NoteBooks fetchAllNoteBook:^(NSArray<NoteBooks *> * _Nonnull array) {
         
+        if (!array.count) return ;
+                    
         self.booklist = [NoteBooks appendWithArray:array] ;
         [self.table reloadData] ;
         
@@ -85,7 +87,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
     _currentBook = currentBook ;
     
     [self.booklist enumerateObjectsUsingBlock:^(NoteBooks  *book, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([book.name isEqualToString:currentBook.name]) {
+        if ([book.icRecordName isEqualToString:currentBook.icRecordName]) {
             [self.table selectRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0] animated:YES scrollPosition:(UITableViewScrollPositionNone)] ;
         }
     }] ;

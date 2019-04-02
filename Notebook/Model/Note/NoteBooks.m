@@ -26,7 +26,7 @@
     self = [super init];
     if (self) {
         _icRecordName = [XTCloudHandler sharedInstance].createUniqueIdentifier ;
-        _emoji = emoji ;
+        _emoji = [@{@"native":emoji} yy_modelToJSONString] ;
         _isDeleted = 0 ;
         _name = name ;
         
@@ -41,24 +41,11 @@
 
 + (void)fetchAllNoteBook:(void(^)(NSArray<NoteBooks *> *array))completion {
     
-    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    NSArray *tmplist = [[NoteBooks xt_findWhere:@"isDeleted == 0"] xt_orderby:@"xt_updateTime" descOrAsc:1] ;
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isDeleted == 0"] ;
-    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"modificationDate" ascending:NO] ;
-    NSArray *sortDescriptors = @[firstDescriptor] ;
-    
-    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" predicate:predicate sort:sortDescriptors completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
-        
-        [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NoteBooks *book = [NoteBooks recordToNoteBooks:obj] ;
-            [tmplist addObject:book] ;
-        }] ;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(tmplist) ;
-        }) ;
-        
-    }] ;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        completion(tmplist) ;
+    }) ;
 }
 
 + (NoteBooks *)createOtherBookWithType:(Notebook_Type)type {
@@ -86,35 +73,79 @@
 }
 
 + (void)createNewBook:(NoteBooks *)book {
+    book.isSendOnICloud = NO ;
+    [book xt_insert] ;
     
     [[XTCloudHandler sharedInstance] insert:book.record completionHandler:^(CKRecord *record, NSError *error) {
         
         if (!error) {
             // succcess
+            book.isSendOnICloud = YES ;
+            [book xt_update] ;
+            
         }
         else {
             // false
+            
         }
 
     }] ;
 }
 
 + (void)updateMyBook:(NoteBooks *)book {
+    book.isSendOnICloud = NO ;
+    [book xt_upsertWhereByProp:@"icRecordName"] ;
     
     NSDictionary *dic = @{@"emoji" : book.emoji,
                           @"isDeleted" : @(book.isDeleted),
                           @"name" : book.name
                           } ;
-    
     [[XTCloudHandler sharedInstance] updateWithRecId:book.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
         
         if (!error) {
             // succcess
+            book.isSendOnICloud = YES ;
+            [book xt_update] ;
         }
         else {
             // false
         }
+
     }] ;        
 }
+
++ (void)getFromServerComplete:(void(^)(void))completion {
+    
+    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
+        
+        NSMutableArray *tmplist = [@[] mutableCopy] ;
+        [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NoteBooks *aBook = [NoteBooks recordToNoteBooks:obj] ;
+            aBook.xt_updateTime = [obj.modificationDate xt_getTick] ;
+            [tmplist addObject:aBook] ;
+        }] ;
+        
+        [NoteBooks xt_insertOrReplaceWithList:tmplist] ;
+        completion() ;
+    }] ;
+}
+
+#pragma mark - db
+
+// set sqlite Constraints of property
+// props Sqlite Keywords
++ (NSDictionary *)modelPropertiesSqliteKeywords {
+    return @{@"icRecordName":@"UNIQUE"} ;
+}
+
+// ignore Properties . these properties will not join db CURD .
++ (NSArray *)ignoreProperties {
+    return @[@"record",@"vType"] ;
+}
+
+@end
+
+
+@implementation NBEmoji
 
 @end

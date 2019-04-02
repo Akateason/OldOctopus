@@ -28,7 +28,13 @@ XT_initWithCoderRuntimeCls(XTIcloudUser)
 
 
 
+
+
 static NSString *const kIdContainer = @"iCloud.container.id.octupus" ;
+
+@interface XTCloudHandler ()
+@property (nonatomic) BOOL isSyncingOnICloud ;
+@end
 
 @implementation XTCloudHandler
 XT_SINGLETON_M(XTCloudHandler)
@@ -41,13 +47,6 @@ XT_SINGLETON_M(XTCloudHandler)
     return getString ;
 }
 
-- (CKRecordZoneID *)zoneID {
-    if (!_zoneID) {
-        CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"OCTOPUS"] ;
-        _zoneID = zone.zoneID ;
-    }
-    return _zoneID ;
-}
 
 - (void)iCloudStatus:(void(^)(bool bOpen))blkICloudOpen {
     [[CKContainer defaultContainer] accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus,NSError *_Nullableerror) {
@@ -63,12 +62,14 @@ XT_SINGLETON_M(XTCloudHandler)
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser {
     XTIcloudUser *user = [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
     if (user != nil) {
-        blkUser(user) ;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            blkUser(user) ;
+        }) ;
         return ;
     }
     
     [self.container requestApplicationPermission:(CKApplicationPermissionUserDiscoverability) completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
-        //1. 提醒用户开 icloud drive
+        // todo 这里要 提醒用户开 icloud drive
         
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
             if (!recordID) {
@@ -93,7 +94,9 @@ XT_SINGLETON_M(XTCloudHandler)
                 user.familyName = userInfo.nameComponents.familyName ;
                 user.givenName = userInfo.nameComponents.givenName ;
                 user.name = [user.familyName stringByAppendingString:user.givenName] ;
-                blkUser(user) ;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    blkUser(user) ;
+                }) ;
                 [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
             }] ;
         }] ;
@@ -167,7 +170,6 @@ XT_SINGLETON_M(XTCloudHandler)
     CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
 
     [database deleteRecordWithID:noteId completionHandler:^(CKRecordID *_Nullable recordID,NSError *_Nullable error) {
-        
         if(!error) {
             NSLog(@"删除成功");
         }
@@ -181,7 +183,7 @@ XT_SINGLETON_M(XTCloudHandler)
     // Subscript Note
     CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
     NSPredicate *predicate = [NSPredicate predicateWithValue:YES] ;
-    CKSubscription *subscription = [[CKSubscription alloc] initWithRecordType:@"Note" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate] ;
+    CKSubscription *subscription = [[CKSubscription alloc] initWithRecordType:@"Note" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordDeletion | CKSubscriptionOptionsFiresOnRecordUpdate] ;
     
     CKNotificationInfo *info = [CKNotificationInfo new] ;
     info.alertLocalizationKey = @"Note_Changed" ;
@@ -193,7 +195,7 @@ XT_SINGLETON_M(XTCloudHandler)
              }] ;
     
     // Subscript NoteBook
-    subscription = [[CKSubscription alloc] initWithRecordType:@"NoteBook" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordUpdate] ;
+    subscription = [[CKSubscription alloc] initWithRecordType:@"NoteBook" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordDeletion | CKSubscriptionOptionsFiresOnRecordUpdate] ;
     info.alertLocalizationKey = @"NoteBook_Changed" ;
     subscription.notificationInfo = info;
     [database saveSubscription:subscription
@@ -201,6 +203,52 @@ XT_SINGLETON_M(XTCloudHandler)
              }] ;
 }
 
+static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServerChangeToken" ;
+
+- (void)syncOperationEveryRecord:(void (^)(CKRecord *record))recordChangedBlock
+                          delete:(void (^)(CKRecordID *recordID, CKRecordType recordType))recordWithIDWasDeletedBlock
+                     allComplete:(void (^)(NSError *operationError))fetchRecordZoneChangesCompletionBlock
+{
+    self.isSyncingOnICloud = YES ;
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init] ;
+    CKFetchRecordZoneChangesOperation *operation ;
+//    CKServerChangeToken *previousToken = nil ;
+    CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+    
+    if (@available(iOS 12.0, *)) {
+        CKFetchRecordZoneChangesConfiguration *config = [[CKFetchRecordZoneChangesConfiguration alloc] init] ;
+        if (previousToken != nil) config.previousServerChangeToken = previousToken ;
+        
+        operation = [[CKFetchRecordZoneChangesOperation alloc] initWithRecordZoneIDs:@[self.zoneID] configurationsByRecordZoneID:@{self.zoneID:config}] ;
+    }
+    else {
+        // Fallback on earlier versions
+        CKFetchRecordZoneChangesOptions *config = [[CKFetchRecordZoneChangesOptions alloc] init] ;
+        if (previousToken != nil) config.previousServerChangeToken = previousToken ;
+        
+        operation = [[CKFetchRecordZoneChangesOperation alloc] initWithRecordZoneIDs:@[self.zoneID] optionsByRecordZoneID:@{self.zoneID:config}] ;
+    }
+    
+    operation.database = self.container.privateCloudDatabase ;
+    [queue addOperation:operation] ;
+    
+    operation.recordChangedBlock = recordChangedBlock ;
+    
+    operation.recordZoneFetchCompletionBlock = ^(CKRecordZoneID * _Nonnull recordZoneID, CKServerChangeToken * _Nullable serverChangeToken, NSData * _Nullable clientChangeTokenData, BOOL moreComing, NSError * _Nullable recordZoneError) {
+        if (!recordZoneError) {
+            [XTArchive archiveSomething:serverChangeToken path:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+        }
+    } ;
+    
+    operation.recordWithIDWasDeletedBlock = recordWithIDWasDeletedBlock ;
+    
+    operation.fetchRecordZoneChangesCompletionBlock = ^(NSError * _Nullable operationError) {
+        self.isSyncingOnICloud = NO ;
+        if (operationError) NSLog(@"operationError : %@",operationError) ;
+        fetchRecordZoneChangesCompletionBlock(operationError) ;
+    } ;
+}
 
 
 /**
@@ -238,8 +286,8 @@ XT_SINGLETON_M(XTCloudHandler)
     }];
 }
 
-- (void)searchRefWithRefRecId:(CKRecordID *)refrecID
-{
+- (void)searchRefWithRefRecId:(CKRecordID *)refrecID {
+    
     [self.container.privateCloudDatabase fetchRecordWithID:refrecID completionHandler:^(CKRecord *rec, NSError *error) {
         if (!error) {
             NSLog(@"成功 %@", rec);
@@ -250,7 +298,6 @@ XT_SINGLETON_M(XTCloudHandler)
         }
     }];
 }
-
 
 - (void)searchReferWithRefID:(CKRecordID *)refrecID
                   sourceType:(NSString *)sourceType {
@@ -269,7 +316,6 @@ XT_SINGLETON_M(XTCloudHandler)
     }];
 }
 
-
 #pragma mark - prop
 
 - (CKContainer *)container {
@@ -277,6 +323,14 @@ XT_SINGLETON_M(XTCloudHandler)
         _container = [CKContainer containerWithIdentifier:kIdContainer] ;
     }
     return _container ;
+}
+
+- (CKRecordZoneID *)zoneID {
+    if (!_zoneID) {
+        CKRecordZone *zone = [[CKRecordZone alloc] initWithZoneName:@"OCTOPUS"] ;
+        _zoneID = zone.zoneID ;
+    }
+    return _zoneID ;
 }
 
 @end

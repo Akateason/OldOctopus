@@ -220,6 +220,7 @@
 }
 
 - (MarkdownModel *)modelForRangePosition:(NSUInteger)position {
+    if (position < 1) return nil ;
     
     NSString *strSelect = [self.editAttrStr.string substringWithRange:NSMakeRange(position - 1, 1)] ;
     if ([strSelect isEqualToString:@"\uFFFC"]) {

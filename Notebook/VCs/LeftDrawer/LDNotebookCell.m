@@ -35,7 +35,9 @@
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
     
     _lbName.text = book.name ;
-    _lbEmoji.text = book.emoji ;
+    
+    NBEmoji *emjObj = [NBEmoji yy_modelWithJSON:book.emoji] ;
+    _lbEmoji.text = emjObj.native ;
     
     if (book.vType == Notebook_Type_notebook) {
         self.imgView.hidden = YES ;

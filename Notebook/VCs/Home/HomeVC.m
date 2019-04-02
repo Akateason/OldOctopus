@@ -16,7 +16,7 @@
 #import "MarkdownVC.h"
 #import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
 #import "HomeEmptyPHView.h"
-
+#import "AppDelegate.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -49,26 +49,30 @@
     @weakify(self)
     [self.leftVC currentBookChanged:^(NoteBooks * _Nonnull book) {
         @strongify(self)
-        if (book.vType == Notebook_Type_recent) {
-            // todo
-            return ;
-        }
-        else if (book.vType == Notebook_Type_trash) {
-            // todo
-            return ;
-        }
-        
-        // note book
-        @weakify(self)
-        [self renderTable:^{
-            @strongify(self)
-            [self.table reloadData] ;
-        }] ;
-        
+        [self.table xt_loadNewInfoInBackGround:YES] ;
+    }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self.leftVC render] ;
+        [self.table xt_loadNewInfo] ;
     }] ;
 }
 
 - (void)renderTable:(void(^)(void))completion {
+    if (self.leftVC.currentBook.vType == Notebook_Type_recent) {
+        self.nameOfNoteBook.text = @"最近使用" ;
+        self.listNotes = [Note xt_findWhere:@"isDeleted == 0 order by xt_updateTime DESC limit 20"] ;
+        completion() ;
+        return ;
+    }
+    else if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
+        self.nameOfNoteBook.text = @"垃圾桶" ;
+        self.listNotes = [Note xt_findWhere:@"isDeleted == 1"] ;
+        completion() ;
+        return ;
+    }
+    // note book normal
     self.nameOfNoteBook.text = self.leftVC.currentBook.name ;
     @weakify(self)
     [Note noteListWithNoteBook:self.leftVC.currentBook completion:^(NSArray * _Nonnull list) {
@@ -76,6 +80,10 @@
         self.listNotes = list ;
         completion() ;
     }] ;
+}
+
+- (void)renderRecently {
+    
 }
 
 - (void)openDrawer {
@@ -90,6 +98,7 @@
     self.table.dataSource = self ;
     self.table.delegate = self ;
     self.table.xt_Delegate = self ;
+    self.table.mj_footer = nil ;
     self.table.backgroundColor = nil ;
     
     self.table.contentInset = UIEdgeInsetsMake(12, 0, 0, 0) ;

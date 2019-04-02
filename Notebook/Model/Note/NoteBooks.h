@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <XTlib/XTlib.h>
 #import "XTCloudHandler.h"
+#import <XTFMDB/XTFMDB.h>
 
 typedef enum : NSUInteger {
     Notebook_Type_notebook ,
@@ -19,6 +20,7 @@ typedef enum : NSUInteger {
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NoteBooks : NSObject
+@property (nonatomic)       BOOL     isSendOnICloud ;
 @property (nonatomic)       Notebook_Type vType ;
 @property (nonatomic)       BOOL     canUpload ;
 @property (nonatomic)       BOOL     isOnSelect ;
@@ -44,7 +46,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)createNewBook:(NoteBooks *)book ;
     
 + (void)updateMyBook:(NoteBooks *)book ;
-    
+
++ (void)getFromServerComplete:(void(^)(void))completion ;
+
+@end
+
+
+@interface NBEmoji : NSObject
+@property (copy, nonatomic) NSString *native ;
 @end
 
 NS_ASSUME_NONNULL_END

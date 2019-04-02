@@ -7,17 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <XTFMDB/XTFMDB.h>
 
 @class NoteBooks,CKRecord ;
 
 
 
 @interface Note : NSObject
-@property (copy, nonatomic) NSString *icRecordName ;
+@property (nonatomic)       BOOL     isSendOnICloud ;
 @property (strong, nonatomic) CKRecord *record ;
+@property (copy, nonatomic) NSString *icRecordName ;
 
 // icloud
-@property (copy, nonatomic) NSString *content ;
+@property (copy, nonatomic) NSString *content ; // ignore local
+@property (copy, nonatomic) NSString *baseContent ; // only save in local
 @property (nonatomic)       int      isDeleted ;
 @property (copy, nonatomic) NSString *noteBookId ;
 @property (copy, nonatomic) NSString *title ;
@@ -38,6 +41,7 @@
 
 + (void)updateMyNote:(Note *)aNote ;
 
++ (void)getFromServerComplete:(void(^)(void))completion ;
 
 @end
 

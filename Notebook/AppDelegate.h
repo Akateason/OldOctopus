@@ -5,8 +5,9 @@
 //  Created by teason23 on 2019/2/19.
 //  Copyright © 2019 teason23. All rights reserved.
 //
-
 #import <UIKit/UIKit.h>
+
+static NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
