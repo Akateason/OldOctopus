@@ -265,21 +265,17 @@ static const int kTag_ListMarkView  = 32342 ;
     }
 }
 
-- (void)imageSelectedAtNewPosition:(NSInteger)position imageModel:(MdInlineModel *)model  {
-//    self.selectedRange = NSMakeRange(position + model.range.length , 0) ;
-//    [self updateTextStyle] ;
+- (void)imageSelectedAtNewPosition:(NSInteger)position imageModel:(MdInlineModel *)model {
     [self resignFirstResponder] ;
     
     XTSIAlertView *alert = [[XTSIAlertView alloc] initWithTitle:@"是否要删除此图片" andMessage:@""] ;
     WEAK_SELF
     [alert addButtonWithTitle:@"删除" type:XTSIAlertViewButtonTypeDestructive handler:^(XTSIAlertView *alertView) {
-        
         NSMutableString *tmpString = [weakSelf.text mutableCopy] ;
         [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, model.range.length + 3)] ;
         weakSelf.text = tmpString ;
         [weakSelf updateTextStyle] ;
         [weakSelf doSomethingWhenUserSelectPartOfArticle] ;
-//        @"\uFFFC"
     }] ;
     [alert addButtonWithTitle:@"取消" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
     }] ;
