@@ -187,9 +187,9 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
                                  [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:result croppedImageCallback:^(UIImage *_Nonnull image){
                                      @strongify(self)
                                      self.blkFlowPressed(image) ;
+                                     [self removeFromSuperview] ;
                                  }];
-                             }
-                             [self removeFromSuperview] ;
+                             }                             
                          }] ;
 }
 

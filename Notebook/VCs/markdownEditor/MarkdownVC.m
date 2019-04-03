@@ -8,6 +8,7 @@
 
 #import "MarkdownVC.h"
 #import "MarkdownEditor.h"
+#import "MarkdownEditor+UtilOfToolbar.h"
 #import <XTlib/XTPhotoAlbum.h>
 #import "Note.h"
 
@@ -23,6 +24,8 @@
 @implementation MarkdownVC
 
 #pragma mark - life
+
+- (void)dealloc {}
 
 + (instancetype)newWithNote:(Note *)note
                      bookID:(NSString *)bookID
@@ -62,6 +65,7 @@
     
     // Update Your Note
     [self updateMyNote] ;
+//    self.textView.photoView = nil ;
 }
 
 #pragma mark - Func

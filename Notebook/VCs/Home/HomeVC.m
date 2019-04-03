@@ -208,7 +208,8 @@
     NSMutableArray *tmplist = [self.listNotes mutableCopy] ;
     [self.listNotes enumerateObjectsUsingBlock:^(Note  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.icRecordName isEqualToString:aNote.icRecordName]) {
-            [tmplist replaceObjectAtIndex:idx withObject:aNote] ;
+            [tmplist removeObjectAtIndex:idx] ;
+            [tmplist insertObject:aNote atIndex:0] ;
             *stop = YES;
             return;
         }

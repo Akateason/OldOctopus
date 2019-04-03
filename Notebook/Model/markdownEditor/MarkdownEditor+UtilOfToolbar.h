@@ -11,7 +11,7 @@
 #import "MDToolbar.h"
 @class MarkdownModel,MDEKeyboardPhotoView ;
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @interface MarkdownEditor (UtilOfToolbar) <MDToolbarDelegate>
 
@@ -23,4 +23,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END
+

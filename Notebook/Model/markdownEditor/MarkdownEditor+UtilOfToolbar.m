@@ -214,14 +214,17 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
     [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
         @strongify(self)
         [self uploadImage:image] ;
+        self.photoView = nil ;
     } cameraOnPressed:^(UIImage * _Nonnull image) {
         @strongify(self)
         [self uploadImage:image] ;
+        self.photoView = nil ;
     } albumOnPressed:^(UIImage * _Nonnull image) {
         @strongify(self)
         [self uploadImage:image] ;
+        self.photoView = nil ;
     } cancel:^{
-        
+        self.photoView = nil ;
     }] ;
 }
 
@@ -248,10 +251,13 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
                 [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
                 self.selectedRange = NSMakeRange(self.selectedRange.location + imgStringWillInsert.length + 3, 0) ;
             }
+            
+            
         }) ;
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
+            
         }) ;
     }] ;
 }
