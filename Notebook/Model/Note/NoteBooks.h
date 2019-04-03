@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)       int      isDeleted ;
 @property (copy, nonatomic) NSString *name ;
 
+- (NSString *)displayEmoji ;
+
 + (void)fetchAllNoteBook:(void(^)(NSArray<NoteBooks *> *array))completion ;
 
 + (NoteBooks *)recordToNoteBooks:(CKRecord *)record ;

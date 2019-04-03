@@ -131,6 +131,11 @@
     }] ;
 }
 
+- (NSString *)displayEmoji {
+    NBEmoji *emo = [NBEmoji yy_modelWithJSON:self.emoji] ;
+    return emo.native ;
+}
+
 #pragma mark - db
 
 // set sqlite Constraints of property

@@ -24,10 +24,10 @@
 @property (weak, nonatomic) IBOutlet UIView *topArea;
 @property (weak, nonatomic) IBOutlet UILabel *nameOfNoteBook;
 @property (weak, nonatomic) IBOutlet UIButton *btLeftDrawer;
-@property (weak, nonatomic) IBOutlet UIView *vSearchBar;
-@property (weak, nonatomic) IBOutlet UIImageView *imgSearch;
-@property (weak, nonatomic) IBOutlet UITextField *tfSearch;
-@property (weak, nonatomic) IBOutlet UILabel *lbUserName;
+@property (weak, nonatomic) IBOutlet UIImageView *ImgTitleAddition;
+@property (weak, nonatomic) IBOutlet UIImageView *ImgBtSearch;
+@property (weak, nonatomic) IBOutlet UILabel *bookEmoji;
+
 @property (strong, nonatomic) UIView *btAdd ;
 
 @property (strong, nonatomic) LeftDrawerVC *leftVC ;
@@ -78,6 +78,8 @@
     }
     // note book normal
     self.nameOfNoteBook.text = self.leftVC.currentBook.name ;
+    self.bookEmoji.text = self.leftVC.currentBook.displayEmoji ;
+    
     @weakify(self)
     [Note noteListWithNoteBook:self.leftVC.currentBook completion:^(NSArray * _Nonnull list) {
         @strongify(self)
@@ -103,28 +105,15 @@
     self.table.delegate = self ;
     self.table.xt_Delegate = self ;
     self.table.mj_footer = nil ;
-    self.table.backgroundColor = nil ;
-    
-    self.table.contentInset = UIEdgeInsetsMake(12, 0, 0, 0) ;
+    self.table.backgroundColor = [MDThemeConfiguration sharedInstance].homeTableBGColor ;
+    self.table.contentInset = UIEdgeInsetsMake(10, 0, 0, 0) ;
+    self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     
     self.topSafeAreaView.backgroundColor = [UIColor whiteColor] ;
     
-    self.topArea.layer.shadowColor = UIColorHexA(@"000000", .05).CGColor ;
-    self.topArea.layer.shadowOffset = CGSizeMake(0, 13) ;
-    self.topArea.layer.shadowRadius = 40 ;
-    self.topArea.layer.shadowOpacity = 1;
-    
     self.nameOfNoteBook.text = @"";
-    self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
-    self.nameOfNoteBook.textColor = UIColorHex(@"222222") ;
+    self.nameOfNoteBook.textColor = [MDThemeConfiguration sharedInstance].homeTitleTextColor ;
     self.topArea.backgroundColor = [UIColor whiteColor] ;
-    self.vSearchBar.xt_borderColor = UIColorRGBA(20, 20, 20, .1) ;
-    self.lbUserName.text = @"🐙" ;
-    
-    self.lbUserName.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
-    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser * _Nonnull user) {
-        self.lbUserName.text = [user.givenName substringToIndex:1] ;
-    }] ;
     
     self.btAdd.userInteractionEnabled = YES ;
     @weakify(self)

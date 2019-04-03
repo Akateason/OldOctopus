@@ -10,6 +10,7 @@
 #import <XTlib/XTlib.h>
 #import "Note.h"
 #import "XTCloudHandler.h"
+#import "MDThemeConfiguration.h"
 
 
 @implementation NoteCell
@@ -18,15 +19,13 @@
     [super awakeFromNib];
     
     self.selectionStyle = 0 ;
-    self.area.backgroundColor = UIColorRGBA(255, 255, 255, .8) ;
+    self.area.backgroundColor = [UIColor whiteColor] ;
+    self.backgroundColor = nil ;
     
-    
-    self.area.layer.backgroundColor = UIColorRGBA(255, 255, 255, .8).CGColor ;
-    self.area.layer.cornerRadius = 4;
-    self.area.layer.shadowColor = UIColorRGBA(0, 0, 0, .06).CGColor ;
-    self.area.layer.shadowOffset = CGSizeMake(0,2);
-    self.area.layer.shadowOpacity = 1;
-    self.area.layer.shadowRadius = 6;
+    _lbTitle.textColor = [MDThemeConfiguration sharedInstance].darkTextColor ;
+    _lbContent.textColor = [MDThemeConfiguration sharedInstance].lightTextColor ;
+    _lbDate.textColor = [MDThemeConfiguration sharedInstance].normalTextColor ;
+    _lbDate.alpha = .3 ;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -43,7 +42,7 @@
 }
 
 + (CGFloat)xt_cellHeight {
-    return 118 ;
+    return 122 ;
 }
 
 - (NSString *)filterMarkdownString:(NSString *)markdownStr {

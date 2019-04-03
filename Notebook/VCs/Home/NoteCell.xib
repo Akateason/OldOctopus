@@ -12,53 +12,53 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoteCell" rowHeight="118" id="KGk-i7-Jjw" customClass="NoteCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoteCell" rowHeight="122" id="KGk-i7-Jjw" customClass="NoteCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="117.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="121.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zzt-FU-u9Q">
-                        <rect key="frame" x="12" y="0.0" width="296" height="107.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="111.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7E-Ac-LyT">
-                                <rect key="frame" x="14" y="13" width="29" height="22.5"/>
-                                <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
+                                <rect key="frame" x="20" y="20" width="31" height="24"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1c7-tb-3hL">
-                                <rect key="frame" x="14" y="49" width="270" height="20"/>
+                                <rect key="frame" x="20" y="52" width="280" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="43" id="uCk-tD-WfI"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="yvL-fM-JQQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1d" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lz-1p-FH9">
-                                <rect key="frame" x="268" y="14" width="14" height="20"/>
-                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
+                                <rect key="frame" x="288" y="20" width="12" height="17"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="7lz-1p-FH9" secondAttribute="trailing" constant="14" id="7oJ-FT-UPi"/>
-                            <constraint firstItem="1c7-tb-3hL" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="14" id="LbE-MK-PQe"/>
-                            <constraint firstAttribute="trailing" secondItem="1c7-tb-3hL" secondAttribute="trailing" constant="12" id="O96-UM-iPC"/>
-                            <constraint firstItem="7lz-1p-FH9" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="14" id="Oef-f0-161"/>
-                            <constraint firstItem="m7E-Ac-LyT" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="14" id="uQf-k3-9Pr"/>
-                            <constraint firstItem="1c7-tb-3hL" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="49" id="vJ0-C9-WNh"/>
-                            <constraint firstItem="m7E-Ac-LyT" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="13" id="yuq-UO-p1m"/>
+                            <constraint firstAttribute="trailing" secondItem="7lz-1p-FH9" secondAttribute="trailing" constant="20" id="7oJ-FT-UPi"/>
+                            <constraint firstItem="1c7-tb-3hL" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="20" id="LbE-MK-PQe"/>
+                            <constraint firstAttribute="trailing" secondItem="1c7-tb-3hL" secondAttribute="trailing" constant="20" id="O96-UM-iPC"/>
+                            <constraint firstItem="7lz-1p-FH9" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="20" id="Oef-f0-161"/>
+                            <constraint firstItem="m7E-Ac-LyT" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="20" id="uQf-k3-9Pr"/>
+                            <constraint firstItem="1c7-tb-3hL" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="52" id="vJ0-C9-WNh"/>
+                            <constraint firstItem="m7E-Ac-LyT" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="20" id="yuq-UO-p1m"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="Zzt-FU-u9Q" secondAttribute="trailing" constant="12" id="C2m-X0-Jbd"/>
-                    <constraint firstItem="Zzt-FU-u9Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Wt7-1h-K5f"/>
+                    <constraint firstAttribute="trailing" secondItem="Zzt-FU-u9Q" secondAttribute="trailing" id="C2m-X0-Jbd"/>
+                    <constraint firstItem="Zzt-FU-u9Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Wt7-1h-K5f"/>
                     <constraint firstItem="Zzt-FU-u9Q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="dKc-qO-o9l"/>
                     <constraint firstAttribute="bottom" secondItem="Zzt-FU-u9Q" secondAttribute="bottom" constant="10" id="laY-wr-abo"/>
                 </constraints>
