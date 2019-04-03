@@ -39,6 +39,7 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - FTPopOverMenu (2.0.3)
+  - IQKeyboardManager (6.2.1)
   - Masonry (1.1.0)
   - MJRefresh (3.1.16)
   - ReactiveObjC (3.1.0)
@@ -94,6 +95,7 @@ PODS:
 
 DEPENDENCIES:
   - CWLateralSlide
+  - IQKeyboardManager
   - XTlib
   - XTlib/Animations
   - XTlib/CustomUIs
@@ -108,6 +110,7 @@ SPEC REPOS:
     - FDFullscreenPopGesture
     - FMDB
     - FTPopOverMenu
+    - IQKeyboardManager
     - Masonry
     - MJRefresh
     - ReactiveObjC
@@ -135,6 +138,7 @@ SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FTPopOverMenu: 8aa89de66e72b53db3e7eeab42243d393237768f
+  IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
@@ -153,6 +157,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 273ff723dc0bbd7afaacf9a9c86826b370e5e7e4
+PODFILE CHECKSUM: c70f41d547bd08d1f81cdccf8bb01ac1e14fe3d2
 
 COCOAPODS: 1.6.1

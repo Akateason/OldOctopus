@@ -11,14 +11,14 @@
 #import "MdParserRegexpHeader.h"
 #import "MarkdownModel.h"
 
-@class MDThemeConfiguration,MarkdownPaser,MDImageManager ;
+@class MDThemeConfiguration,MarkdownPaser,MDImageManager,MdInlineModel ;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol MarkdownParserDelegate <NSObject>
 @required
 - (void)quoteBlockParsingFinished:(NSArray *)list ;
-- (void)imageSelectedAtNewPosition:(NSInteger)position ;
+- (void)imageSelectedAtNewPosition:(NSInteger)position imageModel:(MdInlineModel *)model ;
 - (void)listBlockParsingFinished:(NSArray *)list ;
 @end
 

@@ -8,7 +8,7 @@ target 'Notebook' do
   pod 'XTlib/Animations'
   pod 'XTlib/CustomUIs'
 
-
+  pod 'IQKeyboardManager'
   pod 'CWLateralSlide'
 
 

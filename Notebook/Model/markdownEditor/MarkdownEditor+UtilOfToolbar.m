@@ -238,15 +238,15 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
             
             NSString *url = responseObject[@"url"] ;
             if (!url) {
-                    [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
+                [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
             }
             else { // success .
                 NSMutableString *tmpString = [self.text mutableCopy] ;
                 NSString *tickStr = @([[NSDate date] xt_getTick]).stringValue ;
-                NSString *imgStringWillInsert = XT_STR_FORMAT(@"![%@](%@)\n",tickStr,url) ;
+                NSString *imgStringWillInsert = XT_STR_FORMAT(@"![%@](%@)\n\n",tickStr,url) ;
                 [tmpString insertString:imgStringWillInsert atIndex:self.selectedRange.location] ;
-                self.selectedRange = NSMakeRange(self.selectedRange.location + imgStringWillInsert.length, 0) ;
                 [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+                self.selectedRange = NSMakeRange(self.selectedRange.location + imgStringWillInsert.length + 3, 0) ;
             }
         }) ;
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {

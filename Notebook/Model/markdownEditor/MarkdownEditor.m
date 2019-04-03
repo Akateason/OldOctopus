@@ -14,6 +14,8 @@
 #import "MDToolbar.h"
 #import "MDEditUrlView.h"
 #import "MarkdownEditor+UtilOfToolbar.h"
+#import "MdInlineModel.h"
+#import <XTlib/XTSIAlertView.h>
 
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
@@ -34,7 +36,7 @@ static const int kTag_ListMarkView  = 32342 ;
 #pragma mark - life
 
 - (void)dealloc {
-    NSLog(@"******** MarkdownEditor DEALLOC ********") ;
+    NSLog(@"******** MarkdownEditor DEALLOC ********") ; // todo 添加图片后不能释放.
 }
 
 - (id)initWithCoder:(NSCoder *) coder {
@@ -132,9 +134,9 @@ static const int kTag_ListMarkView  = 32342 ;
 }
 
 - (void)drawLeftDisplayLabel:(MarkdownModel *)model {
-    if (!model) return ;
-            
     [self hide_lbLeftCornerMarker] ;
+    if (!model) return ;
+    
     self.lbLeftCornerMarker.text = [self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model] ;
     [self show_lbLeftCornerMarker] ;
 }
@@ -224,7 +226,6 @@ static const int kTag_ListMarkView  = 32342 ;
     if(!_titleLabel){
         _titleLabel = ({
             UILabel *tLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, - kMDEditor_TopMarginValue, APP_WIDTH - 2 * kMDEditor_FlexValue , kMDEditor_TopMarginValue - 10)] ;
-//            tLabel.backgroundColor = [UIColor redColor] ;
             tLabel.font = [UIFont boldSystemFontOfSize:32.] ;
             tLabel.text = self.hiddenTitleTf.text ;
             tLabel.textColor = [UIColor blackColor] ;
@@ -264,9 +265,25 @@ static const int kTag_ListMarkView  = 32342 ;
     }
 }
 
-- (void)imageSelectedAtNewPosition:(NSInteger)position {
-    self.selectedRange = NSMakeRange(position, 0) ;
-    [self updateTextStyle] ;
+- (void)imageSelectedAtNewPosition:(NSInteger)position imageModel:(MdInlineModel *)model  {
+//    self.selectedRange = NSMakeRange(position + model.range.length , 0) ;
+//    [self updateTextStyle] ;
+    [self resignFirstResponder] ;
+    
+    XTSIAlertView *alert = [[XTSIAlertView alloc] initWithTitle:@"是否要删除此图片" andMessage:@""] ;
+    WEAK_SELF
+    [alert addButtonWithTitle:@"删除" type:XTSIAlertViewButtonTypeDestructive handler:^(XTSIAlertView *alertView) {
+        
+        NSMutableString *tmpString = [weakSelf.text mutableCopy] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, model.range.length + 3)] ;
+        weakSelf.text = tmpString ;
+        [weakSelf updateTextStyle] ;
+        [weakSelf doSomethingWhenUserSelectPartOfArticle] ;
+//        @"\uFFFC"
+    }] ;
+    [alert addButtonWithTitle:@"取消" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
+    }] ;
+    [alert show] ;
 }
 
 - (void)listBlockParsingFinished:(NSArray *)list {

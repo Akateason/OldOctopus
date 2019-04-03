@@ -224,9 +224,8 @@
     
     NSString *strSelect = [self.editAttrStr.string substringWithRange:NSMakeRange(position - 1, 1)] ;
     if ([strSelect isEqualToString:@"\uFFFC"]) {
-        MarkdownModel *model = [self modelForRangePosition:position - 3] ;
-        if (self.delegate) [self.delegate imageSelectedAtNewPosition:model.range.location] ; // 图片选择
-        
+        MarkdownModel *model = [self modelForRangePosition:position - 3] ; //移动到![]()后面
+        if (self.delegate) [self.delegate imageSelectedAtNewPosition:model.range.location imageModel:(MdInlineModel *)model] ; // 图片选择
         return model ;
     }
 

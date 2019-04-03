@@ -171,7 +171,7 @@
         }
             break ;
         case MarkdownInlineImage : {
-            [attributedString addAttributes:configuration.markStyle range:self.range] ;
+            [attributedString addAttributes:configuration.invisibleMarkStyle range:self.range] ;
         }
             break ;
 
