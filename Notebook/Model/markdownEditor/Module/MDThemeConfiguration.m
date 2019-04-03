@@ -178,6 +178,26 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _themeColor ;
 }
 
+- (UIColor *)homeTitleTextColor {
+    if (!_homeTitleTextColor) {
+        _homeTitleTextColor = UIColorHex(@"222222") ;
+    }
+    return _homeTitleTextColor ;
+}
+
+- (UIColor *)darkTextColor {
+    if (!_darkTextColor) {
+        _darkTextColor = [UIColor colorWithWhite:0 alpha:.8] ;
+    }
+    return _darkTextColor ;
+}
+
+- (UIColor *)lightTextColor {
+    if (!_lightTextColor) {
+        _lightTextColor = [UIColor colorWithWhite:0 alpha:.4] ;
+    }
+    return _lightTextColor ;
+}
 
 
 @end
