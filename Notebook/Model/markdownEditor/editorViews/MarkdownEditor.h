@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat keyboardHeight ;
 }
 @property (strong, nonatomic) MarkdownPaser *markdownPaser ; // paser with configuration .
-
+@property (readonly, strong, nonatomic) UILabel *titleLabel ;
 - (void)doSomethingWhenUserSelectPartOfArticle ;
 - (void)setArticleTitle:(NSString *)title ;
 

@@ -48,7 +48,7 @@
     }
     else {
         // Create New Note
-        [self createNewNote] ;
+//        [self createNewNote] ;
     }
     
     @weakify(self)
@@ -63,23 +63,34 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
     
-    // Update Your Note
-    [self updateMyNote] ;
-//    self.textView.photoView = nil ;
+    if (self.aNote) {
+        // Update Your Note
+        [self updateMyNote] ;
+    }
+    else {
+        // Create New Note
+        [self createNewNote] ;
+    }
 }
 
 #pragma mark - Func
 
 - (void)createNewNote {
-    Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:@"美好的故事，从小章鱼开始..." title:@"一篇没有名字的笔记"] ;
-    self.aNote = newNote ;
-    self.textView.text = self.aNote.content ;
-    [Note createNewNote:self.aNote] ;
-    [self.delegate addNoteComplete:self.aNote] ;
+    NSString *articleTitle = self.textView.titleLabel.text ;
+    NSString *articleContent = self.textView.text ;
+    
+    if ((articleTitle && articleTitle.length) || (articleContent && articleContent.length) ) {
+        Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:articleContent?:@"美好的故事，从小章鱼开始..." title:articleTitle?:@"一篇没有名字的笔记"] ;
+        self.aNote = newNote ;
+        self.textView.text = self.aNote.content ;
+        [Note createNewNote:self.aNote] ;
+        [self.delegate addNoteComplete:self.aNote] ;
+    }
 }
 
 - (void)updateMyNote {
     self.aNote.content = self.textView.text ;
+    self.aNote.title = self.textView.titleLabel.text ;
     [Note updateMyNote:self.aNote] ;
     [self.delegate editNoteComplete:self.aNote] ;
 }
