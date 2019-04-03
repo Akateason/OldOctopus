@@ -39,13 +39,13 @@
         }
             break;
         case MarkdownSyntaxHr: {
-            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-            paraStyle.paragraphSpacing = 16 ;
+//            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+//            paraStyle.paragraphSpacing = 16 ;
             UIFont *hrFont = [UIFont systemFontOfSize:4] ;
             resultDic = @{NSBackgroundColorAttributeName : UIColorHex(@"dcdcdc") ,
                           NSForegroundColorAttributeName : UIColorHex(@"dcdcdc") ,
                           NSFontAttributeName : hrFont ,
-                          NSParagraphStyleAttributeName : paraStyle
+//                          NSParagraphStyleAttributeName : paraStyle
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
         }
