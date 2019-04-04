@@ -58,10 +58,7 @@
         }
             break ;
         case MarkdownSyntaxCodeBlock: {
-            resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
-                          NSFontAttributeName : paragraphFont
-                          };
-            [attributedString addAttributes:resultDic range:self.range] ;
+            [attributedString addAttributes:configuration.codeBlockStyle range:self.range] ;
             
             resultDic = [self attrQuoteBlockHideMark] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 3)] ;
@@ -99,11 +96,8 @@
         }
             break ;
         case MarkdownSyntaxCodeBlock: {
-            resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
-                          NSFontAttributeName : paragraphFont
-                          } ;
             NSRange rangeTmp = NSMakeRange(location + 3, length - 6) ;
-            [attributedString addAttributes:resultDic range:rangeTmp] ;
+            [attributedString addAttributes:configuration.codeBlockStyle range:rangeTmp] ;
         }
             break ;
             

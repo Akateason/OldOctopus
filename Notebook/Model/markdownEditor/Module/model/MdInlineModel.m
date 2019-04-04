@@ -77,7 +77,7 @@
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
             [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
             
-            resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
+            resultDic = @{NSBackgroundColorAttributeName : configuration.inlineCodeBGColor,
                           NSFontAttributeName : paragraphFont
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
@@ -87,7 +87,7 @@
             // todo links with attr str
             [attributedString addAttributes:configuration.invisibleMarkStyle range:self.range] ;
             
-            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_skyBlue],
+            resultDic = @{NSForegroundColorAttributeName : [MDThemeConfiguration sharedInstance].themeColor,
                           NSFontAttributeName : paragraphFont,
                           NSUnderlineStyleAttributeName : @1
                           };
@@ -152,7 +152,7 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
-            resultDic = @{NSBackgroundColorAttributeName : configuration.codeTextBGColor,
+            resultDic = @{NSBackgroundColorAttributeName : configuration.inlineCodeBGColor,
                           NSFontAttributeName : paragraphFont
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;

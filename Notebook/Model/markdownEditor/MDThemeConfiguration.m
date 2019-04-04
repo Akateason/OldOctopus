@@ -16,8 +16,8 @@
 @end
 
 @implementation MDThemeConfiguration
-XT_SINGLETON_M(MDThemeConfiguration)
 
+XT_SINGLETON_M(MDThemeConfiguration)
 
 #pragma mark - lazyload default style
 
@@ -30,7 +30,7 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _fontSize ;
 }
 
-- (UIFont *)font{
+- (UIFont *)font {
     if(!_font){
         _font = ({
             UIFont *object = [UIFont systemFontOfSize:kDefaultFontSize] ;
@@ -40,7 +40,7 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _font;
 }
 
-- (UIFont *)boldFont{
+- (UIFont *)boldFont {
     if(!_boldFont){
         _boldFont = ({
             NSDictionary *fontDict = @{UIFontDescriptorFaceAttribute: @"Bold"} ;
@@ -52,7 +52,7 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _boldFont;
 }
 
-- (UIFont *)italicFont{
+- (UIFont *)italicFont {
     if(!_italicFont){
         _italicFont = ({
             NSDictionary *fontDict = @{UIFontDescriptorMatrixAttribute:[NSValue valueWithCGAffineTransform:CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0)]} ;
@@ -64,7 +64,7 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _italicFont;
 }
 
-- (UIFont *)boldItalicFont{
+- (UIFont *)boldItalicFont {
     if(!_boldItalicFont){
         _boldItalicFont = ({
             NSDictionary *fontDict = @{
@@ -79,7 +79,7 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _boldItalicFont;
 }
 
-- (NSDictionary *)basicStyle{
+- (NSDictionary *)basicStyle {
     if(!_basicStyle){
         _basicStyle = ({
             NSDictionary * object = @{NSFontAttributeName : self.font,
@@ -104,7 +104,7 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _quoteStyle ;
 }
 
-- (NSDictionary *)markStyle{
+- (NSDictionary *)markStyle {
     if(!_markStyle){
         _markStyle = ({
             NSDictionary * object = @{NSForegroundColorAttributeName : self.markColor} ;
@@ -128,7 +128,7 @@ XT_SINGLETON_M(MDThemeConfiguration)
 
 - (UIColor *)textColor {
     if (!_textColor) {
-        _textColor = UIColorHex(@"303133") ;
+        _textColor = [UIColor blackColor] ; //UIColorHex(@"303133") ;
     }
     return _textColor ;
 }
@@ -140,11 +140,31 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _markColor ;
 }
 
-- (UIColor *)codeTextBGColor {
-    if (!_codeTextBGColor) {
-        _codeTextBGColor = UIColorHex(@"f0f1f1") ;
+- (UIColor *)seplineLineColor {
+    if (!_seplineLineColor) {
+        _seplineLineColor = UIColorHex(@"e5e5e5") ;
     }
-    return _codeTextBGColor ;
+    return _seplineLineColor ;
+}
+
+- (NSDictionary *)codeBlockStyle {
+    if (!_codeBlockStyle) {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.minimumLineHeight = 25 ;
+        _codeBlockStyle = @{NSBackgroundColorAttributeName : UIColorHexA(@"f05d4a", .3) ,
+                      NSFontAttributeName : self.font ,
+                      NSForegroundColorAttributeName : UIColorHex(@"3e403f") ,
+                      NSParagraphStyleAttributeName : paragraphStyle
+                      };
+    }
+    return _codeBlockStyle ;
+}
+
+- (UIColor *)inlineCodeBGColor {
+    if (!_inlineCodeBGColor) {
+        _inlineCodeBGColor = UIColorHex(@"f0f1f1") ;
+    }
+    return _inlineCodeBGColor ;
 }
 
 - (UIColor *)quoteTextColor {
@@ -155,10 +175,7 @@ XT_SINGLETON_M(MDThemeConfiguration)
 }
 
 - (UIColor *)quoteLeftBarColor {
-    if (!_quoteLeftBarColor) {
-        _quoteLeftBarColor = UIColorHex(@"dddddd") ;
-    }
-    return _quoteLeftBarColor ;
+    return self.themeColor ;
 }
 
 - (UIColor *)imagePlaceHolderColor {

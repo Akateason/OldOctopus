@@ -34,16 +34,15 @@
     
     switch (self.type) {
         case MarkdownSyntaxMultipleMath: {
-            resultDic = @{NSBackgroundColorAttributeName : [UIColor brownColor],} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
+            [attributedString addAttributes:configuration.codeBlockStyle range:self.range] ;
         }
             break;
         case MarkdownSyntaxHr: {
 //            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
 //            paraStyle.paragraphSpacing = 16 ;
             UIFont *hrFont = [UIFont systemFontOfSize:4] ;
-            resultDic = @{NSBackgroundColorAttributeName : UIColorHex(@"dcdcdc") ,
-                          NSForegroundColorAttributeName : UIColorHex(@"dcdcdc") ,
+            resultDic = @{NSBackgroundColorAttributeName : [MDThemeConfiguration sharedInstance].seplineLineColor ,
+                          NSForegroundColorAttributeName : [MDThemeConfiguration sharedInstance].seplineLineColor ,
                           NSFontAttributeName : hrFont ,
 //                          NSParagraphStyleAttributeName : paraStyle
                           } ;
@@ -51,13 +50,11 @@
         }
             break ;
         case MarkdownSyntaxNpTable: {
-            resultDic = @{NSBackgroundColorAttributeName : [UIColor redColor],} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
+            [attributedString addAttributes:configuration.codeBlockStyle range:self.range] ;
         }
             break ;
         case MarkdownSyntaxTable: {
-            resultDic = @{NSBackgroundColorAttributeName : [UIColor xt_skyBlue],} ;
-            [attributedString addAttributes:resultDic range:self.range] ;
+            [attributedString addAttributes:configuration.codeBlockStyle range:self.range] ;
         }
             break ;
 

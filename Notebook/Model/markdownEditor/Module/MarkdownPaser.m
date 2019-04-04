@@ -385,16 +385,16 @@
     [attributedString addAttributes:self.configuration.basicStyle range:NSMakeRange(0, text.length)] ;
     // render every node
     [tmpModelList enumerateObjectsUsingBlock:^(MarkdownModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (NSLocationInRange(position, model.range)) {
-            model.isOnEditState = YES ;
-        }
+        if (NSLocationInRange(position, model.range)) model.isOnEditState = YES ;
         
         // render any style
-        if (!model.isOnEditState) {
+        if (!textView.isFirstResponder) {
             attributedString = [model addAttrOnPreviewState:attributedString config:self.configuration] ;
         }
         else {
-            attributedString = [model addAttrOnEditState:attributedString config:self.configuration] ;
+            attributedString = (!model.isOnEditState) ?
+            [model addAttrOnPreviewState:attributedString config:self.configuration] :
+            [model addAttrOnEditState:attributedString config:self.configuration] ;
         }
     }] ;
     [attributedString endEditing] ;

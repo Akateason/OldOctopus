@@ -295,6 +295,7 @@ static const int kTag_ListMarkView  = 32342 ;
         if (model.type == MarkdownSyntaxULLists) {
             UILabel *lb = [UILabel new] ;
             lb.text = @"   •" ;
+            lb.textColor = [MDThemeConfiguration sharedInstance].themeColor ;
             lb.font = [UIFont boldSystemFontOfSize:16] ;
             lb.textAlignment = NSTextAlignmentCenter ;
             item = lb ;
@@ -302,6 +303,7 @@ static const int kTag_ListMarkView  = 32342 ;
         else if (model.type == MarkdownSyntaxOLLists) {
             UILabel *lb = [UILabel new] ;
             lb.text = [[[model.str componentsSeparatedByString:@"."] firstObject] stringByAppendingString:@"."] ;
+            lb.textColor = [MDThemeConfiguration sharedInstance].themeColor ;
             lb.font = [UIFont systemFontOfSize:16] ;
             lb.textAlignment = NSTextAlignmentRight ;
             item = lb ;
@@ -309,7 +311,7 @@ static const int kTag_ListMarkView  = 32342 ;
         else if (model.type == MarkdownSyntaxTaskLists) {
             
             UIImageView *imgView = [UIImageView new] ;
-            [imgView setImage:model.taskItemImageState] ;
+            [imgView setImage:[model.taskItemImageState imageWithTintColor:[MDThemeConfiguration sharedInstance].themeColor]] ;
             imgView.contentMode = UIViewContentModeScaleAspectFit ;
             imgView.userInteractionEnabled = YES ;
             WEAK_SELF
@@ -355,7 +357,7 @@ static const int kTag_ListMarkView  = 32342 ;
         int orderNum = [[[lstModel.str componentsSeparatedByString:@"."] firstObject] intValue] ;
         orderNum ++ ;
         NSString *orderStr = STR_FORMAT(@"%d",orderNum) ;
-        if (lstModel.str.length < orderStr.length + 4) {
+        if (lstModel.str.length < orderStr.length + 4) { //两下回车
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - lstModel.str.length, lstModel.str.length)] ;
             [self.markdownPaser parseText:tmpString position:range.location + 2 textView:self] ;
             self.selectedRange = NSMakeRange(range.location, 0) ;
@@ -368,7 +370,7 @@ static const int kTag_ListMarkView  = 32342 ;
         return NO ;
     }
     else if (lstModel.type == MarkdownSyntaxTaskLists) {
-        if (lstModel.str.length < 8) {
+        if (lstModel.str.length < 8) { //两下回车
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - lstModel.str.length, lstModel.str.length)] ;
             [self.markdownPaser parseText:tmpString position:range.location + 2 textView:self] ;
             self.selectedRange = NSMakeRange(range.location, 0) ;

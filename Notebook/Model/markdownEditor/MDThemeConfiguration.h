@@ -31,7 +31,10 @@ XT_SINGLETON_H(MDThemeConfiguration)
 
 @property (strong, nonatomic) UIColor *textColor ;
 @property (strong, nonatomic) UIColor *markColor ;
-@property (strong, nonatomic) UIColor *codeTextBGColor ;
+@property (strong, nonatomic) UIColor *seplineLineColor ;
+@property (strong, nonatomic) NSDictionary *codeBlockStyle ;
+
+@property (strong, nonatomic) UIColor *inlineCodeBGColor ;
 @property (strong, nonatomic) UIColor *quoteTextColor ;
 @property (strong, nonatomic) UIColor *quoteLeftBarColor ;
 @property (strong, nonatomic) UIColor *imagePlaceHolderColor ;
