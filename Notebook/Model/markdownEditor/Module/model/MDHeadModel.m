@@ -59,7 +59,9 @@
             [attributedString addAttributes:resultDic range:self.range] ;
             
             // hide "# " marks
-            NSRange markRange = NSMakeRange(location, numberOfmark+1) ;
+            NSRange markRange = NSMakeRange(location, numberOfmark + 1) ;
+            if (numberOfmark + 1 > attributedString.length) return attributedString ;
+            
             [attributedString addAttributes:configuration.invisibleMarkStyle range:markRange] ;
         }
             break;
@@ -106,18 +108,14 @@
     return attributedString ;
 }
 
-//- (void)doToolbarEventForEditor:(MarkdownEditor *)editor {
-//
-//}
-
 + (void)makeHeaderWithSize:(NSString *)mark editor:(MarkdownEditor *)editor {
     MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
     NSMutableString *tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
         [tmpString insertString:mark atIndex:editor.selectedRange.location] ;
+        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location + mark.length textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + mark.length, 0) ;
-        [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
         return ;
     }
     

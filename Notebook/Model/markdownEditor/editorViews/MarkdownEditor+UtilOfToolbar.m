@@ -143,8 +143,8 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
     // add
     if (!self.selectedRange.length) {
         [tmpString insertString:@"****" atIndex:self.selectedRange.location] ;
-        self.selectedRange = NSMakeRange(self.selectedRange.location + 2, 0) ;
         [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        self.selectedRange = NSMakeRange(self.selectedRange.location + 2, 0) ;
     }
     else {
         [tmpString insertString:@"**" atIndex:self.selectedRange.location + self.selectedRange.length] ;
@@ -187,8 +187,8 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
     // add
     if (!self.selectedRange.length) {
         [tmpString insertString:@"**" atIndex:self.selectedRange.location] ;
-        self.selectedRange = NSMakeRange(self.selectedRange.location + 1, 0) ;
         [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        self.selectedRange = NSMakeRange(self.selectedRange.location + 1, 0) ;
     }
     else {
         [tmpString insertString:@"*" atIndex:self.selectedRange.location + self.selectedRange.length] ;

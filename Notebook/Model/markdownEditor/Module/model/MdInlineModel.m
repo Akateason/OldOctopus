@@ -265,8 +265,8 @@
     // add
     if (!editor.selectedRange.length) {
         [tmpString insertString:@"~~~~" atIndex:editor.selectedRange.location] ;
-        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
         [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
     }
     else {
         [tmpString insertString:@"~~" atIndex:editor.selectedRange.location + editor.selectedRange.length] ;
@@ -288,8 +288,8 @@
     // add
     if (!editor.selectedRange.length) {
         [tmpString insertString:@"``" atIndex:editor.selectedRange.location] ;
-        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, 0) ;
         [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, 0) ;
     }
     else {
         [tmpString insertString:@"`" atIndex:editor.selectedRange.location + editor.selectedRange.length] ;

@@ -117,12 +117,24 @@ XT_SINGLETON_M(MDThemeConfiguration)
 - (NSDictionary *)invisibleMarkStyle {
     if (!_invisibleMarkStyle) {
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.paragraphSpacing = 16. ; //注销 列表会有大空行bug.
         _invisibleMarkStyle = @{NSForegroundColorAttributeName : self.markColor,
                                 NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                                 NSParagraphStyleAttributeName: paragraphStyle
                                 } ;
     }
     return _invisibleMarkStyle ;
+}
+
+- (NSDictionary *)listInvisibleMarkStyle {
+    if (!_listInvisibleMarkStyle) {
+        NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        _listInvisibleMarkStyle = @{NSForegroundColorAttributeName : self.markColor,
+                                    NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
+                                    NSParagraphStyleAttributeName: paragraphStyle
+                                    } ;
+    }
+    return _listInvisibleMarkStyle ;
 }
 
 - (UIColor *)textColor {

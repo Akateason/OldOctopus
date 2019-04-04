@@ -27,7 +27,7 @@ XT_SINGLETON_H(MDThemeConfiguration)
 @property (copy, nonatomic)     NSDictionary *quoteStyle ;
 @property (copy, nonatomic)     NSDictionary *markStyle ;
 @property (copy, nonatomic)     NSDictionary *invisibleMarkStyle ;
-
+@property (copy, nonatomic)     NSDictionary *listInvisibleMarkStyle ;
 
 @property (strong, nonatomic) UIColor *textColor ;
 @property (strong, nonatomic) UIColor *markColor ;
