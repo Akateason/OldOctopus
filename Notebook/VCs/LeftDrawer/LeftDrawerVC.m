@@ -10,6 +10,7 @@
 #import "LDHeadView.h"
 #import "LDNotebookCell.h"
 #import "NoteBooks.h"
+#import <UIViewController+CWLateralSlide.h>
 
 typedef void(^BlkBookSelectedChange)(NoteBooks *book);
 
@@ -29,11 +30,6 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
     
     _booklist = @[] ;
     
-    @weakify(self)
-    [[RACObserve(self, currentBook) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
-        @strongify(self)
-        self.blkBookChange(self.currentBook) ;
-    }] ;
 }
 
 - (void)prepareUI {
@@ -115,7 +111,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row ;
     [self setCurrentBook:self.booklist[row]] ;
-
+    self.blkBookChange(self.currentBook) ;
 }
 
 #pragma mark - LDHeadViewDelegate <NSObject>
@@ -129,8 +125,5 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
         [NoteBooks createNewBook:aBook] ;
     }] ;
 }
-
-
-
 
 @end

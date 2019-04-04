@@ -47,8 +47,9 @@
     
     @weakify(self)
     [self.leftVC currentBookChanged:^(NoteBooks * _Nonnull book) {
-        @strongify(self)
+        @strongify(self)        
         [self.table xt_loadNewInfoInBackGround:YES] ;
+        [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
     [[[[[[NSNotificationCenter defaultCenter]

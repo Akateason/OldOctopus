@@ -95,13 +95,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_title_add.png" translatesAutoresizingMaskIntoConstraints="NO" id="V07-aM-5da">
-                                        <rect key="frame" x="234.5" y="26.5" width="12" height="12"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="12" id="cuS-9T-WVj"/>
-                                            <constraint firstAttribute="width" constant="12" id="fJC-Ky-RTj"/>
-                                        </constraints>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="md_home_search.png" translatesAutoresizingMaskIntoConstraints="NO" id="KUS-wl-ZtI">
                                         <rect key="frame" x="340" y="20" width="25" height="25"/>
                                         <constraints>
@@ -120,14 +113,12 @@
                                 <constraints>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="centerX" secondItem="tuM-IH-oeE" secondAttribute="centerX" id="7Of-9w-Tmp"/>
                                     <constraint firstItem="BBb-0z-SCu" firstAttribute="top" secondItem="tuM-IH-oeE" secondAttribute="top" constant="20" id="9Rb-AM-cqG"/>
-                                    <constraint firstItem="V07-aM-5da" firstAttribute="leading" secondItem="xtt-qN-bwB" secondAttribute="trailing" constant="2.5" id="Fe0-Mh-43r"/>
                                     <constraint firstItem="BBb-0z-SCu" firstAttribute="leading" secondItem="tuM-IH-oeE" secondAttribute="leading" constant="13" id="KVa-TE-4P5"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="centerY" secondItem="f4z-de-b20" secondAttribute="centerY" id="Lux-fT-Jku"/>
                                     <constraint firstAttribute="trailing" secondItem="KUS-wl-ZtI" secondAttribute="trailing" constant="10" id="NFM-ec-KtX"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="leading" secondItem="f4z-de-b20" secondAttribute="trailing" constant="5" id="Wsd-b8-htS"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="centerY" secondItem="BBb-0z-SCu" secondAttribute="centerY" id="cA2-pZ-qQT"/>
                                     <constraint firstItem="KUS-wl-ZtI" firstAttribute="top" secondItem="tuM-IH-oeE" secondAttribute="top" constant="20" id="f3x-SE-nxw"/>
-                                    <constraint firstItem="V07-aM-5da" firstAttribute="centerY" secondItem="xtt-qN-bwB" secondAttribute="centerY" id="iHa-ZO-lgg"/>
                                     <constraint firstAttribute="height" constant="55" id="wsz-h2-yb3"/>
                                 </constraints>
                             </view>
@@ -161,7 +152,6 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="ImgBtSearch" destination="KUS-wl-ZtI" id="XOB-43-RMu"/>
-                        <outlet property="ImgTitleAddition" destination="V07-aM-5da" id="aBN-ZL-ROM"/>
                         <outlet property="bookEmoji" destination="f4z-de-b20" id="Yef-3n-3Hm"/>
                         <outlet property="btLeftDrawer" destination="BBb-0z-SCu" id="7An-OR-HRC"/>
                         <outlet property="nameOfNoteBook" destination="xtt-qN-bwB" id="2VP-TL-QcT"/>
@@ -276,7 +266,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="home_title_add.png" width="24" height="24"/>
         <image name="md_home_search.png" width="50" height="50"/>
         <image name="md_home_top_icon.png" width="50" height="50"/>
     </resources>

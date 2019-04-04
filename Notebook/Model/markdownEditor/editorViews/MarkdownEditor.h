@@ -12,17 +12,15 @@
 extern NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE ;
 extern const CGFloat kMDEditor_FlexValue ;
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @interface MarkdownEditor : UITextView <UITextViewDelegate> {
     BOOL fstTimeLoaded ;
     CGFloat keyboardHeight ;
 }
 @property (strong, nonatomic) MarkdownPaser *markdownPaser ; // paser with configuration .
-@property (readonly, strong, nonatomic) UILabel *titleLabel ;
 - (void)doSomethingWhenUserSelectPartOfArticle ;
-- (void)setArticleTitle:(NSString *)title ;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

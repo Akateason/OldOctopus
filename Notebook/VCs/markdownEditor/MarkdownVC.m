@@ -43,7 +43,6 @@
     [super viewDidLoad];
     
     if (self.aNote) {
-        [self.textView setArticleTitle:self.aNote.title] ;
         self.textView.text =self.aNote.content ;
     }
     else {
@@ -76,11 +75,10 @@
 #pragma mark - Func
 
 - (void)createNewNote {
-    NSString *articleTitle = self.textView.titleLabel.text ;
     NSString *articleContent = self.textView.text ;
-    
-    if ((articleTitle && articleTitle.length) || (articleContent && articleContent.length) ) {
-        Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:articleContent?:@"美好的故事，从小章鱼开始..." title:articleTitle?:@"一篇没有名字的笔记"] ;
+    NSString *title = [[self.textView.text componentsSeparatedByString:@"\n"] firstObject] ?: self.textView.text ;
+    if (articleContent && articleContent.length) {
+        Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:articleContent?:@"美好的故事，从小章鱼开始..." title:title] ;
         self.aNote = newNote ;
         self.textView.text = self.aNote.content ;
         [Note createNewNote:self.aNote] ;
@@ -90,7 +88,7 @@
 
 - (void)updateMyNote {
     self.aNote.content = self.textView.text ;
-    self.aNote.title = self.textView.titleLabel.text ;
+    self.aNote.title = [[self.textView.text componentsSeparatedByString:@"\n"] firstObject] ?: self.textView.text ;
     [Note updateMyNote:self.aNote] ;
     [self.delegate editNoteComplete:self.aNote] ;
 }

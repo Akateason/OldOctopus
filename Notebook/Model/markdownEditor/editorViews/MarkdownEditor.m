@@ -20,15 +20,12 @@
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue   = 30.f  ;
-const CGFloat kMDEditor_TopMarginValue  = 50.f  ;
 static const int kTag_QuoteMarkView = 66777 ;
 static const int kTag_ListMarkView  = 32342 ;
 
 @interface MarkdownEditor ()<MarkdownParserDelegate, UITextViewDelegate>
 @property (strong, nonatomic) UILabel *lbLeftCornerMarker ;
 @property (strong, nonatomic) MDToolbar *toolBar ;
-@property (strong, nonatomic) UITextField *hiddenTitleTf ;
-@property (strong, nonatomic) UILabel *titleLabel ;
 @end
 
 @implementation MarkdownEditor
@@ -56,24 +53,13 @@ static const int kTag_ListMarkView  = 32342 ;
 }
 
 - (void)setup {
-    [self hiddenTitleTf] ; // 解决直接加tf开键盘之后下滑问题
-    
-    @weakify(self)
-    [self.titleLabel bk_whenTapped:^{
-        @strongify(self)
-        self.inputAccessoryView = nil ;
-        [self.hiddenTitleTf becomeFirstResponder] ;
-    }] ;
-    
-    RAC(self.titleLabel, text) = [self.hiddenTitleTf rac_textSignal] ;
-    
     self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.fontSize] ;
-    self.contentInset = UIEdgeInsetsMake(kMDEditor_TopMarginValue, kMDEditor_FlexValue, 0, kMDEditor_FlexValue) ;
+    self.contentInset = UIEdgeInsetsMake(0, kMDEditor_FlexValue, 0, kMDEditor_FlexValue) ;
     self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     self.delegate = self ;
     if (@available(iOS 11.0, *)) self.smartDashesType = UITextSmartDashesTypeNo ;
     
-    
+    @weakify(self)
     // user typing
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -106,18 +92,13 @@ static const int kTag_ListMarkView  = 32342 ;
         [self updateTextStyle] ;
         
         if (!self->fstTimeLoaded) {
-            self.contentOffset = CGPointMake(- kMDEditor_FlexValue, - kMDEditor_TopMarginValue) ;
+            self.contentOffset = CGPointMake(- kMDEditor_FlexValue, 0) ;
             self->fstTimeLoaded = YES ;
         }
     }) ;
 }
 
 #pragma mark - func
-
-- (void)setArticleTitle:(NSString *)title {
-    self.hiddenTitleTf.text = title ;
-    self.titleLabel.text = title ;
-}
 
 - (void)updateTextStyle {
     [self.markdownPaser parseText:self.text position:self.selectedRange.location textView:self] ; // create models
@@ -155,7 +136,7 @@ static const int kTag_ListMarkView  = 32342 ;
 - (BOOL)canBecomeFirstResponder {
     self.inputAccessoryView = self.toolBar ;
     // Redraw in case enabbled features have changes
-//    [self.toolBar redraw];
+// [self.toolBar redraw] ;
     return [super canBecomeFirstResponder] ;
 }
 
@@ -208,33 +189,6 @@ static const int kTag_ListMarkView  = 32342 ;
         _toolBar.mdt_delegate = self ;
     }
     return _toolBar ;
-}
-
-- (UITextField *)hiddenTitleTf{
-    if(!_hiddenTitleTf){
-        _hiddenTitleTf = ({
-            UITextField *object = [UITextField new] ;
-            object.frame = CGRectMake(-100, -100, 1, 1) ;
-            [self addSubview:object] ;
-            object;
-        });
-    }
-    return _hiddenTitleTf;
-}
-
-- (UILabel *)titleLabel{
-    if(!_titleLabel){
-        _titleLabel = ({
-            UILabel *tLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, - kMDEditor_TopMarginValue, APP_WIDTH - 2 * kMDEditor_FlexValue , kMDEditor_TopMarginValue - 10)] ;
-            tLabel.font = [UIFont boldSystemFontOfSize:32.] ;
-            tLabel.text = self.hiddenTitleTf.text ;
-            tLabel.textColor = [UIColor blackColor] ;
-            tLabel.userInteractionEnabled = YES ;
-            [self addSubview:tLabel] ;
-            tLabel ;
-        });
-    }
-    return _titleLabel;
 }
 
 #pragma mark - MarkdownParserDelegate <NSObject>
