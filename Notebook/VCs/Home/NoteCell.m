@@ -24,7 +24,7 @@
     
     _lbTitle.textColor = [MDThemeConfiguration sharedInstance].darkTextColor ;
     _lbContent.textColor = [MDThemeConfiguration sharedInstance].lightTextColor ;
-    _lbDate.textColor = [MDThemeConfiguration sharedInstance].normalTextColor ;
+    _lbDate.textColor = [MDThemeConfiguration sharedInstance].textColor ;
     _lbDate.alpha = .3 ;
 }
 

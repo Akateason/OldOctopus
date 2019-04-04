@@ -44,7 +44,6 @@ XT_SINGLETON_H(MDThemeConfiguration)
 @property (strong, nonatomic) UIColor *homeTitleTextColor ;
 @property (strong, nonatomic) UIColor *darkTextColor ;
 @property (strong, nonatomic) UIColor *lightTextColor ;
-@property (strong, nonatomic) UIColor *normalTextColor ;
 @property (strong, nonatomic) UIColor *homeTableBGColor ;
 
 @end

@@ -10,11 +10,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol LDHeadViewDelegate <NSObject>
+
+- (void)addBook ;
+
+@end
+
 @interface LDHeadView : UIView
+@property (weak, nonatomic) id <LDHeadViewDelegate> delegate ;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbHead;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
+@property (weak, nonatomic) IBOutlet UILabel *lbMyBook;
+@property (weak, nonatomic) IBOutlet UIImageView *imgAddBook;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightFlex_addImage;
 
 - (void)setupUser ;
+- (void)setDistance:(float)distance ;
 @end
 
 NS_ASSUME_NONNULL_END

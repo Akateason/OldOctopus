@@ -22,20 +22,6 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N8N-3x-uMO">
                         <rect key="frame" x="10" y="0.0" width="300" height="34.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jip-we-c5c">
-                                <rect key="frame" x="9.5" y="8.5" width="18" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="18" id="Afd-8i-9hw"/>
-                                    <constraint firstAttribute="height" constant="18" id="sYa-pB-nCd"/>
-                                </constraints>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMz-3u-c6n">
-                                <rect key="frame" x="0.0" y="0.0" width="3" height="34.5"/>
-                                <color key="backgroundColor" red="0.94238406419754028" green="0.36552762985229492" blue="0.29067584872245789" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="3" id="gLu-jg-4zL"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zra-9u-iGA">
                                 <rect key="frame" x="6" y="5" width="25" height="25"/>
                                 <constraints>
@@ -47,25 +33,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PQ-14-RbS">
-                                <rect key="frame" x="34" y="0.0" width="40.5" height="34.5"/>
-                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
+                                <rect key="frame" x="42" y="0.0" width="43" height="34.5"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.029999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="zMz-3u-c6n" firstAttribute="leading" secondItem="N8N-3x-uMO" secondAttribute="leading" id="12x-SB-pwd"/>
-                            <constraint firstItem="zra-9u-iGA" firstAttribute="centerY" secondItem="Jip-we-c5c" secondAttribute="centerY" id="CDT-hE-2tb"/>
                             <constraint firstItem="2PQ-14-RbS" firstAttribute="top" secondItem="N8N-3x-uMO" secondAttribute="top" id="UwD-01-Tiu"/>
-                            <constraint firstItem="zMz-3u-c6n" firstAttribute="top" secondItem="N8N-3x-uMO" secondAttribute="top" id="VP4-lf-ocF"/>
                             <constraint firstItem="zra-9u-iGA" firstAttribute="centerY" secondItem="N8N-3x-uMO" secondAttribute="centerY" id="Zl0-wd-ZWr"/>
-                            <constraint firstItem="zra-9u-iGA" firstAttribute="leading" secondItem="zMz-3u-c6n" secondAttribute="trailing" constant="3" id="gBY-X0-mBq"/>
-                            <constraint firstItem="2PQ-14-RbS" firstAttribute="leading" secondItem="N8N-3x-uMO" secondAttribute="leading" constant="34" id="i5n-jg-Wtl"/>
-                            <constraint firstAttribute="bottom" secondItem="zMz-3u-c6n" secondAttribute="bottom" id="knk-gS-AlM"/>
+                            <constraint firstItem="2PQ-14-RbS" firstAttribute="leading" secondItem="N8N-3x-uMO" secondAttribute="leading" constant="42" id="i5n-jg-Wtl"/>
+                            <constraint firstItem="zra-9u-iGA" firstAttribute="leading" secondItem="N8N-3x-uMO" secondAttribute="leading" constant="6" id="onz-5M-NmJ"/>
                             <constraint firstAttribute="width" constant="300" id="sCc-OE-9D9"/>
                             <constraint firstAttribute="bottom" secondItem="2PQ-14-RbS" secondAttribute="bottom" id="vs6-kz-fUm"/>
-                            <constraint firstItem="zra-9u-iGA" firstAttribute="centerX" secondItem="Jip-we-c5c" secondAttribute="centerX" id="wEW-b5-lXU"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="xt_cornerRadius">
@@ -85,10 +66,8 @@
             <connections>
                 <outlet property="bgViewOnChoose" destination="N8N-3x-uMO" id="Zml-Nt-3P4"/>
                 <outlet property="flexGrayWid" destination="sCc-OE-9D9" id="V4y-ql-dWj"/>
-                <outlet property="imgView" destination="Jip-we-c5c" id="cvI-Ey-lAw"/>
                 <outlet property="lbEmoji" destination="zra-9u-iGA" id="8xe-at-RQa"/>
                 <outlet property="lbName" destination="2PQ-14-RbS" id="Jbx-0K-bBX"/>
-                <outlet property="redMark" destination="zMz-3u-c6n" id="gud-7c-rgc"/>
             </connections>
             <point key="canvasLocation" x="132.80000000000001" y="151.12443778110946"/>
         </tableViewCell>

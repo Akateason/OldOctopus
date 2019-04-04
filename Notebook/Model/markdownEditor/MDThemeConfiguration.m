@@ -215,13 +215,6 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _lightTextColor ;
 }
 
-- (UIColor *)normalTextColor {
-    if (!_normalTextColor) {
-        _normalTextColor = [UIColor blackColor] ;
-    }
-    return _normalTextColor ;
-}
-
 - (UIColor *)homeTableBGColor {
     if (!_homeTableBGColor) {
         _homeTableBGColor = [UIColor colorWithWhite:0 alpha:0.01] ;
