@@ -35,6 +35,8 @@
 }
 
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {
+    [super xt_configure:note indexPath:indexPath] ;
+    
     _lbTitle.text = note.title ;
     _lbContent.text = [self filterMarkdownString:note.content] ;
     _lbDate.text = [[NSDate xt_getDateWithTick:note.xt_updateTime] xt_timeInfo] ;

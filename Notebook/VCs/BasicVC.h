@@ -11,6 +11,8 @@
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
+#import "Note.h"
+#import "NoteBooks.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -16,6 +16,12 @@
 		8F07D65A224CF614005BA86D /* ld_bt_trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F07D659224CF614005BA86D /* ld_bt_trash@2x.png */; };
 		8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F303997225217A300DEB656 /* HomeEmptyPHView.m */; };
 		8F30399A225217AB00DEB656 /* HomeEmptyPHView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */; };
+		8F41EEC7225B3B7500D9CD35 /* SWRevealTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F41EEC5225B3B7500D9CD35 /* SWRevealTableViewCell.m */; };
+		8F41EEC9225B3E3900D9CD35 /* home_del_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F41EEC8225B3E3900D9CD35 /* home_del_note@2x.png */; };
+		8F41EECB225B404200D9CD35 /* home_move_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F41EECA225B404200D9CD35 /* home_move_note@2x.png */; };
+		8F41EECF225B47AE00D9CD35 /* MoveNoteToBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F41EECE225B47AE00D9CD35 /* MoveNoteToBookVC.m */; };
+		8F41EED1225B487300D9CD35 /* m_note_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F41EED0225B487200D9CD35 /* m_note_close@2x.png */; };
+		8F41EED3225B4B6200D9CD35 /* m_note_right_paint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F41EED2225B4B6000D9CD35 /* m_note_right_paint@2x.png */; };
 		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
@@ -134,6 +140,14 @@
 		8F303996225217A300DEB656 /* HomeEmptyPHView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeEmptyPHView.h; sourceTree = "<group>"; };
 		8F303997225217A300DEB656 /* HomeEmptyPHView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeEmptyPHView.m; sourceTree = "<group>"; };
 		8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEmptyPHView.xib; sourceTree = "<group>"; };
+		8F41EEC5225B3B7500D9CD35 /* SWRevealTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealTableViewCell.m; sourceTree = "<group>"; };
+		8F41EEC6225B3B7500D9CD35 /* SWRevealTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealTableViewCell.h; sourceTree = "<group>"; };
+		8F41EEC8225B3E3900D9CD35 /* home_del_note@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_del_note@2x.png"; sourceTree = "<group>"; };
+		8F41EECA225B404200D9CD35 /* home_move_note@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_move_note@2x.png"; sourceTree = "<group>"; };
+		8F41EECD225B47AE00D9CD35 /* MoveNoteToBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoveNoteToBookVC.h; sourceTree = "<group>"; };
+		8F41EECE225B47AE00D9CD35 /* MoveNoteToBookVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoveNoteToBookVC.m; sourceTree = "<group>"; };
+		8F41EED0225B487200D9CD35 /* m_note_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "m_note_close@2x.png"; sourceTree = "<group>"; };
+		8F41EED2225B4B6000D9CD35 /* m_note_right_paint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "m_note_right_paint@2x.png"; sourceTree = "<group>"; };
 		8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
 		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
 		8F579FDC222E547F00C54929 /* Notebook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notebook.entitlements; sourceTree = "<group>"; };
@@ -317,6 +331,32 @@
 			path = Note;
 			sourceTree = "<group>";
 		};
+		8F41EEC3225B3B5200D9CD35 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				8F41EEC4225B3B7500D9CD35 /* SWRevealTableViewCell */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		8F41EEC4225B3B7500D9CD35 /* SWRevealTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				8F41EEC6225B3B7500D9CD35 /* SWRevealTableViewCell.h */,
+				8F41EEC5225B3B7500D9CD35 /* SWRevealTableViewCell.m */,
+			);
+			path = SWRevealTableViewCell;
+			sourceTree = "<group>";
+		};
+		8F41EECC225B479200D9CD35 /* MoveNoteToBook */ = {
+			isa = PBXGroup;
+			children = (
+				8F41EECD225B47AE00D9CD35 /* MoveNoteToBookVC.h */,
+				8F41EECE225B47AE00D9CD35 /* MoveNoteToBookVC.m */,
+			);
+			path = MoveNoteToBook;
+			sourceTree = "<group>";
+		};
 		8F626342221C02030066A429 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,10 +398,11 @@
 				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
+				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
 				8FEA9E47225B2713002A756B /* emojisJson.json */,
 				8F7A8435223BD1770099E905 /* zample2.md */,
 				8F679E1122363EB7008DE1BC /* zample.md */,
-				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
+				8F41EEC3225B3B5200D9CD35 /* Vendor */,
 				8F7A843B2240C7340099E905 /* source */,
 				8F626342221C02030066A429 /* Model */,
 				8FACF6C2221D2AF70067DDA4 /* VCs */,
@@ -455,6 +496,10 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F41EED2225B4B6000D9CD35 /* m_note_right_paint@2x.png */,
+				8F41EED0225B487200D9CD35 /* m_note_close@2x.png */,
+				8F41EECA225B404200D9CD35 /* home_move_note@2x.png */,
+				8F41EEC8225B3E3900D9CD35 /* home_del_note@2x.png */,
 				8FEA9E4D225B35A7002A756B /* home_empty@2x.png */,
 				8FEA9E45225AFEEC002A756B /* nb_right_fish@2x.png */,
 				8FEA9E3F2255DE92002A756B /* ld_add_book@2x.png */,
@@ -502,6 +547,7 @@
 				8F7A84472244BD6B0099E905 /* MDNavVC.m */,
 				8F07D654224CD8CE005BA86D /* BasicVC.h */,
 				8F07D655224CD8CE005BA86D /* BasicVC.m */,
+				8F41EECC225B479200D9CD35 /* MoveNoteToBook */,
 				8FEA9E41225AFBAE002A756B /* NewBook */,
 				8FE5A3D5224B6C6800947D14 /* Home */,
 				8FE5A3D6224B6C7400947D14 /* LeftDrawer */,
@@ -729,6 +775,7 @@
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
 				8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */,
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
+				8F41EED1225B487300D9CD35 /* m_note_close@2x.png in Resources */,
 				8F07D65A224CF614005BA86D /* ld_bt_trash@2x.png in Resources */,
 				8F07D658224CF583005BA86D /* ld_bt_recent@2x.png in Resources */,
 				8FEA9E48225B2713002A756B /* emojisJson.json in Resources */,
@@ -736,10 +783,13 @@
 				8F679E1222363EB7008DE1BC /* zample.md in Resources */,
 				8FE5A3F1224CA86A00947D14 /* LDNotebookCell.xib in Resources */,
 				8F7A84932244E4DA0099E905 /* md_tb_bt_underline@2x.png in Resources */,
+				8F41EED3225B4B6200D9CD35 /* m_note_right_paint@2x.png in Resources */,
 				8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */,
 				8F7A84762244E1EB0099E905 /* md_tb_bt_code@2x.png in Resources */,
 				8FEA9E3D2254D266002A756B /* md_home_top_icon@2x.png in Resources */,
 				8FEA9E3B2254D1EF002A756B /* md_home_search@2x.png in Resources */,
+				8F41EEC9225B3E3900D9CD35 /* home_del_note@2x.png in Resources */,
+				8F41EECB225B404200D9CD35 /* home_move_note@2x.png in Resources */,
 				8F7A8436223BD1780099E905 /* zample2.md in Resources */,
 				8FEA9E46225AFEF1002A756B /* nb_right_fish@2x.png in Resources */,
 				8F7A84452244BA9D0099E905 /* nav_back_item@2x.png in Resources */,
@@ -907,6 +957,7 @@
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
 				8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,
+				8F41EECF225B47AE00D9CD35 /* MoveNoteToBookVC.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
 				8F679E0322324631008DE1BC /* MarkdownPaser.m in Sources */,
 				8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */,
@@ -923,6 +974,7 @@
 				8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */,
 				8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */,
 				8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */,
+				8F41EEC7225B3B7500D9CD35 /* SWRevealTableViewCell.m in Sources */,
 				8FFBBB3D224A4CAF00A304C7 /* MDEKeyboardPhotoView.m in Sources */,
 				8FEA9E44225AFBDC002A756B /* NewBookVC.m in Sources */,
 				8FE5A3D9224B6CE800947D14 /* HomeVC.m in Sources */,

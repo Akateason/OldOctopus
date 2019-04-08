@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SWRevealTableViewCell.h"
+//#import "Note.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NoteCell : UITableViewCell
+@interface NoteCell : SWRevealTableViewCell
 @property (weak, nonatomic) IBOutlet UIView *area;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lbContent;
 @property (weak, nonatomic) IBOutlet UILabel *lbDate;
+
+//@property (strong, nonatomic) Note *aNote ;
 
 @end
 

@@ -19,8 +19,10 @@
 #import "AppDelegate.h"
 #import "LDHeadView.h"
 #import "NewBookVC.h"
+#import "MoveNoteToBookVC.h"
 
-@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate>
+
+@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
@@ -162,6 +164,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NoteCell *cell = [NoteCell xt_fetchFromTable:tableView] ;
     [cell xt_configure:self.listNotes[indexPath.row] indexPath:indexPath] ;
+    cell.dataSource = self;
     return cell ;
 }
 
@@ -186,6 +189,39 @@
 
 - (BOOL)enableScrollWhenPlaceHolderViewShowing {
     return YES ;
+}
+
+- (NSArray *)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)cell1 {
+    SWCellButtonItem *item1 = [SWCellButtonItem itemWithTitle:@"删除" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
+        Note *aNote = ((NoteCell *)cell).xt_model ;
+// Delete Note
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要删除此文章吗?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+            if (btnIndex == 1) {
+                aNote.isDeleted = YES ;
+                [Note updateMyNote:aNote] ;
+                [self.table xt_loadNewInfoInBackGround:YES] ;
+            }
+        }] ;
+        return YES ;
+    }] ;
+    item1.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
+    item1.tintColor = [UIColor whiteColor] ;
+    item1.width = 60 ;
+    item1.image = [UIImage imageNamed:@"home_del_note"] ;
+    
+    SWCellButtonItem *item2 = [SWCellButtonItem itemWithTitle:@"移动" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
+        Note *aNote = ((NoteCell *)cell).xt_model ;
+// Move Note
+        [MoveNoteToBookVC showFromCtrller:self] ;
+        // todo
+        
+        return YES ;
+    }] ;
+    item2.backgroundColor = [UIColor colorWithWhite:0 alpha:.6] ;
+    item2.tintColor = [UIColor whiteColor] ;
+    item2.width = 60 ;
+    item2.image = [UIImage imageNamed:@"home_move_note"] ;
+    return @[item1,item2] ;
 }
 
 #pragma mark - MarkdownVCDelegate <NSObject>

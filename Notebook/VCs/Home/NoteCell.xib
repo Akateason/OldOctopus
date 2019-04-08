@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="111.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7E-Ac-LyT">
-                                <rect key="frame" x="20" y="20" width="31" height="24"/>
+                                <rect key="frame" x="20" y="20" width="252" height="24"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -50,6 +50,7 @@
                             <constraint firstItem="1c7-tb-3hL" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="20" id="LbE-MK-PQe"/>
                             <constraint firstAttribute="trailing" secondItem="1c7-tb-3hL" secondAttribute="trailing" constant="20" id="O96-UM-iPC"/>
                             <constraint firstItem="7lz-1p-FH9" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="20" id="Oef-f0-161"/>
+                            <constraint firstItem="m7E-Ac-LyT" firstAttribute="width" secondItem="Zzt-FU-u9Q" secondAttribute="width" multiplier="160:320" constant="92" id="mGL-hf-4LA"/>
                             <constraint firstItem="m7E-Ac-LyT" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="20" id="uQf-k3-9Pr"/>
                             <constraint firstItem="1c7-tb-3hL" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="52" id="vJ0-C9-WNh"/>
                             <constraint firstItem="m7E-Ac-LyT" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="20" id="yuq-UO-p1m"/>
