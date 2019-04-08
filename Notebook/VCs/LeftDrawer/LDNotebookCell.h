@@ -12,14 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LDNotebookCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *bgViewOnChoose;
-@property (weak, nonatomic) IBOutlet UIView *redMark;
 @property (weak, nonatomic) IBOutlet UILabel *lbEmoji;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
-@property (weak, nonatomic) IBOutlet UIImageView *imgView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *flexGrayWid;
-- (void)setDistance:(float)distance ;
+@property (strong, nonatomic) UIImageView *imgView;
 
-//- (void)setSelectedState:
+
+
+
 
 @end
 

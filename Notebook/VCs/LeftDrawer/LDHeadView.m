@@ -27,9 +27,9 @@
     self.lbMyBook.alpha = .3 ;
     
     self.imgAddBook.userInteractionEnabled = YES ;
-    WEAK_SELF
+    
     [self.imgAddBook bk_whenTapped:^{
-        [weakSelf.delegate addBook] ;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_AddBook object:nil];
     }] ;
 }
 

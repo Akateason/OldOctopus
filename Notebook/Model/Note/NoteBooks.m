@@ -33,8 +33,8 @@
         CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
         _record = [[CKRecord alloc] initWithRecordType:@"NoteBook" recordID:recordID] ;
         [_record setObject:@0 forKey:@"isDeleted"] ;
-        [_record setObject:emoji forKey:@"emoji"] ;
-        [_record setObject:name forKey:@"name"] ;
+        [_record setObject:_emoji forKey:@"emoji"] ;
+        [_record setObject:_name forKey:@"name"] ;
     }
     return self;
 }
@@ -65,10 +65,10 @@
 
 + (NSArray *)appendWithArray:(NSArray *)booklist {
     NSMutableArray *list = [booklist mutableCopy] ;
-    NoteBooks *book1 = [self createOtherBookWithType:(Notebook_Type_recent)] ;
-    NoteBooks *book2 = [self createOtherBookWithType:(Notebook_Type_trash)] ;
-    [list addObject:book1] ;
-    [list addObject:book2] ;
+//    NoteBooks *book1 = [self createOtherBookWithType:(Notebook_Type_recent)] ;
+//    NoteBooks *book2 = [self createOtherBookWithType:(Notebook_Type_trash)] ;
+//    [list addObject:book1] ;
+//    [list addObject:book2] ;
     return list ;
 }
 

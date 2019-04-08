@@ -10,15 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol LDHeadViewDelegate <NSObject>
+static NSString *const kNotification_AddBook = @"kNotification_AddBook" ;
 
-- (void)addBook ;
-
-@end
 
 @interface LDHeadView : UIView
-@property (weak, nonatomic) id <LDHeadViewDelegate> delegate ;
-
 @property (weak, nonatomic) IBOutlet UILabel *lbHead;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UILabel *lbMyBook;

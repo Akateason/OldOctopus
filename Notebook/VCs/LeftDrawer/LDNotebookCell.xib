@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N8N-3x-uMO">
-                        <rect key="frame" x="10" y="0.0" width="300" height="34.5"/>
+                        <rect key="frame" x="10" y="0.0" width="290" height="34.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zra-9u-iGA">
                                 <rect key="frame" x="6" y="5" width="25" height="25"/>
@@ -45,7 +45,6 @@
                             <constraint firstItem="zra-9u-iGA" firstAttribute="centerY" secondItem="N8N-3x-uMO" secondAttribute="centerY" id="Zl0-wd-ZWr"/>
                             <constraint firstItem="2PQ-14-RbS" firstAttribute="leading" secondItem="N8N-3x-uMO" secondAttribute="leading" constant="42" id="i5n-jg-Wtl"/>
                             <constraint firstItem="zra-9u-iGA" firstAttribute="leading" secondItem="N8N-3x-uMO" secondAttribute="leading" constant="6" id="onz-5M-NmJ"/>
-                            <constraint firstAttribute="width" constant="300" id="sCc-OE-9D9"/>
                             <constraint firstAttribute="bottom" secondItem="2PQ-14-RbS" secondAttribute="bottom" id="vs6-kz-fUm"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -60,12 +59,12 @@
                     <constraint firstItem="N8N-3x-uMO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Ory-r8-cal"/>
                     <constraint firstAttribute="bottom" secondItem="N8N-3x-uMO" secondAttribute="bottom" constant="5" id="bnZ-4X-COu"/>
                     <constraint firstItem="N8N-3x-uMO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jp1-EI-JLa"/>
+                    <constraint firstAttribute="trailing" secondItem="N8N-3x-uMO" secondAttribute="trailing" constant="20" id="rGD-32-Wvf"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="bgViewOnChoose" destination="N8N-3x-uMO" id="Zml-Nt-3P4"/>
-                <outlet property="flexGrayWid" destination="sCc-OE-9D9" id="V4y-ql-dWj"/>
                 <outlet property="lbEmoji" destination="zra-9u-iGA" id="8xe-at-RQa"/>
                 <outlet property="lbName" destination="2PQ-14-RbS" id="Jbx-0K-bBX"/>
             </connections>

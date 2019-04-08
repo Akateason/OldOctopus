@@ -17,6 +17,8 @@
 #import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
 #import "HomeEmptyPHView.h"
 #import "AppDelegate.h"
+#import "LDHeadView.h"
+#import "NewBookVC.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -24,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIView *topArea;
 @property (weak, nonatomic) IBOutlet UILabel *nameOfNoteBook;
 @property (weak, nonatomic) IBOutlet UIButton *btLeftDrawer;
-@property (weak, nonatomic) IBOutlet UIImageView *ImgTitleAddition;
 @property (weak, nonatomic) IBOutlet UIImageView *ImgBtSearch;
 @property (weak, nonatomic) IBOutlet UILabel *bookEmoji;
 
@@ -56,27 +57,32 @@
     rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
         takeUntil:self.rac_willDeallocSignal]
        deliverOnMainThread]
-      throttle:3] subscribeNext:^(NSNotification * _Nullable x) {
+      throttle:2] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
         [self.table xt_loadNewInfo] ;
 //        [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
+    
+    
 }
 
 - (void)renderTable:(void(^)(void))completion {
     if (self.leftVC.currentBook.vType == Notebook_Type_recent) {
         self.nameOfNoteBook.text = @"最近使用" ;
+        self.bookEmoji.text = @"" ;
         self.listNotes = [Note xt_findWhere:@"isDeleted == 0 order by xt_updateTime DESC limit 20"] ;
         completion() ;
         return ;
     }
     else if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
         self.nameOfNoteBook.text = @"垃圾桶" ;
+        self.bookEmoji.text = @"" ;
         self.listNotes = [Note xt_findWhere:@"isDeleted == 1"] ;
         completion() ;
         return ;
     }
+    
     // note book normal
     self.nameOfNoteBook.text = self.leftVC.currentBook.name ;
     self.bookEmoji.text = self.leftVC.currentBook.displayEmoji ;
@@ -87,10 +93,6 @@
         self.listNotes = list ;
         completion() ;
     }] ;
-}
-
-- (void)renderRecently {
-    
 }
 
 - (void)openDrawer {
@@ -112,6 +114,7 @@
     
     self.topSafeAreaView.backgroundColor = [UIColor whiteColor] ;
     
+    self.bookEmoji.text = @"" ;
     self.nameOfNoteBook.text = @"";
     self.nameOfNoteBook.textColor = [MDThemeConfiguration sharedInstance].homeTitleTextColor ;
     self.topArea.backgroundColor = [UIColor whiteColor] ;

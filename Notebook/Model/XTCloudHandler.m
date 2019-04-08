@@ -104,7 +104,7 @@ XT_SINGLETON_M(XTCloudHandler)
                 user.userRecordName = userInfo.userRecordID.recordName ;
                 user.familyName = userInfo.nameComponents.familyName ;
                 user.givenName = userInfo.nameComponents.givenName ;
-                user.name = [user.familyName stringByAppendingString:user.givenName] ;
+                user.name = XT_STR_FORMAT(@"%@ %@",user.givenName,user.familyName) ;                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     blkUser(user) ;
                 }) ;

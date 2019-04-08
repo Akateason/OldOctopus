@@ -88,6 +88,11 @@
 		8FEA9E3B2254D1EF002A756B /* md_home_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA9E3A2254D1EF002A756B /* md_home_search@2x.png */; };
 		8FEA9E3D2254D266002A756B /* md_home_top_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA9E3C2254D266002A756B /* md_home_top_icon@2x.png */; };
 		8FEA9E402255DE93002A756B /* ld_add_book@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA9E3F2255DE92002A756B /* ld_add_book@2x.png */; };
+		8FEA9E44225AFBDC002A756B /* NewBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEA9E43225AFBDC002A756B /* NewBookVC.m */; };
+		8FEA9E46225AFEF1002A756B /* nb_right_fish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA9E45225AFEEC002A756B /* nb_right_fish@2x.png */; };
+		8FEA9E48225B2713002A756B /* emojisJson.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA9E47225B2713002A756B /* emojisJson.json */; };
+		8FEA9E4C225B27C1002A756B /* EmojiJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEA9E4B225B27C1002A756B /* EmojiJson.m */; };
+		8FEA9E4E225B35A8002A756B /* home_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA9E4D225B35A7002A756B /* home_empty@2x.png */; };
 		8FFBBB3D224A4CAF00A304C7 /* MDEKeyboardPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */; };
 		8FFBBB3F224A4CD900A304C7 /* MDEKeyboardPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */; };
 		8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB42224A4FE500A304C7 /* md_tb_bt_camera@2x.png */; };
@@ -238,6 +243,13 @@
 		8FEA9E3A2254D1EF002A756B /* md_home_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_home_search@2x.png"; sourceTree = "<group>"; };
 		8FEA9E3C2254D266002A756B /* md_home_top_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_home_top_icon@2x.png"; sourceTree = "<group>"; };
 		8FEA9E3F2255DE92002A756B /* ld_add_book@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_add_book@2x.png"; sourceTree = "<group>"; };
+		8FEA9E42225AFBDC002A756B /* NewBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewBookVC.h; sourceTree = "<group>"; };
+		8FEA9E43225AFBDC002A756B /* NewBookVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewBookVC.m; sourceTree = "<group>"; };
+		8FEA9E45225AFEEC002A756B /* nb_right_fish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nb_right_fish@2x.png"; sourceTree = "<group>"; };
+		8FEA9E47225B2713002A756B /* emojisJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emojisJson.json; sourceTree = "<group>"; };
+		8FEA9E4A225B27C1002A756B /* EmojiJson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmojiJson.h; sourceTree = "<group>"; };
+		8FEA9E4B225B27C1002A756B /* EmojiJson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiJson.m; sourceTree = "<group>"; };
+		8FEA9E4D225B35A7002A756B /* home_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_empty@2x.png"; sourceTree = "<group>"; };
 		8FFBBB3B224A4CAF00A304C7 /* MDEKeyboardPhotoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEKeyboardPhotoView.h; sourceTree = "<group>"; };
 		8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEKeyboardPhotoView.m; sourceTree = "<group>"; };
 		8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEKeyboardPhotoView.xib; sourceTree = "<group>"; };
@@ -308,6 +320,7 @@
 		8F626342221C02030066A429 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8FEA9E49225B274C002A756B /* EmojiJson */,
 				8F07D64A224CB9EE005BA86D /* Note */,
 				8F579FDF222FB65B00C54929 /* XTCloudHandler.h */,
 				8F579FE0222FB65B00C54929 /* XTCloudHandler.m */,
@@ -345,6 +358,7 @@
 				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
+				8FEA9E47225B2713002A756B /* emojisJson.json */,
 				8F7A8435223BD1770099E905 /* zample2.md */,
 				8F679E1122363EB7008DE1BC /* zample.md */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -441,6 +455,8 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8FEA9E4D225B35A7002A756B /* home_empty@2x.png */,
+				8FEA9E45225AFEEC002A756B /* nb_right_fish@2x.png */,
 				8FEA9E3F2255DE92002A756B /* ld_add_book@2x.png */,
 				8FEA9E3C2254D266002A756B /* md_home_top_icon@2x.png */,
 				8FEA9E3A2254D1EF002A756B /* md_home_search@2x.png */,
@@ -486,6 +502,7 @@
 				8F7A84472244BD6B0099E905 /* MDNavVC.m */,
 				8F07D654224CD8CE005BA86D /* BasicVC.h */,
 				8F07D655224CD8CE005BA86D /* BasicVC.m */,
+				8FEA9E41225AFBAE002A756B /* NewBook */,
 				8FE5A3D5224B6C6800947D14 /* Home */,
 				8FE5A3D6224B6C7400947D14 /* LeftDrawer */,
 				8F679DF922324341008DE1BC /* markdownEditor */,
@@ -573,6 +590,24 @@
 				8FFBBB48224B278000A304C7 /* MDEKPhotoViewCell.xib */,
 			);
 			path = editorViews;
+			sourceTree = "<group>";
+		};
+		8FEA9E41225AFBAE002A756B /* NewBook */ = {
+			isa = PBXGroup;
+			children = (
+				8FEA9E42225AFBDC002A756B /* NewBookVC.h */,
+				8FEA9E43225AFBDC002A756B /* NewBookVC.m */,
+			);
+			path = NewBook;
+			sourceTree = "<group>";
+		};
+		8FEA9E49225B274C002A756B /* EmojiJson */ = {
+			isa = PBXGroup;
+			children = (
+				8FEA9E4A225B27C1002A756B /* EmojiJson.h */,
+				8FEA9E4B225B27C1002A756B /* EmojiJson.m */,
+			);
+			path = EmojiJson;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -696,6 +731,7 @@
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
 				8F07D65A224CF614005BA86D /* ld_bt_trash@2x.png in Resources */,
 				8F07D658224CF583005BA86D /* ld_bt_recent@2x.png in Resources */,
+				8FEA9E48225B2713002A756B /* emojisJson.json in Resources */,
 				8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */,
 				8F679E1222363EB7008DE1BC /* zample.md in Resources */,
 				8FE5A3F1224CA86A00947D14 /* LDNotebookCell.xib in Resources */,
@@ -705,6 +741,7 @@
 				8FEA9E3D2254D266002A756B /* md_home_top_icon@2x.png in Resources */,
 				8FEA9E3B2254D1EF002A756B /* md_home_search@2x.png in Resources */,
 				8F7A8436223BD1780099E905 /* zample2.md in Resources */,
+				8FEA9E46225AFEF1002A756B /* nb_right_fish@2x.png in Resources */,
 				8F7A84452244BA9D0099E905 /* nav_back_item@2x.png in Resources */,
 				8FA232DB2251BFFE00163685 /* md_ed_more@2x.png in Resources */,
 				8F0688F02248EC7200A7B183 /* md_tb_bt_blkCode@2x.png in Resources */,
@@ -719,6 +756,7 @@
 				8FE5A3EC224CA78100947D14 /* LDHeadView.xib in Resources */,
 				8F7A84722244E1EB0099E905 /* md_tb_bt_h5@2x.png in Resources */,
 				8FFBBB3F224A4CD900A304C7 /* MDEKeyboardPhotoView.xib in Resources */,
+				8FEA9E4E225B35A8002A756B /* home_empty@2x.png in Resources */,
 				8F7A848B2244E4440099E905 /* md_tb_bt_deletion@2x.png in Resources */,
 				8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */,
 				8F7A84682244E1EB0099E905 /* md_tb_bt_h4@2x.png in Resources */,
@@ -861,6 +899,7 @@
 				8F07D653224CCED4005BA86D /* NoteBooks.m in Sources */,
 				8F679E2B2238FA17008DE1BC /* MdOtherModel.m in Sources */,
 				8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */,
+				8FEA9E4C225B27C1002A756B /* EmojiJson.m in Sources */,
 				8F7A844B2244CA5F0099E905 /* MDToolbar.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
 				8F0688EE2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m in Sources */,
@@ -885,6 +924,7 @@
 				8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */,
 				8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */,
 				8FFBBB3D224A4CAF00A304C7 /* MDEKeyboardPhotoView.m in Sources */,
+				8FEA9E44225AFBDC002A756B /* NewBookVC.m in Sources */,
 				8FE5A3D9224B6CE800947D14 /* HomeVC.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,

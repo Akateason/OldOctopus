@@ -20,14 +20,6 @@
     self.imgView.hidden = YES ;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
-    self.bgViewOnChoose.backgroundColor = selected ? UIColorHexA(@"000000", .03) : [UIColor clearColor] ;
-    self.redMark.hidden = !selected ;
-    self.lbName.textColor = selected ? [MDThemeConfiguration sharedInstance].themeColor : UIColorHexA(@"000000", .6) ;
-}
-
 + (CGFloat)xt_cellHeight {
     return 40 ;
 }
@@ -48,11 +40,24 @@
         self.lbEmoji.hidden = YES ;
         self.imgView.image = [UIImage imageNamed:book.emoji] ;
     }
+    
+    self.bgViewOnChoose.backgroundColor = book.isOnSelect ? UIColorHexA(@"000000", .03) : [UIColor clearColor] ;
+    self.lbName.textColor = book.isOnSelect ? [MDThemeConfiguration sharedInstance].themeColor : UIColorHexA(@"000000", .6) ;
 }
 
-- (void)setDistance:(float)distance {
-    _flexGrayWid.constant = distance - 20. ;
+- (UIImageView *)imgView {
+    if (!_imgView) {
+        _imgView = [[UIImageView alloc] init] ;
+        [self addSubview:_imgView] ;
+        [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.lbEmoji) ;
+            make.size.mas_equalTo(CGSizeMake(20, 20)) ;
+        }] ;
+    }
+    
+    return _imgView ;
 }
+
 
 
 
