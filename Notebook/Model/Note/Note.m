@@ -85,6 +85,7 @@
 }
 
 + (void)updateMyNote:(Note *)aNote {
+    aNote.isSendOnICloud = NO ;
     [aNote xt_upsertWhereByProp:@"icRecordName"] ;
     
     NSDictionary *dic = @{@"content" : aNote.content,

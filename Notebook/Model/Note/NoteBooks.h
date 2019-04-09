@@ -43,13 +43,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NoteBooks *)createOtherBookWithType:(Notebook_Type)type ;
 
-+ (NSArray *)appendWithArray:(NSArray *)booklist ;
+
 
 + (void)createNewBook:(NoteBooks *)book ;
     
 + (void)updateMyBook:(NoteBooks *)book ;
 
 + (void)getFromServerComplete:(void(^)(void))completion ;
+
++ (void)deleteBook:(NoteBooks *)book ;
+
 
 @end
 

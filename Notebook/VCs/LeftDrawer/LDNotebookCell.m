@@ -25,6 +25,7 @@
 }
 
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
+    [super xt_configure:book indexPath:indexPath] ;
     
     _lbName.text = book.name ;
     

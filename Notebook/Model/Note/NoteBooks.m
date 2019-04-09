@@ -7,7 +7,7 @@
 //
 
 #import "NoteBooks.h"
-
+#import "Note.h"
 
 @implementation NoteBooks
 
@@ -61,15 +61,6 @@
         book1.name = @"垃圾桶" ;
     }
     return book1 ;
-}
-
-+ (NSArray *)appendWithArray:(NSArray *)booklist {
-    NSMutableArray *list = [booklist mutableCopy] ;
-//    NoteBooks *book1 = [self createOtherBookWithType:(Notebook_Type_recent)] ;
-//    NoteBooks *book2 = [self createOtherBookWithType:(Notebook_Type_trash)] ;
-//    [list addObject:book1] ;
-//    [list addObject:book2] ;
-    return list ;
 }
 
 + (void)createNewBook:(NoteBooks *)book {
@@ -128,6 +119,17 @@
         
         [NoteBooks xt_insertOrReplaceWithList:tmplist] ;
         completion() ;
+    }] ;
+}
+
++ (void)deleteBook:(NoteBooks *)book {
+    book.isDeleted = YES ;
+    [self updateMyBook:book] ;
+    
+    NSArray *notelist = [Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@'",book.icRecordName)] ;
+    [notelist enumerateObjectsUsingBlock:^(Note *aNote, NSUInteger idx, BOOL * _Nonnull stop) {
+        aNote.isDeleted = YES ;
+        [Note updateMyNote:aNote] ;
     }] ;
 }
 

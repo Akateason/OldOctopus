@@ -14,9 +14,9 @@
 #import "Note.h"
 #import "NewBookVC.h"
 
-typedef void(^BlkBookSelectedChange)(NoteBooks *book);
+typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
 
-@interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource> {
+@interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource> {
     BOOL isFirst ;
 }
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -52,6 +52,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
             [self render] ;
             [self setCurrentBook:aBook] ;
 //            self.blkBookChange(aBook) ;
+            
         } cancel:^{
             self.nBookVC = nil ;
         }] ;
@@ -76,13 +77,17 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
     [self.bottomArea bk_whenTapped:^{
         @strongify(self)
         [self setCurrentBook:self.bookTrash] ;
-        self.blkBookChange(self.bookTrash) ;
+        self.blkBookChange(self.bookTrash, YES) ;
     }] ;
 }
 
 #pragma mark -
 
 - (void)render {
+    [self render:YES] ;
+}
+
+- (void)render:(BOOL)goHome {
     self.bookRecent = [NoteBooks createOtherBookWithType:(Notebook_Type_recent)] ;
     self.bookTrash = [NoteBooks createOtherBookWithType:(Notebook_Type_trash)] ;
     self.lbTrash.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
@@ -91,13 +96,13 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
         
         if (!array.count) return ;
                     
-        self.booklist = [NoteBooks appendWithArray:array] ;
+        self.booklist = array ;
         [self setCurrentBook:self.currentBook] ;
         
         if (!self->isFirst) {
             self->isFirst = YES ;
             [self setCurrentBook:self.bookRecent] ;
-            self.blkBookChange(self.bookRecent) ;
+            self.blkBookChange(self.bookRecent, goHome) ;
         }
     }] ;
 }
@@ -120,7 +125,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
     }) ;
 }
 
-- (void)currentBookChanged:(void (^)(NoteBooks * _Nonnull))blkChange {
+- (void)currentBookChanged:(void (^)(NoteBooks * _Nonnull, bool isClick))blkChange {
     self.blkBookChange = blkChange ;
 }
 
@@ -143,6 +148,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LDNotebookCell *cell = [LDNotebookCell xt_fetchFromTable:tableView] ;
+    cell.dataSource = self ;
     if (indexPath.section == 0) {
         [cell xt_configure:self.bookRecent indexPath:indexPath] ;
     }
@@ -191,12 +197,43 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book);
     
     if (section == 0) {
         self.currentBook = self.bookRecent ;
-        self.blkBookChange(self.currentBook) ;
+        self.blkBookChange(self.currentBook, YES) ;
     }
     else if (section == 1) {
         [self setCurrentBook:self.booklist[row]] ;
-        self.blkBookChange(self.currentBook) ;
+        self.blkBookChange(self.currentBook, YES) ;
     }
 }
+
+- (NSArray*)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell {
+    SWCellButtonItem *item1 = [SWCellButtonItem itemWithImage:[UIImage imageNamed:@"home_del_note"] handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
+// delete book
+        NoteBooks *aBook = ((LDNotebookCell *)cell).xt_model ;
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"删除笔记本" message:@"删除笔记本会将此笔记本内的文章都移入回收站" cancelButtonTitle:@"取消" destructiveButtonTitle:@"确认" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+            if (btnIndex == 1) {
+                [NoteBooks deleteBook:aBook] ;
+                self->isFirst = NO ;
+                [self render:NO] ;
+            }
+        }] ;
+        return YES ;
+    }] ;
+    item1.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor;
+    item1.tintColor = [UIColor whiteColor];
+    item1.width = 60;
+    
+    SWCellButtonItem *item2 = [SWCellButtonItem itemWithImage:[UIImage imageNamed:@"home_edit_book"] handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
+// edit book
+        NoteBooks *aBook = ((LDNotebookCell *)cell).xt_model ;
+        // todo
+        
+        return YES ;
+    }] ;
+    item2.backgroundColor = [UIColor colorWithWhite:0 alpha:.6];
+    item2.tintColor = [UIColor whiteColor];
+    item2.width = 60;
+    return @[item1, item2];
+}
+
 
 @end

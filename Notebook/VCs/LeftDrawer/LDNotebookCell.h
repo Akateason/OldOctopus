@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SWRevealTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LDNotebookCell : UITableViewCell
+@interface LDNotebookCell : SWRevealTableViewCell
 @property (weak, nonatomic) IBOutlet UIView *bgViewOnChoose;
 @property (weak, nonatomic) IBOutlet UILabel *lbEmoji;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;

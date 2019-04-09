@@ -49,17 +49,17 @@
     self.fd_prefersNavigationBarHidden = YES ;
     
     @weakify(self)
-    [self.leftVC currentBookChanged:^(NoteBooks * _Nonnull book) {
+    [self.leftVC currentBookChanged:^(NoteBooks * _Nonnull book, BOOL isClick) {
         @strongify(self)        
         [self.table xt_loadNewInfoInBackGround:YES] ;
-        [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
+        if (isClick) [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
     [[[[[[NSNotificationCenter defaultCenter]
     rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
         takeUntil:self.rac_willDeallocSignal]
        deliverOnMainThread]
-      throttle:2] subscribeNext:^(NSNotification * _Nullable x) {
+      throttle:1] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
         [self.table xt_loadNewInfo] ;
