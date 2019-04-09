@@ -54,6 +54,7 @@
         @strongify(self)        
         [self.table xt_loadNewInfoInBackGround:YES] ;
         if (isClick) [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
+        self.btAdd.hidden = book.vType != Notebook_Type_notebook ;
     }] ;
     
     [[[[[[NSNotificationCenter defaultCenter]
@@ -274,18 +275,7 @@
                     make.bottom.equalTo(@-28) ;
                 }] ;
             }
-            
-            img = [img boxblurImageWithBlur:.2] ;
-            UIView *shadow = [[UIImageView alloc] initWithImage:img] ;
-            [self.view insertSubview:shadow belowSubview:view] ;
-            shadow.alpha = .1 ;
-            shadow.xt_completeRound = YES ;
-            [shadow mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(49, 49)) ;
-                make.centerY.equalTo(view).offset(15) ;
-                make.centerX.equalTo(view) ;
-            }] ;
-            
+                                    
             UIImageView *btIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bt_home_add"]] ;
             [view addSubview:btIcon] ;
             [btIcon mas_makeConstraints:^(MASConstraintMaker *make) {

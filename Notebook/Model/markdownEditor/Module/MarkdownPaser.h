@@ -43,7 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
               textView:(UITextView *)textView ;
 
 - (MarkdownModel *)modelForModelListInlineFirst:(NSArray *)modellist ;
-
+- (MarkdownModel *)modelForModelListBlockFirst:(NSArray *)modellist ;
+    
 - (void)updateAttributedText:(NSAttributedString *)attributedString
                     textView:(UITextView *)textView ;
 

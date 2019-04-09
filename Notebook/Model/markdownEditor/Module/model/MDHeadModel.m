@@ -121,8 +121,9 @@
     
     // replace
     [tmpString insertString:mark atIndex:paraModel.range.location] ;
-    id model = [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
+    MarkdownModel *model = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
     [editor doSomethingWhenUserSelectPartOfArticle:model] ;
+    editor.selectedRange = NSMakeRange(model.range.length + model.range.location, 0) ;
 }
 
 

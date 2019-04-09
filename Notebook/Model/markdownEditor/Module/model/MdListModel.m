@@ -129,7 +129,8 @@
     // replace
     if (paraModel.type == MarkdownSyntaxTaskLists) return ;
     [tmpString insertString:@"* [ ] " atIndex:paraModel.range.location] ;
-    [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
+    MarkdownModel *aModel = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
+    editor.selectedRange = NSMakeRange(aModel.range.location + aModel.range.length, 0) ;
 }
 
 + (void)toolbarEventForUlist:(MarkdownEditor *)editor {
@@ -146,7 +147,8 @@
     // replace
     if (paraModel.type == MarkdownSyntaxULLists) return ;
     [tmpString insertString:@"* " atIndex:paraModel.range.location] ;
-    [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
+    MarkdownModel *aModel = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
+    editor.selectedRange = NSMakeRange(aModel.range.length + aModel.range.location, 0) ;
 }
 
 + (void)toolbarEventForOrderList:(MarkdownEditor *)editor {
@@ -172,8 +174,8 @@
     // replace
     if (paraModel.type == MarkdownSyntaxOLLists) return ;
     [tmpString insertString:STR_FORMAT(@"%@. ",orderStr) atIndex:paraModel.range.location] ;
-    [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
-    
+    MarkdownModel *aModel = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
+    editor.selectedRange = NSMakeRange(aModel.range.length + aModel.range.location, 0) ;
 }
 
 

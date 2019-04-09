@@ -297,7 +297,7 @@
         
     for (int i = 0; i < self.paraList.count; i++) {
         MarkdownModel *model = self.paraList[i] ;
-        BOOL isInRange = NSLocationInRange(position, model.range) ;
+        BOOL isInRange = (position >= model.range.location) && (position <= model.range.location + model.range.length) ;
         if (isInRange) {
             return model ;
         }
@@ -416,6 +416,17 @@
     for (MarkdownModel *model in modellist) {
         tmpModel = model ;
         if (model.type > MarkdownInlineUnknown) {
+            return tmpModel ;
+        }
+    }
+    return tmpModel ;
+}
+
+- (MarkdownModel *)modelForModelListBlockFirst:(NSArray *)modellist {
+    MarkdownModel *tmpModel = nil ;
+    for (MarkdownModel *model in modellist) {
+        tmpModel = model ;
+        if (model.type < MarkdownInlineUnknown) {
             return tmpModel ;
         }
     }

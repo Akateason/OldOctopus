@@ -121,8 +121,9 @@
     // replace
     if (paraModel.type == MarkdownSyntaxBlockquotes) return ;
     [tmpString insertString:@"> " atIndex:paraModel.range.location] ;
-    id modelParse = [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
+    MarkdownModel *modelParse = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
     [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
+    editor.selectedRange = NSMakeRange(modelParse.range.length + modelParse.range.location, 0) ;
 }
 
 + (void)toolbarEventCodeBlock:(MarkdownEditor *)editor {
@@ -131,7 +132,7 @@
     // add
     if (!paraModel) {
         [tmpString insertString:@"```\n \n```" atIndex:editor.selectedRange.location] ;
-        id modelParse = [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        id modelParse = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor]] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 4, 0) ;
         [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
         return ;
@@ -141,8 +142,9 @@
     if (paraModel.type == MarkdownSyntaxCodeBlock) return ;
     [tmpString insertString:@"\n```" atIndex:paraModel.range.location + paraModel.range.length] ;
     [tmpString insertString:@"```\n" atIndex:paraModel.range.location] ;
-    id modelParse = [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+    MarkdownModel *modelParse = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor]] ;
     [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
+    editor.selectedRange = NSMakeRange(modelParse.range.length + modelParse.range.location, 0) ;
 }
 
 @end

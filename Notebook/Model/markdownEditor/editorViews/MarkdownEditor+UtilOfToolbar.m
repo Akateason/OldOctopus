@@ -25,11 +25,6 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
     NSInteger position = self.selectedRange.location ;
     MarkdownModel *paraModel ;
     paraModel = [self.markdownPaser paraModelForPosition:position] ;
-    if (paraModel == nil) {
-        position -- ; // 至多退一格, 标题容错
-        paraModel = [self.markdownPaser paraModelForPosition:position] ;
-        if (paraModel.type > MarkdownSyntaxHeaders) paraModel = nil ;
-    }
     
     MarkdownModel *blkModel ;
     if (paraModel) blkModel = [self.markdownPaser parsingGetABlockStyleModelFromParaModel:paraModel] ;
@@ -52,10 +47,10 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
             blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 1)) ;
         }
         [self.markdownPaser parseText:tmpString position:blkModel.range.location textView:self] ;
+        self.selectedRange = NSMakeRange(blkModel.range.location + blkModel.range.length, 0) ;
     }
     else {
         blkModel = paraModel ;
-//        self.selectedRange = NSMakeRange(paraModel.range.location, 0) ; // 必须在操作之后再加selectionRange
     }
     [self doSomethingWhenUserSelectPartOfArticle:nil] ;
     
@@ -77,14 +72,8 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
 #pragma mark - MDToolbarDelegate <NSObject>
 
 - (void)toolbarDidSelectRemoveTitle {
-    NSMutableString *tmpString = [self.text mutableCopy] ;
-    MarkdownModel *paraModel = [self.markdownPaser paraModelForPosition:self.selectedRange.location] ;
-    if ([paraModel.str hasPrefix:@"#"]) {
-        NSString *prefix = [[paraModel.str componentsSeparatedByString:@" "] firstObject] ;
-        NSInteger delNum = prefix.length + 1 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(paraModel.range.location, delNum)] ;
-    }
-    [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+    MarkdownModel *model = [self cleanMarkOfParagraph] ;
+    self.selectedRange = NSMakeRange(model.range.location + model.range.length, 0) ;
 }
 - (void)toolbarDidSelectH1 {
     [MDHeadModel makeHeaderWithSize:@"# " editor:self] ;
@@ -144,14 +133,14 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
     id modelAdded ;
     if (!self.selectedRange.length) {
         [tmpString insertString:@"****" atIndex:self.selectedRange.location] ;
-        modelAdded = [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        modelAdded = [self.markdownPaser modelForModelListInlineFirst:[self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self]] ;
         self.selectedRange = NSMakeRange(self.selectedRange.location + 2, 0) ;
     }
     else {
         [tmpString insertString:@"**" atIndex:self.selectedRange.location + self.selectedRange.length] ;
         [tmpString insertString:@"**" atIndex:self.selectedRange.location] ;
         self.selectedRange = NSMakeRange(self.selectedRange.location + 2, self.selectedRange.length) ;
-        modelAdded = [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        modelAdded = [self.markdownPaser modelForModelListInlineFirst:[self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self]] ;
     }
     [self doSomethingWhenUserSelectPartOfArticle:modelAdded] ;
 }
@@ -188,14 +177,14 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
     id modelAdded ;
     if (!self.selectedRange.length) {
         [tmpString insertString:@"**" atIndex:self.selectedRange.location] ;
-        modelAdded = [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        modelAdded = [self.markdownPaser modelForModelListInlineFirst:[self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self]] ;
         self.selectedRange = NSMakeRange(self.selectedRange.location + 1, 0) ;
     }
     else {
         [tmpString insertString:@"*" atIndex:self.selectedRange.location + self.selectedRange.length] ;
         [tmpString insertString:@"*" atIndex:self.selectedRange.location] ;
         self.selectedRange = NSMakeRange(self.selectedRange.location + 1, self.selectedRange.length) ;
-        modelAdded = [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        modelAdded = [self.markdownPaser modelForModelListInlineFirst:[self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self]] ;
     }
     
     [self doSomethingWhenUserSelectPartOfArticle:modelAdded] ;

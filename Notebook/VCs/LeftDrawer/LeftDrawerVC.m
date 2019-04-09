@@ -44,7 +44,8 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
     @weakify(self)
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotification_AddBook object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        self.nBookVC = [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+        self.nBookVC =
+        [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
             // create new book
             NoteBooks *aBook = [[NoteBooks alloc] initWithName:bookName emoji:emoji] ;
             [NoteBooks createNewBook:aBook] ;
@@ -52,7 +53,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
             
             [self render] ;
             [self setCurrentBook:aBook] ;
-//            self.blkBookChange(aBook) ;
+            self.blkBookChange(aBook, NO) ;
             
         } cancel:^{
             self.nBookVC = nil ;
@@ -102,8 +103,8 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
         
         if (!self->isFirst) {
             self->isFirst = YES ;
-            [self setCurrentBook:self.bookRecent] ;
-            self.blkBookChange(self.bookRecent, goHome) ;
+            [self setCurrentBook:self.booklist.firstObject] ;
+            self.blkBookChange(self.booklist.firstObject, goHome) ;
         }
     }] ;
 }
