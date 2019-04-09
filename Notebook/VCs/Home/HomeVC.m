@@ -44,6 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self leftVC] ;
     self.listNotes = @[] ;
     
     self.fd_prefersNavigationBarHidden = YES ;
@@ -59,11 +60,11 @@
     rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
         takeUntil:self.rac_willDeallocSignal]
        deliverOnMainThread]
-      throttle:1] subscribeNext:^(NSNotification * _Nullable x) {
+      throttle:.5] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
-        [self.table xt_loadNewInfo] ;
-//        [self.table xt_loadNewInfoInBackGround:YES] ;
+//        [self.table xt_loadNewInfo] ;
+        [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
 }
 

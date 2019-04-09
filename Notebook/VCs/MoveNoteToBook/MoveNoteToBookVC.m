@@ -55,7 +55,6 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 
 - (void)prepareUI {
     self.lbTitle.textColor = [MDThemeConfiguration sharedInstance].textColor ;
-    
 }
 
 #pragma mark - table
