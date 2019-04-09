@@ -7,7 +7,6 @@
 //
 
 #import "BasicVC.h"
-@class Note ;
 
 @protocol MarkdownVCDelegate <NSObject>
 - (void)addNoteComplete:(Note *)aNote ;

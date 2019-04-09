@@ -10,7 +10,6 @@
 #import "MarkdownEditor.h"
 #import "MarkdownEditor+UtilOfToolbar.h"
 #import <XTlib/XTPhotoAlbum.h>
-#import "Note.h"
 
 
 @interface MarkdownVC ()
@@ -19,13 +18,13 @@
 
 @property (strong, nonatomic) Note *aNote ;
 @property (copy, nonatomic) NSString *myBookID ;
+
+@property (nonatomic) BOOL thisArticleHasChanged ;
 @end
 
 @implementation MarkdownVC
 
-#pragma mark - life
-
-- (void)dealloc {}
+#pragma mark - Life
 
 + (instancetype)newWithNote:(Note *)note
                      bookID:(NSString *)bookID
@@ -43,19 +42,15 @@
     [super viewDidLoad];
     
     if (self.aNote) {
-        self.textView.text =self.aNote.content ;
-    }
-    else {
-        // Create New Note
-//        [self createNewNote] ;
+        self.textView.text = self.aNote.content ;
     }
     
     @weakify(self)
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3.] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        
         // Update Your Note
         [self updateMyNote] ;
+        if (!self.thisArticleHasChanged) self.thisArticleHasChanged = YES ;
     }] ;
 }
 
@@ -64,7 +59,7 @@
     
     if (self.aNote) {
         // Update Your Note
-        [self updateMyNote] ;
+        if (self.thisArticleHasChanged) [self updateMyNote] ;
     }
     else {
         // Create New Note
