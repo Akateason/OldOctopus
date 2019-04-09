@@ -20,7 +20,7 @@
         case MarkdownSyntaxHeaders: {
             NSString *prefix = [[self.str componentsSeparatedByString:@" "] firstObject] ;
             NSUInteger numberOfmark = [NSString rangesOfString:prefix referString:@"#"].count ;
-            str = STR_FORMAT(@"H%lu",(unsigned long)numberOfmark) ;
+            str = STR_FORMAT(@"md_tb_bt_h%lu",(unsigned long)numberOfmark) ;
             if (![self.str containsString:@" "] || numberOfmark > 6) str = @"" ;
         }
             break;

@@ -325,10 +325,7 @@
     return nil ;
 }
 
-- (NSString *)stringTitleOfPosition:(NSUInteger)position {
-    MarkdownModel *model = [self modelForRangePosition:position] ;
-    return [self stringTitleOfPosition:position model:model] ;
-}
+
 
 - (NSString *)stringTitleOfPosition:(NSUInteger)position model:(MarkdownModel *)model {
     if (model.type == MarkdownSyntaxHeaders) {

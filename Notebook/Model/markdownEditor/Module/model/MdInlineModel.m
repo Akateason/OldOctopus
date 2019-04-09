@@ -17,13 +17,13 @@
     
     NSString *str = [super displayStringForLeftLabel] ;
     switch (self.type) {
-        case MarkdownInlineBold: str = @"B" ; break ;
-        case MarkdownInlineItalic: str = @"I" ; break ;
-        case MarkdownInlineBoldItalic: str = @"BI" ; break ;
-        case MarkdownInlineDeletions: str = @"D" ; break ;
-        case MarkdownInlineInlineCode: str = @"Code" ; break ;
-        case MarkdownInlineLinks: str = @"link" ; break ;
-        case MarkdownInlineImage: str = @"image" ; break ;
+        case MarkdownInlineBold: str = @"md_tb_bt_bold" ; break ;
+        case MarkdownInlineItalic: str = @"md_tb_bt_italic" ; break ;
+//        case MarkdownInlineBoldItalic: str = @"BI" ; break ;
+        case MarkdownInlineDeletions: str = @"md_tb_bt_deletion" ; break ;
+        case MarkdownInlineInlineCode: str = @"md_tb_bt_code" ; break ;
+        case MarkdownInlineLinks: str = @"md_tb_bt_link" ; break ;
+//        case MarkdownInlineImage: str = @"image" ; break ;
         default: break;
     }
     

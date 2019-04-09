@@ -24,7 +24,7 @@ static const int kTag_QuoteMarkView = 66777 ;
 static const int kTag_ListMarkView  = 32342 ;
 
 @interface MarkdownEditor ()<MarkdownParserDelegate, UITextViewDelegate>
-@property (strong, nonatomic) UILabel *lbLeftCornerMarker ;
+@property (strong, nonatomic) UIImageView *imgLeftCornerMarker ;
 @property (strong, nonatomic) MDToolbar *toolBar ;
 @end
 
@@ -74,8 +74,8 @@ static const int kTag_ListMarkView  = 32342 ;
     // keyboard hiding
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        [self.lbLeftCornerMarker removeFromSuperview] ;
-        self->_lbLeftCornerMarker = nil ;
+        [self.imgLeftCornerMarker removeFromSuperview] ;
+        self->_imgLeftCornerMarker = nil ;
     }] ;
     
     // keyboard showing
@@ -118,7 +118,9 @@ static const int kTag_ListMarkView  = 32342 ;
     [self hide_lbLeftCornerMarker] ;
     if (!model) return ;
     
-    self.lbLeftCornerMarker.text = [self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model] ;
+    UIImage *img = [UIImage imageNamed:[self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model]] ;
+//    img = [img imageWithTintColor:[MDThemeConfiguration sharedInstance].themeColor] ;
+    self.imgLeftCornerMarker.image = img ;
     [self show_lbLeftCornerMarker] ;
 }
 
@@ -151,34 +153,32 @@ static const int kTag_ListMarkView  = 32342 ;
     return _markdownPaser;
 }
 
-- (UILabel *)lbLeftCornerMarker{
-    if(!_lbLeftCornerMarker){
-        _lbLeftCornerMarker = ({
-            UILabel * object = [[UILabel alloc] init] ;
-            object.font = [UIFont systemFontOfSize:9] ;
-            object.numberOfLines = 0 ;
-            object.textColor = [UIColor redColor] ; //[UIColor lightGrayColor] ;
-            object.textAlignment = NSTextAlignmentCenter ;
+- (UIImageView *)imgLeftCornerMarker{
+    if(!_imgLeftCornerMarker){
+        _imgLeftCornerMarker = ({
+            UIImageView *object = [[UIImageView alloc] init] ;
+            object.contentMode = UIViewContentModeScaleAspectFit ;
             object;
        });
     }
-    return _lbLeftCornerMarker;
+    return _imgLeftCornerMarker;
 }
 
 - (void)show_lbLeftCornerMarker {
-    [self addSubview:self.lbLeftCornerMarker] ;
+    [self addSubview:self.imgLeftCornerMarker] ;
     CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start];
-    [self.lbLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.superview).offset(3) ;
-        make.top.equalTo(@(caretRect.origin.y)) ;
-        make.size.mas_equalTo(CGSizeMake(kMDEditor_FlexValue, caretRect.size.height)) ;
+//    NSLog(@"caretRect ; %@", NSStringFromCGRect(caretRect));
+    [self.imgLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.superview.mas_left).offset(kMDEditor_FlexValue / 2) ;
+        make.centerY.equalTo(self.mas_top).offset(caretRect.origin.y + kMDEditor_FlexValue / 2) ;
+        make.size.mas_equalTo(CGSizeMake(20, 20)) ;
     }] ;
 }
 
 - (void)hide_lbLeftCornerMarker {
-    if (self.lbLeftCornerMarker.superview) {
-        [self.lbLeftCornerMarker removeFromSuperview] ;
-        _lbLeftCornerMarker = nil ;
+    if (self.imgLeftCornerMarker.superview) {
+        [self.imgLeftCornerMarker removeFromSuperview] ;
+        _imgLeftCornerMarker = nil ;
     }
 }
 

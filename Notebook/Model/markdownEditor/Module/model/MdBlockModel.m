@@ -17,8 +17,8 @@
     NSString *str = [super displayStringForLeftLabel] ;
     
     switch (self.type) {
-        case MarkdownSyntaxBlockquotes: str = @"引用" ; break ;
-        case MarkdownSyntaxCodeBlock: str = @"</>" ; break ;
+        case MarkdownSyntaxBlockquotes: str = @"md_tb_bt_quote" ; break ;
+        case MarkdownSyntaxCodeBlock: str = @"md_tb_bt_blkCode" ; break ;
         
         default:
             break;
