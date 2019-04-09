@@ -65,8 +65,6 @@
         [self.table xt_loadNewInfo] ;
 //        [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
-    
-    
 }
 
 - (void)renderTable:(void(^)(void))completion {

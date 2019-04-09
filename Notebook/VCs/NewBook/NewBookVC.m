@@ -12,17 +12,24 @@
 #import "NoteBooks.h"
 
 @interface NewBookVC ()
-
+@property (strong, nonatomic) NoteBooks *aBook ;
 @end
 
 @implementation NewBookVC
 
 + (instancetype)showMeFromCtrller:(UIViewController *)ctrller
                           changed:(void(^)(NSString *emoji, NSString *bookName))blkChanged
-                           cancel:(void(^)(void))blkCancel
-{
-    
+                           cancel:(void(^)(void))blkCancel {
+    return [self showMeFromCtrller:ctrller editBook:nil changed:blkChanged cancel:blkCancel] ;
+}
+
++ (instancetype)showMeFromCtrller:(UIViewController *)ctrller
+                         editBook:(NoteBooks *)book
+                          changed:(void(^)(NSString *emoji, NSString *bookName))blkChanged
+                           cancel:(void(^)(void))blkCancel {
     NewBookVC *vc = [NewBookVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"NewBookVC"] ;
+    if (book != nil) vc.aBook = book ;
+    
     [[UIApplication sharedApplication].delegate.window addSubview:vc.view] ;
     [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo([UIApplication sharedApplication].delegate.window) ;
@@ -37,7 +44,9 @@
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     return vc ;
+
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -58,6 +67,14 @@
     [self.lbEmoji bk_whenTapped:^{
         weakSelf.lbEmoji.text = [EmojiJson randomADistinctEmojiWithBooklist:booklist] ;
     }] ;
+    
+    if (self.aBook) {
+        self.lbEmoji.text = self.aBook.displayEmoji ;
+        self.lbTitle.text = @"编辑笔记本" ;
+        self.tfName.text = self.aBook.name ;
+        [self.btCreate setTitle:@"更新" forState:0] ;
+    }
+    
 }
 
 - (IBAction)cancel:(id)sender {

@@ -14,6 +14,7 @@
 #import "Note.h"
 #import "NewBookVC.h"
 
+
 typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
 
 @interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource> {
@@ -135,7 +136,6 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
     return 2 ;
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1 ;
@@ -225,15 +225,31 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
     SWCellButtonItem *item2 = [SWCellButtonItem itemWithImage:[UIImage imageNamed:@"home_edit_book"] handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
 // edit book
         NoteBooks *aBook = ((LDNotebookCell *)cell).xt_model ;
-        // todo
-        
+        [self editBook:aBook] ;
         return YES ;
     }] ;
     item2.backgroundColor = [UIColor colorWithWhite:0 alpha:.6];
     item2.tintColor = [UIColor whiteColor];
     item2.width = 60;
-    return @[item1, item2];
+    return @[item1, item2] ;
 }
 
+- (void)editBook:(NoteBooks *)book {
+    __block NoteBooks *aBook = book ;
+    @weakify(self)
+    self.nBookVC =
+    [NewBookVC showMeFromCtrller:self editBook:aBook changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+        @strongify(self)
+        aBook.name = bookName ;
+        aBook.emoji = [@{@"native":emoji} yy_modelToJSONString] ;
+        [NoteBooks updateMyBook:aBook] ;
+        self.nBookVC = nil ;
+        [self render] ;
+        [self setCurrentBook:aBook] ;
+    } cancel:^{
+        @strongify(self)
+        self.nBookVC = nil ;
+    }] ;
+}
 
 @end

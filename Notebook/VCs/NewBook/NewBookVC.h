@@ -8,7 +8,7 @@
 
 #import "BasicVC.h"
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @interface NewBookVC : BasicVC
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -19,10 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btCreate;
 @property (weak, nonatomic) IBOutlet UIButton *btCancel;
 
+// create
 + (instancetype)showMeFromCtrller:(UIViewController *)ctrller
+                          changed:(void(^)(NSString *emoji, NSString *bookName))blkChanged
+                           cancel:(void(^)(void))blkCancel ;
+// edit
++ (instancetype)showMeFromCtrller:(UIViewController *)ctrller
+                         editBook:(NoteBooks *)book
                           changed:(void(^)(NSString *emoji, NSString *bookName))blkChanged
                            cancel:(void(^)(void))blkCancel ;
 
 @end
 
-NS_ASSUME_NONNULL_END
+
