@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MoveNoteToBookVC : BasicVC
 
-+ (instancetype)showFromCtrller:(UIViewController *)ctrller ;
++ (instancetype)showFromCtrller:(UIViewController *)ctrller
+                     moveToBook:(void(^)(NoteBooks *book))blkMove ;
 
 @end
 

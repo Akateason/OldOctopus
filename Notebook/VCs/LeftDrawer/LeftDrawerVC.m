@@ -130,6 +130,11 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
     self.blkBookChange = blkChange ;
 }
 
+- (void)refreshHomeWithBook:(NoteBooks *)book {
+    self.currentBook = book ;
+    self.blkBookChange(book, YES) ;
+}
+
 #pragma mark -
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

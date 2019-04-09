@@ -208,11 +208,16 @@
     item1.image = [UIImage imageNamed:@"home_del_note"] ;
     
     SWCellButtonItem *item2 = [SWCellButtonItem itemWithTitle:@"移动" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
-        Note *aNote = ((NoteCell *)cell).xt_model ;
+        __block Note *aNote = ((NoteCell *)cell).xt_model ;
 // Move Note
-        [MoveNoteToBookVC showFromCtrller:self] ;
-        // todo
-        
+        @weakify(self)
+        [MoveNoteToBookVC showFromCtrller:self
+                               moveToBook:^(NoteBooks * _Nonnull book) {
+                                   @strongify(self)
+                                   aNote.noteBookId = book.icRecordName ;
+                                   [Note updateMyNote:aNote] ;
+                                   [self.leftVC refreshHomeWithBook:book] ;
+                               }] ;
         return YES ;
     }] ;
     item2.backgroundColor = [UIColor colorWithWhite:0 alpha:.6] ;

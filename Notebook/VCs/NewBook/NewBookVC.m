@@ -58,7 +58,7 @@
     [self.btCreate setTitleColor:[MDThemeConfiguration sharedInstance].themeColor forState:0] ;
     [self.btCancel setTitleColor:[MDThemeConfiguration sharedInstance].textColor forState:0] ;
     self.btCancel.alpha = .4 ;
-    
+        
     self.lbEmoji.userInteractionEnabled = YES ;
     NSArray *booklist = [NoteBooks xt_findWhere:@"isDeleted == 0"] ;
     self.lbEmoji.text = [EmojiJson randomADistinctEmojiWithBooklist:booklist] ;
@@ -74,7 +74,6 @@
         self.tfName.text = self.aBook.name ;
         [self.btCreate setTitle:@"更新" forState:0] ;
     }
-    
 }
 
 - (IBAction)cancel:(id)sender {

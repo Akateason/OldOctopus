@@ -9,6 +9,8 @@
 #import "MoveNoteToBookVC.h"
 #import "LDNotebookCell.h"
 
+typedef void(^BlkMoveBook)(NoteBooks *book);
+
 @interface MoveNoteToBookVC () <UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btClose;
@@ -16,31 +18,38 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgRightCornerPaint;
 
 @property (copy, nonatomic) NSArray *booklist ;
+@property (copy, nonatomic) BlkMoveBook blkMove ;
 @end
 
 @implementation MoveNoteToBookVC
 
-+ (instancetype)showFromCtrller:(UIViewController *)ctrller {
++ (instancetype)showFromCtrller:(UIViewController *)ctrller
+                     moveToBook:(void(^)(NoteBooks *book))blkMove {
+    
     MoveNoteToBookVC *vc = [MoveNoteToBookVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MoveNoteToBookVC"] ;
+    ctrller.definesPresentationContext = YES;
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
     [ctrller presentViewController:vc animated:YES completion:^{
     }] ;
-    
+    vc.blkMove = blkMove ;
     return vc ;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    self.booklist = [NoteBooks xt_findWhere:@"isOnSelect == 0"] ;
+    
+    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:.9] ;
+    self.booklist = [NoteBooks xt_findWhere:@"isOnSelect == 0 AND isDeleted == 0"] ;
     self.table.separatorStyle = 0 ;
     self.table.dataSource = self ;
     self.table.delegate = self ;
+    self.table.backgroundColor = nil ;
+    
     [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     WEAK_SELF
     [self.btClose bk_addEventHandler:^(id sender) {
-        [weakSelf dismissViewControllerAnimated:YES completion:^{
-        }] ;
-        
+        [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
 }
 
@@ -58,11 +67,31 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LDNotebookCell *cell = [LDNotebookCell xt_fetchFromTable:tableView indexPath:indexPath] ;
     [cell xt_configure:self.booklist[indexPath.row] indexPath:indexPath] ;
+    cell.backgroundColor = nil ;
+//    cell.bgViewOnChoose.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
+//    cell.bgViewOnChoose.alpha = .05 ;
     return cell ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [LDNotebookCell xt_cellHeight] ;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    __block NoteBooks *aBook ;
+    [self.booklist enumerateObjectsUsingBlock:^(NoteBooks *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.isOnSelect = (indexPath.row == idx) ;
+        if (indexPath.row == idx) aBook = obj ;
+    }] ;
+    [self.table reloadData] ;
+    
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"移动" message:XT_STR_FORMAT(@"确定移动笔记到%@",aBook.name) cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+        
+        if (btnIndex == 1) {
+            self.blkMove(aBook) ;
+            [self dismissViewControllerAnimated:YES completion:^{}] ;
+        }
+    }] ;
 }
 
 @end
