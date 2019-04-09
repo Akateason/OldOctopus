@@ -26,6 +26,7 @@ static const int kTag_ListMarkView  = 32342 ;
 @interface MarkdownEditor ()<MarkdownParserDelegate, UITextViewDelegate>
 @property (strong, nonatomic) UIImageView *imgLeftCornerMarker ;
 @property (strong, nonatomic) MDToolbar *toolBar ;
+
 @end
 
 @implementation MarkdownEditor
@@ -65,8 +66,8 @@ static const int kTag_ListMarkView  = 32342 ;
         @strongify(self)
         if (self.markedTextRange != nil) return ;
         
-        [self updateTextStyle] ;
-        [self doSomethingWhenUserSelectPartOfArticle] ;
+        MarkdownModel *model = [self updateTextStyle] ;
+        [self doSomethingWhenUserSelectPartOfArticle:model] ;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
     }] ;
@@ -100,18 +101,22 @@ static const int kTag_ListMarkView  = 32342 ;
 
 #pragma mark - func
 
-- (void)updateTextStyle {
-    [self.markdownPaser parseText:self.text position:self.selectedRange.location textView:self] ; // create models
+- (MarkdownModel *)updateTextStyle {
+    NSArray *modellist = [self.markdownPaser parseText:self.text position:self.selectedRange.location textView:self] ; // create models
+    MarkdownModel *model = [self.markdownPaser modelForModelListInlineFirst:modellist] ;
+    return model ;
 }
 
-- (void)doSomethingWhenUserSelectPartOfArticle {
+- (void)doSomethingWhenUserSelectPartOfArticle:(MarkdownModel *)model {
 //    CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start];
 //    NSLog(@"caret rect %@", NSStringFromCGRect(caretRect)) ;
-    MarkdownModel *model = [self.markdownPaser modelForRangePosition:self.selectedRange.location] ;
+    
     NSLog(@"choose model : %@",[model yy_modelToJSONString]) ;
     
     // left lb
     [self drawLeftDisplayLabel:model] ;
+    // render toolbar
+    [self.toolBar renderWithModel:model] ;
 }
 
 - (void)drawLeftDisplayLabel:(MarkdownModel *)model {
@@ -119,7 +124,6 @@ static const int kTag_ListMarkView  = 32342 ;
     if (!model) return ;
     
     UIImage *img = [UIImage imageNamed:[self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model]] ;
-//    img = [img imageWithTintColor:[MDThemeConfiguration sharedInstance].themeColor] ;
     self.imgLeftCornerMarker.image = img ;
     [self show_lbLeftCornerMarker] ;
 }
@@ -131,8 +135,8 @@ static const int kTag_ListMarkView  = 32342 ;
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
     [super setSelectedTextRange:selectedTextRange] ;
     
-    [self updateTextStyle] ;
-    [self doSomethingWhenUserSelectPartOfArticle] ;
+    MarkdownModel *model = [self updateTextStyle] ;
+    [self doSomethingWhenUserSelectPartOfArticle:model] ;
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -167,7 +171,7 @@ static const int kTag_ListMarkView  = 32342 ;
 - (void)show_lbLeftCornerMarker {
     [self addSubview:self.imgLeftCornerMarker] ;
     CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start];
-//    NSLog(@"caretRect ; %@", NSStringFromCGRect(caretRect));
+//    NSLog(@"caretRect ; %@", NSStringFromCGRect(caretRect)) ;
     [self.imgLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.superview.mas_left).offset(kMDEditor_FlexValue / 2) ;
         make.centerY.equalTo(self.mas_top).offset(caretRect.origin.y + kMDEditor_FlexValue / 2) ;
@@ -203,7 +207,7 @@ static const int kTag_ListMarkView  = 32342 ;
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
         CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
-//        NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
+//      NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
         if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) continue ;
         
         UIView *quoteItem = [UIView new] ;
@@ -229,7 +233,7 @@ static const int kTag_ListMarkView  = 32342 ;
         [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, model.range.length + 3)] ;
         weakSelf.text = tmpString ;
         [weakSelf updateTextStyle] ;
-        [weakSelf doSomethingWhenUserSelectPartOfArticle] ;
+//        [weakSelf doSomethingWhenUserSelectPartOfArticle:modelR] ;
     }] ;
     [alert addButtonWithTitle:@"取消" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
     }] ;

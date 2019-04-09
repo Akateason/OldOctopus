@@ -123,7 +123,6 @@
         [tmpString insertString:@"* [ ]  " atIndex:editor.selectedRange.location] ;
         [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 6, 0) ;
-//        [editor doSomethingWhenUserSelectPartOfArticle] ;
         return ;
     }
     
@@ -131,7 +130,6 @@
     if (paraModel.type == MarkdownSyntaxTaskLists) return ;
     [tmpString insertString:@"* [ ] " atIndex:paraModel.range.location] ;
     [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
-//    [editor doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 + (void)toolbarEventForUlist:(MarkdownEditor *)editor {
@@ -142,7 +140,6 @@
         [tmpString insertString:@"*  " atIndex:editor.selectedRange.location] ;
         [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
-//        [editor doSomethingWhenUserSelectPartOfArticle] ;
         return ;
     }
     
@@ -150,7 +147,6 @@
     if (paraModel.type == MarkdownSyntaxULLists) return ;
     [tmpString insertString:@"* " atIndex:paraModel.range.location] ;
     [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
-//    [editor doSomethingWhenUserSelectPartOfArticle] ;
 }
 
 + (void)toolbarEventForOrderList:(MarkdownEditor *)editor {
@@ -170,7 +166,6 @@
         [tmpString insertString:STR_FORMAT(@"%@.  ",orderStr) atIndex:editor.selectedRange.location] ;
         [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + orderStr.length + 2, 0) ;
-//        [editor doSomethingWhenUserSelectPartOfArticle] ;
         return ;
     }
     
@@ -178,7 +173,6 @@
     if (paraModel.type == MarkdownSyntaxOLLists) return ;
     [tmpString insertString:STR_FORMAT(@"%@. ",orderStr) atIndex:paraModel.range.location] ;
     [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
-//    [editor doSomethingWhenUserSelectPartOfArticle] ;
     
 }
 

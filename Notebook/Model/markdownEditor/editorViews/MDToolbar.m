@@ -15,6 +15,7 @@
 
 static const float kFlexOfButtons = 20 ;
 static const float kMarginOfButtons = 10 ;
+static const int kTagOfButton = 88390 ;
 
 @interface MDToolbar ()
 @property (strong, nonatomic) UIScrollView *scrollview ;
@@ -24,7 +25,7 @@ static const float kMarginOfButtons = 10 ;
 
 // H - // B I U S // photo link // ul ol tl // code quote // undo redo //
 - (instancetype)initWithConfigList:(NSArray *)list {
-    self = [super init];
+    self = [super init] ;
     if (self) {
         self.backgroundColor = [UIColor whiteColor] ;
         if (!list) list = [self defaultConfigList] ;
@@ -41,6 +42,7 @@ static const float kMarginOfButtons = 10 ;
         [list enumerateObjectsUsingBlock:^(NSNumber *number, NSUInteger idx, BOOL * _Nonnull stop) {
             MDToolbar_Buttons_Types type = number.intValue ;
             UIButton *bt = [self buttonWithMDTBtype:type] ;
+            bt.tag = kTagOfButton + type ;
             if (!bt) {
                 lastLeft += (kFlexOfButtons) ;
                 return ;
@@ -60,11 +62,45 @@ static const float kMarginOfButtons = 10 ;
     return self;
 }
 
-
 - (void)renderWithModel:(MarkdownModel *)model {
+    [self clear] ;
     
+    NSArray *typeTbList = @[] ;
+    switch (model.type) {
+        case MarkdownSyntaxHeaders: typeTbList = @[@(MDB_H)] ; break;
+        case MarkdownInlineBold: typeTbList = @[@(MDB_B)] ; break;
+        case MarkdownInlineItalic: typeTbList = @[@(MDB_I)] ; break;
+        case MarkdownInlineDeletions: typeTbList = @[@(MDB_D)] ; break;
+        case MarkdownInlineInlineCode: typeTbList = @[@(MDB_InlineCode)] ; break;
+        case MarkdownInlineBoldItalic: typeTbList = @[@(MDB_B),@(MDB_I)] ; break ;
+        case MarkdownSyntaxULLists: typeTbList = @[@(MDB_UL)] ; break;
+        case MarkdownSyntaxOLLists: typeTbList = @[@(MDB_OL)] ; break;
+        case MarkdownSyntaxTaskLists: typeTbList = @[@(MDB_TL)] ; break;
+        case MarkdownSyntaxCodeBlock: typeTbList = @[@(MDB_Code)] ; break;
+        case MarkdownSyntaxBlockquotes: typeTbList = @[@(MDB_Quote)] ; break;
+        default: break;
+    }
+    
+    for (NSNumber *number in typeTbList) {
+        int type = number.intValue ;
+        for (UIView *sub in self.scrollview.subviews) {
+            if ([sub isKindOfClass:[UIButton class]]
+                && sub.tag == kTagOfButton + type ) {
+                UIButton *bt = (UIButton *)sub ;
+                [bt setImage:[bt.currentImage imageWithTintColor:[MDThemeConfiguration sharedInstance].themeColor] forState:0] ;
+            }
+        }
+    }
 }
 
+- (void)clear {
+    for (UIView *sub in self.scrollview.subviews) {
+        if ([sub isKindOfClass:[UIButton class]]) {
+            UIButton *bt = (UIButton *)sub ;
+            [bt setImage:[self imageFortype:bt.tag - kTagOfButton] forState:0] ;
+        }
+    }
+}
 
 - (NSArray *)defaultConfigList {
     return @[@(MDB_H),@(MDB_Sepline),@(MDB_flex),
@@ -80,14 +116,12 @@ static const float kMarginOfButtons = 10 ;
     return @[@(MDB_H1),@(MDB_H2),@(MDB_H3),@(MDB_H4),@(MDB_H5),@(MDB_H6)] ;
 }
 
-
 - (UIButton *)buttonWithMDTBtype:(MDToolbar_Buttons_Types)type {
     UIImage *img = [self imageFortype:type] ;
     if (!img) return nil ;
     
     UIButton *button = [UIButton new] ;
-//    button.backgroundColor = [UIColor redColor] ;
-    button.touchExtendInset = UIEdgeInsetsMake(-5, -5, -5, -5);
+    button.touchExtendInset = UIEdgeInsetsMake(-5, -5, -5, -5) ;
     WEAK_SELF
     [button bk_addEventHandler:^(id sender) {
         [weakSelf buttonOnClick:sender type:type] ;
@@ -109,7 +143,6 @@ static const float kMarginOfButtons = 10 ;
             
         case MDB_B: [self.mdt_delegate toolbarDidSelectBold] ; break ;
         case MDB_I: [self.mdt_delegate toolbarDidSelectItalic] ; break ;
-//        case MDB_U: [self.mdt_delegate toolbarDidSelectUnderline] ; break ;
         case MDB_D: [self.mdt_delegate toolbarDidSelectDeletion] ; break ;
         case MDB_InlineCode: [self.mdt_delegate toolbarDidSelectInlineCode] ; break ;
             
@@ -145,7 +178,6 @@ static const float kMarginOfButtons = 10 ;
             
         case MDB_B: imgStr = @"md_tb_bt_bold" ; break ;
         case MDB_I: imgStr = @"md_tb_bt_italic" ; break ;
-//        case MDB_U: imgStr = @"md_tb_bt_underline" ; break ;
         case MDB_D: imgStr = @"md_tb_bt_deletion" ; break ;
         case MDB_InlineCode: imgStr = @"md_tb_bt_code" ; break ;
             

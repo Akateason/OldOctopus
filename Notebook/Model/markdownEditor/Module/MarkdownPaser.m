@@ -25,6 +25,9 @@
 @property (copy, nonatomic) NSArray *paraList ;
 @property (copy, nonatomic) NSArray *modelList ;
 @property (strong, nonatomic) NSMutableAttributedString *editAttrStr ;
+
+@property (copy, nonatomic) NSArray *currentPositionModelList ;
+
 @end
 
 @implementation MarkdownPaser
@@ -366,10 +369,11 @@
  @param text .      clean text
  @param position    pos for model state .
  */
-- (void)parseText:(NSString *)text
-         position:(NSUInteger)position
-         textView:(UITextView *)textView {
+- (NSArray *)parseText:(NSString *)text
+              position:(NSUInteger)position
+              textView:(UITextView *)textView {
     
+    __block NSMutableArray *tmpCurrentModelList = [@[] mutableCopy] ;
     __block NSMutableAttributedString *attributedString = [self updateImages:text textView:textView] ;
     self.editAttrStr = attributedString ;
     NSArray *tmpModelList = [self parsingModelsForText:attributedString.string] ;
@@ -382,7 +386,10 @@
     [attributedString addAttributes:self.configuration.basicStyle range:NSMakeRange(0, text.length)] ;
     // render every node
     [tmpModelList enumerateObjectsUsingBlock:^(MarkdownModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (NSLocationInRange(position, model.range) || position == model.range.location + model.range.length ) model.isOnEditState = YES ;
+        if (NSLocationInRange(position, model.range) || position == model.range.location + model.range.length ) {
+            model.isOnEditState = YES ;
+            [tmpCurrentModelList addObject:model] ;
+        }
         
         // render any style
         if (!textView.isFirstResponder) {
@@ -400,6 +407,19 @@
     [self updateAttributedText:attributedString textView:textView] ;
     [self drawQuoteBlk] ;
     [self drawListBlk] ;
+    self.currentPositionModelList = tmpCurrentModelList ;
+    return tmpCurrentModelList ;
+}
+
+- (MarkdownModel *)modelForModelListInlineFirst:(NSArray *)modellist {
+    MarkdownModel *tmpModel = nil ;
+    for (MarkdownModel *model in modellist) {
+        tmpModel = model ;
+        if (model.type > MarkdownInlineUnknown) {
+            return tmpModel ;
+        }
+    }
+    return tmpModel ;
 }
 
 - (void)updateAttributedText:(NSAttributedString *)attributedString

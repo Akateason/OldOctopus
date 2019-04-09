@@ -19,7 +19,7 @@ extern const CGFloat kMDEditor_FlexValue ;
     CGFloat keyboardHeight ;
 }
 @property (strong, nonatomic) MarkdownPaser *markdownPaser ; // paser with configuration .
-- (void)doSomethingWhenUserSelectPartOfArticle ;
+- (void)doSomethingWhenUserSelectPartOfArticle:(MarkdownModel *)model ;
 
 @end
 

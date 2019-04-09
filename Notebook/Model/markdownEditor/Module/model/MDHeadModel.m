@@ -121,8 +121,8 @@
     
     // replace
     [tmpString insertString:mark atIndex:paraModel.range.location] ;
-    [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
-    [editor doSomethingWhenUserSelectPartOfArticle] ;
+    id model = [editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor] ;
+    [editor doSomethingWhenUserSelectPartOfArticle:model] ;
 }
 
 

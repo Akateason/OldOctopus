@@ -44,7 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration ;
 
-
 // ********* rewrite in subcls ********* //
 
 @end

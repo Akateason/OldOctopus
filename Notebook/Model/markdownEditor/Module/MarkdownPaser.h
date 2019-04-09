@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic)             id<MarkdownParserDelegate>  delegate ;
 @property (readonly, strong, nonatomic) MDThemeConfiguration        *configuration ;
 @property (readonly, strong, nonatomic) MDImageManager              *imgManager ;
+@property (readonly, copy, nonatomic)   NSArray                     *currentPositionModelList ;
 
 - (instancetype)initWithConfig:(MDThemeConfiguration *)config ;
 
@@ -36,9 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableAttributedString *)readArticleFirstTimeAndInsertImagePHWhenEditorDidLaunching:(NSString *)text
                                                                                  textView:(UITextView *)textView ;
 
-- (void)parseText:(NSString *)text
-         position:(NSUInteger)position
-         textView:(UITextView *)textView ;
+// parse text and return current model list .
+- (NSArray *)parseText:(NSString *)text
+              position:(NSUInteger)position
+              textView:(UITextView *)textView ;
+
+- (MarkdownModel *)modelForModelListInlineFirst:(NSArray *)modellist ;
 
 - (void)updateAttributedText:(NSAttributedString *)attributedString
                     textView:(UITextView *)textView ;

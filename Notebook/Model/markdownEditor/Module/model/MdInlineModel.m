@@ -263,18 +263,19 @@
     if (model.type == MarkdownInlineDeletions) return ;
     
     // add
+    id modelAdded ;
     if (!editor.selectedRange.length) {
         [tmpString insertString:@"~~~~" atIndex:editor.selectedRange.location] ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        modelAdded = [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
     }
     else {
         [tmpString insertString:@"~~" atIndex:editor.selectedRange.location + editor.selectedRange.length] ;
         [tmpString insertString:@"~~" atIndex:editor.selectedRange.location] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, editor.selectedRange.length) ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        modelAdded = [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
     }
-    [editor doSomethingWhenUserSelectPartOfArticle] ;
+    [editor doSomethingWhenUserSelectPartOfArticle:modelAdded] ;
 }
 
 + (void)toolbarEventCode:(MarkdownEditor *)editor {
@@ -286,18 +287,19 @@
     if (model.type == MarkdownInlineInlineCode) return ;
     
     // add
+    id modelAdded ;
     if (!editor.selectedRange.length) {
         [tmpString insertString:@"``" atIndex:editor.selectedRange.location] ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        modelAdded = [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, 0) ;
     }
     else {
         [tmpString insertString:@"`" atIndex:editor.selectedRange.location + editor.selectedRange.length] ;
         [tmpString insertString:@"`" atIndex:editor.selectedRange.location] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, editor.selectedRange.length) ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        modelAdded = [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
     }
-    [editor doSomethingWhenUserSelectPartOfArticle] ;
+    [editor doSomethingWhenUserSelectPartOfArticle:modelAdded] ;
 }
 
 @end
