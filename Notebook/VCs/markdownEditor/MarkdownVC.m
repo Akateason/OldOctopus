@@ -82,6 +82,8 @@
 }
 
 - (void)updateMyNote {
+    if (!self.aNote) return ;
+    
     self.aNote.content = self.textView.text ;
     self.aNote.title = [[self.textView.text componentsSeparatedByString:@"\n"] firstObject] ?: self.textView.text ;
     [Note updateMyNote:self.aNote] ;

@@ -197,7 +197,7 @@ XT_SINGLETON_M(XTCloudHandler)
     CKSubscription *subscription = [[CKSubscription alloc] initWithRecordType:@"Note" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordDeletion | CKSubscriptionOptionsFiresOnRecordUpdate] ;
     
     CKNotificationInfo *info = [CKNotificationInfo new] ;
-    info.alertLocalizationKey = @"Note_Changed" ;
+//    info.alertLocalizationKey = @"Note_Changed" ;
     info.shouldBadge = YES ;
     subscription.notificationInfo = info;
     
@@ -207,7 +207,8 @@ XT_SINGLETON_M(XTCloudHandler)
     
     // Subscript NoteBook
     subscription = [[CKSubscription alloc] initWithRecordType:@"NoteBook" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordDeletion | CKSubscriptionOptionsFiresOnRecordUpdate] ;
-    info.alertLocalizationKey = @"NoteBook_Changed" ;
+//    info.alertLocalizationKey = @"NoteBook_Changed" ;
+    info.shouldBadge = YES ;
     subscription.notificationInfo = info;
     [database saveSubscription:subscription
              completionHandler:^(CKSubscription *subscription, NSError *error) {

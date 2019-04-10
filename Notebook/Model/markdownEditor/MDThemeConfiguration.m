@@ -201,9 +201,16 @@ XT_SINGLETON_M(MDThemeConfiguration)
 // skin
 - (UIColor *)themeColor {
     if (!_themeColor) {
-        _themeColor = UIColorHex(@"f05d4a") ;
+        _themeColor = UIColorHex(self.themeColorHex) ;
     }
     return _themeColor ;
+}
+
+- (NSString *)themeColorHex {
+    if (!_themeColorHex) {
+        _themeColorHex = @"f05d4a" ;
+    }
+    return _themeColorHex ;
 }
 
 - (UIColor *)homeTitleTextColor {

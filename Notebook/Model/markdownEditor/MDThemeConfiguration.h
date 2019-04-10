@@ -41,6 +41,7 @@ XT_SINGLETON_H(MDThemeConfiguration)
 
 // skin
 @property (strong, nonatomic) UIColor *themeColor ;
+@property (copy, nonatomic) NSString *themeColorHex ;
 @property (strong, nonatomic) UIColor *homeTitleTextColor ;
 @property (strong, nonatomic) UIColor *darkTextColor ;
 @property (strong, nonatomic) UIColor *lightTextColor ;
