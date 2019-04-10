@@ -13,9 +13,9 @@
 #import "MDImageManager.h"
 #import "Note.h"
 #import "NoteBooks.h"
+#import <UserNotifications/UserNotifications.h>
 
-
-@interface AppDelegate ()
+@interface AppDelegate () // <UNUserNotificationCenterDelegate>
 
 @end
 
@@ -25,13 +25,43 @@
 //    [self createDefaultBookAndNotes] ;
 }
 
+/*
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    
+    completionHandler(UNNotificationPresentationOptionBadge) ;
+}
+
+
+// 通知的点击事件
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler{
+    
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    UNNotificationRequest *request = response.notification.request; // 收到推送的请求
+    UNNotificationContent *content = request.content; // 收到推送的消息内容
+    NSNumber *badge = content.badge; // 推送消息的角标
+    NSString *body = content.body; // 推送消息体
+    UNNotificationSound *sound = content.sound; // 推送消息的声音
+    NSString *subtitle = content.subtitle; // 推送消息的副标题
+    NSString *title = content.title; // 推送消息的标题
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        NSLog(@"iOS10 收到远程通知:%@", userInfo);
+    }
+    else {
+        // 判断为本地通知
+        NSLog(@"iOS10 收到本地通知:{\\\\nbody:%@，\\\\ntitle:%@,\\\\nsubtitle:%@,\\\\nbadge：%@，\\\\nsound：%@，\\\\nuserInfo：%@\\\\n}",body,title,subtitle,badge,sound,userInfo);
+    }
+    
+    // Warning: UNUserNotificationCenter delegate received call to -userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler: but the completion handler was never called.
+    completionHandler(); // 系统要求执行这个方法
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification {
+    
+}
+*/
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil] ;
-//    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone categories:nil];
-    [application registerUserNotificationSettings:notificationSettings];
-    [application registerForRemoteNotifications] ;
-    
+    [self setupRemoteNotification:application] ;
     [self setupDB] ;
     [self setupNaviStyle] ;
     [self setupIqKeyboard] ;
@@ -40,6 +70,28 @@
     [self test] ;
 
     return YES;
+}
+
+- (void)setupRemoteNotification:(UIApplication *)application {
+    // 官方文档(无视警告)
+    //    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone | UIUserNotificationTypeSound categories:nil];
+    [application registerUserNotificationSettings:notificationSettings];
+    [application registerForRemoteNotifications] ;
+    
+    //
+    //    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    //    center.delegate = self;
+    //    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    //        if (granted) {
+    //            NSLog(@"注册成功");
+    //            [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+    //                NSLog(@"%@", settings);
+    //            }];
+    //        } else {
+    //            NSLog(@"注册失败");
+    //        }
+    //    }];
 }
 
 - (void)setupDB {
@@ -153,29 +205,16 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 }
 
 
-
-
-
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    
-//    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
-//    NSString *alertBody = cloudKitNotification.alertBody;
-//    NSString *alertLocalizationKey = cloudKitNotification.alertLocalizationKey ;
-//    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
-//        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID] ;
-//        // todo Update ID
-//        if ([alertLocalizationKey isEqualToString:@"Note_Changed"]) {
-//
-//        }
-//        else if ([alertLocalizationKey isEqualToString:@"NoteBook_Changed"]) {
-//
-//        }
-//    }
-    
 //    Update views or notify the user according to the record changes.
     [self icloudSync] ;
-    
+
 }
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    [self icloudSync] ;
+}
+
 
 
 @end

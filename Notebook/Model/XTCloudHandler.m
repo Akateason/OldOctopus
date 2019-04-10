@@ -229,24 +229,25 @@ XT_SINGLETON_M(XTCloudHandler)
     // Subscript Note
     CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
     NSPredicate *predicate = [NSPredicate predicateWithValue:YES] ;
-    CKSubscription *subscription = [[CKSubscription alloc] initWithRecordType:@"Note" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordDeletion | CKSubscriptionOptionsFiresOnRecordUpdate] ;
+    CKQuerySubscription *subsrp = [[CKQuerySubscription alloc] initWithRecordType:@"Note" predicate:predicate options:CKQuerySubscriptionOptionsFiresOnRecordCreation | CKQuerySubscriptionOptionsFiresOnRecordUpdate | CKQuerySubscriptionOptionsFiresOnRecordDeletion ] ;
     
     CKNotificationInfo *info = [CKNotificationInfo new] ;
 //    info.alertLocalizationKey = @"Note_Changed" ;
     info.shouldBadge = YES ;
-    subscription.notificationInfo = info;
-    
-    [database saveSubscription:subscription
+    subsrp.notificationInfo = info ;
+    [database saveSubscription:subsrp
              completionHandler:^(CKSubscription *subscription, NSError *error) {
+                 
              }] ;
     
     // Subscript NoteBook
-    subscription = [[CKSubscription alloc] initWithRecordType:@"NoteBook" predicate:predicate options:CKSubscriptionOptionsFiresOnRecordCreation | CKSubscriptionOptionsFiresOnRecordDeletion | CKSubscriptionOptionsFiresOnRecordUpdate] ;
+    subsrp = [[CKQuerySubscription alloc] initWithRecordType:@"NoteBook" predicate:predicate options:CKQuerySubscriptionOptionsFiresOnRecordCreation | CKQuerySubscriptionOptionsFiresOnRecordUpdate | CKQuerySubscriptionOptionsFiresOnRecordDeletion ] ;
 //    info.alertLocalizationKey = @"NoteBook_Changed" ;
     info.shouldBadge = YES ;
-    subscription.notificationInfo = info;
-    [database saveSubscription:subscription
+    subsrp.notificationInfo = info;
+    [database saveSubscription:subsrp
              completionHandler:^(CKSubscription *subscription, NSError *error) {
+                 
              }] ;
 }
 

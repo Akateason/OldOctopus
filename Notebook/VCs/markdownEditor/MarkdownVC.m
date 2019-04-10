@@ -10,6 +10,7 @@
 #import "MarkdownEditor.h"
 #import "MarkdownEditor+UtilOfToolbar.h"
 #import <XTlib/XTPhotoAlbum.h>
+#import "AppDelegate.h"
 
 
 @interface MarkdownVC ()
@@ -46,11 +47,19 @@
     }
     
     @weakify(self)
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] subscribeNext:^(NSNotification * _Nullable x) {
+    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         // Update Your Note
         [self updateMyNote] ;
         if (!self.thisArticleHasChanged) self.thisArticleHasChanged = YES ;
+    }] ;
+    
+    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        // Sync your note
+        self.aNote = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
+        self.textView.text = self.aNote.content ;
+        [self.textView parseTextThenRenderLeftSideAndToobar] ;
     }] ;
 }
 
