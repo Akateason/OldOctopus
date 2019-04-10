@@ -57,7 +57,7 @@ XT_SINGLETON_M(XTCloudHandler)
     NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     NSMutableString *randomString = [NSMutableString stringWithCapacity:len];
     for (NSInteger i = 0; i < len; i++) {
-        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random_uniform([letters length])]];
+        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random_uniform((unsigned int)[letters length])]] ;
     }
     getString = [getString stringByAppendingString:randomString] ;
     return getString ;
