@@ -46,7 +46,7 @@
     }
     
     @weakify(self)
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3.] subscribeNext:^(NSNotification * _Nullable x) {
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         // Update Your Note
         [self updateMyNote] ;
