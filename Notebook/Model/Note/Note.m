@@ -57,7 +57,10 @@
 + (void)noteListWithNoteBook:(NoteBooks *)book
                   completion:(void(^)(NSArray *list))completion {
     
-    if (!book || book.vType != Notebook_Type_notebook) return ;
+    if (!book || book.vType != Notebook_Type_notebook) {
+        completion(nil) ;
+        return ;
+    }
 
     NSArray *tmplist = [[Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@' and isDeleted == 0",book.icRecordName)] xt_orderby:@"xt_updateTime" descOrAsc:1] ;
     dispatch_async(dispatch_get_main_queue(), ^{

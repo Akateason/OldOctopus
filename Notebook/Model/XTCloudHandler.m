@@ -18,6 +18,14 @@
     return [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
 }
 
++ (BOOL)hasLogin {
+    return self.userInCacheSyncGet != nil ;
+}
+
++ (void)alertUserToLoginICloud {
+    [[XTCloudHandler sharedInstance] alertCallUserToIcloud] ;
+}
+
 XT_encodeWithCoderRuntimeCls(XTIcloudUser)
 XT_initWithCoderRuntimeCls(XTIcloudUser)
 
@@ -47,18 +55,6 @@ XT_SINGLETON_M(XTCloudHandler)
     return getString ;
 }
 
-// no use
-- (void)iCloudStatus:(void(^)(bool bOpen))blkICloudOpen {
-    [[CKContainer defaultContainer] accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus,NSError *_Nullableerror) {
-        if (accountStatus == CKAccountStatusNoAccount) {
-            blkICloudOpen(NO) ;
-        }
-        else {
-            blkICloudOpen(YES) ;
-        }
-    }];
-}
-
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser {
     XTIcloudUser *user = [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
     if (user != nil) {
@@ -69,24 +65,22 @@ XT_SINGLETON_M(XTCloudHandler)
     }
     
     [self.container requestApplicationPermission:(CKApplicationPermissionUserDiscoverability) completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
-        // todo 这里要 提醒用户开 icloud drive
+        // 这里要 提醒用户开 icloud drive
         if (error) {
             if (error.code == 9) {
-                [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"请打开iCloud权限" message:@"1.请登录iPhone的账户,请前往设置-用户-登录账户\n2.打开iCloud权限, 请前往设置-用户-iCloud-iCloud云盘" cancelButtonTitle:nil destructiveButtonTitle:@"好" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
-                    
-                }] ;
+                [self alertCallUserToIcloud] ;
             }
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                blkUser(nil) ;
+            }) ;
             return ;
         }
         
-        
-        
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
             if (!recordID) {
-                blkUser(nil) ;
+                [self alertCallUserToIcloud] ;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [SVProgressHUD showInfoWithStatus:@"请登录您的icloud"] ;
+                    blkUser(nil) ;
                 }) ;
                 return ;
             }
@@ -94,8 +88,9 @@ XT_SINGLETON_M(XTCloudHandler)
             [self.container discoverUserIdentityWithUserRecordID:recordID completionHandler:^(CKUserIdentity * _Nullable userInfo, NSError * _Nullable error) {
                 
                 if (error) {
+                    [self alertCallUserToIcloud] ;
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [SVProgressHUD showInfoWithStatus:@"请登录您的icloud"] ;
+                        blkUser(nil) ;
                     }) ;
                     return ;
                 }
@@ -112,6 +107,18 @@ XT_SINGLETON_M(XTCloudHandler)
             }] ;
         }] ;
     }] ;
+}
+
+- (void)alertCallUserToIcloud {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"请打开iCloud权限" message:@"1.请登录iPhone的账户,请前往设置-用户-登录账户\n2.打开iCloud权限, 请前往设置-用户-iCloud-iCloud云盘" cancelButtonTitle:nil destructiveButtonTitle:@"好" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+            
+            NSURL *url = [NSURL URLWithString:@"App-Prefs:root=CASTLE"];
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+            
+            // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:nil completionHandler:nil] ;
+        }] ;
+    }) ;
 }
 
 - (void)insert:(CKRecord *)record completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {

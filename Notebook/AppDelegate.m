@@ -19,9 +19,7 @@
 
 @end
 
-
 @implementation AppDelegate
-
 
 - (void)test {
     
@@ -29,9 +27,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    
-    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil];
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil] ;
 //    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone categories:nil];
     [application registerUserNotificationSettings:notificationSettings];
     [application registerForRemoteNotifications] ;
@@ -40,8 +36,6 @@
     [self setupNaviStyle] ;
     [self setupIqKeyboard] ;
     [self setupIcloudEvent] ;
-    
-    
     
     [self test] ;
 
@@ -60,25 +54,31 @@
 
 - (void)setupIqKeyboard {
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
-    manager.enable             = YES; // 控制整个功能是否启用。
-    manager.enableAutoToolbar  = NO;  // 控制是否显示键盘上的工具条
+    manager.enable             = YES ; // 控制整个功能是否启用。
+    manager.enableAutoToolbar  = NO ;  // 控制是否显示键盘上的工具条
 }
 
 NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
+
 - (void)setupIcloudEvent {
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser * _Nonnull user) {
-        NSLog(@"user : %@", [user yy_modelToJSONString]) ;
+        NSLog(@"User Logined : %@", [user yy_modelToJSONString]) ;
+        
+        if (user) {
+            [[XTCloudHandler sharedInstance] saveSubscription] ;
+            
+            [self pullOrSync] ;
+        }
     }] ;
-    
-    [[XTCloudHandler sharedInstance] saveSubscription] ;
-    
+}
+
+- (void)pullOrSync {
     BOOL fstTimeLaunch = [XT_USERDEFAULT_GET_VAL(kFirstTimeLaunch) intValue] ;
     if (fstTimeLaunch) {
         [NoteBooks getFromServerComplete:^{
-            
             [Note getFromServerComplete:^{
+                if ([Note xt_count]) XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
                 
-                XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
             }] ;
         }] ;
@@ -86,8 +86,6 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     else {
         [self icloudSync] ;
     }
-    
-
 }
 
 - (void)icloudSync {
@@ -105,6 +103,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             book.xt_updateTime = [record.modificationDate xt_getTick] ;
             [book xt_upsertWhereByProp:@"icRecordName"] ;
         }
+        
     } delete:^(CKRecordID *recordID, CKRecordType recordType) {
         
         NSString *type = (NSString *)(recordType) ;
@@ -118,6 +117,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     } allComplete:^(NSError *operationError) {
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
+        
     }] ;
 }
 

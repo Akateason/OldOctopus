@@ -20,6 +20,9 @@
 
 + (NSString *)pathForUserSave ;
 + (instancetype)userInCacheSyncGet ;
++ (BOOL)hasLogin ;
++ (void)alertUserToLoginICloud ;
+
 @end
 
 
@@ -35,8 +38,8 @@ XT_SINGLETON_H(XTCloudHandler)
 @property (readonly, nonatomic) BOOL isSyncingOnICloud ;
 
 - (NSString *)createUniqueIdentifier ;
-- (void)iCloudStatus:(void(^)(bool bOpen))blkICloudOpen ;
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser ;
+- (void)alertCallUserToIcloud ;
 
 // sync
 - (void)syncOperationEveryRecord:(void (^)(CKRecord *record))recordChangedBlock

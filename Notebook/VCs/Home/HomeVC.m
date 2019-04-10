@@ -64,9 +64,11 @@
       throttle:.5] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
-//        [self.table xt_loadNewInfo] ;
         [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
+    
+    [self.leftVC render] ;
+    [self.table xt_loadNewInfoInBackGround:YES] ;
 }
 
 - (void)renderTable:(void(^)(void))completion {
@@ -98,6 +100,11 @@
 }
 
 - (void)openDrawer {
+    if (![XTIcloudUser hasLogin]) {
+        [XTIcloudUser alertUserToLoginICloud] ;
+        return ;
+    }
+    
     [self.leftVC render] ;
     CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.1 scaleY:1 direction:CWDrawerTransitionFromLeft backImage:nil] ;
     [self cw_showDrawerViewController:self.leftVC animationType:0 configuration:conf];
@@ -125,6 +132,11 @@
     @weakify(self)
     [self.btAdd bk_whenTapped:^{
         @strongify(self)
+        if (![XTIcloudUser hasLogin]) {
+            [XTIcloudUser alertUserToLoginICloud] ;
+            return ;
+        }
+        
         [MarkdownVC newWithNote:nil bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
     }] ;
     
@@ -251,7 +263,6 @@
     self.listNotes = tmplist ;
     [self.table reloadData] ;
 }
-
 
 #pragma mark - prop
 
