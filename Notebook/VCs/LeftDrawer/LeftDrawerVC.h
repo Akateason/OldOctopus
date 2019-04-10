@@ -9,7 +9,7 @@
 #import "BasicVC.h"
 @class NoteBooks ;
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @interface LeftDrawerVC : BasicVC
 
@@ -18,11 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)render ;
 - (void)render:(BOOL)goHome ;
-- (void)currentBookChanged:(void(^)(NoteBooks *book, bool isClick))blkChange ;
+- (void)currentBookChanged:(void(^)(NoteBooks *book, BOOL isClick))blkChange ;
 
 
 - (void)refreshHomeWithBook:(NoteBooks *)book ;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

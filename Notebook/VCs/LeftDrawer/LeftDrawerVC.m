@@ -15,7 +15,7 @@
 #import "NewBookVC.h"
 
 
-typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
+typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 
 @interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource> {
     BOOL isFirst ;
@@ -127,7 +127,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, bool isClick);
     }) ;
 }
 
-- (void)currentBookChanged:(void (^)(NoteBooks * _Nonnull, bool isClick))blkChange {
+- (void)currentBookChanged:(void(^)(NoteBooks *book, BOOL isClick))blkChange {
     self.blkBookChange = blkChange ;
 }
 

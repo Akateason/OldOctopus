@@ -50,7 +50,7 @@
     self.fd_prefersNavigationBarHidden = YES ;
     
     @weakify(self)
-    [self.leftVC currentBookChanged:^(NoteBooks * _Nonnull book, BOOL isClick) {
+    [self.leftVC currentBookChanged:^(NoteBooks *book, BOOL isClick) {
         @strongify(self)        
         [self.table xt_loadNewInfoInBackGround:YES] ;
         if (isClick) [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
