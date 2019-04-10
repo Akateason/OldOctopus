@@ -22,7 +22,7 @@
 @implementation AppDelegate
 
 - (void)test {
-    
+//    [self createDefaultBookAndNotes] ;
 }
 
 
@@ -74,8 +74,13 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 
 - (void)pullOrSync {
     BOOL fstTimeLaunch = [XT_USERDEFAULT_GET_VAL(kFirstTimeLaunch) intValue] ;
-    if (fstTimeLaunch) {
-        [NoteBooks getFromServerComplete:^{
+    if (!fstTimeLaunch) {
+        [NoteBooks getFromServerComplete:^(bool hasData) {
+            if (!hasData) {
+                [self createDefaultBookAndNotes] ;
+                return ;
+            }
+            
             [Note getFromServerComplete:^{
                 if ([Note xt_count]) XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
                 
@@ -86,6 +91,32 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     else {
         [self icloudSync] ;
     }
+}
+
+- (void)createDefaultBookAndNotes {
+    NoteBooks *book = [[NoteBooks alloc] initWithName:@"小章鱼的笔记本" emoji:@"🐙"] ;
+    book.isSendOnICloud = NO ;
+    [book xt_insert] ;
+    
+    NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"zample" ofType:@"md"] ;
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSString *str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
+    Note *note = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"Intro"] ;
+    note.isSendOnICloud = NO ;
+    [note xt_insert] ;
+    
+    [[XTCloudHandler sharedInstance] saveList:@[book.record,note.record] deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+        
+        if (!error) {
+            book.isSendOnICloud = YES ;
+            [book xt_update] ;
+            note.isSendOnICloud = YES ;
+            [note xt_update] ;
+        }
+    }] ;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
+    XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
 }
 
 - (void)icloudSync {
@@ -120,6 +151,10 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         
     }] ;
 }
+
+
+
+
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     

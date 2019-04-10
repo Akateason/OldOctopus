@@ -7,6 +7,7 @@
 //
 
 #import "XTCloudHandler.h"
+#import <CommonCrypto/CommonRandom.h>
 
 @implementation XTIcloudUser
 
@@ -50,10 +51,18 @@ XT_SINGLETON_M(XTCloudHandler)
 - (NSString *)createUniqueIdentifier {
     NSDate *now = [NSDate date] ;
     NSString *getString = [now xt_getStr] ;
-    getString = XT_STR_FORMAT(@"%@_%lld",getString, [now xt_getTick]) ;
-    getString = [getString base64EncodedString] ;
+    getString = XT_STR_FORMAT(@"%@_%lld_",getString, [now xt_getTick]) ;
+
+    int len = 20 ;
+    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    NSMutableString *randomString = [NSMutableString stringWithCapacity:len];
+    for (NSInteger i = 0; i < len; i++) {
+        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random_uniform([letters length])]];
+    }
+    getString = [getString stringByAppendingString:randomString] ;
     return getString ;
 }
+
 
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser {
     XTIcloudUser *user = [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
@@ -121,8 +130,28 @@ XT_SINGLETON_M(XTCloudHandler)
     }) ;
 }
 
+
+
+
+
+// curd
+
 - (void)insert:(CKRecord *)record completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
     [self.container.privateCloudDatabase saveRecord:record completionHandler:completionHandler] ;
+}
+
+- (void)saveList:(NSArray *)recInsertOrUpdateList
+      deleteList:(NSArray *)recDeleteList
+        complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock {
+    
+    CKModifyRecordsOperation *modifyRecordsOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recInsertOrUpdateList recordIDsToDelete:recDeleteList];
+    modifyRecordsOperation.savePolicy = CKRecordSaveAllKeys;
+    NSLog(@"CLOUDKIT Changes Uploading: %lu", (unsigned long)recInsertOrUpdateList.count);
+    modifyRecordsOperation.modifyRecordsCompletionBlock = ^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+        if (error) NSLog(@"[%@] Error pushing local data: %@", self.class, error);
+        modifyRecordsCompletionBlock(savedRecords,deletedRecordIDs,error) ;
+    };
+    [self.container.privateCloudDatabase addOperation:modifyRecordsOperation] ;
 }
 
 - (void)fetchWithId:(NSString *)recordID completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
@@ -186,7 +215,6 @@ XT_SINGLETON_M(XTCloudHandler)
 - (void)deleteWithId:(NSString *)recId {
     CKRecordID *noteId = [[CKRecordID alloc] initWithRecordName:recId];
     CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
-
     [database deleteRecordWithID:noteId completionHandler:^(CKRecordID *_Nullable recordID,NSError *_Nullable error) {
         if(!error) {
             NSLog(@"删除成功");
@@ -230,9 +258,7 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
 {
     self.isSyncingOnICloud = YES ;
     
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init] ;
     CKFetchRecordZoneChangesOperation *operation ;
-//    CKServerChangeToken *previousToken = nil ;
     CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
     
     if (@available(iOS 12.0, *)) {
@@ -250,8 +276,6 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
     }
     
     operation.database = self.container.privateCloudDatabase ;
-    [queue addOperation:operation] ;
-    
     operation.recordChangedBlock = recordChangedBlock ;
     
     operation.recordZoneFetchCompletionBlock = ^(CKRecordZoneID * _Nonnull recordZoneID, CKServerChangeToken * _Nullable serverChangeToken, NSData * _Nullable clientChangeTokenData, BOOL moreComing, NSError * _Nullable recordZoneError) {
@@ -267,8 +291,9 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
         if (operationError) NSLog(@"operationError : %@",operationError) ;
         fetchRecordZoneChangesCompletionBlock(operationError) ;
     } ;
+    
+    [self.container.privateCloudDatabase addOperation:operation] ;
 }
-
 
 /**
  add ref
@@ -276,7 +301,6 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
  @param key            refKey
  @param sourceRecordID 主
  @param targetRecordID 从
- */
 - (void)setReferenceWithReferenceKey:(NSString *)key
                    andSourceRecordID:(NSString *)sourceRecordID
                    andTargetRecordID:(NSString *)targetRecordID
@@ -334,6 +358,7 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
         }
     }];
 }
+*/
 
 #pragma mark - prop
 

@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
     
 + (void)updateMyBook:(NoteBooks *)book ;
 
-+ (void)getFromServerComplete:(void(^)(void))completion ;
++ (void)getFromServerComplete:(void(^)(bool hasData))completion ;
 
 + (void)deleteBook:(NoteBooks *)book ;
 

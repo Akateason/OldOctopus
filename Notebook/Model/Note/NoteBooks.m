@@ -105,9 +105,14 @@
     }] ;        
 }
 
-+ (void)getFromServerComplete:(void(^)(void))completion {
++ (void)getFromServerComplete:(void(^)(bool hasData))completion {
     
     [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
+        
+        if (!results.count) {
+            completion(NO) ;
+            return ;
+        }
         
         NSMutableArray *tmplist = [@[] mutableCopy] ;
         [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -118,7 +123,7 @@
         }] ;
         
         [NoteBooks xt_insertOrReplaceWithList:tmplist] ;
-        completion() ;
+        completion(YES) ;
     }] ;
 }
 

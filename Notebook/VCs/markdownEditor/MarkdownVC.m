@@ -73,7 +73,7 @@
     NSString *articleContent = self.textView.text ;
     NSString *title = [[self.textView.text componentsSeparatedByString:@"\n"] firstObject] ?: self.textView.text ;
     if (articleContent && articleContent.length) {
-        Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:articleContent?:@"美好的故事，从小章鱼开始..." title:title] ;
+        Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:articleContent title:title] ;
         self.aNote = newNote ;
         self.textView.text = self.aNote.content ;
         [Note createNewNote:self.aNote] ;

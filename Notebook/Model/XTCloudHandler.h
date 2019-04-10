@@ -41,7 +41,7 @@ XT_SINGLETON_H(XTCloudHandler)
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser ;
 - (void)alertCallUserToIcloud ;
 
-// sync
+// Sync
 - (void)syncOperationEveryRecord:(void (^)(CKRecord *record))recordChangedBlock
                           delete:(void (^)(CKRecordID *recordID, CKRecordType recordType))recordWithIDWasDeletedBlock
                      allComplete:(void (^)(NSError *operationError))fetchRecordZoneChangesCompletionBlock ;
@@ -59,11 +59,19 @@ XT_SINGLETON_H(XTCloudHandler)
 
 
 // Insert
-- (void)insert:(CKRecord *)record completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHandler ;
+- (void)insert:(CKRecord *)record
+completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHandler ;
+
 // Update
 - (void)updateWithRecId:(NSString *)recId
               updateDic:(NSDictionary *)dic
       completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHandler ;
+
+// insert or update list thread safe !!
+- (void)saveList:(NSArray *)recInsertOrUpdateList
+      deleteList:(NSArray *)recDeleteList
+        complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock ;
+
 
 // Delete From server
 - (void)deleteWithId:(NSString *)recId ;
@@ -72,14 +80,14 @@ XT_SINGLETON_H(XTCloudHandler)
 - (void)saveSubscription ;
 
 // Ref
-- (void)setReferenceWithReferenceKey:(NSString *)key
-                   andSourceRecordID:(NSString *)sourceRecordID
-                   andTargetRecordID:(NSString *)targetRecordID ;
-
-- (void)searchRefWithRefRecId:(CKRecordID *)refrecID ;
-
-- (void)searchReferWithRefID:(CKRecordID *)refrecID
-                  sourceType:(NSString *)sourceType ;
+//- (void)setReferenceWithReferenceKey:(NSString *)key
+//                   andSourceRecordID:(NSString *)sourceRecordID
+//                   andTargetRecordID:(NSString *)targetRecordID ;
+//
+//- (void)searchRefWithRefRecId:(CKRecordID *)refrecID ;
+//
+//- (void)searchReferWithRefID:(CKRecordID *)refrecID
+//                  sourceType:(NSString *)sourceType ;
 
 @end
 

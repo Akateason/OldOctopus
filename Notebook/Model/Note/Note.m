@@ -43,6 +43,7 @@
         _noteBookId = bookID ;
         _content = content ;
         _title = title ;
+        _baseContent = [content base64EncodedString] ;
         
         CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
         _record = [[CKRecord alloc] initWithRecordType:@"Note" recordID:recordID] ;
