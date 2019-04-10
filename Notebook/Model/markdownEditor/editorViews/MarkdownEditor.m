@@ -66,8 +66,7 @@ static const int kTag_ListMarkView  = 32342 ;
         @strongify(self)
         if (self.markedTextRange != nil) return ;
         
-        MarkdownModel *model = [self updateTextStyle] ;
-        [self doSomethingWhenUserSelectPartOfArticle:model] ;
+        [self parseTextThenRenderLeftSideAndToobar] ;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
     }] ;
@@ -108,11 +107,9 @@ static const int kTag_ListMarkView  = 32342 ;
 }
 
 - (void)doSomethingWhenUserSelectPartOfArticle:(MarkdownModel *)model {
-//    CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start];
+//    CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start] ;
 //    NSLog(@"caret rect %@", NSStringFromCGRect(caretRect)) ;
-    
     NSLog(@"choose model : %@",[model yy_modelToJSONString]) ;
-    
     // left lb
     [self drawLeftDisplayLabel:model] ;
     // render toolbar
@@ -128,6 +125,10 @@ static const int kTag_ListMarkView  = 32342 ;
     [self show_lbLeftCornerMarker] ;
 }
 
+- (void)parseTextThenRenderLeftSideAndToobar {
+    MarkdownModel *model = [self updateTextStyle] ;
+    [self doSomethingWhenUserSelectPartOfArticle:model] ;
+}
 
 #pragma mark - rewrite father
 #pragma mark - cursor moving and selecting
@@ -135,8 +136,7 @@ static const int kTag_ListMarkView  = 32342 ;
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
     [super setSelectedTextRange:selectedTextRange] ;
     
-    MarkdownModel *model = [self updateTextStyle] ;
-    [self doSomethingWhenUserSelectPartOfArticle:model] ;
+    [self parseTextThenRenderLeftSideAndToobar] ;
 }
 
 - (BOOL)canBecomeFirstResponder {

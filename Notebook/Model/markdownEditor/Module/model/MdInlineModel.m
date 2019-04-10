@@ -251,6 +251,7 @@
         editor.selectedRange = NSMakeRange(self.range.location, numOfStr) ;
         [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
     }
+    [editor doSomethingWhenUserSelectPartOfArticle:nil] ;
     return tmpString ;
 }
 

@@ -111,6 +111,7 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
         [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 2)] ;
         self.selectedRange = NSMakeRange(model.range.location, numOfStr) ;
         [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        [self doSomethingWhenUserSelectPartOfArticle:nil] ;
         return ;
     }
     
@@ -155,6 +156,7 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
         [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 1)] ;
         self.selectedRange = NSMakeRange(model.range.location, numOfStr) ;
         [self.markdownPaser parseText:tmpString position:self.selectedRange.location textView:self] ;
+        [self doSomethingWhenUserSelectPartOfArticle:nil] ;
         return ;
     }
     
