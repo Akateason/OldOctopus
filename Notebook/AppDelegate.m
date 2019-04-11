@@ -37,7 +37,7 @@
     CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
     NSString *alertBody = cloudKitNotification.alertBody;
     if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
-        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
+        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID] ;
     }
     
     [self.launchingEvents icloudSync:^{

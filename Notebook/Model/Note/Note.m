@@ -74,7 +74,6 @@
     [aNote xt_insert] ;
     
     [[XTCloudHandler sharedInstance] insert:aNote.record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
-        
         if (!error) {
             // succcess
             aNote.isSendOnICloud = YES ;
@@ -99,7 +98,6 @@
                           } ;
     
     [[XTCloudHandler sharedInstance] updateWithRecId:aNote.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
-        
         if (!error) {
             // succcess
             aNote.isSendOnICloud = YES ;
@@ -121,6 +119,7 @@
             Note *aNote = [Note recordToNote:obj] ;
             aNote.xt_createTime = [obj.creationDate xt_getTick] ;
             aNote.xt_updateTime = [obj.modificationDate xt_getTick] ;
+            aNote.isSendOnICloud = YES ;
             [tmplist addObject:aNote] ;
         }] ;
         
