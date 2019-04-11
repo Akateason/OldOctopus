@@ -11,7 +11,7 @@
 #import "MarkdownEditor+UtilOfToolbar.h"
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
-#import "LaunchingEvents.h"
+//#import "LaunchingEvents.h"
 
 
 @interface MarkdownVC ()
@@ -59,18 +59,13 @@
         @strongify(self)
         // Sync your note
         self.aNote = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
-        self.textView.text = self.aNote.content ;
-        [self.textView parseTextThenRenderLeftSideAndToobar] ;
+        
+        NSArray *modellist = [self.textView.markdownPaser parseText:self.aNote.content position:self.textView.selectedRange.location textView:self.textView] ; // create models
+        MarkdownModel *model = [self.textView.markdownPaser modelForModelListInlineFirst:modellist] ;
+        [self.textView doSomethingWhenUserSelectPartOfArticle:model] ;
+        
     }] ;
-    
-    [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]]
-      takeUntil:self.rac_willDeallocSignal]
-     subscribeNext:^(NSDate * _Nullable x) {
         
-        LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
-        [events icloudSync:^{}] ;
-        
-    }]  ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -63,6 +63,7 @@ typedef NS_ENUM(NSUInteger, MarkdownInlineType){
     MarkdownInlineLinks,
     
     MarkdownInlineImage = 200,
+    MarkdownInlineEscape ,
     
     NumberOfMarkdownInline
 } ;
@@ -106,7 +107,7 @@ typedef NS_ENUM(NSUInteger, MarkdownInlineType){
 #define MDIL_INLINECODE          "\\`(.*?)\\`"
 #define MDIL_LINKS               "!?\\[[^\\]]+\\]\\([^\\)]+\\)"
 
-
+#define MDIL_ESCAPE              "\\\\([!\"#$%&'()*+,\\-./:;<=>?@\\[\\]\\\\^_`{|}~])"
 
 
 

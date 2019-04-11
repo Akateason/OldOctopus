@@ -269,7 +269,7 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
                           delete:(void (^)(CKRecordID *recordID, CKRecordType recordType))recordWithIDWasDeletedBlock
                      allComplete:(void (^)(NSError *operationError))fetchRecordZoneChangesCompletionBlock
 {
-    self.isSyncingOnICloud = YES ;
+    
     
     CKFetchRecordZoneChangesOperation *operation ;
     CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
@@ -289,11 +289,22 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
     }
     
     operation.database = self.container.privateCloudDatabase ;
-    operation.recordChangedBlock = recordChangedBlock ;
+    operation.fetchAllChanges = YES ;
+    operation.recordChangedBlock = ^(CKRecord * _Nonnull record) {
+        if (record) self.isSyncingOnICloud = YES ;
+        recordChangedBlock(record) ;
+    } ;
     
     operation.recordZoneFetchCompletionBlock = ^(CKRecordZoneID * _Nonnull recordZoneID, CKServerChangeToken * _Nullable serverChangeToken, NSData * _Nullable clientChangeTokenData, BOOL moreComing, NSError * _Nullable recordZoneError) {
         if (!recordZoneError) {
+//            NSLog(@"previous : %@",previousToken) ;
+//            NSLog(@"change : %@",serverChangeToken) ;
             [XTArchive archiveSomething:serverChangeToken path:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+        }
+        else {
+            if (recordZoneError.code == 21) { // CKErrorChangeTokenExpired
+                [XTFileManager deleteFile:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+            }
         }
     } ;
     

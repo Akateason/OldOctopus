@@ -20,7 +20,7 @@
 #import "LDHeadView.h"
 #import "NewBookVC.h"
 #import "MoveNoteToBookVC.h"
-
+#import "LaunchingEvents.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -67,6 +67,16 @@
         [self.leftVC render] ;
         [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
+    
+    [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]]
+      takeUntil:self.rac_willDeallocSignal]
+     subscribeNext:^(NSDate * _Nullable x) {
+         @strongify(self)
+         if (self.view.window) {
+             LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
+             [events icloudSync:^{}] ;
+         }
+     }]  ;
     
     [self.leftVC render] ;
     [self.table xt_loadNewInfoInBackGround:YES] ;

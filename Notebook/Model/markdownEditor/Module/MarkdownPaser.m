@@ -91,6 +91,8 @@
             return regexp(MDIL_INLINECODE, 0);
         case MarkdownInlineLinks:
             return regexp(MDIL_LINKS, 0);
+        case MarkdownInlineEscape:
+            return regexp(MDIL_ESCAPE , 0);
         
         default: break;
     }
@@ -184,8 +186,16 @@
 }
 
 - (NSArray *)parsingModelForInlineStyleWithOneParagraphModel:(MarkdownModel *)paraModel {
-    NSMutableArray *tmpInlineList = [@[] mutableCopy] ;
+    NSMutableArray *escapeList = [@[] mutableCopy] ;
+    NSRegularExpression *escapeExpression = regexp(MDIL_ESCAPE , 0) ;
+    NSArray *escapeMatches = [escapeExpression matchesInString:paraModel.str options:0 range:NSMakeRange(0, [paraModel.str length])] ;
+    for (NSTextCheckingResult *esResult in escapeMatches) {
+        NSRange tmpRange = NSMakeRange(paraModel.range.location + esResult.range.location, esResult.range.length) ;
+        MarkdownModel *resModel = [MdInlineModel modelWithType:MarkdownInlineEscape range:tmpRange str:[paraModel.str substringWithRange:esResult.range]] ;
+        [escapeList addObject:resModel] ;
+    }
     
+    NSMutableArray *tmpInlineList = [@[] mutableCopy] ;
     for (MarkdownInlineType i = MarkdownInlineUnknown; i < NumberOfMarkdownInline ; i++) {
         NSRegularExpression *expression = [self getRegularExpressionFromMarkdownInlineType:i] ;
         NSArray *matches = [expression matchesInString:paraModel.str options:0 range:NSMakeRange(0, [paraModel.str length])] ;
@@ -215,7 +225,17 @@
             
             NSRange tmpRange = NSMakeRange(paraModel.range.location + result.range.location, result.range.length) ;
             MarkdownModel *resModel = [MdInlineModel modelWithType:i range:tmpRange str:[paraModel.str substringWithRange:result.range]] ;
-            [tmpInlineList addObject:resModel] ;
+            
+            BOOL containEscape = NO ; // 转义字符
+            for (MdInlineModel *escapeMod in escapeList) {
+                NSRange intersectionRange = NSIntersectionRange(escapeMod.range,resModel.range) ;
+                if (intersectionRange.length > 0 && i != MarkdownInlineEscape) {
+                    containEscape = YES ;
+                    break ;
+                }
+            }
+            
+            if (!containEscape) [tmpInlineList addObject:resModel] ;
         }
     }
     

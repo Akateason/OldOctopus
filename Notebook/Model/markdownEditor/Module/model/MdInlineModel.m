@@ -100,6 +100,11 @@
             [attributedString addAttributes:configuration.invisibleMarkStyle range:self.range] ;
         }
             break ;
+        case MarkdownInlineEscape : {
+            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 1)] ;
+        }
+            break ;
             
         default:
             break;
@@ -172,6 +177,11 @@
             break ;
         case MarkdownInlineImage : {
             [attributedString addAttributes:configuration.invisibleMarkStyle range:self.range] ;
+        }
+            break ;
+        case MarkdownInlineEscape : {
+            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 1)] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 1)] ;
         }
             break ;
 

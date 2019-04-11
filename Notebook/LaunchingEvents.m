@@ -87,7 +87,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 - (void)setupDB {
     [XTlibConfig sharedInstance].isDebug    = YES;
-    [XTFMDBBase sharedInstance].isDebugMode = YES;
+//    [XTFMDBBase sharedInstance].isDebugMode = YES;
     [[XTFMDBBase sharedInstance] configureDBWithPath:XT_LIBRARY_PATH_TRAIL_(@"noteDB")];
 }
 
@@ -227,6 +227,5 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         }
     }] ;
 }
-
 
 @end
