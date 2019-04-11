@@ -46,10 +46,9 @@ XT_SINGLETON_H(XTCloudHandler)
                           delete:(void (^)(CKRecordID *recordID, CKRecordType recordType))recordWithIDWasDeletedBlock
                      allComplete:(void (^)(NSError *operationError))fetchRecordZoneChangesCompletionBlock ;
 
-// Fetch (no use)
-- (void)fetchWithId:(NSString *)recordID completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHandler ;
 
-// Fetch list (no use)
+
+// Fetch list
 - (void)fetchListWithTypeName:(NSString *)typeName
                     predicate:(NSPredicate *)predicate
                          sort:(NSArray<NSSortDescriptor *> *)sortlist

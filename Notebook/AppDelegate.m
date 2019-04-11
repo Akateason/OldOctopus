@@ -141,7 +141,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         }] ;
     }
     else {
-        [self icloudSync] ;
+        [self icloudSync:nil] ;
     }
 }
 
@@ -171,7 +171,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
 }
 
-- (void)icloudSync {
+- (void)icloudSync:(void(^)(void))completeBlk {
     [[XTCloudHandler sharedInstance] syncOperationEveryRecord:^(CKRecord *record) {
         
         NSString *type = (NSString *)(record.recordType) ;
@@ -200,19 +200,29 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     } allComplete:^(NSError *operationError) {
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
-        
+        if (completeBlk) completeBlk() ;
     }] ;
 }
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-//    Update views or notify the user according to the record changes.
-    [self icloudSync] ;
 
+    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
+    NSString *alertBody = cloudKitNotification.alertBody;
+    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID];
+    }
+    
+
+    [self icloudSync:^{
+        completionHandler(UIBackgroundFetchResultNewData);
+    }] ;
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    [self icloudSync] ;
+    [self icloudSync:^{
+        completionHandler(UIBackgroundFetchResultNewData);
+    }] ;
 }
 
 

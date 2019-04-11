@@ -72,9 +72,10 @@ XT_SINGLETON_M(XTCloudHandler)
         }) ;
         return ;
     }
-    
+    @weakify(self)
     [self.container requestApplicationPermission:(CKApplicationPermissionUserDiscoverability) completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
         // 这里要 提醒用户开 icloud drive
+        @strongify(self)
         if (error) {
             if (error.code == 9) {
                 [self alertCallUserToIcloud] ;
@@ -85,7 +86,9 @@ XT_SINGLETON_M(XTCloudHandler)
             return ;
         }
         
+        @weakify(self)
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
+            @strongify(self)
             if (!recordID) {
                 [self alertCallUserToIcloud] ;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -94,8 +97,9 @@ XT_SINGLETON_M(XTCloudHandler)
                 return ;
             }
             
+            @weakify(self)
             [self.container discoverUserIdentityWithUserRecordID:recordID completionHandler:^(CKUserIdentity * _Nullable userInfo, NSError * _Nullable error) {
-                
+                @strongify(self)
                 if (error) {
                     [self alertCallUserToIcloud] ;
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -134,66 +138,11 @@ XT_SINGLETON_M(XTCloudHandler)
 
 
 
-// curd
+////////////////////////////////////// CURD events //////////////////////////////////////
 
 - (void)insert:(CKRecord *)record completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
     [self.container.privateCloudDatabase saveRecord:record completionHandler:completionHandler] ;
 }
-
-- (void)saveList:(NSArray *)recInsertOrUpdateList
-      deleteList:(NSArray *)recDeleteList
-        complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock {
-    
-    CKModifyRecordsOperation *modifyRecordsOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recInsertOrUpdateList recordIDsToDelete:recDeleteList];
-    modifyRecordsOperation.savePolicy = CKRecordSaveAllKeys;
-    NSLog(@"CLOUDKIT Changes Uploading: %lu", (unsigned long)recInsertOrUpdateList.count);
-    modifyRecordsOperation.modifyRecordsCompletionBlock = ^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
-        if (error) NSLog(@"[%@] Error pushing local data: %@", self.class, error);
-        modifyRecordsCompletionBlock(savedRecords,deletedRecordIDs,error) ;
-    };
-    [self.container.privateCloudDatabase addOperation:modifyRecordsOperation] ;
-}
-
-- (void)fetchWithId:(NSString *)recordID completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
-    CKRecordID *noteId = [[CKRecordID alloc] initWithRecordName:recordID zoneID:self.zoneID] ;
-    CKDatabase *database = self.container.privateCloudDatabase ;
-    [database fetchRecordWithID:noteId completionHandler:completionHandler];
-}
-
-- (void)fetchListWithTypeName:(NSString *)typeName
-            completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
-    [self fetchListWithTypeName:typeName predicate:nil sort:nil completionHandler:completionHandler] ;
-}
-
-
-/**
- fetch list
- //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name != %@",@"xiaowang"];
- //    CKQuery *query = [[CKQuery alloc] initWithRecordType:recordTypeName predicate:predicate];
- 
- //    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"gender" ascending:NO];
- //    NSSortDescriptor *secondDescriptor = [[NSSortDescriptor alloc] initWithKey:@"age" ascending:NO];
- 
- //    query.sortDescriptors = @[firstDescriptor,secondDescriptor];
- */
-- (void)fetchListWithTypeName:(NSString *)typeName
-                    predicate:(NSPredicate *)predicate
-                         sort:(NSArray<NSSortDescriptor *> *)sortlist
-            completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
-
-    CKDatabase *database = self.container.privateCloudDatabase ;
-    
-    
-    if (!predicate) predicate = [NSPredicate predicateWithValue:YES] ;
-    CKQuery *query = [[CKQuery alloc] initWithRecordType:typeName predicate:predicate];
-    if (sortlist) query.sortDescriptors = sortlist ;
-    
-    [database performQuery:query
-              inZoneWithID:self.zoneID
-         completionHandler:completionHandler] ;
-}
-
-
 
 - (void)updateWithRecId:(NSString *)recId
               updateDic:(NSDictionary *)dic
@@ -224,6 +173,80 @@ XT_SINGLETON_M(XTCloudHandler)
         }
     }];
 }
+
+- (void)saveList:(NSArray *)recInsertOrUpdateList
+      deleteList:(NSArray *)recDeleteList
+        complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock {
+    
+    CKModifyRecordsOperation *modifyRecordsOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recInsertOrUpdateList recordIDsToDelete:recDeleteList];
+    modifyRecordsOperation.savePolicy = CKRecordSaveAllKeys;
+    NSLog(@"CLOUDKIT Changes Uploading: %lu", (unsigned long)recInsertOrUpdateList.count);
+    modifyRecordsOperation.modifyRecordsCompletionBlock = ^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+        if (error) NSLog(@"[%@] Error pushing local data: %@", self.class, error);
+        modifyRecordsCompletionBlock(savedRecords,deletedRecordIDs,error) ;
+    };
+    [self.container.privateCloudDatabase addOperation:modifyRecordsOperation] ;
+}
+
+
+
+
+- (void)fetchWithId:(NSString *)recordID
+  completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
+    
+    CKRecordID *recId = [[CKRecordID alloc] initWithRecordName:recordID zoneID:self.zoneID] ;
+  
+    CKFetchRecordsOperation *operate = [[CKFetchRecordsOperation alloc] init] ;
+    operate.database = self.container.privateCloudDatabase ;
+    operate.recordIDs = @[recId] ;
+    [operate setFetchRecordsCompletionBlock:^(NSDictionary<CKRecordID *,CKRecord *> *recordsByRecordID, NSError * operationError) {
+        completionHandler([[recordsByRecordID allValues] firstObject], operationError ) ;
+    }] ;
+    [self.container.privateCloudDatabase addOperation:operate] ;
+}
+
+- (void)fetchListWithTypeName:(NSString *)typeName
+            completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
+    [self fetchListWithTypeName:typeName predicate:nil sort:nil completionHandler:completionHandler] ;
+}
+
+
+/**
+ fetch list
+ //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name != %@",@"xiaowang"];
+ //    CKQuery *query = [[CKQuery alloc] initWithRecordType:recordTypeName predicate:predicate];
+ 
+ //    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"gender" ascending:NO];
+ //    NSSortDescriptor *secondDescriptor = [[NSSortDescriptor alloc] initWithKey:@"age" ascending:NO];
+ 
+ //    query.sortDescriptors = @[firstDescriptor,secondDescriptor];
+ */
+- (void)fetchListWithTypeName:(NSString *)typeName
+                    predicate:(NSPredicate *)predicate
+                         sort:(NSArray<NSSortDescriptor *> *)sortlist
+            completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
+
+    CKDatabase *database = self.container.privateCloudDatabase ;
+    if (!predicate) predicate = [NSPredicate predicateWithValue:YES] ;
+    CKQuery *query = [[CKQuery alloc] initWithRecordType:typeName predicate:predicate];
+    if (sortlist) query.sortDescriptors = sortlist ;
+    
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    CKQueryOperation *operation = [[CKQueryOperation alloc] initWithQuery:query] ;
+    operation.zoneID = self.zoneID ;
+    operation.database = self.container.privateCloudDatabase ;
+    [operation setRecordFetchedBlock:^(CKRecord * _Nonnull record) {
+        [tmplist addObject:record] ;
+    }] ;
+    [operation setQueryCompletionBlock:^(CKQueryCursor * _Nullable cursor, NSError * _Nullable operationError) {
+        completionHandler(tmplist, operationError) ;
+    }] ;
+    
+    [database addOperation:operation] ;
+}
+
+
+
 
 - (void)saveSubscription {
     // Subscript Note
