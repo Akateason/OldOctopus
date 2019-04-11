@@ -10,7 +10,6 @@
 #import <XTlib/XTlib.h>
 #import "XTCloudHandler.h"
 
-
 @interface AppDelegate ()
 // <UNUserNotificationCenterDelegate>
 
@@ -19,9 +18,14 @@
 @implementation AppDelegate
 
 - (void)test {
-
     
+    [self.launchingEvents uploadAllLocalDataIfNotUploaded] ;
+
 }
+
+
+
+
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

@@ -14,6 +14,8 @@
 #import "Note.h"
 #import "NoteBooks.h"
 #import <UserNotifications/UserNotifications.h>
+#import <XTReq/XTReq.h>
+
 
 NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
 
@@ -190,6 +192,39 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         
         if (!operationError) [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
         if (completeBlk) completeBlk() ;
+    }] ;
+}
+
+- (void)uploadAllLocalDataIfNotUploaded {
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        NSLog(@"status %ld",(long)status) ;
+        
+        if (status > AFNetworkReachabilityStatusNotReachable) {
+            // upload all local data if not Uploaded
+            NSArray *localNotelist = [Note xt_findWhere:@"isSendOnICloud == 0"] ;
+            NSArray *localBooklist = [NoteBooks xt_findWhere:@"isSendOnICloud == 0"] ;
+            
+            NSMutableArray *tmplist = [@[] mutableCopy] ;
+            [localNotelist enumerateObjectsUsingBlock:^(Note *note, NSUInteger idx, BOOL * _Nonnull stop) {
+                [tmplist addObject:note.record] ;
+                note.isSendOnICloud = YES ;
+            }] ;
+            [localBooklist enumerateObjectsUsingBlock:^(NoteBooks *book, NSUInteger idx, BOOL * _Nonnull stop) {
+                [tmplist addObject:book.record] ;
+                book.isSendOnICloud = YES ;
+            }] ;
+            
+            [[XTCloudHandler sharedInstance] saveList:tmplist deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+                
+                if (!error) {
+                    [Note xt_updateListByPkid:localNotelist] ;
+                    [NoteBooks xt_updateListByPkid:localBooklist] ;
+                }
+            }] ;
+        }
     }] ;
 }
 

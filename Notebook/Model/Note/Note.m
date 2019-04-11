@@ -22,6 +22,21 @@
     return [self.baseContent base64DecodedString] ?: @"" ;
 }
 
+- (CKRecord *)record {
+    if (!_record) {
+        CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
+        _record = [[CKRecord alloc] initWithRecordType:@"Note" recordID:recordID] ;
+    }
+    
+    [_record setObject:_noteBookId forKey:@"noteBookId"] ;
+    [_record setObject:_content forKey:@"content"] ;
+    [_record setObject:_title forKey:@"title"] ;
+    [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
+
+    return _record ;
+}
+
+
 + (instancetype)recordToNote:(CKRecord *)record {
     Note *note = [Note new] ;
     note.record = record ;
@@ -44,13 +59,6 @@
         _content = content ;
         _title = title ;
         _baseContent = [content base64EncodedString] ;
-        
-        CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
-        _record = [[CKRecord alloc] initWithRecordType:@"Note" recordID:recordID] ;
-        [_record setObject:_noteBookId forKey:@"noteBookId"] ;
-        [_record setObject:_content forKey:@"content"] ;
-        [_record setObject:_title forKey:@"title"] ;
-        [_record setObject:@0 forKey:@"isDeleted"] ;
     }
     return self;
 }

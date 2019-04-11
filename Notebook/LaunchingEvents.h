@@ -34,6 +34,8 @@ extern NSString *const kNotificationSyncCompleteAllPageRefresh ;
 
 - (void)icloudSync:(void(^)(void))completeBlk ;
 
+- (void)uploadAllLocalDataIfNotUploaded ;
+
 @end
 
 

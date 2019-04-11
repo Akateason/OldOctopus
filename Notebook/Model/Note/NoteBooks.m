@@ -11,6 +11,18 @@
 
 @implementation NoteBooks
 
+- (CKRecord *)record {
+    if (!_record) {
+        CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
+        _record = [[CKRecord alloc] initWithRecordType:@"NoteBook" recordID:recordID] ;
+    }    
+    [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
+    [_record setObject:_emoji forKey:@"emoji"] ;
+    [_record setObject:_name forKey:@"name"] ;
+    
+    return _record ;
+}
+
 + (NoteBooks *)recordToNoteBooks:(CKRecord *)record {
     NoteBooks *book = [NoteBooks new] ;
     book.icRecordName = record.recordID.recordName ;
@@ -29,12 +41,6 @@
         _emoji = [@{@"native":emoji} yy_modelToJSONString] ;
         _isDeleted = 0 ;
         _name = name ;
-        
-        CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
-        _record = [[CKRecord alloc] initWithRecordType:@"NoteBook" recordID:recordID] ;
-        [_record setObject:@0 forKey:@"isDeleted"] ;
-        [_record setObject:_emoji forKey:@"emoji"] ;
-        [_record setObject:_name forKey:@"name"] ;
     }
     return self;
 }
