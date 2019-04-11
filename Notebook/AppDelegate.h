@@ -6,13 +6,13 @@
 //  Copyright © 2019 teason23. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import "LaunchingEvents.h"
 
-static NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) LaunchingEvents *launchingEvents ;
 
 @end

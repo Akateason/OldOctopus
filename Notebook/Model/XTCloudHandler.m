@@ -63,7 +63,6 @@ XT_SINGLETON_M(XTCloudHandler)
     return getString ;
 }
 
-
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser {
     XTIcloudUser *user = [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
     if (user != nil) {
@@ -141,7 +140,9 @@ XT_SINGLETON_M(XTCloudHandler)
 ////////////////////////////////////// CURD events //////////////////////////////////////
 
 - (void)insert:(CKRecord *)record completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
-    [self.container.privateCloudDatabase saveRecord:record completionHandler:completionHandler] ;
+    [self saveList:@[record] deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+        completionHandler(savedRecords.firstObject, error) ;
+    }] ;
 }
 
 - (void)updateWithRecId:(NSString *)recId
@@ -153,7 +154,9 @@ XT_SINGLETON_M(XTCloudHandler)
             for (NSString *key in dic) {
                 [record setObject:dic[key] forKey:key] ;
             }
-            [self.container.privateCloudDatabase saveRecord:record completionHandler:completionHandler];
+            [self saveList:@[record] deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+                completionHandler(savedRecords.firstObject, error) ;
+            }] ;
         }
         else {
             completionHandler(record, error) ; // query failed
@@ -161,45 +164,33 @@ XT_SINGLETON_M(XTCloudHandler)
     }] ;
 }
 
-- (void)deleteWithId:(NSString *)recId {
-    CKRecordID *noteId = [[CKRecordID alloc] initWithRecordName:recId];
-    CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
-    [database deleteRecordWithID:noteId completionHandler:^(CKRecordID *_Nullable recordID,NSError *_Nullable error) {
-        if(!error) {
-            NSLog(@"删除成功");
-        }
-        else {
-            NSLog(@"删除失败: %@",error);
-        }
-    }];
-}
+
 
 - (void)saveList:(NSArray *)recInsertOrUpdateList
       deleteList:(NSArray *)recDeleteList
         complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock {
-    
+    self.isSyncingOnICloud = YES ;
     CKModifyRecordsOperation *modifyRecordsOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recInsertOrUpdateList recordIDsToDelete:recDeleteList];
     modifyRecordsOperation.savePolicy = CKRecordSaveAllKeys;
     NSLog(@"CLOUDKIT Changes Uploading: %lu", (unsigned long)recInsertOrUpdateList.count);
     modifyRecordsOperation.modifyRecordsCompletionBlock = ^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+        self.isSyncingOnICloud = NO ;
         if (error) NSLog(@"[%@] Error pushing local data: %@", self.class, error);
         modifyRecordsCompletionBlock(savedRecords,deletedRecordIDs,error) ;
     };
     [self.container.privateCloudDatabase addOperation:modifyRecordsOperation] ;
 }
 
-
-
-
 - (void)fetchWithId:(NSString *)recordID
   completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
     
+    self.isSyncingOnICloud = YES ;
     CKRecordID *recId = [[CKRecordID alloc] initWithRecordName:recordID zoneID:self.zoneID] ;
-  
     CKFetchRecordsOperation *operate = [[CKFetchRecordsOperation alloc] init] ;
     operate.database = self.container.privateCloudDatabase ;
     operate.recordIDs = @[recId] ;
     [operate setFetchRecordsCompletionBlock:^(NSDictionary<CKRecordID *,CKRecord *> *recordsByRecordID, NSError * operationError) {
+        self.isSyncingOnICloud = NO ;
         completionHandler([[recordsByRecordID allValues] firstObject], operationError ) ;
     }] ;
     [self.container.privateCloudDatabase addOperation:operate] ;
@@ -207,6 +198,7 @@ XT_SINGLETON_M(XTCloudHandler)
 
 - (void)fetchListWithTypeName:(NSString *)typeName
             completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
+    
     [self fetchListWithTypeName:typeName predicate:nil sort:nil completionHandler:completionHandler] ;
 }
 
@@ -225,7 +217,9 @@ XT_SINGLETON_M(XTCloudHandler)
                     predicate:(NSPredicate *)predicate
                          sort:(NSArray<NSSortDescriptor *> *)sortlist
             completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
-
+    
+    self.isSyncingOnICloud = YES ;
+    
     CKDatabase *database = self.container.privateCloudDatabase ;
     if (!predicate) predicate = [NSPredicate predicateWithValue:YES] ;
     CKQuery *query = [[CKQuery alloc] initWithRecordType:typeName predicate:predicate];
@@ -239,14 +233,11 @@ XT_SINGLETON_M(XTCloudHandler)
         [tmplist addObject:record] ;
     }] ;
     [operation setQueryCompletionBlock:^(CKQueryCursor * _Nullable cursor, NSError * _Nullable operationError) {
+        self.isSyncingOnICloud = NO ;
         completionHandler(tmplist, operationError) ;
     }] ;
-    
     [database addOperation:operation] ;
 }
-
-
-
 
 - (void)saveSubscription {
     // Subscript Note
@@ -255,7 +246,6 @@ XT_SINGLETON_M(XTCloudHandler)
     CKQuerySubscription *subsrp = [[CKQuerySubscription alloc] initWithRecordType:@"Note" predicate:predicate options:CKQuerySubscriptionOptionsFiresOnRecordCreation | CKQuerySubscriptionOptionsFiresOnRecordUpdate | CKQuerySubscriptionOptionsFiresOnRecordDeletion ] ;
     
     CKNotificationInfo *info = [CKNotificationInfo new] ;
-//    info.alertLocalizationKey = @"Note_Changed" ;
     info.shouldBadge = YES ;
     subsrp.notificationInfo = info ;
     [database saveSubscription:subsrp
@@ -265,7 +255,6 @@ XT_SINGLETON_M(XTCloudHandler)
     
     // Subscript NoteBook
     subsrp = [[CKQuerySubscription alloc] initWithRecordType:@"NoteBook" predicate:predicate options:CKQuerySubscriptionOptionsFiresOnRecordCreation | CKQuerySubscriptionOptionsFiresOnRecordUpdate | CKQuerySubscriptionOptionsFiresOnRecordDeletion ] ;
-//    info.alertLocalizationKey = @"NoteBook_Changed" ;
     info.shouldBadge = YES ;
     subsrp.notificationInfo = info;
     [database saveSubscription:subsrp

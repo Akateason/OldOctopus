@@ -48,7 +48,7 @@ XT_SINGLETON_H(XTCloudHandler)
 
 
 
-// Fetch list
+// Fetch list (no use)
 - (void)fetchListWithTypeName:(NSString *)typeName
                     predicate:(NSPredicate *)predicate
                          sort:(NSArray<NSSortDescriptor *> *)sortlist
@@ -70,10 +70,6 @@ completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHand
 - (void)saveList:(NSArray *)recInsertOrUpdateList
       deleteList:(NSArray *)recDeleteList
         complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock ;
-
-
-// Delete From server
-- (void)deleteWithId:(NSString *)recId ;
 
 // Subcript
 - (void)saveSubscription ;

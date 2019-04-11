@@ -68,18 +68,15 @@
     [book xt_insert] ;
     
     [[XTCloudHandler sharedInstance] insert:book.record completionHandler:^(CKRecord *record, NSError *error) {
-        
         if (!error) {
             // succcess
             book.isSendOnICloud = YES ;
             [book xt_update] ;
-            
         }
         else {
             // false
             
         }
-
     }] ;
 }
 
@@ -101,7 +98,6 @@
         else {
             // false
         }
-
     }] ;        
 }
 
@@ -143,6 +139,9 @@
     return emo.native ;
 }
 
+
+
+
 #pragma mark - db
 
 // set sqlite Constraints of property
@@ -157,6 +156,14 @@
 }
 
 @end
+
+
+
+
+
+
+
+
 
 
 @implementation NBEmoji

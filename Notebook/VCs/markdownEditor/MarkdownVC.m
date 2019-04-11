@@ -11,6 +11,7 @@
 #import "MarkdownEditor+UtilOfToolbar.h"
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
+#import "LaunchingEvents.h"
 
 
 @interface MarkdownVC ()
@@ -61,6 +62,15 @@
         self.textView.text = self.aNote.content ;
         [self.textView parseTextThenRenderLeftSideAndToobar] ;
     }] ;
+    
+    [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]]
+      takeUntil:self.rac_willDeallocSignal]
+     subscribeNext:^(NSDate * _Nullable x) {
+        
+        LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
+        [events icloudSync:^{}] ;
+        
+    }]  ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

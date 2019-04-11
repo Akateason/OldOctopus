@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btLeftDrawer;
 @property (weak, nonatomic) IBOutlet UIImageView *ImgBtSearch;
 @property (weak, nonatomic) IBOutlet UILabel *bookEmoji;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *juhua;
 
 @property (strong, nonatomic) UIView *btAdd ;
 
@@ -150,6 +151,20 @@
         @strongify(self)
         if (direction == CWDrawerTransitionFromLeft) [self openDrawer] ;
     }] ;
+    
+    [[RACObserve([XTCloudHandler sharedInstance], isSyncingOnICloud) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
+        bool isSync = [x boolValue] ;
+        if (isSync) {
+            [self.juhua startAnimating] ;
+        }
+        else {
+            [self.juhua stopAnimating] ;
+        }
+        
+        self.juhua.hidden = !isSync ;
+    }] ;
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
