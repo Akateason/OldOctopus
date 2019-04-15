@@ -15,6 +15,7 @@
 #import "NoteBooks.h"
 #import <UserNotifications/UserNotifications.h>
 #import <XTReq/XTReq.h>
+#import "MDThemeConfiguration.h"
 
 
 NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
@@ -22,11 +23,14 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 @implementation LaunchingEvents
 
 - (void)setup:(UIApplication *)application {
+    [[MDThemeConfiguration sharedInstance] setup] ;
     [self setupRemoteNotification:application] ;
     [self setupDB] ;
     [self setupNaviStyle] ;
     [self setupIqKeyboard] ;
     [self setupIcloudEvent] ;
+    [self uploadAllLocalDataIfNotUploaded] ;
+    
 }
 
 
@@ -216,6 +220,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
                 [tmplist addObject:book.record] ;
                 book.isSendOnICloud = YES ;
             }] ;
+            
+            if (!tmplist.count) return ;
             
             [[XTCloudHandler sharedInstance] saveList:tmplist deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
                 

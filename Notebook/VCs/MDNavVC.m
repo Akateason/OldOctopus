@@ -25,6 +25,9 @@
     self.navigationBar.topItem.title = @"";
     self.navigationBar.tintColor = UIColorHex(@"222222") ;
     self.navigationBar.backgroundColor = [UIColor whiteColor] ;
+    
+    
+//    [self.navigationBar setBackgroundImage:<#(nullable UIImage *)#> forBarMetrics:<#(UIBarMetrics)#>]
     self.navigationBar.barTintColor = [UIColor whiteColor] ;
     UIImage *whiteLine = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(APP_WIDTH, 2)] ;
     [self.navigationBar setBackgroundImage:whiteLine forBarMetrics:UIBarMetricsDefault];

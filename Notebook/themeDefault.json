@@ -6,5 +6,10 @@
     "quoteTextColor":"777777",
     "themeColor":"f05d4a",
     "homeTitleTextColor":"222222",
-    "bgColor":"ffffff"
+    "bgColor":"ffffff",
+    "blackColor":"000000",
+    
+    "statusBarIsWhite":"0",
+    "navBarColor":"ffffff",
+    "navTextColor":"000000",
 }

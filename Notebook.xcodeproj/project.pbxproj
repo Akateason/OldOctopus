@@ -76,9 +76,12 @@
 		8FA229452260628200D736E2 /* themeDefault.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA229442260628200D736E2 /* themeDefault.json */; };
 		8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA229472260640700D736E2 /* MDEditorTheme.m */; };
 		8FA2294A2260951B00D736E2 /* themeDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA229492260951B00D736E2 /* themeDark.json */; };
+		8FA2295122645CF600D736E2 /* md_ed_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA2295022645CF600D736E2 /* md_ed_more@2x.png */; };
+		8FA2295922646A9500D736E2 /* ArticleInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA2295722646A9500D736E2 /* ArticleInfoVC.m */; };
+		8FA2295A22646A9500D736E2 /* ArticleInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA2295822646A9500D736E2 /* ArticleInfoVC.xib */; };
+		8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA2295B22646F4D00D736E2 /* info_right@2x.png */; };
 		8FA232D6224E07C400163685 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA232D4224E07C400163685 /* NoteCell.m */; };
 		8FA232D7224E07C400163685 /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232D5224E07C400163685 /* NoteCell.xib */; };
-		8FA232DB2251BFFE00163685 /* md_ed_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232DA2251BFFE00163685 /* md_ed_more@2x.png */; };
 		8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */; };
 		8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */; };
 		8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6D1221E8C4A0067DDA4 /* UITextView+XTAddition.m */; };
@@ -233,10 +236,14 @@
 		8FA229462260640700D736E2 /* MDEditorTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEditorTheme.h; sourceTree = "<group>"; };
 		8FA229472260640700D736E2 /* MDEditorTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEditorTheme.m; sourceTree = "<group>"; };
 		8FA229492260951B00D736E2 /* themeDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themeDark.json; path = Notebook/themeDark.json; sourceTree = SOURCE_ROOT; };
+		8FA2295022645CF600D736E2 /* md_ed_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_ed_more@2x.png"; sourceTree = "<group>"; };
+		8FA2295622646A9500D736E2 /* ArticleInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleInfoVC.h; sourceTree = "<group>"; };
+		8FA2295722646A9500D736E2 /* ArticleInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleInfoVC.m; sourceTree = "<group>"; };
+		8FA2295822646A9500D736E2 /* ArticleInfoVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleInfoVC.xib; sourceTree = "<group>"; };
+		8FA2295B22646F4D00D736E2 /* info_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_right@2x.png"; sourceTree = "<group>"; };
 		8FA232D3224E07C400163685 /* NoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
 		8FA232D4224E07C400163685 /* NoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		8FA232D5224E07C400163685 /* NoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
-		8FA232DA2251BFFE00163685 /* md_ed_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_ed_more@2x.png"; sourceTree = "<group>"; };
 		8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRichTextEditor.h; sourceTree = "<group>"; };
 		8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NBRichTextEditor.m; sourceTree = "<group>"; };
 		8FACF6CD221E7F3C0067DDA4 /* NBRTEToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRTEToolbar.h; sourceTree = "<group>"; };
@@ -458,8 +465,8 @@
 		8F679DFD2232437E008DE1BC /* markdownEditor */ = {
 			isa = PBXGroup;
 			children = (
-				8FA229492260951B00D736E2 /* themeDark.json */,
 				8FA229442260628200D736E2 /* themeDefault.json */,
+				8FA229492260951B00D736E2 /* themeDark.json */,
 				8F679E162238F047008DE1BC /* MDThemeConfiguration.h */,
 				8F679E172238F047008DE1BC /* MDThemeConfiguration.m */,
 				8FA229462260640700D736E2 /* MDEditorTheme.h */,
@@ -507,6 +514,8 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8FA2295B22646F4D00D736E2 /* info_right@2x.png */,
+				8FA2295022645CF600D736E2 /* md_ed_more@2x.png */,
 				8F41EED6225C4CA700D9CD35 /* home_edit_book@2x.png */,
 				8F41EED2225B4B6000D9CD35 /* m_note_right_paint@2x.png */,
 				8F41EED0225B487200D9CD35 /* m_note_close@2x.png */,
@@ -518,7 +527,6 @@
 				8FEA9E3C2254D266002A756B /* md_home_top_icon@2x.png */,
 				8FEA9E3A2254D1EF002A756B /* md_home_search@2x.png */,
 				8FEA9E382254D11B002A756B /* home_title_add@2x.png */,
-				8FA232DA2251BFFE00163685 /* md_ed_more@2x.png */,
 				8F07D659224CF614005BA86D /* ld_bt_trash@2x.png */,
 				8F07D657224CF583005BA86D /* ld_bt_recent@2x.png */,
 				8FE5A3E0224B82E500947D14 /* bt_home_add@2x.png */,
@@ -552,6 +560,16 @@
 			path = source;
 			sourceTree = "<group>";
 		};
+		8FA2295222646A2C00D736E2 /* articleInfo */ = {
+			isa = PBXGroup;
+			children = (
+				8FA2295622646A9500D736E2 /* ArticleInfoVC.h */,
+				8FA2295722646A9500D736E2 /* ArticleInfoVC.m */,
+				8FA2295822646A9500D736E2 /* ArticleInfoVC.xib */,
+			);
+			path = articleInfo;
+			sourceTree = "<group>";
+		};
 		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
@@ -559,6 +577,7 @@
 				8F7A84472244BD6B0099E905 /* MDNavVC.m */,
 				8F07D654224CD8CE005BA86D /* BasicVC.h */,
 				8F07D655224CD8CE005BA86D /* BasicVC.m */,
+				8FA2295222646A2C00D736E2 /* articleInfo */,
 				8F679DF922324341008DE1BC /* markdownEditor */,
 				8FE5A3D5224B6C6800947D14 /* Home */,
 				8FE5A3D6224B6C7400947D14 /* LeftDrawer */,
@@ -806,9 +825,9 @@
 				8F41EECB225B404200D9CD35 /* home_move_note@2x.png in Resources */,
 				8F7A8436223BD1780099E905 /* zample2.md in Resources */,
 				8FEA9E46225AFEF1002A756B /* nb_right_fish@2x.png in Resources */,
+				8FA2295122645CF600D736E2 /* md_ed_more@2x.png in Resources */,
 				8F7A84452244BA9D0099E905 /* nav_back_item@2x.png in Resources */,
 				8F41EED7225C4CA700D9CD35 /* home_edit_book@2x.png in Resources */,
-				8FA232DB2251BFFE00163685 /* md_ed_more@2x.png in Resources */,
 				8F0688F02248EC7200A7B183 /* md_tb_bt_blkCode@2x.png in Resources */,
 				8FA2294A2260951B00D736E2 /* themeDark.json in Resources */,
 				8F7A84872244E2810099E905 /* md_tb_bt_h6@2x.png in Resources */,
@@ -818,6 +837,7 @@
 				8F7A847D2244E1EB0099E905 /* md_tb_bt_ulist@2x.png in Resources */,
 				8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */,
 				8F7A84792244E1EB0099E905 /* md_tb_bt_quote@2x.png in Resources */,
+				8FA2295A22646A9500D736E2 /* ArticleInfoVC.xib in Resources */,
 				8F7A84852244E2550099E905 /* md_tb_bt_h3@2x.png in Resources */,
 				8FE5A3EC224CA78100947D14 /* LDHeadView.xib in Resources */,
 				8F7A84722244E1EB0099E905 /* md_tb_bt_h5@2x.png in Resources */,
@@ -829,6 +849,7 @@
 				8F7A847C2244E1EB0099E905 /* md_tb_bt_tasklist@2x.png in Resources */,
 				8FEA9E392254D11B002A756B /* home_title_add@2x.png in Resources */,
 				8FA229452260628200D736E2 /* themeDefault.json in Resources */,
+				8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
 				8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */,
 				8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */,
@@ -999,6 +1020,7 @@
 				8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,
+				8FA2295922646A9500D736E2 /* ArticleInfoVC.m in Sources */,
 				8FE5A3F0224CA86A00947D14 /* LDNotebookCell.m in Sources */,
 				8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */,
 				8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */,

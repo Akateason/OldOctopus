@@ -24,6 +24,8 @@ extern const CGFloat kMDEditor_FlexValue ;
 
 - (void)parseTextThenRenderLeftSideAndToobar ;
 
+- (void)setTopOffset:(CGFloat)topOffset ;
+
 @end
 
 

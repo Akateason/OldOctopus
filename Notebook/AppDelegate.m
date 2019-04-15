@@ -19,7 +19,6 @@
 
 - (void)test {
     
-    [self.launchingEvents uploadAllLocalDataIfNotUploaded] ;
 
 }
 

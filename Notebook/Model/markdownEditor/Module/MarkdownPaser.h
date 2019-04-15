@@ -30,6 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, strong, nonatomic) MDImageManager              *imgManager ;
 @property (readonly, copy, nonatomic)   NSArray                     *currentPositionModelList ;
 
+- (NSInteger)countForWord ;
+- (NSInteger)countForCharactor ;
+- (NSInteger)countForPara ;
+
 - (instancetype)initWithConfig:(MDThemeConfiguration *)config ;
 
 #pragma mark -
@@ -62,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)stringTitleOfPosition:(NSUInteger)position
                               model:(MarkdownModel *)model ;
+
++ (NSString *)filterMarkdownString:(NSString *)markdownStr ;
 
 @end
 

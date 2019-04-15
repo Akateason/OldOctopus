@@ -22,12 +22,13 @@ static NSString *const k_md_quoteTextColor = @"quoteTextColor" ;
 static NSString *const k_md_themeColor = @"themeColor" ;
 static NSString *const k_md_homeTitleTextColor = @"homeTitleTextColor" ;
 static NSString *const k_md_bgColor = @"bgColor" ;
+static NSString *const k_md_blackColor = @"blackColor"  ;
 
 #define XT_MAKE_theme_color(_key_,_a_)           [[_key_ stringByAppendingString:@","] stringByAppendingString:@(_a_).stringValue]
 
 
-#define XT_MD_THEME_COLOR_KEY(__key__)           [[MDThemeConfiguration sharedInstance] colorWithThemeKey:__key__]
-#define XT_MD_THEME_COLOR_KEY_A(__key__,__a__)   [[MDThemeConfiguration sharedInstance] colorWithThemeKey:__key__ alpha:__a__]
+#define XT_MD_THEME_COLOR_KEY(__key__)           UIColorHex([MDThemeConfiguration sharedInstance].dicForConfig[__key__])
+#define XT_MD_THEME_COLOR_KEY_A(__key__,__a__)   UIColorHexA([MDThemeConfiguration sharedInstance].dicForConfig[__key__], __a__)
 
 
 
@@ -36,13 +37,20 @@ static NSString *const k_md_bgColor = @"bgColor" ;
 @interface MDThemeConfiguration : NSObject
 XT_SINGLETON_H(MDThemeConfiguration)
 
+- (void)setup ;
+
 - (void)changeTheme:(NSString *)theme ;
 
-@property (strong, nonatomic)   MDEditorTheme   *editorThemeObj ;
-@property (copy,   nonatomic)   NSDictionary    *dicForColors ;
+- (void)setStatusBarBlackOrWhite:(BOOL)isWhite ;
+    
 
-- (UIColor *)colorWithThemeKey:(NSString *)key alpha:(float)alpha ;
-- (UIColor *)colorWithThemeKey:(NSString *)key ;
+    
+@property (strong, nonatomic)   MDEditorTheme   *editorThemeObj ;
+@property (copy,   nonatomic)   NSDictionary    *dicForConfig ;
+
+@property (strong, nonatomic) UIColor *navBarColor ;
+@property (strong, nonatomic) UIColor *navTextColor ;
+
 @end
 
 

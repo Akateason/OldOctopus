@@ -27,10 +27,21 @@
 @property (strong, nonatomic) NSMutableAttributedString *editAttrStr ;
 
 @property (copy, nonatomic) NSArray *currentPositionModelList ;
-
 @end
 
 @implementation MarkdownPaser
+
+- (NSInteger)countForWord {
+    return [self.class filterMarkdownString:self.editAttrStr.string].length ;
+}
+
+- (NSInteger)countForCharactor {
+    return self.editAttrStr.string.length ;
+}
+
+- (NSInteger)countForPara {
+    return self.paraList.count ;
+}
 
 - (instancetype)initWithConfig:(MDThemeConfiguration *)config {
     self = [super init];
@@ -554,5 +565,17 @@
     
     return str ;
 }
+
+
++ (NSString *)filterMarkdownString:(NSString *)markdownStr {
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"#" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"*" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"_" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"~" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"`" withString:@""] ;
+    return markdownStr ;
+}
+
 
 @end

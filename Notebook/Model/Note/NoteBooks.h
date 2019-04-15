@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSString *name ;
 
 - (NSString *)displayEmoji ;
+- (NSString *)displayBookName ;
 
 + (void)fetchAllNoteBook:(void(^)(NSArray<NoteBooks *> *array))completion ;
 

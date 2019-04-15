@@ -430,12 +430,74 @@
                     <view key="view" contentMode="scaleToFill" id="EWm-za-0rw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3zE-EL-0W3">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nv5-sk-sO2">
+                                        <rect key="frame" x="0.0" y="20" width="375" height="55"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsd-N6-3Yx">
+                                                <rect key="frame" x="20" y="23" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="mgA-Lb-GCr"/>
+                                                    <constraint firstAttribute="width" constant="20" id="w4q-Mt-01U"/>
+                                                </constraints>
+                                                <state key="normal" image="nav_back_item.png"/>
+                                                <connections>
+                                                    <action selector="backAction:" destination="dM8-u1-VBX" eventType="touchUpInside" id="bCW-Vz-OpT"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJU-Up-JQO">
+                                                <rect key="frame" x="335" y="23" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="59U-LG-Fhb"/>
+                                                    <constraint firstAttribute="height" constant="20" id="hEz-2N-9m3"/>
+                                                </constraints>
+                                                <state key="normal" image="md_ed_more.png"/>
+                                                <connections>
+                                                    <action selector="moreAction:" destination="dM8-u1-VBX" eventType="touchUpInside" id="Vd6-Ij-aQR"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="4mH-4t-OZz"/>
+                                            <constraint firstAttribute="trailing" secondItem="DJU-Up-JQO" secondAttribute="trailing" constant="20" id="PE1-8b-T08"/>
+                                            <constraint firstAttribute="bottom" secondItem="DJU-Up-JQO" secondAttribute="bottom" constant="12" id="Vp6-yW-Zic"/>
+                                            <constraint firstItem="fsd-N6-3Yx" firstAttribute="leading" secondItem="nv5-sk-sO2" secondAttribute="leading" constant="20" id="gp0-uN-w3s"/>
+                                            <constraint firstAttribute="bottom" secondItem="fsd-N6-3Yx" secondAttribute="bottom" constant="12" id="snl-8V-lTi"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="nv5-sk-sO2" firstAttribute="leading" secondItem="3zE-EL-0W3" secondAttribute="leading" id="LVT-Mu-HtV"/>
+                                    <constraint firstAttribute="height" constant="75" id="OFI-kt-ihc"/>
+                                    <constraint firstAttribute="bottom" secondItem="nv5-sk-sO2" secondAttribute="bottom" id="Z1h-uC-dKm"/>
+                                    <constraint firstAttribute="trailing" secondItem="nv5-sk-sO2" secondAttribute="trailing" id="lSF-10-MsP"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.89799207449999996" green="0.89807194469999996" blue="0.89792543650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="3zE-EL-0W3" firstAttribute="top" secondItem="EWm-za-0rw" secondAttribute="top" id="FMZ-ws-Zyl"/>
+                            <constraint firstItem="3zE-EL-0W3" firstAttribute="trailing" secondItem="7c4-Da-U9W" secondAttribute="trailing" id="YJK-0e-Cog"/>
+                            <constraint firstItem="3zE-EL-0W3" firstAttribute="leading" secondItem="7c4-Da-U9W" secondAttribute="leading" id="gxz-NM-crc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="7c4-Da-U9W"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="2Xv-VG-rjp"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="btBack" destination="fsd-N6-3Yx" id="zoC-vd-pqw"/>
+                        <outlet property="btMore" destination="DJU-Up-JQO" id="JuU-Ei-RGq"/>
+                        <outlet property="heightForBar" destination="OFI-kt-ihc" id="i7d-NL-WTo"/>
+                        <outlet property="navArea" destination="nv5-sk-sO2" id="ra0-oy-ONe"/>
+                        <outlet property="topBar" destination="3zE-EL-0W3" id="HW4-B2-YcZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPh-5V-2AR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -497,8 +559,10 @@
         <image name="ld_bt_trash.png" width="20" height="20"/>
         <image name="m_note_close.png" width="36" height="36"/>
         <image name="m_note_right_paint.png" width="88" height="158"/>
+        <image name="md_ed_more.png" width="40" height="40"/>
         <image name="md_home_search.png" width="50" height="50"/>
         <image name="md_home_top_icon.png" width="50" height="50"/>
+        <image name="nav_back_item.png" width="28" height="28"/>
         <image name="nb_right_fish.png" width="64" height="185"/>
     </resources>
     <inferredMetricsTieBreakers>

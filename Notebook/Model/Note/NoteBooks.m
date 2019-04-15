@@ -15,7 +15,7 @@
     if (!_record) {
         CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
         _record = [[CKRecord alloc] initWithRecordType:@"NoteBook" recordID:recordID] ;
-    }    
+    }
     [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
     [_record setObject:_emoji forKey:@"emoji"] ;
     [_record setObject:_name forKey:@"name"] ;
@@ -146,6 +146,9 @@
     return emo.native ;
 }
 
+- (NSString *)displayBookName {
+    return [self.displayEmoji stringByAppendingString:self.name] ;
+}
 
 
 

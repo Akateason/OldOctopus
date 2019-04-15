@@ -4,19 +4,26 @@
 //
 //  Created by teason23 on 2019/3/8.
 //  Copyright © 2019 teason23. All rights reserved.
-//
+// 假导航
 
 #import "MarkdownVC.h"
 #import "MarkdownEditor.h"
 #import "MarkdownEditor+UtilOfToolbar.h"
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
-//#import "LaunchingEvents.h"
-
+#import <UINavigationController+FDFullscreenPopGesture.h>
+#import "ArticleInfoVC.h"
+#import <UIViewController+CWLateralSlide.h>
 
 @interface MarkdownVC ()
-@property (strong, nonatomic) MarkdownEditor *textView ;
-@property (strong, nonatomic) XTCameraHandler *handler;
+@property (weak, nonatomic) IBOutlet UIButton *btMore;
+@property (weak, nonatomic) IBOutlet UIButton *btBack;
+@property (weak, nonatomic) IBOutlet UIView *navArea;
+@property (weak, nonatomic) IBOutlet UIView *topBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
+@property (strong, nonatomic) MarkdownEditor    *textView ;
+@property (strong, nonatomic) XTCameraHandler   *handler;
+@property (strong, nonatomic) ArticleInfoVC     *infoVC ;
 
 @property (strong, nonatomic) Note *aNote ;
 @property (copy, nonatomic) NSString *myBookID ;
@@ -63,17 +70,22 @@
         NSArray *modellist = [self.textView.markdownPaser parseText:self.aNote.content position:self.textView.selectedRange.location textView:self.textView] ; // create models
         MarkdownModel *model = [self.textView.markdownPaser modelForModelListInlineFirst:modellist] ;
         [self.textView doSomethingWhenUserSelectPartOfArticle:model] ;
-        
     }] ;
     
-//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
-//       takeUntil:self.rac_willDeallocSignal]
-//      deliverOnMainThread]
-//     subscribeNext:^(NSNotification * _Nullable x) {
-//         @strongify(self)
-//         [self.textView parseTextThenRenderLeftSideAndToobar] ;
-//     }] ;
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
+       takeUntil:self.rac_willDeallocSignal]
+      deliverOnMainThread]
+     subscribeNext:^(NSNotification * _Nullable x) {
+         @strongify(self)
+         [self.textView parseTextThenRenderLeftSideAndToobar] ;
+     }] ;
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated] ;
+    
+    [self.textView parseTextThenRenderLeftSideAndToobar] ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -116,18 +128,48 @@
 
 - (void)prepareUI {
     [self textView] ;
-    
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"md_ed_more"] style:UIBarButtonItemStylePlain target:self action:@selector(more)] ;
-    self.navigationItem.rightBarButtonItem = item ;
-    
     self.textView.xt_theme_backgroundColor = k_md_bgColor ;
     self.textView.xt_theme_textColor = k_md_textColor ;
     
-    self.navigationController.navigationBar.xt_theme_backgroundColor = k_md_bgColor ;
+    self.fd_prefersNavigationBarHidden = YES ;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.heightForBar.constant = APP_STATUSBAR_HEIGHT + 55 ;
+        [self.textView setTopOffset:55] ;
+    }) ;
+    
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    @weakify(self)
+    [self cw_registerShowIntractiveWithEdgeGesture:YES transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
+        @strongify(self)
+        if (direction == CWDrawerTransitionFromRight) [self moreAction:nil] ;
+    }] ;
+    
+    // todo 办透明
+    self.topBar.xt_theme_backgroundColor = k_md_bgColor ;
+    self.navArea.xt_theme_backgroundColor = k_md_bgColor ;
+    
+    
 }
 
-- (void)more {
+- (IBAction)backAction:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES] ;
+}
+
+- (IBAction)moreAction:(id)sender {
+    if (self.textView.isFirstResponder) [self.textView resignFirstResponder] ;
     
+    [self infoVC] ;
+    self.infoVC.distance = self.movingDistance ;
+    self.infoVC.aNote = self.aNote ;
+    self.infoVC.parser = self.textView.markdownPaser ;
+    WEAK_SELF
+    self.infoVC.blkDelete = ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES] ;
+    } ;
+    
+    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.1 scaleY:1 direction:CWDrawerTransitionFromRight backImage:nil] ;
+    self.infoVC.view.width = self.movingDistance ;
+    [self cw_showDrawerViewController:self.infoVC animationType:0 configuration:conf] ;
 }
 
 #pragma mark - prop
@@ -135,10 +177,11 @@
 - (MarkdownEditor *)textView{
     if(!_textView){
         _textView = ({
-            MarkdownEditor * editor = [[MarkdownEditor alloc]init];
-            [self.view addSubview:editor] ;
+            MarkdownEditor * editor = [[MarkdownEditor alloc]init] ;
+            [self.view insertSubview:editor atIndex:0] ;
             [editor mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view) ;
+                
                 make.top.equalTo(self.mas_topLayoutGuideBottom) ;
                 make.bottom.equalTo(self.view) ;
             }] ;
@@ -146,6 +189,20 @@
        });
     }
     return _textView;
+}
+
+- (ArticleInfoVC *)infoVC{
+    if(!_infoVC){
+        _infoVC = ({
+            ArticleInfoVC * object = [ArticleInfoVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
+            object;
+       });
+    }
+    return _infoVC;
+}
+
+- (CGFloat)movingDistance {
+    return  48. / 75. * APP_WIDTH ;
 }
 
 @end

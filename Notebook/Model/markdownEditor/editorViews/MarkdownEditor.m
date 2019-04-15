@@ -130,6 +130,13 @@ static const int kTag_ListMarkView  = 32342 ;
     [self doSomethingWhenUserSelectPartOfArticle:model] ;
 }
 
+- (void)setTopOffset:(CGFloat)topOffset {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.contentInset = UIEdgeInsetsMake(topOffset, kMDEditor_FlexValue, 0, kMDEditor_FlexValue) ;
+        self.mj_offsetY = - topOffset ;
+    }) ;
+}
+
 #pragma mark - rewrite father
 #pragma mark - cursor moving and selecting
 
@@ -212,7 +219,7 @@ static const int kTag_ListMarkView  = 32342 ;
         
         UIView *quoteItem = [UIView new] ;
         quoteItem.tag = kTag_QuoteMarkView ;
-        quoteItem.xt_theme_backgroundColor = k_md_themeColor ;                
+        quoteItem.xt_theme_backgroundColor = k_md_themeColor ;
         [self addSubview:quoteItem] ;
         [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self) ;
