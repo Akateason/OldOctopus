@@ -14,17 +14,18 @@
 @implementation LDHeadView
 
 - (void)setupUser {
+    self.xt_theme_backgroundColor = k_md_bgColor ;
+
+    
     XTIcloudUser *user = [XTIcloudUser userInCacheSyncGet] ;
     self.lbHead.text = [user.givenName substringToIndex:1] ;
-    self.lbHead.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
+    self.lbHead.xt_theme_backgroundColor = k_md_themeColor ;
     self.lbHead.textColor = [UIColor whiteColor] ;
     
     self.lbName.text = user.name ;
-    self.lbName.textColor = [MDThemeConfiguration sharedInstance].textColor ;
-    self.lbName.alpha = .6 ;
+    self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     
-    self.lbMyBook.textColor = [MDThemeConfiguration sharedInstance].textColor ;
-    self.lbMyBook.alpha = .3 ;
+    self.lbMyBook.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     
     self.imgAddBook.userInteractionEnabled = YES ;
     

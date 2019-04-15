@@ -87,7 +87,7 @@ static const int kTagOfButton = 88390 ;
             if ([sub isKindOfClass:[UIButton class]]
                 && sub.tag == kTagOfButton + type ) {
                 UIButton *bt = (UIButton *)sub ;
-                [bt setImage:[bt.currentImage imageWithTintColor:[MDThemeConfiguration sharedInstance].themeColor] forState:0] ;
+                [bt setImage:[bt.currentImage imageWithTintColor:XT_MD_THEME_COLOR_KEY(k_md_themeColor)] forState:0] ;
             }
         }
     }

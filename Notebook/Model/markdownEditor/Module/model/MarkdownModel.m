@@ -38,7 +38,7 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
 //    UIFont *paragraphFont = configuration.font ;
 //    NSUInteger location = self.range.location ;
 //    NSUInteger length = self.range.length ;

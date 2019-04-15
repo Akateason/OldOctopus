@@ -27,34 +27,31 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
-    UIFont *paragraphFont = configuration.font ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
     
     switch (self.type) {
         case MarkdownSyntaxMultipleMath: {
-            [attributedString addAttributes:configuration.codeBlockStyle range:self.range] ;
+            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
         }
             break;
         case MarkdownSyntaxHr: {
-//            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-//            paraStyle.paragraphSpacing = 16 ;
             UIFont *hrFont = [UIFont systemFontOfSize:4] ;
-            resultDic = @{NSBackgroundColorAttributeName : [MDThemeConfiguration sharedInstance].seplineLineColor ,
-                          NSForegroundColorAttributeName : [MDThemeConfiguration sharedInstance].seplineLineColor ,
+            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_seplineLineColor) ,
+                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_seplineLineColor) ,
                           NSFontAttributeName : hrFont ,
-//                          NSParagraphStyleAttributeName : paraStyle
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
         }
             break ;
         case MarkdownSyntaxNpTable: {
-            [attributedString addAttributes:configuration.codeBlockStyle range:self.range] ;
+            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
         }
             break ;
         case MarkdownSyntaxTable: {
-            [attributedString addAttributes:configuration.codeBlockStyle range:self.range] ;
+            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
         }
             break ;
 
@@ -68,16 +65,16 @@
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
-    UIFont *paragraphFont = configuration.font ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
 
     switch (self.type) {
         case MarkdownSyntaxHr: {
             resultDic = @{NSBackgroundColorAttributeName : [UIColor clearColor] ,
-                          NSForegroundColorAttributeName : configuration.markColor ,
-                          NSFontAttributeName : configuration.font,
+                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor) ,
+                          NSFontAttributeName : configuration.editorThemeObj.font,
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
         }

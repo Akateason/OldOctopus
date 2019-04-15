@@ -72,10 +72,13 @@
 		8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */; };
 		8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A849E2248A6050099E905 /* MDEditUrlView.xib */; };
 		8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */; };
+		8FA2294322603C2A00D736E2 /* NSObject+XTThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */; };
+		8FA229452260628200D736E2 /* themeDefault.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA229442260628200D736E2 /* themeDefault.json */; };
+		8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA229472260640700D736E2 /* MDEditorTheme.m */; };
+		8FA2294A2260951B00D736E2 /* themeDark.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA229492260951B00D736E2 /* themeDark.json */; };
 		8FA232D6224E07C400163685 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA232D4224E07C400163685 /* NoteCell.m */; };
 		8FA232D7224E07C400163685 /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232D5224E07C400163685 /* NoteCell.xib */; };
 		8FA232DB2251BFFE00163685 /* md_ed_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232DA2251BFFE00163685 /* md_ed_more@2x.png */; };
-		8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */; };
 		8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */; };
 		8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6CE221E7F3C0067DDA4 /* NBRTEToolbar.m */; };
 		8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6D1221E8C4A0067DDA4 /* UITextView+XTAddition.m */; };
@@ -224,12 +227,16 @@
 		8F7A849E2248A6050099E905 /* MDEditUrlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEditUrlView.xib; sourceTree = "<group>"; };
 		8F7A84A02248AB7A0099E905 /* MDEditUrlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEditUrlView.h; sourceTree = "<group>"; };
 		8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEditUrlView.m; sourceTree = "<group>"; };
+		8FA2294122603C2A00D736E2 /* NSObject+XTThemeColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+XTThemeColor.h"; sourceTree = "<group>"; };
+		8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XTThemeColor.m"; sourceTree = "<group>"; };
+		8FA229442260628200D736E2 /* themeDefault.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themeDefault.json; path = ../../themeDefault.json; sourceTree = "<group>"; };
+		8FA229462260640700D736E2 /* MDEditorTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEditorTheme.h; sourceTree = "<group>"; };
+		8FA229472260640700D736E2 /* MDEditorTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEditorTheme.m; sourceTree = "<group>"; };
+		8FA229492260951B00D736E2 /* themeDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themeDark.json; path = Notebook/themeDark.json; sourceTree = SOURCE_ROOT; };
 		8FA232D3224E07C400163685 /* NoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
 		8FA232D4224E07C400163685 /* NoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		8FA232D5224E07C400163685 /* NoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
 		8FA232DA2251BFFE00163685 /* md_ed_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_ed_more@2x.png"; sourceTree = "<group>"; };
-		8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMSHEditorVC.h; sourceTree = "<group>"; };
-		8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMSHEditorVC.m; sourceTree = "<group>"; };
 		8FACF6CA221E7BEE0067DDA4 /* NBRichTextEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRichTextEditor.h; sourceTree = "<group>"; };
 		8FACF6CB221E7BEE0067DDA4 /* NBRichTextEditor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NBRichTextEditor.m; sourceTree = "<group>"; };
 		8FACF6CD221E7F3C0067DDA4 /* NBRTEToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NBRTEToolbar.h; sourceTree = "<group>"; };
@@ -439,15 +446,6 @@
 			path = NotebookUITests;
 			sourceTree = "<group>";
 		};
-		8F679DF822324333008DE1BC /* richtext */ = {
-			isa = PBXGroup;
-			children = (
-				8FACF6C7221D2B3C0067DDA4 /* SMSHEditorVC.h */,
-				8FACF6C8221D2B3C0067DDA4 /* SMSHEditorVC.m */,
-			);
-			path = richtext;
-			sourceTree = "<group>";
-		};
 		8F679DF922324341008DE1BC /* markdownEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,8 +458,14 @@
 		8F679DFD2232437E008DE1BC /* markdownEditor */ = {
 			isa = PBXGroup;
 			children = (
+				8FA229492260951B00D736E2 /* themeDark.json */,
+				8FA229442260628200D736E2 /* themeDefault.json */,
 				8F679E162238F047008DE1BC /* MDThemeConfiguration.h */,
 				8F679E172238F047008DE1BC /* MDThemeConfiguration.m */,
+				8FA229462260640700D736E2 /* MDEditorTheme.h */,
+				8FA229472260640700D736E2 /* MDEditorTheme.m */,
+				8FA2294122603C2A00D736E2 /* NSObject+XTThemeColor.h */,
+				8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */,
 				8FEA9E3E2254D75D002A756B /* editorViews */,
 				8F679E042232468C008DE1BC /* Module */,
 			);
@@ -560,7 +564,6 @@
 				8FE5A3D6224B6C7400947D14 /* LeftDrawer */,
 				8F41EECC225B479200D9CD35 /* MoveNoteToBook */,
 				8FEA9E41225AFBAE002A756B /* NewBook */,
-				8F679DF822324333008DE1BC /* richtext */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -807,6 +810,7 @@
 				8F41EED7225C4CA700D9CD35 /* home_edit_book@2x.png in Resources */,
 				8FA232DB2251BFFE00163685 /* md_ed_more@2x.png in Resources */,
 				8F0688F02248EC7200A7B183 /* md_tb_bt_blkCode@2x.png in Resources */,
+				8FA2294A2260951B00D736E2 /* themeDark.json in Resources */,
 				8F7A84872244E2810099E905 /* md_tb_bt_h6@2x.png in Resources */,
 				8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */,
 				8F7A848F2244E4510099E905 /* md_tb_bt_link@2x.png in Resources */,
@@ -824,6 +828,7 @@
 				8F7A84682244E1EB0099E905 /* md_tb_bt_h4@2x.png in Resources */,
 				8F7A847C2244E1EB0099E905 /* md_tb_bt_tasklist@2x.png in Resources */,
 				8FEA9E392254D11B002A756B /* home_title_add@2x.png in Resources */,
+				8FA229452260628200D736E2 /* themeDefault.json in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
 				8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */,
 				8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */,
@@ -980,17 +985,18 @@
 				8FB72910225EF703003A73C1 /* LaunchingEvents.m in Sources */,
 				8FACF6DA221E8D610067DDA4 /* UIView+RichTextEditor.m in Sources */,
 				8F679E282238F9DE008DE1BC /* MdListModel.m in Sources */,
+				8FA2294322603C2A00D736E2 /* NSObject+XTThemeColor.m in Sources */,
 				8F07D656224CD8CE005BA86D /* BasicVC.m in Sources */,
 				8F07D64D224CB9FF005BA86D /* Note.m in Sources */,
 				8FACF6CF221E7F3C0067DDA4 /* NBRTEToolbar.m in Sources */,
 				8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */,
-				8FACF6C9221D2B3C0067DDA4 /* SMSHEditorVC.m in Sources */,
 				8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */,
 				8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */,
 				8F41EEC7225B3B7500D9CD35 /* SWRevealTableViewCell.m in Sources */,
 				8FFBBB3D224A4CAF00A304C7 /* MDEKeyboardPhotoView.m in Sources */,
 				8FEA9E44225AFBDC002A756B /* NewBookVC.m in Sources */,
 				8FE5A3D9224B6CE800947D14 /* HomeVC.m in Sources */,
+				8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,
 				8FE5A3F0224CA86A00947D14 /* LDNotebookCell.m in Sources */,

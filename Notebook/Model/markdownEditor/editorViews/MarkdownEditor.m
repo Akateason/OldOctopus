@@ -54,7 +54,7 @@ static const int kTag_ListMarkView  = 32342 ;
 }
 
 - (void)setup {
-    self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.fontSize] ;
+    self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.editorThemeObj.fontSize] ;
     self.contentInset = UIEdgeInsetsMake(0, kMDEditor_FlexValue, 0, kMDEditor_FlexValue) ;
     self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     self.delegate = self ;
@@ -212,7 +212,7 @@ static const int kTag_ListMarkView  = 32342 ;
         
         UIView *quoteItem = [UIView new] ;
         quoteItem.tag = kTag_QuoteMarkView ;
-        quoteItem.backgroundColor = self.markdownPaser.configuration.quoteLeftBarColor ;
+        quoteItem.xt_theme_backgroundColor = k_md_themeColor ;                
         [self addSubview:quoteItem] ;
         [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self) ;
@@ -253,7 +253,7 @@ static const int kTag_ListMarkView  = 32342 ;
         if (model.type == MarkdownSyntaxULLists) {
             UILabel *lb = [UILabel new] ;
             lb.text = @"   •" ;
-            lb.textColor = [MDThemeConfiguration sharedInstance].themeColor ;
+            lb.xt_theme_textColor = k_md_themeColor ;
             lb.font = [UIFont boldSystemFontOfSize:16] ;
             lb.textAlignment = NSTextAlignmentCenter ;
             item = lb ;
@@ -261,7 +261,7 @@ static const int kTag_ListMarkView  = 32342 ;
         else if (model.type == MarkdownSyntaxOLLists) {
             UILabel *lb = [UILabel new] ;
             lb.text = [[[model.str componentsSeparatedByString:@"."] firstObject] stringByAppendingString:@"."] ;
-            lb.textColor = [MDThemeConfiguration sharedInstance].themeColor ;
+            lb.xt_theme_textColor = k_md_themeColor ;
             lb.font = [UIFont systemFontOfSize:16] ;
             lb.textAlignment = NSTextAlignmentRight ;
             item = lb ;
@@ -269,7 +269,7 @@ static const int kTag_ListMarkView  = 32342 ;
         else if (model.type == MarkdownSyntaxTaskLists) {
             
             UIImageView *imgView = [UIImageView new] ;
-            [imgView setImage:[model.taskItemImageState imageWithTintColor:[MDThemeConfiguration sharedInstance].themeColor]] ;
+            [imgView setImage:[model.taskItemImageState imageWithTintColor:XT_MD_THEME_COLOR_KEY(k_md_themeColor)]] ;
             imgView.contentMode = UIViewContentModeScaleAspectFit ;
             imgView.userInteractionEnabled = YES ;
             WEAK_SELF

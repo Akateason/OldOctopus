@@ -38,7 +38,6 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:.9] ;
     self.booklist = [NoteBooks xt_findWhere:@"isOnSelect == 0 AND isDeleted == 0"] ;
     self.table.separatorStyle = 0 ;
@@ -54,7 +53,7 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 }
 
 - (void)prepareUI {
-    self.lbTitle.textColor = [MDThemeConfiguration sharedInstance].textColor ;
+    self.lbTitle.xt_theme_textColor = k_md_textColor ;
 }
 
 #pragma mark - table
@@ -67,8 +66,8 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     LDNotebookCell *cell = [LDNotebookCell xt_fetchFromTable:tableView indexPath:indexPath] ;
     [cell xt_configure:self.booklist[indexPath.row] indexPath:indexPath] ;
     cell.backgroundColor = nil ;
-//    cell.bgViewOnChoose.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
-//    cell.bgViewOnChoose.alpha = .05 ;
+
+    
     return cell ;
 }
 

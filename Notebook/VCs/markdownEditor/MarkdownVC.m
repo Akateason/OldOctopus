@@ -65,7 +65,15 @@
         [self.textView doSomethingWhenUserSelectPartOfArticle:model] ;
         
     }] ;
-        
+    
+//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
+//       takeUntil:self.rac_willDeallocSignal]
+//      deliverOnMainThread]
+//     subscribeNext:^(NSNotification * _Nullable x) {
+//         @strongify(self)
+//         [self.textView parseTextThenRenderLeftSideAndToobar] ;
+//     }] ;
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -111,6 +119,11 @@
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"md_ed_more"] style:UIBarButtonItemStylePlain target:self action:@selector(more)] ;
     self.navigationItem.rightBarButtonItem = item ;
+    
+    self.textView.xt_theme_backgroundColor = k_md_bgColor ;
+    self.textView.xt_theme_textColor = k_md_textColor ;
+    
+    self.navigationController.navigationBar.xt_theme_backgroundColor = k_md_bgColor ;
 }
 
 - (void)more {

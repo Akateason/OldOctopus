@@ -39,14 +39,14 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
-    UIFont *paragraphFont = configuration.font ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
     
     switch (self.type) {
         case MarkdownSyntaxBlockquotes: {
-            [attributedString addAttributes:configuration.quoteStyle range:self.range] ;
+            [attributedString addAttributes:configuration.editorThemeObj.quoteStyle range:self.range] ;
             
             // hide ">" mark
             NSRegularExpression *expression = regexp("(^\\>\\s)|(^\\>)", NSRegularExpressionAnchorsMatchLines) ;
@@ -58,7 +58,7 @@
         }
             break ;
         case MarkdownSyntaxCodeBlock: {
-            [attributedString addAttributes:configuration.codeBlockStyle range:self.range] ;
+            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
             
             resultDic = [self attrQuoteBlockHideMark] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 3)] ;
@@ -77,14 +77,14 @@
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
-    UIFont *paragraphFont = configuration.font ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
     
     switch (self.type) {
         case MarkdownSyntaxBlockquotes: {
-            [attributedString addAttributes:configuration.quoteStyle range:self.range] ;
+            [attributedString addAttributes:configuration.editorThemeObj.quoteStyle range:self.range] ;
             
             // hide ">" mark
             NSRegularExpression *expression = regexp("(^\\>\\s)|(^\\>)", NSRegularExpressionAnchorsMatchLines) ;
@@ -97,7 +97,7 @@
             break ;
         case MarkdownSyntaxCodeBlock: {
             NSRange rangeTmp = NSMakeRange(location + 3, length - 6) ;
-            [attributedString addAttributes:configuration.codeBlockStyle range:rangeTmp] ;
+            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:rangeTmp] ;
         }
             break ;
             

@@ -403,7 +403,7 @@
     // render attr
     [attributedString beginEditing] ;
     // add default style
-    [attributedString addAttributes:self.configuration.basicStyle range:NSMakeRange(0, text.length)] ;
+    [attributedString addAttributes:self.configuration.editorThemeObj.basicStyle range:NSMakeRange(0, text.length)] ;
     // render every node
     [tmpModelList enumerateObjectsUsingBlock:^(MarkdownModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         if (NSLocationInRange(position, model.range) || position == model.range.location + model.range.length ) {

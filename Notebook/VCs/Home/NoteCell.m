@@ -19,13 +19,12 @@
     [super awakeFromNib];
     
     self.selectionStyle = 0 ;
-    self.area.backgroundColor = [UIColor whiteColor] ;
-    self.backgroundColor = nil ;
-    
-    _lbTitle.textColor = [MDThemeConfiguration sharedInstance].darkTextColor ;
-    _lbContent.textColor = [MDThemeConfiguration sharedInstance].lightTextColor ;
-    _lbDate.textColor = [MDThemeConfiguration sharedInstance].textColor ;
-    _lbDate.alpha = .3 ;
+    self.area.xt_theme_backgroundColor = k_md_bgColor ;
+    self.xt_theme_backgroundColor = k_md_bgColor ;
+
+    _lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    _lbContent.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    _lbDate.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

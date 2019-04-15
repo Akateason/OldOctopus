@@ -68,6 +68,14 @@
         [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
     
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
+       takeUntil:self.rac_willDeallocSignal]
+      deliverOnMainThread]
+     subscribeNext:^(NSNotification * _Nullable x) {
+         @strongify(self)
+         [self.table reloadData] ;
+     }] ;
+    
     [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]]
       takeUntil:self.rac_willDeallocSignal]
      subscribeNext:^(NSDate * _Nullable x) {
@@ -128,17 +136,20 @@
     self.table.delegate = self ;
     self.table.xt_Delegate = self ;
     self.table.mj_footer = nil ;
-    self.table.backgroundColor = [MDThemeConfiguration sharedInstance].homeTableBGColor ;
+
+    self.table.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor,1) ;
+    
     self.table.contentInset = UIEdgeInsetsMake(10, 0, 0, 0) ;
     self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     
-    self.topSafeAreaView.backgroundColor = [UIColor whiteColor] ;
+    self.topSafeAreaView.xt_theme_backgroundColor = k_md_bgColor ;
+    self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
     
     self.bookEmoji.text = @"" ;
     self.nameOfNoteBook.text = @"";
-    self.nameOfNoteBook.textColor = [MDThemeConfiguration sharedInstance].homeTitleTextColor ;
-    self.topArea.backgroundColor = [UIColor whiteColor] ;
+    self.nameOfNoteBook.xt_theme_textColor = k_md_homeTitleTextColor ;
     
+
     self.btAdd.userInteractionEnabled = YES ;
     @weakify(self)
     [self.btAdd bk_whenTapped:^{
@@ -241,7 +252,7 @@
         }] ;
         return YES ;
     }] ;
-    item1.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
+    item1.xt_theme_backgroundColor = k_md_themeColor ;
     item1.tintColor = [UIColor whiteColor] ;
     item1.width = 60 ;
     item1.image = [UIImage imageNamed:@"home_del_note"] ;

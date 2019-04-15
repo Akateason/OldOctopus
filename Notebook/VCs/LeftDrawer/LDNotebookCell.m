@@ -18,6 +18,9 @@
 
     self.selectionStyle = 0 ;
     self.imgView.hidden = YES ;
+    
+    self.xt_theme_backgroundColor = k_md_bgColor ;
+
 }
 
 + (CGFloat)xt_cellHeight {
@@ -43,7 +46,7 @@
     }
     
     self.bgViewOnChoose.backgroundColor = book.isOnSelect ? UIColorHexA(@"000000", .03) : [UIColor clearColor] ;
-    self.lbName.textColor = book.isOnSelect ? [MDThemeConfiguration sharedInstance].themeColor : UIColorHexA(@"000000", .6) ;
+    self.lbName.textColor = book.isOnSelect ? XT_MD_THEME_COLOR_KEY(k_md_themeColor) : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
 }
 
 - (UIImageView *)imgView {

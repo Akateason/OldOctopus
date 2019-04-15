@@ -33,39 +33,39 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
-    UIFont *paragraphFont = configuration.font ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
 
     switch (self.type) {
         case MarkdownInlineBold: {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 2, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 2, 2)] ;
             
-            resultDic = @{NSFontAttributeName : configuration.boldFont} ;
+            resultDic = @{NSFontAttributeName : configuration.editorThemeObj.boldFont} ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 2, length - 4)] ;
         }
             break ;
         case MarkdownInlineItalic: {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
             
-            resultDic = @{NSFontAttributeName : configuration.italicFont};
+            resultDic = @{NSFontAttributeName : configuration.editorThemeObj.italicFont};
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
             break ;
         case MarkdownInlineBoldItalic: {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 3)] ;
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 3, 3)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 3)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 3, 3)] ;
             
-            resultDic = @{NSFontAttributeName : configuration.boldItalicFont};
+            resultDic = @{NSFontAttributeName : configuration.editorThemeObj.boldItalicFont};
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 3, length - 6)] ;
         }
             break ;
         case MarkdownInlineDeletions: {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 2, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 2, 2)] ;
             
             resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
                           NSFontAttributeName : paragraphFont
@@ -74,10 +74,10 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
             
-            resultDic = @{NSBackgroundColorAttributeName : configuration.inlineCodeBGColor,
+            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor),
                           NSFontAttributeName : paragraphFont
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
@@ -85,9 +85,8 @@
             break ;
         case MarkdownInlineLinks: {
             // todo links with attr str
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:self.range] ;
-            
-            resultDic = @{NSForegroundColorAttributeName : [MDThemeConfiguration sharedInstance].themeColor,
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:self.range] ;
+            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_themeColor),
                           NSFontAttributeName : paragraphFont,
                           NSUnderlineStyleAttributeName : @1
                           };
@@ -97,11 +96,11 @@
         }
             break ;
         case MarkdownInlineImage : {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:self.range] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:self.range] ;
         }
             break ;
         case MarkdownInlineEscape : {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 1)] ;
         }
             break ;
@@ -116,39 +115,39 @@
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
-    UIFont *paragraphFont = configuration.font ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
     
     switch (self.type) {
         case MarkdownInlineBold: {
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 2)] ;
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 2, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location + length - 2, 2)] ;
             
-            resultDic = @{NSFontAttributeName : configuration.boldFont} ;
+            resultDic = @{NSFontAttributeName : configuration.editorThemeObj.boldFont} ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 2, length - 4)] ;
         }
             break ;
         case MarkdownInlineItalic: {
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 1)] ;
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 1, 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location, 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location + length - 1, 1)] ;
             
-            resultDic = @{NSFontAttributeName : configuration.italicFont};
+            resultDic = @{NSFontAttributeName : configuration.editorThemeObj.italicFont};
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
             break ;
         case MarkdownInlineBoldItalic: {
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 3)] ;
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 3, 3)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location, 3)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location + length - 3, 3)] ;
             
-            resultDic = @{NSFontAttributeName : configuration.boldItalicFont};
+            resultDic = @{NSFontAttributeName : configuration.editorThemeObj.boldItalicFont};
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 3, length - 6)] ;
         }
             break ;
         case MarkdownInlineDeletions: {
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 2)] ;
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location + length - 2, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location + length - 2, 2)] ;
             
             resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
                           NSFontAttributeName : paragraphFont
@@ -157,14 +156,14 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
-            resultDic = @{NSBackgroundColorAttributeName : configuration.inlineCodeBGColor,
+            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor),
                           NSFontAttributeName : paragraphFont
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
             break ;
         case MarkdownInlineLinks: {
-            [attributedString addAttributes:configuration.markStyle range:self.range] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:self.range] ;
             
             resultDic = @{NSForegroundColorAttributeName : [UIColor xt_skyBlue],
                           NSFontAttributeName : paragraphFont,
@@ -176,11 +175,11 @@
         }
             break ;
         case MarkdownInlineImage : {
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:self.range] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:self.range] ;
         }
             break ;
         case MarkdownInlineEscape : {
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location, 1)] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 1)] ;
         }
             break ;

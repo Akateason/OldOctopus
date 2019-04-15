@@ -20,8 +20,8 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
-    UIFont *paragraphFont = configuration.font ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
 //    NSUInteger length = self.range.length ;
 
@@ -30,16 +30,16 @@
             // number
             NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
             NSUInteger lenOfMark = prefix.length + 1 ;
-            [attributedString addAttributes:configuration.listInvisibleMarkStyle range:NSMakeRange(location, lenOfMark + 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(location, lenOfMark + 1)] ;
         }
             break ;
         case MarkdownSyntaxULLists: {
-            [attributedString addAttributes:configuration.listInvisibleMarkStyle range:NSMakeRange(location, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(location, 2)] ;
         }
             break ;
         case MarkdownSyntaxTaskLists: {
             NSInteger markLoc = [[self.str componentsSeparatedByString:@"]"] firstObject].length + 1 ;
-            [attributedString addAttributes:configuration.listInvisibleMarkStyle range:NSMakeRange(location, markLoc)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(location, markLoc)] ;
             
             if (self.taskItemSelected) {
                 resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
@@ -60,8 +60,8 @@
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
-    UIFont *paragraphFont = configuration.font ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
 //    NSUInteger length = self.range.length ;
     
@@ -70,16 +70,16 @@
             // number
             NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
             NSUInteger lenOfMark = prefix.length + 1 ;
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, lenOfMark + 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location, lenOfMark + 1)] ;
         }
             break ;
         case MarkdownSyntaxULLists: {
-            [attributedString addAttributes:configuration.markStyle range:NSMakeRange(location, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location, 2)] ;
         }
             break ;
         case MarkdownSyntaxTaskLists: {
             NSInteger markLoc = [[self.str componentsSeparatedByString:@"]"] firstObject].length + 1 ;
-            [attributedString addAttributes:configuration.listInvisibleMarkStyle range:NSMakeRange(location, markLoc)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(location, markLoc)] ;
             
             if (self.taskItemSelected) {
                 resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),

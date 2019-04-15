@@ -27,6 +27,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *flexTrailOfTable;
 @property (weak, nonatomic) IBOutlet UIView *bottomArea;
 @property (weak, nonatomic) IBOutlet UILabel *lbTrash;
+@property (weak, nonatomic) IBOutlet UIButton *btTheme;
 
 @property (strong, nonatomic) NoteBooks *bookRecent ;
 @property (strong, nonatomic) NoteBooks *bookTrash ;
@@ -36,13 +37,28 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 
 @implementation LeftDrawerVC
 
+- (IBAction)themeChange:(UIButton *)sender {
+    if (!sender.selected) {
+        [sender setTitle:@"黑" forState:0] ;
+        [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDark"] ;
+    }
+    else {
+        [sender setTitle:@"白" forState:0] ;
+        [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDefault"] ;
+    }
+    sender.selected = !sender.selected ;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     _booklist = @[] ;
     
     @weakify(self)
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotification_AddBook object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotification_AddBook object:nil]
+       takeUntil:self.rac_willDeallocSignal]
+      deliverOnMainThread]
+     subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         self.nBookVC =
         [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
@@ -59,6 +75,14 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
             self.nBookVC = nil ;
         }] ;
     }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
+       takeUntil:self.rac_willDeallocSignal]
+      deliverOnMainThread]
+     subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self.table reloadData] ;
+    }] ;
 }
 
 - (void)prepareUI {
@@ -69,11 +93,14 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     self.table.estimatedRowHeight           = 0 ;
     self.table.estimatedSectionHeaderHeight = 0 ;
     self.table.estimatedSectionFooterHeight = 0 ;
+    self.table.xt_theme_backgroundColor = k_md_bgColor ;
     
     self.flexTrailOfTable.constant = APP_WIDTH - self.distance ;
     
-    self.lbTrash.textColor = [MDThemeConfiguration sharedInstance].textColor ;
-    self.lbTrash.alpha = .4 ;
+    self.lbTrash.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    self.bottomArea.xt_theme_backgroundColor = k_md_bgColor ;
     self.bottomArea.userInteractionEnabled = YES ;
     @weakify(self)
     [self.bottomArea bk_whenTapped:^{
@@ -224,7 +251,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         }] ;
         return YES ;
     }] ;
-    item1.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor;
+    item1.xt_theme_backgroundColor = k_md_themeColor ;    
     item1.tintColor = [UIColor whiteColor];
     item1.width = 60;
     

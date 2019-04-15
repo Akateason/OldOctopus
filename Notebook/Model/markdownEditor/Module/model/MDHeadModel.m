@@ -38,7 +38,7 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               config:(MDThemeConfiguration *)configuration {
 
-    NSDictionary *resultDic = configuration.basicStyle ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
 //    UIFont *paragraphFont = configuration.font ;
     NSUInteger location = self.range.location ;
 //    NSUInteger length = self.range.length ;
@@ -62,7 +62,7 @@
             NSRange markRange = NSMakeRange(location, numberOfmark + 1) ;
             if (numberOfmark + 1 > attributedString.length) return attributedString ;
             
-            [attributedString addAttributes:configuration.invisibleMarkStyle range:markRange] ;
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:markRange] ;
         }
             break;
             
@@ -76,7 +76,7 @@
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                            config:(MDThemeConfiguration *)configuration {
     
-    NSDictionary *resultDic = configuration.basicStyle ;
+    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
     //    UIFont *paragraphFont = configuration.font ;
     NSUInteger location = self.range.location ;
 //    NSUInteger length = self.range.length ;
@@ -97,7 +97,7 @@
             [attributedString addAttributes:resultDic range:self.range] ;
             
             NSRange markRange = NSMakeRange(location, numberOfmark) ;
-            [attributedString addAttributes:configuration.markStyle range:markRange] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:markRange] ;
         }
             break;
             
@@ -125,7 +125,5 @@
     [editor doSomethingWhenUserSelectPartOfArticle:model] ;
     editor.selectedRange = NSMakeRange(model.range.length + model.range.location, 0) ;
 }
-
-
 
 @end

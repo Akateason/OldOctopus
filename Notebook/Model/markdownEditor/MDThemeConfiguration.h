@@ -9,44 +9,40 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <XTlib/XTlib.h>
+#import "NSObject+XTThemeColor.h"
+#import "MDEditorTheme.h"
 
-static const int kDefaultFontSize = 16 ;
 
-NS_ASSUME_NONNULL_BEGIN
+
+static NSString *const k_md_textColor = @"textColor" ;
+static NSString *const k_md_markColor = @"markColor" ;
+static NSString *const k_md_seplineLineColor = @"seplineLineColor" ;
+static NSString *const k_md_inlineCodeBGColor = @"inlineCodeBGColor" ;
+static NSString *const k_md_quoteTextColor = @"quoteTextColor" ;
+static NSString *const k_md_themeColor = @"themeColor" ;
+static NSString *const k_md_homeTitleTextColor = @"homeTitleTextColor" ;
+static NSString *const k_md_bgColor = @"bgColor" ;
+
+#define XT_MAKE_theme_color(_key_,_a_)           [[_key_ stringByAppendingString:@","] stringByAppendingString:@(_a_).stringValue]
+
+
+#define XT_MD_THEME_COLOR_KEY(__key__)           [[MDThemeConfiguration sharedInstance] colorWithThemeKey:__key__]
+#define XT_MD_THEME_COLOR_KEY_A(__key__,__a__)   [[MDThemeConfiguration sharedInstance] colorWithThemeKey:__key__ alpha:__a__]
+
+
+
+
 
 @interface MDThemeConfiguration : NSObject
 XT_SINGLETON_H(MDThemeConfiguration)
 
-// editor
-@property (strong, nonatomic)   UIFont          *font ;
-@property (nonatomic)           int             fontSize ;
-@property (strong, nonatomic)   UIFont          *boldFont ;
-@property (strong, nonatomic)   UIFont          *italicFont ;
-@property (strong, nonatomic)   UIFont          *boldItalicFont ;
-@property (copy, nonatomic)     NSDictionary *basicStyle ;
-@property (copy, nonatomic)     NSDictionary *quoteStyle ;
-@property (copy, nonatomic)     NSDictionary *markStyle ;
-@property (copy, nonatomic)     NSDictionary *invisibleMarkStyle ;
-@property (copy, nonatomic)     NSDictionary *listInvisibleMarkStyle ;
+- (void)changeTheme:(NSString *)theme ;
 
-@property (strong, nonatomic) UIColor *textColor ;
-@property (strong, nonatomic) UIColor *markColor ;
-@property (strong, nonatomic) UIColor *seplineLineColor ;
-@property (strong, nonatomic) NSDictionary *codeBlockStyle ;
+@property (strong, nonatomic)   MDEditorTheme   *editorThemeObj ;
+@property (copy,   nonatomic)   NSDictionary    *dicForColors ;
 
-@property (strong, nonatomic) UIColor *inlineCodeBGColor ;
-@property (strong, nonatomic) UIColor *quoteTextColor ;
-@property (strong, nonatomic) UIColor *quoteLeftBarColor ;
-@property (strong, nonatomic) UIColor *imagePlaceHolderColor ;
-
-// skin
-@property (strong, nonatomic) UIColor *themeColor ;
-@property (copy, nonatomic) NSString *themeColorHex ;
-@property (strong, nonatomic) UIColor *homeTitleTextColor ;
-@property (strong, nonatomic) UIColor *darkTextColor ;
-@property (strong, nonatomic) UIColor *lightTextColor ;
-@property (strong, nonatomic) UIColor *homeTableBGColor ;
-
+- (UIColor *)colorWithThemeKey:(NSString *)key alpha:(float)alpha ;
+- (UIColor *)colorWithThemeKey:(NSString *)key ;
 @end
 
-NS_ASSUME_NONNULL_END
+

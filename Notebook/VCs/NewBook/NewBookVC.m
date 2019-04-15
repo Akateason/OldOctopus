@@ -44,7 +44,6 @@
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     return vc ;
-
 }
 
 
@@ -53,12 +52,11 @@
     
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:.9] ;
     
-    self.lbTitle.textColor = [MDThemeConfiguration sharedInstance].textColor;
-    self.underline.backgroundColor = [MDThemeConfiguration sharedInstance].themeColor ;
-    [self.btCreate setTitleColor:[MDThemeConfiguration sharedInstance].themeColor forState:0] ;
-    [self.btCancel setTitleColor:[MDThemeConfiguration sharedInstance].textColor forState:0] ;
-    self.btCancel.alpha = .4 ;
-        
+    self.lbTitle.xt_theme_textColor = k_md_textColor ;
+    self.underline.xt_theme_backgroundColor = k_md_themeColor ;
+    self.btCreate.xt_theme_textColor = k_md_themeColor ;
+    self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    
     self.lbEmoji.userInteractionEnabled = YES ;
     NSArray *booklist = [NoteBooks xt_findWhere:@"isDeleted == 0"] ;
     self.lbEmoji.text = [EmojiJson randomADistinctEmojiWithBooklist:booklist] ;
