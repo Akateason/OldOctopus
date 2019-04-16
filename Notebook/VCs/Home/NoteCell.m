@@ -71,9 +71,9 @@ static int kLimitCount = 70 ;
         self.lbTitle.text = self.lbTitle.text ;
         
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:self.lbTitle.text] ;
-        NSArray <NSNumber *> *listRange = [NSString rangesOfString:self.lbTitle.text referString:textForSearching] ;
-        [listRange enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSRange range = NSMakeRange([obj intValue], textForSearching.length) ;
+        NSArray <NSValue *> *listRange = [self.lbTitle.text xt_searchAllRangesWithText:textForSearching] ;
+        [listRange enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSRange range = obj.rangeValue ;
             NSDictionary * resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_themeColor, .3) ,
                                          NSFontAttributeName : self.lbTitle.font
                                          };
@@ -85,9 +85,9 @@ static int kLimitCount = 70 ;
         self.lbContent.text = self.lbContent.text ;
         
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:self.lbContent.text] ;
-        NSArray <NSNumber *> *listRange = [NSString rangesOfString:self.lbContent.text referString:textForSearching] ;
-        [listRange enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSRange range = NSMakeRange([obj intValue], textForSearching.length) ;
+        NSArray <NSValue *> *listRange = [self.lbContent.text xt_searchAllRangesWithText:textForSearching] ;
+        [listRange enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSRange range = obj.rangeValue ;
             NSDictionary * resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_themeColor, .3) ,
                                          NSFontAttributeName : self.lbContent.font
                                          };

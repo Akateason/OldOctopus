@@ -34,6 +34,6 @@
 + (NSString *)getUniqueStringWithLength:(int)length;
 + (NSString *)getRandomStrWithLength:(int)length;
 // 某个字符串中, 出现了几次相同的字符串.
-+ (NSArray <NSValue *> *)rangesOfString:(NSString *)text referString:(NSString *)findText;
+- (NSArray <NSValue *> *)xt_searchAllRangesWithText:(NSString *)findText ;
 
 @end

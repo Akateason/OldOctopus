@@ -31,7 +31,7 @@
     }
     
     [_record setObject:_noteBookId forKey:@"noteBookId"] ;
-    [_record setObject:_content forKey:@"content"] ;
+    [_record setObject:self.content forKey:@"content"] ;
     [_record setObject:_title forKey:@"title"] ;
     [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
 
