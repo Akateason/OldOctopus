@@ -12,10 +12,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^BlkDeleteFinished)(void) ;
+typedef void(^BlkOutputOnClick)(void) ;
 
 @interface ArticleInfoVC : BasicVC
 @property (strong, nonatomic) Note *aNote ;
 @property (copy, nonatomic) BlkDeleteFinished blkDelete ;
+@property (copy, nonatomic) BlkOutputOnClick blkOutput ;
 @property (nonatomic) CGFloat distance ;
 @property (strong, nonatomic) MarkdownPaser *parser ;
 

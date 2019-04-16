@@ -86,6 +86,8 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 }
 
 - (void)prepareUI {
+//    self.view.backgroundColor = [UIColor blackColor] ;
+    
     [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     self.table.separatorStyle = 0 ;
     self.table.dataSource = self ;

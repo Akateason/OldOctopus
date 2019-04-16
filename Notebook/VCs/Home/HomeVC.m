@@ -43,7 +43,7 @@
 #pragma mark - life
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad] ;
     
     [self leftVC] ;
     self.listNotes = @[] ;
@@ -126,7 +126,7 @@
     
     [self.leftVC render] ;
     CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.1 scaleY:1 direction:CWDrawerTransitionFromLeft backImage:nil] ;
-    [self cw_showDrawerViewController:self.leftVC animationType:0 configuration:conf];
+    [self cw_showDrawerViewController:self.leftVC animationType:0 configuration:conf] ;
 }
 
 - (void)prepareUI {
