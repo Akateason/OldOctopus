@@ -1,5 +1,5 @@
 {
-    "textColor":"000000",
+    "textColor":"181211",
     "markColor":"909399",
     "seplineLineColor":"e5e5e5",
     "inlineCodeBGColor":"f0f1f1",
@@ -8,6 +8,8 @@
     "homeTitleTextColor":"222222",
     "bgColor":"ffffff",
     "blackColor":"000000",
+    
+    
     
     "statusBarIsWhite":"0",
     "navBarColor":"ffffff",

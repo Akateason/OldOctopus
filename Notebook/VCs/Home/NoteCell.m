@@ -31,6 +31,7 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    self.area.xt_theme_backgroundColor =  selected ? XT_MAKE_theme_color(k_md_textColor, 0.03) : k_md_bgColor ;
 }
 
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {
@@ -42,7 +43,7 @@
 }
 
 + (CGFloat)xt_cellHeight {
-    return 122 ;
+    return 120 ;
 }
 
 - (NSString *)filterMarkdownString:(NSString *)markdownStr {

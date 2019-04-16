@@ -27,12 +27,18 @@
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
 @property (weak, nonatomic) IBOutlet UILabel *nameOfNoteBook;
-@property (weak, nonatomic) IBOutlet UIButton *btLeftDrawer;
-@property (weak, nonatomic) IBOutlet UIImageView *ImgBtSearch;
+
+@property (weak, nonatomic) IBOutlet UILabel *lbUser;
+@property (weak, nonatomic) IBOutlet UIButton *btAdd;
+@property (weak, nonatomic) IBOutlet UIView *searchArea;
+@property (weak, nonatomic) IBOutlet UIView *searchBar;
+@property (weak, nonatomic) IBOutlet UIImageView *imgSearch;
+@property (weak, nonatomic) IBOutlet UILabel *lbSearch;
+
+
+
 @property (weak, nonatomic) IBOutlet UILabel *bookEmoji;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *juhua;
-
-@property (strong, nonatomic) UIView *btAdd ;
 
 @property (strong, nonatomic) LeftDrawerVC *leftVC ;
 @property (copy, nonatomic) NSArray *listNotes ;
@@ -130,6 +136,13 @@
 }
 
 - (void)prepareUI {
+    self.lbUser.xt_theme_backgroundColor = k_md_themeColor ;
+    self.lbUser.xt_theme_textColor = k_md_bgColor ;
+    
+    self.searchArea.xt_theme_backgroundColor = k_md_bgColor ;
+    self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
+    self.lbSearch.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.3) ;
+    
     [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     [self.table xt_setup] ;
     self.table.dataSource = self ;
@@ -152,7 +165,7 @@
 
     self.btAdd.userInteractionEnabled = YES ;
     @weakify(self)
-    [self.btAdd bk_whenTapped:^{
+    [self.btAdd bk_addEventHandler:^(id sender) {
         @strongify(self)
         if (![XTIcloudUser hasLogin]) {
             [XTIcloudUser alertUserToLoginICloud] ;
@@ -160,12 +173,13 @@
         }
         
         [MarkdownVC newWithNote:nil bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
-    }] ;
+    } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btLeftDrawer bk_addEventHandler:^(id sender) {
+    self.lbUser.userInteractionEnabled = YES ;
+    [self.lbUser bk_whenTapped:^{
         @strongify(self)
         [self openDrawer] ;
-    } forControlEvents:UIControlEventTouchUpInside] ;
+    }] ;
     
     [self.leftVC render] ;
     [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
@@ -185,7 +199,10 @@
         self.juhua.hidden = !isSync ;
     }] ;
     
-    
+    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+        @strongify(self)
+        self.lbUser.text = [user.givenName substringToIndex:1] ;
+    }] ;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -301,39 +318,6 @@
 }
 
 #pragma mark - prop
-
-- (UIView *)btAdd{
-    if(!_btAdd){
-        _btAdd = ({
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 49, 49)];
-            view.xt_gradientPt0 = CGPointMake(0,.5) ;
-            view.xt_gradientPt1 = CGPointMake(0, 1) ;
-            view.xt_gradientColor0 = UIColorHex(@"fe4241") ;
-            view.xt_gradientColor1 = UIColorHex(@"fe8c68") ;
-            
-            UIImage *img = [UIImage image:[UIImage getImageFromView:view] rotation:(UIImageOrientationUp)] ;
-            view = [[UIImageView alloc] initWithImage:img] ;
-            view.xt_completeRound = YES ;
-            if (!view.superview) {
-                [self.view addSubview:view] ;
-                [view mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.size.mas_equalTo(CGSizeMake(49, 49)) ;
-                    make.right.equalTo(@-12) ;
-                    make.bottom.equalTo(@-28) ;
-                }] ;
-            }
-                                    
-            UIImageView *btIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bt_home_add"]] ;
-            [view addSubview:btIcon] ;
-            [btIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(28, 28)) ;
-                make.center.equalTo(view) ;
-            }] ;
-            view ;
-       }) ;
-    }
-    return _btAdd ;
-}
 
 - (LeftDrawerVC *)leftVC{
     if(!_leftVC){

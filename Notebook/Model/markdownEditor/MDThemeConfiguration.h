@@ -24,6 +24,8 @@ static NSString *const k_md_homeTitleTextColor = @"homeTitleTextColor" ;
 static NSString *const k_md_bgColor = @"bgColor" ;
 static NSString *const k_md_blackColor = @"blackColor"  ;
 
+
+
 #define XT_MAKE_theme_color(_key_,_a_)           [[_key_ stringByAppendingString:@","] stringByAppendingString:@(_a_).stringValue]
 
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🐙" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nas-EU-zoX">
-                    <rect key="frame" x="12" y="28" width="32" height="32"/>
+                    <rect key="frame" x="17" y="28" width="32" height="32"/>
                     <color key="backgroundColor" red="0.45112746949999999" green="0.63476520780000001" blue="0.88979804520000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="32" id="JJC-8W-f0w"/>
@@ -31,7 +31,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNe-eg-f1E">
-                    <rect key="frame" x="52" y="31.5" width="45.5" height="25.5"/>
+                    <rect key="frame" x="66" y="31.5" width="45.5" height="25.5"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -52,10 +52,10 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="KNe-eg-f1E" firstAttribute="leading" secondItem="nas-EU-zoX" secondAttribute="trailing" constant="8" id="5ll-Ff-XLG"/>
+                <constraint firstItem="KNe-eg-f1E" firstAttribute="leading" secondItem="nas-EU-zoX" secondAttribute="trailing" constant="17" id="5ll-Ff-XLG"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Cq5-1G-h09" secondAttribute="bottom" constant="15" id="Iq2-kS-Hv9"/>
                 <constraint firstItem="Cq5-1G-h09" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="IqC-wE-gRw"/>
-                <constraint firstItem="nas-EU-zoX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="OMb-ar-AD1"/>
+                <constraint firstItem="nas-EU-zoX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="17" id="OMb-ar-AD1"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jHT-Rl-D9M" secondAttribute="trailing" constant="22" id="Ywc-7U-Xz0"/>
                 <constraint firstItem="KNe-eg-f1E" firstAttribute="centerY" secondItem="nas-EU-zoX" secondAttribute="centerY" id="d0K-KL-IZQ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jHT-Rl-D9M" secondAttribute="bottom" constant="15" id="vWV-hf-04v"/>

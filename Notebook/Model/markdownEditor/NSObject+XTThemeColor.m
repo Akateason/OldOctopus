@@ -57,6 +57,9 @@
     else if ([self isKindOfClass:[UITextField class]]) {
         [(UITextField *)self setTextColor:themeColor] ;
     }
+    else {
+        [self setValue:themeColor forKey:@"textColor"] ;
+    }
 }
 
 - (void)renderBGColor:(NSString *)bgColor {
@@ -74,6 +77,9 @@
     }
     else if ([self isKindOfClass:[UIBarButtonItem class]]) {
         [(UIBarButtonItem *)self setTintColor:themeColor] ;
+    }
+    else {
+        [self setValue:themeColor forKey:@"backgroundColor"] ;
     }
 }
 
