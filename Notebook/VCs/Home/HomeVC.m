@@ -229,6 +229,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NoteCell *cell = [NoteCell xt_fetchFromTable:tableView] ;
     [cell xt_configure:self.listNotes[indexPath.row] indexPath:indexPath] ;
+    cell.revealPosition = SWCellRevealPositionRightExtended ;
+    cell.draggableBorderWidth = 200 ;
     cell.dataSource = self;
     return cell ;
 }

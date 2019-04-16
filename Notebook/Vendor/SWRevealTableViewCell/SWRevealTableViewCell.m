@@ -1435,7 +1435,7 @@ const NSInteger SWCellRevealPositionNone = 0xff;
     if ( xLocation > 0 )
     {
         if ( _utilityContentView.leftCount == 0 ) xLocation = 0;
-        //[self _frontDeploymentForNewRevealPosition:SWCellRevealPositionRight]();
+//        [self _frontDeploymentForNewRevealPosition:SWCellRevealPositionRight]();
         [self _rightDeploymentForNewRevealPosition:SWCellRevealPositionRight]();
         [self _leftDeploymentForNewRevealPosition:SWCellRevealPositionRight]();
     }
