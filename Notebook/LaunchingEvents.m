@@ -166,8 +166,11 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 }
 
 - (void)icloudSync:(void(^)(void))completeBlk {
+    __block BOOL hasSthChanged = NO ;
     
     [[XTCloudHandler sharedInstance] syncOperationEveryRecord:^(CKRecord *record) {
+        
+        hasSthChanged = YES ;
         
         NSString *type = (NSString *)(record.recordType) ;
         
@@ -184,6 +187,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         
     } delete:^(CKRecordID *recordID, CKRecordType recordType) {
         
+        hasSthChanged = YES ;
+        
         NSString *type = (NSString *)(recordType) ;
         if ([type isEqualToString:@"Note"]) {
             [Note xt_deleteModelWhere:XT_STR_FORMAT(@"icRecordName == '%@'",recordID.recordName)] ;
@@ -194,7 +199,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         
     } allComplete:^(NSError *operationError) {
         
-        if (!operationError) [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
+        if (!operationError && hasSthChanged) [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
         if (completeBlk) completeBlk() ;
     }] ;
 }
