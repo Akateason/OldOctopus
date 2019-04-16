@@ -93,6 +93,9 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [XTlibConfig sharedInstance].isDebug    = YES;
 //    [XTFMDBBase sharedInstance].isDebugMode = YES;
     [[XTFMDBBase sharedInstance] configureDBWithPath:XT_LIBRARY_PATH_TRAIL_(@"noteDB")];
+    
+    [[XTFMDBBase sharedInstance] dbUpgradeTable:Note.class paramsAdd:@[@"searchContent"] version:2] ;
+    
 }
 
 - (void)setupNaviStyle {

@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbContent;
 @property (weak, nonatomic) IBOutlet UILabel *lbDate;
 
-//@property (strong, nonatomic) Note *aNote ;
+@property (copy, nonatomic) NSString *textForSearching ;
 
 @end
 

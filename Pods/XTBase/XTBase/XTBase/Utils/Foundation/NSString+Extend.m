@@ -155,7 +155,7 @@ static NSString *const kSingleQuotes = @"&SingleQuotes&";
 
 + (NSArray <NSValue *> *)rangesOfString:(NSString *)text referString:(NSString *)findText {
     NSMutableArray *arrayRanges = [NSMutableArray arrayWithCapacity:3];
-    if (findText == nil && [findText isEqualToString:@""]){
+    if (findText == nil && [findText isEqualToString:@""]) {
         return nil;
     }
     NSRange rang = [text rangeOfString:findText]; //获取第一次出现的range

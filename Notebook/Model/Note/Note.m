@@ -8,6 +8,7 @@
 
 #import "Note.h"
 #import "NoteBooks.h"
+#import "MarkdownPaser.h"
 
 @implementation Note
 @synthesize content = _content ;
@@ -16,6 +17,7 @@
     _content = content ;
     
     self.baseContent = [content base64EncodedString] ;
+    self.searchContent = [MarkdownPaser filterSqliteString:content] ;
 }
 
 - (NSString *)content {

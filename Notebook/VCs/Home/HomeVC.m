@@ -21,6 +21,7 @@
 #import "NewBookVC.h"
 #import "MoveNoteToBookVC.h"
 #import "LaunchingEvents.h"
+#import "SearchVC.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -202,6 +203,11 @@
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
         @strongify(self)
         self.lbUser.text = [user.givenName substringToIndex:1] ;
+    }] ;
+    
+    [self.searchBar bk_whenTapped:^{
+        @strongify(self)
+        [SearchVC showSearchVCFrom:self] ;
     }] ;
 }
 

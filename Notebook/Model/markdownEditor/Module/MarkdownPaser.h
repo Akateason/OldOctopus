@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
                               model:(MarkdownModel *)model ;
 
 + (NSString *)filterMarkdownString:(NSString *)markdownStr ;
-
++ (NSString *)filterSqliteString:(NSString *)markdownStr ;
 @end
 
 NS_ASSUME_NONNULL_END

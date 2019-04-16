@@ -18,9 +18,11 @@
 @property (strong, nonatomic) CKRecord *record ;
 @property (copy, nonatomic) NSString *icRecordName ;
 
+
 // icloud
 @property (copy, nonatomic) NSString *content ; // ignore local
 @property (copy, nonatomic) NSString *baseContent ; // only save in local
+@property (copy, nonatomic) NSString *searchContent ; // only save in local
 @property (nonatomic)       int      isDeleted ;
 @property (copy, nonatomic) NSString *noteBookId ;
 @property (copy, nonatomic) NSString *title ;

@@ -578,4 +578,12 @@
 }
 
 
++ (NSString *)filterSqliteString:(NSString *)markdownStr {
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\"" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"'" withString:@""] ;
+    return markdownStr ;
+}
+
+
+
 @end
