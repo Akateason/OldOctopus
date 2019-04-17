@@ -52,27 +52,6 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     _booklist = @[] ;
     
     @weakify(self)
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotification_AddBook object:nil]
-       takeUntil:self.rac_willDeallocSignal]
-      deliverOnMainThread]
-     subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        self.nBookVC =
-        [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
-            // create new book
-            NoteBooks *aBook = [[NoteBooks alloc] initWithName:bookName emoji:emoji] ;
-            [NoteBooks createNewBook:aBook] ;
-            self.nBookVC = nil ;
-            
-            [self render] ;
-            [self setCurrentBook:aBook] ;
-            self.blkBookChange(aBook, NO) ;
-            
-        } cancel:^{
-            self.nBookVC = nil ;
-        }] ;
-    }] ;
-    
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
        takeUntil:self.rac_willDeallocSignal]
       deliverOnMainThread]
@@ -163,9 +142,30 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 #pragma mark - LDHeadViewDelegate <NSObject>
 
 - (void)LDHeadDidSelectedOneBook:(NoteBooks *)abook {
+    if (abook.vType == Notebook_Type_add) {
+        [self addbook] ;
+        return ;
+    }
+    
     self.bookTrash.isOnSelect = NO ;
     [self setCurrentBook:abook] ;
     self.blkBookChange(self.currentBook, YES) ;
+}
+
+- (void)addbook {
+    self.nBookVC =
+    [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+        // create new book
+        NoteBooks *aBook = [[NoteBooks alloc] initWithName:bookName emoji:emoji] ;
+        [NoteBooks createNewBook:aBook] ;
+        self.nBookVC = nil ;
+        
+        [self render] ;
+        [self setCurrentBook:aBook] ;
+        self.blkBookChange(aBook, NO) ;
+    } cancel:^{
+        self.nBookVC = nil ;
+    }] ;
 }
 
 #pragma mark -

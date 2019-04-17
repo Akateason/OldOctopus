@@ -62,7 +62,7 @@
         @strongify(self)        
         [self.table xt_loadNewInfoInBackGround:YES] ;
         if (isClick) [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
-        self.btAdd.hidden = book.vType != Notebook_Type_notebook ;
+        self.btAdd.hidden = book.vType == Notebook_Type_trash ;
     }] ;
     
     [[[[[[NSNotificationCenter defaultCenter]
@@ -112,6 +112,14 @@
         completion() ;
         return ;
     }
+    else if (self.leftVC.currentBook.vType == Notebook_Type_staging) {
+        self.nameOfNoteBook.text = @"暂存区" ;
+        self.bookEmoji.text = @"" ;
+        self.listNotes = [[Note xt_findWhere:@"noteBookId == '' and isDeleted == 0"] xt_orderby:@"xt_updateTime" descOrAsc:YES] ;
+        completion() ;
+        return ;
+    }
+    
     
     // note book normal
     self.nameOfNoteBook.text = self.leftVC.currentBook.name ;
