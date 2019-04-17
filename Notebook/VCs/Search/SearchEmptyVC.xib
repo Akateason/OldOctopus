@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchEmptyVC">
+            <connections>
+                <outlet property="imgCenter" destination="ljM-K2-8VY" id="4uc-0J-6uH"/>
+                <outlet property="lbWord" destination="S9i-ig-lVs" id="S3o-dA-hbd"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-K2-8VY">
+                    <rect key="frame" x="94" y="183" width="226" height="237.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="ljM-K2-8VY" secondAttribute="height" multiplier="41:43" id="DbU-Wr-WvL"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂时没有找到相应关键词" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9i-ig-lVs">
+                    <rect key="frame" x="139.5" y="440.5" width="135" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ljM-K2-8VY" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DYh-gq-shm"/>
+                <constraint firstItem="S9i-ig-lVs" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="cfQ-SI-pcF"/>
+                <constraint firstItem="S9i-ig-lVs" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="oP4-Ij-Qhb"/>
+                <constraint firstItem="ljM-K2-8VY" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="41:75" id="rE0-9n-Q6L"/>
+                <constraint firstItem="S9i-ig-lVs" firstAttribute="top" secondItem="ljM-K2-8VY" secondAttribute="bottom" constant="20" id="uOJ-et-xwd"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="search_empty.png" width="410" height="428"/>
+    </resources>
+</document>

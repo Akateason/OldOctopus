@@ -12,6 +12,8 @@
 #import "MarkdownVC.h"
 #import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
 #import "MDNavVC.h"
+#import "SearchEmptyVC.h"
+
 
 @interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
@@ -41,7 +43,9 @@
     
     [[[[self.tf.rac_textSignal filter:^BOOL(NSString * _Nullable value) {
         return value.length > 0 ;
-    }] throttle:.3] deliverOnMainThread] subscribeNext:^(NSString * _Nullable x) {
+    }] throttle:.3]
+      deliverOnMainThread]
+     subscribeNext:^(NSString * _Nullable x) {
         @strongify(self)
         [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
@@ -62,6 +66,7 @@
     self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.tf.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.8)  ;
+    self.tf.placeholder = @"搜索笔记" ;
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.6)  ;
     
     [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
@@ -70,8 +75,8 @@
     self.table.delegate = self ;
     self.table.xt_Delegate = self ;
     self.table.mj_footer = nil ;
+    self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
 }
-
 
 #pragma mark - table
 
@@ -108,19 +113,16 @@
     [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:self] ;
 }
 
-//- (UIView *)makePlaceHolderView {
-//    HomeEmptyPHView *phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-//    WEAK_SELF
-//    [phView.btNewNote bk_addEventHandler:^(id sender) {
-//        [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
-//    } forControlEvents:(UIControlEventTouchUpInside)] ;
-//    return phView ;
-//}
-//
-//- (BOOL)enableScrollWhenPlaceHolderViewShowing {
-//    return YES ;
-//}
-//
+- (UIView *)makePlaceHolderView {
+    SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
+    
+    return phVC.view ;
+}
+
+- (BOOL)enableScrollWhenPlaceHolderViewShowing {
+    return YES ;
+}
+
 
 
 

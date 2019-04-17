@@ -45,6 +45,9 @@
 		8F679E282238F9DE008DE1BC /* MdListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E272238F9DE008DE1BC /* MdListModel.m */; };
 		8F679E2B2238FA17008DE1BC /* MdOtherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E2A2238FA17008DE1BC /* MdOtherModel.m */; };
 		8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E2D2238FA58008DE1BC /* MdBlockModel.m */; };
+		8F6863C22266FA7A00261626 /* SearchEmptyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6863C02266FA7A00261626 /* SearchEmptyVC.m */; };
+		8F6863C32266FA7A00261626 /* SearchEmptyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863C12266FA7A00261626 /* SearchEmptyVC.xib */; };
+		8F6863C52266FB2700261626 /* search_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863C42266FB2700261626 /* search_empty@2x.png */; };
 		8F7A8436223BD1780099E905 /* zample2.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A8435223BD1770099E905 /* zample2.md */; };
 		8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843C2240C7460099E905 /* check-box-off@2x.png */; };
 		8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843D2240C7470099E905 /* check-box-on@2x.png */; };
@@ -201,6 +204,10 @@
 		8F679E2A2238FA17008DE1BC /* MdOtherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MdOtherModel.m; sourceTree = "<group>"; };
 		8F679E2C2238FA58008DE1BC /* MdBlockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MdBlockModel.h; sourceTree = "<group>"; };
 		8F679E2D2238FA58008DE1BC /* MdBlockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MdBlockModel.m; sourceTree = "<group>"; };
+		8F6863BF2266FA7A00261626 /* SearchEmptyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchEmptyVC.h; sourceTree = "<group>"; };
+		8F6863C02266FA7A00261626 /* SearchEmptyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchEmptyVC.m; sourceTree = "<group>"; };
+		8F6863C12266FA7A00261626 /* SearchEmptyVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchEmptyVC.xib; sourceTree = "<group>"; };
+		8F6863C42266FB2700261626 /* search_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_empty@2x.png"; sourceTree = "<group>"; };
 		8F7A8435223BD1770099E905 /* zample2.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = zample2.md; sourceTree = "<group>"; };
 		8F7A843C2240C7460099E905 /* check-box-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box-off@2x.png"; sourceTree = "<group>"; };
 		8F7A843D2240C7470099E905 /* check-box-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box-on@2x.png"; sourceTree = "<group>"; };
@@ -520,6 +527,7 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F6863C42266FB2700261626 /* search_empty@2x.png */,
 				8FC431212265B9FA0002C9A1 /* home_bar_add@2x.png */,
 				8FC4311F2265B8320002C9A1 /* md_home_search@2x.png */,
 				8FA2295B22646F4D00D736E2 /* info_right@2x.png */,
@@ -628,6 +636,9 @@
 			children = (
 				8FC431252265CCAF0002C9A1 /* SearchVC.h */,
 				8FC431262265CCAF0002C9A1 /* SearchVC.m */,
+				8F6863BF2266FA7A00261626 /* SearchEmptyVC.h */,
+				8F6863C02266FA7A00261626 /* SearchEmptyVC.m */,
+				8F6863C12266FA7A00261626 /* SearchEmptyVC.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -846,6 +857,7 @@
 				8F0688F02248EC7200A7B183 /* md_tb_bt_blkCode@2x.png in Resources */,
 				8FA2294A2260951B00D736E2 /* themeDark.json in Resources */,
 				8F7A84872244E2810099E905 /* md_tb_bt_h6@2x.png in Resources */,
+				8F6863C32266FA7A00261626 /* SearchEmptyVC.xib in Resources */,
 				8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */,
 				8F7A848F2244E4510099E905 /* md_tb_bt_link@2x.png in Resources */,
 				8F7A848D2244E44B0099E905 /* md_tb_bt_italic@2x.png in Resources */,
@@ -873,6 +885,7 @@
 				8F7A84712244E1EB0099E905 /* md_tb_bt_olist@2x.png in Resources */,
 				8FC431202265B8330002C9A1 /* md_home_search@2x.png in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
+				8F6863C52266FB2700261626 /* search_empty@2x.png in Resources */,
 				8FFBBB4A224B278000A304C7 /* MDEKPhotoViewCell.xib in Resources */,
 				8F30399A225217AB00DEB656 /* HomeEmptyPHView.xib in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
@@ -1008,6 +1021,7 @@
 				8F7A844B2244CA5F0099E905 /* MDToolbar.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
 				8F0688EE2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m in Sources */,
+				8F6863C22266FA7A00261626 /* SearchEmptyVC.m in Sources */,
 				8FE5A3EA224CA77400947D14 /* LDHeadView.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
 				8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */,
