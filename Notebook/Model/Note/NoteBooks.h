@@ -14,7 +14,9 @@
 typedef enum : NSUInteger {
     Notebook_Type_notebook ,
     Notebook_Type_recent,
-    Notebook_Type_trash
+    Notebook_Type_trash,
+    Notebook_Type_staging,
+    Notebook_Type_add,
 } Notebook_Type;
 
 NS_ASSUME_NONNULL_BEGIN

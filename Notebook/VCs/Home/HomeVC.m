@@ -138,7 +138,7 @@
 
 - (void)prepareUI {
     self.lbUser.xt_theme_backgroundColor = k_md_themeColor ;
-    self.lbUser.xt_theme_textColor = k_md_bgColor ;
+    self.lbUser.textColor = [UIColor whiteColor] ;
     
     self.searchArea.xt_theme_backgroundColor = k_md_bgColor ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
@@ -161,7 +161,8 @@
     
     self.bookEmoji.text = @"" ;
     self.nameOfNoteBook.text = @"";
-    self.nameOfNoteBook.xt_theme_textColor = k_md_homeTitleTextColor ;
+    self.nameOfNoteBook.xt_theme_textColor = XT_MAKE_theme_color(k_md_homeTitleTextColor, .8) ;
+    
     
 
     self.btAdd.userInteractionEnabled = YES ;

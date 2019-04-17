@@ -66,7 +66,7 @@
     self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.tf.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.8)  ;
-    self.tf.placeholder = @"搜索笔记" ;
+//    self.tf.placeholder = @"搜索笔记" ;
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.6)  ;
     
     [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;

@@ -17,7 +17,7 @@
 
 typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 
-@interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource> {
+@interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource, LDHeadViewDelegate> {
     BOOL isFirst ;
 }
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -29,7 +29,6 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 @property (weak, nonatomic) IBOutlet UILabel *lbTrash;
 @property (weak, nonatomic) IBOutlet UIButton *btTheme;
 
-@property (strong, nonatomic) NoteBooks *bookRecent ;
 @property (strong, nonatomic) NoteBooks *bookTrash ;
 
 @property (strong, nonatomic) NewBookVC *nBookVC ;
@@ -39,11 +38,9 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 
 - (IBAction)themeChange:(UIButton *)sender {
     if (!sender.selected) {
-        [sender setTitle:@"黑" forState:0] ;
         [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDark"] ;
     }
     else {
-        [sender setTitle:@"白" forState:0] ;
         [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDefault"] ;
     }
     sender.selected = !sender.selected ;
@@ -86,8 +83,6 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 }
 
 - (void)prepareUI {
-//    self.view.backgroundColor = [UIColor blackColor] ;
-    
     [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     self.table.separatorStyle = 0 ;
     self.table.dataSource = self ;
@@ -100,6 +95,8 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     self.flexTrailOfTable.constant = APP_WIDTH - self.distance ;
     
     self.lbTrash.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    
+    [self.btTheme xt_enlargeButtonsTouchArea] ;
     
     self.view.xt_theme_backgroundColor = k_md_bgColor ;
     self.bottomArea.xt_theme_backgroundColor = k_md_bgColor ;
@@ -119,7 +116,6 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 }
 
 - (void)render:(BOOL)goHome {
-    self.bookRecent = [NoteBooks createOtherBookWithType:(Notebook_Type_recent)] ;
     self.bookTrash = [NoteBooks createOtherBookWithType:(Notebook_Type_trash)] ;
     self.lbTrash.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
     
@@ -148,7 +144,6 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         }
     }] ;
     
-    self.bookRecent.isOnSelect = currentBook.vType == Notebook_Type_recent ;
     self.bookTrash.isOnSelect = currentBook.vType == Notebook_Type_trash ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -165,32 +160,24 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     self.blkBookChange(book, YES) ;
 }
 
-#pragma mark -
+#pragma mark - LDHeadViewDelegate <NSObject>
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2 ;
+- (void)LDHeadDidSelectedOneBook:(NoteBooks *)abook {
+    self.bookTrash.isOnSelect = NO ;
+    [self setCurrentBook:abook] ;
+    self.blkBookChange(self.currentBook, YES) ;
 }
 
+#pragma mark -
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1 ;
-    }
-    else if (section == 1) {
-        return self.booklist.count ;
-    }
-    return 0 ;
+    return self.booklist.count ;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LDNotebookCell *cell = [LDNotebookCell xt_fetchFromTable:tableView] ;
     cell.dataSource = self ;
-    if (indexPath.section == 0) {
-        [cell xt_configure:self.bookRecent indexPath:indexPath] ;
-    }
-    else if (indexPath.section == 1) {
-        [cell xt_configure:self.booklist[indexPath.row] indexPath:indexPath] ;
-    }
-    
+    [cell xt_configure:self.booklist[indexPath.row] indexPath:indexPath] ;
     return cell ;
 }
 
@@ -199,45 +186,25 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section != 0) return nil ;
-    
     LDHeadView *headView = (LDHeadView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"LDheadView"] ;
     if (!headView) {
         headView = [LDHeadView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     }
+    headView.ld_delegate = self ;
     [headView setupUser] ;
     return headView ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section != 0) return 0 ;
-    return 137.5 ;
-}
-
-- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if (section != 0) return nil ;
-    return [UIView new] ;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section != 0) return 0 ;
-    return 10. ;
+    return 239. ;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row ;
-    NSInteger section = indexPath.section ;
-    self.bookRecent.isOnSelect = NO ;
+//    NSInteger section = indexPath.section ;
     self.bookTrash.isOnSelect = NO ;
-    
-    if (section == 0) {
-        self.currentBook = self.bookRecent ;
-        self.blkBookChange(self.currentBook, YES) ;
-    }
-    else if (section == 1) {
-        [self setCurrentBook:self.booklist[row]] ;
-        self.blkBookChange(self.currentBook, YES) ;
-    }
+    [self setCurrentBook:self.booklist[row]] ;
+    self.blkBookChange(self.currentBook, YES) ;
 }
 
 - (NSArray*)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell {

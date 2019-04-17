@@ -66,6 +66,15 @@
         book1.emoji = @"ld_bt_trash" ;
         book1.name = @"垃圾桶" ;
     }
+    else if (type == Notebook_Type_staging) {
+        book1.emoji = @"ld_bt_staging" ;
+        book1.name = @"暂存区" ;
+    }
+    else if (type == Notebook_Type_add) {
+        book1.emoji = @"ld_bt_addbook" ;
+        book1.name = @"新建笔记本" ;
+    }
+    
     return book1 ;
 }
 

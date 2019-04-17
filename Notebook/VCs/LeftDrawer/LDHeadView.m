@@ -10,40 +10,87 @@
 #import "XTCloudHandler.h"
 #import "MDThemeConfiguration.h"
 #import <BlocksKit+UIKit.h>
+#import "LDNotebookCell.h"
+#import "Note.h"
+#import "NoteBooks.h"
+#import "LDSepLineCell.h"
+
+
+@interface LDHeadView ()
+@property (strong, nonatomic) NoteBooks *bookRecent ;
+@property (strong, nonatomic) NoteBooks *bookStaging ;
+@property (strong, nonatomic) NoteBooks *addBook ;
+@end
+
 
 @implementation LDHeadView
 
-- (void)setupUser {
-    self.xt_theme_backgroundColor = k_md_bgColor ;
-
+- (void)awakeFromNib {
+    [super awakeFromNib] ;
     
-    XTIcloudUser *user = [XTIcloudUser userInCacheSyncGet] ;
-    self.lbHead.text = [user.givenName substringToIndex:1] ;
+    self.table.scrollEnabled = NO ;
+    self.table.separatorStyle = 0 ;
+    self.table.dataSource = self ;
+    self.table.delegate = self ;
+    self.table.estimatedRowHeight           = 0 ;
+    self.table.estimatedSectionHeaderHeight = 0 ;
+    self.table.estimatedSectionFooterHeight = 0 ;
+    self.table.xt_theme_backgroundColor = k_md_bgColor ;
+    [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
+    [LDSepLineCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
+    
+    self.bookRecent = [NoteBooks createOtherBookWithType:Notebook_Type_recent] ;
+    self.bookStaging = [NoteBooks createOtherBookWithType:Notebook_Type_staging] ;
+    self.addBook = [NoteBooks createOtherBookWithType:Notebook_Type_add] ;
+    
+    self.xt_theme_backgroundColor = k_md_bgColor ;
     self.lbHead.xt_theme_backgroundColor = k_md_themeColor ;
     self.lbHead.textColor = [UIColor whiteColor] ;
-    
-    self.lbName.text = user.name ;
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
-    
-    self.lbMyBook.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
-    
-    self.imgAddBook.userInteractionEnabled = YES ;
-    
-    [self.imgAddBook bk_whenTapped:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_AddBook object:nil];
-    }] ;
 }
 
-- (void)setDistance:(float)distance {
-    self.rightFlex_addImage.constant = APP_WIDTH - distance + 22 ;
+- (void)setupUser {
+    XTIcloudUser *user = [XTIcloudUser userInCacheSyncGet] ;
+    self.lbHead.text = [user.givenName substringToIndex:1] ;
+    self.lbName.text = user.name ;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 4 ;
 }
-*/
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LDNotebookCell *cell = [LDNotebookCell xt_fetchFromTable:tableView] ;
+    if (indexPath.row == 0) {
+        [cell xt_configure:self.bookRecent indexPath:indexPath] ;
+    }
+    else if (indexPath.row == 1) {
+        [cell xt_configure:self.bookStaging indexPath:indexPath] ;
+    }
+    else if (indexPath.row == 2) {
+        return [LDSepLineCell xt_fetchFromTable:tableView] ;
+    }
+    else if (indexPath.row == 3) {
+        [cell xt_configure:self.addBook indexPath:indexPath] ;
+    }
+    return cell ;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 2) return 13. ;
+    return [LDNotebookCell xt_cellHeight] ;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        [self.ld_delegate LDHeadDidSelectedOneBook:self.bookRecent] ;
+    }
+    else if (indexPath.row == 1) {
+        [self.ld_delegate LDHeadDidSelectedOneBook:self.bookStaging] ;
+    }
+    else if (indexPath.row == 3) {
+        [self.ld_delegate LDHeadDidSelectedOneBook:self.addBook] ;
+    }
+}
 
 @end

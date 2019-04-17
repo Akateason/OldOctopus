@@ -13,15 +13,18 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const kNotification_AddBook = @"kNotification_AddBook" ;
 
 
-@interface LDHeadView : UIView
+
+@class NoteBooks ;
+@protocol LDHeadViewDelegate <NSObject>
+- (void)LDHeadDidSelectedOneBook:(NoteBooks *)abook ;
+@end
+
+@interface LDHeadView : UIView <UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) id <LDHeadViewDelegate> ld_delegate ;
 @property (weak, nonatomic) IBOutlet UILabel *lbHead;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
-@property (weak, nonatomic) IBOutlet UILabel *lbMyBook;
-@property (weak, nonatomic) IBOutlet UIImageView *imgAddBook;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightFlex_addImage;
-
+@property (weak, nonatomic) IBOutlet UITableView *table;
 - (void)setupUser ;
-- (void)setDistance:(float)distance ;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (strong, nonatomic) UIImageView *imgView;
 
+@property (weak, nonatomic) IBOutlet UIView *leftRedView;
 
 
 

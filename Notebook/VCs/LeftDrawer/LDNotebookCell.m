@@ -14,17 +14,17 @@
 @implementation LDNotebookCell
 
 - (void)awakeFromNib {
-    [super awakeFromNib];
-
+    [super awakeFromNib] ;
+    
     self.selectionStyle = 0 ;
     self.imgView.hidden = YES ;
-    
+    self.leftRedView.xt_theme_backgroundColor = k_md_themeColor ;
     self.xt_theme_backgroundColor = k_md_bgColor ;
-
+    self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
 }
 
 + (CGFloat)xt_cellHeight {
-    return 40 ;
+    return 48. ;
 }
 
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
@@ -45,24 +45,22 @@
         self.imgView.image = [UIImage imageNamed:book.emoji] ;
     }
     
-    self.bgViewOnChoose.backgroundColor = book.isOnSelect ? UIColorHexA(@"000000", .03) : [UIColor clearColor] ;
-    self.lbName.textColor = book.isOnSelect ? XT_MD_THEME_COLOR_KEY(k_md_themeColor) : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
+    self.bgViewOnChoose.xt_theme_backgroundColor = book.isOnSelect ? XT_MAKE_theme_color(k_md_themeColor, .05) : nil ;
+    self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8)  ;
+    self.leftRedView.hidden = !book.isOnSelect ;
 }
 
 - (UIImageView *)imgView {
     if (!_imgView) {
         _imgView = [[UIImageView alloc] init] ;
+        _imgView.contentMode = UIViewContentModeScaleAspectFit ;
         [self addSubview:_imgView] ;
         [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.lbEmoji) ;
-            make.size.mas_equalTo(CGSizeMake(20, 20)) ;
+            make.size.mas_equalTo(CGSizeMake(24, 24)) ;
         }] ;
     }
-    
     return _imgView ;
 }
-
-
-
 
 @end
