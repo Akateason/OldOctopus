@@ -409,8 +409,6 @@
 			children = (
 				8FEA9E49225B274C002A756B /* EmojiJson */,
 				8F07D64A224CB9EE005BA86D /* Note */,
-				8F579FDF222FB65B00C54929 /* XTCloudHandler.h */,
-				8F579FE0222FB65B00C54929 /* XTCloudHandler.m */,
 				8F679DFD2232437E008DE1BC /* markdownEditor */,
 				8FACF6C3221D2B070067DDA4 /* richTextEditor */,
 			);
@@ -544,6 +542,8 @@
 		8F79AE74226881AC00E8FD0D /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				8F579FDF222FB65B00C54929 /* XTCloudHandler.h */,
+				8F579FE0222FB65B00C54929 /* XTCloudHandler.m */,
 				8F7A84462244BD6B0099E905 /* MDNavVC.h */,
 				8F7A84472244BD6B0099E905 /* MDNavVC.m */,
 				8F07D654224CD8CE005BA86D /* BasicVC.h */,
