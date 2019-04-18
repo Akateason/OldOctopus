@@ -49,10 +49,12 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad] ;
     
     self.view.backgroundColor = nil ; //    
     [self addBlurBg] ;
+    
+    [self.tfName becomeFirstResponder] ;
     
     self.lbTitle.xt_theme_textColor = k_md_textColor ;
     self.underline.xt_theme_backgroundColor = k_md_themeColor ;
