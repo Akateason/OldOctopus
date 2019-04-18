@@ -55,7 +55,7 @@
     else if ([self isKindOfClass:[UIButton class]]) {
         UIImage *originImage = ((UIButton *)self).currentImage ;
         originImage = [originImage imageWithTintColor:themeColor] ;
-        [((UIImageView *)self) setImage:originImage] ;
+        [((UIButton *)self) setImage:originImage forState:0] ;
     }
 }
 

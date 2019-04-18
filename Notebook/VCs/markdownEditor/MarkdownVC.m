@@ -148,8 +148,8 @@
     // todo 办透明
     self.topBar.xt_theme_backgroundColor = k_md_bgColor ;
     self.navArea.xt_theme_backgroundColor = k_md_bgColor ;
-    
-    
+    self.btBack.xt_theme_imageColor = k_md_iconColor ;
+    self.btMore.xt_theme_imageColor = k_md_iconColor ;
 }
 
 - (IBAction)backAction:(id)sender {
@@ -168,7 +168,6 @@
         [weakSelf.navigationController popViewControllerAnimated:YES] ;
     } ;
     self.infoVC.blkOutput = ^{
-
        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf capture] ;
         }) ;

@@ -102,12 +102,20 @@ static const int kTagOfButton = 88390 ;
     }
 }
 
+
+//@(MDB_H),@(MDB_Sepline),@(MDB_flex),
+//@(MDB_B),@(MDB_I),@(MDB_D),@(MDB_InlineCode),@(MDB_flex),
+//@(MDB_Photo),@(MDB_Link),@(MDB_flex),
+//@(MDB_UL),@(MDB_OL),@(MDB_TL),@(MDB_flex),
+//@(MDB_Code),@(MDB_Quote),@(MDB_flex),
+//@(MDB_Undo),@(MDB_Redo),
+
 - (NSArray *)defaultConfigList {
-    return @[@(MDB_H),@(MDB_Sepline),@(MDB_flex),
+    return @[@(MDB_H),@(MDB_Photo),@(MDB_flex),
              @(MDB_B),@(MDB_I),@(MDB_D),@(MDB_InlineCode),@(MDB_flex),
-             @(MDB_Photo),@(MDB_Link),@(MDB_flex),
-             @(MDB_UL),@(MDB_OL),@(MDB_TL),@(MDB_flex),
-             @(MDB_Code),@(MDB_Quote),@(MDB_flex),
+             @(MDB_Link),@(MDB_Sepline),@(MDB_flex),
+             @(MDB_UL),@(MDB_OL),@(MDB_Quote),@(MDB_TL),@(MDB_flex),
+             @(MDB_Code),@(MDB_flex),
              @(MDB_Undo),@(MDB_Redo),
              ] ;
 }

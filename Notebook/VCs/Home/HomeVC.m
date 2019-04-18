@@ -172,7 +172,7 @@
     self.nameOfNoteBook.text = @"";
     self.nameOfNoteBook.xt_theme_textColor = XT_MAKE_theme_color(k_md_homeTitleTextColor, .8) ;
     
-    
+    self.btAdd.xt_theme_imageColor = k_md_iconColor ;
     self.btAdd.userInteractionEnabled = YES ;
     @weakify(self)
     [self.btAdd bk_addEventHandler:^(id sender) {

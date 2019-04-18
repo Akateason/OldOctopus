@@ -28,6 +28,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 @property (weak, nonatomic) IBOutlet UIView *bottomArea;
 @property (weak, nonatomic) IBOutlet UILabel *lbTrash;
 @property (weak, nonatomic) IBOutlet UIButton *btTheme;
+@property (weak, nonatomic) IBOutlet UIImageView *imgTrash;
 
 @property (strong, nonatomic) NoteBooks *bookTrash ;
 @property (strong, nonatomic) NoteBooks *bookRecent ;
@@ -79,8 +80,11 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     self.flexTrailOfTable.constant = APP_WIDTH - self.distance ;
     
     self.lbTrash.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    self.imgTrash.xt_theme_imageColor = k_md_iconColor ;
     
+    self.btTheme.xt_theme_imageColor = k_md_iconColor ;
     [self.btTheme xt_enlargeButtonsTouchArea] ;
+    self.btTheme.selected = ![[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"themeDefault"] ;
     
     self.view.xt_theme_backgroundColor = k_md_bgColor ;
     self.bottomArea.xt_theme_backgroundColor = k_md_bgColor ;
@@ -91,10 +95,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         [self setCurrentBook:self.bookTrash] ;
         self.blkBookChange(self.bookTrash, YES) ;
     }] ;
-    
-    
-    
-    self.btTheme.selected = ![[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"themeDefault"] ;
+                
 }
 
 #pragma mark -
