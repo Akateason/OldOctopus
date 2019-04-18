@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeEmptyPHView : UIView
 @property (weak, nonatomic) IBOutlet UIButton *btNewNote;
+@property (weak, nonatomic) IBOutlet UIImageView *imgCenter;
 
 @end
 

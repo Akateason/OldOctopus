@@ -91,6 +91,10 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         [self setCurrentBook:self.bookTrash] ;
         self.blkBookChange(self.bookTrash, YES) ;
     }] ;
+    
+    
+    
+    self.btTheme.selected = ![[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"themeDefault"] ;
 }
 
 #pragma mark -

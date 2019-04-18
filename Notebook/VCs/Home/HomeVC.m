@@ -43,6 +43,7 @@
 
 @property (strong, nonatomic) LeftDrawerVC *leftVC ;
 @property (copy, nonatomic) NSArray *listNotes ;
+@property (strong, nonatomic) HomeEmptyPHView *phView ;
 @end
 
 @implementation HomeVC
@@ -260,12 +261,7 @@
 }
 
 - (UIView *)makePlaceHolderView {
-    HomeEmptyPHView *phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-    WEAK_SELF
-    [phView.btNewNote bk_addEventHandler:^(id sender) {
-        [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
-    } forControlEvents:(UIControlEventTouchUpInside)] ;
-    return phView ;
+    return self.phView ;
 }
 
 - (BOOL)enableScrollWhenPlaceHolderViewShowing {
@@ -344,6 +340,17 @@
        });
     }
     return _leftVC;
+}
+
+- (HomeEmptyPHView *)phView {
+    if (!_phView) {
+        _phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+        WEAK_SELF
+        [_phView.btNewNote bk_addEventHandler:^(id sender) {
+            [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
+        } forControlEvents:(UIControlEventTouchUpInside)] ;
+    }
+    return _phView ;
 }
 
 - (CGFloat)movingDistance {

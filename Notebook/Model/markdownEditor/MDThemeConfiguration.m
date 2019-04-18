@@ -45,6 +45,10 @@ XT_SINGLETON_M(MDThemeConfiguration)
     [UIApplication sharedApplication].statusBarStyle = isWhite ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault ;
 }
 
+- (NSString *)currentThemeKey {
+    return  XT_USERDEFAULT_GET_VAL(kUDIdentiferOfTheme) ;
+}
+
 - (NSDictionary *)dicForConfig {
     if (!_dicForConfig) {
         NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"themeDefault" ofType:@"json"] ;

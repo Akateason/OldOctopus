@@ -15,6 +15,8 @@ static NSString *const kNotificationForThemeColorDidChanged = @"kNotificationFor
 @interface NSObject (XTThemeColor)
 @property (copy, nonatomic) NSString *xt_theme_backgroundColor ;
 @property (copy, nonatomic) NSString *xt_theme_textColor ;
+@property (copy, nonatomic) NSString *xt_theme_imageColor ;
+
 @end
 
 

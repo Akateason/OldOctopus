@@ -17,6 +17,7 @@
     
     self.xt_theme_backgroundColor = k_md_bgColor ;
     self.btNewNote.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+    self.imgCenter.xt_theme_imageColor = k_md_iconColor ;
 }
 
 
