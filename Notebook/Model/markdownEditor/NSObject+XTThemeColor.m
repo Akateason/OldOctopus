@@ -45,7 +45,7 @@
 
 
 - (void)renderImageColor:(NSString *)imgColor {
-    UIColor *themeColor = [self themeColor:imgColor] ;
+    UIColor *themeColor = [MDThemeConfiguration.sharedInstance themeColor:imgColor] ;
     
     if ([self isKindOfClass:[UIImageView class]]) {
         UIImage *originImage = ((UIImageView *)self).image ;
@@ -60,7 +60,7 @@
 }
 
 - (void)renderTextColor:(NSString *)textColor {
-    UIColor *themeColor = [self themeColor:textColor] ;
+    UIColor *themeColor = [MDThemeConfiguration.sharedInstance themeColor:textColor] ;
     if ([self isKindOfClass:[UIButton class]]) {
         [(UIButton *)self setTitleColor:themeColor forState:0] ;
     }
@@ -79,7 +79,7 @@
 }
 
 - (void)renderBGColor:(NSString *)bgColor {
-    UIColor *themeColor = [self themeColor:bgColor] ;
+    UIColor *themeColor = [MDThemeConfiguration.sharedInstance themeColor:bgColor] ;
     
     if ([self isKindOfClass:[UIView class]]) {
         [(UIView *)self setBackgroundColor:themeColor] ;
@@ -113,16 +113,5 @@
      }] ;
 }
 
-- (UIColor *)themeColor:(NSString *)key {
-    UIColor *themeColor ;
-    if ([key containsString:@","]) {
-        NSArray *list = [key componentsSeparatedByString:@","] ;
-        themeColor = XT_MD_THEME_COLOR_KEY_A(list.firstObject, [list.lastObject floatValue]) ;
-    }
-    else {
-        themeColor = XT_MD_THEME_COLOR_KEY(key) ;
-    }
-    return themeColor ;
-}
 
 @end

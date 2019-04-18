@@ -38,7 +38,10 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:.9] ;
+    self.view.backgroundColor = nil ; //
+    [self addBlurBg] ;
+    
+    
     self.booklist = [NoteBooks xt_findWhere:@"isOnSelect == 0 AND isDeleted == 0"] ;
     self.table.separatorStyle = 0 ;
     self.table.dataSource = self ;
@@ -83,7 +86,7 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     }] ;
     [self.table reloadData] ;
     
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"移动" message:XT_STR_FORMAT(@"确定移动笔记到%@",aBook.name) cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"移动笔记" message:XT_STR_FORMAT(@"移动笔记到《%@》?",aBook.name) cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
         
         if (btnIndex == 1) {
             self.blkMove(aBook) ;

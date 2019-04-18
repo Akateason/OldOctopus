@@ -11,6 +11,7 @@
 #import "EmojiJson.h"
 #import "NoteBooks.h"
 
+
 @interface NewBookVC ()
 @property (strong, nonatomic) NoteBooks *aBook ;
 @end
@@ -27,6 +28,7 @@
                          editBook:(NoteBooks *)book
                           changed:(void(^)(NSString *emoji, NSString *bookName))blkChanged
                            cancel:(void(^)(void))blkCancel {
+    
     NewBookVC *vc = [NewBookVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"NewBookVC"] ;
     if (book != nil) vc.aBook = book ;
     
@@ -46,16 +48,20 @@
     return vc ;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:.9] ;
+    self.view.backgroundColor = nil ; //    
+    [self addBlurBg] ;
     
     self.lbTitle.xt_theme_textColor = k_md_textColor ;
     self.underline.xt_theme_backgroundColor = k_md_themeColor ;
-    self.btCreate.xt_theme_textColor = k_md_themeColor ;
+    self.btCreate.xt_theme_textColor = XT_MAKE_theme_color(k_md_themeColor, .5) ;
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    self.tfName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    
+    UIColor *phColor = [MDThemeConfiguration.sharedInstance themeColor:XT_MAKE_theme_color(k_md_textColor, .4)] ;
+    [self.tfName setValue:phColor forKeyPath:@"_placeholderLabel.textColor"] ;
     
     self.lbEmoji.userInteractionEnabled = YES ;
     NSArray *booklist = [NoteBooks xt_findWhere:@"isDeleted == 0"] ;

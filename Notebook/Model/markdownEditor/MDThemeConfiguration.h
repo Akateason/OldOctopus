@@ -47,12 +47,14 @@ XT_SINGLETON_H(MDThemeConfiguration)
 - (void)setStatusBarBlackOrWhite:(BOOL)isWhite ;
     
 - (NSString *)currentThemeKey ;
-    
+
 @property (strong, nonatomic)   MDEditorTheme   *editorThemeObj ;
 @property (copy,   nonatomic)   NSDictionary    *dicForConfig ;
 
 @property (strong, nonatomic) UIColor *navBarColor ;
 @property (strong, nonatomic) UIColor *navTextColor ;
+
+- (UIColor *)themeColor:(NSString *)key ;
 
 @end
 

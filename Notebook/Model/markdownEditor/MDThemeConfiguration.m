@@ -65,4 +65,17 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return _editorThemeObj ;
 }
 
+- (UIColor *)themeColor:(NSString *)key {
+    UIColor *themeColor ;
+    if ([key containsString:@","]) {
+        NSArray *list = [key componentsSeparatedByString:@","] ;
+        themeColor = XT_MD_THEME_COLOR_KEY_A(list.firstObject, [list.lastObject floatValue]) ;
+    }
+    else {
+        themeColor = XT_MD_THEME_COLOR_KEY(key) ;
+    }
+    return themeColor ;
+}
+
+
 @end

@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BasicVC : RootCtrl
 
+
+- (void)addBlurBg ;
+    
 @end
 
 NS_ASSUME_NONNULL_END

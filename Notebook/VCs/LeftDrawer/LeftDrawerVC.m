@@ -15,6 +15,7 @@
 #import "NewBookVC.h"
 
 
+
 typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 
 @interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource, LDHeadViewDelegate> {
@@ -117,9 +118,9 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     self.bookStaging = [NoteBooks createOtherBookWithType:Notebook_Type_staging] ;
     self.bookStaging.isOnSelect = lastStagingOnSelect ;
     
-    bool lastAddOnSelect = self.addBook.isOnSelect ;
+//    bool lastAddOnSelect = self.addBook.isOnSelect ;
     self.addBook = [NoteBooks createOtherBookWithType:Notebook_Type_add] ;
-    self.addBook.isOnSelect = lastAddOnSelect ;
+//    self.addBook.isOnSelect = lastAddOnSelect ;
     
     [NoteBooks fetchAllNoteBook:^(NSArray<NoteBooks *> * _Nonnull array) {
         
@@ -165,7 +166,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 #pragma mark - LDHeadViewDelegate <NSObject>
 
 - (void)LDHeadDidSelectedOneBook:(NoteBooks *)abook {
-    self.addBook.isOnSelect = abook.vType == Notebook_Type_add ;
+    self.addBook.isOnSelect = NO ; //abook.vType == Notebook_Type_add ;
     self.bookRecent.isOnSelect = abook.vType == Notebook_Type_recent ;
     self.bookStaging.isOnSelect = abook.vType == Notebook_Type_staging ;
     

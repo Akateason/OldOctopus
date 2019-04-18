@@ -19,6 +19,16 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)addBlurBg {
+    BOOL isDarkMode = [[MDThemeConfiguration sharedInstance].currentThemeKey containsString:@"Dark"] ;
+    UIBlurEffect *blurEffrct = [UIBlurEffect effectWithStyle:isDarkMode ? UIBlurEffectStyleDark : UIBlurEffectStyleLight] ;
+    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffrct] ;
+    visualEffectView.frame = APPFRAME ;
+    visualEffectView.alpha = 0.97 ;
+    [self.view insertSubview:visualEffectView atIndex:0] ;
+}
+
+
 /*
 #pragma mark - Navigation
 

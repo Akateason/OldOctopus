@@ -24,7 +24,8 @@
 + (void)showSearchVCFrom:(UIViewController *)fromCtrller {
     SearchVC *vc = [SearchVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"SearchVC"] ;
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:vc] ;
-    
+    fromCtrller.definesPresentationContext = YES;
+    navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
     [fromCtrller presentViewController:navVC animated:YES completion:nil] ;
 }
 
@@ -63,10 +64,14 @@
 - (void)prepareUI {
     self.fd_prefersNavigationBarHidden = YES ;
     
-    self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
+    self.view.backgroundColor = nil ;
+    [self addBlurBg] ;
+    
+    self.topArea.xt_theme_backgroundColor = nil ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.tf.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.8)  ;
-//    self.tf.placeholder = @"搜索笔记" ;
+    self.tf.placeholder = @"搜索笔记" ;
+    
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.6)  ;
     
     [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
@@ -75,6 +80,7 @@
     self.table.delegate = self ;
     self.table.xt_Delegate = self ;
     self.table.mj_footer = nil ;
+    self.table.backgroundColor = nil ;
     self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
 }
 
@@ -115,7 +121,6 @@
 
 - (UIView *)makePlaceHolderView {
     SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
-    
     return phVC.view ;
 }
 
