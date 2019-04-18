@@ -77,7 +77,8 @@
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
             
-            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor),
+            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor) ,
+                          NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_inlineCodeBGColor, .3) ,
                           NSFontAttributeName : paragraphFont
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
@@ -156,7 +157,8 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
-            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor),
+            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor) ,
+                          NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_inlineCodeBGColor, .3) ,
                           NSFontAttributeName : paragraphFont
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;

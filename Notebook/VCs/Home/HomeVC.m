@@ -172,7 +172,6 @@
     self.nameOfNoteBook.xt_theme_textColor = XT_MAKE_theme_color(k_md_homeTitleTextColor, .8) ;
     
     
-
     self.btAdd.userInteractionEnabled = YES ;
     @weakify(self)
     [self.btAdd bk_addEventHandler:^(id sender) {

@@ -27,11 +27,12 @@
 }
 
 - (NSDictionary *)attrQuoteBlockHideMark {
-    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-    paraStyle.paragraphSpacing = 16;
-    NSDictionary *tmpStyle = @{NSForegroundColorAttributeName:[UIColor whiteColor] ,
-                               NSBackgroundColorAttributeName:[UIColor whiteColor] ,
+//    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+//    paraStyle.paragraphSpacing = 16;
+    NSDictionary *tmpStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                               NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_bgColor, .3) ,
                                NSFontAttributeName : [UIFont systemFontOfSize:.1] ,
+//                               NSParagraphStyleAttributeName : paraStyle,
                                } ;
     return tmpStyle ;
 }

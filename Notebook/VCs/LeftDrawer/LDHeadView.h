@@ -25,7 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbHead;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UITableView *table;
+
 - (void)setupUser ;
+@property (strong, nonatomic) NoteBooks *bookRecent ;
+@property (strong, nonatomic) NoteBooks *bookStaging ;
+@property (strong, nonatomic) NoteBooks *addBook ;
 @end
 
 NS_ASSUME_NONNULL_END

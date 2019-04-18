@@ -17,9 +17,7 @@
 
 
 @interface LDHeadView ()
-@property (strong, nonatomic) NoteBooks *bookRecent ;
-@property (strong, nonatomic) NoteBooks *bookStaging ;
-@property (strong, nonatomic) NoteBooks *addBook ;
+
 @end
 
 
@@ -39,9 +37,7 @@
     [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     [LDSepLineCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     
-    self.bookRecent = [NoteBooks createOtherBookWithType:Notebook_Type_recent] ;
-    self.bookStaging = [NoteBooks createOtherBookWithType:Notebook_Type_staging] ;
-    self.addBook = [NoteBooks createOtherBookWithType:Notebook_Type_add] ;
+    
     
     self.xt_theme_backgroundColor = k_md_bgColor ;
     self.lbHead.xt_theme_backgroundColor = k_md_themeColor ;
@@ -91,6 +87,8 @@
     else if (indexPath.row == 3) {
         [self.ld_delegate LDHeadDidSelectedOneBook:self.addBook] ;
     }
+    
+//    [tableView reloadData] ;
 }
 
 @end

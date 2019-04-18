@@ -30,6 +30,9 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 @property (weak, nonatomic) IBOutlet UIButton *btTheme;
 
 @property (strong, nonatomic) NoteBooks *bookTrash ;
+@property (strong, nonatomic) NoteBooks *bookRecent ;
+@property (strong, nonatomic) NoteBooks *bookStaging ;
+@property (strong, nonatomic) NoteBooks *addBook ;
 
 @property (strong, nonatomic) NewBookVC *nBookVC ;
 @end
@@ -59,6 +62,8 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         @strongify(self)
         [self.table reloadData] ;
     }] ;
+    
+    
 }
 
 - (void)prepareUI {
@@ -98,10 +103,22 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     self.bookTrash = [NoteBooks createOtherBookWithType:(Notebook_Type_trash)] ;
     self.lbTrash.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
     
+    bool lastRecentOnSelect = self.bookRecent.isOnSelect ;
+    self.bookRecent = [NoteBooks createOtherBookWithType:Notebook_Type_recent] ;
+    self.bookRecent.isOnSelect = lastRecentOnSelect ;
+    
+    bool lastStagingOnSelect = self.bookStaging.isOnSelect ;
+    self.bookStaging = [NoteBooks createOtherBookWithType:Notebook_Type_staging] ;
+    self.bookStaging.isOnSelect = lastStagingOnSelect ;
+    
+    bool lastAddOnSelect = self.addBook.isOnSelect ;
+    self.addBook = [NoteBooks createOtherBookWithType:Notebook_Type_add] ;
+    self.addBook.isOnSelect = lastAddOnSelect ;
+    
     [NoteBooks fetchAllNoteBook:^(NSArray<NoteBooks *> * _Nonnull array) {
         
         if (!array.count) return ;
-                    
+        
         self.booklist = array ;
         [self setCurrentBook:self.currentBook] ;
         
@@ -142,6 +159,10 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 #pragma mark - LDHeadViewDelegate <NSObject>
 
 - (void)LDHeadDidSelectedOneBook:(NoteBooks *)abook {
+    self.addBook.isOnSelect = abook.vType == Notebook_Type_add ;
+    self.bookRecent.isOnSelect = abook.vType == Notebook_Type_recent ;
+    self.bookStaging.isOnSelect = abook.vType == Notebook_Type_staging ;
+    
     if (abook.vType == Notebook_Type_add) {
         [self addbook] ;
         return ;
@@ -192,6 +213,10 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     }
     headView.ld_delegate = self ;
     [headView setupUser] ;
+    headView.bookRecent = self.bookRecent ;
+    headView.bookStaging = self.bookStaging ;
+    headView.addBook = self.addBook ;
+    
     return headView ;
 }
 
@@ -203,6 +228,10 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     NSInteger row = indexPath.row ;
 //    NSInteger section = indexPath.section ;
     self.bookTrash.isOnSelect = NO ;
+    self.bookRecent.isOnSelect = NO ;
+    self.addBook.isOnSelect = NO ;
+    self.bookStaging.isOnSelect = NO ;
+    
     [self setCurrentBook:self.booklist[row]] ;
     self.blkBookChange(self.currentBook, YES) ;
 }
