@@ -75,7 +75,10 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     self.table.estimatedRowHeight           = 0 ;
     self.table.estimatedSectionHeaderHeight = 0 ;
     self.table.estimatedSectionFooterHeight = 0 ;
-    self.table.xt_theme_backgroundColor = k_md_bgColor ;
+
+    self.view.xt_theme_backgroundColor = k_md_drawerColor ;
+    self.table.xt_theme_backgroundColor = k_md_drawerColor ;
+    self.bottomArea.xt_theme_backgroundColor = k_md_drawerColor ;
     
     self.flexTrailOfTable.constant = APP_WIDTH - self.distance ;
     
@@ -86,8 +89,6 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     [self.btTheme xt_enlargeButtonsTouchArea] ;
     self.btTheme.selected = ![[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"themeDefault"] ;
     
-    self.view.xt_theme_backgroundColor = k_md_bgColor ;
-    self.bottomArea.xt_theme_backgroundColor = k_md_bgColor ;
     self.bottomArea.userInteractionEnabled = YES ;
     @weakify(self)
     [self.bottomArea bk_whenTapped:^{

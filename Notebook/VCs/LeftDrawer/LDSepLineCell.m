@@ -15,7 +15,7 @@
     [super awakeFromNib] ;
     
     self.sep.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
-    self.xt_theme_backgroundColor = k_md_bgColor ;
+    self.xt_theme_backgroundColor = k_md_drawerColor ;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

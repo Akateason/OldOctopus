@@ -20,7 +20,7 @@
     self.imgView.hidden = YES ;
     self.imgView.xt_theme_imageColor = k_md_iconColor ;
     self.leftRedView.xt_theme_backgroundColor = k_md_themeColor ;
-    self.xt_theme_backgroundColor = k_md_bgColor ;
+    self.xt_theme_backgroundColor = k_md_drawerColor ;
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
 }
 

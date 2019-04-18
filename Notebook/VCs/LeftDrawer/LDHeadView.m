@@ -39,7 +39,7 @@
     
     
     
-    self.xt_theme_backgroundColor = k_md_bgColor ;
+    self.xt_theme_backgroundColor = k_md_drawerColor ;
     self.lbHead.xt_theme_backgroundColor = k_md_themeColor ;
     self.lbHead.textColor = [UIColor whiteColor] ;
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
