@@ -52,7 +52,7 @@
     [super viewDidLoad] ;
     
     self.view.backgroundColor = nil ; //    
-    [self addBlurBg] ;
+    [self.view oct_addBlurBg] ;
     
     [self.tfName becomeFirstResponder] ;
     

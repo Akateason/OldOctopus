@@ -145,11 +145,12 @@
         if (direction == CWDrawerTransitionFromRight) [self moreAction:nil] ;
     }] ;
     
-    // todo 办透明
-    self.topBar.xt_theme_backgroundColor = k_md_bgColor ;
-    self.navArea.xt_theme_backgroundColor = k_md_bgColor ;
     self.btBack.xt_theme_imageColor = k_md_iconColor ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
+    
+    self.navArea.backgroundColor = nil ;
+    self.topBar.backgroundColor = nil ;
+    [self.topBar oct_addBlurBg] ;
 }
 
 - (IBAction)backAction:(id)sender {
@@ -169,7 +170,7 @@
     } ;
     self.infoVC.blkOutput = ^{
        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf capture] ;
+            [weakSelf snapShotFullScreen] ;
         }) ;
     } ;
     
@@ -179,7 +180,7 @@
 }
 
 
-- (void)capture {
+- (void)snapShotFullScreen {
     UIImage* image = nil;
     // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了，调整清晰度。
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(APP_WIDTH, self.textView.contentSize.height), YES, [UIScreen mainScreen].scale) ;

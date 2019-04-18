@@ -54,6 +54,7 @@
 		8F6863CE2267219D00261626 /* ld_bt_addbook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */; };
 		8F6863D1226726B400261626 /* ld_theme_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CF226726B000261626 /* ld_theme_night@2x.png */; };
 		8F6863D2226726B400261626 /* ld_theme_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863D0226726B200261626 /* ld_theme_day@2x.png */; };
+		8F79AE77226881F000E8FD0D /* UIView+OctupusExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */; };
 		8F7A8436223BD1780099E905 /* zample2.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A8435223BD1770099E905 /* zample2.md */; };
 		8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843C2240C7460099E905 /* check-box-off@2x.png */; };
 		8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843D2240C7470099E905 /* check-box-on@2x.png */; };
@@ -221,6 +222,8 @@
 		8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_bt_addbook@2x.png"; sourceTree = "<group>"; };
 		8F6863CF226726B000261626 /* ld_theme_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_night@2x.png"; sourceTree = "<group>"; };
 		8F6863D0226726B200261626 /* ld_theme_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_day@2x.png"; sourceTree = "<group>"; };
+		8F79AE75226881F000E8FD0D /* UIView+OctupusExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+OctupusExtension.h"; sourceTree = "<group>"; };
+		8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+OctupusExtension.m"; sourceTree = "<group>"; };
 		8F7A8435223BD1770099E905 /* zample2.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = zample2.md; sourceTree = "<group>"; };
 		8F7A843C2240C7460099E905 /* check-box-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box-off@2x.png"; sourceTree = "<group>"; };
 		8F7A843D2240C7470099E905 /* check-box-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box-on@2x.png"; sourceTree = "<group>"; };
@@ -448,6 +451,7 @@
 				8FEA9E47225B2713002A756B /* emojisJson.json */,
 				8F7A8435223BD1770099E905 /* zample2.md */,
 				8F679E1122363EB7008DE1BC /* zample.md */,
+				8F79AE74226881AC00E8FD0D /* Util */,
 				8F41EEC3225B3B5200D9CD35 /* Vendor */,
 				8F7A843B2240C7340099E905 /* source */,
 				8F626342221C02030066A429 /* Model */,
@@ -537,6 +541,19 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		8F79AE74226881AC00E8FD0D /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				8F7A84462244BD6B0099E905 /* MDNavVC.h */,
+				8F7A84472244BD6B0099E905 /* MDNavVC.m */,
+				8F07D654224CD8CE005BA86D /* BasicVC.h */,
+				8F07D655224CD8CE005BA86D /* BasicVC.m */,
+				8F79AE75226881F000E8FD0D /* UIView+OctupusExtension.h */,
+				8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,10 +622,6 @@
 		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
-				8F7A84462244BD6B0099E905 /* MDNavVC.h */,
-				8F7A84472244BD6B0099E905 /* MDNavVC.m */,
-				8F07D654224CD8CE005BA86D /* BasicVC.h */,
-				8F07D655224CD8CE005BA86D /* BasicVC.m */,
 				8FE5A3D5224B6C6800947D14 /* Home */,
 				8FC431242265CC960002C9A1 /* Search */,
 				8F679DF922324341008DE1BC /* markdownEditor */,
@@ -1076,6 +1089,7 @@
 				8FEA9E44225AFBDC002A756B /* NewBookVC.m in Sources */,
 				8FE5A3D9224B6CE800947D14 /* HomeVC.m in Sources */,
 				8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */,
+				8F79AE77226881F000E8FD0D /* UIView+OctupusExtension.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,
 				8FA2295922646A9500D736E2 /* ArticleInfoVC.m in Sources */,

@@ -65,7 +65,7 @@
     self.fd_prefersNavigationBarHidden = YES ;
     
     self.view.backgroundColor = nil ;
-    [self addBlurBg] ;
+    [self.view oct_addBlurBg] ;
     
     self.topArea.xt_theme_backgroundColor = nil ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;

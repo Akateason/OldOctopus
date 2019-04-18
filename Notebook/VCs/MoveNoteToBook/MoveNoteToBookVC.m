@@ -39,7 +39,7 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     [super viewDidLoad] ;
     
     self.view.backgroundColor = nil ; //
-    [self addBlurBg] ;
+    [self.view oct_addBlurBg] ;
     
     
     self.booklist = [NoteBooks xt_findWhere:@"isOnSelect == 0 AND isDeleted == 0"] ;
