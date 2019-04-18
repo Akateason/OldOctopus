@@ -16,6 +16,8 @@
 #import <UserNotifications/UserNotifications.h>
 #import <XTReq/XTReq.h>
 #import "MDThemeConfiguration.h"
+#import <Bugly/Bugly.h>
+
 
 
 NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
@@ -23,6 +25,8 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 @implementation LaunchingEvents
 
 - (void)setup:(UIApplication *)application {
+    if (!DEBUG) [Bugly startWithAppId:@"8abe605307"] ;
+
     [[MDThemeConfiguration sharedInstance] setup] ;
     [self setupRemoteNotification:application] ;
     [self setupDB] ;
@@ -30,7 +34,6 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupIqKeyboard] ;
     [self setupIcloudEvent] ;
     [self uploadAllLocalDataIfNotUploaded] ;
-    
 }
 
 

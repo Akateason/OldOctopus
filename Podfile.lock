@@ -29,6 +29,7 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - Bugly (2.5.0)
   - CHTCollectionViewWaterfallLayout (0.9.7):
     - CHTCollectionViewWaterfallLayout/ObjC (= 0.9.7)
   - CHTCollectionViewWaterfallLayout/ObjC (0.9.7)
@@ -94,6 +95,7 @@ PODS:
   - YYModel (1.0.4)
 
 DEPENDENCIES:
+  - Bugly
   - CWLateralSlide
   - IQKeyboardManager
   - SDWebImage (<= 4.4.6)
@@ -105,6 +107,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - BlocksKit
+    - Bugly
     - CHTCollectionViewWaterfallLayout
     - CWLateralSlide
     - CYLTableViewPlaceHolder
@@ -133,6 +136,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CHTCollectionViewWaterfallLayout: 9d11068fafecac106695bb5a5d6d0f738483b598
   CWLateralSlide: b7933f4a03d652fbec6789bb45dc567011e892ca
   CYLTableViewPlaceHolder: 678e070180a24e2f241adc7830d5d7f5e2abbaa5
@@ -158,6 +162,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 9482ada3915dcf5617b403962fb18f733d077576
+PODFILE CHECKSUM: 407534dcc9de86de54d3dfc364148911e1e9149a
 
 COCOAPODS: 1.6.1

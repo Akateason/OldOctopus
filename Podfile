@@ -11,5 +11,6 @@ target 'Notebook' do
   pod 'IQKeyboardManager'
   pod 'CWLateralSlide'
   pod 'SDWebImage','<=4.4.6'
+  pod 'Bugly'
 
 end
