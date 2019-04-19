@@ -10,6 +10,14 @@
 #import "MarkdownModel.h"
 #import <XTlib/XTlib.h>
 
+static const int kSizeH1 = 30 ;
+static const int kSizeH2 = 28 ;
+static const int kSizeH3 = 26 ;
+static const int kSizeH4 = 24 ;
+static const int kSizeH5 = 22 ;
+static const int kSizeH6 = 20 ;
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MDHeadModel : MarkdownModel

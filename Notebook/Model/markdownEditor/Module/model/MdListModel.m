@@ -17,9 +17,9 @@
     return @"" ;
 }
 
-- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
-                                              config:(MDThemeConfiguration *)configuration {
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
     
+    MDThemeConfiguration *configuration = [MDThemeConfiguration sharedInstance] ;
     NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
     UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
@@ -58,8 +58,9 @@
 }
 
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
-                                           config:(MDThemeConfiguration *)configuration {
+                                         position:(NSUInteger)tvPosition {
     
+    MDThemeConfiguration *configuration = [MDThemeConfiguration sharedInstance] ;
     NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
     UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
@@ -111,6 +112,7 @@
 - (UIImage *)taskItemImageState {
     return [self taskItemSelected] ? [UIImage imageNamed:@"check-box-on"] : [UIImage imageNamed:@"check-box-off"] ;
 }
+
 
 
 
@@ -177,12 +179,5 @@
     MarkdownModel *aModel = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
     editor.selectedRange = NSMakeRange(aModel.range.length + aModel.range.location, 0) ;
 }
-
-
-
-
-
-
-
 
 @end

@@ -37,12 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)displayStringForLeftLabel ;
 
 // RENDER preview state
-- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
-                                              config:(MDThemeConfiguration *)configuration ;
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString ;
 
 // RENDER edit state
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
-                                           config:(MDThemeConfiguration *)configuration ;
+                                         position:(NSUInteger)tvPosition ;
+
 
 // ********* rewrite in subcls ********* //
 

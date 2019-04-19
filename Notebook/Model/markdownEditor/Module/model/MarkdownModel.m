@@ -36,9 +36,8 @@
 }
 
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
-                                              config:(MDThemeConfiguration *)configuration {
-    
-    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+                                              {
+    NSDictionary *resultDic = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
 //    UIFont *paragraphFont = configuration.font ;
 //    NSUInteger location = self.range.location ;
 //    NSUInteger length = self.range.length ;
@@ -52,8 +51,7 @@
 }
 
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
-                                           config:(MDThemeConfiguration *)configuration {
-    
+                                         position:(NSUInteger)tvPosition {
     return attributedString ;
 }
 

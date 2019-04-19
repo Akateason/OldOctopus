@@ -60,6 +60,9 @@ static const int kTag_ListMarkView  = 32342 ;
     self.delegate = self ;
     if (@available(iOS 11.0, *)) self.smartDashesType = UITextSmartDashesTypeNo ;
     
+    
+    
+    
     @weakify(self)
     // user typing
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
@@ -67,6 +70,8 @@ static const int kTag_ListMarkView  = 32342 ;
         if (self.markedTextRange != nil) return ;
         
         [self parseTextThenRenderLeftSideAndToobar] ;
+        
+//        self.typingAttributes = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
     }] ;

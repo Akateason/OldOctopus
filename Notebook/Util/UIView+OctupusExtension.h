@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIView (OctupusExtension)
 
 - (void)oct_addBlurBg ;
+- (void)oct_addBlurBgWithAlpha:(float)alpha ;
+
+- (void)oct_addBlurBg_light ;
 
 @end
 

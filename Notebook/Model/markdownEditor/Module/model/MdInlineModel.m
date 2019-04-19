@@ -19,7 +19,7 @@
     switch (self.type) {
         case MarkdownInlineBold: str = @"md_tb_bt_bold" ; break ;
         case MarkdownInlineItalic: str = @"md_tb_bt_italic" ; break ;
-//        case MarkdownInlineBoldItalic: str = @"BI" ; break ;
+        case MarkdownInlineBoldItalic: str = @"md_tb_bt_bold" ; break ;
         case MarkdownInlineDeletions: str = @"md_tb_bt_deletion" ; break ;
         case MarkdownInlineInlineCode: str = @"md_tb_bt_code" ; break ;
         case MarkdownInlineLinks: str = @"md_tb_bt_link" ; break ;
@@ -30,14 +30,14 @@
     return str ;
 }
 
-- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
-                                              config:(MDThemeConfiguration *)configuration {
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
     
+    MDThemeConfiguration *configuration = MDThemeConfiguration.sharedInstance ;
     NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
     UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
-
+    
     switch (self.type) {
         case MarkdownInlineBold: {
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
@@ -79,9 +79,13 @@
             
             resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor) ,
                           NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_inlineCodeBGColor, .3) ,
-                          NSFontAttributeName : paragraphFont
+                          NSFontAttributeName : paragraphFont,
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
+            
+//            [attributedString removeAttribute:NSBackgroundColorAttributeName range:NSMakeRange(location + 1, length - 2)] ;
+//            [attributedString removeAttribute:NSParagraphStyleAttributeName range:NSMakeRange(location + 1, length - 2)] ;
+            
         }
             break ;
         case MarkdownInlineLinks: {
@@ -114,8 +118,9 @@
 }
 
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
-                                           config:(MDThemeConfiguration *)configuration {
+                                         position:(NSUInteger)tvPosition {
     
+    MDThemeConfiguration *configuration = MDThemeConfiguration.sharedInstance ;
     NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
     UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
@@ -157,9 +162,11 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor) ,
                           NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_inlineCodeBGColor, .3) ,
-                          NSFontAttributeName : paragraphFont
+                          NSFontAttributeName : paragraphFont,
+                          NSParagraphStyleAttributeName : paragraphStyle
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
@@ -192,6 +199,9 @@
     
     return attributedString ;
 }
+
+
+
 
 
 

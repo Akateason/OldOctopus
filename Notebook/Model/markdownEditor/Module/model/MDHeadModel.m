@@ -35,34 +35,46 @@
     return [[self.str componentsSeparatedByString:@" "] firstObject] ;
 }
 
-- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
-                                              config:(MDThemeConfiguration *)configuration {
+- (UIFont *)fontWithHSize:(NSUInteger)numberOfmark {
+    UIFont *font = [UIFont systemFontOfSize:kDefaultFontSize] ;
+    switch (numberOfmark) {
+        case 1: font = [UIFont boldSystemFontOfSize:kSizeH1]; break;
+        case 2: font = [UIFont boldSystemFontOfSize:kSizeH2]; break;
+        case 3: font = [UIFont boldSystemFontOfSize:kSizeH3]; break;
+        case 4: font = [UIFont boldSystemFontOfSize:kSizeH4]; break;
+        case 5: font = [UIFont boldSystemFontOfSize:kSizeH5]; break;
+        case 6: font = [UIFont boldSystemFontOfSize:kSizeH6]; break;
+        default: break;
+    }
+    return font ;
+}
 
-    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
+
+    NSDictionary *resultDic = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
 //    UIFont *paragraphFont = configuration.font ;
     NSUInteger location = self.range.location ;
-//    NSUInteger length = self.range.length ;
+    NSUInteger length = self.range.length ;
     
     switch (self.type) {
         case MarkdownSyntaxHeaders: {
             NSString *prefix = [self prefixOfTitle] ;
             NSUInteger numberOfmark = prefix.length ;
-            switch (numberOfmark) {
-                case 1: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:32]}; break;
-                case 2: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:24]}; break;
-                case 3: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]}; break;
-                case 4: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:16]}; break;
-                case 5: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:14]}; break;
-                case 6: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:12]}; break;
-                default: break;
-            }
+            
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineSpacing = 16 ;
+            UIFont *hFont = [self fontWithHSize:numberOfmark] ;
+            resultDic = @{NSFontAttributeName : hFont ,
+                                      NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                                      NSParagraphStyleAttributeName : paragraphStyle
+                                      } ;
             [attributedString addAttributes:resultDic range:self.range] ;
             
             // hide "# " marks
             NSRange markRange = NSMakeRange(location, numberOfmark + 1) ;
-            if (numberOfmark + 1 > attributedString.length) return attributedString ;
+            if (numberOfmark + 1 > length) return attributedString ;
             
-            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:markRange] ;
+            [attributedString addAttributes:MDThemeConfiguration.sharedInstance.editorThemeObj.invisibleMarkStyle range:markRange] ;
         }
             break;
             
@@ -74,30 +86,35 @@
 }
 
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
-                                           config:(MDThemeConfiguration *)configuration {
+                                         position:(NSUInteger)tvPosition {
     
-    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
-    //    UIFont *paragraphFont = configuration.font ;
+    NSDictionary *resultDic = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
     NSUInteger location = self.range.location ;
-//    NSUInteger length = self.range.length ;
+    NSUInteger length = self.range.length ;
     
     switch (self.type) {
         case MarkdownSyntaxHeaders: {
             NSString *prefix = [self prefixOfTitle] ;
             NSUInteger numberOfmark = prefix.length ;
-            switch (numberOfmark) {
-                case 1: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:32]}; break;
-                case 2: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:24]}; break;
-                case 3: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:20]}; break;
-                case 4: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:16]}; break;
-                case 5: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:14]}; break;
-                case 6: resultDic = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:12]}; break;
-                default: break;
-            }
+
+            UIFont *hFont = [self fontWithHSize:numberOfmark] ;
+            resultDic = @{NSFontAttributeName : hFont ,
+                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                          } ;
             [attributedString addAttributes:resultDic range:self.range] ;
             
-            NSRange markRange = NSMakeRange(location, numberOfmark) ;
-            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:markRange] ;
+            if (tvPosition > location + numberOfmark + 1) {
+                // hide "# " marks
+                NSRange markRange = NSMakeRange(location, numberOfmark + 1) ;
+                if (numberOfmark + 1 > length) return attributedString ;
+                
+                [attributedString addAttributes:MDThemeConfiguration.sharedInstance.editorThemeObj.invisibleMarkStyle range:markRange] ;
+            }
+            else {
+                NSRange markRange = NSMakeRange(location, numberOfmark) ;
+                [attributedString addAttributes:MDThemeConfiguration.sharedInstance.editorThemeObj.markStyle range:markRange] ;
+            }
+ 
         }
             break;
             

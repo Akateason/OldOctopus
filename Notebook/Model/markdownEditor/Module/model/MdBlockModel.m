@@ -37,9 +37,9 @@
     return tmpStyle ;
 }
 
-- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
-                                              config:(MDThemeConfiguration *)configuration {
+- (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
     
+    MDThemeConfiguration *configuration = MDThemeConfiguration.sharedInstance ;
     NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
     UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
@@ -76,8 +76,9 @@
 }
 
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
-                                           config:(MDThemeConfiguration *)configuration {
+                                         position:(NSUInteger)tvPosition {
     
+    MDThemeConfiguration *configuration = MDThemeConfiguration.sharedInstance ;
     NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
     UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
@@ -108,6 +109,8 @@
     
     return attributedString ;
 }
+
+
 
 + (void)toolbarEventQuoteBlock:(MarkdownEditor *)editor {
     MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;

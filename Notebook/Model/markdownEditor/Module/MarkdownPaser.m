@@ -424,12 +424,12 @@
         
         // render any style
         if (!textView.isFirstResponder) {
-            attributedString = [model addAttrOnPreviewState:attributedString config:self.configuration] ;
+            attributedString = [model addAttrOnPreviewState:attributedString] ;
         }
         else {
             attributedString = (!model.isOnEditState) ?
-            [model addAttrOnPreviewState:attributedString config:self.configuration] :
-            [model addAttrOnEditState:attributedString config:self.configuration] ;
+            [model addAttrOnPreviewState:attributedString] :
+            [model addAttrOnEditState:attributedString position:textView.selectedRange.location] ;
         }
     }] ;
     [attributedString endEditing] ;

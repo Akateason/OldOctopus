@@ -72,9 +72,12 @@
 - (NSDictionary *)basicStyle {
     if(!_basicStyle){
         _basicStyle = ({
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineSpacing = 10 ;
             NSDictionary * object = @{NSFontAttributeName : self.font,
-                                      NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor)
-                                      };
+                                      NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                                      NSParagraphStyleAttributeName : paragraphStyle
+                                      } ;
             object;
         });
     }
@@ -107,7 +110,6 @@
 - (NSDictionary *)invisibleMarkStyle {
     if (!_invisibleMarkStyle) {
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-        paragraphStyle.paragraphSpacing = 16. ; //注销 列表会有大空行bug.
         _invisibleMarkStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor),
                                 NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                                 NSParagraphStyleAttributeName: paragraphStyle

@@ -150,7 +150,7 @@
     
     self.navArea.backgroundColor = nil ;
     self.topBar.backgroundColor = nil ;
-    [self.topBar oct_addBlurBg] ;
+    [self.topBar oct_addBlurBgWithAlpha:.8] ;
 }
 
 - (IBAction)backAction:(id)sender {
