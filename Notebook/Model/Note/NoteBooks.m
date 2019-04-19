@@ -129,7 +129,7 @@
         [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NoteBooks *aBook = [NoteBooks recordToNoteBooks:obj] ;
             aBook.xt_createTime = [obj.creationDate xt_getTick] ;
-            aBook.xt_updateTime = [obj.modificationDate xt_getTick] ;
+            aBook.modifyDateOnServer = [obj.modificationDate xt_getTick] ;
             aBook.isSendOnICloud = YES ;
             [tmplist addObject:aBook] ;
         }] ;

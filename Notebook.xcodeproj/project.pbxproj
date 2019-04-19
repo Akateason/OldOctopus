@@ -55,6 +55,7 @@
 		8F6863D1226726B400261626 /* ld_theme_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CF226726B000261626 /* ld_theme_night@2x.png */; };
 		8F6863D2226726B400261626 /* ld_theme_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863D0226726B200261626 /* ld_theme_day@2x.png */; };
 		8F79AE77226881F000E8FD0D /* UIView+OctupusExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */; };
+		8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE792269CD9100E8FD0D /* HomeVC+PanGestureHandler.m */; };
 		8F7A8436223BD1780099E905 /* zample2.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A8435223BD1770099E905 /* zample2.md */; };
 		8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843C2240C7460099E905 /* check-box-off@2x.png */; };
 		8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A843D2240C7470099E905 /* check-box-on@2x.png */; };
@@ -224,6 +225,8 @@
 		8F6863D0226726B200261626 /* ld_theme_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_day@2x.png"; sourceTree = "<group>"; };
 		8F79AE75226881F000E8FD0D /* UIView+OctupusExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+OctupusExtension.h"; sourceTree = "<group>"; };
 		8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+OctupusExtension.m"; sourceTree = "<group>"; };
+		8F79AE782269CD9100E8FD0D /* HomeVC+PanGestureHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeVC+PanGestureHandler.h"; sourceTree = "<group>"; };
+		8F79AE792269CD9100E8FD0D /* HomeVC+PanGestureHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HomeVC+PanGestureHandler.m"; sourceTree = "<group>"; };
 		8F7A8435223BD1770099E905 /* zample2.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = zample2.md; sourceTree = "<group>"; };
 		8F7A843C2240C7460099E905 /* check-box-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box-off@2x.png"; sourceTree = "<group>"; };
 		8F7A843D2240C7470099E905 /* check-box-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-box-on@2x.png"; sourceTree = "<group>"; };
@@ -678,6 +681,8 @@
 			children = (
 				8FE5A3D7224B6CE800947D14 /* HomeVC.h */,
 				8FE5A3D8224B6CE800947D14 /* HomeVC.m */,
+				8F79AE782269CD9100E8FD0D /* HomeVC+PanGestureHandler.h */,
+				8F79AE792269CD9100E8FD0D /* HomeVC+PanGestureHandler.m */,
 				8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */,
 				8F303996225217A300DEB656 /* HomeEmptyPHView.h */,
 				8F303997225217A300DEB656 /* HomeEmptyPHView.m */,
@@ -1063,6 +1068,7 @@
 				8F6863C22266FA7A00261626 /* SearchEmptyVC.m in Sources */,
 				8FE5A3EA224CA77400947D14 /* LDHeadView.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
+				8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */,
 				8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */,
 				8FC431272265CCAF0002C9A1 /* SearchVC.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,

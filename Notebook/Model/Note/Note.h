@@ -17,7 +17,7 @@
 @property (nonatomic)       BOOL     isSendOnICloud ;
 @property (strong, nonatomic) CKRecord *record ;
 @property (copy, nonatomic) NSString *icRecordName ;
-
+@property (nonatomic)       long long modifyDateOnServer ;
 
 // icloud
 @property (copy, nonatomic) NSString *content ; // ignore local
@@ -42,6 +42,9 @@
 + (void)createNewNote:(Note *)aNote ;
 
 + (void)updateMyNote:(Note *)aNote ;
+
++ (void)deleteThisNoteFromICloud:(Note *)aNote
+                        complete:(void(^)(bool success))completion ;
 
 + (void)getFromServerComplete:(void(^)(void))completion ;
 

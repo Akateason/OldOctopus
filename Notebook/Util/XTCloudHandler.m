@@ -166,8 +166,8 @@ XT_SINGLETON_M(XTCloudHandler)
 
 
 
-- (void)saveList:(NSArray *)recInsertOrUpdateList
-      deleteList:(NSArray *)recDeleteList
+- (void)saveList:(NSArray<CKRecord *> *)recInsertOrUpdateList
+      deleteList:(NSArray<CKRecordID *> *)recDeleteList
         complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock {
     self.isSyncingOnICloud = YES ;
     CKModifyRecordsOperation *modifyRecordsOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recInsertOrUpdateList recordIDsToDelete:recDeleteList];
@@ -273,6 +273,7 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
     
     CKFetchRecordZoneChangesOperation *operation ;
     CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+    NSLog(@"previousToken : %@",previousToken) ;
     
     if (@available(iOS 12.0, *)) {
         CKFetchRecordZoneChangesConfiguration *config = [[CKFetchRecordZoneChangesConfiguration alloc] init] ;

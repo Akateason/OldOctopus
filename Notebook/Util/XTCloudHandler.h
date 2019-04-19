@@ -56,6 +56,9 @@ XT_SINGLETON_H(XTCloudHandler)
 - (void)fetchListWithTypeName:(NSString *)typeName
             completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler ;
 
+- (void)fetchWithId:(NSString *)recordID
+  completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler ;
+
 
 // Insert
 - (void)insert:(CKRecord *)record
@@ -67,8 +70,8 @@ completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHand
       completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHandler ;
 
 // insert or update list thread safe !!
-- (void)saveList:(NSArray *)recInsertOrUpdateList
-      deleteList:(NSArray *)recDeleteList
+- (void)saveList:(NSArray<CKRecord *> *)recInsertOrUpdateList
+      deleteList:(NSArray<CKRecordID *> *)recDeleteList
         complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock ;
 
 // Subcript

@@ -44,7 +44,7 @@ static int kLimitCount = 70 ;
     NSString *content = [self filterMarkdownString:note.content] ;
     if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
     _lbContent.text = content ;
-    _lbDate.text = [[NSDate xt_getDateWithTick:note.xt_updateTime] xt_timeInfo] ;
+    _lbDate.text = [[NSDate xt_getDateWithTick:note.modifyDateOnServer] xt_timeInfo] ;
 }
 
 + (CGFloat)xt_cellHeight {

@@ -94,10 +94,12 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 - (void)setupDB {
     [XTlibConfig sharedInstance].isDebug    = YES;
-//    [XTFMDBBase sharedInstance].isDebugMode = YES;
+    [XTFMDBBase sharedInstance].isDebugMode = YES;
     [[XTFMDBBase sharedInstance] configureDBWithPath:XT_LIBRARY_PATH_TRAIL_(@"noteDB")];
     
     [[XTFMDBBase sharedInstance] dbUpgradeTable:Note.class paramsAdd:@[@"searchContent"] version:2] ;
+    [[XTFMDBBase sharedInstance] dbUpgradeTable:Note.class paramsAdd:@[@"modifyDateOnServer"] version:3] ;
+    [[XTFMDBBase sharedInstance] dbUpgradeTable:NoteBooks.class paramsAdd:@[@"modifyDateOnServer"] version:4] ;
     
 }
 
@@ -182,12 +184,14 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         
         if ([type isEqualToString:@"Note"]) {
             Note *note = [Note recordToNote:record] ;
-            note.xt_updateTime = [record.modificationDate xt_getTick] ;
+            note.modifyDateOnServer = [record.modificationDate xt_getTick] ;
+            note.isSendOnICloud = YES ;
             [note xt_upsertWhereByProp:@"icRecordName"] ;
         }
         else if ([type isEqualToString:@"NoteBook"]) {
             NoteBooks *book = [NoteBooks recordToNoteBooks:record] ;
-            book.xt_updateTime = [record.modificationDate xt_getTick] ;
+            book.modifyDateOnServer = [record.modificationDate xt_getTick] ;
+            book.isSendOnICloud = YES ;
             [book xt_upsertWhereByProp:@"icRecordName"] ;
         }
         

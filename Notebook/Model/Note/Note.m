@@ -73,7 +73,7 @@
         return ;
     }
 
-    NSArray *tmplist = [[Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@' and isDeleted == 0",book.icRecordName)] xt_orderby:@"xt_updateTime" descOrAsc:1] ;
+    NSArray *tmplist = [[Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@' and isDeleted == 0",book.icRecordName)] xt_orderby:@"modifyDateOnServer" descOrAsc:1] ;
     dispatch_async(dispatch_get_main_queue(), ^{
         completion(tmplist) ;
     }) ;
@@ -87,7 +87,7 @@
         if (!error) {
             // succcess
             aNote.isSendOnICloud = YES ;
-            aNote.xt_updateTime = [record.modificationDate xt_getTick] ;
+            aNote.modifyDateOnServer = [record.modificationDate xt_getTick] ;
             [aNote xt_update] ;
         }
         else {
@@ -111,7 +111,7 @@
         if (!error) {
             // succcess
             aNote.isSendOnICloud = YES ;
-            aNote.xt_updateTime = [record.modificationDate xt_getTick] ;
+            aNote.modifyDateOnServer = [record.modificationDate xt_getTick] ;
             [aNote xt_update] ;
         }
         else {
@@ -121,6 +121,32 @@
     }] ;
 }
 
++ (void)deleteThisNoteFromICloud:(Note *)aNote
+                        complete:(void(^)(bool success))completion {
+    
+    __block Note *delNote = aNote ;
+    
+    [XTCloudHandler.sharedInstance fetchWithId:aNote.icRecordName completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+        if(!error) {
+            
+            [XTCloudHandler.sharedInstance saveList:nil deleteList:@[record.recordID] complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+                
+                if (!error) {
+                    [delNote xt_deleteModel] ;
+                    completion(YES) ;
+                }
+                else {
+                    completion(NO) ;
+                }
+            }] ;
+        }
+        else {
+            completion(NO) ; // query failed
+        }
+    }] ;
+}
+
+
 + (void)getFromServerComplete:(void(^)(void))completion {
     
     [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"Note" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
@@ -128,7 +154,7 @@
         [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             Note *aNote = [Note recordToNote:obj] ;
             aNote.xt_createTime = [obj.creationDate xt_getTick] ;
-            aNote.xt_updateTime = [obj.modificationDate xt_getTick] ;
+            aNote.modifyDateOnServer = [obj.modificationDate xt_getTick] ;
             aNote.isSendOnICloud = YES ;
             [tmplist addObject:aNote] ;
         }] ;

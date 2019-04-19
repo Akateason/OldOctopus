@@ -22,6 +22,7 @@
 #import "MoveNoteToBookVC.h"
 #import "LaunchingEvents.h"
 #import "SearchVC.h"
+#import "HomeVC+PanGestureHandler.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -102,7 +103,7 @@
     if (self.leftVC.currentBook.vType == Notebook_Type_recent) {
         self.nameOfNoteBook.text = @"最近使用" ;
         self.bookEmoji.text = @"" ;
-        self.listNotes = [Note xt_findWhere:@"isDeleted == 0 order by xt_updateTime DESC limit 20"] ;
+        self.listNotes = [Note xt_findWhere:@"isDeleted == 0 order by modifyDateOnServer DESC limit 20"] ;
         completion() ;
         return ;
     }
@@ -116,7 +117,7 @@
     else if (self.leftVC.currentBook.vType == Notebook_Type_staging) {
         self.nameOfNoteBook.text = @"暂存区" ;
         self.bookEmoji.text = @"" ;
-        self.listNotes = [[Note xt_findWhere:@"noteBookId == '' and isDeleted == 0"] xt_orderby:@"xt_updateTime" descOrAsc:YES] ;
+        self.listNotes = [[Note xt_findWhere:@"noteBookId == '' and isDeleted == 0"] xt_orderby:@"modifyDateOnServer" descOrAsc:YES] ;
         completion() ;
         return ;
     }
@@ -246,7 +247,7 @@
     [cell xt_configure:self.listNotes[indexPath.row] indexPath:indexPath] ;
     cell.revealPosition = SWCellRevealPositionRightExtended ;
     cell.draggableBorderWidth = 200 ;
-    cell.dataSource = self;
+    cell.dataSource = self ;
     return cell ;
 }
 
@@ -269,41 +270,7 @@
 }
 
 - (NSArray *)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)cell1 {
-    SWCellButtonItem *item1 = [SWCellButtonItem itemWithTitle:@"删除" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
-        Note *aNote = ((NoteCell *)cell).xt_model ;
-// Delete Note
-        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要删除此文章吗?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
-            if (btnIndex == 1) {
-                aNote.isDeleted = YES ;
-                [Note updateMyNote:aNote] ;
-                [self.table xt_loadNewInfoInBackGround:YES] ;
-            }
-        }] ;
-        return YES ;
-    }] ;
-    item1.xt_theme_backgroundColor = k_md_themeColor ;
-    item1.tintColor = [UIColor whiteColor] ;
-    item1.width = 60 ;
-    item1.image = [UIImage imageNamed:@"home_del_note"] ;
-    
-    SWCellButtonItem *item2 = [SWCellButtonItem itemWithTitle:@"移动" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
-        __block Note *aNote = ((NoteCell *)cell).xt_model ;
-// Move Note
-        @weakify(self)
-        [MoveNoteToBookVC showFromCtrller:self
-                               moveToBook:^(NoteBooks * _Nonnull book) {
-                                   @strongify(self)
-                                   aNote.noteBookId = book.icRecordName ;
-                                   [Note updateMyNote:aNote] ;
-                                   [self.leftVC refreshHomeWithBook:book] ;
-                               }] ;
-        return YES ;
-    }] ;
-    item2.backgroundColor = [UIColor colorWithWhite:0 alpha:.6] ;
-    item2.tintColor = [UIColor whiteColor] ;
-    item2.width = 60 ;
-    item2.image = [UIImage imageNamed:@"home_move_note"] ;
-    return @[item1,item2] ;
+    return [self setupPanList] ;
 }
 
 #pragma mark - MarkdownVCDelegate <NSObject>

@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)       BOOL     isOnSelect ;
 @property (copy, nonatomic) NSString *icRecordName ;
 @property (strong, nonatomic) CKRecord *record ;
+@property (nonatomic)       long long modifyDateOnServer ;
 
 // icloud
 @property (copy, nonatomic) NSString *emoji ;
