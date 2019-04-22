@@ -116,7 +116,6 @@
         return ;
     }
     
-    
     // note book normal
     self.nameOfNoteBook.text = self.leftVC.currentBook.name ;
     self.bookEmoji.text = self.leftVC.currentBook.displayEmoji ;
@@ -143,7 +142,6 @@
 - (void)prepareUI {
     self.lbUser.xt_theme_backgroundColor = k_md_themeColor ;
     self.lbUser.textColor = [UIColor whiteColor] ;
-    
     
     [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     [HomeSearchCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
@@ -206,7 +204,6 @@
         @strongify(self)
         self.lbUser.text = [user.givenName substringToIndex:1] ;
     }] ;
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -229,7 +226,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2 ;
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) return 1 ;
@@ -257,9 +253,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         [SearchVC showSearchVCFrom:self] ;
-        
         return ;
     }
     
