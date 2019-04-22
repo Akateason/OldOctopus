@@ -35,12 +35,13 @@
 - (instancetype)initWithName:(NSString *)name
                        emoji:(NSString *)emoji {
     
-    self = [super init];
+    self = [super init] ;
     if (self) {
         _icRecordName = [XTCloudHandler sharedInstance].createUniqueIdentifier ;
         _emoji = [@{@"native":emoji} yy_modelToJSONString] ;
         _isDeleted = 0 ;
         _name = name ;
+        _modifyDateOnServer = [[NSDate date] xt_getTick] ;
     }
     return self;
 }

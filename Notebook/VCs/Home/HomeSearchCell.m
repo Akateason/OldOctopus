@@ -17,13 +17,15 @@
 }
 
 - (void)awakeFromNib {
-    [super awakeFromNib];
+    [super awakeFromNib] ;
     
+    self.selectionStyle = 0 ;
+    
+    self.xt_theme_backgroundColor = k_md_bgColor ;
     self.scBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.lbPh.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.scBar.xt_cornerRadius = 6 ;
     
-    self.selectionStyle = 0 ;
     
 //    self.backgroundColor = [UIColor xt_red] ;
 }

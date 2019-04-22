@@ -61,6 +61,7 @@
         _content = content ;
         _title = title ;
         _baseContent = [content base64EncodedString] ;
+        _modifyDateOnServer = [[NSDate date] xt_getTick] ;
     }
     return self;
 }
