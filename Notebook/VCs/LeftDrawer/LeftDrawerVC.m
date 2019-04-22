@@ -10,10 +10,10 @@
 #import "LDHeadView.h"
 #import "LDNotebookCell.h"
 #import "NoteBooks.h"
-#import <UIViewController+CWLateralSlide.h>
 #import "Note.h"
 #import "NewBookVC.h"
-
+#import <UIViewController+CWLateralSlide.h>
+#import "HiddenUtil.h"
 
 
 typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
@@ -97,7 +97,14 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         [self setCurrentBook:self.bookTrash] ;
         self.blkBookChange(self.bookTrash, YES) ;
     }] ;
-                
+    
+    
+    // 暗开关
+    [self.bottomArea bk_whenTouches:2 tapped:7 handler:^{
+        
+        [HiddenUtil showAlert] ;
+        
+    }] ;
 }
 
 #pragma mark -

@@ -210,33 +210,22 @@ static const int kTagOfButton = 88390 ;
 }
 
 - (void)buttonH_onClicked {
-    XTSIAlertView *alert = [[XTSIAlertView alloc] initWithTitle:nil andMessage:nil] ;
     WEAK_SELF
-    [alert addButtonWithTitle:@"H1" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
-        [weakSelf.mdt_delegate toolbarDidSelectH1] ;
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"H1",@"H2",@"H3",@"H4",@"H5",@"H6",@"非标题"] callBackBlock:^(NSInteger btnIndex) {
+        switch (btnIndex) {
+            case 1: [weakSelf.mdt_delegate toolbarDidSelectH1] ; break ;
+            case 2: [weakSelf.mdt_delegate toolbarDidSelectH2] ; break ;
+            case 3: [weakSelf.mdt_delegate toolbarDidSelectH3] ; break ;
+            case 4: [weakSelf.mdt_delegate toolbarDidSelectH4] ; break ;
+            case 5: [weakSelf.mdt_delegate toolbarDidSelectH5] ; break ;
+            case 6: [weakSelf.mdt_delegate toolbarDidSelectH6] ; break ;
+            case 7: [weakSelf.mdt_delegate toolbarDidSelectRemoveTitle] ; break ;
+                
+            default:
+                break;
+        }
+        
     }] ;
-    [alert addButtonWithTitle:@"H2" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
-        [weakSelf.mdt_delegate toolbarDidSelectH2] ;
-    }] ;
-    [alert addButtonWithTitle:@"H3" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
-        [weakSelf.mdt_delegate toolbarDidSelectH3] ;
-    }] ;
-    [alert addButtonWithTitle:@"H4" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
-        [weakSelf.mdt_delegate toolbarDidSelectH4] ;
-    }] ;
-    [alert addButtonWithTitle:@"H5" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
-        [weakSelf.mdt_delegate toolbarDidSelectH5] ;
-    }] ;
-    [alert addButtonWithTitle:@"H6" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
-        [weakSelf.mdt_delegate toolbarDidSelectH6] ;
-    }] ;
-    [alert addButtonWithTitle:@"非标题" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
-        [weakSelf.mdt_delegate toolbarDidSelectRemoveTitle] ;
-    }] ;
-    [alert addButtonWithTitle:@"取消" type:XTSIAlertViewButtonTypeCancel handler:^(XTSIAlertView *alertView) {
-    }] ;
-    
-    [alert show] ;
 }
 
 - (UIScrollView *)scrollview{

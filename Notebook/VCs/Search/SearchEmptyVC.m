@@ -18,9 +18,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.lbWord.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.view.xt_theme_backgroundColor = nil ;
-//    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    self.lbWord.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+    self.imgCenter.xt_theme_imageColor = k_md_iconColor ;
 }
 
 /*

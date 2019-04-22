@@ -18,10 +18,12 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 @interface MDEKeyboardPhotoView () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (strong, nonatomic) UIViewController *ctrller ;
 @property (strong, nonatomic) XTCameraHandler *handler;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *h_collection;
 
 @property (copy, nonatomic) BlkCollectionFlowPressed blkFlowPressed ;
 @property (strong, nonatomic) PHImageManager *manager;
 @property (strong, nonatomic) PHFetchResult *allPhotos;
+@property (nonatomic) float keyboardHeight ;
 @end
 
 @implementation MDEKeyboardPhotoView
@@ -37,6 +39,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     [photoView setupCollections:height] ;
     photoView.ctrller = ctrller ;
     photoView.blkFlowPressed = blkPressedPhotoList ;
+    photoView.keyboardHeight = height ;
     
     @weakify(photoView)
     [photoView.btViewCamera bk_whenTapped:^{
@@ -110,8 +113,10 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     self.collectionView.delegate = self ;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
-    layout.itemSize = CGSizeMake(100, 100) ;
+    float cellHeight = keyboardHeight - 158. ;
+    layout.itemSize = CGSizeMake(cellHeight, cellHeight) ;
     layout.minimumInteritemSpacing = 6.0f ;
+    self.h_collection.constant = cellHeight - APP_SAFEAREA_TABBAR_FLEX ;
     self.collectionView.collectionViewLayout = layout ;
 }
 
@@ -160,7 +165,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     NSInteger row  = indexPath.row;
     PHAsset *photo = [self.allPhotos objectAtIndex:row];
     [self.manager requestImageForAsset:photo
-                            targetSize:CGSizeMake(100, 100)
+                            targetSize:CGSizeMake(self.keyboardHeight - 158., self.keyboardHeight - 158.)
                            contentMode:PHImageContentModeAspectFill
                                options:nil
                          resultHandler:^(UIImage *result, NSDictionary *info) {

@@ -263,6 +263,25 @@ XT_SINGLETON_M(XTCloudHandler)
              }] ;
 }
 
+- (void)deleteAllSubscriptionCompletion:(void(^)(BOOL success))completion {
+    CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
+    
+    [database fetchAllSubscriptionsWithCompletionHandler:^(NSArray<CKSubscription *> * _Nullable subscriptions, NSError * _Nullable error) {
+        NSMutableArray *tmplist = [@[] mutableCopy] ;
+        [subscriptions enumerateObjectsUsingBlock:^(CKSubscription * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [tmplist addObject:obj.subscriptionID] ;
+        }] ;
+    
+        
+        CKModifySubscriptionsOperation *opt = [[CKModifySubscriptionsOperation alloc] initWithSubscriptionsToSave:nil subscriptionIDsToDelete:tmplist] ;
+        [database addOperation:opt] ;
+        opt.modifySubscriptionsCompletionBlock = ^(NSArray<CKSubscription *> * _Nullable savedSubscriptions, NSArray<CKSubscriptionID> * _Nullable deletedSubscriptionIDs, NSError * _Nullable operationError) {
+            completion(!operationError) ;
+        } ;
+        
+    }] ;
+}
+
 static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServerChangeToken" ;
 
 - (void)syncOperationEveryRecord:(void (^)(CKRecord *record))recordChangedBlock

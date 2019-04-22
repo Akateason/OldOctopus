@@ -92,10 +92,13 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     //    }];
 }
 
+
+
+
 - (void)setupDB {
     [XTlibConfig sharedInstance].isDebug    = YES;
     [XTFMDBBase sharedInstance].isDebugMode = YES;
-    [[XTFMDBBase sharedInstance] configureDBWithPath:XT_LIBRARY_PATH_TRAIL_(@"noteDB")];
+    [[XTFMDBBase sharedInstance] configureDBWithPath:OCTUPUS_DB_Location];
     
     [[XTFMDBBase sharedInstance] dbUpgradeTable:Note.class paramsAdd:@[@"searchContent"] version:2] ;
     [[XTFMDBBase sharedInstance] dbUpgradeTable:Note.class paramsAdd:@[@"modifyDateOnServer"] version:3] ;

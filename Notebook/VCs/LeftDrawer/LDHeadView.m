@@ -37,8 +37,6 @@
     [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     [LDSepLineCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     
-    
-    
     self.xt_theme_backgroundColor = k_md_drawerColor ;
     self.lbHead.xt_theme_backgroundColor = k_md_themeColor ;
     self.lbHead.textColor = [UIColor whiteColor] ;

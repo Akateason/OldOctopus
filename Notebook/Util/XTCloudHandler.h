@@ -76,6 +76,7 @@ completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHand
 
 // Subcript
 - (void)saveSubscription ;
+- (void)deleteAllSubscriptionCompletion:(void(^)(BOOL success))completion ;
 
 // Ref
 //- (void)setReferenceWithReferenceKey:(NSString *)key

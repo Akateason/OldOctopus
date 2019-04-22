@@ -151,6 +151,21 @@
     }] ;
 }
 
++ (void)deleteAllNoteBookComplete:(void(^)(bool success))completion {
+    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
+        NSMutableArray *tmplist = [@[] mutableCopy] ;
+        [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [tmplist addObject:obj.recordID] ;
+        }] ;
+        
+        [[XTCloudHandler sharedInstance] saveList:nil deleteList:tmplist complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+            
+            completion(!error) ;
+        }] ;
+    }] ;
+}
+
+
 - (NSString *)displayEmoji {
     NBEmoji *emo = [NBEmoji yy_modelWithJSON:self.emoji] ;
     return emo.native ;

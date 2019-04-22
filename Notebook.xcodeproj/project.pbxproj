@@ -57,6 +57,7 @@
 		8F6863D1226726B400261626 /* ld_theme_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CF226726B000261626 /* ld_theme_night@2x.png */; };
 		8F6863D2226726B400261626 /* ld_theme_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863D0226726B200261626 /* ld_theme_day@2x.png */; };
 		8F708278226DACC0000ED214 /* launchPage_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F708277226DACC0000ED214 /* launchPage_icon@2x.png */; };
+		8F70827B226DC4ED000ED214 /* HiddenUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F70827A226DC4ED000ED214 /* HiddenUtil.m */; };
 		8F79AE77226881F000E8FD0D /* UIView+OctupusExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */; };
 		8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE792269CD9100E8FD0D /* HomeVC+PanGestureHandler.m */; };
 		8F7A8436223BD1780099E905 /* zample2.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A8435223BD1770099E905 /* zample2.md */; };
@@ -230,6 +231,8 @@
 		8F6863CF226726B000261626 /* ld_theme_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_night@2x.png"; sourceTree = "<group>"; };
 		8F6863D0226726B200261626 /* ld_theme_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_day@2x.png"; sourceTree = "<group>"; };
 		8F708277226DACC0000ED214 /* launchPage_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchPage_icon@2x.png"; sourceTree = "<group>"; };
+		8F708279226DC4ED000ED214 /* HiddenUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiddenUtil.h; sourceTree = "<group>"; };
+		8F70827A226DC4ED000ED214 /* HiddenUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiddenUtil.m; sourceTree = "<group>"; };
 		8F79AE75226881F000E8FD0D /* UIView+OctupusExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+OctupusExtension.h"; sourceTree = "<group>"; };
 		8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+OctupusExtension.m"; sourceTree = "<group>"; };
 		8F79AE782269CD9100E8FD0D /* HomeVC+PanGestureHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeVC+PanGestureHandler.h"; sourceTree = "<group>"; };
@@ -560,6 +563,8 @@
 				8F07D655224CD8CE005BA86D /* BasicVC.m */,
 				8F79AE75226881F000E8FD0D /* UIView+OctupusExtension.h */,
 				8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */,
+				8F708279226DC4ED000ED214 /* HiddenUtil.h */,
+				8F70827A226DC4ED000ED214 /* HiddenUtil.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1096,6 +1101,7 @@
 				8FB72910225EF703003A73C1 /* LaunchingEvents.m in Sources */,
 				8FACF6DA221E8D610067DDA4 /* UIView+RichTextEditor.m in Sources */,
 				8F679E282238F9DE008DE1BC /* MdListModel.m in Sources */,
+				8F70827B226DC4ED000ED214 /* HiddenUtil.m in Sources */,
 				8FA2294322603C2A00D736E2 /* NSObject+XTThemeColor.m in Sources */,
 				8F07D656224CD8CE005BA86D /* BasicVC.m in Sources */,
 				8F07D64D224CB9FF005BA86D /* Note.m in Sources */,

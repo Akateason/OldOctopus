@@ -6,9 +6,14 @@
 //  Copyright © 2019 teason23. All rights reserved.
 //
 
+
+#define OCTUPUS_DB_Location         XT_LIBRARY_PATH_TRAIL_(@"noteDB")
+
+
 #import <Foundation/Foundation.h>
 
 extern NSString *const kNotificationSyncCompleteAllPageRefresh ;
+extern NSString *const kFirstTimeLaunch ;
 
 @class UIApplication ;
 
