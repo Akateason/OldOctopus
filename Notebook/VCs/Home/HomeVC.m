@@ -31,10 +31,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
 @property (weak, nonatomic) IBOutlet UILabel *nameOfNoteBook;
-
 @property (weak, nonatomic) IBOutlet UILabel *lbUser;
 @property (weak, nonatomic) IBOutlet UIButton *btAdd;
-
 @property (weak, nonatomic) IBOutlet UILabel *bookEmoji;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *juhua;
 

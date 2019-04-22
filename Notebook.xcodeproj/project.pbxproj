@@ -56,6 +56,7 @@
 		8F6863CE2267219D00261626 /* ld_bt_addbook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */; };
 		8F6863D1226726B400261626 /* ld_theme_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CF226726B000261626 /* ld_theme_night@2x.png */; };
 		8F6863D2226726B400261626 /* ld_theme_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863D0226726B200261626 /* ld_theme_day@2x.png */; };
+		8F708278226DACC0000ED214 /* launchPage_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F708277226DACC0000ED214 /* launchPage_icon@2x.png */; };
 		8F79AE77226881F000E8FD0D /* UIView+OctupusExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */; };
 		8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE792269CD9100E8FD0D /* HomeVC+PanGestureHandler.m */; };
 		8F7A8436223BD1780099E905 /* zample2.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A8435223BD1770099E905 /* zample2.md */; };
@@ -228,6 +229,7 @@
 		8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_bt_addbook@2x.png"; sourceTree = "<group>"; };
 		8F6863CF226726B000261626 /* ld_theme_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_night@2x.png"; sourceTree = "<group>"; };
 		8F6863D0226726B200261626 /* ld_theme_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_day@2x.png"; sourceTree = "<group>"; };
+		8F708277226DACC0000ED214 /* launchPage_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchPage_icon@2x.png"; sourceTree = "<group>"; };
 		8F79AE75226881F000E8FD0D /* UIView+OctupusExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+OctupusExtension.h"; sourceTree = "<group>"; };
 		8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+OctupusExtension.m"; sourceTree = "<group>"; };
 		8F79AE782269CD9100E8FD0D /* HomeVC+PanGestureHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeVC+PanGestureHandler.h"; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F708277226DACC0000ED214 /* launchPage_icon@2x.png */,
 				8F6863D0226726B200261626 /* ld_theme_day@2x.png */,
 				8F6863CF226726B000261626 /* ld_theme_night@2x.png */,
 				8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */,
@@ -930,6 +933,7 @@
 				8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
 				8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */,
+				8F708278226DACC0000ED214 /* launchPage_icon@2x.png in Resources */,
 				8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */,
 				8FC431222265B9FA0002C9A1 /* home_bar_add@2x.png in Resources */,
 				8FA232D7224E07C400163685 /* NoteCell.xib in Resources */,
