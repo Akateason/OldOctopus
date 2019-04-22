@@ -273,7 +273,7 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
     
     CKFetchRecordZoneChangesOperation *operation ;
     CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
-    NSLog(@"previousToken : %@",previousToken) ;
+//    NSLog(@"previousToken : %@",previousToken) ;
     
     if (@available(iOS 12.0, *)) {
         CKFetchRecordZoneChangesConfiguration *config = [[CKFetchRecordZoneChangesConfiguration alloc] init] ;

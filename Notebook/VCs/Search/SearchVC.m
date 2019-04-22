@@ -71,6 +71,9 @@
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.tf.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.8)  ;
     self.tf.placeholder = @"搜索笔记" ;
+    UIColor *color = [[MDThemeConfiguration sharedInstance] themeColor:XT_MAKE_theme_color(k_md_textColor, 0.3)] ;
+    [self.tf setValue:color forKeyPath:@"_placeholderLabel.textColor"] ;
+    [self.tf setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"] ;
     
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.6)  ;
     

@@ -73,7 +73,9 @@
     if(!_basicStyle){
         _basicStyle = ({
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineSpacing = 10 ;
+//            paragraphStyle.lineSpacing = 10 ;
+//            paragraphStyle.paragraphSpacing = kDefaultFontSize ;
+//            paragraphStyle.paragraphSpacingBefore = 2 * kDefaultFontSize ;
             NSDictionary * object = @{NSFontAttributeName : self.font,
                                       NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
                                       NSParagraphStyleAttributeName : paragraphStyle

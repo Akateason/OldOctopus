@@ -23,6 +23,8 @@
 #import "LaunchingEvents.h"
 #import "SearchVC.h"
 #import "HomeVC+PanGestureHandler.h"
+#import "HomeSearchCell.h"
+
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -32,12 +34,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lbUser;
 @property (weak, nonatomic) IBOutlet UIButton *btAdd;
-@property (weak, nonatomic) IBOutlet UIView *searchArea;
-@property (weak, nonatomic) IBOutlet UIView *searchBar;
-@property (weak, nonatomic) IBOutlet UIImageView *imgSearch;
-@property (weak, nonatomic) IBOutlet UILabel *lbSearch;
-
-
 
 @property (weak, nonatomic) IBOutlet UILabel *bookEmoji;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *juhua;
@@ -150,11 +146,9 @@
     self.lbUser.xt_theme_backgroundColor = k_md_themeColor ;
     self.lbUser.textColor = [UIColor whiteColor] ;
     
-    self.searchArea.xt_theme_backgroundColor = k_md_bgColor ;
-    self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
-    self.lbSearch.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.3) ;
     
     [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
+    [HomeSearchCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     [self.table xt_setup] ;
     self.table.dataSource = self ;
     self.table.delegate = self ;
@@ -215,10 +209,6 @@
         self.lbUser.text = [user.givenName substringToIndex:1] ;
     }] ;
     
-    [self.searchBar bk_whenTapped:^{
-        @strongify(self)
-        [SearchVC showSearchVCFrom:self] ;
-    }] ;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -238,11 +228,21 @@
     }] ;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2 ;
+}
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0) return 1 ;
     return self.listNotes.count ;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        HomeSearchCell *cell = [HomeSearchCell xt_fetchFromTable:tableView] ;
+        return cell ;
+    }
     NoteCell *cell = [NoteCell xt_fetchFromTable:tableView] ;
     [cell xt_configure:self.listNotes[indexPath.row] indexPath:indexPath] ;
     cell.revealPosition = SWCellRevealPositionRightExtended ;
@@ -252,10 +252,19 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return [HomeSearchCell xt_cellHeight] ;
+    }
     return [NoteCell xt_cellHeight] ;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        [SearchVC showSearchVCFrom:self] ;
+        
+        return ;
+    }
+    
     NSInteger row = indexPath.row ;
     Note *aNote = self.listNotes[row] ;
     [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
