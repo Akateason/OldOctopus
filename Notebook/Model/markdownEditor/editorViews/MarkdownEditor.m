@@ -219,7 +219,6 @@ static const int kTag_ListMarkView  = 32342 ;
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
         CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
-//      NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
         if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) continue ;
         
         UIView *quoteItem = [UIView new] ;
@@ -229,7 +228,7 @@ static const int kTag_ListMarkView  = 32342 ;
         [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self) ;
             make.top.equalTo(self).offset(rectForQuote.origin.y) ;
-            make.width.equalTo(@5) ;
+            make.width.equalTo(@2) ;
             make.height.equalTo(@(rectForQuote.size.height)) ;
         }] ;
     }
