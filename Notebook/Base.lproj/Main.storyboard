@@ -126,10 +126,20 @@
                                         </constraints>
                                         <state key="normal" image="home_bar_add.png"/>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sR7-fP-hLo">
+                                        <rect key="frame" x="300" y="23" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="D2f-G3-mrT"/>
+                                            <constraint firstAttribute="width" constant="20" id="zhn-YM-6Gr"/>
+                                        </constraints>
+                                        <state key="normal" image="md_ed_more.png"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45112746949999999" green="0.63476520780000001" blue="0.88979804520000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="Iem-sC-USA" firstAttribute="leading" secondItem="sR7-fP-hLo" secondAttribute="trailing" constant="20" id="7vY-KM-UqE"/>
                                     <constraint firstItem="Iem-sC-USA" firstAttribute="centerY" secondItem="aOM-bE-UPx" secondAttribute="centerY" id="A9U-87-ODU"/>
+                                    <constraint firstItem="Iem-sC-USA" firstAttribute="top" secondItem="sR7-fP-hLo" secondAttribute="top" id="Do0-PN-NHz"/>
                                     <constraint firstItem="1wt-A7-F2a" firstAttribute="leading" secondItem="xtt-qN-bwB" secondAttribute="trailing" constant="8" id="IFk-l2-Psu"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="centerY" secondItem="f4z-de-b20" secondAttribute="centerY" id="Lux-fT-Jku"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="leading" secondItem="f4z-de-b20" secondAttribute="trailing" constant="5" id="Wsd-b8-htS"/>
@@ -173,6 +183,7 @@
                     <connections>
                         <outlet property="bookEmoji" destination="f4z-de-b20" id="Yef-3n-3Hm"/>
                         <outlet property="btAdd" destination="Iem-sC-USA" id="HPF-Ym-dB8"/>
+                        <outlet property="btMore" destination="sR7-fP-hLo" id="EPR-2y-V21"/>
                         <outlet property="juhua" destination="1wt-A7-F2a" id="zwu-I6-A2m"/>
                         <outlet property="lbUser" destination="aOM-bE-UPx" id="RB2-c1-RMu"/>
                         <outlet property="nameOfNoteBook" destination="xtt-qN-bwB" id="2VP-TL-QcT"/>

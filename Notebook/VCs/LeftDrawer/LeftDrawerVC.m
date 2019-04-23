@@ -64,8 +64,6 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         @strongify(self)
         [self.table reloadData] ;
     }] ;
-    
-    
 }
 
 - (void)prepareUI {
@@ -101,9 +99,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     
     // 暗开关
     [self.bottomArea bk_whenTouches:2 tapped:7 handler:^{
-        
         [HiddenUtil showAlert] ;
-        
     }] ;
 }
 
@@ -125,23 +121,40 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     self.bookStaging = [NoteBooks createOtherBookWithType:Notebook_Type_staging] ;
     self.bookStaging.isOnSelect = lastStagingOnSelect ;
     
-//    bool lastAddOnSelect = self.addBook.isOnSelect ;
+    // cell addBook can't be selected
     self.addBook = [NoteBooks createOtherBookWithType:Notebook_Type_add] ;
-//    self.addBook.isOnSelect = lastAddOnSelect ;
+    
     
     [NoteBooks fetchAllNoteBook:^(NSArray<NoteBooks *> * _Nonnull array) {
         
-        if (!array.count) return ;
+        NoteBooks *book = [self nextUsefulBook] ;
+        if (!array.count) { // there is no book create by user .
+            if (!self.currentBook) {
+                [self setCurrentBook:book] ;
+                self.blkBookChange(book, goHome) ;
+            }
+            [self.table reloadData] ;
+            
+            return ;
+        }
         
         self.booklist = array ;
         [self setCurrentBook:self.currentBook] ;
         
         if (!self->isFirst) {
             self->isFirst = YES ;
-            [self setCurrentBook:self.booklist.firstObject] ;
-            self.blkBookChange(self.booklist.firstObject, goHome) ;
+            
+            [self setCurrentBook:book] ;
+            self.blkBookChange(book, goHome) ;
         }
     }] ;
+}
+
+- (NoteBooks *)nextUsefulBook {
+    if (self.booklist && self.booklist.count) {
+        return self.booklist.firstObject ;
+    }
+    return  self.bookStaging ;
 }
 
 - (void)setCurrentBook:(NoteBooks *)currentBook {
