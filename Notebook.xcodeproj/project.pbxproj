@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F00DD73226F0F780028B5BA /* launchingImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F00DD72226F0F780028B5BA /* launchingImage@2x.png */; };
 		8F0688EE2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */; };
 		8F0688F02248EC7200A7B183 /* md_tb_bt_blkCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0688EF2248EC7200A7B183 /* md_tb_bt_blkCode@2x.png */; };
 		8F07D64D224CB9FF005BA86D /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F07D64C224CB9FF005BA86D /* Note.m */; };
@@ -62,7 +63,6 @@
 		8F6863CE2267219D00261626 /* ld_bt_addbook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */; };
 		8F6863D1226726B400261626 /* ld_theme_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CF226726B000261626 /* ld_theme_night@2x.png */; };
 		8F6863D2226726B400261626 /* ld_theme_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863D0226726B200261626 /* ld_theme_day@2x.png */; };
-		8F708278226DACC0000ED214 /* launchPage_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F708277226DACC0000ED214 /* launchPage_icon@2x.png */; };
 		8F70827B226DC4ED000ED214 /* HiddenUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F70827A226DC4ED000ED214 /* HiddenUtil.m */; };
 		8F79AE77226881F000E8FD0D /* UIView+OctupusExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */; };
 		8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F79AE792269CD9100E8FD0D /* HomeVC+PanGestureHandler.m */; };
@@ -157,6 +157,7 @@
 
 /* Begin PBXFileReference section */
 		3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F00DD72226F0F780028B5BA /* launchingImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchingImage@2x.png"; sourceTree = "<group>"; };
 		8F0688EC2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownEditor+UtilOfToolbar.h"; sourceTree = "<group>"; };
 		8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownEditor+UtilOfToolbar.m"; sourceTree = "<group>"; };
 		8F0688EF2248EC7200A7B183 /* md_tb_bt_blkCode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_blkCode@2x.png"; sourceTree = "<group>"; };
@@ -244,7 +245,6 @@
 		8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_bt_addbook@2x.png"; sourceTree = "<group>"; };
 		8F6863CF226726B000261626 /* ld_theme_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_night@2x.png"; sourceTree = "<group>"; };
 		8F6863D0226726B200261626 /* ld_theme_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_day@2x.png"; sourceTree = "<group>"; };
-		8F708277226DACC0000ED214 /* launchPage_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchPage_icon@2x.png"; sourceTree = "<group>"; };
 		8F708279226DC4ED000ED214 /* HiddenUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HiddenUtil.h; sourceTree = "<group>"; };
 		8F70827A226DC4ED000ED214 /* HiddenUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HiddenUtil.m; sourceTree = "<group>"; };
 		8F79AE75226881F000E8FD0D /* UIView+OctupusExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+OctupusExtension.h"; sourceTree = "<group>"; };
@@ -598,10 +598,10 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F00DD72226F0F780028B5BA /* launchingImage@2x.png */,
 				8F2A2676226EEC830076EBA4 /* guiding_img_3@2x.png */,
 				8F2A2674226EEC010076EBA4 /* guiding_img_2@2x.png */,
 				8F2A2672226EE98D0076EBA4 /* guiding_img_1@2x.png */,
-				8F708277226DACC0000ED214 /* launchPage_icon@2x.png */,
 				8F6863D0226726B200261626 /* ld_theme_day@2x.png */,
 				8F6863CF226726B000261626 /* ld_theme_night@2x.png */,
 				8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */,
@@ -927,6 +927,7 @@
 				8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */,
 				8F679E1222363EB7008DE1BC /* zample.md in Resources */,
 				8FE5A3F1224CA86A00947D14 /* LDNotebookCell.xib in Resources */,
+				8F00DD73226F0F780028B5BA /* launchingImage@2x.png in Resources */,
 				8F7A84932244E4DA0099E905 /* md_tb_bt_underline@2x.png in Resources */,
 				8F41EED3225B4B6200D9CD35 /* m_note_right_paint@2x.png in Resources */,
 				8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */,
@@ -970,7 +971,6 @@
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
 				8F2A2673226EE98D0076EBA4 /* guiding_img_1@2x.png in Resources */,
 				8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */,
-				8F708278226DACC0000ED214 /* launchPage_icon@2x.png in Resources */,
 				8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */,
 				8FC431222265B9FA0002C9A1 /* home_bar_add@2x.png in Resources */,
 				8FA232D7224E07C400163685 /* NoteCell.xib in Resources */,
