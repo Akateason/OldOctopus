@@ -180,7 +180,28 @@
             return ;
         }
         
-        [MarkdownVC newWithNote:nil bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+        @weakify(self)
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"🖋 新建笔记",@"📒 新建笔记本"] callBackBlock:^(NSInteger btnIndex) {
+            @strongify(self)
+            if (btnIndex == 1) {
+                [MarkdownVC newWithNote:nil bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+            }
+            else if (btnIndex == 2) {
+                self.nBookVC =
+                [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+                    // create new book
+                    NoteBooks *aBook = [[NoteBooks alloc] initWithName:bookName emoji:emoji] ;
+                    [NoteBooks createNewBook:aBook] ;
+                    self.nBookVC = nil ;
+                    
+                    [self.leftVC render] ;
+                    [self.leftVC refreshHomeWithBook:aBook] ;
+                } cancel:^{
+                    self.nBookVC = nil ;
+                }] ;
+            }
+        }] ;
+        
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
@@ -278,7 +299,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) return 1 ;
+    if (section == 0) return self.listNotes.count ? 1 : 0 ;
     return self.listNotes.count ;
 }
 

@@ -126,6 +126,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     
     
     [NoteBooks fetchAllNoteBook:^(NSArray<NoteBooks *> * _Nonnull array) {
+        self.booklist = array ;
         
         NoteBooks *book = [self nextUsefulBook] ;
         if (!array.count) { // there is no book create by user .
@@ -138,7 +139,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
             return ;
         }
         
-        self.booklist = array ;
+        
         [self setCurrentBook:self.currentBook] ;
         
         if (!self->isFirst) {
