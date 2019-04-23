@@ -44,7 +44,7 @@
             USERDEFAULT_DELTE_VAL(kFirstTimeLaunch) ;
         }
                 
-    }] ; 
+    }] ;
 }
 
 + (void)clearICloud {

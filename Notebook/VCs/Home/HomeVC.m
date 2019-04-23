@@ -150,7 +150,7 @@
     self.table.delegate = self ;
     self.table.xt_Delegate = self ;
     self.table.mj_footer = nil ;
-
+    
     self.table.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor,1) ;
     
     self.table.contentInset = UIEdgeInsetsMake(10, 0, 0, 0) ;
