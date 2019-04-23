@@ -35,6 +35,7 @@ PODS:
   - CHTCollectionViewWaterfallLayout/ObjC (0.9.7)
   - CWLateralSlide (1.6.4)
   - CYLTableViewPlaceHolder (1.0.9)
+  - EllipsePageControl (0.0.4)
   - FDFullscreenPopGesture (1.1)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -97,6 +98,7 @@ PODS:
 DEPENDENCIES:
   - Bugly
   - CWLateralSlide
+  - EllipsePageControl
   - IQKeyboardManager
   - SDWebImage (<= 4.4.6)
   - XTlib
@@ -111,6 +113,7 @@ SPEC REPOS:
     - CHTCollectionViewWaterfallLayout
     - CWLateralSlide
     - CYLTableViewPlaceHolder
+    - EllipsePageControl
     - FDFullscreenPopGesture
     - FMDB
     - FTPopOverMenu
@@ -140,6 +143,7 @@ SPEC CHECKSUMS:
   CHTCollectionViewWaterfallLayout: 9d11068fafecac106695bb5a5d6d0f738483b598
   CWLateralSlide: b7933f4a03d652fbec6789bb45dc567011e892ca
   CYLTableViewPlaceHolder: 678e070180a24e2f241adc7830d5d7f5e2abbaa5
+  EllipsePageControl: d6c436006d72119c6cbba45af6648d15a7af7d3a
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FTPopOverMenu: 8aa89de66e72b53db3e7eeab42243d393237768f
@@ -162,6 +166,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 562956ddf505f5bb3306fa72f9cead03a5e4ebf7
+PODFILE CHECKSUM: 9b70f3d1714c51117b879937bc4e03aa8d578f4b
 
 COCOAPODS: 1.6.1

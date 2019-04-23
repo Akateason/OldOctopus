@@ -26,6 +26,8 @@
 #import "HomeSearchCell.h"
 #import "NewBookVC.h"
 
+#import "GuidingVC.h"
+
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -50,6 +52,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
+    
+    [GuidingVC showFromCtrllerIfNeeded:self] ;
     
     [self leftVC] ;
     self.listNotes = @[] ;
@@ -83,7 +87,7 @@
          [self.table reloadData] ;
      }] ;
     
-    [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]]
+    [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]]
       takeUntil:self.rac_willDeallocSignal]
      subscribeNext:^(NSDate * _Nullable x) {
          @strongify(self)
