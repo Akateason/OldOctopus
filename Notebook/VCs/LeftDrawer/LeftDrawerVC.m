@@ -45,27 +45,25 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     
     UIView *circle = [UIView new] ;
     circle.backgroundColor = sender.selected ? UIColorHex(@"f9f6f6") : UIColorHex(@"2b2f33") ;
-    circle.frame = self.btTheme.frame ;
+    CGPoint point = [self.bottomArea convertPoint:self.btTheme.center toView:self.view.window] ;
+    circle.frame = CGRectMake(0, 0, APP_HEIGHT * 2, APP_HEIGHT * 2) ;
+    circle.center = point ;
     circle.xt_completeRound = YES ;
-    CGRect rect = [self.bottomArea convertRect:self.btTheme.frame toView:self.view] ;
-    circle.frame = rect ;
     [self.view.window addSubview:circle] ;
+    
+    circle.layer.transform = CATransform3DMakeScale(0, 0, 1) ;
+    
     [UIView animateWithDuration:.25 delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
-        circle.layer.transform = CATransform3DMakeScale(4, 4, 0) ;
+        circle.layer.transform = CATransform3DIdentity ;
         circle.alpha = .8 ;
     } completion:^(BOOL finished) {
-        [circle removeFromSuperview] ;
-        
-        
-        if (!sender.selected) {
-            [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDark"] ;
-        }
-        else {
-            [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDefault"] ;
-        }
+
+        if (!sender.selected) [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDark"] ;
+        else [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDefault"] ;
         sender.selected = !sender.selected ;
-    }] ;
-    
+        
+        [circle removeFromSuperview] ;
+    }] ;    
 }
 
 - (void)viewDidLoad {
