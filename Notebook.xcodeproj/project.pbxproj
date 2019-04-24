@@ -673,6 +673,22 @@
 			path = subviews;
 			sourceTree = "<group>";
 		};
+		8F9BECC12270562500EAEAD2 /* subviews */ = {
+			isa = PBXGroup;
+			children = (
+				8FE5A3EB224CA78100947D14 /* LDHeadView.xib */,
+				8FE5A3E8224CA77400947D14 /* LDHeadView.h */,
+				8FE5A3E9224CA77400947D14 /* LDHeadView.m */,
+				8F6863C622671D0600261626 /* LDSepLineCell.h */,
+				8F6863C722671D0600261626 /* LDSepLineCell.m */,
+				8F6863C822671D0600261626 /* LDSepLineCell.xib */,
+				8FE5A3ED224CA86A00947D14 /* LDNotebookCell.h */,
+				8FE5A3EE224CA86A00947D14 /* LDNotebookCell.m */,
+				8FE5A3EF224CA86A00947D14 /* LDNotebookCell.xib */,
+			);
+			path = subviews;
+			sourceTree = "<group>";
+		};
 		8FA2295222646A2C00D736E2 /* articleInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -755,15 +771,7 @@
 			children = (
 				8FE5A3E2224CA4CC00947D14 /* LeftDrawerVC.h */,
 				8FE5A3E3224CA4CC00947D14 /* LeftDrawerVC.m */,
-				8FE5A3EB224CA78100947D14 /* LDHeadView.xib */,
-				8FE5A3E8224CA77400947D14 /* LDHeadView.h */,
-				8FE5A3E9224CA77400947D14 /* LDHeadView.m */,
-				8F6863C622671D0600261626 /* LDSepLineCell.h */,
-				8F6863C722671D0600261626 /* LDSepLineCell.m */,
-				8F6863C822671D0600261626 /* LDSepLineCell.xib */,
-				8FE5A3ED224CA86A00947D14 /* LDNotebookCell.h */,
-				8FE5A3EE224CA86A00947D14 /* LDNotebookCell.m */,
-				8FE5A3EF224CA86A00947D14 /* LDNotebookCell.xib */,
+				8F9BECC12270562500EAEAD2 /* subviews */,
 			);
 			path = LeftDrawer;
 			sourceTree = "<group>";

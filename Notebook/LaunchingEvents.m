@@ -109,7 +109,9 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 - (void)setupNaviStyle {
     [[UIApplication sharedApplication] keyWindow].tintColor = [UIColor whiteColor] ;
-    [UIView appearance].tintColor = [[MDThemeConfiguration sharedInstance] themeColor:k_md_textColor] ; // change alert contrller tint color ;
+    
+    //todo 黑色主题有问题呢
+//    [UIView appearance].tintColor = [[MDThemeConfiguration sharedInstance] themeColor:k_md_textColor] ; // change alert contrller tint color ;
     
 }
 
