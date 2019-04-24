@@ -57,7 +57,7 @@
     self = [super init];
     if (self) {
         _icRecordName = [XTCloudHandler sharedInstance].createUniqueIdentifier ;
-        _noteBookId = bookID ;
+        _noteBookId = bookID ?: @"" ;
         _content = content ;
         _title = title ;
         _baseContent = [content base64EncodedString] ;
@@ -160,7 +160,6 @@
             completion(!error) ;
         }] ;
     }] ;
-
 }
 
 + (void)getFromServerComplete:(void(^)(void))completion {

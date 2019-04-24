@@ -42,6 +42,7 @@ PODS:
   - FMDB/standard (2.7.5)
   - FTPopOverMenu (2.0.3)
   - IQKeyboardManager (6.2.1)
+  - lottie-ios (2.5.3)
   - Masonry (1.1.0)
   - MJRefresh (3.1.16)
   - ReactiveObjC (3.1.0)
@@ -100,6 +101,7 @@ DEPENDENCIES:
   - CWLateralSlide
   - EllipsePageControl
   - IQKeyboardManager
+  - lottie-ios (= 2.5.3)
   - SDWebImage (<= 4.4.6)
   - XTlib
   - XTlib/Animations
@@ -118,6 +120,7 @@ SPEC REPOS:
     - FMDB
     - FTPopOverMenu
     - IQKeyboardManager
+    - lottie-ios
     - Masonry
     - MJRefresh
     - ReactiveObjC
@@ -148,6 +151,7 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FTPopOverMenu: 8aa89de66e72b53db3e7eeab42243d393237768f
   IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
+  lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
@@ -166,6 +170,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 9b70f3d1714c51117b879937bc4e03aa8d578f4b
+PODFILE CHECKSUM: fd0bcc4ef1a7f44b70125b6f659a0f007d42d5ad
 
 COCOAPODS: 1.6.1

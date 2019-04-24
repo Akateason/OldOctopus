@@ -25,7 +25,7 @@
 #import "HomeVC+PanGestureHandler.h"
 #import "HomeSearchCell.h"
 #import "NewBookVC.h"
-
+#import <Lottie/Lottie.h>
 #import "GuidingVC.h"
 
 
@@ -38,12 +38,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *btAdd;
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
 @property (weak, nonatomic) IBOutlet UILabel *bookEmoji;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *juhua;
 
 @property (strong, nonatomic) LeftDrawerVC *leftVC ;
 @property (copy, nonatomic) NSArray *listNotes ;
 @property (strong, nonatomic) HomeEmptyPHView *phView ;
 @property (strong, nonatomic) NewBookVC *nBookVC ;
+@property (strong, nonatomic) LOTAnimationView *animationSync ;
 @end
 
 @implementation HomeVC
@@ -262,14 +262,20 @@
     [[RACObserve([XTCloudHandler sharedInstance], isSyncingOnICloud) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
         bool isSync = [x boolValue] ;
         if (isSync) {
-            [self.juhua startAnimating] ;
+            [self.animationSync play] ;
         }
         else {
-            [self.juhua stopAnimating] ;
+            [self.animationSync stop] ;
         }
-        
-        self.juhua.hidden = !isSync ;
+        self.animationSync.hidden = !isSync ;
     }] ;
+    
+    [self.view addSubview:self.animationSync] ;
+    [self.animationSync play] ;
+
+    
+    
+    
     
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
         @strongify(self)
@@ -395,6 +401,18 @@
 
 - (CGFloat)movingDistance {
     return  62. / 75. * APP_WIDTH ;
+}
+
+- (LOTAnimationView *)animationSync {
+    if (!_animationSync) {
+        LOTAnimationView *animation = [LOTAnimationView animationNamed:@"userhead_sync_animate" inBundle:[NSBundle bundleForClass:self.class]] ;
+        animation.loopAnimation = YES ;
+        float animateFlex = 8 ;
+        animation.frame = CGRectMake(self.lbUser.frame.origin.x - animateFlex, APP_NAVIGATIONBAR_HEIGHT + self.lbUser.frame.origin.y - animateFlex, self.lbUser.frame.size.width + 2 * animateFlex, self.lbUser.frame.size.height + 2 * animateFlex) ;
+        _animationSync = animation ;
+        [self.view addSubview:_animationSync] ;
+    }
+    return _animationSync ;
 }
 
 @end

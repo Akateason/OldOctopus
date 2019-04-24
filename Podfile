@@ -13,6 +13,7 @@ target 'Notebook' do
   pod 'SDWebImage','<=4.4.6'
   pod 'Bugly'
   pod 'EllipsePageControl'
+  pod 'lottie-ios','2.5.3'
 
   
   

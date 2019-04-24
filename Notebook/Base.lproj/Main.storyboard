@@ -93,14 +93,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="1wt-A7-F2a">
-                                        <rect key="frame" x="208" y="23" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="HDU-8Q-DLX"/>
-                                            <constraint firstAttribute="height" constant="20" id="YV5-qj-5nY"/>
-                                        </constraints>
-                                        <color key="color" red="0.98304289580000004" green="0.32683729090000002" blue="0.36478200849999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOM-bE-UPx">
                                         <rect key="frame" x="17" y="17" width="32" height="32"/>
                                         <color key="backgroundColor" red="0.91495835780000001" green="0.33410280939999998" blue="0.33362057810000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -140,11 +132,9 @@
                                     <constraint firstItem="Iem-sC-USA" firstAttribute="leading" secondItem="sR7-fP-hLo" secondAttribute="trailing" constant="20" id="7vY-KM-UqE"/>
                                     <constraint firstItem="Iem-sC-USA" firstAttribute="centerY" secondItem="aOM-bE-UPx" secondAttribute="centerY" id="A9U-87-ODU"/>
                                     <constraint firstItem="Iem-sC-USA" firstAttribute="top" secondItem="sR7-fP-hLo" secondAttribute="top" id="Do0-PN-NHz"/>
-                                    <constraint firstItem="1wt-A7-F2a" firstAttribute="leading" secondItem="xtt-qN-bwB" secondAttribute="trailing" constant="8" id="IFk-l2-Psu"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="centerY" secondItem="f4z-de-b20" secondAttribute="centerY" id="Lux-fT-Jku"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="leading" secondItem="f4z-de-b20" secondAttribute="trailing" constant="5" id="Wsd-b8-htS"/>
                                     <constraint firstAttribute="trailing" secondItem="Iem-sC-USA" secondAttribute="trailing" constant="15" id="YAx-nN-aNB"/>
-                                    <constraint firstItem="1wt-A7-F2a" firstAttribute="centerY" secondItem="xtt-qN-bwB" secondAttribute="centerY" id="auy-Oc-3xd"/>
                                     <constraint firstItem="aOM-bE-UPx" firstAttribute="top" secondItem="tuM-IH-oeE" secondAttribute="top" constant="17" id="dBK-Qw-SP3"/>
                                     <constraint firstItem="f4z-de-b20" firstAttribute="centerY" secondItem="aOM-bE-UPx" secondAttribute="centerY" id="fYl-cW-olv"/>
                                     <constraint firstItem="f4z-de-b20" firstAttribute="leading" secondItem="aOM-bE-UPx" secondAttribute="trailing" constant="32" id="sYs-Wf-5Vc"/>
@@ -184,7 +174,6 @@
                         <outlet property="bookEmoji" destination="f4z-de-b20" id="Yef-3n-3Hm"/>
                         <outlet property="btAdd" destination="Iem-sC-USA" id="HPF-Ym-dB8"/>
                         <outlet property="btMore" destination="sR7-fP-hLo" id="EPR-2y-V21"/>
-                        <outlet property="juhua" destination="1wt-A7-F2a" id="zwu-I6-A2m"/>
                         <outlet property="lbUser" destination="aOM-bE-UPx" id="RB2-c1-RMu"/>
                         <outlet property="nameOfNoteBook" destination="xtt-qN-bwB" id="2VP-TL-QcT"/>
                         <outlet property="table" destination="xVy-1l-hby" id="0fk-r4-RBD"/>
