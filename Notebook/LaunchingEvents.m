@@ -25,7 +25,8 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 @implementation LaunchingEvents
 
 - (void)setup:(UIApplication *)application {
-    if (!DEBUG) [Bugly startWithAppId:@"8abe605307"] ;
+//    if (!DEBUG)
+        [Bugly startWithAppId:@"8abe605307"] ;
 
     [[MDThemeConfiguration sharedInstance] setup] ;
     [self setupRemoteNotification:application] ;
