@@ -345,6 +345,43 @@
     return [self setupPanList] ;
 }
 
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(NoteCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) return ;
+    
+    cell.lbTitle.alpha = 0. ;
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         cell.lbTitle.alpha = 0.8 ;
+                     }
+                     completion:^(BOOL finished) {
+                         cell.lbTitle.layer.transform = indexPath.row % 2 ? CATransform3DMakeTranslation(-10, 0, 0) : CATransform3DMakeTranslation(10, 0, 0) ;
+                         [UIView animateWithDuration:.4
+                                               delay:0
+                              usingSpringWithDamping:.5
+                               initialSpringVelocity:0
+                                             options:UIViewAnimationOptionAllowUserInteraction
+                                          animations:^{
+                                              cell.lbTitle.layer.transform = CATransform3DIdentity ;
+                                          }
+                                          completion:nil] ;
+                     }] ;
+    
+    cell.layer.transform = CATransform3DMakeScale(0.76, 0.76, 1) ;
+    [UIView animateWithDuration:.25
+                     animations:^{
+                         cell.layer.transform = CATransform3DIdentity ;
+                     }] ;
+    
+    cell.lbDate.alpha = 0. ;
+    cell.lbContent.alpha = 0. ;
+    [UIView animateWithDuration:1.6
+                     animations:^{
+                         cell.lbDate.alpha = 1. ;
+                         cell.lbContent.alpha = 1. ;
+                     }] ;
+}
+
 #pragma mark - MarkdownVCDelegate <NSObject>
 
 - (void)addNoteComplete:(Note *)aNote {
