@@ -270,13 +270,6 @@
         self.animationSync.hidden = !isSync ;
     }] ;
     
-    [self.view addSubview:self.animationSync] ;
-    [self.animationSync play] ;
-
-    
-    
-    
-    
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
         @strongify(self)
         self.lbUser.text = [user.givenName substringToIndex:1] ;
