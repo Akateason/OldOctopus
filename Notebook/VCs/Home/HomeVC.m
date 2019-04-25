@@ -27,9 +27,11 @@
 #import "NewBookVC.h"
 #import <Lottie/Lottie.h>
 #import "GuidingVC.h"
+#import "SchBarPositiveTransition.h"
 
 
-@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource>
+
+@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
@@ -44,6 +46,7 @@
 @property (strong, nonatomic) HomeEmptyPHView *phView ;
 @property (strong, nonatomic) NewBookVC *nBookVC ;
 @property (strong, nonatomic) LOTAnimationView *animationSync ;
+@property (strong, nonatomic) SchBarPositiveTransition *transition ;
 @end
 
 @implementation HomeVC
@@ -444,5 +447,30 @@
     }
     return _animationSync ;
 }
+
+- (SchBarPositiveTransition *)transition {
+    if (!_transition) {
+        _transition = [[SchBarPositiveTransition alloc] initWithPositive:YES] ;
+    }
+    return _transition ;
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    self.transition.isPositive = YES ;
+    return self.transition ;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    self.transition.isPositive = NO ;
+    return self.transition ;
+}
+
+
+
+
+
+
 
 @end

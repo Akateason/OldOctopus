@@ -63,7 +63,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         sender.selected = !sender.selected ;
         
         [circle removeFromSuperview] ;
-    }] ;    
+    }] ;
 }
 
 - (void)viewDidLoad {

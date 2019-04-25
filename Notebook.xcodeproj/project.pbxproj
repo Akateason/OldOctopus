@@ -94,6 +94,7 @@
 		8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A849E2248A6050099E905 /* MDEditUrlView.xib */; };
 		8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */; };
 		8F9BECC0227043E800EAEAD2 /* userhead_sync_animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */; };
+		8FA1420022715E8000A23873 /* SchBarPositiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */; };
 		8FA2294322603C2A00D736E2 /* NSObject+XTThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */; };
 		8FA229452260628200D736E2 /* themeDefault.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA229442260628200D736E2 /* themeDefault.json */; };
 		8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA229472260640700D736E2 /* MDEditorTheme.m */; };
@@ -284,6 +285,8 @@
 		8F7A84A02248AB7A0099E905 /* MDEditUrlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEditUrlView.h; sourceTree = "<group>"; };
 		8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEditUrlView.m; sourceTree = "<group>"; };
 		8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = userhead_sync_animate.json; sourceTree = "<group>"; };
+		8FA141FE22715E8000A23873 /* SchBarPositiveTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SchBarPositiveTransition.h; sourceTree = "<group>"; };
+		8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SchBarPositiveTransition.m; sourceTree = "<group>"; };
 		8FA2294122603C2A00D736E2 /* NSObject+XTThemeColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+XTThemeColor.h"; sourceTree = "<group>"; };
 		8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XTThemeColor.m"; sourceTree = "<group>"; };
 		8FA229442260628200D736E2 /* themeDefault.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themeDefault.json; path = ../../themeDefault.json; sourceTree = "<group>"; };
@@ -761,6 +764,8 @@
 				8FE5A3D8224B6CE800947D14 /* HomeVC.m */,
 				8F79AE782269CD9100E8FD0D /* HomeVC+PanGestureHandler.h */,
 				8F79AE792269CD9100E8FD0D /* HomeVC+PanGestureHandler.m */,
+				8FA141FE22715E8000A23873 /* SchBarPositiveTransition.h */,
+				8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */,
 				8F9BECBE227012F400EAEAD2 /* subviews */,
 			);
 			path = Home;
@@ -1156,6 +1161,7 @@
 				8F679E252238F9D1008DE1BC /* MdInlineModel.m in Sources */,
 				8F7A84482244BD6B0099E905 /* MDNavVC.m in Sources */,
 				8FACF6DC221E8D610067DDA4 /* NSAttributedString+RichTextEditor.m in Sources */,
+				8FA1420022715E8000A23873 /* SchBarPositiveTransition.m in Sources */,
 				8F2A267A226EED740076EBA4 /* GuidingVC.m in Sources */,
 				8FB72910225EF703003A73C1 /* LaunchingEvents.m in Sources */,
 				8FACF6DA221E8D610067DDA4 /* UIView+RichTextEditor.m in Sources */,

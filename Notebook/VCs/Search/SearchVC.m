@@ -13,7 +13,7 @@
 #import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
 #import "MDNavVC.h"
 #import "SearchEmptyVC.h"
-
+#import "SchBarPositiveTransition.h"
 
 @interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
@@ -25,8 +25,11 @@
     SearchVC *vc = [SearchVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"SearchVC"] ;
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:vc] ;
     fromCtrller.definesPresentationContext = YES;
+    navVC.transitioningDelegate = fromCtrller ;
     navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
     [fromCtrller presentViewController:navVC animated:YES completion:nil] ;
+
+//    [fromCtrller.navigationController pushViewController:vc animated:YES] ;
 }
 
 
@@ -40,6 +43,7 @@
         @strongify(self)
         [self.tf resignFirstResponder] ;
         [self dismissViewControllerAnimated:YES completion:nil] ;
+//        [self.navigationController popViewControllerAnimated:YES] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [[[[self.tf.rac_textSignal filter:^BOOL(NSString * _Nullable value) {
@@ -132,6 +136,49 @@
 }
 
 
+
+
+
+
+#pragma mark - <UIViewControllerTransitioningDelegate>
+
+//- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented
+//                                                      presentingViewController:(UIViewController *)presenting
+//                                                          sourceViewController:(UIViewController *)source
+//{
+//    SchBarPositiveTransition *presentation = [[PresentController alloc] initWithPresentedViewController:presented
+//                                                                        presentingViewController:presenting] ;
+//    return presentation;
+//}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                   presentingController:(UIViewController *)presenting
+                                                                       sourceController:(UIViewController *)source
+{
+    SchBarPositiveTransition *tran = [[SchBarPositiveTransition alloc] init] ;
+    return tran ;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+//    if (dismissed) {
+//        AddTransition *present = [[AddTransition alloc] initWithBool:NO] ;
+//        return present ;
+//    }
+//    else {
+        return nil ;
+//    }
+}
+
+//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator
+//{
+//    if (animator) {
+//        return percentDrivenInteractiveTransition ;
+//    }
+//    else {
+//        return nil ;
+//    }
+//}
 
 
 

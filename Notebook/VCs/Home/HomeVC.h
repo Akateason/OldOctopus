@@ -12,9 +12,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeVC : BasicVC
-@property (readonly, weak, nonatomic) IBOutlet UITableView *table;
-@property (readonly, strong, nonatomic) LeftDrawerVC *leftVC ;
-
+@property (readonly, weak, nonatomic) IBOutlet   UITableView    *table;
+@property (readonly, strong, nonatomic)          LeftDrawerVC   *leftVC ;
+@property (nonatomic)                            CGRect         rectSchBarCell ;
 @end
 
 NS_ASSUME_NONNULL_END
