@@ -65,6 +65,8 @@
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         // Sync your note
+        if (!self.aNote) return ;
+        
         self.aNote = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
         
         NSArray *modellist = [self.textView.markdownPaser parseText:self.aNote.content position:self.textView.selectedRange.location textView:self.textView] ; // create models
