@@ -28,7 +28,7 @@
 #import <Lottie/Lottie.h>
 #import "GuidingVC.h"
 #import "SchBarPositiveTransition.h"
-
+#import "TrashEmptyView.h"
 
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, UIViewControllerTransitioningDelegate>
@@ -343,7 +343,13 @@
 }
 
 - (UIView *)makePlaceHolderView {
-    return self.phView ;
+    if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
+        return [TrashEmptyView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+    }
+    else {
+        self.phView.book = self.leftVC.currentBook ;
+        return self.phView ;
+    }
 }
 
 - (BOOL)enableScrollWhenPlaceHolderViewShowing {
@@ -443,9 +449,9 @@
     if (!_phView) {
         _phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         WEAK_SELF
-        [_phView.btNewNote bk_addEventHandler:^(id sender) {
+        [_phView.area bk_whenTapped:^{
             [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
-        } forControlEvents:(UIControlEventTouchUpInside)] ;
+        }] ;
     }
     return _phView ;
 }

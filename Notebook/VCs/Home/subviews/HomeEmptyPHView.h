@@ -7,12 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+@class NoteBooks ;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeEmptyPHView : UIView
-@property (weak, nonatomic) IBOutlet UIButton *btNewNote;
-@property (weak, nonatomic) IBOutlet UIImageView *imgCenter;
+@property (weak, nonatomic) IBOutlet UILabel *lbEmoji;
+@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
+@property (weak, nonatomic) IBOutlet UIView *area;
+@property (weak, nonatomic) IBOutlet UILabel *lbPh;
+@property (weak, nonatomic) IBOutlet UIImageView *imgIcon;
+
+
+@property (strong, nonatomic) NoteBooks *book ;
+
 
 @end
 

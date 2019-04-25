@@ -96,6 +96,10 @@
 		8F9BECC0227043E800EAEAD2 /* userhead_sync_animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */; };
 		8FA1420022715E8000A23873 /* SchBarPositiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */; };
 		8FA142022271B35700A23873 /* home_huifu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA142012271B35700A23873 /* home_huifu@2x.png */; };
+		8FA142042271C5E400A23873 /* book_empty_write_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA142032271C5E400A23873 /* book_empty_write_icon@2x.png */; };
+		8FA142062271D2EE00A23873 /* TrashEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA142052271D2EE00A23873 /* TrashEmptyView.xib */; };
+		8FA142082271D3D100A23873 /* emty_trash_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA142072271D3D100A23873 /* emty_trash_bg@2x.png */; };
+		8FA1420B2271D44D00A23873 /* TrashEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA1420A2271D44D00A23873 /* TrashEmptyView.m */; };
 		8FA2294322603C2A00D736E2 /* NSObject+XTThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */; };
 		8FA229452260628200D736E2 /* themeDefault.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA229442260628200D736E2 /* themeDefault.json */; };
 		8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA229472260640700D736E2 /* MDEditorTheme.m */; };
@@ -289,6 +293,11 @@
 		8FA141FE22715E8000A23873 /* SchBarPositiveTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SchBarPositiveTransition.h; sourceTree = "<group>"; };
 		8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SchBarPositiveTransition.m; sourceTree = "<group>"; };
 		8FA142012271B35700A23873 /* home_huifu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_huifu@2x.png"; sourceTree = "<group>"; };
+		8FA142032271C5E400A23873 /* book_empty_write_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book_empty_write_icon@2x.png"; sourceTree = "<group>"; };
+		8FA142052271D2EE00A23873 /* TrashEmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrashEmptyView.xib; sourceTree = "<group>"; };
+		8FA142072271D3D100A23873 /* emty_trash_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emty_trash_bg@2x.png"; sourceTree = "<group>"; };
+		8FA142092271D44D00A23873 /* TrashEmptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrashEmptyView.h; sourceTree = "<group>"; };
+		8FA1420A2271D44D00A23873 /* TrashEmptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrashEmptyView.m; sourceTree = "<group>"; };
 		8FA2294122603C2A00D736E2 /* NSObject+XTThemeColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+XTThemeColor.h"; sourceTree = "<group>"; };
 		8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XTThemeColor.m"; sourceTree = "<group>"; };
 		8FA229442260628200D736E2 /* themeDefault.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themeDefault.json; path = ../../themeDefault.json; sourceTree = "<group>"; };
@@ -606,6 +615,8 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8FA142072271D3D100A23873 /* emty_trash_bg@2x.png */,
+				8FA142032271C5E400A23873 /* book_empty_write_icon@2x.png */,
 				8F00DD72226F0F780028B5BA /* launchingImage@2x.png */,
 				8F2A2676226EEC830076EBA4 /* guiding_img_3@2x.png */,
 				8F2A2674226EEC010076EBA4 /* guiding_img_2@2x.png */,
@@ -669,6 +680,9 @@
 				8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */,
 				8F303996225217A300DEB656 /* HomeEmptyPHView.h */,
 				8F303997225217A300DEB656 /* HomeEmptyPHView.m */,
+				8FA142052271D2EE00A23873 /* TrashEmptyView.xib */,
+				8FA142092271D44D00A23873 /* TrashEmptyView.h */,
+				8FA1420A2271D44D00A23873 /* TrashEmptyView.m */,
 				8F12DA8C226D9F3600265563 /* HomeSearchCell.h */,
 				8F12DA8D226D9F3600265563 /* HomeSearchCell.m */,
 				8F12DA8E226D9F3600265563 /* HomeSearchCell.xib */,
@@ -947,6 +961,8 @@
 				8F6863CC2267211000261626 /* ld_bt_staging@2x.png in Resources */,
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
 				8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */,
+				8FA142082271D3D100A23873 /* emty_trash_bg@2x.png in Resources */,
+				8FA142062271D2EE00A23873 /* TrashEmptyView.xib in Resources */,
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
 				8F41EED1225B487300D9CD35 /* m_note_close@2x.png in Resources */,
 				8F07D65A224CF614005BA86D /* ld_bt_trash@2x.png in Resources */,
@@ -1006,6 +1022,7 @@
 				8F7A84712244E1EB0099E905 /* md_tb_bt_olist@2x.png in Resources */,
 				8FC431202265B8330002C9A1 /* md_home_search@2x.png in Resources */,
 				8F2A2675226EEC010076EBA4 /* guiding_img_2@2x.png in Resources */,
+				8FA142042271C5E400A23873 /* book_empty_write_icon@2x.png in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
 				8F6863C52266FB2700261626 /* search_empty@2x.png in Resources */,
 				8FFBBB4A224B278000A304C7 /* MDEKPhotoViewCell.xib in Resources */,
@@ -1189,6 +1206,7 @@
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,
 				8FA2295922646A9500D736E2 /* ArticleInfoVC.m in Sources */,
+				8FA1420B2271D44D00A23873 /* TrashEmptyView.m in Sources */,
 				8FE5A3F0224CA86A00947D14 /* LDNotebookCell.m in Sources */,
 				8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */,
 				8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */,

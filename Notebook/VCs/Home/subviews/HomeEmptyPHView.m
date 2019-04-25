@@ -8,6 +8,10 @@
 
 #import "HomeEmptyPHView.h"
 #import "MDThemeConfiguration.h"
+#import "NoteBooks.h"
+#import "XTCloudHandler.h"
+
+#define HE_oceanList    @[@"🐙",@"🐢",@"🦂",@"🦀",@"🦑",@"🦐",@"🐠",@"🐟",@"🐬",@"🐡",@"🦈",@"🐳",@"🐋",@"🐊"]
 
 @implementation HomeEmptyPHView
 
@@ -16,9 +20,78 @@
     [super awakeFromNib] ;
     
     self.xt_theme_backgroundColor = k_md_bgColor ;
-    self.btNewNote.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
-    self.imgCenter.xt_theme_imageColor = k_md_iconColor ;
+    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+    self.imgIcon.xt_theme_imageColor = k_md_iconColor ;
+    self.area.xt_theme_backgroundColor = k_md_bgColor ;
+    self.lbPh.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    
+    self.area.layer.cornerRadius = 10 ;
+    self.area.xt_borderColor = [UIColor colorWithRed:51./255.0 green:51./255.0 blue:51./255.0 alpha:0.06] ;
+    self.area.xt_borderWidth = .5 ;
+    
+    self.area.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.06].CGColor;
+    self.area.layer.shadowOffset = CGSizeMake(0,4) ;
+    self.area.layer.shadowOpacity = 40 ;
+    self.area.layer.shadowRadius = .06 ;
+    
 }
+
+
+- (void)setBook:(NoteBooks *)book {
+    _book = book ;
+    
+    NSArray *oList = HE_oceanList ;
+    int random = arc4random() % oList.count ;
+    self.lbEmoji.text = oList[random] ;
+    
+    switch (self.book.vType) {
+        case Notebook_Type_notebook: {
+            self.lbTitle.text = @"还没有任何笔记" ;
+            self.lbTitle.font = [UIFont systemFontOfSize:18] ;
+            self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+        }
+            break;
+        case Notebook_Type_staging: {
+            self.lbTitle.text = @"不在笔记本中的笔记将放到这里" ;
+            self.lbTitle.font = [UIFont systemFontOfSize:18] ;
+            self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+        }
+            break;
+        case Notebook_Type_recent: {
+            NSString *dateStr = [[NSDate date] xt_getStrWithFormat:@"HH"] ;
+            int hour = [dateStr intValue] ;
+            if (hour >= 4 && hour < 12) {
+                dateStr = @"早上好" ;
+            }
+            else if (hour >= 12 && hour < 18) {
+                dateStr = @"下午好" ;
+            }
+            else if (hour >= 18 && hour < 24) {
+                dateStr = @"晚上好" ;
+            }
+            else if (hour >= 0 && hour < 4) {
+                dateStr = @"深夜好" ;
+            }
+            
+            self.lbTitle.xt_theme_textColor = k_md_textColor ;
+            self.lbTitle.text = XT_STR_FORMAT(@"%@，%@",dateStr, [XTIcloudUser userInCacheSyncGet].givenName) ;
+            self.lbTitle.font = [UIFont boldSystemFontOfSize:27] ;
+        }
+            break;
+        case Notebook_Type_trash: {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+
+}
+
+
+
+ 
 
 
 
