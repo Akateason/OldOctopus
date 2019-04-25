@@ -102,6 +102,8 @@
     
     [self.leftVC render] ;
     [self.table xt_loadNewInfoInBackGround:YES] ;
+    
+    
 }
 
 - (void)renderTable:(void(^)(void))completion {
@@ -293,6 +295,8 @@
 - (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
     [self renderTable:^{
         endRefresh() ;
+        
+//        self.table.mj_offsetY = [HomeSearchCell xt_cellHeight] ;
     }] ;
 }
 
@@ -384,6 +388,19 @@
                          cell.lbContent.alpha = 1. ;
                      }] ;
 }
+
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    NSLog(@"%f",scrollView.mj_offsetY) ;
+//
+////    float searchHeight = [HomeSearchCell xt_cellHeight] ;
+////    if (scrollView.mj_offsetY > - searchHeight) {
+////
+////    }
+////    else {
+////
+////    }
+//}
+
 
 #pragma mark - MarkdownVCDelegate <NSObject>
 

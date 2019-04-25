@@ -95,6 +95,7 @@
 		8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */; };
 		8F9BECC0227043E800EAEAD2 /* userhead_sync_animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */; };
 		8FA1420022715E8000A23873 /* SchBarPositiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */; };
+		8FA142022271B35700A23873 /* home_huifu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA142012271B35700A23873 /* home_huifu@2x.png */; };
 		8FA2294322603C2A00D736E2 /* NSObject+XTThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */; };
 		8FA229452260628200D736E2 /* themeDefault.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FA229442260628200D736E2 /* themeDefault.json */; };
 		8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA229472260640700D736E2 /* MDEditorTheme.m */; };
@@ -287,6 +288,7 @@
 		8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = userhead_sync_animate.json; sourceTree = "<group>"; };
 		8FA141FE22715E8000A23873 /* SchBarPositiveTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SchBarPositiveTransition.h; sourceTree = "<group>"; };
 		8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SchBarPositiveTransition.m; sourceTree = "<group>"; };
+		8FA142012271B35700A23873 /* home_huifu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_huifu@2x.png"; sourceTree = "<group>"; };
 		8FA2294122603C2A00D736E2 /* NSObject+XTThemeColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+XTThemeColor.h"; sourceTree = "<group>"; };
 		8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XTThemeColor.m"; sourceTree = "<group>"; };
 		8FA229442260628200D736E2 /* themeDefault.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themeDefault.json; path = ../../themeDefault.json; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 				8F41EED6225C4CA700D9CD35 /* home_edit_book@2x.png */,
 				8F41EED2225B4B6000D9CD35 /* m_note_right_paint@2x.png */,
 				8F41EED0225B487200D9CD35 /* m_note_close@2x.png */,
+				8FA142012271B35700A23873 /* home_huifu@2x.png */,
 				8F41EECA225B404200D9CD35 /* home_move_note@2x.png */,
 				8F41EEC8225B3E3900D9CD35 /* home_del_note@2x.png */,
 				8FEA9E4D225B35A7002A756B /* home_empty@2x.png */,
@@ -988,6 +991,7 @@
 				8F7A848B2244E4440099E905 /* md_tb_bt_deletion@2x.png in Resources */,
 				8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */,
 				8F6863D1226726B400261626 /* ld_theme_night@2x.png in Resources */,
+				8FA142022271B35700A23873 /* home_huifu@2x.png in Resources */,
 				8F7A84682244E1EB0099E905 /* md_tb_bt_h4@2x.png in Resources */,
 				8F7A847C2244E1EB0099E905 /* md_tb_bt_tasklist@2x.png in Resources */,
 				8FEA9E392254D11B002A756B /* home_title_add@2x.png in Resources */,

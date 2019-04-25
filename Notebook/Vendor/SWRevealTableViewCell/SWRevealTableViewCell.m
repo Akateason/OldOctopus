@@ -111,22 +111,6 @@ static UIImage* _imageWithColor_size(UIColor* color, CGSize size)
     return self;
 }
 
-
-//- (id)copyWithZone:(NSZone *)zone
-//{
-//    SWCellButtonItem *theCopy = [[self class] allocWithZone:zone];
-//    theCopy.width = _width;
-//    theCopy.image = _image;
-//    theCopy.backgroundColor = _backgroundColor;
-//    theCopy.tintColor = _tintColor;
-//    theCopy.title = _title;
-//    theCopy.visualEffect = _visualEffect;
-//    theCopy.handler = _handler;
-//    theCopy.view = _view;
-//    return theCopy;
-//}
-
-
 - (instancetype)initWithTitle:(NSString *)title image:(UIImage*)image handler:(BOOL(^)(SWCellButtonItem *, SWRevealTableViewCell* cell))handler;
 {
     self = [super init];
@@ -140,8 +124,7 @@ static UIImage* _imageWithColor_size(UIColor* color, CGSize size)
 }
 
 
-- (void)setBackgroundColor:(UIColor *)color
-{
+- (void)setBackgroundColor:(UIColor *)color {
     CGFloat c1,c2,c3;
     CGFloat alpha = 0;
     BOOL ok = [color getRed:&c1 green:&c2 blue:&c3 alpha:&alpha];
@@ -182,6 +165,7 @@ static UIImage* _imageWithColor_size(UIColor* color, CGSize size)
 @implementation SWUtilityButton
 
 const CGFloat CombinedHeigh = 36;
+const CGFloat k_flex_tune = 3 ;
 
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
@@ -190,7 +174,7 @@ const CGFloat CombinedHeigh = 36;
     {
         const CGFloat h = CombinedHeigh;
         const CGFloat gap = ceil((frame.size.height - h)/2);
-        frame.origin.y = gap;
+        frame.origin.y = gap - k_flex_tune;
         frame.size.height = ceil(h*2/3);
     }
 
@@ -205,7 +189,7 @@ const CGFloat CombinedHeigh = 36;
     {
         const CGFloat h = CombinedHeigh;
         const CGFloat gap = ceil((frame.size.height - h)/2);
-        frame.origin.y = gap + floor(h*2/3);
+        frame.origin.y = gap + floor(h*2/3) + k_flex_tune;
         frame.size.height = ceil(h*1/3);
     }
 
