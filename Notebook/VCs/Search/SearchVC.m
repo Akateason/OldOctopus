@@ -17,19 +17,23 @@
 
 @interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
+@property (nonatomic) BOOL isTrash ;
 @end
 
 @implementation SearchVC
 
 + (void)showSearchVCFrom:(UIViewController *)fromCtrller {
+    [self showSearchVCFrom:fromCtrller inTrash:NO] ;
+}
+
++ (void)showSearchVCFrom:(UIViewController *)fromCtrller inTrash:(BOOL)inTrash {
     SearchVC *vc = [SearchVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"SearchVC"] ;
+    vc.isTrash = inTrash ;
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:vc] ;
     fromCtrller.definesPresentationContext = YES;
     navVC.transitioningDelegate = fromCtrller ;
     navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
     [fromCtrller presentViewController:navVC animated:YES completion:nil] ;
-
-//    [fromCtrller.navigationController pushViewController:vc animated:YES] ;
 }
 
 
@@ -96,7 +100,9 @@
 - (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
     NSString *searchForText = self.tf.text ;
     if (searchForText.length) {
-        NSArray *list = [Note xt_findWhere:XT_STR_FORMAT(@"searchContent like '%%%@%%'",searchForText)] ;
+        NSString *sql = self.isTrash ? XT_STR_FORMAT(@"searchContent like '%%%@%%' and isDeleted == 1",searchForText)
+        : XT_STR_FORMAT(@"searchContent like '%%%@%%'",searchForText) ;
+        NSArray *list = [Note xt_findWhere:sql] ;
         self.listResult = list ;
     }
     else
@@ -139,46 +145,6 @@
 
 
 
-
-#pragma mark - <UIViewControllerTransitioningDelegate>
-
-//- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented
-//                                                      presentingViewController:(UIViewController *)presenting
-//                                                          sourceViewController:(UIViewController *)source
-//{
-//    SchBarPositiveTransition *presentation = [[PresentController alloc] initWithPresentedViewController:presented
-//                                                                        presentingViewController:presenting] ;
-//    return presentation;
-//}
-
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
-                                                                   presentingController:(UIViewController *)presenting
-                                                                       sourceController:(UIViewController *)source
-{
-    SchBarPositiveTransition *tran = [[SchBarPositiveTransition alloc] init] ;
-    return tran ;
-}
-
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
-{
-//    if (dismissed) {
-//        AddTransition *present = [[AddTransition alloc] initWithBool:NO] ;
-//        return present ;
-//    }
-//    else {
-        return nil ;
-//    }
-}
-
-//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator
-//{
-//    if (animator) {
-//        return percentDrivenInteractiveTransition ;
-//    }
-//    else {
-//        return nil ;
-//    }
-//}
 
 
 

@@ -319,6 +319,8 @@
     cell.revealPosition = SWCellRevealPositionRightExtended ;
     cell.draggableBorderWidth = 200 ;
     cell.dataSource = self ;
+    [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
+    
     return cell ;
 }
 
@@ -331,7 +333,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        [SearchVC showSearchVCFrom:self] ;
+        [SearchVC showSearchVCFrom:self inTrash:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
         return ;
     }
     
@@ -351,7 +353,6 @@
 - (NSArray *)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)cell1 {
     return [self setupPanList] ;
 }
-
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(NoteCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) return ;

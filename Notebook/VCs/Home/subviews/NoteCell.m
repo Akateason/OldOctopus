@@ -47,6 +47,17 @@ static int kLimitCount = 70 ;
     _lbDate.text = [[NSDate xt_getDateWithTick:note.modifyDateOnServer] xt_timeInfo] ;
 }
 
+- (void)trashMode:(BOOL)isTrashmode {
+    if (isTrashmode) {
+        _lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+        _lbContent.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    }
+    else {
+        _lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+        _lbContent.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    }
+}
+
 + (CGFloat)xt_cellHeight {
     return 120 ;
 }
@@ -60,9 +71,6 @@ static int kLimitCount = 70 ;
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"`" withString:@""] ;
     return markdownStr ;
 }
-
-
-
 
 - (void)setTextForSearching:(NSString *)textForSearching {
     _textForSearching = textForSearching ;

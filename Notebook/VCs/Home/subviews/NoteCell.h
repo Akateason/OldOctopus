@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbDate;
 
 @property (copy, nonatomic) NSString *textForSearching ;
+- (void)trashMode:(BOOL)isTrashmode ;
 
 @end
 

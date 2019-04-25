@@ -36,7 +36,7 @@
         }] ;
         item1.xt_theme_backgroundColor = k_md_themeColor ;
         item1.tintColor = [UIColor whiteColor] ;
-        item1.width = 60 ;
+        item1.width = 90 ;
         item1.image = [UIImage imageNamed:@"home_del_note"] ;
         
         
@@ -63,7 +63,7 @@
         }] ;
         item2.backgroundColor = [UIColor darkGrayColor] ;
         item2.tintColor = [UIColor whiteColor] ;
-        item2.width = 60 ;
+        item2.width = 90 ;
         item2.image = [UIImage imageNamed:@"home_huifu"] ;
         
         return @[item1,item2] ;
@@ -84,7 +84,7 @@
         }] ;
         item1.xt_theme_backgroundColor = k_md_themeColor ;
         item1.tintColor = [UIColor whiteColor] ;
-        item1.width = 60 ;
+        item1.width = 90 ;
         item1.image = [UIImage imageNamed:@"home_del_note"] ;
         
         
@@ -103,7 +103,7 @@
         }] ;
         item2.backgroundColor = [UIColor darkGrayColor] ;
         item2.tintColor = [UIColor whiteColor] ;
-        item2.width = 60 ;
+        item2.width = 90 ;
         item2.image = [UIImage imageNamed:@"home_move_note"] ;
         
         return @[item1,item2] ;

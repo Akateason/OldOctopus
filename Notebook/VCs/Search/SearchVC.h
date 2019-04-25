@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
 + (void)showSearchVCFrom:(UIViewController *)fromCtrller ;
++ (void)showSearchVCFrom:(UIViewController *)fromCtrller inTrash:(BOOL)inTrash ;
 
 @end
 
