@@ -104,10 +104,6 @@
          }
      }]  ;
     
-    [self.leftVC render] ;
-    [self.table xt_loadNewInfoInBackGround:YES] ;
-    
-    
 }
 
 - (void)renderTable:(void(^)(void))completion {

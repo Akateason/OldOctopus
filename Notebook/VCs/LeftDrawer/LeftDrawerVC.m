@@ -278,11 +278,11 @@ typedef void(^BlkTapBookCell)(void);
         NoteBooks *aBook = ((LDNotebookCell *)cell).xt_model ;
         [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"删除笔记本" message:@"删除笔记本会将此笔记本内的文章都移入回收站" cancelButtonTitle:@"取消" destructiveButtonTitle:@"确认" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
             if (btnIndex == 1) {
+                
                 [NoteBooks deleteBook:aBook done:^{
                     self.currentBook = nil ;
                     [self render] ;
                 }] ;
-                
                 
             }
         }] ;
