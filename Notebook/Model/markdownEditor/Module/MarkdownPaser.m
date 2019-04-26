@@ -50,7 +50,7 @@
         _modelList = @[] ;
         _imgManager = [MDImageManager new] ;
     }
-    return self;
+    return self ;
 }
 
 - (NSRegularExpression *)getRegularExpressionFromMarkdownSyntaxType:(MarkdownSyntaxType)type {
@@ -66,7 +66,7 @@
             return regexp(MDPR_orderlist, NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxULLists:
             return regexp(MDPR_bulletlist, NSRegularExpressionAnchorsMatchLines);
-            
+        
         case MarkdownSyntaxBlockquotes:
             return regexp(MDPR_blockquote,NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxCodeBlock:
@@ -118,9 +118,7 @@
     NSRegularExpression *expPara = regexp(MDPR_paragraph, NSRegularExpressionAnchorsMatchLines) ;
     NSArray *matsPara = [expPara matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
     for (NSTextCheckingResult *result in matsPara) {
-        MarkdownModel *model = [MarkdownModel modelWithType:-1
-                                                      range:result.range
-                                                        str:[text substringWithRange:result.range]] ;
+        MarkdownModel *model = [MarkdownModel modelWithType:-1 range:result.range str:[text substringWithRange:result.range]] ;
         [paralist addObject:model] ;
     }
     self.paraList = paralist ;
@@ -359,8 +357,6 @@
     return nil ;
 }
 
-
-
 - (NSString *)stringTitleOfPosition:(NSUInteger)position model:(MarkdownModel *)model {
     if (model.type == MarkdownSyntaxHeaders) {
         // header
@@ -479,9 +475,9 @@
 
 - (NSTextAttachment *)attachmentStandardFromImage:(UIImage *)image {
     NSTextAttachment *attachment = [[NSTextAttachment alloc] init] ;
-    attachment.image             = image;
+    attachment.image             = image ;
     CGFloat tvWid                = APP_WIDTH - 10 - kMDEditor_FlexValue ;
-    CGSize resultImgSize         = CGSizeMake(tvWid, tvWid / image.size.width * image.size.height);
+    CGSize resultImgSize         = CGSizeMake(tvWid, tvWid / image.size.width * image.size.height) ;
     CGRect rect                  = (CGRect){CGPointZero, resultImgSize};
     attachment.bounds            = rect;
     return attachment ;

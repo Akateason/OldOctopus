@@ -125,8 +125,6 @@
     [self.delegate editNoteComplete:self.aNote] ;
 }
 
-
-
 #pragma mark - UI
 
 - (void)prepareUI {
