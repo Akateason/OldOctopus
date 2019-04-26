@@ -25,6 +25,7 @@
     self.imgIcon.xt_theme_imageColor = k_md_iconColor ;
     self.area.xt_theme_backgroundColor = k_md_bgColor ;
     self.lbPh.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    self.lbTitle.font = [UIFont systemFontOfSize:18] ;
     
     self.area.layer.cornerRadius = 10 ;
     self.area.xt_borderColor = [UIColor colorWithRed:51./255.0 green:51./255.0 blue:51./255.0 alpha:0.06] ;
@@ -41,7 +42,6 @@
         @strongify(self)
         [self start] ;
     }] ;
-    
 }
 
 
@@ -52,20 +52,17 @@
         if (!self.isMark) {
             self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
             self.lbTitle.text = [self welcomeString] ;
-            self.lbTitle.font = [UIFont boldSystemFontOfSize:27] ;
         }
         else {
             switch (self.book.vType) {
                 case Notebook_Type_recent:
                 case Notebook_Type_notebook: {
                     self.lbTitle.text = @"还没有任何笔记" ;
-                    self.lbTitle.font = [UIFont systemFontOfSize:18] ;
                     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
                 }
                     break;
                 case Notebook_Type_staging: {
                     self.lbTitle.text = @"不在笔记本中的笔记将放到这里" ;
-                    self.lbTitle.font = [UIFont systemFontOfSize:18] ;
                     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
                 }
                     break;
