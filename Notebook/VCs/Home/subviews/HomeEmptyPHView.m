@@ -50,7 +50,7 @@
     [UIView transitionWithView:self.lbTitle duration:1 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         
         if (!self.isMark) {
-            self.lbTitle.xt_theme_textColor = k_md_textColor ;
+            self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
             self.lbTitle.text = [self welcomeString] ;
             self.lbTitle.font = [UIFont boldSystemFontOfSize:27] ;
         }
@@ -72,13 +72,11 @@
                 default:
                     break;
             }
-
         }
         
         self.isMark = !self.isMark ;
         
     } completion:^(BOOL finished) {
-        
         
     }] ;
     
