@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NoteBooks *book ;
 @property (nonatomic) BOOL isMark ;
-//- (void)start ;
+
 
 @end
 

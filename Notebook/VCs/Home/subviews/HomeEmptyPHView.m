@@ -89,14 +89,7 @@
     } completion:^(BOOL finished) {
         
     }] ;
-    
-    
 }
-
-
-//- (void)setBook:(NoteBooks *)book {
-//    _book = book ;
-//}
 
 
 - (NSString *)welcomeString {
