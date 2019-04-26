@@ -103,7 +103,6 @@
              [events icloudSync:^{}] ;
          }
      }]  ;
-    
 }
 
 - (void)renderTable:(void(^)(void))completion {
