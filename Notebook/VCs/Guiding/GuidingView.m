@@ -11,14 +11,20 @@
 
 @implementation GuidingView
 
+- (void)layoutSubviews {
+    
+    self.v1.size = [UIView currentScreenBoundsDependOnOrientation].size ;
+    self.v2.size = [UIView currentScreenBoundsDependOnOrientation].size ;
+    self.v3.size = [UIView currentScreenBoundsDependOnOrientation].size ;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     
     
-    self.v1.size = APPFRAME.size ;
-    self.v2.size = APPFRAME.size ;
-    self.v3.size = APPFRAME.size ;
+    self.v1.size = [UIView currentScreenBoundsDependOnOrientation].size ;
+    self.v2.size = [UIView currentScreenBoundsDependOnOrientation].size ;
+    self.v3.size = [UIView currentScreenBoundsDependOnOrientation].size ;
     
     self.lb1.textColor = [[MDThemeConfiguration sharedInstance] themeColor:XT_MAKE_theme_color(k_md_textColor, .5)] ;
     self.lb2.textColor = [[MDThemeConfiguration sharedInstance] themeColor:XT_MAKE_theme_color(k_md_textColor, .5)] ;

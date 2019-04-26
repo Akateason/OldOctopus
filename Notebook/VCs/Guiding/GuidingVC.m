@@ -33,22 +33,45 @@ static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay
 }
 
 
+//
+//- (BOOL)shouldAutorotate {
+//    return NO;
+//}
+//
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+//    return UIInterfaceOrientationMaskPortrait;
+//}
+//
+//- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+//    return UIInterfaceOrientationPortrait;
+//}
+//
+
+
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews] ;
+    
+    self.scrollView.frame = [UIView currentScreenBoundsDependOnOrientation] ;
+    self.scrollView.contentSize = CGSizeMake([UIView currentScreenBoundsDependOnOrientation].size.width * 3, [UIView currentScreenBoundsDependOnOrientation].size.height) ;
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
     self.scrollView = ({
         UIScrollView *scroll = [[UIScrollView alloc] init] ;
-        scroll.frame = APPFRAME ;
+        scroll.frame = [UIView currentScreenBoundsDependOnOrientation] ;
         [self.view addSubview:scroll] ;
         scroll ;
     }) ;
     
     GuidingView *guidView = [GuidingView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-    guidView.frame = CGRectMake(0, 0, APP_WIDTH * 3, APP_HEIGHT) ;
+    guidView.frame = CGRectMake(0, 0, [UIView currentScreenBoundsDependOnOrientation].size.width * 3, [UIView currentScreenBoundsDependOnOrientation].size.height) ;
     [self.scrollView addSubview:guidView] ;
     
-    self.scrollView.contentSize = CGSizeMake(APP_WIDTH * 3, APP_HEIGHT) ;
+    self.scrollView.contentSize = CGSizeMake([UIView currentScreenBoundsDependOnOrientation].size.width * 3, [UIView currentScreenBoundsDependOnOrientation].size.height) ;
     self.scrollView.showsHorizontalScrollIndicator = NO ;
     self.scrollView.showsVerticalScrollIndicator   = NO ;
     self.scrollView.pagingEnabled = YES ;
@@ -63,7 +86,7 @@ static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay
     
     
     _pageCtrl = [[EllipsePageControl alloc] init] ;
-    _pageCtrl.frame = CGRectMake(0, APP_HEIGHT - 30 - 50,[UIScreen mainScreen].bounds.size.width, 30);
+    _pageCtrl.frame = CGRectMake(0, [UIView currentScreenBoundsDependOnOrientation].size.height - 30 - 50,[UIView currentScreenBoundsDependOnOrientation].size.width, 30);
     _pageCtrl.numberOfPages = 3 ;
     _pageCtrl.delegate = self ;
     _pageCtrl.currentColor = [[MDThemeConfiguration sharedInstance] themeColor:k_md_themeColor] ;
@@ -79,7 +102,7 @@ static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay
 #pragma mark - scrollview
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    int index = scrollView.mj_offsetX / APP_WIDTH ;
+    int index = scrollView.mj_offsetX / [UIView currentScreenBoundsDependOnOrientation].size.width ;
     if (_pageCtrl.currentPage != index) {
         self.pageCtrl.currentPage = index ;
     }
@@ -88,11 +111,11 @@ static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay
 #pragma mark - EllipsePageControlDelegate
 
 - (void)ellipsePageControlClick:(EllipsePageControl *)pageControl index:(NSInteger)clickIndex {
-    int index = self.scrollView.mj_offsetX / APP_WIDTH ;
+    int index = self.scrollView.mj_offsetX / [UIView currentScreenBoundsDependOnOrientation].size.width ;
     if (clickIndex == index) return ;
     
     [UIView animateWithDuration:.6 delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
-        self.scrollView.mj_offsetX = clickIndex * APP_WIDTH ;
+        self.scrollView.mj_offsetX = clickIndex * [UIView currentScreenBoundsDependOnOrientation].size.width ;
     } completion:^(BOOL finished) {
         
     }] ;

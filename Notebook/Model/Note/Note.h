@@ -18,6 +18,8 @@
 @property (strong, nonatomic) CKRecord *record ;
 @property (copy, nonatomic) NSString *icRecordName ;
 @property (nonatomic)       long long modifyDateOnServer ;
+@property (nonatomic)       long long createDateOnServer ;
+
 
 // icloud
 @property (copy, nonatomic) NSString *content ; // ignore local

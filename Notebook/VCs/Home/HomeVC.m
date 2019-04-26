@@ -185,7 +185,7 @@
         }
         
         @weakify(self)
-        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"🖋 新建笔记",@"📒 新建笔记本"] callBackBlock:^(NSInteger btnIndex) {
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"🖋 新建笔记",@"📒 新建笔记本"] fromWithView:self.btAdd CallBackBlock:^(NSInteger btnIndex) {
             @strongify(self)
             if (btnIndex == 1) {
                 [MarkdownVC newWithNote:nil bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
@@ -216,7 +216,7 @@
             return ;
         }
         @weakify(self)
-        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除笔记本" otherButtonTitles:@[@"重命名笔记本"] callBackBlock:^(NSInteger btnIndex) {
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除笔记本" otherButtonTitles:@[@"重命名笔记本"] fromWithView:self.btMore CallBackBlock:^(NSInteger btnIndex) {
             @strongify(self)
             if (btnIndex == 1) { //  rename book
                 __block NoteBooks *aBook = self.leftVC.currentBook ;
@@ -464,9 +464,10 @@
         LOTAnimationView *animation = [LOTAnimationView animationNamed:@"userhead_sync_animate" inBundle:[NSBundle bundleForClass:self.class]] ;
         animation.loopAnimation = YES ;
         float animateFlex = 8 ;
-        animation.frame = CGRectMake(self.lbUser.frame.origin.x - animateFlex, APP_NAVIGATIONBAR_HEIGHT + self.lbUser.frame.origin.y - animateFlex, self.lbUser.frame.size.width + 2 * animateFlex, self.lbUser.frame.size.height + 2 * animateFlex) ;
+        animation.frame = [self.topArea convertRect:self.lbUser.frame fromView:self.topArea] ;
+        animation.frame = CGRectMake(animation.frame.origin.x - animateFlex, animation.frame.origin.y - animateFlex, animation.frame.size.width + 2 * animateFlex, animation.frame.size.height + 2 * animateFlex) ;
         _animationSync = animation ;
-        [self.view addSubview:_animationSync] ;
+        [self.topArea addSubview:_animationSync] ;
     }
     return _animationSync ;
 }

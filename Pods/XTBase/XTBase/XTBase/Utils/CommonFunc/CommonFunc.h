@@ -45,5 +45,6 @@
 
 #pragma mark - 设备名
 - (NSString *)getDeviceName;
++ (BOOL)getIsIpad ;
 
 @end

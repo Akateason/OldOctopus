@@ -168,7 +168,7 @@
         NSMutableArray *tmplist = [@[] mutableCopy] ;
         [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             Note *aNote = [Note recordToNote:obj] ;
-            aNote.xt_createTime = [obj.creationDate xt_getTick] ;
+            aNote.createDateOnServer = [obj.creationDate xt_getTick] ;
             aNote.modifyDateOnServer = [obj.modificationDate xt_getTick] ;
             aNote.isSendOnICloud = YES ;
             [tmplist addObject:aNote] ;

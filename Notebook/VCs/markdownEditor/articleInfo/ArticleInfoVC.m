@@ -46,7 +46,7 @@
 - (void)bind {
     NoteBooks *book = [NoteBooks xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.noteBookId)] ;
     self.lbBookName.text = book.displayBookName ;
-    self.lbCreateTime.text = [NSDate xt_getStrWithTick:self.aNote.xt_createTime format:kTIME_STR_FORMAT_YYYY_MM_dd_HH_mm] ;
+    self.lbCreateTime.text = [NSDate xt_getStrWithTick:self.aNote.createDateOnServer format:kTIME_STR_FORMAT_YYYY_MM_dd_HH_mm] ;
     self.lbUpdateTime.text = [NSDate xt_getStrWithTick:self.aNote.modifyDateOnServer format:kTIME_STR_FORMAT_YYYY_MM_dd_HH_mm] ;
     self.lbCountOfWord.text = @(self.parser.countForWord).stringValue ;
     self.lbCountOfCharactor.text = @(self.parser.countForCharactor).stringValue ;

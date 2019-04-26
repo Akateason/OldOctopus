@@ -48,7 +48,7 @@
 
 + (void)fetchAllNoteBook:(void(^)(NSArray<NoteBooks *> *array))completion {
     
-    NSArray *tmplist = [[NoteBooks xt_findWhere:@"isDeleted == 0"] xt_orderby:@"xt_createTime" descOrAsc:0] ;
+    NSArray *tmplist = [[NoteBooks xt_findWhere:@"isDeleted == 0"] xt_orderby:@"createDateOnServer" descOrAsc:0] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         completion(tmplist) ;
@@ -113,6 +113,7 @@
         }
         else {
             // false
+            
         }
     }] ;        
 }
@@ -129,7 +130,7 @@
         NSMutableArray *tmplist = [@[] mutableCopy] ;
         [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NoteBooks *aBook = [NoteBooks recordToNoteBooks:obj] ;
-            aBook.xt_createTime = [obj.creationDate xt_getTick] ;
+            aBook.createDateOnServer = [obj.creationDate xt_getTick] ;
             aBook.modifyDateOnServer = [obj.modificationDate xt_getTick] ;
             aBook.isSendOnICloud = YES ;
             [tmplist addObject:aBook] ;

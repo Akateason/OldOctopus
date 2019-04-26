@@ -211,7 +211,8 @@ static const int kTagOfButton = 88390 ;
 
 - (void)buttonH_onClicked {
     WEAK_SELF
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"H1",@"H2",@"H3",@"H4",@"H5",@"H6",@"非标题"] callBackBlock:^(NSInteger btnIndex) {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleActionSheet title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"H1",@"H2",@"H3",@"H4",@"H5",@"H6",@"非标题"] fromWithView:self.scrollview CallBackBlock:^(NSInteger btnIndex) {
+        
         switch (btnIndex) {
             case 1: [weakSelf.mdt_delegate toolbarDidSelectH1] ; break ;
             case 2: [weakSelf.mdt_delegate toolbarDidSelectH2] ; break ;
@@ -224,8 +225,12 @@ static const int kTagOfButton = 88390 ;
             default:
                 break;
         }
-        
+
     }] ;
+    
+    
+
+    
 }
 
 - (UIScrollView *)scrollview{

@@ -116,6 +116,7 @@ typedef void(^BlkTapBookCell)(void);
         @strongify(self)
         [self setCurrentBook:self.bookTrash] ;
         self.blkBookChanged(self.bookTrash) ;
+        self.blkTapped() ;
     }] ;
     
     
@@ -211,6 +212,7 @@ typedef void(^BlkTapBookCell)(void);
     self.bookTrash.isOnSelect = NO ;
     [self setCurrentBook:abook] ;
     self.blkBookChanged(self.currentBook) ;
+    self.blkTapped() ;
 }
 
 - (void)addbook {

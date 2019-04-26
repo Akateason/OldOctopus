@@ -68,7 +68,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prp-yi-AzN">
                             <rect key="frame" x="211.5" y="1031" width="240" height="38.5"/>
                             <string key="text">iCloud一键登录
-Mac 与 iphone 内容实时同步存储</string>
+Mac 与 iPhone 内容实时同步存储</string>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>

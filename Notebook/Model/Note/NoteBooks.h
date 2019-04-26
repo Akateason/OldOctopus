@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSString *icRecordName ;
 @property (strong, nonatomic) CKRecord *record ;
 @property (nonatomic)       long long modifyDateOnServer ;
+@property (nonatomic)       long long createDateOnServer ;
+
 
 // icloud
 @property (copy, nonatomic) NSString *emoji ;
