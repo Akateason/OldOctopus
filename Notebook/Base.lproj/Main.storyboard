@@ -310,7 +310,6 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="EwH-TK-QZt"/>
                                         </constraints>
                                         <state key="normal" image="ld_theme_night.png"/>
-                                        <state key="selected" image="ld_theme_day.png"/>
                                         <connections>
                                             <action selector="themeChange:" destination="C7r-Ea-0Bq" eventType="touchUpInside" id="GUf-uf-8aK"/>
                                         </connections>
@@ -664,7 +663,6 @@
     <resources>
         <image name="home_bar_add.png" width="40" height="40"/>
         <image name="ld_bt_trash.png" width="48" height="48"/>
-        <image name="ld_theme_day.png" width="48" height="48"/>
         <image name="ld_theme_night.png" width="48" height="48"/>
         <image name="m_note_close.png" width="36" height="36"/>
         <image name="m_note_right_paint.png" width="88" height="158"/>

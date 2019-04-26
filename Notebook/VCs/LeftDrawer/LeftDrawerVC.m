@@ -45,6 +45,8 @@ typedef void(^BlkTapBookCell)(void);
 
 - (IBAction)themeChange:(UIButton *)sender {
     
+    __block UIButton *bt = sender ;
+    
     UIView *circle = [UIView new] ;
     circle.backgroundColor = sender.selected ? UIColorHex(@"f9f6f6") : UIColorHex(@"2b2f33") ;
     CGPoint point = [self.bottomArea convertPoint:self.btTheme.center toView:self.view.window] ;
@@ -60,9 +62,9 @@ typedef void(^BlkTapBookCell)(void);
         circle.alpha = .8 ;
     } completion:^(BOOL finished) {
 
-        if (!sender.selected) [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDark"] ;
-        else [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDefault"] ;
-        sender.selected = !sender.selected ;
+        (!bt.selected) ? [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDark"] : [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDefault"] ;
+        (!bt.selected) ? [bt setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [bt setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
+        bt.selected = !bt.selected ;
         
         [circle removeFromSuperview] ;
     }] ;
@@ -81,6 +83,9 @@ typedef void(^BlkTapBookCell)(void);
         @strongify(self)
         [self.table reloadData] ;
     }] ;
+    
+    (self.btTheme.selected) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
+
 }
 
 - (void)prepareUI {
@@ -91,7 +96,7 @@ typedef void(^BlkTapBookCell)(void);
     self.table.estimatedRowHeight           = 0 ;
     self.table.estimatedSectionHeaderHeight = 0 ;
     self.table.estimatedSectionFooterHeight = 0 ;
-
+    
     self.view.xt_theme_backgroundColor = k_md_drawerColor ;
     self.table.xt_theme_backgroundColor = k_md_drawerColor ;
     self.bottomArea.xt_theme_backgroundColor = k_md_drawerColor ;
