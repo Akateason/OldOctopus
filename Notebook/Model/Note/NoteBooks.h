@@ -55,7 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)getFromServerComplete:(void(^)(bool hasData))completion ;
 
-+ (void)deleteBook:(NoteBooks *)book ;
++ (void)deleteBook:(NoteBooks *)book
+              done:(void(^)(void))doneblk ;
 
 + (void)deleteAllNoteBookComplete:(void(^)(bool success))completion ;
 

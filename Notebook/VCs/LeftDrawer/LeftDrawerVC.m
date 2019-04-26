@@ -16,14 +16,16 @@
 #import "HiddenUtil.h"
 
 
-typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
+typedef void(^BlkBookSelectedHasChanged)(NoteBooks *book) ;
+typedef void(^BlkTapBookCell)(void);
 
 @interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource, LDHeadViewDelegate> {
-    BOOL isFirst ;
+    
 }
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (copy, nonatomic) NSArray *booklist ;
-@property (copy, nonatomic) BlkBookSelectedChange blkBookChange ;
+@property (copy, nonatomic) BlkBookSelectedHasChanged blkBookChanged ;
+@property (copy, nonatomic) BlkTapBookCell blkTapped ;
 @property (strong, nonatomic) UIView *btAdd ;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *flexTrailOfTable;
 @property (weak, nonatomic) IBOutlet UIView *bottomArea;
@@ -108,7 +110,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     [self.bottomArea bk_whenTapped:^{
         @strongify(self)
         [self setCurrentBook:self.bookTrash] ;
-        self.blkBookChange(self.bookTrash, YES) ;
+        self.blkBookChanged(self.bookTrash) ;
     }] ;
     
     
@@ -121,10 +123,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
 #pragma mark -
 
 - (void)render {
-    [self render:YES] ;
-}
-
-- (void)render:(BOOL)goHome {
+    
     self.bookTrash = [NoteBooks createOtherBookWithType:(Notebook_Type_trash)] ;
     self.lbTrash.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
     
@@ -139,30 +138,19 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     // cell addBook can't be selected
     self.addBook = [NoteBooks createOtherBookWithType:Notebook_Type_add] ;
     
-    
     [NoteBooks fetchAllNoteBook:^(NSArray<NoteBooks *> * _Nonnull array) {
         self.booklist = array ;
         
-        NoteBooks *book = [self nextUsefulBook] ;
-        if (!array.count) { // there is no book create by user .
-            if (!self.currentBook) {
-                [self setCurrentBook:book] ;
-                self.blkBookChange(book, goHome) ;
-            }
-            [self.table reloadData] ;
-            
-            return ;
-        }
-        
-        
-        [self setCurrentBook:self.currentBook] ;
-        
-        if (!self->isFirst) {
-            self->isFirst = YES ;
-            
+        if (self.currentBook == nil) {
+            NoteBooks *book = [self nextUsefulBook] ;
             [self setCurrentBook:book] ;
-            self.blkBookChange(book, goHome) ;
         }
+        else {
+            [self setCurrentBook:self.currentBook] ;
+        }
+        
+        self.blkBookChanged(self.currentBook) ;
+        [self.table reloadData] ;
     }] ;
 }
 
@@ -190,19 +178,23 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     }) ;
 }
 
-- (void)currentBookChanged:(void(^)(NoteBooks *book, BOOL isClick))blkChange {
-    self.blkBookChange = blkChange ;
+- (void)currentBookChanged:(void(^)(NoteBooks *book))blkChange {
+    self.blkBookChanged = blkChange ;
+}
+
+- (void)bookCellTapped:(void(^)(void))blk {
+    self.blkTapped = blk ;
 }
 
 - (void)refreshHomeWithBook:(NoteBooks *)book {
     self.currentBook = book ;
-    self.blkBookChange(book, YES) ;
+    self.blkBookChanged(book) ;
 }
 
 #pragma mark - LDHeadViewDelegate <NSObject>
 
 - (void)LDHeadDidSelectedOneBook:(NoteBooks *)abook {
-    self.addBook.isOnSelect = NO ; //abook.vType == Notebook_Type_add ;
+    self.addBook.isOnSelect = NO ; // abook.vType == Notebook_Type_add ;
     self.bookRecent.isOnSelect = abook.vType == Notebook_Type_recent ;
     self.bookStaging.isOnSelect = abook.vType == Notebook_Type_staging ;
     
@@ -213,7 +205,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     
     self.bookTrash.isOnSelect = NO ;
     [self setCurrentBook:abook] ;
-    self.blkBookChange(self.currentBook, YES) ;
+    self.blkBookChanged(self.currentBook) ;
 }
 
 - (void)addbook {
@@ -226,7 +218,7 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         
         [self render] ;
         [self setCurrentBook:aBook] ;
-        self.blkBookChange(aBook, NO) ;
+        self.blkBookChanged(aBook) ;
     } cancel:^{
         self.nBookVC = nil ;
     }] ;
@@ -276,7 +268,8 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
     self.bookStaging.isOnSelect = NO ;
     
     [self setCurrentBook:self.booklist[row]] ;
-    self.blkBookChange(self.currentBook, YES) ;
+    self.blkBookChanged(self.currentBook) ;
+    self.blkTapped() ;
 }
 
 - (NSArray*)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell {
@@ -285,9 +278,12 @@ typedef void(^BlkBookSelectedChange)(NoteBooks *book, BOOL isClick) ;
         NoteBooks *aBook = ((LDNotebookCell *)cell).xt_model ;
         [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"删除笔记本" message:@"删除笔记本会将此笔记本内的文章都移入回收站" cancelButtonTitle:@"取消" destructiveButtonTitle:@"确认" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
             if (btnIndex == 1) {
-                [NoteBooks deleteBook:aBook] ;
-                self->isFirst = NO ;
-                [self render:NO] ;
+                [NoteBooks deleteBook:aBook done:^{
+                    self.currentBook = nil ;
+                    [self render] ;
+                }] ;
+                
+                
             }
         }] ;
         return YES ;

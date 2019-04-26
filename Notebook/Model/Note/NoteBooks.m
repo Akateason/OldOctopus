@@ -140,9 +140,11 @@
     }] ;
 }
 
-+ (void)deleteBook:(NoteBooks *)book {
++ (void)deleteBook:(NoteBooks *)book done:(void(^)(void))doneblk {
     book.isDeleted = YES ;
     [self updateMyBook:book] ;
+    
+    if (doneblk) doneblk() ;
     
     NSArray *notelist = [Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@'",book.icRecordName)] ;
     [notelist enumerateObjectsUsingBlock:^(Note *aNote, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -64,12 +64,16 @@
     self.fd_prefersNavigationBarHidden = YES ;
     
     @weakify(self)
-    [self.leftVC currentBookChanged:^(NoteBooks *book, BOOL isClick) {
+    [self.leftVC currentBookChanged:^(NoteBooks *book) {
         @strongify(self)        
         [self.table xt_loadNewInfoInBackGround:YES] ;
-        if (isClick) [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
         self.btAdd.hidden = book.vType == Notebook_Type_trash ;
         self.btMore.hidden = book.vType == Notebook_Type_trash || book.vType == Notebook_Type_recent || book.vType == Notebook_Type_staging ;
+    }] ;
+    
+    [self.leftVC bookCellTapped:^{
+        @strongify(self)
+        [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
     [[[[[[NSNotificationCenter defaultCenter]
@@ -241,10 +245,12 @@
                 [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"删除笔记本" message:@"删除笔记本会将此笔记本内的文章都移入回收站" cancelButtonTitle:@"取消" destructiveButtonTitle:@"确认" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex1) {
                     @strongify(self)
                     if (btnIndex1 == 1) {
-                        [NoteBooks deleteBook:self.leftVC.currentBook] ;
-                        NoteBooks *book = [self.leftVC nextUsefulBook] ;
-                        [self.leftVC refreshHomeWithBook:book] ;
-                        [self.leftVC render:NO] ;
+                        @weakify(self)
+                        [NoteBooks deleteBook:self.leftVC.currentBook done:^{
+                            @strongify(self)
+                            self.leftVC.currentBook = nil ;
+                            [self.leftVC render] ;
+                        }] ;
                     }
                 }] ;
 
@@ -366,20 +372,18 @@
     cell.lbTitle.alpha = 0. ;
     [UIView animateWithDuration:0.2
                      animations:^{
-                         cell.lbTitle.alpha = 0.8 ;
+                         cell.lbTitle.alpha = 1 ;
                      }
                      completion:^(BOOL finished) {
-                         cell.lbTitle.layer.transform = indexPath.row % 2 ? CATransform3DMakeTranslation(-10, 0, 0) : CATransform3DMakeTranslation(10, 0, 0) ;
-                         [UIView animateWithDuration:.4
-                                               delay:0
-                              usingSpringWithDamping:.5
-                               initialSpringVelocity:0
-                                             options:UIViewAnimationOptionAllowUserInteraction
-                                          animations:^{
-                                              cell.lbTitle.layer.transform = CATransform3DIdentity ;
-                                          }
-                                          completion:nil] ;
+
                      }] ;
+    
+    cell.lbTitle.layer.transform = CATransform3DMakeTranslation(10, 0, 0) ;
+    [UIView animateWithDuration:.25
+                     animations:^{
+                         cell.lbTitle.layer.transform = CATransform3DIdentity ;
+                     }
+                     completion:nil] ;
     
     cell.layer.transform = CATransform3DMakeScale(0.76, 0.76, 1) ;
     [UIView animateWithDuration:.25
@@ -389,7 +393,7 @@
     
     cell.lbDate.alpha = 0. ;
     cell.lbContent.alpha = 0. ;
-    [UIView animateWithDuration:1.6
+    [UIView animateWithDuration:1.
                      animations:^{
                          cell.lbDate.alpha = 1. ;
                          cell.lbContent.alpha = 1. ;

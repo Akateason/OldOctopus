@@ -17,14 +17,20 @@
 @property (strong, nonatomic) NoteBooks *currentBook ;
 
 - (void)render ;
-- (void)render:(BOOL)goHome ;
-- (void)currentBookChanged:(void(^)(NoteBooks *book, BOOL isClick))blkChange ;
+
+- (void)currentBookChanged:(void(^)(NoteBooks *book))blkChange ;
+- (void)bookCellTapped:(void(^)(void))blk  ;
+
 
 // 删除笔记本时用. 找下一个有用的笔记本
 - (NoteBooks *)nextUsefulBook ;
 
-
 - (void)refreshHomeWithBook:(NoteBooks *)book ;
+
+
+
+
+
 
 @end
 
