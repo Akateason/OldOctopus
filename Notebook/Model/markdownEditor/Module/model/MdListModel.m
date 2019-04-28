@@ -20,32 +20,30 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
     
     MDThemeConfiguration *configuration = [MDThemeConfiguration sharedInstance] ;
-    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
-    UIFont *paragraphFont = configuration.editorThemeObj.font ;
-    NSUInteger location = self.range.location ;
-//    NSUInteger length = self.range.length ;
+    NSDictionary *resultDic = [self defultStyle] ;
+    UIFont *paragraphFont = [self defaultFont] ;
 
     switch (self.type) {
         case MarkdownSyntaxOLLists: {
             // number
             NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
             NSUInteger lenOfMark = prefix.length + 1 ;
-            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(location, lenOfMark + 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(self.location, lenOfMark + 1)] ;
         }
             break ;
         case MarkdownSyntaxULLists: {
-            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(location, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(self.location, 2)] ;
         }
             break ;
         case MarkdownSyntaxTaskLists: {
             NSInteger markLoc = [[self.str componentsSeparatedByString:@"]"] firstObject].length + 1 ;
-            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(location, markLoc)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(self.location, markLoc)] ;
             
             if (self.taskItemSelected) {
                 resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
                               NSFontAttributeName : paragraphFont
                               };
-                [attributedString addAttributes:resultDic range:NSMakeRange(location + markLoc, self.range.length - markLoc)] ;
+                [attributedString addAttributes:resultDic range:NSMakeRange(self.location + markLoc, self.length - markLoc)] ;
             }
         }
             break ;
@@ -61,32 +59,30 @@
                                          position:(NSUInteger)tvPosition {
     
     MDThemeConfiguration *configuration = [MDThemeConfiguration sharedInstance] ;
-    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
-    UIFont *paragraphFont = configuration.editorThemeObj.font ;
-    NSUInteger location = self.range.location ;
-//    NSUInteger length = self.range.length ;
+    NSDictionary *resultDic = [self defultStyle] ;
+    UIFont *paragraphFont = [self defaultFont] ;
     
     switch (self.type) {
         case MarkdownSyntaxOLLists: {
             // number
             NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
             NSUInteger lenOfMark = prefix.length + 1 ;
-            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location, lenOfMark + 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(self.location, lenOfMark + 1)] ;
         }
             break ;
         case MarkdownSyntaxULLists: {
-            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(location, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(self.location, 2)] ;
         }
             break ;
         case MarkdownSyntaxTaskLists: {
             NSInteger markLoc = [[self.str componentsSeparatedByString:@"]"] firstObject].length + 1 ;
-            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(location, markLoc)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(self.location, markLoc)] ;
             
             if (self.taskItemSelected) {
                 resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
                               NSFontAttributeName : paragraphFont
                               };
-                [attributedString addAttributes:resultDic range:NSMakeRange(location + markLoc, self.range.length - markLoc)] ;
+                [attributedString addAttributes:resultDic range:NSMakeRange(self.location + markLoc, self.range.length - markLoc)] ;
             }
         }
             break ;
@@ -123,7 +119,7 @@
     // add
     if (!paraModel) {
         [tmpString insertString:@"* [ ]  " atIndex:editor.selectedRange.location] ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 6, 0) ;
         return ;
     }
@@ -131,7 +127,9 @@
     // replace
     if (paraModel.type == MarkdownSyntaxTaskLists) return ;
     [tmpString insertString:@"* [ ] " atIndex:paraModel.range.location] ;
-    MarkdownModel *aModel = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
+    
+    [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:paraModel.range.location textView:editor] ;
+    MarkdownModel *aModel = [editor.parser modelForModelListBlockFirst] ;
     editor.selectedRange = NSMakeRange(aModel.range.location + aModel.range.length, 0) ;
 }
 
@@ -141,7 +139,7 @@
     // add
     if (!paraModel) {
         [tmpString insertString:@"*  " atIndex:editor.selectedRange.location] ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
         return ;
     }
@@ -149,7 +147,8 @@
     // replace
     if (paraModel.type == MarkdownSyntaxULLists) return ;
     [tmpString insertString:@"* " atIndex:paraModel.range.location] ;
-    MarkdownModel *aModel = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
+    [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:paraModel.range.location textView:editor] ;
+    MarkdownModel *aModel = [editor.parser modelForModelListBlockFirst] ;
     editor.selectedRange = NSMakeRange(aModel.range.length + aModel.range.location, 0) ;
 }
 
@@ -168,7 +167,7 @@
     // add
     if (!paraModel) {
         [tmpString insertString:STR_FORMAT(@"%@.  ",orderStr) atIndex:editor.selectedRange.location] ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + orderStr.length + 2, 0) ;
         return ;
     }
@@ -176,7 +175,8 @@
     // replace
     if (paraModel.type == MarkdownSyntaxOLLists) return ;
     [tmpString insertString:STR_FORMAT(@"%@. ",orderStr) atIndex:paraModel.range.location] ;
-    MarkdownModel *aModel = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
+    [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:paraModel.range.location textView:editor] ;
+    MarkdownModel *aModel = [editor.parser modelForModelListBlockFirst] ;
     editor.selectedRange = NSMakeRange(aModel.range.length + aModel.range.location, 0) ;
 }
 

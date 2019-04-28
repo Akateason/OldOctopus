@@ -241,14 +241,14 @@
         NSInteger numOfStr = self.str.length - 4 ;
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 2 + numOfStr, 2)] ;
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 2)] ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location - 2, numOfStr) ;
     }
     else if (self.type == MarkdownInlineInlineCode) {
         NSInteger numOfStr = self.str.length - 2 ;
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 1 + numOfStr, 1)] ;
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 1)] ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location - 1, numOfStr) ;
     }
     else if (self.type == MarkdownInlineBold) {
@@ -256,28 +256,28 @@
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 2 + numOfStr, 2)] ;
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 2)] ;
         editor.selectedRange = NSMakeRange(self.range.location, numOfStr) ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
     }
     else if (self.type == MarkdownInlineItalic) {
         NSInteger numOfStr = self.str.length - 2 ;
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 1 + numOfStr, 1)] ;
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 1)] ;
         editor.selectedRange = NSMakeRange(self.range.location, numOfStr) ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
     }
     else if (self.type == MarkdownInlineBoldItalic) {
         NSInteger numOfStr = self.str.length - 6 ;
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 3 + numOfStr, 3)] ;
         [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 3)] ;
         editor.selectedRange = NSMakeRange(self.range.location, numOfStr) ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
     }
     [editor doSomethingWhenUserSelectPartOfArticle:nil] ;
     return tmpString ;
 }
 
 + (void)toolbarEventDeletion:(MarkdownEditor *)editor {
-    MarkdownModel *model = [editor.markdownPaser inlineModelForRangePosition:editor.selectedRange.location] ;
+    MarkdownModel *model = [editor.parser modelForModelListInlineFirst] ;
     NSMutableString *tmpString = [(MdInlineModel *)model clearAllInlineMark:editor] ;
     if (!model) tmpString = [editor.text mutableCopy] ;
     
@@ -288,20 +288,22 @@
     id modelAdded ;
     if (!editor.selectedRange.length) {
         [tmpString insertString:@"~~~~" atIndex:editor.selectedRange.location] ;
-        modelAdded = [editor.markdownPaser modelForModelListInlineFirst:[editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor]] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
+        modelAdded = [editor.parser modelForModelListInlineFirst] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
     }
     else {
         [tmpString insertString:@"~~" atIndex:editor.selectedRange.location + editor.selectedRange.length] ;
         [tmpString insertString:@"~~" atIndex:editor.selectedRange.location] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, editor.selectedRange.length) ;
-        modelAdded = [editor.markdownPaser modelForModelListInlineFirst:[editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor]] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
+        modelAdded = [editor.parser modelForModelListInlineFirst] ;
     }
     [editor doSomethingWhenUserSelectPartOfArticle:modelAdded] ;
 }
 
 + (void)toolbarEventCode:(MarkdownEditor *)editor {
-    MarkdownModel *model = [editor.markdownPaser inlineModelForRangePosition:editor.selectedRange.location] ;
+    MarkdownModel *model = [editor.parser modelForModelListInlineFirst] ;
     NSMutableString *tmpString = [(MdInlineModel *)model clearAllInlineMark:editor] ;
     if (!model) tmpString = [editor.text mutableCopy] ;
     
@@ -312,14 +314,16 @@
     id modelAdded ;
     if (!editor.selectedRange.length) {
         [tmpString insertString:@"``" atIndex:editor.selectedRange.location] ;
-        modelAdded = [editor.markdownPaser modelForModelListInlineFirst:[editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor]] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
+        modelAdded = [editor.parser modelForModelListInlineFirst] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, 0) ;
     }
     else {
         [tmpString insertString:@"`" atIndex:editor.selectedRange.location + editor.selectedRange.length] ;
         [tmpString insertString:@"`" atIndex:editor.selectedRange.location] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, editor.selectedRange.length) ;
-        modelAdded = [editor.markdownPaser modelForModelListInlineFirst:[editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor]] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
+        modelAdded = [editor.parser modelForModelListInlineFirst] ;
     }
     [editor doSomethingWhenUserSelectPartOfArticle:modelAdded] ;
 }

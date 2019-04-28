@@ -35,17 +35,28 @@
     return @"" ;
 }
 
+- (NSUInteger)location {
+    return self.range.location ;
+}
+
+- (NSUInteger)length {
+    return self.range.length ;
+}
+
+- (UIFont *)defaultFont {
+    return [MDThemeConfiguration sharedInstance].editorThemeObj.font ;
+}
+
+- (NSDictionary *)defultStyle {
+    return MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
+}
+
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               {
-    NSDictionary *resultDic = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
-//    UIFont *paragraphFont = configuration.font ;
-//    NSUInteger location = self.range.location ;
-//    NSUInteger length = self.range.length ;
-    
-    if (self.type == -1) { // paragraph
-        resultDic = @{NSBackgroundColorAttributeName : [[XTColorFetcher sharedInstance] randomColor],} ;
-        [attributedString addAttributes:resultDic range:self.range] ;
-    }
+//    if (self.type == -1) { // paragraph
+//        NSDictionary *resultDic = @{NSBackgroundColorAttributeName : [[XTColorFetcher sharedInstance] randomColor]} ;
+//        [attributedString addAttributes:resultDic range:self.range] ;
+//    }
     
     return attributedString ;
 }

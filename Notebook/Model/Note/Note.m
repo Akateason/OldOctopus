@@ -8,7 +8,7 @@
 
 #import "Note.h"
 #import "NoteBooks.h"
-#import "MarkdownPaser.h"
+#import "XTMarkdownParser.h"
 
 @implementation Note
 @synthesize content = _content ;
@@ -17,7 +17,7 @@
     _content = content ;
     
     self.baseContent = [content base64EncodedString] ;
-    self.searchContent = [MarkdownPaser filterSqliteString:content] ;
+    self.searchContent = [self.class filterSqliteString:content] ;
 }
 
 - (NSString *)content {
@@ -178,6 +178,24 @@
         completion() ;
     }] ;
 }
+
+
++ (NSString *)filterMarkdownString:(NSString *)markdownStr {
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"#" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"*" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"_" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"~" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"`" withString:@""] ;
+    return markdownStr ;
+}
+
++ (NSString *)filterSqliteString:(NSString *)markdownStr {
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\"" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"'" withString:@""] ;
+    return markdownStr ;
+}
+
 
 #pragma mark - db
 

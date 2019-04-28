@@ -119,13 +119,14 @@
     if (!paraModel) {
         [tmpString insertString:@">  " atIndex:editor.selectedRange.location] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         return ;
     }
     // replace
     if (paraModel.type == MarkdownSyntaxBlockquotes) return ;
     [tmpString insertString:@"> " atIndex:paraModel.range.location] ;
-    MarkdownModel *modelParse = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
+    [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:paraModel.range.location textView:editor] ;
+    MarkdownModel *modelParse = [editor.parser modelForModelListBlockFirst] ;
     [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
     editor.selectedRange = NSMakeRange(modelParse.range.length + modelParse.range.location, 0) ;
 }
@@ -136,7 +137,8 @@
     // add
     if (!paraModel) {
         [tmpString insertString:@"```\n \n```" atIndex:editor.selectedRange.location] ;
-        id modelParse = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor]] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
+        id modelParse = [editor.parser modelForModelListBlockFirst] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 4, 0) ;
         [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
         return ;
@@ -146,7 +148,8 @@
     if (paraModel.type == MarkdownSyntaxCodeBlock) return ;
     [tmpString insertString:@"\n```" atIndex:paraModel.range.location + paraModel.range.length] ;
     [tmpString insertString:@"```\n" atIndex:paraModel.range.location] ;
-    MarkdownModel *modelParse = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:editor.selectedRange.location textView:editor]] ;
+    [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
+    MarkdownModel *modelParse = [editor.parser modelForModelListBlockFirst] ;
     [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
     editor.selectedRange = NSMakeRange(modelParse.range.length + modelParse.range.location, 0) ;
 }

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MarkdownPaser.h"
+#import "XTMarkdownParser.h"
 
 extern NSString *const  kNOTIFICATION_NAME_EDITOR_DID_CHANGE ;
 extern const CGFloat    kMDEditor_FlexValue ;
@@ -18,7 +18,7 @@ extern const CGFloat    kMDEditor_FlexValue ;
     BOOL    fstTimeLoaded ;
     CGFloat keyboardHeight ;
 }
-@property (strong, nonatomic) MarkdownPaser *markdownPaser ; // paser with configuration .
+@property (strong, nonatomic) XTMarkdownParser *parser ; // paser with configuration .
 
 - (void)doSomethingWhenUserSelectPartOfArticle:(MarkdownModel *)model ;
 

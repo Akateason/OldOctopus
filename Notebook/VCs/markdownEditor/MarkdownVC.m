@@ -69,8 +69,8 @@
         
         self.aNote = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
         
-        NSArray *modellist = [self.textView.markdownPaser parseText:self.aNote.content position:self.textView.selectedRange.location textView:self.textView] ; // create models
-        MarkdownModel *model = [self.textView.markdownPaser modelForModelListInlineFirst:modellist] ;
+        [self.textView.parser parseTextAndGetModelsInCurrentCursor:self.aNote.content textView:self.textView] ;
+        MarkdownModel *model = [self.textView.parser modelForModelListInlineFirst] ;
         [self.textView doSomethingWhenUserSelectPartOfArticle:model] ;
     }] ;
     
@@ -163,7 +163,7 @@
     [self infoVC] ;
     self.infoVC.distance = self.movingDistance ;
     self.infoVC.aNote = self.aNote ;
-    self.infoVC.parser = self.textView.markdownPaser ;
+    self.infoVC.parser = self.textView.parser ;
     WEAK_SELF
     self.infoVC.blkDelete = ^{
         [weakSelf.navigationController popViewControllerAnimated:YES] ;

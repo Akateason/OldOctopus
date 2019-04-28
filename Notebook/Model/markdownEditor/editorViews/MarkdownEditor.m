@@ -16,16 +16,16 @@
 #import "MarkdownEditor+UtilOfToolbar.h"
 #import "MdInlineModel.h"
 #import <XTlib/XTSIAlertView.h>
-
+#import "XTMarkdownParser+ImageUtil.h"
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue   = 30.f  ;
 static const int kTag_QuoteMarkView = 66777 ;
 static const int kTag_ListMarkView  = 32342 ;
 
-@interface MarkdownEditor ()<MarkdownParserDelegate, UITextViewDelegate>
-@property (strong, nonatomic) UIImageView *imgLeftCornerMarker ;
-@property (strong, nonatomic) MDToolbar *toolBar ;
+@interface MarkdownEditor ()<XTMarkdownParserDelegate, UITextViewDelegate>
+@property (strong, nonatomic) UIImageView   *imgLeftCornerMarker ;
+@property (strong, nonatomic) MDToolbar     *toolBar ;
 
 @end
 
@@ -54,7 +54,7 @@ static const int kTag_ListMarkView  = 32342 ;
 }
 
 - (void)setup {
-    self.font = [UIFont systemFontOfSize:self.markdownPaser.configuration.editorThemeObj.fontSize] ;
+    self.font = [UIFont systemFontOfSize:self.parser.configuration.editorThemeObj.fontSize] ;
     self.contentInset = UIEdgeInsetsMake(0, kMDEditor_FlexValue, 0, kMDEditor_FlexValue) ;
     self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     self.delegate = self ;
@@ -93,7 +93,7 @@ static const int kTag_ListMarkView  = 32342 ;
     }];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.markdownPaser readArticleFirstTimeAndInsertImagePHWhenEditorDidLaunching:self.text textView:self] ;
+        [self.parser readArticleFirstTimeAndInsertImagePHWhenEditorDidLaunching:self.text textView:self] ;
         [self updateTextStyle] ;
         
         if (!self->fstTimeLoaded) {
@@ -106,8 +106,8 @@ static const int kTag_ListMarkView  = 32342 ;
 #pragma mark - func
 
 - (MarkdownModel *)updateTextStyle {
-    NSArray *modellist = [self.markdownPaser parseText:self.text position:self.selectedRange.location textView:self] ; // create models
-    MarkdownModel *model = [self.markdownPaser modelForModelListInlineFirst:modellist] ;
+    [self.parser parseTextAndGetModelsInCurrentCursor:self.text textView:self] ; // create models
+    MarkdownModel *model = [self.parser modelForModelListInlineFirst] ;
     return model ;
 }
 
@@ -125,7 +125,7 @@ static const int kTag_ListMarkView  = 32342 ;
     [self hide_lbLeftCornerMarker] ;
     if (!model) return ;
     
-    UIImage *img = [UIImage imageNamed:[self.markdownPaser stringTitleOfPosition:self.selectedRange.location model:model]] ;
+    UIImage *img = [UIImage imageNamed:[self.parser iconImageStringOfPosition:self.selectedRange.location model:model]] ;
     self.imgLeftCornerMarker.image = img ;
     [self show_lbLeftCornerMarker] ;
 }
@@ -160,13 +160,13 @@ static const int kTag_ListMarkView  = 32342 ;
 
 #pragma mark - props
 
-- (MarkdownPaser *)markdownPaser {
-    if (_markdownPaser == nil) {
+- (XTMarkdownParser *)parser {
+    if (!_parser) {
         MDThemeConfiguration *config = [MDThemeConfiguration new] ;
-        _markdownPaser = [[MarkdownPaser alloc] initWithConfig:config] ;
-        _markdownPaser.delegate = self ;
+        _parser = [[XTMarkdownParser alloc] initWithConfig:config] ;
+        _parser.delegate = self ;
     }
-    return _markdownPaser;
+    return _parser ;
 }
 
 - (UIImageView *)imgLeftCornerMarker{
@@ -291,7 +291,8 @@ static const int kTag_ListMarkView  = 32342 ;
                 [tmpStr replaceCharactersInRange:NSMakeRange(model.range.location + 3, 1) withString:@"x"]
                 :
                 [tmpStr replaceCharactersInRange:NSMakeRange(model.range.location + 3, 1) withString:@" "] ;
-                [weakSelf.markdownPaser parseText:tmpStr position:weakSelf.selectedRange.location textView:weakSelf] ;
+                
+                [weakSelf.parser parseTextAndGetModelsInCurrentCursor:tmpStr textView:weakSelf] ;
             }] ;
             item = imgView ;
         }
@@ -319,53 +320,53 @@ static const int kTag_ListMarkView  = 32342 ;
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if (![text isEqualToString:@"\n"]) return YES ;
     
-    MarkdownModel *lstModel = [self.markdownPaser blkModelForRangePosition:range.location - 1] ;
+    MarkdownModel *lstModel = [self.parser getBlkModelForCustomPosition:range.location - 1] ;
     NSMutableString *tmpString = [self.text mutableCopy] ;
-    
+
     if (lstModel.type == MarkdownSyntaxOLLists) {
         int orderNum = [[[lstModel.str componentsSeparatedByString:@"."] firstObject] intValue] ;
         orderNum ++ ;
         NSString *orderStr = STR_FORMAT(@"%d",orderNum) ;
         if (lstModel.str.length < orderStr.length + 4) { //两下回车
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - lstModel.str.length, lstModel.str.length)] ;
-            [self.markdownPaser parseText:tmpString position:range.location + 2 textView:self] ;
+            [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + 2 textView:self] ;
             self.selectedRange = NSMakeRange(range.location, 0) ;
             return NO ;
         }
-        
+
         [tmpString insertString:STR_FORMAT(@"\n\n%@.  ",orderStr) atIndex:range.location] ;
-        [self.markdownPaser parseText:tmpString position:range.location textView:self] ;
+        [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:self] ;
+
         self.selectedRange = NSMakeRange(range.location + orderStr.length + 4, 0) ;
         return NO ;
     }
     else if (lstModel.type == MarkdownSyntaxTaskLists) {
         if (lstModel.str.length < 8) { //两下回车
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - lstModel.str.length, lstModel.str.length)] ;
-            [self.markdownPaser parseText:tmpString position:range.location + 2 textView:self] ;
+            [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + 2 textView:self] ;
             self.selectedRange = NSMakeRange(range.location, 0) ;
             return NO ;
         }
-        
+
         [tmpString insertString:@"\n\n* [ ]  " atIndex:range.location] ;
-        [self.markdownPaser parseText:tmpString position:range.location textView:self] ;
+        [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:self] ;
         self.selectedRange = NSMakeRange(range.location + 8, 0) ;
         return NO ;
     }
     else if (lstModel.type == MarkdownSyntaxULLists) {
         if (lstModel.str.length < 4) { //两下回车
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - lstModel.str.length, lstModel.str.length)] ;
-            [self.markdownPaser parseText:tmpString position:range.location + 2 textView:self] ;
+            [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + 2 textView:self] ;
             self.selectedRange = NSMakeRange(range.location, 0) ;
             return NO ;
         }
-        
+
         [tmpString insertString:@"\n\n*  " atIndex:range.location] ;
-        [self.markdownPaser parseText:tmpString position:range.location textView:self] ;
+        [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:self] ;
         self.selectedRange = NSMakeRange(range.location + 4, 0) ;
         return NO ;
     }
     
-// return NO ;//返回NO，就代表return键值失效，即页面上按下return，不会出现换行，如果为yes，则输入页面会换行
     return YES ;
 }
 

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8F00DD73226F0F780028B5BA /* launchingImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F00DD72226F0F780028B5BA /* launchingImage@2x.png */; };
+		8F05C57922754C200047CC04 /* XTMarkdownParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F05C57822754C200047CC04 /* XTMarkdownParser.m */; };
+		8F05C57C22754CD40047CC04 /* XTMarkdownParser+Regular.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F05C57B22754CD40047CC04 /* XTMarkdownParser+Regular.m */; };
+		8F05C57F22754F150047CC04 /* XTMarkdownParser+ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F05C57E22754F150047CC04 /* XTMarkdownParser+ImageUtil.m */; };
 		8F0688EE2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */; };
 		8F0688F02248EC7200A7B183 /* md_tb_bt_blkCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0688EF2248EC7200A7B183 /* md_tb_bt_blkCode@2x.png */; };
 		8F07D64D224CB9FF005BA86D /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F07D64C224CB9FF005BA86D /* Note.m */; };
@@ -45,7 +48,6 @@
 		8F65DBF1221BECFE0067C321 /* NotebookUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBF0221BECFE0067C321 /* NotebookUITests.m */; };
 		8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679DFB2232436B008DE1BC /* MarkdownVC.m */; };
 		8F679E00223243B2008DE1BC /* MarkdownEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679DFF223243B2008DE1BC /* MarkdownEditor.m */; };
-		8F679E0322324631008DE1BC /* MarkdownPaser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E0222324631008DE1BC /* MarkdownPaser.m */; };
 		8F679E1222363EB7008DE1BC /* zample.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F679E1122363EB7008DE1BC /* zample.md */; };
 		8F679E182238F047008DE1BC /* MDThemeConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E172238F047008DE1BC /* MDThemeConfiguration.m */; };
 		8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E1D2238F2E2008DE1BC /* MarkdownModel.m */; };
@@ -165,6 +167,12 @@
 /* Begin PBXFileReference section */
 		3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F00DD72226F0F780028B5BA /* launchingImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchingImage@2x.png"; sourceTree = "<group>"; };
+		8F05C57722754C200047CC04 /* XTMarkdownParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTMarkdownParser.h; sourceTree = "<group>"; };
+		8F05C57822754C200047CC04 /* XTMarkdownParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTMarkdownParser.m; sourceTree = "<group>"; };
+		8F05C57A22754CD40047CC04 /* XTMarkdownParser+Regular.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XTMarkdownParser+Regular.h"; sourceTree = "<group>"; };
+		8F05C57B22754CD40047CC04 /* XTMarkdownParser+Regular.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XTMarkdownParser+Regular.m"; sourceTree = "<group>"; };
+		8F05C57D22754F150047CC04 /* XTMarkdownParser+ImageUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XTMarkdownParser+ImageUtil.h"; sourceTree = "<group>"; };
+		8F05C57E22754F150047CC04 /* XTMarkdownParser+ImageUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XTMarkdownParser+ImageUtil.m"; sourceTree = "<group>"; };
 		8F0688EC2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownEditor+UtilOfToolbar.h"; sourceTree = "<group>"; };
 		8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownEditor+UtilOfToolbar.m"; sourceTree = "<group>"; };
 		8F0688EF2248EC7200A7B183 /* md_tb_bt_blkCode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_blkCode@2x.png"; sourceTree = "<group>"; };
@@ -223,8 +231,6 @@
 		8F679DFB2232436B008DE1BC /* MarkdownVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownVC.m; sourceTree = "<group>"; };
 		8F679DFE223243B2008DE1BC /* MarkdownEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownEditor.h; sourceTree = "<group>"; };
 		8F679DFF223243B2008DE1BC /* MarkdownEditor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownEditor.m; sourceTree = "<group>"; };
-		8F679E0122324631008DE1BC /* MarkdownPaser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownPaser.h; sourceTree = "<group>"; };
-		8F679E0222324631008DE1BC /* MarkdownPaser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownPaser.m; sourceTree = "<group>"; };
 		8F679E1122363EB7008DE1BC /* zample.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = zample.md; sourceTree = "<group>"; };
 		8F679E152238A957008DE1BC /* MdParserRegexpHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MdParserRegexpHeader.h; sourceTree = "<group>"; };
 		8F679E162238F047008DE1BC /* MDThemeConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDThemeConfiguration.h; sourceTree = "<group>"; };
@@ -567,8 +573,12 @@
 			isa = PBXGroup;
 			children = (
 				8F679E152238A957008DE1BC /* MdParserRegexpHeader.h */,
-				8F679E0122324631008DE1BC /* MarkdownPaser.h */,
-				8F679E0222324631008DE1BC /* MarkdownPaser.m */,
+				8F05C57722754C200047CC04 /* XTMarkdownParser.h */,
+				8F05C57822754C200047CC04 /* XTMarkdownParser.m */,
+				8F05C57A22754CD40047CC04 /* XTMarkdownParser+Regular.h */,
+				8F05C57B22754CD40047CC04 /* XTMarkdownParser+Regular.m */,
+				8F05C57D22754F150047CC04 /* XTMarkdownParser+ImageUtil.h */,
+				8F05C57E22754F150047CC04 /* XTMarkdownParser+ImageUtil.m */,
 				8F7A8441224235960099E905 /* MDImageManager.h */,
 				8F7A8442224235960099E905 /* MDImageManager.m */,
 				8F679E1F2238F973008DE1BC /* model */,
@@ -1167,20 +1177,22 @@
 				8F7A844B2244CA5F0099E905 /* MDToolbar.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
 				8F0688EE2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m in Sources */,
+				8F05C57F22754F150047CC04 /* XTMarkdownParser+ImageUtil.m in Sources */,
 				8F6863C22266FA7A00261626 /* SearchEmptyVC.m in Sources */,
 				8FE5A3EA224CA77400947D14 /* LDHeadView.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
+				8F05C57C22754CD40047CC04 /* XTMarkdownParser+Regular.m in Sources */,
 				8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */,
 				8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */,
 				8FC431272265CCAF0002C9A1 /* SearchVC.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,
 				8F41EECF225B47AE00D9CD35 /* MoveNoteToBookVC.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
-				8F679E0322324631008DE1BC /* MarkdownPaser.m in Sources */,
 				8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */,
 				8F7A8443224235960099E905 /* MDImageManager.m in Sources */,
 				8F679E252238F9D1008DE1BC /* MdInlineModel.m in Sources */,
 				8F7A84482244BD6B0099E905 /* MDNavVC.m in Sources */,
+				8F05C57922754C200047CC04 /* XTMarkdownParser.m in Sources */,
 				8FACF6DC221E8D610067DDA4 /* NSAttributedString+RichTextEditor.m in Sources */,
 				8FA1420022715E8000A23873 /* SchBarPositiveTransition.m in Sources */,
 				8F2A267A226EED740076EBA4 /* GuidingVC.m in Sources */,

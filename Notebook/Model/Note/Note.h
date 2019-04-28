@@ -52,6 +52,11 @@
 
 + (void)getFromServerComplete:(void(^)(void))completion ;
 
+
+
++ (NSString *)filterMarkdownString:(NSString *)markdownStr ;
++ (NSString *)filterSqliteString:(NSString *)markdownStr ;
+
 @end
 
 

@@ -7,7 +7,7 @@
 //
 
 #import "BasicVC.h"
-@class MarkdownPaser ;
+@class XTMarkdownParser ;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +19,7 @@ typedef void(^BlkOutputOnClick)(void) ;
 @property (copy, nonatomic) BlkDeleteFinished blkDelete ;
 @property (copy, nonatomic) BlkOutputOnClick blkOutput ;
 @property (nonatomic) CGFloat distance ;
-@property (strong, nonatomic) MarkdownPaser *parser ;
+@property (strong, nonatomic) XTMarkdownParser *parser ;
 
 
 @property (weak, nonatomic) IBOutlet UIView *topArea;

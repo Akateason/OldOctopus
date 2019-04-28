@@ -131,14 +131,15 @@
     // add
     if (!paraModel) {
         [tmpString insertString:mark atIndex:editor.selectedRange.location] ;
-        [editor.markdownPaser parseText:tmpString position:editor.selectedRange.location + mark.length textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:editor.selectedRange.location + mark.length textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + mark.length, 0) ;
         return ;
     }
     
     // replace
     [tmpString insertString:mark atIndex:paraModel.range.location] ;
-    MarkdownModel *model = [editor.markdownPaser modelForModelListBlockFirst:[editor.markdownPaser parseText:tmpString position:paraModel.range.location textView:editor]] ;
+    [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:paraModel.range.location textView:editor] ;
+    MarkdownModel *model = [editor.parser modelForModelListBlockFirst] ;
     [editor doSomethingWhenUserSelectPartOfArticle:model] ;
     editor.selectedRange = NSMakeRange(model.range.length + model.range.location, 0) ;
 }

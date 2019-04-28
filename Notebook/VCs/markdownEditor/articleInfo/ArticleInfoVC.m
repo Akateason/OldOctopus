@@ -7,7 +7,7 @@
 //
 
 #import "ArticleInfoVC.h"
-#import "MarkdownPaser.h"
+#import "XTMarkdownParser.h"
 
 
 @interface ArticleInfoVC ()
