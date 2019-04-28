@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownModel : NSObject
 @property (nonatomic)       NSRange     range ;
-@property (nonatomic)       NSUInteger  type ;
+@property (nonatomic)       int         type ;
 @property (copy, nonatomic) NSString    *str ;
 @property (nonatomic)       BOOL        isOnEditState ; // yes - edit, no - preview  . state for display
 @property (copy, nonatomic) NSArray     *inlineModels ;

@@ -206,6 +206,7 @@
 
 
 
+
 - (NSString *)imageUrl {
     if (self.type != MarkdownInlineImage) return nil ;
         
@@ -235,41 +236,42 @@
 
 
 
-- (NSMutableString *)clearAllInlineMark:(MarkdownEditor *)editor {
+
++ (NSMutableString *)clearAllInlineMark:(MarkdownEditor *)editor model:(MarkdownModel *)model {
     NSMutableString *tmpString = [editor.text mutableCopy] ;
-    if (self.type == MarkdownInlineDeletions) {
-        NSInteger numOfStr = self.str.length - 4 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 2 + numOfStr, 2)] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 2)] ;
+    if (model.type == MarkdownInlineDeletions) {
+        NSInteger numOfStr = model.str.length - 4 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 2 + numOfStr, 2)] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 2)] ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location - 2, numOfStr) ;
     }
-    else if (self.type == MarkdownInlineInlineCode) {
-        NSInteger numOfStr = self.str.length - 2 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 1 + numOfStr, 1)] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 1)] ;
+    else if (model.type == MarkdownInlineInlineCode) {
+        NSInteger numOfStr = model.str.length - 2 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 1 + numOfStr, 1)] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 1)] ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location - 1, numOfStr) ;
     }
-    else if (self.type == MarkdownInlineBold) {
-        NSInteger numOfStr = self.str.length - 4 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 2 + numOfStr, 2)] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 2)] ;
-        editor.selectedRange = NSMakeRange(self.range.location, numOfStr) ;
+    else if (model.type == MarkdownInlineBold) {
+        NSInteger numOfStr = model.str.length - 4 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 2 + numOfStr, 2)] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 2)] ;
+        editor.selectedRange = NSMakeRange(model.range.location, numOfStr) ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
     }
-    else if (self.type == MarkdownInlineItalic) {
-        NSInteger numOfStr = self.str.length - 2 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 1 + numOfStr, 1)] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 1)] ;
-        editor.selectedRange = NSMakeRange(self.range.location, numOfStr) ;
+    else if (model.type == MarkdownInlineItalic) {
+        NSInteger numOfStr = model.str.length - 2 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 1 + numOfStr, 1)] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 1)] ;
+        editor.selectedRange = NSMakeRange(model.range.location, numOfStr) ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
     }
-    else if (self.type == MarkdownInlineBoldItalic) {
-        NSInteger numOfStr = self.str.length - 6 ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location + 3 + numOfStr, 3)] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(self.range.location, 3)] ;
-        editor.selectedRange = NSMakeRange(self.range.location, numOfStr) ;
+    else if (model.type == MarkdownInlineBoldItalic) {
+        NSInteger numOfStr = model.str.length - 6 ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 3 + numOfStr, 3)] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 3)] ;
+        editor.selectedRange = NSMakeRange(model.range.location, numOfStr) ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
     }
     [editor doSomethingWhenUserSelectPartOfArticle:nil] ;
@@ -277,8 +279,8 @@
 }
 
 + (void)toolbarEventDeletion:(MarkdownEditor *)editor {
-    MarkdownModel *model = [editor.parser modelForModelListInlineFirst] ;
-    NSMutableString *tmpString = [(MdInlineModel *)model clearAllInlineMark:editor] ;
+    MdInlineModel *model = (MdInlineModel *)[editor.parser modelForModelListInlineFirst] ;
+    NSMutableString *tmpString = [self clearAllInlineMark:editor model:model] ;
     if (!model) tmpString = [editor.text mutableCopy] ;
     
     // del
@@ -303,8 +305,8 @@
 }
 
 + (void)toolbarEventCode:(MarkdownEditor *)editor {
-    MarkdownModel *model = [editor.parser modelForModelListInlineFirst] ;
-    NSMutableString *tmpString = [(MdInlineModel *)model clearAllInlineMark:editor] ;
+    MdInlineModel *model = (MdInlineModel *)[editor.parser modelForModelListInlineFirst] ;
+    NSMutableString *tmpString = [self clearAllInlineMark:editor model:model] ;
     if (!model) tmpString = [editor.text mutableCopy] ;
     
     // del

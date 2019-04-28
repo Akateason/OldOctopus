@@ -21,7 +21,7 @@
  */
 
 // block TYPE
-typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
+typedef NS_ENUM(int, MarkdownSyntaxType){
     MarkdownSyntaxUnknown,
     
     // 标题
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
 } ;
 
 // inline TYPE
-typedef NS_ENUM(NSUInteger, MarkdownInlineType){
+typedef NS_ENUM(int, MarkdownInlineType){
     MarkdownInlineUnknown = 99,
     
     MarkdownInlineBold,
