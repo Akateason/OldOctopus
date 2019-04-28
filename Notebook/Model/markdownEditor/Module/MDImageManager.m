@@ -19,8 +19,7 @@
 @implementation MDImageManager
 
 - (UIImage *)imagePlaceHolder {        
-    return
-    [UIImage imageWithColor:XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .04) size:CGSizeMake(680, 382.5)] ;
+    return [UIImage imageWithColor:XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .04) size:CGSizeMake(680, 382.5)] ;
 }
 
 - (void)imageWithUrlStr:(NSString *)urlStr
