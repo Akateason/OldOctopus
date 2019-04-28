@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol XTMarkdownParserDelegate <NSObject>
 @required
 - (void)quoteBlockParsingFinished:(NSArray *)list ;
-- (void)imageSelectedAtNewPosition:(NSInteger)position imageModel:(MdInlineModel *)model ;
 - (void)listBlockParsingFinished:(NSArray *)list ;
 @end
 

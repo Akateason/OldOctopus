@@ -149,6 +149,7 @@ static const int kTag_ListMarkView  = 32342 ;
     [super setSelectedTextRange:selectedTextRange] ;
     
     [self parseTextThenRenderLeftSideAndToobar] ;
+    [self returnImageModelIfUserHasSelectImage:self.selectedRange.location] ;
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -157,6 +158,36 @@ static const int kTag_ListMarkView  = 32342 ;
 // [self.toolBar redraw] ;
     return [super canBecomeFirstResponder] ;
 }
+
+- (MarkdownModel *)returnImageModelIfUserHasSelectImage:(NSUInteger)position {
+    if (position < 1) return nil ;
+    
+    NSString *strSelect = [self.text substringWithRange:NSMakeRange(position - 1, 1)] ;
+    if ([strSelect isEqualToString:@"\uFFFC"]) {
+        MarkdownModel *model = [self.parser modelForModelListInlineFirst] ; //移动到![]()后面
+        [self imageSelectedAtNewPosition:model.range.location imageModel:(MdInlineModel *)model] ; // 图片选择
+        return model ;
+    }
+    return nil ;
+}
+
+- (void)imageSelectedAtNewPosition:(NSInteger)position imageModel:(MdInlineModel *)model {
+    [self resignFirstResponder] ;
+    
+    XTSIAlertView *alert = [[XTSIAlertView alloc] initWithTitle:@"是否要删除此图片" andMessage:@""] ;
+    WEAK_SELF
+    [alert addButtonWithTitle:@"删除" type:XTSIAlertViewButtonTypeDestructive handler:^(XTSIAlertView *alertView) {
+        NSMutableString *tmpString = [weakSelf.text mutableCopy] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, model.range.length + 3)] ;
+        weakSelf.text = tmpString ;
+        [weakSelf updateTextStyle] ;
+    }] ;
+    [alert addButtonWithTitle:@"取消" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
+    }] ;
+    [alert show] ;
+}
+
+
 
 #pragma mark - props
 
@@ -232,22 +263,6 @@ static const int kTag_ListMarkView  = 32342 ;
             make.height.equalTo(@(rectForQuote.size.height)) ;
         }] ;
     }
-}
-
-- (void)imageSelectedAtNewPosition:(NSInteger)position imageModel:(MdInlineModel *)model {
-    [self resignFirstResponder] ;
-    
-    XTSIAlertView *alert = [[XTSIAlertView alloc] initWithTitle:@"是否要删除此图片" andMessage:@""] ;
-    WEAK_SELF
-    [alert addButtonWithTitle:@"删除" type:XTSIAlertViewButtonTypeDestructive handler:^(XTSIAlertView *alertView) {
-        NSMutableString *tmpString = [weakSelf.text mutableCopy] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, model.range.length + 3)] ;
-        weakSelf.text = tmpString ;
-        [weakSelf updateTextStyle] ;
-    }] ;
-    [alert addButtonWithTitle:@"取消" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
-    }] ;
-    [alert show] ;
 }
 
 - (void)listBlockParsingFinished:(NSArray *)list {

@@ -283,10 +283,14 @@
     MarkdownModel *tmpModel = nil ;
     NSArray *modellist = self.currentPositionModelList ;
     for (MarkdownModel *model in modellist) {
-        tmpModel = model ;
         if (model.type > MarkdownInlineUnknown) {
-            return tmpModel ;
+            return model ;
         }
+        tmpModel = model ;
+    }
+    
+    if (tmpModel.type == -1 && tmpModel.inlineModels.count > 0) {
+        return tmpModel.inlineModels.firstObject ;
     }
     return tmpModel ;
 }
