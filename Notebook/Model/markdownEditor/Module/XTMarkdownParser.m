@@ -382,6 +382,8 @@
 }
 
 
+
+
 #pragma mark - article infos
 
 - (NSInteger)countForWord {

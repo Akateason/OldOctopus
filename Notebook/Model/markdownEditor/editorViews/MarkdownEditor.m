@@ -244,7 +244,6 @@ static const int kTag_ListMarkView  = 32342 ;
         [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, model.range.length + 3)] ;
         weakSelf.text = tmpString ;
         [weakSelf updateTextStyle] ;
-//        [weakSelf doSomethingWhenUserSelectPartOfArticle:modelR] ;
     }] ;
     [alert addButtonWithTitle:@"取消" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
     }] ;

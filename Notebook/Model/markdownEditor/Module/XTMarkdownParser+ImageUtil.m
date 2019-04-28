@@ -87,17 +87,22 @@
         UIImage *imgResult = [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:imgUrl] ;
         if (!imgResult) {
             imgResult = self.imgManager.imagePlaceHolder ;
+            @weakify(self)
             [self.imgManager imageWithUrlStr:imgUrl complete:^(UIImage * _Nonnull image) {
-                
+                @strongify(self)
                 NSTextAttachment *attach = [self attachmentStandardFromImage:image] ;
                 NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
                 [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
                 [self updateAttributedText:str textView:textView] ;
+                
+                [self drawListBlk] ;
+                [self drawQuoteBlk] ;
             }] ;
         }
         
         NSTextAttachment *attach = [self attachmentStandardFromImage:imgResult] ;
-        NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;        [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
+        NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
+        [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
     }] ;
     [str endEditing] ;
     
