@@ -32,11 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // construct
-- (instancetype)initWithType:(NSUInteger)type
+- (instancetype)initWithType:(int)type
                        range:(NSRange)range
                          str:(NSString *)str ;
 
-+ (instancetype)modelWithType:(NSUInteger)type
++ (instancetype)modelWithType:(int)type
                         range:(NSRange)range
                           str:(NSString *)str ;
 
@@ -53,7 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 // RENDER edit state
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                          position:(NSUInteger)tvPosition ;
-
 
 // ********* rewrite in subcls ********* //
 

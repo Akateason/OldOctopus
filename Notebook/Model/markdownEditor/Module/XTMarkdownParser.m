@@ -23,8 +23,8 @@
 @interface XTMarkdownParser ()
 @property (strong, nonatomic)   MDThemeConfiguration        *configuration ;
 @property (strong, nonatomic)   MDImageManager              *imgManager ;
-@property (copy, nonatomic)     NSArray                     *paraList ; // 所有段落以及段落行内(组合形式)
-@property (copy, nonatomic)     NSArray                     *hrList ; // 分割线
+@property (copy, nonatomic)     NSArray                     *paraList ;                 // 所有段落以及段落行内(组合形式)
+@property (copy, nonatomic)     NSArray                     *hrList ;                   // 分割线
 @property (strong, nonatomic)   NSMutableAttributedString   *editAttrStr ;
 @property (copy, nonatomic)     NSArray                     *currentPositionModelList ; // 当前光标位置所对应的model
 
@@ -120,8 +120,17 @@
 
 - (void)parsingModelsForText:(NSString *)text {
     
+    //1. parse code blk first
+    NSMutableArray *codeBlkList = [@[] mutableCopy] ;
+    NSRegularExpression *expCb = regexp(MDPR_codeBlock, NSRegularExpressionAnchorsMatchLines) ;
+    NSArray *matsCb = [expCb matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
+    for (NSTextCheckingResult *result in matsCb) {
+        MdBlockModel *model = [MdBlockModel modelWithType:MarkdownSyntaxCodeBlock range:result.range str:[text substringWithRange:result.range]] ;
+        [codeBlkList addObject:model] ;
+    }
+    
+    //2. parse for paragraphs, get outside paras
     NSMutableArray *paralist = [@[] mutableCopy] ;
-    // parse for paragraphs, get outside paras
     NSRegularExpression *expPara = regexp(MDPR_paragraph, NSRegularExpressionAnchorsMatchLines) ;
     NSArray *matsPara = [expPara matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
     for (NSTextCheckingResult *result in matsPara) {
@@ -129,29 +138,39 @@
         [paralist addObject:model] ;
     }
     
+    //3. parsing get block list first . replace codeBlock First. if is block then parse for inline attr , if not a block parse this para's inline attr .
     NSMutableArray *tmplist = [paralist mutableCopy] ;
-    
-    // parsing get block list first . if is block then parse for inline attr , if not a block parse this para's inline attr .
     [paralist enumerateObjectsUsingBlock:^(MarkdownModel *pModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        // judge is block
         MarkdownModel *resModel = [self parsingGetABlockStyleModelFromParaModel:pModel] ;
+        //3.1 exchange codeblk model for paraModel
+        BOOL isCodeBlk = NO ;
+        for (MarkdownModel *cbModel in codeBlkList) {
+            if ( pModel.location >= cbModel.location && pModel.location + pModel.length <= cbModel.location + cbModel.length ) {
+                [tmplist replaceObjectAtIndex:idx withObject:cbModel] ;
+                isCodeBlk = YES ;
+                break ;
+            }
+        }
+        if (isCodeBlk) return ; // continue
+        
+        //3.2 judge is block Style
         if (resModel != nil) {
-            // model is block style
-            // parsing get inline model
+            // model is block style , parsing get inline model
             NSArray *resInlineListFromBlock = [self parsingModelForInlineStyleWithOneParagraphModel:resModel] ;
             resModel.inlineModels = resInlineListFromBlock ;
             [tmplist replaceObjectAtIndex:idx withObject:resModel] ;
         }
         else {
-            // is not block style
-            // inline parsing
+            // is not block style , inline parsing
             NSArray *resInlineListFromParagraph = [self parsingModelForInlineStyleWithOneParagraphModel:pModel] ;
             pModel.inlineModels = resInlineListFromParagraph ;
             [tmplist replaceObjectAtIndex:idx withObject:pModel] ;
         }
     }] ;
+    
     self.paraList = tmplist ; // get all para and inlines .
     paralist = nil ;
+    tmplist = nil ;
     
     // parse for hr
     NSMutableArray *tmpHrlist = [@[] mutableCopy] ;
@@ -185,8 +204,7 @@
                     return [MdListModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
                 }
                     
-                case MarkdownSyntaxBlockquotes:
-                case MarkdownSyntaxCodeBlock: {
+                case MarkdownSyntaxBlockquotes: {
                     return [MdBlockModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
                 }
                     
@@ -262,6 +280,8 @@
     return tmpInlineList ;
 }
 
+
+
 #pragma mark - update attr text in text view
 
 - (void)updateAttributedText:(NSAttributedString *)attributedString
@@ -276,77 +296,6 @@
     textView.scrollEnabled = YES ;
     self.editAttrStr = [attributedString mutableCopy] ;
 }
-
-#pragma mark - return current model with position
-
-- (MarkdownModel *)modelForModelListInlineFirst {
-    MarkdownModel *tmpModel = nil ;
-    NSArray *modellist = self.currentPositionModelList ;
-    for (MarkdownModel *model in modellist) {
-        if (model.type > MarkdownInlineUnknown) {
-            return model ;
-        }
-        tmpModel = model ;
-    }
-    
-    if (tmpModel.type == -1 && tmpModel.inlineModels.count > 0) {
-        return tmpModel.inlineModels.firstObject ;
-    }
-    return tmpModel ;
-}
-
-- (MarkdownModel *)modelForModelListBlockFirst {
-    MarkdownModel *tmpModel = nil ;
-    NSArray *modellist = self.currentPositionModelList ;
-    for (MarkdownModel *model in modellist) {
-        tmpModel = model ;
-        if (model.type < MarkdownInlineUnknown) {
-            return tmpModel ;
-        }
-    }
-    return tmpModel ;
-}
-
-- (MarkdownModel *)getBlkModelForCustomPosition:(NSUInteger)position {
-    NSArray *list = self.paraList ;
-    for (int i = 0; i < list.count; i++) {
-        MarkdownModel *model = list[i] ;
-        BOOL isInRange = NSLocationInRange(position, model.range) ;
-        
-        if (isInRange) {
-            if (model.type < MarkdownInlineUnknown) {
-                return model ; // return blkModel
-            }
-        }
-    }
-    return nil ;
-}
-
-// Returns the para before this position's para
-- (MarkdownModel *)lastParaModelForPosition:(NSUInteger)position {
-    id lastModel = nil ;
-    for (int i = 0; i < self.paraList.count; i++) {
-        MarkdownModel *model = self.paraList[i] ;
-        BOOL isInRange = NSLocationInRange(position, model.range) ;
-        if (isInRange) {
-            return lastModel ;
-        }
-        else {
-            if (i > 0) {
-                MarkdownModel *sygModel = self.paraList[i - 1] ;
-                if (position > sygModel.range.location + sygModel.range.length &&
-                    position < model.range.location) {
-                    return sygModel ;
-                }
-            }
-        }
-        lastModel = model ;
-    }
-    return nil ;
-}
-
-
-
 
 #pragma mark - call draw native views .
 
@@ -388,7 +337,5 @@
 - (NSInteger)countForPara {
     return self.paraList.count ;
 }
-
-
 
 @end

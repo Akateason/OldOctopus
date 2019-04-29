@@ -11,7 +11,7 @@
 
 @implementation MarkdownModel
 
-- (instancetype)initWithType:(NSUInteger)type
+- (instancetype)initWithType:(int)type
                        range:(NSRange)range
                          str:(NSString *)str {
     self = [super init];
@@ -23,7 +23,7 @@
     return self;
 }
 
-+ (instancetype)modelWithType:(NSUInteger)type
++ (instancetype)modelWithType:(int)type
                         range:(NSRange)range
                           str:(NSString *)str {
     return [[self alloc] initWithType:type
