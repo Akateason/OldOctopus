@@ -14,6 +14,7 @@
 #import <UINavigationController+FDFullscreenPopGesture.h>
 #import "ArticleInfoVC.h"
 #import <UIViewController+CWLateralSlide.h>
+#import "XTMarkdownParser+Fetcher.h"
 
 @interface MarkdownVC ()
 @property (weak, nonatomic) IBOutlet UIButton *btMore;

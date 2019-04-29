@@ -18,7 +18,7 @@ extern const CGFloat    kMDEditor_FlexValue ;
     BOOL    fstTimeLoaded ;
     CGFloat keyboardHeight ;
 }
-@property (strong, nonatomic) XTMarkdownParser *parser ; // paser with configuration .
+@property (strong, nonatomic) XTMarkdownParser *parser ; // parser with configuration .
 
 - (void)doSomethingWhenUserSelectPartOfArticle:(MarkdownModel *)model ;
 

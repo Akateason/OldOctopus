@@ -15,6 +15,7 @@
 #import "MDEKeyboardPhotoView.h"
 #import "MDImageManager.h"
 #import <XTlib/XTlib.h>
+#import "XTMarkdownParser+Fetcher.h"
 
 @implementation MarkdownEditor (UtilOfToolbar)
 

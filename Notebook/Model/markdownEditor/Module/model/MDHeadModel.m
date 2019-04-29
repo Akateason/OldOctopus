@@ -9,7 +9,7 @@
 #import "MDHeadModel.h"
 #import "MarkdownEditor.h"
 #import "MarkdownEditor+UtilOfToolbar.h"
-
+#import "XTMarkdownParser+Fetcher.h"
 
 @implementation MDHeadModel
 

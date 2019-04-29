@@ -10,6 +10,7 @@
 #import <XTlib/XTlib.h>
 #import "MarkdownEditor.h"
 #import "MarkdownEditor+UtilOfToolbar.h"
+#import "XTMarkdownParser+Fetcher.h"
 
 @implementation MdBlockModel
 

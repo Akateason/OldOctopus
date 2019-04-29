@@ -370,20 +370,7 @@
     if (self.delegate) [self.delegate listBlockParsingFinished:tmplist] ;
 }
 
-- (NSString *)iconImageStringOfPosition:(NSUInteger)position
-                                  model:(MarkdownModel *)model {
-    
-    if (model.type == MarkdownSyntaxHeaders) {
-        // header
-        if (!position) position++ ;
-        
-        NSString *lastString = [self.editAttrStr.string substringWithRange:NSMakeRange(position - 1, 1)] ;
-        if ([lastString isEqualToString:@"\n"]) {
-            return @"" ;
-        }
-    }
-    return [model displayStringForLeftLabel] ;
-}
+
 
 
 

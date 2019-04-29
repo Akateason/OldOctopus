@@ -25,8 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XTMarkdownParser : NSObject
 @property (weak, nonatomic)             id<XTMarkdownParserDelegate>    delegate ;
 @property (readonly, strong, nonatomic) MDThemeConfiguration            *configuration ;
-@property (readonly, strong, nonatomic) MDImageManager                  *imgManager ;
+@property (readonly, strong, nonatomic) NSMutableAttributedString       *editAttrStr ;
+@property (readonly, copy, nonatomic)   NSArray                         *paraList ;
 @property (readonly, copy, nonatomic)   NSArray                         *currentPositionModelList ; // 当前光标位置所对应的model
+@property (readonly, strong, nonatomic) MDImageManager                  *imgManager ;
 - (instancetype)initWithConfig:(MDThemeConfiguration *)config ;
 
 
@@ -45,19 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateAttributedText:(NSAttributedString *)attributedString
                     textView:(UITextView *)textView ;
 
-// pick one model in currentPositionModelList.  return the user choosen type First otherwise any model .
-- (MarkdownModel *)modelForModelListInlineFirst ;
-- (MarkdownModel *)modelForModelListBlockFirst ;
-// return a blkModel with any position
-- (MarkdownModel *)getBlkModelForCustomPosition:(NSUInteger)position ;
 
-
-// Returns the para before this position
-- (MarkdownModel *)lastParaModelForPosition:(NSUInteger)position ;
-
-// left icon image String
-- (NSString *)iconImageStringOfPosition:(NSUInteger)position
-                                  model:(MarkdownModel *)model ;
 
 // article infos
 - (NSInteger)countForWord ;

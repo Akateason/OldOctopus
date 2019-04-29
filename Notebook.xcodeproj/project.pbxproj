@@ -37,6 +37,7 @@
 		8F41EED7225C4CA700D9CD35 /* home_edit_book@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F41EED6225C4CA700D9CD35 /* home_edit_book@2x.png */; };
 		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
+		8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
 		8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F579FE0222FB65B00C54929 /* XTCloudHandler.m */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
@@ -209,6 +210,8 @@
 		8F41EED6225C4CA700D9CD35 /* home_edit_book@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_edit_book@2x.png"; sourceTree = "<group>"; };
 		8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
 		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
+		8F50AAA02276A3D500B32B5B /* XTMarkdownParser+Fetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XTMarkdownParser+Fetcher.h"; sourceTree = "<group>"; };
+		8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XTMarkdownParser+Fetcher.m"; sourceTree = "<group>"; };
 		8F579FDC222E547F00C54929 /* Notebook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notebook.entitlements; sourceTree = "<group>"; };
 		8F579FDD222E54A500C54929 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		8F579FDF222FB65B00C54929 /* XTCloudHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTCloudHandler.h; sourceTree = "<group>"; };
@@ -579,6 +582,8 @@
 				8F05C57B22754CD40047CC04 /* XTMarkdownParser+Regular.m */,
 				8F05C57D22754F150047CC04 /* XTMarkdownParser+ImageUtil.h */,
 				8F05C57E22754F150047CC04 /* XTMarkdownParser+ImageUtil.m */,
+				8F50AAA02276A3D500B32B5B /* XTMarkdownParser+Fetcher.h */,
+				8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */,
 				8F7A8441224235960099E905 /* MDImageManager.h */,
 				8F7A8442224235960099E905 /* MDImageManager.m */,
 				8F679E1F2238F973008DE1BC /* model */,
@@ -1185,6 +1190,7 @@
 				8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */,
 				8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */,
 				8FC431272265CCAF0002C9A1 /* SearchVC.m in Sources */,
+				8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,
 				8F41EECF225B47AE00D9CD35 /* MoveNoteToBookVC.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,

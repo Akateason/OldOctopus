@@ -17,6 +17,7 @@
 #import "MdInlineModel.h"
 #import <XTlib/XTSIAlertView.h>
 #import "XTMarkdownParser+ImageUtil.h"
+#import "XTMarkdownParser+Fetcher.h"
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue   = 30.f  ;
