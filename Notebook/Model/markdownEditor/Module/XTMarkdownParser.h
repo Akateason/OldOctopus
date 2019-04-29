@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "MdParserRegexpHeader.h"
 #import "MarkdownModel.h"
+
 @class MDThemeConfiguration,MarkdownPaser,MDImageManager,MdInlineModel ;
 
 
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 - (void)quoteBlockParsingFinished:(NSArray *)list ;
 - (void)listBlockParsingFinished:(NSArray *)list ;
+- (NSRange)currentCursorRange ;
 @end
 
 

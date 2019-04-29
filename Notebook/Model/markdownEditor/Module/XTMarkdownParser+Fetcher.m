@@ -7,6 +7,7 @@
 //
 
 #import "XTMarkdownParser+Fetcher.h"
+#import "MarkdownModel.h"
 
 @implementation XTMarkdownParser (Fetcher)
 
@@ -14,26 +15,35 @@
 
 - (MarkdownModel *)modelForModelListInlineFirst {
     MarkdownModel *tmpModel = nil ;
+    NSRange cursorRange = [self.delegate currentCursorRange] ;
     NSArray *modellist = self.currentPositionModelList ;
+    
     for (MarkdownModel *model in modellist) {
-        if (model.type > MarkdownInlineUnknown) {
+        if (model.type > MarkdownInlineUnknown && NSLocationInRange(cursorRange.location, model.range)) {
             return model ;
         }
         tmpModel = model ;
     }
     
     if (tmpModel.type == -1 && tmpModel.inlineModels.count > 0) {
-        return tmpModel.inlineModels.firstObject ;
+        for (int i = 0; i < tmpModel.inlineModels.count; i++) {
+            MarkdownModel *inlineModel = tmpModel.inlineModels[i] ;
+            if (inlineModel.type > MarkdownInlineUnknown && NSLocationInRange(cursorRange.location, inlineModel.range)) {
+                return inlineModel ;
+            }
+        }
     }
     return tmpModel ;
 }
 
 - (MarkdownModel *)modelForModelListBlockFirst {
     MarkdownModel *tmpModel = nil ;
+    NSRange cursorRange = [self.delegate currentCursorRange] ;
     NSArray *modellist = self.currentPositionModelList ;
+    
     for (MarkdownModel *model in modellist) {
         tmpModel = model ;
-        if (model.type < MarkdownInlineUnknown) {
+        if (model.type < MarkdownInlineUnknown && NSLocationInRange(cursorRange.location, model.range)) {
             return tmpModel ;
         }
     }

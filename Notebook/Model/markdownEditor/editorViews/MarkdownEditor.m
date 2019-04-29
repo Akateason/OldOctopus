@@ -330,6 +330,10 @@ static const int kTag_ListMarkView  = 32342 ;
     }
 }
 
+- (NSRange)currentCursorRange {
+    return self.selectedRange ;
+}
+
 #pragma mark - textview Delegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
