@@ -206,6 +206,7 @@ static const int kTag_ListMarkView  = 32342 ;
         _imgLeftCornerMarker = ({
             UIImageView *object = [[UIImageView alloc] init] ;
             object.contentMode = UIViewContentModeScaleAspectFit ;
+            object.alpha = .3 ;
             object;
        });
     }
@@ -217,7 +218,7 @@ static const int kTag_ListMarkView  = 32342 ;
     CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start] ;
     NSLog(@"caretRect ; %@", NSStringFromCGRect(caretRect)) ;
     [self.imgLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.superview.mas_left).offset(kMDEditor_FlexValue / 2) ;
+        make.right.equalTo(self.mas_left).offset(-1) ;
         make.top.equalTo(self.mas_top).offset(caretRect.origin.y) ;
         make.size.mas_equalTo(CGSizeMake(15, 15)) ;
     }] ;
