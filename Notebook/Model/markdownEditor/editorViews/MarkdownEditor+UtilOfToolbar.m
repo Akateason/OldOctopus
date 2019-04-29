@@ -23,8 +23,9 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
 
 - (MarkdownModel *)cleanMarkOfParagraph {
     NSMutableString *tmpString = [self.text mutableCopy] ;
-    NSInteger position = self.selectedRange.location ;
     MarkdownModel *blkModel = [self.parser modelForModelListBlockFirst] ;
+    if (!blkModel) return nil ;
+    
     NSString *tmpPrefixStr = blkModel.str ;
     if (blkModel.type == MarkdownSyntaxTaskLists) {
         tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@"]"] firstObject] ;

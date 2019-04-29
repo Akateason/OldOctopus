@@ -156,7 +156,6 @@ static const int kTag_ListMarkView  = 32342 ;
 - (BOOL)canBecomeFirstResponder {
     self.inputAccessoryView = self.toolBar ;
     // Redraw in case enabbled features have changes
-// [self.toolBar redraw] ;
     return [super canBecomeFirstResponder] ;
 }
 
