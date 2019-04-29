@@ -25,6 +25,7 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
     NSMutableString *tmpString = [self.text mutableCopy] ;
     MarkdownModel *blkModel = [self.parser modelForModelListBlockFirst] ;
     if (!blkModel) return nil ;
+    if (blkModel.type == -1) return blkModel ; // return pure para .
     
     NSString *tmpPrefixStr = blkModel.str ;
     if (blkModel.type == MarkdownSyntaxTaskLists) {
@@ -38,7 +39,7 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
         [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
         blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 1 + 4)) ;
     }
-    else {
+    else if (blkModel.type != -1) {
         tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@" "] firstObject] ;
         [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
         blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 1)) ;
@@ -83,7 +84,7 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
     [MDHeadModel makeHeaderWithSize:@"##### " editor:self] ;
 }
 - (void)toolbarDidSelectH6 {
-    [MDHeadModel makeHeaderWithSize:@"###### " editor:self] ;;
+    [MDHeadModel makeHeaderWithSize:@"###### " editor:self] ;
 }
 - (void)toolbarDidSelectSepLine {
     NSMutableString *tmpString = [self.text mutableCopy] ;

@@ -61,7 +61,8 @@
         _content = content ;
         _title = title ;
         _baseContent = [content base64EncodedString] ;
-        _modifyDateOnServer = [[NSDate date] xt_getTick] ;
+        _createDateOnServer = [[NSDate date] xt_getTick] ;
+        _modifyDateOnServer = _createDateOnServer ;
     }
     return self;
 }
@@ -88,6 +89,7 @@
         if (!error) {
             // succcess
             aNote.isSendOnICloud = YES ;
+            aNote.createDateOnServer = [record.creationDate xt_getTick] ;
             aNote.modifyDateOnServer = [record.modificationDate xt_getTick] ;
             [aNote xt_update] ;
         }

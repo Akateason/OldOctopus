@@ -194,12 +194,14 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         if ([type isEqualToString:@"Note"]) {
             Note *note = [Note recordToNote:record] ;
             note.modifyDateOnServer = [record.modificationDate xt_getTick] ;
+            note.createDateOnServer = [record.creationDate xt_getTick] ;
             note.isSendOnICloud = YES ;
             [note xt_upsertWhereByProp:@"icRecordName"] ;
         }
         else if ([type isEqualToString:@"NoteBook"]) {
             NoteBooks *book = [NoteBooks recordToNoteBooks:record] ;
             book.modifyDateOnServer = [record.modificationDate xt_getTick] ;
+            book.createDateOnServer = [record.creationDate xt_getTick] ;
             book.isSendOnICloud = YES ;
             [book xt_upsertWhereByProp:@"icRecordName"] ;
         }

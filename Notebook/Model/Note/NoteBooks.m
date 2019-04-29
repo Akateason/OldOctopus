@@ -41,7 +41,8 @@
         _emoji = [@{@"native":emoji} yy_modelToJSONString] ;
         _isDeleted = 0 ;
         _name = name ;
-        _modifyDateOnServer = [[NSDate date] xt_getTick] ;
+        _createDateOnServer = [[NSDate date] xt_getTick] ;
+        _modifyDateOnServer = _createDateOnServer ;
     }
     return self;
 }
@@ -87,6 +88,8 @@
         if (!error) {
             // succcess
             book.isSendOnICloud = YES ;
+            book.createDateOnServer = [record.creationDate xt_getTick] ;
+            book.modifyDateOnServer = [record.modificationDate xt_getTick] ;
             [book xt_update] ;
         }
         else {
