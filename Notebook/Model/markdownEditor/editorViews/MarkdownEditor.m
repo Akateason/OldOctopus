@@ -35,7 +35,7 @@ static const int kTag_ListMarkView  = 32342 ;
 #pragma mark - life
 
 - (void)dealloc {
-    NSLog(@"******** MarkdownEditor DEALLOC ********") ; // todo 添加图片后不能释放.
+    NSLog(@"******** MarkdownEditor DEALLOC ********") ; // todo 添加图片后不能释放. 图片下载中, 退出时应终止下载.
 }
 
 - (id)initWithCoder:(NSCoder *) coder {
@@ -214,12 +214,12 @@ static const int kTag_ListMarkView  = 32342 ;
 
 - (void)show_lbLeftCornerMarker {
     [self addSubview:self.imgLeftCornerMarker] ;
-    CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start];
-//    NSLog(@"caretRect ; %@", NSStringFromCGRect(caretRect)) ;
+    CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start] ;
+    NSLog(@"caretRect ; %@", NSStringFromCGRect(caretRect)) ;
     [self.imgLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.superview.mas_left).offset(kMDEditor_FlexValue / 2) ;
-        make.centerY.equalTo(self.mas_top).offset(caretRect.origin.y + kMDEditor_FlexValue / 2) ;
-        make.size.mas_equalTo(CGSizeMake(20, 20)) ;
+        make.top.equalTo(self.mas_top).offset(caretRect.origin.y) ;
+        make.size.mas_equalTo(CGSizeMake(15, 15)) ;
     }] ;
 }
 
@@ -268,7 +268,7 @@ static const int kTag_ListMarkView  = 32342 ;
 
 - (void)listBlockParsingFinished:(NSArray *)list {
     for (UIView *subView in self.subviews) if (subView.tag == kTag_ListMarkView) [subView removeFromSuperview] ;
-        
+    
     for (int i = 0; i < list.count; i++) {
         MdListModel *model = list[i] ;
         CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
