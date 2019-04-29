@@ -58,8 +58,6 @@
 }
 
 - (IBAction)btOutputAction:(id)sender {
-
-
     if (self.blkOutput) self.blkOutput() ;
 }
 

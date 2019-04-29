@@ -18,11 +18,15 @@
 #import <XTlib/XTSIAlertView.h>
 #import "XTMarkdownParser+ImageUtil.h"
 #import "XTMarkdownParser+Fetcher.h"
+#import "MdBlockModel.h"
+#import "MDCodeBlockEditor.h"
+
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue   = 30.f  ;
 static const int kTag_QuoteMarkView = 66777 ;
 static const int kTag_ListMarkView  = 32342 ;
+static const int kTag_CodeBlkView   = 40000 ;
 
 @interface MarkdownEditor ()<XTMarkdownParserDelegate, UITextViewDelegate>
 @property (strong, nonatomic) UIImageView   *imgLeftCornerMarker ;
@@ -61,8 +65,7 @@ static const int kTag_ListMarkView  = 32342 ;
     self.delegate = self ;
     if (@available(iOS 11.0, *)) self.smartDashesType = UITextSmartDashesTypeNo ;
     
-    
-    
+//    self.backgroundColor = nil ;
     
     @weakify(self)
     // user typing
@@ -145,6 +148,13 @@ static const int kTag_ListMarkView  = 32342 ;
 
 #pragma mark - rewrite father
 #pragma mark - cursor moving and selecting
+
+- (CGRect)caretRectForPosition:(UITextPosition *)position {
+    CGRect originalRect = [super caretRectForPosition:position];
+    originalRect.size.height = self.font.lineHeight + 2;
+    originalRect.size.width = 2 ;    
+    return originalRect;
+}
 
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
     [super setSelectedTextRange:selectedTextRange] ;
@@ -328,6 +338,23 @@ static const int kTag_ListMarkView  = 32342 ;
             make.height.equalTo(@(21)) ;
         }] ;
     }
+}
+
+- (void)codeBlockParingFinished:(NSArray *)list {
+//    for (UIView *subView in self.subviews) if (subView.tag == kTag_CodeBlkView) [subView removeFromSuperview] ;
+//
+//    for (int i = 0; i < list.count; i++) {
+//        MdBlockModel *model = list[i] ;
+//        CGRect rectForBlk = [self xt_frameOfTextRange:model.range] ;
+//        if (CGSizeEqualToSize(rectForBlk.size, CGSizeZero)) continue ;
+//
+//        MDCodeBlockEditor *codeBlkItem = [[MDCodeBlockEditor alloc] initWithFrame:rectForBlk model:model] ;
+//        codeBlkItem.xt_borderWidth = 1 ;
+//        codeBlkItem.xt_borderColor = [UIColor redColor] ;
+//        codeBlkItem.tag = kTag_CodeBlkView ;
+//        codeBlkItem.userInteractionEnabled = YES ;
+//        [self addSubview:codeBlkItem] ;
+//    }
 }
 
 - (NSRange)currentCursorRange {

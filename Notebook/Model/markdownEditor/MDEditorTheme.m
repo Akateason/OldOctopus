@@ -73,7 +73,7 @@
     if(!_basicStyle){
         _basicStyle = ({
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-//            paragraphStyle.lineSpacing = 10 ;
+            paragraphStyle.lineSpacing = 10 ;
 //            paragraphStyle.paragraphSpacing = kDefaultFontSize ;
 //            paragraphStyle.paragraphSpacingBefore = 2 * kDefaultFontSize ;
             NSDictionary * object = @{NSFontAttributeName : self.font,
@@ -135,7 +135,7 @@
     if (!_codeBlockStyle) {
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.minimumLineHeight = 25 ;
-        
+//        paragraphStyle.lineSpacing = 10 ;
         _codeBlockStyle = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_themeColor, .3) ,
                             NSFontAttributeName : self.font ,
                             NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_themeColor) ,

@@ -28,12 +28,12 @@
 }
 
 - (NSDictionary *)attrQuoteBlockHideMark {
-//    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-//    paraStyle.paragraphSpacing = 16;
+    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+    paraStyle.paragraphSpacing = 0 ;
     NSDictionary *tmpStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
                                NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_bgColor, .3) ,
                                NSFontAttributeName : [UIFont systemFontOfSize:.1] ,
-//                               NSParagraphStyleAttributeName : paraStyle,
+                               NSParagraphStyleAttributeName : paraStyle,
                                } ;
     return tmpStyle ;
 }
@@ -99,8 +99,9 @@
         }
             break ;
         case MarkdownSyntaxCodeBlock: {
-            NSRange rangeTmp = NSMakeRange(location + 3, length - 6) ;
-            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:rangeTmp] ;
+//            NSRange rangeTmp = NSMakeRange(location + 3, length - 6) ;
+//            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:rangeTmp] ;
+            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
         }
             break ;
             
