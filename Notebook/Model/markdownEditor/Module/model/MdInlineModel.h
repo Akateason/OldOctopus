@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-
++ (NSMutableString *)clearAllInlineMark:(MarkdownEditor *)editor
+                                  model:(MarkdownModel *)model ;
 
 + (void)toolbarEventDeletion:(MarkdownEditor *)editor ;
 + (void)toolbarEventCode:(MarkdownEditor *)editor ;

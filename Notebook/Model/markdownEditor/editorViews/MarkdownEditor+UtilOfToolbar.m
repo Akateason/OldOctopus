@@ -16,6 +16,7 @@
 #import "MDImageManager.h"
 #import <XTlib/XTlib.h>
 #import "XTMarkdownParser+Fetcher.h"
+#import "MdInlineModel.h"
 
 @implementation MarkdownEditor (UtilOfToolbar)
 
@@ -107,8 +108,7 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
         [self doSomethingWhenUserSelectPartOfArticle:nil] ;
         return ;
     }
-    
-    if (model.type == MarkdownInlineBoldItalic) {
+    else if (model.type == MarkdownInlineBoldItalic) {
         NSInteger numOfStr = model.str.length - 6 ;
         [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 3 + numOfStr, 3)] ;
         [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 3)] ;
@@ -117,10 +117,13 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
         [self toolbarDidSelectItalic] ;
         return ;
     }
-    
-    if (model.type == MarkdownInlineItalic) {
+    else if (model.type == MarkdownInlineItalic) {
         NSInteger numOfStr = model.str.length - 2 ;
         self.selectedRange = NSMakeRange(model.range.location + 1, numOfStr) ;
+    }
+    else {
+        tmpString = [MdInlineModel clearAllInlineMark:self model:model] ;
+        model = [self.parser modelForModelListInlineFirst] ;
     }
     
     // add
@@ -154,8 +157,7 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
         [self doSomethingWhenUserSelectPartOfArticle:nil] ;
         return ;
     }
-    
-    if (model.type == MarkdownInlineBoldItalic) {
+    else if (model.type == MarkdownInlineBoldItalic) {
         NSInteger numOfStr = model.str.length - 6 ;
         [tmpString deleteCharactersInRange:NSMakeRange(model.range.location + 3 + numOfStr, 3)] ;
         [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, 3)] ;
@@ -164,10 +166,13 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
         [self toolbarDidSelectBold] ;
         return ;
     }
-    
-    if (model.type == MarkdownInlineBold) {
+    else if (model.type == MarkdownInlineBold) {
         NSInteger numOfStr = model.str.length - 4 ;
         self.selectedRange = NSMakeRange(model.range.location + 2, numOfStr) ;
+    }
+    else {
+        tmpString = [MdInlineModel clearAllInlineMark:self model:model] ;
+        model = [self.parser modelForModelListInlineFirst] ;
     }
     
     // add
