@@ -75,13 +75,14 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
+            if (self.str.length == 2) return attributedString ;
+            
             resultDic = [configuration.editorThemeObj.invisibleMarkStyle mutableCopy] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 1, 1)] ;
             
             resultDic = [resultDic mutableCopy] ;
             [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 1)] ;
-            
             
             resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor) ,
                           NSFontAttributeName : paragraphFont ,
@@ -167,6 +168,8 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
+            if (self.str.length == 2) return attributedString ;
+            
             resultDic = [configuration.editorThemeObj.markStyle mutableCopy] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 1, 1)] ;
 

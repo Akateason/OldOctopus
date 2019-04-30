@@ -362,6 +362,8 @@ static const int kTag_InlineCodeView    = 50000 ;
     for (UIView *subView in self.subviews) if (subView.tag == kTag_InlineCodeView) [subView removeFromSuperview] ;
     for (int i = 0; i < list.count; i++) {
         MdBlockModel *model = list[i] ;
+        if (model.str.length == 2) continue ;
+        
         CGRect rectForIC = [self xt_frameOfTextRange:NSMakeRange(model.range.location + 1, model.range.length - 2)] ;
         rectForIC.size.height = [MDThemeConfiguration sharedInstance].editorThemeObj.fontSize * 1.5 ;
         rectForIC.origin.x -= [MDThemeConfiguration sharedInstance].editorThemeObj.inlineCodeSideFlex ;
