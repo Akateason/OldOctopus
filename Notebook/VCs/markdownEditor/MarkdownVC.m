@@ -107,7 +107,15 @@
 
 - (void)createNewNote {
     NSString *articleContent = self.textView.text ;
-    NSString *title = [[self.textView.text componentsSeparatedByString:@"\n"] firstObject] ?: self.textView.text ;
+    NSArray *listForBreak = [self.textView.text componentsSeparatedByString:@"\n"] ;
+    NSString *title = @"无标题" ;
+    for (NSString *str in listForBreak) {
+        if (str.length) {
+            title = str ;
+            break ;
+        }
+    }
+    
     if (articleContent && articleContent.length) {
         Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:articleContent title:title] ;
         self.aNote = newNote ;
@@ -120,8 +128,17 @@
 - (void)updateMyNote {
     if (!self.aNote) return ;
     
+    NSArray *listForBreak = [self.textView.text componentsSeparatedByString:@"\n"] ;
+    NSString *title = @"无标题" ;
+    for (NSString *str in listForBreak) {
+        if (str.length) {
+            title = str ;
+            break ;
+        }
+    }
+    
     self.aNote.content = self.textView.text ;
-    self.aNote.title = [[self.textView.text componentsSeparatedByString:@"\n"] firstObject] ?: self.textView.text ;
+    self.aNote.title = title ;
     [Note updateMyNote:self.aNote] ;
     [self.delegate editNoteComplete:self.aNote] ;
 }

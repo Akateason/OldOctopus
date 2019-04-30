@@ -148,12 +148,14 @@
     
     // replace
     if (paraModel.type == MarkdownSyntaxCodeBlock) return ;
+    
     [tmpString insertString:@"\n```" atIndex:paraModel.range.location + paraModel.range.length] ;
     [tmpString insertString:@"```\n" atIndex:paraModel.range.location] ;
     [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
     MarkdownModel *modelParse = [editor.parser modelForModelListBlockFirst] ;
     [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
     editor.selectedRange = NSMakeRange(modelParse.range.length + modelParse.range.location, 0) ;
+
 }
 
 @end

@@ -183,7 +183,7 @@
 
 
 + (NSString *)filterMarkdownString:(NSString *)markdownStr {
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\n" withString:@""] ;
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"#" withString:@""] ;
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"*" withString:@""] ;
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"_" withString:@""] ;

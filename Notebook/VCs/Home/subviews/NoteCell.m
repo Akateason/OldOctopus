@@ -40,8 +40,8 @@ static int kLimitCount = 70 ;
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {
     [super xt_configure:note indexPath:indexPath] ;
     
-    _lbTitle.text = [self filterMarkdownString:note.title] ;
-    NSString *content = [self filterMarkdownString:note.content] ;
+    _lbTitle.text = [Note filterMarkdownString:note.title] ;
+    NSString *content = [Note filterMarkdownString:note.content] ;
     if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
     _lbContent.text = content ;
     _lbDate.text = [[NSDate xt_getDateWithTick:note.modifyDateOnServer] xt_timeInfo] ;
@@ -60,16 +60,6 @@ static int kLimitCount = 70 ;
 
 + (CGFloat)xt_cellHeight {
     return 120 ;
-}
-
-- (NSString *)filterMarkdownString:(NSString *)markdownStr {
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"#" withString:@""] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"*" withString:@""] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"_" withString:@""] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"~" withString:@""] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"`" withString:@""] ;
-    return markdownStr ;
 }
 
 - (void)setTextForSearching:(NSString *)textForSearching {
