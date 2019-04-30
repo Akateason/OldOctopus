@@ -132,7 +132,7 @@
     }
     
     
-    //3. parse for paragraphs, get outside paras
+    //2. parse for paragraphs, get outside paras
     NSMutableArray *paralist = [@[] mutableCopy] ;
     [text enumerateSubstringsInRange:NSMakeRange(0, text.length)
                              options:NSStringEnumerationByParagraphs
@@ -141,7 +141,7 @@
                               [paralist addObject:model] ;
                           }] ;    
     
-    //4. parsing get block list first . replace codeBlock First. if is block then parse for inline attr , if not a block parse this para's inline attr .
+    //3. parsing get block list first . replace codeBlock First. if is block then parse for inline attr , if not a block parse this para's inline attr .
     NSMutableArray *tmplist = [@[] mutableCopy] ;
     
     [paralist enumerateObjectsUsingBlock:^(MarkdownModel *pModel, NSUInteger idx, BOOL * _Nonnull stop) {
