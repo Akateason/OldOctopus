@@ -23,10 +23,11 @@
 
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
-const CGFloat kMDEditor_FlexValue   = 30.f  ;
-static const int kTag_QuoteMarkView = 66777 ;
-static const int kTag_ListMarkView  = 32342 ;
-static const int kTag_CodeBlkView   = 40000 ;
+const CGFloat kMDEditor_FlexValue       = 30.f  ;
+static const int kTag_QuoteMarkView     = 66777 ;
+static const int kTag_ListMarkView      = 32342 ;
+static const int kTag_CodeBlkView       = 40000 ;
+static const int kTag_InlineCodeView    = 50000 ;
 
 @interface MarkdownEditor ()<XTMarkdownParserDelegate, UITextViewDelegate>
 @property (strong, nonatomic) UIImageView   *imgLeftCornerMarker ;
@@ -152,7 +153,7 @@ static const int kTag_CodeBlkView   = 40000 ;
 - (CGRect)caretRectForPosition:(UITextPosition *)position {
     CGRect originalRect = [super caretRectForPosition:position];
     originalRect.size.height = self.font.lineHeight + 2;
-    originalRect.size.width = 2 ;    
+    originalRect.size.width = 2 ;
     return originalRect;
 }
 
@@ -340,7 +341,7 @@ static const int kTag_CodeBlkView   = 40000 ;
     }
 }
 
-- (void)codeBlockParingFinished:(NSArray *)list {
+- (void)codeBlockParsingFinished:(NSArray *)list {
 //    for (UIView *subView in self.subviews) if (subView.tag == kTag_CodeBlkView) [subView removeFromSuperview] ;
 //
 //    for (int i = 0; i < list.count; i++) {
@@ -355,6 +356,31 @@ static const int kTag_CodeBlkView   = 40000 ;
 //        codeBlkItem.userInteractionEnabled = YES ;
 //        [self addSubview:codeBlkItem] ;
 //    }
+}
+
+- (void)inlineCodeParsingFinished:(NSArray *)list {
+    for (UIView *subView in self.subviews) if (subView.tag == kTag_InlineCodeView) [subView removeFromSuperview] ;
+    for (int i = 0; i < list.count; i++) {
+        MdBlockModel *model = list[i] ;
+        CGRect rectForIC = [self xt_frameOfTextRange:NSMakeRange(model.range.location + 1, model.range.length - 2)] ;
+        rectForIC.size.height = [MDThemeConfiguration sharedInstance].editorThemeObj.fontSize * 1.5 ;
+        rectForIC.origin.x -= [MDThemeConfiguration sharedInstance].editorThemeObj.inlineCodeSideFlex ;
+        rectForIC.size.width += [MDThemeConfiguration sharedInstance].editorThemeObj.inlineCodeSideFlex ;
+        if (CGSizeEqualToSize(rectForIC.size, CGSizeZero)) continue ;
+
+        UIView *item = [[UIView alloc] init] ;
+        item.frame = rectForIC ;
+        item.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_themeColor, .2) ;
+        item.userInteractionEnabled = YES ;
+        item.tag = kTag_InlineCodeView ;
+        WEAK_SELF
+        [item bk_whenTapped:^{
+            if (!weakSelf.isFirstResponder) [weakSelf becomeFirstResponder] ;
+            weakSelf.selectedRange = NSMakeRange(model.location + model.length - 1, 0)  ;
+            [weakSelf parseTextThenRenderLeftSideAndToobar] ;
+        }] ;
+        [self addSubview:item] ;
+    }
 }
 
 - (NSRange)currentCursorRange {

@@ -91,6 +91,7 @@
     [self drawQuoteBlk] ;
     [self drawListBlk] ;
     [self drawCodeBlk] ;
+    [self drawInlineCode] ;
     self.currentPositionModelList = tmpCurrentModelList ;
     return tmpCurrentModelList ;
 }
@@ -327,10 +328,20 @@
             [tmplist addObject:model] ;
         }
     }] ;
-    if (self.delegate) [self.delegate codeBlockParingFinished:tmplist] ;
+    if (self.delegate) [self.delegate codeBlockParsingFinished:tmplist] ;
 }
 
-
+- (void)drawInlineCode {
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    [self.paraList enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        [model.inlineModels enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull inlineModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (inlineModel.type == MarkdownInlineInlineCode) {
+                [tmplist addObject:inlineModel] ;
+            }
+        }] ;
+    }] ;
+    if (self.delegate) [self.delegate inlineCodeParsingFinished:tmplist] ;
+}
 
 
 #pragma mark - article infos

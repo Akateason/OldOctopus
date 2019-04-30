@@ -75,18 +75,22 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
-            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
-            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
+            resultDic = [configuration.editorThemeObj.invisibleMarkStyle mutableCopy] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 1, 1)] ;
+            
+            resultDic = [resultDic mutableCopy] ;
+            [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location, 1)] ;
+            
             
             resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor) ,
-                          NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_inlineCodeBGColor, .3) ,
-                          NSFontAttributeName : paragraphFont,
-                          };
+                          NSFontAttributeName : paragraphFont ,
+                          } ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
             
-//            [attributedString removeAttribute:NSBackgroundColorAttributeName range:NSMakeRange(location + 1, length - 2)] ;
-//            [attributedString removeAttribute:NSParagraphStyleAttributeName range:NSMakeRange(location + 1, length - 2)] ;
-            
+            resultDic = [resultDic mutableCopy] ;
+            [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 2, 1)] ;
         }
             break ;
         case MarkdownInlineLinks: {
@@ -163,13 +167,21 @@
         }
             break ;
         case MarkdownInlineInlineCode: {
-            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            resultDic = [configuration.editorThemeObj.markStyle mutableCopy] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 1, 1)] ;
+
+            resultDic = [resultDic mutableCopy] ;
+            [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location, 1)] ;
+            
             resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor) ,
-                          NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_inlineCodeBGColor, .3) ,
                           NSFontAttributeName : paragraphFont,
-                          NSParagraphStyleAttributeName : paragraphStyle
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
+            
+            resultDic = [resultDic mutableCopy] ;
+            [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
+            [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 2, 1)] ;
         }
             break ;
         case MarkdownInlineLinks: {

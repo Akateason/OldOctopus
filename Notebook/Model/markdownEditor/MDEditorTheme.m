@@ -145,6 +145,13 @@
     return _codeBlockStyle ;
 }
 
+- (float)inlineCodeSideFlex {
+    if (!_inlineCodeSideFlex) {
+        _inlineCodeSideFlex = 4 ;
+    }
+    return _inlineCodeSideFlex ;
+}
+
 
 @end
 

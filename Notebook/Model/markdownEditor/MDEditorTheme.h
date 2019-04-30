@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic)     NSDictionary    *listInvisibleMarkStyle ;
 @property (strong, nonatomic)   NSDictionary    *codeBlockStyle ;
 
+@property (nonatomic)           float           inlineCodeSideFlex ;
+
 @end
 
 NS_ASSUME_NONNULL_END
