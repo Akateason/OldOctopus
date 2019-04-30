@@ -131,26 +131,6 @@
         [codeBlkList addObject:model] ;
     }
     
-    //2. parse List blk
-    NSMutableArray *listBlkList = [@[] mutableCopy] ;
-    NSArray *matstllb = [regexp(MDPR_tasklist, NSRegularExpressionAnchorsMatchLines) matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
-    for (NSTextCheckingResult *result in matstllb) {
-        MdListModel *model = [MdListModel modelWithType:MarkdownSyntaxTaskLists range:result.range str:[text substringWithRange:result.range]] ;
-        [listBlkList addObject:model] ;
-    }
-    NSArray *matsollb = [regexp(MDPR_orderlist, NSRegularExpressionAnchorsMatchLines) matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
-    for (NSTextCheckingResult *result in matsollb) {
-        MdListModel *model = [MdListModel modelWithType:MarkdownSyntaxOLLists range:result.range str:[text substringWithRange:result.range]] ;
-        [listBlkList addObject:model] ;
-    }
-    NSArray *matsullb = [regexp(MDPR_bulletlist, NSRegularExpressionAnchorsMatchLines) matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
-    for (NSTextCheckingResult *result in matsullb) {
-        NSString *aText = [text substringWithRange:result.range] ;
-        if ([aText hasPrefix:@"* ["]) continue ;
-        
-        MdListModel *model = [MdListModel modelWithType:MarkdownSyntaxULLists range:result.range str:aText] ;
-        [listBlkList addObject:model] ;
-    }
     
     //3. parse for paragraphs, get outside paras
     NSMutableArray *paralist = [@[] mutableCopy] ;
@@ -162,7 +142,7 @@
                           }] ;    
     
     //4. parsing get block list first . replace codeBlock First. if is block then parse for inline attr , if not a block parse this para's inline attr .
-    NSMutableArray *tmplist = [paralist mutableCopy] ;
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
     
     [paralist enumerateObjectsUsingBlock:^(MarkdownModel *pModel, NSUInteger idx, BOOL * _Nonnull stop) {
         MarkdownModel *resModel = [self parsingGetABlockStyleModelFromParaModel:pModel] ;
@@ -170,7 +150,7 @@
         BOOL isCodeBlk = NO ;
         for (MarkdownModel *cbModel in codeBlkList) {
             if ( pModel.location >= cbModel.location && pModel.location + pModel.length <= cbModel.location + cbModel.length ) {
-                [tmplist replaceObjectAtIndex:idx withObject:cbModel] ;
+                [tmplist addObject:cbModel] ;
                 isCodeBlk = YES ;
                 break ;
             }
@@ -183,29 +163,17 @@
             // model is block style , parsing get inline model
             NSArray *resInlineListFromBlock = [self parsingModelForInlineStyleWithOneParagraphModel:resModel] ;
             resModel.inlineModels = resInlineListFromBlock ;
-            [tmplist replaceObjectAtIndex:idx withObject:resModel] ;
+            [tmplist addObject:resModel] ;
         }
         else {
             // is not block style , inline parsing
             NSArray *resInlineListFromParagraph = [self parsingModelForInlineStyleWithOneParagraphModel:pModel] ;
             pModel.inlineModels = resInlineListFromParagraph ;
-            [tmplist replaceObjectAtIndex:idx withObject:pModel] ;
+            [tmplist addObject:pModel] ;
         }
     }] ;
     
     paralist = tmplist ;
-    
-
-    //5. remove blk para. and insert list blk
-    [paralist enumerateObjectsUsingBlock:^(MarkdownModel *pModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        for (MarkdownModel *listModel in listBlkList) {
-            if ( pModel.location <= listModel.location && pModel.location + pModel.length >= listModel.location + listModel.length ) {
-                [tmplist removeObject:pModel] ;
-            }
-        }
-    }] ;
-    [tmplist addObjectsFromArray:listBlkList] ;
-    
     
     self.paraList = tmplist ; // get all para and inlines .
     paralist = nil ;

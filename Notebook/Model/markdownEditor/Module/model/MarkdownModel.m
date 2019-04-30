@@ -53,10 +53,10 @@
 
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               {
-    if (self.type == -1) { // paragraph
-        NSDictionary *resultDic = @{NSBackgroundColorAttributeName : [[XTColorFetcher sharedInstance] randomColor]} ;
-        [attributedString addAttributes:resultDic range:self.range] ;
-    }
+//    if (self.type == -1) { // paragraph
+//        NSDictionary *resultDic = @{NSBackgroundColorAttributeName : [[XTColorFetcher sharedInstance] randomColor]} ;
+//        [attributedString addAttributes:resultDic range:self.range] ;
+//    }
     
     return attributedString ;
 }
