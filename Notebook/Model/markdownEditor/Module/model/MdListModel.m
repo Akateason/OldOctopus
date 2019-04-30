@@ -119,6 +119,9 @@
     NSMutableString *tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
+//        if (<#condition#>) {
+//            <#statements#>
+//        }
         [tmpString insertString:@"* [ ]  " atIndex:editor.selectedRange.location] ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 6, 0) ;
