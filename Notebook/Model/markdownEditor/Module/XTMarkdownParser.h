@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 - (void)quoteBlockParsingFinished:(NSArray *)list ;
 - (void)listBlockParsingFinished:(NSArray *)list ;
-- (void)codeBlockParsingFinished:(NSArray *)list ;
+//- (void)codeBlockParsingFinished:(NSArray *)list ;
 - (void)inlineCodeParsingFinished:(NSArray *)list ;
 - (NSRange)currentCursorRange ;
 @end

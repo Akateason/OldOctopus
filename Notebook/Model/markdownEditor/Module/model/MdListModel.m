@@ -68,11 +68,11 @@
             // number
             NSString *prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
             NSUInteger lenOfMark = prefix.length + 1 ;
-            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(self.location, lenOfMark + 1)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(self.location, lenOfMark + 1)] ;
         }
             break ;
         case MarkdownSyntaxULLists: {
-            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:NSMakeRange(self.location, 2)] ;
+            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(self.location, 2)] ;
         }
             break ;
         case MarkdownSyntaxTaskLists: {
@@ -119,9 +119,6 @@
     NSMutableString *tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
-//        if (<#condition#>) {
-//            <#statements#>
-//        }
         [tmpString insertString:@"* [ ]  " atIndex:editor.selectedRange.location] ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         editor.selectedRange = NSMakeRange(editor.selectedRange.location + 6, 0) ;

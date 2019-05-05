@@ -282,9 +282,8 @@ static const int kTag_InlineCodeView    = 50000 ;
     
     for (int i = 0; i < list.count; i++) {
         MdListModel *model = list[i] ;
-        CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
-//        NSLog(@"rectForQuote : %@", NSStringFromCGRect(rectForQuote)) ;
-        if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) continue ;
+        CGRect rectForModel = [self xt_frameOfTextRange:NSMakeRange(model.range.location, 3)] ;
+        if (CGSizeEqualToSize(rectForModel.size, CGSizeZero)) continue ;
         
         UIView *item ;
         if (model.type == MarkdownSyntaxULLists) {
@@ -329,19 +328,29 @@ static const int kTag_InlineCodeView    = 50000 ;
         [item mas_makeConstraints:^(MASConstraintMaker *make) {
             if (model.type == MarkdownSyntaxTaskLists) {
                 make.width.equalTo(@(21)) ;
-                make.right.equalTo(self.xt_viewController.view.window.mas_left).offset(kMDEditor_FlexValue) ;
+                make.centerX.equalTo(self.mas_left).offset(rectForModel.origin.x - 8) ;
             }
-            else {
-                make.left.equalTo(self.xt_viewController.view.window.mas_left) ;
-                make.width.equalTo(@(kMDEditor_FlexValue)) ;
+            else if (model.type == MarkdownSyntaxULLists) {
+                make.right.equalTo(self.mas_left).offset(rectForModel.origin.x - 8) ;
             }
-            make.top.equalTo(self).offset(rectForQuote.origin.y) ;
+            else if (model.type == MarkdownSyntaxOLLists) {
+                make.right.equalTo(self.mas_left).offset(rectForModel.origin.x - 8) ;
+            }
+            
+            make.top.equalTo(self).offset(rectForModel.origin.y) ;
             make.height.equalTo(@(21)) ;
         }] ;
+        
+//        UIView *view = [UIView new] ;
+//        view.backgroundColor = [UIColor greenColor] ;
+//        view.alpha =.1 ;
+//        view.frame = rectForModel ;
+//        [self addSubview:view] ;
+        
     }
 }
 
-- (void)codeBlockParsingFinished:(NSArray *)list {
+//- (void)codeBlockParsingFinished:(NSArray *)list {
 //    for (UIView *subView in self.subviews) if (subView.tag == kTag_CodeBlkView) [subView removeFromSuperview] ;
 //
 //    for (int i = 0; i < list.count; i++) {
@@ -356,7 +365,7 @@ static const int kTag_InlineCodeView    = 50000 ;
 //        codeBlkItem.userInteractionEnabled = YES ;
 //        [self addSubview:codeBlkItem] ;
 //    }
-}
+//}
 
 - (void)inlineCodeParsingFinished:(NSArray *)list {
     for (UIView *subView in self.subviews) if (subView.tag == kTag_InlineCodeView) [subView removeFromSuperview] ;

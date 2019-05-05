@@ -123,6 +123,7 @@
 - (NSDictionary *)listInvisibleMarkStyle {
     if (!_listInvisibleMarkStyle) {
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.firstLineHeadIndent = 16 ;
         _listInvisibleMarkStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor),
                                     NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                                     NSParagraphStyleAttributeName: paragraphStyle
