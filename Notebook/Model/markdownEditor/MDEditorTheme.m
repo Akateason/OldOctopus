@@ -88,12 +88,8 @@
 
 - (NSDictionary *)quoteStyle {
     if (!_quoteStyle) {
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.headIndent = 16 ;
-        paragraphStyle.firstLineHeadIndent = 16 ;
-        _quoteStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_quoteTextColor) ,
-                        NSFontAttributeName : self.font ,
-                        NSParagraphStyleAttributeName : paragraphStyle
+        _quoteStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .4) ,
+                        NSFontAttributeName : self.font ,                        
                         };
     }
     return _quoteStyle ;

@@ -73,7 +73,7 @@
     [attributedString beginEditing] ;
     // add default style
     [attributedString addAttributes:self.configuration.editorThemeObj.basicStyle range:NSMakeRange(0, text.length)] ;
-    // render every node
+    // render every blk or para node
     [wholeList enumerateObjectsUsingBlock:^(MarkdownModel * _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         NSArray *tmpCurrent = [self renderByModel:model textView:textView position:position attr:attributedString] ;
         [tmpCurrentModelList addObjectsFromArray:tmpCurrent] ;
@@ -117,6 +117,10 @@
         [model addAttrOnEditState:attributedString position:textView.selectedRange.location] ;
     }
     
+    if (model.subBlkModel != nil) {
+        [self renderByModel:model.subBlkModel textView:textView position:position attr:attributedString] ;
+    }
+    
     return tmpCurrentlist ;
 }
 
@@ -138,7 +142,7 @@
                              options:NSStringEnumerationByParagraphs
                           usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
                               MarkdownModel *model = [MarkdownModel modelWithType:-1 range:substringRange str:substring] ;
-                              [paralist addObject:model] ;
+                              if (model.str.length) [paralist addObject:model] ;
                           }] ;    
     
     //3. parsing get block list first . replace codeBlock First. if is block then parse for inline attr , if not a block parse this para's inline attr .

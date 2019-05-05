@@ -252,30 +252,39 @@ static const int kTag_InlineCodeView    = 50000 ;
 
 #pragma mark - MarkdownParserDelegate <NSObject>
 
-- (void)quoteBlockParsingFinished:(NSArray *)list {
+- (void)quoteBlockParsingFinished:(NSArray *)quoteList {
     for (UIView *subView in self.subviews) {
         if (subView.tag == kTag_QuoteMarkView) {
             [subView removeFromSuperview] ;
         }
     }
     
-    for (int i = 0; i < list.count; i++) {
-        MarkdownModel *model = list[i] ;
-        CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
-        if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) continue ;
-        
-        UIView *quoteItem = [UIView new] ;
-        quoteItem.tag = kTag_QuoteMarkView ;
-        quoteItem.xt_theme_backgroundColor = k_md_themeColor ;
-        [self addSubview:quoteItem] ;
-        [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self) ;
-            make.top.equalTo(self).offset(rectForQuote.origin.y) ;
-            make.width.equalTo(@2) ;
-            make.height.equalTo(@(rectForQuote.size.height)) ;
-        }] ;
+    for (int i = 0; i < quoteList.count; i++) {
+        MarkdownModel *model = quoteList[i] ;
+        [self drawOneQuoteWithModel:model] ;
     }
 }
+
+- (void)drawOneQuoteWithModel:(MarkdownModel *)model {
+    CGRect rectForQuote = [self xt_frameOfTextRange:model.range] ;
+    if (CGSizeEqualToSize(rectForQuote.size, CGSizeZero)) return ;
+    
+    UIView *quoteItem = [UIView new] ;
+    quoteItem.tag = kTag_QuoteMarkView ;
+    quoteItem.xt_theme_backgroundColor = k_md_themeColor ;
+    [self addSubview:quoteItem] ;
+    [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(model.myLevel * 18 + 4) ;
+        make.top.equalTo(self).offset(rectForQuote.origin.y) ;
+        make.width.equalTo(@2) ;
+        make.height.equalTo(@(rectForQuote.size.height)) ;
+    }] ;
+    
+    if (model.subBlkModel && model.subBlkModel.type == MarkdownSyntaxBlockquotes) {
+        [self drawOneQuoteWithModel:model.subBlkModel] ;
+    }
+}
+
 
 - (void)listBlockParsingFinished:(NSArray *)list {
     for (UIView *subView in self.subviews) if (subView.tag == kTag_ListMarkView) [subView removeFromSuperview] ;

@@ -19,11 +19,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownModel : NSObject
-@property (nonatomic)       NSRange     range ;
-@property (nonatomic)       int         type ;
-@property (copy, nonatomic) NSString    *str ;
-@property (nonatomic)       BOOL        isOnEditState ; // yes - edit, no - preview  . state for display
-@property (copy, nonatomic) NSArray     *inlineModels ;
+@property (nonatomic)           NSRange         range ;
+@property (nonatomic)           int             type ;
+@property (copy, nonatomic)     NSString        *str ;
+@property (nonatomic)           BOOL            isOnEditState ; // yes - edit, no - preview  . state for display
+@property (copy, nonatomic)     NSArray         *inlineModels ;
+
+@property (nonatomic)           int             myLevel ; // this block model's level . start from 0 . 层级,控制text缩进
+@property (strong, nonatomic)   MarkdownModel   *subBlkModel ;
 
 - (NSUInteger)location ;
 - (NSUInteger)length ;
@@ -39,8 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)modelWithType:(int)type
                         range:(NSRange)range
                           str:(NSString *)str ;
-
-
 
 
 // ********* rewrite in subcls ********* //

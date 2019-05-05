@@ -51,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateAttributedText:(NSAttributedString *)attributedString
                     textView:(UITextView *)textView ;
 
+// get block model from any Model
+- (id)parsingGetABlockStyleModelFromParaModel:(MarkdownModel *)pModel ;
+
 
 
 // article infos

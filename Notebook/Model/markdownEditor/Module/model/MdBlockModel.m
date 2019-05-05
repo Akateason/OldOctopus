@@ -18,8 +18,8 @@
     NSString *str = [super displayStringForLeftLabel] ;
     
     switch (self.type) {
-        case MarkdownSyntaxBlockquotes: str = @"md_tb_bt_quote" ; break ;
-        case MarkdownSyntaxCodeBlock: str = @"md_tb_bt_blkCode" ; break ;
+        case MarkdownSyntaxBlockquotes: str = @"md_tb_bt_quote"     ; break ;
+        case MarkdownSyntaxCodeBlock: str   = @"md_tb_bt_blkCode"   ; break ;
         
         default:
             break;
@@ -27,16 +27,33 @@
     return str ;
 }
 
-- (NSDictionary *)attrQuoteBlockHideMark {
-    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-    paraStyle.paragraphSpacing = 0 ;
-    NSDictionary *tmpStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
-                               NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_bgColor, .3) ,
+- (NSDictionary *)attrQuoteBlockHideMarkWithLevel:(int)level {
+    level++ ;
+    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init] ;
+    paraStyle.firstLineHeadIndent = 18 * level ;
+    paraStyle.headIndent = 18 * level ;
+    paraStyle.lineSpacing = 10 ;
+    NSDictionary *tmpStyle = @{
+                               NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                               NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
                                NSFontAttributeName : [UIFont systemFontOfSize:.1] ,
                                NSParagraphStyleAttributeName : paraStyle,
                                } ;
     return tmpStyle ;
 }
+
+- (NSDictionary *)attrCodeBlockHideMark {
+    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init] ;
+    paraStyle.paragraphSpacing = 0 ;
+    NSDictionary *tmpStyle = @{
+                                NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                                NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                                NSFontAttributeName : [UIFont systemFontOfSize:.1] ,
+                                NSParagraphStyleAttributeName : paraStyle,
+                               } ;
+    return tmpStyle ;
+}
+
 
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
     
@@ -51,18 +68,18 @@
             [attributedString addAttributes:configuration.editorThemeObj.quoteStyle range:self.range] ;
             
             // hide ">" mark
-            NSRegularExpression *expression = regexp("(^\\>\\s)|(^\\>)", NSRegularExpressionAnchorsMatchLines) ;
+            NSRegularExpression *expression = regexp("(\\>\\s)|(\\>)", 0) ;
             NSArray *matches = [expression matchesInString:self.str options:0 range:NSMakeRange(0, [self.str length])] ;
             for (NSTextCheckingResult *result in matches) {
                 NSRange bqRange = NSMakeRange(location + result.range.location, result.range.length) ;
-                [attributedString addAttributes:[self attrQuoteBlockHideMark] range:bqRange] ;
+                [attributedString addAttributes:[self attrQuoteBlockHideMarkWithLevel:self.myLevel] range:bqRange] ;
             }
         }
             break ;
         case MarkdownSyntaxCodeBlock: {
             [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
             
-            resultDic = [self attrQuoteBlockHideMark] ;
+            resultDic = [self attrCodeBlockHideMark] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 3)] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 3, 3)] ;
         }
@@ -90,11 +107,11 @@
             [attributedString addAttributes:configuration.editorThemeObj.quoteStyle range:self.range] ;
             
             // hide ">" mark
-            NSRegularExpression *expression = regexp("(^\\>\\s)|(^\\>)", NSRegularExpressionAnchorsMatchLines) ;
+            NSRegularExpression *expression = regexp("(\\>\\s)|(\\>)", 0) ;
             NSArray *matches = [expression matchesInString:self.str options:0 range:NSMakeRange(0, [self.str length])] ;
             for (NSTextCheckingResult *result in matches) {
                 NSRange bqRange = NSMakeRange(location + result.range.location, result.range.length) ;
-                [attributedString addAttributes:[self attrQuoteBlockHideMark] range:bqRange] ;
+                [attributedString addAttributes:[self attrQuoteBlockHideMarkWithLevel:self.myLevel] range:bqRange] ;
             }
         }
             break ;
