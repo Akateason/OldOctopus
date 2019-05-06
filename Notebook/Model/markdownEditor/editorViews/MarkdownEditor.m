@@ -152,7 +152,7 @@ static const int kTag_InlineCodeView    = 50000 ;
 
 - (CGRect)caretRectForPosition:(UITextPosition *)position {
     CGRect originalRect = [super caretRectForPosition:position];
-    originalRect.size.height = self.font.lineHeight + 2;
+    originalRect.size.height = (self.font.lineHeight <= 0.2) ? 0 : self.font.lineHeight + 2 ;
     originalRect.size.width = 2 ;
     return originalRect;
 }
