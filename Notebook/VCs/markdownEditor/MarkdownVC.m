@@ -80,14 +80,14 @@
       deliverOnMainThread]
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
-         [self.textView parseTextThenRenderLeftSideAndToobar] ;
+         [self.textView parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
      }] ;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated] ;
     
-    [self.textView parseTextThenRenderLeftSideAndToobar] ;
+    [self.textView renderLeftSideAndToobar] ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

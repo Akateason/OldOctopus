@@ -22,7 +22,8 @@ extern const CGFloat    kMDEditor_FlexValue ;
 
 - (void)doSomethingWhenUserSelectPartOfArticle:(MarkdownModel *)model ;
 
-- (void)parseTextThenRenderLeftSideAndToobar ;
+- (void)renderLeftSideAndToobar ;
+- (void)parseAllTextFinishedThenRenderLeftSideAndToolbar ;
 
 - (void)setTopOffset:(CGFloat)topOffset ;
 

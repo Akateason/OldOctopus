@@ -74,7 +74,7 @@ static const int kTag_InlineCodeView    = 50000 ;
         @strongify(self)
         if (self.markedTextRange != nil) return ;
         
-        [self parseTextThenRenderLeftSideAndToobar] ;
+        [self parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
         
 //        self.typingAttributes = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
         
@@ -135,10 +135,16 @@ static const int kTag_InlineCodeView    = 50000 ;
     [self show_lbLeftCornerMarker] ;
 }
 
-- (void)parseTextThenRenderLeftSideAndToobar {
+- (void)renderLeftSideAndToobar {
     MarkdownModel *model = [self.parser modelForModelListInlineFirst] ;
     [self doSomethingWhenUserSelectPartOfArticle:model] ;
 }
+
+- (void)parseAllTextFinishedThenRenderLeftSideAndToolbar {
+    MarkdownModel *model = [self updateTextStyle] ;
+    [self doSomethingWhenUserSelectPartOfArticle:model] ;
+}
+
 
 - (void)setTopOffset:(CGFloat)topOffset {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -160,7 +166,7 @@ static const int kTag_InlineCodeView    = 50000 ;
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
     [super setSelectedTextRange:selectedTextRange] ;
     
-    [self parseTextThenRenderLeftSideAndToobar] ;
+    [self parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
     [self returnImageModelIfUserHasSelectImage:self.selectedRange.location] ;
 }
 
@@ -285,14 +291,21 @@ static const int kTag_InlineCodeView    = 50000 ;
     }
 }
 
-
 - (void)listBlockParsingFinished:(NSArray *)list {
     for (UIView *subView in self.subviews) if (subView.tag == kTag_ListMarkView) [subView removeFromSuperview] ;
     
     for (int i = 0; i < list.count; i++) {
         MdListModel *model = list[i] ;
-        CGRect rectForModel = [self xt_frameOfTextRange:NSMakeRange(model.range.location, 3)] ;
+        CGRect rectForModel = [self xt_frameOfTextRange:NSMakeRange([model realRange].location, 3)] ;
         if (CGSizeEqualToSize(rectForModel.size, CGSizeZero)) continue ;
+        
+//        UIView *testView = [UIView new] ;
+//        testView.backgroundColor = [UIColor xt_red] ;
+//        testView.frame = rectForModel ;
+//        testView.alpha = .3 ;
+//        testView.tag = kTag_ListMarkView ;
+//        [self addSubview:testView] ;
+        
         
         UIView *item ;
         if (model.type == MarkdownSyntaxULLists) {
@@ -334,28 +347,29 @@ static const int kTag_InlineCodeView    = 50000 ;
         item.tag = kTag_ListMarkView ;
         
         [self addSubview:item] ;
-        [item mas_makeConstraints:^(MASConstraintMaker *make) {
-            if (model.type == MarkdownSyntaxTaskLists) {
+        if (model.type == MarkdownSyntaxTaskLists) {
+            [item mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(@(21)) ;
                 make.centerX.equalTo(self.mas_left).offset(rectForModel.origin.x - 8) ;
-            }
-            else if (model.type == MarkdownSyntaxULLists) {
+                make.top.equalTo(self).offset(rectForModel.origin.y) ;
+                make.height.equalTo(@(21)) ;
+            }] ;
+        }
+        else if (model.type == MarkdownSyntaxULLists) {
+            [item mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.mas_left).offset(rectForModel.origin.x - 8) ;
-            }
-            else if (model.type == MarkdownSyntaxOLLists) {
-                make.right.equalTo(self.mas_left).offset(rectForModel.origin.x - 8) ;
-            }
+                make.top.equalTo(self).offset(rectForModel.origin.y) ;
+                make.height.equalTo(@(21)) ;
+            }] ;
             
-            make.top.equalTo(self).offset(rectForModel.origin.y) ;
-            make.height.equalTo(@(21)) ;
-        }] ;
-        
-//        UIView *view = [UIView new] ;
-//        view.backgroundColor = [UIColor greenColor] ;
-//        view.alpha =.1 ;
-//        view.frame = rectForModel ;
-//        [self addSubview:view] ;
-        
+        }
+        else if (model.type == MarkdownSyntaxOLLists) {
+            [item mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.mas_left).offset(rectForModel.origin.x - 8) ;
+                make.top.equalTo(self).offset(rectForModel.origin.y) ;
+                make.height.equalTo(@(21)) ;
+            }] ;
+        }
     }
 }
 
@@ -397,7 +411,7 @@ static const int kTag_InlineCodeView    = 50000 ;
         [item bk_whenTapped:^{
             if (!weakSelf.isFirstResponder) [weakSelf becomeFirstResponder] ;
             weakSelf.selectedRange = NSMakeRange(model.location + model.length - 1, 0)  ;
-            [weakSelf parseTextThenRenderLeftSideAndToobar] ;
+            [weakSelf parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
         }] ;
         [self addSubview:item] ;
     }

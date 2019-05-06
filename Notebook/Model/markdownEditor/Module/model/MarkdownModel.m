@@ -29,11 +29,8 @@
                           str:(NSString *)str {
     
     MarkdownModel *model = [[self alloc] initWithType:type range:range str:str] ;
-    
-    if (model.type == MarkdownSyntaxBlockquotes ||
-        model.type == MarkdownSyntaxOLLists ||
-        model.type == MarkdownSyntaxULLists) {
-        
+    // quote blk nest 针对行
+    if (model.type == MarkdownSyntaxBlockquotes) {
         XTMarkdownParser *parser = [XTMarkdownParser new] ;
         MarkdownModel *tmpModel = [model copy] ;
         NSUInteger cutNumber = 0 ;
@@ -50,24 +47,11 @@
             }
             
             tmpModel.quoteLevel ++ ;
-        }
-        else if (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists) {
-            if (![tmpModel.str containsString:@"."] && ![tmpModel.str containsString:@"*"] ) return model ;
-            NSString *prefix = [[tmpModel.str componentsSeparatedByString:@" "] firstObject] ;
-            cutNumber = prefix.length ;
-            newStr = [tmpModel.str substringFromIndex:cutNumber + 1] ;
-            while ([newStr hasPrefix:@" "]) {
-                newStr = [newStr substringFromIndex:1] ;
-                cutNumber++ ;
-            }
             
-            tmpModel.quoteLevel ++ ;
+            tmpModel.str = newStr ;
+            tmpModel.range = NSMakeRange(tmpModel.range.location + cutNumber + 1, tmpModel.range.length - cutNumber - 1) ;
         }
-        
-        tmpModel.str = newStr ;
-        tmpModel.range = NSMakeRange(tmpModel.range.location + cutNumber + 1, tmpModel.range.length - cutNumber - 1) ;
-        
-        //偶现 死循环 !!! 未找到原因
+        // 递归
         MarkdownModel *subModel = [parser parsingGetABlockStyleModelFromParaModel:tmpModel] ;
         if (subModel.type <= NumberOfMarkdownSyntax && subModel.type > 0) {
             subModel.quoteLevel = tmpModel.quoteLevel ;

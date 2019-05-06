@@ -13,6 +13,14 @@
 
 @implementation MDHeadModel
 
++ (instancetype)modelWithType:(int)type
+                        range:(NSRange)range
+                          str:(NSString *)str {
+    MDHeadModel *model = [super modelWithType:type range:range str:str] ;
+    BOOL valid = [str containsString:@" "] && [[[str componentsSeparatedByString:@" "] firstObject] hasSuffix:@"#"] ;
+    return (!valid) ? nil : model ;
+}
+
 - (NSString *)displayStringForLeftLabel {
     NSString *str = [super displayStringForLeftLabel] ;
     

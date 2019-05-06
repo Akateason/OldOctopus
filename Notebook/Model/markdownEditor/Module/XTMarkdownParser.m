@@ -164,15 +164,25 @@
         if (isCodeBlk) return ; // continue
         
         
-        //4.3 judge is block Style
-        if (resModel != nil) {
-            // model is block style , parsing get inline model
+        //4.2 judge is block Style .
+        if (resModel) {
+            //5. list blk nest
+            if ( (resModel.type == MarkdownSyntaxULLists || resModel.type == MarkdownSyntaxOLLists)
+                && [resModel.str hasPrefix:@" "] ) {
+                // todo 列表嵌套是一对多, 但也视为一对一. 逐行处理他们. 通过前面的空格数判断 缩进的位置
+                MdListModel *listModel = resModel ;
+//                ?
+                
+            }
+            
+            
+            //4.2.1 model is block style , parsing get inline model
             NSArray *resInlineListFromBlock = [self parsingModelForInlineStyleWithOneParagraphModel:resModel] ;
             resModel.inlineModels = resInlineListFromBlock ;
             [tmplist addObject:resModel] ;
         }
         else {
-            // is not block style , inline parsing
+            //4.2.2 is not block style , inline parsing
             NSArray *resInlineListFromParagraph = [self parsingModelForInlineStyleWithOneParagraphModel:pModel] ;
             pModel.inlineModels = resInlineListFromParagraph ;
             [tmplist addObject:pModel] ;

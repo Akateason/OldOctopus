@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)           int             nestLevel ;
 @property (strong, nonatomic)   MarkdownModel   *subBlkModel ;
 
+
 - (NSUInteger)location ;
 - (NSUInteger)length ;
 - (UIFont *)defaultFont ;
