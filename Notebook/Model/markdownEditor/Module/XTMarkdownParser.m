@@ -118,7 +118,9 @@
     }
     
     if (model.subBlkModel != nil) {
+//        NSArray *clistInSub =
         [self renderByModel:model.subBlkModel textView:textView position:position attr:attributedString] ;
+//        [tmpCurrentlist addObjectsFromArray:clistInSub] ;
     }
     
     return tmpCurrentlist ;
@@ -325,6 +327,15 @@
     [self.paraList enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         if (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists || model.type == MarkdownSyntaxTaskLists) {
             [tmplist addObject:model] ;
+        }
+        
+        if (
+            (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists || model.type == MarkdownSyntaxTaskLists ||
+            model.type == MarkdownSyntaxBlockquotes)
+            &&
+            (model.subBlkModel.type == MarkdownSyntaxOLLists || model.subBlkModel.type == MarkdownSyntaxULLists)
+            ) {
+            [tmplist addObject:model.subBlkModel] ;
         }
     }] ;
     if (self.delegate) [self.delegate listBlockParsingFinished:tmplist] ;

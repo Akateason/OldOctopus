@@ -274,7 +274,7 @@ static const int kTag_InlineCodeView    = 50000 ;
     quoteItem.xt_theme_backgroundColor = k_md_themeColor ;
     [self addSubview:quoteItem] ;
     [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(model.myLevel * 18 + 4) ;
+        make.left.equalTo(self).offset(model.quoteLevel * 18 + 4) ;
         make.top.equalTo(self).offset(rectForQuote.origin.y) ;
         make.width.equalTo(@2) ;
         make.height.equalTo(@(rectForQuote.size.height)) ;

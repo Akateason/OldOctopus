@@ -25,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)           BOOL            isOnEditState ; // yes - edit, no - preview  . state for display
 @property (copy, nonatomic)     NSArray         *inlineModels ;
 
-@property (nonatomic)           int             myLevel ; // this block model's level . start from 0 . 层级,控制text缩进
+@property (nonatomic)           int             quoteLevel ; // 层级中有几个引用(或者引用中的列表),控制引用的text缩进
+@property (nonatomic)           int             nestLevel ;
 @property (strong, nonatomic)   MarkdownModel   *subBlkModel ;
 
 - (NSUInteger)location ;

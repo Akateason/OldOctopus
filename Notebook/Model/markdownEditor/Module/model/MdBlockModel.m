@@ -27,7 +27,8 @@
     return str ;
 }
 
-- (NSDictionary *)attrQuoteBlockHideMarkWithLevel:(int)level {
+- (NSDictionary *)attrQuoteBlockHideMarkWithLevel {
+    int level = self.nestLevel ;
     level++ ;
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init] ;
     paraStyle.firstLineHeadIndent = 18 * level ;
@@ -69,10 +70,11 @@
             
             // hide ">" mark
             NSRegularExpression *expression = regexp("(\\>\\s)|(\\>)", 0) ;
+//            NSRegularExpression *expression = regexp("(\\>)", 0) ;
             NSArray *matches = [expression matchesInString:self.str options:0 range:NSMakeRange(0, [self.str length])] ;
             for (NSTextCheckingResult *result in matches) {
                 NSRange bqRange = NSMakeRange(location + result.range.location, result.range.length) ;
-                [attributedString addAttributes:[self attrQuoteBlockHideMarkWithLevel:self.myLevel] range:bqRange] ;
+                [attributedString addAttributes:[self attrQuoteBlockHideMarkWithLevel] range:bqRange] ;
             }
         }
             break ;
@@ -84,7 +86,6 @@
             [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 3, 3)] ;
         }
             break ;
-
             
         default:
             break;
@@ -111,7 +112,7 @@
             NSArray *matches = [expression matchesInString:self.str options:0 range:NSMakeRange(0, [self.str length])] ;
             for (NSTextCheckingResult *result in matches) {
                 NSRange bqRange = NSMakeRange(location + result.range.location, result.range.length) ;
-                [attributedString addAttributes:[self attrQuoteBlockHideMarkWithLevel:self.myLevel] range:bqRange] ;
+                [attributedString addAttributes:[self attrQuoteBlockHideMarkWithLevel] range:bqRange] ;
             }
         }
             break ;
