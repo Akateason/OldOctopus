@@ -280,15 +280,11 @@ static const int kTag_InlineCodeView    = 50000 ;
     quoteItem.xt_theme_backgroundColor = k_md_themeColor ;
     [self addSubview:quoteItem] ;
     [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(model.quoteLevel * 18 + 4) ;
+        make.left.equalTo(self).offset(model.markIndentationPosition * 18 + 8) ;
         make.top.equalTo(self).offset(rectForQuote.origin.y) ;
         make.width.equalTo(@2) ;
         make.height.equalTo(@(rectForQuote.size.height)) ;
     }] ;
-    
-    if (model.subBlkModel && model.subBlkModel.type == MarkdownSyntaxBlockquotes) {
-        [self drawOneQuoteWithModel:model.subBlkModel] ;
-    }
 }
 
 - (void)listBlockParsingFinished:(NSArray *)list {
@@ -299,18 +295,17 @@ static const int kTag_InlineCodeView    = 50000 ;
         CGRect rectForModel = [self xt_frameOfTextRange:NSMakeRange([model realRange].location, 3)] ;
         if (CGSizeEqualToSize(rectForModel.size, CGSizeZero)) continue ;
         
-//        UIView *testView = [UIView new] ;
-//        testView.backgroundColor = [UIColor xt_red] ;
-//        testView.frame = rectForModel ;
-//        testView.alpha = .3 ;
-//        testView.tag = kTag_ListMarkView ;
-//        [self addSubview:testView] ;
-        
-        
         UIView *item ;
         if (model.type == MarkdownSyntaxULLists) {
             UILabel *lb = [UILabel new] ;
-            lb.text = @"   •" ;
+            NSString *text ;
+            switch ((model.countForSpace / 2) % 3) {
+                case 0: text = @"•" ; break;
+                case 1: text = @"◦" ; break;
+                case 2: text = @"▪︎" ; break;
+                default: break;
+            }
+            lb.text = text ;
             lb.xt_theme_textColor = k_md_themeColor ;
             lb.font = [UIFont boldSystemFontOfSize:16] ;
             lb.textAlignment = NSTextAlignmentCenter ;
@@ -325,7 +320,6 @@ static const int kTag_InlineCodeView    = 50000 ;
             item = lb ;
         }
         else if (model.type == MarkdownSyntaxTaskLists) {
-            
             UIImageView *imgView = [UIImageView new] ;
             [imgView setImage:[model.taskItemImageState imageWithTintColor:XT_MD_THEME_COLOR_KEY(k_md_themeColor)]] ;
             imgView.contentMode = UIViewContentModeScaleAspectFit ;
@@ -333,12 +327,9 @@ static const int kTag_InlineCodeView    = 50000 ;
             WEAK_SELF
             [imgView bk_whenTapped:^{
                 NSMutableString *tmpStr = [[NSMutableString alloc] initWithString:weakSelf.text] ;
-                !model.taskItemSelected
-                ?
-                [tmpStr replaceCharactersInRange:NSMakeRange(model.range.location + 3, 1) withString:@"x"]
-                :
+                !model.taskItemSelected ?
+                [tmpStr replaceCharactersInRange:NSMakeRange(model.range.location + 3, 1) withString:@"x"] :
                 [tmpStr replaceCharactersInRange:NSMakeRange(model.range.location + 3, 1) withString:@" "] ;
-                
                 [weakSelf.parser parseTextAndGetModelsInCurrentCursor:tmpStr textView:weakSelf] ;
             }] ;
             item = imgView ;
@@ -357,15 +348,14 @@ static const int kTag_InlineCodeView    = 50000 ;
         }
         else if (model.type == MarkdownSyntaxULLists) {
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.mas_left).offset(rectForModel.origin.x - 8) ;
+                make.right.equalTo(self.mas_left).offset((model.markIndentationPosition) * 18 - 4) ;
                 make.top.equalTo(self).offset(rectForModel.origin.y) ;
                 make.height.equalTo(@(21)) ;
             }] ;
-            
         }
         else if (model.type == MarkdownSyntaxOLLists) {
             [item mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.mas_left).offset(rectForModel.origin.x - 8) ;
+                make.right.equalTo(self.mas_left).offset((model.markIndentationPosition) * 18) ;
                 make.top.equalTo(self).offset(rectForModel.origin.y) ;
                 make.height.equalTo(@(21)) ;
             }] ;

@@ -27,7 +27,6 @@
 //        case MarkdownInlineImage: str = @"image" ; break ;
         default: break;
     }
-    
     return str ;
 }
 

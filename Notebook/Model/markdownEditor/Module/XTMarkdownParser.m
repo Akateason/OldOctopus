@@ -166,16 +166,6 @@
         
         //4.2 judge is block Style .
         if (resModel) {
-            //5. list blk nest
-            if ( (resModel.type == MarkdownSyntaxULLists || resModel.type == MarkdownSyntaxOLLists)
-                && [resModel.str hasPrefix:@" "] ) {
-                // todo 列表嵌套是一对多, 但也视为一对一. 逐行处理他们. 通过前面的空格数判断 缩进的位置
-                MdListModel *listModel = resModel ;
-//                ?
-                
-            }
-            
-            
             //4.2.1 model is block style , parsing get inline model
             NSArray *resInlineListFromBlock = [self parsingModelForInlineStyleWithOneParagraphModel:resModel] ;
             resModel.inlineModels = resInlineListFromBlock ;
@@ -218,23 +208,23 @@
                 case MarkdownSyntaxUnknown: break ;
                     
                 case MarkdownSyntaxHeaders: {
-                    return [MDHeadModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                    return [MDHeadModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range] level:pModel.quoteAndList_Level] ;
                 }
                     
                 case MarkdownSyntaxTaskLists:
                 case MarkdownSyntaxOLLists:
                 case MarkdownSyntaxULLists: {
-                    return [MdListModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                    return [MdListModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range] level:pModel.quoteAndList_Level] ;
                 }
                     
                 case MarkdownSyntaxBlockquotes: {
-                    return [MdBlockModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                    return [MdBlockModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range] level:pModel.quoteAndList_Level] ;
                 }
                     
                 case MarkdownSyntaxMultipleMath:
                 case MarkdownSyntaxNpTable:
                 case MarkdownSyntaxTable: {
-                    return [MdOtherModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range]] ;
+                    return [MdOtherModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range] level:pModel.quoteAndList_Level] ;
                 }
                     
                 case NumberOfMarkdownSyntax: break ;
@@ -328,6 +318,17 @@
         if (model.type == MarkdownSyntaxBlockquotes) {
             [tmplist addObject:model] ;
         }
+        
+        while ( (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists || model.type == MarkdownSyntaxTaskLists ||
+                 model.type == MarkdownSyntaxBlockquotes)
+                &&
+               (model.subBlkModel) ) {
+            
+            if (model.subBlkModel.type == MarkdownSyntaxBlockquotes) [tmplist addObject:model.subBlkModel] ;
+            
+            model = model.subBlkModel ;
+        }
+        
     }] ;
     if (self.delegate) [self.delegate quoteBlockParsingFinished:tmplist] ;
 }
@@ -339,13 +340,14 @@
             [tmplist addObject:model] ;
         }
         
-        if (
-            (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists || model.type == MarkdownSyntaxTaskLists ||
-            model.type == MarkdownSyntaxBlockquotes)
-            &&
-            (model.subBlkModel.type == MarkdownSyntaxOLLists || model.subBlkModel.type == MarkdownSyntaxULLists)
-            ) {
-            [tmplist addObject:model.subBlkModel] ;
+        while ( (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists || model.type == MarkdownSyntaxTaskLists ||
+                 model.type == MarkdownSyntaxBlockquotes)
+                &&
+                (model.subBlkModel) ) {
+            
+            if (model.subBlkModel.type == MarkdownSyntaxOLLists || model.subBlkModel.type == MarkdownSyntaxULLists) [tmplist addObject:model.subBlkModel] ;
+            
+            model = model.subBlkModel ;
         }
     }] ;
     if (self.delegate) [self.delegate listBlockParsingFinished:tmplist] ;

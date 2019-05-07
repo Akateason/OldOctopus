@@ -28,7 +28,6 @@ typedef NS_ENUM(int, MarkdownSyntaxType){
     MarkdownSyntaxHeaders, // h1-h6
 //    MarkdownSyntaxLHeader, // line header  ====的上面一行
     
-    
     // 列表
     MarkdownSyntaxOLLists, // orderlist
     MarkdownSyntaxULLists, // bulletlist

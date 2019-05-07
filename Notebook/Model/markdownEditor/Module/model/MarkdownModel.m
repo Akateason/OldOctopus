@@ -12,97 +12,54 @@
 
 @implementation MarkdownModel
 
-- (instancetype)initWithType:(int)type
-                       range:(NSRange)range
-                         str:(NSString *)str {
+- (instancetype)initWithType:(int)type range:(NSRange)range str:(NSString *)str {
+    return [self initWithType:type range:range str:str level:0] ;
+}
+
+- (instancetype)initWithType:(int)type range:(NSRange)range str:(NSString *)str level:(int)level {
     self = [super init] ;
     if (self) {
-        _type   = type;
-        _range  = range;
-        _str    = str ;
+        _type               = type ;
+        _range              = range ;
+        _str                = str ;
+        _quoteAndList_Level = level ;
     }
     return self;
 }
 
-+ (instancetype)modelWithType:(int)type
-                        range:(NSRange)range
-                          str:(NSString *)str {
-    
-    MarkdownModel *model = [[self alloc] initWithType:type range:range str:str] ;
-    // quote blk nest 针对行
-    if (model.type == MarkdownSyntaxBlockquotes) {
-        XTMarkdownParser *parser = [XTMarkdownParser new] ;
-        MarkdownModel *tmpModel = [model copy] ;
-        NSUInteger cutNumber = 0 ;
-        NSString *newStr ;
-        if (model.type == MarkdownSyntaxBlockquotes) {
-            
-            if (![tmpModel.str containsString:@">"]) return model ;
-            NSString *prefix = [[tmpModel.str componentsSeparatedByString:@">"] firstObject] ;
-            cutNumber = prefix.length ;
-            newStr = [tmpModel.str substringFromIndex:cutNumber + 1] ;
-            while ([newStr hasPrefix:@" "]) {
-                newStr = [newStr substringFromIndex:1] ;
-                cutNumber++ ;
-            }
-            
-            tmpModel.quoteLevel ++ ;
-            
-            tmpModel.str = newStr ;
-            tmpModel.range = NSMakeRange(tmpModel.range.location + cutNumber + 1, tmpModel.range.length - cutNumber - 1) ;
-        }
-        // 递归
-        MarkdownModel *subModel = [parser parsingGetABlockStyleModelFromParaModel:tmpModel] ;
-        if (subModel.type <= NumberOfMarkdownSyntax && subModel.type > 0) {
-            subModel.quoteLevel = tmpModel.quoteLevel ;
-            model.subBlkModel = subModel ;
-        }
-        tmpModel = nil ;
-    }
-    
++ (instancetype)modelWithType:(int)type range:(NSRange)range str:(NSString *)str {
+    return [[self alloc] initWithType:type range:range str:str level:0] ;
+}
+
++ (instancetype)modelWithType:(int)type range:(NSRange)range str:(NSString *)str level:(int)level {
+    MarkdownModel *model = [[self alloc] initWithType:type range:range str:str level:level] ;
+    [model textIndentationPosition] ;
+    [model markIndentationPosition] ;
     return model ;
 }
 
-- (int)quoteLevel {
-    int level = 0 ;
+- (int)textIndentationPosition {
+    _textIndentationPosition = 0 ;
     MarkdownModel *tmpModel = self ;
-    if (self.type == MarkdownSyntaxBlockquotes) {
-        while (1) {
-            if (
-                tmpModel.subBlkModel &&
-                tmpModel.subBlkModel.type == MarkdownSyntaxBlockquotes
-                 
-                ) {
-                level ++ ;
-                tmpModel = tmpModel.subBlkModel ;
-            }
-            else break ;
-        }
-    }
-    return level ;
-}
-
-- (int)nestLevel {
-    int level = 0 ;
-    MarkdownModel *tmpModel = self ;
-    while (1) {
-        if (
-            tmpModel.subBlkModel &&
-            (
-             tmpModel.subBlkModel.type == MarkdownSyntaxBlockquotes ||
+    while ( tmpModel.subBlkModel
+           &&
+            (tmpModel.subBlkModel.type == MarkdownSyntaxBlockquotes ||
              tmpModel.subBlkModel.type == MarkdownSyntaxULLists ||
              tmpModel.subBlkModel.type == MarkdownSyntaxOLLists
-             )
-            ) {
-            level ++ ;
+             ) ) {
+                
+            _textIndentationPosition ++ ;
             tmpModel = tmpModel.subBlkModel ;
-        }
-        else break ;
     }
-    
-    return level ;
-
+    return _textIndentationPosition ;
 }
+
+- (int)markIndentationPosition {
+    _markIndentationPosition = _quoteAndList_Level ;
+    return _markIndentationPosition ;
+}
+
+
 
 
 
@@ -149,7 +106,9 @@
     p.str = [self.str mutableCopy] ;
     p.isOnEditState = self.isOnEditState ;
     p.inlineModels = [self.inlineModels mutableCopy] ;
-    p.quoteLevel = self.quoteLevel ;
+    p.quoteAndList_Level = _quoteAndList_Level ;
+    p.textIndentationPosition = _textIndentationPosition ;
+    p.markIndentationPosition = _markIndentationPosition ;
     p.subBlkModel = self.subBlkModel ;
     return p ;
 }

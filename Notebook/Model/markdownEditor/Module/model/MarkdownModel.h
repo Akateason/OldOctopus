@@ -25,8 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)           BOOL            isOnEditState ; // yes - edit, no - preview  . state for display
 @property (copy, nonatomic)     NSArray         *inlineModels ;
 
-@property (nonatomic)           int             quoteLevel ; // 层级中有几个引用(或者引用中的列表),控制引用的text缩进
-@property (nonatomic)           int             nestLevel ;
+
+@property (nonatomic) int textIndentationPosition ; // 文字缩进的位置  , 一共有多少嵌套, 缩进多少
+@property (nonatomic) int markIndentationPosition ; // 绘制mark的位置,  当前model的mark在第几个层级
+@property (nonatomic) int quoteAndList_Level ;      // 单行内 所对应的层级(只有引用和列表)
+
+
 @property (strong, nonatomic)   MarkdownModel   *subBlkModel ;
 
 
@@ -37,13 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // construct
-- (instancetype)initWithType:(int)type
-                       range:(NSRange)range
-                         str:(NSString *)str ;
+- (instancetype)initWithType:(int)type range:(NSRange)range str:(NSString *)str ;
 
-+ (instancetype)modelWithType:(int)type
-                        range:(NSRange)range
-                          str:(NSString *)str ;
++ (instancetype)modelWithType:(int)type range:(NSRange)range str:(NSString *)str ;
+
++ (instancetype)modelWithType:(int)type range:(NSRange)range str:(NSString *)str level:(int)level ;
+
 
 
 // ********* rewrite in subcls ********* //
@@ -62,3 +65,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+

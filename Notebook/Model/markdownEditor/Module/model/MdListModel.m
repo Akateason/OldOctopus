@@ -13,43 +13,63 @@
 #import "XTMarkdownParser+Fetcher.h"
 
 @implementation MdListModel
+@synthesize textIndentationPosition = _textIndentationPosition ;
 
-- (NSDictionary *)xt_invisibleListStyle {
-    int num = self.countForSpace / 2 ;
-    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-    paragraphStyle.firstLineHeadIndent = 16 * num ;
-    NSDictionary *dic
-     = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor),
-                                NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
-                                NSParagraphStyleAttributeName: paragraphStyle
-                                } ;
-    return dic ;
++ (instancetype)modelWithType:(int)type range:(NSRange)range str:(NSString *)str level:(int)level {
+    MdListModel *model = [super modelWithType:type range:range str:str level:level] ;
+    [model setupCountForSpace] ; // setup countForSpace
+    
+    // 列表嵌套的处理
+    if (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists) {
+        XTMarkdownParser *parser = [XTMarkdownParser new] ;
+        MarkdownModel *tmpModel = [model copy] ;
+        NSString *cuttedlistMarkStr = [model.str substringFromIndex:model.markWillHiddenRange.length] ;
+        tmpModel.str = cuttedlistMarkStr ;
+        tmpModel.range = NSMakeRange(tmpModel.range.location + model.markWillHiddenRange.length, tmpModel.range.length - model.markWillHiddenRange.length) ;
+        tmpModel.quoteAndList_Level ++ ;
+        
+        // 递归
+        MarkdownModel *subModel = [parser parsingGetABlockStyleModelFromParaModel:tmpModel] ;
+        if (subModel.type <= NumberOfMarkdownSyntax && subModel.type > 0) {
+            model.subBlkModel = subModel ;
+        }
+        tmpModel = nil ;
+    }
+    
+    return model ;
 }
 
+- (int)markIndentationPosition {
+    return ( self.quoteAndList_Level ?: (self.countForSpace / 2) ) + 1 ;
+}
 
+- (int)textIndentationPosition {
+    return ( super.textIndentationPosition ?: (self.countForSpace / 2) ) + 1 ;
+}
 
-
-- (int)countForSpace {
-    NSString *prefix ;
-    switch (self.type) {
-        case MarkdownSyntaxOLLists: {
-            prefix = [[self.str componentsSeparatedByString:@"."] firstObject] ;
+- (void)setupCountForSpace {
+    int idx = 0 ;
+    while (1) {
+        NSString *aChar = [self.str substringWithRange:NSMakeRange(idx, 1)] ;
+        if ([aChar isEqualToString:@" "]) {
+            idx++ ;
         }
+        else {
+            self.countForSpace = idx ;
             break ;
-        case MarkdownSyntaxULLists: {
-            prefix = [[self.str componentsSeparatedByString:@"*"] firstObject] ;
-            if (!prefix) [[self.str componentsSeparatedByString:@"+"] firstObject] ;
-            if (!prefix) [[self.str componentsSeparatedByString:@"-"] firstObject] ;
         }
-            break ;
-        case MarkdownSyntaxTaskLists: {
-            prefix = [[self.str componentsSeparatedByString:@"*"] firstObject] ;
-        }
-            break ;
     }
-    _countForSpace = (int)([prefix xt_searchAllRangesWithText:@" "].count) ;
-        
-    return _countForSpace ;
+}
+
+- (NSDictionary *)xt_invisibleListStyle {
+    int num = self.textIndentationPosition ;
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new] ;
+    paragraphStyle.firstLineHeadIndent = 16 * num ;
+    NSDictionary *dic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor),
+                          NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
+                          NSParagraphStyleAttributeName: paragraphStyle
+                          } ;
+    return dic ;
 }
 
 - (NSRange)realRange {
@@ -66,7 +86,22 @@
 
 - (NSRange)markWillHiddenRange {
     if (_markWillHiddenRange.length == 0) {
-        NSUInteger countForMark = self.countForSpace + 1 ;
+        NSUInteger countForMark = _countForSpace ;
+        switch (self.type) {
+            case MarkdownSyntaxOLLists: {
+                countForMark += ( [[[self.str componentsSeparatedByString:@"."] firstObject] length] + 1 ) ;
+            }
+                break ;
+            case MarkdownSyntaxULLists: {
+                countForMark += 2 ;
+            }
+                break ;
+            case MarkdownSyntaxTaskLists: {
+                countForMark += ( [[[self.str componentsSeparatedByString:@"]"] firstObject] length] + 1 ) ;
+            }
+                break ;
+            default: break ;
+        }
         _markWillHiddenRange = NSMakeRange(self.range.location, countForMark) ;
     }
     return _markWillHiddenRange ;
@@ -74,12 +109,12 @@
 
 - (NSString *)displayStringForLeftLabel {
     NSString *str = [super displayStringForLeftLabel] ;
-    switch (self.type) {
-        case MarkdownSyntaxOLLists:     str = @"md_tb_bt_olist"     ; break ;
-        case MarkdownSyntaxULLists:     str = @"md_tb_bt_ulist"     ; break ;
-        case MarkdownSyntaxTaskLists:   str = @"md_tb_bt_tasklist"  ; break ;
-        default: break ;
-    }
+//    switch (self.type) {
+//        case MarkdownSyntaxOLLists:     str = @"md_tb_bt_olist"     ; break ;
+//        case MarkdownSyntaxULLists:     str = @"md_tb_bt_ulist"     ; break ;
+//        case MarkdownSyntaxTaskLists:   str = @"md_tb_bt_tasklist"  ; break ;
+//        default: break ;
+//    }
     return str ;
 }
 

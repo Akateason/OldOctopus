@@ -14,6 +14,40 @@
 
 @implementation MdBlockModel
 
++ (instancetype)modelWithType:(int)type range:(NSRange)range str:(NSString *)str level:(int)level {
+    MdBlockModel *model = [super modelWithType:type range:range str:str level:level] ;
+    
+    // 引用嵌套其他blk的处理
+    if (model.type == MarkdownSyntaxBlockquotes) {
+        XTMarkdownParser *parser = [XTMarkdownParser new] ;
+        MarkdownModel *tmpModel = [model copy] ;
+        NSUInteger cutNumber = 0 ;
+        NSString *newStr ;
+        
+        NSString *prefix = [[tmpModel.str componentsSeparatedByString:@">"] firstObject] ;
+        cutNumber = prefix.length ;
+        newStr = [tmpModel.str substringFromIndex:cutNumber + 1] ;
+        while ([newStr hasPrefix:@" "]) {
+            newStr = [newStr substringFromIndex:1] ;
+            cutNumber++ ;
+        }
+        
+        tmpModel.str = newStr ;
+        tmpModel.range = NSMakeRange(tmpModel.range.location + cutNumber + 1, tmpModel.range.length - cutNumber - 1) ;
+        tmpModel.quoteAndList_Level ++ ;
+        
+        // 递归
+        MarkdownModel *subModel = [parser parsingGetABlockStyleModelFromParaModel:tmpModel] ;
+        if (subModel.type <= NumberOfMarkdownSyntax && subModel.type > 0) {            
+            model.subBlkModel = subModel ;
+        }
+        tmpModel = nil ;
+    }
+    
+    return model ;
+}
+
+
 - (NSString *)displayStringForLeftLabel {
     NSString *str = [super displayStringForLeftLabel] ;
     
@@ -28,7 +62,7 @@
 }
 
 - (NSDictionary *)attrQuoteBlockHideMarkWithLevel {
-    int level = self.nestLevel ;
+    int level = self.textIndentationPosition ;
     level++ ;
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init] ;
     paraStyle.firstLineHeadIndent = 18 * level ;
