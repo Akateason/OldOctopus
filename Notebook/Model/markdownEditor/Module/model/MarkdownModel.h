@@ -19,6 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownModel : NSObject
+
 @property (nonatomic)           NSRange         range ;
 @property (nonatomic)           int             type ;
 @property (copy, nonatomic)     NSString        *str ;

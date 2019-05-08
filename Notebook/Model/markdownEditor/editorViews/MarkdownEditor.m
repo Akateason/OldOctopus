@@ -20,7 +20,8 @@
 #import "XTMarkdownParser+Fetcher.h"
 #import "MdBlockModel.h"
 #import "MDCodeBlockEditor.h"
-
+#import "ArticlePhotoPreviewVC.h"
+#import "XTMarkdownParser+ImageUtil.h"
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue       = 30.f  ;
@@ -66,7 +67,9 @@ static const int kTag_InlineCodeView    = 50000 ;
     self.delegate = self ;
     if (@available(iOS 11.0, *)) self.smartDashesType = UITextSmartDashesTypeNo ;
     
-//    self.backgroundColor = nil ;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapThisEditorAndFindImageAttach:)];
+    [self addGestureRecognizer:tapGesture] ;
+
     
     @weakify(self)
     // user typing
@@ -106,6 +109,51 @@ static const int kTag_InlineCodeView    = 50000 ;
             self->fstTimeLoaded = YES ;
         }
     }) ;
+}
+
+- (void)didTapThisEditorAndFindImageAttach:(UITapGestureRecognizer *)sender {
+    // first: extract the sender view
+    UIView *senderView = sender.view;
+    if (![senderView isKindOfClass:[UITextView class]]) return ;
+    
+    // calculate layout manager touch location
+    UITextView *textView = (UITextView *)senderView;
+    NSLayoutManager *layoutManager = textView.layoutManager;
+    CGPoint location = [sender locationInView:textView];
+    location.x -= textView.textContainerInset.left;
+    location.y -= textView.textContainerInset.top;
+    
+    // find the value
+    NSTextContainer *textContainer = textView.textContainer;
+    NSUInteger characterIndex = [layoutManager characterIndexForPoint:location inTextContainer:textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
+    NSTextStorage *textStorage = textView.textStorage;
+    if (characterIndex < textStorage.length) {
+        NSRange range0;
+        NSString *jsonInlineModel = [textStorage attribute:kKey_MDInlineImageModel atIndex:characterIndex effectiveRange:&range0] ;
+        if (jsonInlineModel) {
+            MdInlineModel *inlineImageModel = [MdInlineModel yy_modelWithJSON:jsonInlineModel] ;
+            [self resignFirstResponder] ;
+            [self showPreviewCtrller:inlineImageModel] ;
+        }
+    }
+}
+
+- (void)showPreviewCtrller:(MdInlineModel *)inlineImageModel {
+    [ArticlePhotoPreviewVC showFromCtrller:self.xt_viewController model:inlineImageModel deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
+        WEAK_SELF
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"是否要删除此图片" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil fromWithView:self CallBackBlock:^(NSInteger btnIndex) {
+            
+            if (btnIndex == 1) {
+                NSMutableString *tmpString = [weakSelf.text mutableCopy] ;
+                [tmpString deleteCharactersInRange:NSMakeRange(inlineImageModel.range.location, inlineImageModel.range.length + 3)] ;
+                weakSelf.text = tmpString ;
+                [weakSelf updateTextStyle] ;
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
+                [vc dismissViewControllerAnimated:YES completion:nil] ;
+            }
+        }] ;
+    }] ;
 }
 
 #pragma mark - func
@@ -167,7 +215,6 @@ static const int kTag_InlineCodeView    = 50000 ;
     [super setSelectedTextRange:selectedTextRange] ;
     
     [self parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
-    [self returnImageModelIfUserHasSelectImage:self.selectedRange.location] ;
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -175,36 +222,6 @@ static const int kTag_InlineCodeView    = 50000 ;
     // Redraw in case enabbled features have changes
     return [super canBecomeFirstResponder] ;
 }
-
-- (MarkdownModel *)returnImageModelIfUserHasSelectImage:(NSUInteger)position {
-    if (position < 1) return nil ;
-    
-    NSString *strSelect = [self.text substringWithRange:NSMakeRange(position - 1, 1)] ;
-    if ([strSelect isEqualToString:@"\uFFFC"]) {
-        MarkdownModel *model = [self.parser modelForModelListInlineFirst] ; //移动到![]()后面
-        [self imageSelectedAtNewPosition:model.range.location imageModel:(MdInlineModel *)model] ; // 图片选择
-        return model ;
-    }
-    return nil ;
-}
-
-- (void)imageSelectedAtNewPosition:(NSInteger)position imageModel:(MdInlineModel *)model {
-    [self resignFirstResponder] ;
-    
-    XTSIAlertView *alert = [[XTSIAlertView alloc] initWithTitle:@"是否要删除此图片" andMessage:@""] ;
-    WEAK_SELF
-    [alert addButtonWithTitle:@"删除" type:XTSIAlertViewButtonTypeDestructive handler:^(XTSIAlertView *alertView) {
-        NSMutableString *tmpString = [weakSelf.text mutableCopy] ;
-        [tmpString deleteCharactersInRange:NSMakeRange(model.range.location, model.range.length + 3)] ;
-        weakSelf.text = tmpString ;
-        [weakSelf updateTextStyle] ;
-    }] ;
-    [alert addButtonWithTitle:@"取消" type:XTSIAlertViewButtonTypeDefault handler:^(XTSIAlertView *alertView) {
-    }] ;
-    [alert show] ;
-}
-
-
 
 #pragma mark - props
 
@@ -412,6 +429,36 @@ static const int kTag_InlineCodeView    = 50000 ;
 }
 
 #pragma mark - textview Delegate
+
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [super touchesBegan:touches withEvent:event];
+//    if (self.state == UIGestureRecognizerStateFailed) return;
+//
+//    UITouch *touch = [touches anyObject];
+//    UITextView *textView = (UITextView*) self.view;
+//    NSTextContainer *textContainer = textView.textContainer;
+//    NSLayoutManager *layoutManager = textView.layoutManager;
+//
+//    CGPoint point = [touch locationInView:textView];
+//    point.x -= textView.textContainerInset.left;
+//    point.y -= textView.textContainerInset.top;
+//
+//    NSUInteger characterIndex = [layoutManager characterIndexForPoint:point inTextContainer:textContainer fractionOfDistanceBetweenInsertionPoints:nil];
+//
+//    if (characterIndex >= textView.text.length)
+//    {
+//        self.state = UIGestureRecognizerStateFailed;
+//        return;
+//    }
+//
+//    _textAttachment = [textView.attributedText attribute:NSAttachmentAttributeName atIndex:characterIndex effectiveRange:&_range];
+//    if (_textAttachment)
+//    {
+//        return;
+//    }
+//    _textAttachment = nil;
+//}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if (![text isEqualToString:@"\n"]) return YES ;

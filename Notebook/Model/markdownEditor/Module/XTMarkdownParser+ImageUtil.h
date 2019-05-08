@@ -8,7 +8,9 @@
 
 #import "XTMarkdownParser.h"
 
-NS_ASSUME_NONNULL_BEGIN
+static NSString *const kKey_MDInlineImageModel = @"kKey_MDInlineImageModel" ;
+
+
 
 @interface XTMarkdownParser (ImageUtil)
 
@@ -26,4 +28,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END
+

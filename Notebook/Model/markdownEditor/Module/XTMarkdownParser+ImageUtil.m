@@ -24,6 +24,15 @@
     return attachment ;
 }
 
+- (NSAttributedString *)attrbuteStringWithInlineImageModel:(MdInlineModel *)model image:(UIImage *)image {
+    NSTextAttachment *attach = [self attachmentStandardFromImage:image] ;
+    NSMutableAttributedString *attrAttach = [[NSAttributedString attributedStringWithAttachment:attach] mutableCopy] ;
+    [attrAttach addAttributes:@{kKey_MDInlineImageModel:[model yy_modelToJSONString]} range:NSMakeRange(0, attrAttach.length)] ;
+    return attrAttach ;
+}
+
+
+
 // do when editor launch . (insert img placeholder)
 - (NSMutableAttributedString *)readArticleFirstTimeAndInsertImagePHWhenEditorDidLaunching:(NSString *)text
                                                                                  textView:(UITextView *)textView {
@@ -50,9 +59,11 @@
         if (!imgResult) {
             imgResult = self.imgManager.imagePlaceHolder ;
         }
-        NSTextAttachment *attach = [self attachmentStandardFromImage:imgResult] ;
-        NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
+        NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
         [str insertAttributedString:attrAttach atIndex:loc] ;
+        
+        
+        
     }] ;
     
     [str endEditing] ;
@@ -90,8 +101,7 @@
             @weakify(self)
             [self.imgManager imageWithUrlStr:imgUrl complete:^(UIImage * _Nonnull image) {
                 @strongify(self)
-                NSTextAttachment *attach = [self attachmentStandardFromImage:image] ;
-                NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
+                NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
                 [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
                 [self updateAttributedText:str textView:textView] ;
                 
@@ -100,8 +110,7 @@
             }] ;
         }
         
-        NSTextAttachment *attach = [self attachmentStandardFromImage:imgResult] ;
-        NSAttributedString *attrAttach = [NSAttributedString attributedStringWithAttachment:attach] ;
+        NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
         [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
     }] ;
     [str endEditing] ;

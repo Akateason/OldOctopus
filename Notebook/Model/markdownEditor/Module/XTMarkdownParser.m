@@ -242,7 +242,7 @@
     NSArray *escapeMatches = [escapeExpression matchesInString:paraModel.str options:0 range:NSMakeRange(0, [paraModel.str length])] ;
     for (NSTextCheckingResult *esResult in escapeMatches) {
         NSRange tmpRange = NSMakeRange(paraModel.range.location + esResult.range.location, esResult.range.length) ;
-        MarkdownModel *resModel = [MdInlineModel modelWithType:MarkdownInlineEscape range:tmpRange str:[paraModel.str substringWithRange:esResult.range]] ;
+        MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineEscape range:tmpRange str:[paraModel.str substringWithRange:esResult.range]] ;
         [escapeList addObject:resModel] ;
     }
     
@@ -262,12 +262,12 @@
                 NSString *prefixCha = [[paraModel.str substringWithRange:result.range] substringWithRange:NSMakeRange(0, 1)] ;
                 if ([prefixCha isEqualToString:@"!"]) {
                     NSRange tmpRange = NSMakeRange(paraModel.range.location + result.range.location, result.range.length) ;
-                    MarkdownModel *resModel = [MdInlineModel modelWithType:MarkdownInlineImage range:tmpRange str:[paraModel.str substringWithRange:result.range]] ;
+                    MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineImage range:tmpRange str:[paraModel.str substringWithRange:result.range]] ;
                     [tmpInlineList addObject:resModel] ;
                 }
                 else {
                     NSRange tmpRange = NSMakeRange(paraModel.range.location + result.range.location, result.range.length) ;
-                    MarkdownModel *resModel = [MdInlineModel modelWithType:MarkdownInlineLinks range:tmpRange str:[paraModel.str substringWithRange:result.range]] ;
+                    MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineLinks range:tmpRange str:[paraModel.str substringWithRange:result.range]] ;
                     [tmpInlineList addObject:resModel] ;
                 }
                 
@@ -275,7 +275,7 @@
             }
             
             NSRange tmpRange = NSMakeRange(paraModel.range.location + result.range.location, result.range.length) ;
-            MarkdownModel *resModel = [MdInlineModel modelWithType:i range:tmpRange str:[paraModel.str substringWithRange:result.range]] ;
+            MdInlineModel *resModel = [MdInlineModel modelWithType:i range:tmpRange str:[paraModel.str substringWithRange:result.range]] ;
             
             BOOL containEscape = NO ; // 转义字符
             for (MdInlineModel *escapeMod in escapeList) {

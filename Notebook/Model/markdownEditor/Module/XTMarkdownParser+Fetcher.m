@@ -13,22 +13,26 @@
 
 #pragma mark - return current model with position
 
+NS_INLINE BOOL xt_LocationInRange(NSUInteger loc, NSRange range) {
+    return ((loc >= range.location) && (loc - range.location) <= range.length) ? YES : NO;
+}
+
 - (MarkdownModel *)modelForModelListInlineFirst {
     MarkdownModel *tmpModel = nil ;
     NSRange cursorRange = [self.delegate currentCursorRange] ;
     NSArray *modellist = self.currentPositionModelList ;
     
     for (MarkdownModel *model in modellist) {
-        if (model.type > MarkdownInlineUnknown && NSLocationInRange(cursorRange.location, model.range)) {
+        tmpModel = model ;
+        if (model.type > MarkdownInlineUnknown && ( xt_LocationInRange(cursorRange.location, model.range) || xt_LocationInRange(cursorRange.location - 1, model.range) ) ) {
             return model ;
         }
-        tmpModel = model ;
     }
     
     if (tmpModel.type == -1 && tmpModel.inlineModels.count > 0) {
         for (int i = 0; i < tmpModel.inlineModels.count; i++) {
             MarkdownModel *inlineModel = tmpModel.inlineModels[i] ;
-            if (inlineModel.type > MarkdownInlineUnknown && NSLocationInRange(cursorRange.location, inlineModel.range)) {
+            if (inlineModel.type > MarkdownInlineUnknown &&  ( xt_LocationInRange(cursorRange.location, inlineModel.range) || xt_LocationInRange(cursorRange.location - 1, inlineModel.range) ) ) {
                 return inlineModel ;
             }
         }
@@ -43,7 +47,7 @@
     
     for (MarkdownModel *model in modellist) {
         tmpModel = model ;
-        if (model.type < MarkdownInlineUnknown && NSLocationInRange(cursorRange.location, model.range)) {
+        if (model.type < MarkdownInlineUnknown && xt_LocationInRange(cursorRange.location, model.range)) {
             return tmpModel ;
         }
     }
@@ -54,7 +58,7 @@
     NSArray *list = self.paraList ;
     for (int i = 0; i < list.count; i++) {
         MarkdownModel *model = list[i] ;
-        BOOL isInRange = NSLocationInRange(position, model.range) ;
+        BOOL isInRange = xt_LocationInRange(position, model.range) ;
         
         if (isInRange) {
             if (model.type < MarkdownInlineUnknown) {
@@ -70,7 +74,7 @@
     id lastModel = nil ;
     for (int i = 0; i < self.paraList.count; i++) {
         MarkdownModel *model = self.paraList[i] ;
-        BOOL isInRange = NSLocationInRange(position, model.range) ;
+        BOOL isInRange = xt_LocationInRange(position, model.range) ;
         if (isInRange) {
             return lastModel ;
         }
