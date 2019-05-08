@@ -21,6 +21,7 @@
 - (MarkdownModel *)lastOneParagraphMarkdownModel ;
 - (MarkdownModel *)lastOneParagraphMarkdownModelWithPosition:(NSUInteger)position ;
 
+
 @end
 
 

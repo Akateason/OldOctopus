@@ -111,6 +111,7 @@ static const int kTag_InlineCodeView    = 50000 ;
     }) ;
 }
 
+// User Finger Touch cursor moving
 - (void)didTapThisEditorAndFindImageAttach:(UITapGestureRecognizer *)sender {
     // first: extract the sender view
     UIView *senderView = sender.view;
@@ -134,6 +135,11 @@ static const int kTag_InlineCodeView    = 50000 ;
             MdInlineModel *inlineImageModel = [MdInlineModel yy_modelWithJSON:jsonInlineModel] ;
             [self resignFirstResponder] ;
             [self showPreviewCtrller:inlineImageModel] ;
+        }
+        else {
+            if (!self.isFirstResponder) [self becomeFirstResponder] ;
+            self.selectedRange = NSMakeRange(characterIndex, 0) ; // 回 默认
+            [self parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
         }
     }
 }
@@ -165,13 +171,13 @@ static const int kTag_InlineCodeView    = 50000 ;
 }
 
 - (void)doSomethingWhenUserSelectPartOfArticle:(MarkdownModel *)model {
-//    CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start] ;
-//    NSLog(@"caret rect %@", NSStringFromCGRect(caretRect)) ;
-    NSLog(@"choose model : %@",[model yy_modelToJSONString]) ;
+    NSLog(@"hey i choose a model : %@",[model yy_modelToJSONString]) ;
     // left lb
     [self drawLeftDisplayLabel:model] ;
     // render toolbar
     [self.toolBar renderWithModel:model] ;
+    // edit a link
+    [self clickALinkModel:(MdInlineModel *)model] ;
 }
 
 - (void)drawLeftDisplayLabel:(MarkdownModel *)model {
@@ -186,6 +192,30 @@ static const int kTag_InlineCodeView    = 50000 ;
 - (void)renderLeftSideAndToobar {
     MarkdownModel *model = [self.parser modelForModelListInlineFirst] ;
     [self doSomethingWhenUserSelectPartOfArticle:model] ;
+}
+
+- (void)clickALinkModel:(MdInlineModel *)model {
+    if (model.type != MarkdownInlineLinks) return ;
+        
+    @weakify(self)
+    [MDEditUrlView showOnView:self window:self.window model:model keyboardHeight:keyboardHeight callback:^(BOOL isConfirm, NSString *title, NSString *url) {
+        @strongify(self)
+        if (!isConfirm) {
+            [self becomeFirstResponder] ;
+            return ;
+        }
+        
+        NSMutableString *tmpString = [self.text mutableCopy] ;
+        NSString *linkStr = STR_FORMAT(@"[%@](%@)",title,url) ;
+        if (model && model.type == MarkdownInlineLinks) {
+            [tmpString deleteCharactersInRange:model.range] ;
+            [tmpString insertString:linkStr atIndex:model.range.location] ;
+        }
+        else [tmpString insertString:linkStr atIndex:self.selectedRange.location] ;
+        
+        [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
+    }] ;
 }
 
 - (void)parseAllTextFinishedThenRenderLeftSideAndToolbar {
@@ -211,6 +241,7 @@ static const int kTag_InlineCodeView    = 50000 ;
     return originalRect;
 }
 
+// keyboard cursor moving
 - (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
     [super setSelectedTextRange:selectedTextRange] ;
     
@@ -249,7 +280,7 @@ static const int kTag_InlineCodeView    = 50000 ;
 - (void)show_lbLeftCornerMarker {
     [self addSubview:self.imgLeftCornerMarker] ;
     CGRect caretRect = [self caretRectForPosition:self.selectedTextRange.start] ;
-    NSLog(@"caretRect ; %@", NSStringFromCGRect(caretRect)) ;
+//    NSLog(@"caretRect ; %@", NSStringFromCGRect(caretRect)) ;
     [self.imgLeftCornerMarker mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_left).offset(-1) ;
         make.top.equalTo(self.mas_top).offset(caretRect.origin.y) ;
@@ -429,36 +460,6 @@ static const int kTag_InlineCodeView    = 50000 ;
 }
 
 #pragma mark - textview Delegate
-
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    [super touchesBegan:touches withEvent:event];
-//    if (self.state == UIGestureRecognizerStateFailed) return;
-//
-//    UITouch *touch = [touches anyObject];
-//    UITextView *textView = (UITextView*) self.view;
-//    NSTextContainer *textContainer = textView.textContainer;
-//    NSLayoutManager *layoutManager = textView.layoutManager;
-//
-//    CGPoint point = [touch locationInView:textView];
-//    point.x -= textView.textContainerInset.left;
-//    point.y -= textView.textContainerInset.top;
-//
-//    NSUInteger characterIndex = [layoutManager characterIndexForPoint:point inTextContainer:textContainer fractionOfDistanceBetweenInsertionPoints:nil];
-//
-//    if (characterIndex >= textView.text.length)
-//    {
-//        self.state = UIGestureRecognizerStateFailed;
-//        return;
-//    }
-//
-//    _textAttachment = [textView.attributedText attribute:NSAttachmentAttributeName atIndex:characterIndex effectiveRange:&_range];
-//    if (_textAttachment)
-//    {
-//        return;
-//    }
-//    _textAttachment = nil;
-//}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if (![text isEqualToString:@"\n"]) return YES ;

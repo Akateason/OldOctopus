@@ -274,6 +274,8 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
             [tmpString insertString:linkStr atIndex:self.selectedRange.location] ;
         }
         [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
+
     }] ;
 }
 

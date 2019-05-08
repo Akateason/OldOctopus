@@ -94,7 +94,6 @@
         }
             break ;
         case MarkdownInlineLinks: {
-            // todo links with attr str
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:self.range] ;
             resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_themeColor),
                           NSFontAttributeName : paragraphFont,
@@ -187,15 +186,22 @@
         }
             break ;
         case MarkdownInlineLinks: {
-            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:self.range] ;
-            
-            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_skyBlue],
+            [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:self.range] ;
+            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_themeColor),
                           NSFontAttributeName : paragraphFont,
                           NSUnderlineStyleAttributeName : @1
                           };
             NSString *prefixAddFKH = [[self.str componentsSeparatedByString:@"]"] firstObject] ;
             NSRange tmpRange = NSMakeRange(location + 1, prefixAddFKH.length - 1) ;
             [attributedString addAttributes:resultDic range:tmpRange] ;
+//            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:self.range] ;
+//            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_skyBlue],
+//                          NSFontAttributeName : paragraphFont,
+//                          NSUnderlineStyleAttributeName : @1
+//                          };
+//            NSString *prefixAddFKH = [[self.str componentsSeparatedByString:@"]"] firstObject] ;
+//            NSRange tmpRange = NSMakeRange(location + 1, prefixAddFKH.length - 1) ;
+//            [attributedString addAttributes:resultDic range:tmpRange] ;
         }
             break ;
         case MarkdownInlineImage : {
