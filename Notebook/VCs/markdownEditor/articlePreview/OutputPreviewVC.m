@@ -63,7 +63,7 @@
     [self.container setNeedsLayout] ;
     [self.container layoutIfNeeded] ;
     
-    XTZoomPicture *zoomPic = [[XTZoomPicture alloc] initWithFrame:self.container.bounds backImage:self.outpuImage max:100 min:1 flex:5 tapped:^{
+    XTZoomPicture *zoomPic = [[XTZoomPicture alloc] initWithFrame:self.container.bounds backImage:self.outpuImage tapped:^{
         
     }] ;
     [self.container addSubview:zoomPic] ;

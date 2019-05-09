@@ -35,10 +35,19 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
 }
 
 - (void)prepareUI {
-    WEAK_SELF
-    self.zoomPic = [[XTZoomPicture alloc] initWithFrame:APPFRAME backImage:nil max:2 min:.5 flex:0 tapped:^{
-        [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
+    self.deleteButton.hidden = YES ;
+    self.downloadButton.hidden = YES ;
+    
+    @weakify(self)
+    self.zoomPic = [[XTZoomPicture alloc] initWithFrame:APPFRAME imageUrl:self.modelImage.imageUrl tapped:^{
+        @strongify(self)
+        [self dismissViewControllerAnimated:YES completion:nil] ;
+    } loadComplete:^{
+        @strongify(self)
+        self.downloadButton.hidden = NO ;
+        self.deleteButton.hidden = NO ;
     }] ;
+    
     [self.view addSubview:self.zoomPic] ;
     
     self.deleteButton = ({
@@ -75,18 +84,8 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    self.deleteButton.hidden = YES ;
-    self.downloadButton.hidden = YES ;
     
     
-    
-    [self.zoomPic.imageView sd_setImageWithURL:[NSURL URLWithString:self.modelImage.imageUrl] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        
-        
-        
-        self.downloadButton.hidden = NO ;
-        self.deleteButton.hidden = NO ;
-    }] ;
     
     WEAK_SELF
     [self.deleteButton bk_whenTapped:^{
@@ -95,7 +94,7 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     
     [self.downloadButton bk_whenTapped:^{
         
-        __block UIImage *imgSave = weakSelf.zoomPic.imageView.image;
+        __block UIImage *imgSave = [weakSelf.zoomPic valueForKey:@"backImage"] ;
         dispatch_queue_t queue = dispatch_queue_create("pictureSaveInAlbum", NULL);
         dispatch_async(queue, ^{
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
