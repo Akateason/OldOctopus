@@ -7,7 +7,6 @@
 //
 
 #import "HomeVC.h"
-#import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import <UIViewController+CWLateralSlide.h>
 #import "LeftDrawerVC.h"
 #import "NoteBooks.h"

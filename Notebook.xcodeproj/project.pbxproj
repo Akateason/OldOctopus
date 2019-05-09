@@ -30,6 +30,7 @@
 		8F2A2677226EEC830076EBA4 /* guiding_img_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2676226EEC830076EBA4 /* guiding_img_3@2x.png */; };
 		8F2A267A226EED740076EBA4 /* GuidingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2A2679226EED740076EBA4 /* GuidingVC.m */; };
 		8F2A267D226EED830076EBA4 /* GuidingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2A267C226EED830076EBA4 /* GuidingView.m */; };
+		8F2C76102282D3B700A6DC89 /* OutputPreviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2C760F2282D3B700A6DC89 /* OutputPreviewVC.m */; };
 		8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F303997225217A300DEB656 /* HomeEmptyPHView.m */; };
 		8F30399A225217AB00DEB656 /* HomeEmptyPHView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */; };
 		8F41EEC7225B3B7500D9CD35 /* SWRevealTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F41EEC5225B3B7500D9CD35 /* SWRevealTableViewCell.m */; };
@@ -206,6 +207,8 @@
 		8F2A2679226EED740076EBA4 /* GuidingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuidingVC.m; sourceTree = "<group>"; };
 		8F2A267B226EED830076EBA4 /* GuidingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuidingView.h; sourceTree = "<group>"; };
 		8F2A267C226EED830076EBA4 /* GuidingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuidingView.m; sourceTree = "<group>"; };
+		8F2C760E2282D3B700A6DC89 /* OutputPreviewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputPreviewVC.h; sourceTree = "<group>"; };
+		8F2C760F2282D3B700A6DC89 /* OutputPreviewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OutputPreviewVC.m; sourceTree = "<group>"; };
 		8F303996225217A300DEB656 /* HomeEmptyPHView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeEmptyPHView.h; sourceTree = "<group>"; };
 		8F303997225217A300DEB656 /* HomeEmptyPHView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeEmptyPHView.m; sourceTree = "<group>"; };
 		8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEmptyPHView.xib; sourceTree = "<group>"; };
@@ -493,6 +496,15 @@
 			path = Guiding;
 			sourceTree = "<group>";
 		};
+		8F2C760D2282D39400A6DC89 /* articlePreview */ = {
+			isa = PBXGroup;
+			children = (
+				8F2C760E2282D3B700A6DC89 /* OutputPreviewVC.h */,
+				8F2C760F2282D3B700A6DC89 /* OutputPreviewVC.m */,
+			);
+			path = articlePreview;
+			sourceTree = "<group>";
+		};
 		8F41EEC3225B3B5200D9CD35 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,6 +613,7 @@
 			children = (
 				8F679DFA2232436B008DE1BC /* MarkdownVC.h */,
 				8F679DFB2232436B008DE1BC /* MarkdownVC.m */,
+				8F2C760D2282D39400A6DC89 /* articlePreview */,
 				8FA2295222646A2C00D736E2 /* articleInfo */,
 			);
 			path = markdownEditor;
@@ -1265,6 +1278,7 @@
 				8FACF6DA221E8D610067DDA4 /* UIView+RichTextEditor.m in Sources */,
 				8F2A267D226EED830076EBA4 /* GuidingView.m in Sources */,
 				8F679E282238F9DE008DE1BC /* MdListModel.m in Sources */,
+				8F2C76102282D3B700A6DC89 /* OutputPreviewVC.m in Sources */,
 				8F70827B226DC4ED000ED214 /* HiddenUtil.m in Sources */,
 				8FA2294322603C2A00D736E2 /* NSObject+XTThemeColor.m in Sources */,
 				8F07D656224CD8CE005BA86D /* BasicVC.m in Sources */,

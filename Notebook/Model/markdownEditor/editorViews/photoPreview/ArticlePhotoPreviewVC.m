@@ -78,16 +78,11 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     self.deleteButton.hidden = YES ;
     self.downloadButton.hidden = YES ;
     
-    UIActivityIndicatorView *aiView = [UIActivityIndicatorView new] ;
-    aiView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite ;
-    aiView.center = self.view.center ;
-    [self.view.window addSubview:aiView] ;
-    [aiView startAnimating] ;
+    
     
     [self.zoomPic.imageView sd_setImageWithURL:[NSURL URLWithString:self.modelImage.imageUrl] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         
-        [aiView stopAnimating] ;
-        [aiView removeFromSuperview] ;
+        
         
         self.downloadButton.hidden = NO ;
         self.deleteButton.hidden = NO ;

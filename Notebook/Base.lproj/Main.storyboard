@@ -608,6 +608,65 @@
             </objects>
             <point key="canvasLocation" x="1129" y="1131"/>
         </scene>
+        <!--Output PreviewVC-->
+        <scene sceneID="XGb-nf-QUq">
+            <objects>
+                <viewController storyboardIdentifier="OutputPreviewVC" id="fay-ZG-n2r" customClass="OutputPreviewVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gJj-AE-Paq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWs-pA-MUI">
+                                <rect key="frame" x="0.0" y="20" width="375" height="55"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFv-7q-fYC">
+                                        <rect key="frame" x="318" y="7" width="37" height="38"/>
+                                        <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
+                                        <state key="normal" title="保存"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qWM-CY-fC6">
+                                        <rect key="frame" x="20" y="7" width="37" height="38"/>
+                                        <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
+                                        <state key="normal" title="取消"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="rFv-7q-fYC" secondAttribute="trailing" constant="20" id="K2E-Vf-Cq8"/>
+                                    <constraint firstAttribute="height" constant="55" id="PX0-jv-G3C"/>
+                                    <constraint firstAttribute="bottom" secondItem="qWM-CY-fC6" secondAttribute="bottom" constant="10" id="dU5-WE-1Rc"/>
+                                    <constraint firstItem="qWM-CY-fC6" firstAttribute="leading" secondItem="YWs-pA-MUI" secondAttribute="leading" constant="20" id="jC4-wo-SOB"/>
+                                    <constraint firstAttribute="bottom" secondItem="rFv-7q-fYC" secondAttribute="bottom" constant="10" id="m1l-wl-SAX"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wxU-v8-Q63">
+                                <rect key="frame" x="0.0" y="75" width="375" height="592"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YWs-pA-MUI" firstAttribute="leading" secondItem="v2R-1Q-orS" secondAttribute="leading" id="INv-gY-2Or"/>
+                            <constraint firstItem="v2R-1Q-orS" firstAttribute="trailing" secondItem="wxU-v8-Q63" secondAttribute="trailing" id="SB2-qF-JcR"/>
+                            <constraint firstItem="YWs-pA-MUI" firstAttribute="top" secondItem="v2R-1Q-orS" secondAttribute="top" id="YGu-Kt-wkP"/>
+                            <constraint firstItem="v2R-1Q-orS" firstAttribute="bottom" secondItem="wxU-v8-Q63" secondAttribute="bottom" id="c5C-PU-y9d"/>
+                            <constraint firstItem="wxU-v8-Q63" firstAttribute="leading" secondItem="v2R-1Q-orS" secondAttribute="leading" id="m7T-JF-fjs"/>
+                            <constraint firstItem="wxU-v8-Q63" firstAttribute="top" secondItem="YWs-pA-MUI" secondAttribute="bottom" id="nYk-XO-2tJ"/>
+                            <constraint firstItem="YWs-pA-MUI" firstAttribute="trailing" secondItem="v2R-1Q-orS" secondAttribute="trailing" id="zlr-pf-X7L"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="v2R-1Q-orS"/>
+                    </view>
+                    <connections>
+                        <outlet property="btCancel" destination="qWM-CY-fC6" id="MFK-RD-S9V"/>
+                        <outlet property="btSave" destination="rFv-7q-fYC" id="wdH-w9-x7g"/>
+                        <outlet property="container" destination="wxU-v8-Q63" id="mwb-xP-8yJ"/>
+                        <outlet property="topBar" destination="YWs-pA-MUI" id="44f-3l-QZ3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IgB-zA-d1D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1919" y="1146"/>
+        </scene>
         <!--EditorVC-->
         <scene sceneID="OZb-lO-NII">
             <objects>
@@ -672,6 +731,6 @@
         <image name="nb_right_fish.png" width="64" height="185"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SgX-hR-Oau"/>
+        <segue reference="K5F-Ir-RtS"/>
     </inferredMetricsTieBreakers>
 </document>

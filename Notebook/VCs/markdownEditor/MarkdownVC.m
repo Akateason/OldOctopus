@@ -15,7 +15,7 @@
 #import "ArticleInfoVC.h"
 #import <UIViewController+CWLateralSlide.h>
 #import "XTMarkdownParser+Fetcher.h"
-
+#import "OutputPreviewVC.h"
 
 @interface MarkdownVC ()
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -50,7 +50,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad] ;
     
     if (self.aNote) {
         self.textView.text = self.aNote.content ;
@@ -222,14 +222,8 @@
     
     if (!image) return ;
     
-    ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init] ;
-    [lib saveImage:image toAlbum:@"小章鱼" completionBlock:^(NSError *error) {
-        if (error) return ;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
-        }) ;
-    }] ;
+    [self dismissViewControllerAnimated:YES completion:nil] ;
+    [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
 }
 
 #pragma mark - prop
