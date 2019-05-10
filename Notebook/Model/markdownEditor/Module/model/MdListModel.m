@@ -109,12 +109,12 @@
 
 - (NSString *)displayStringForLeftLabel {
     NSString *str = [super displayStringForLeftLabel] ;
-//    switch (self.type) {
-//        case MarkdownSyntaxOLLists:     str = @"md_tb_bt_olist"     ; break ;
-//        case MarkdownSyntaxULLists:     str = @"md_tb_bt_ulist"     ; break ;
-//        case MarkdownSyntaxTaskLists:   str = @"md_tb_bt_tasklist"  ; break ;
-//        default: break ;
-//    }
+    switch (self.type) {
+        case MarkdownSyntaxOLLists:     str = @"md_tb_bt_olist"     ; break ;
+        case MarkdownSyntaxULLists:     str = @"md_tb_bt_ulist"     ; break ;
+        case MarkdownSyntaxTaskLists:   str = @"md_tb_bt_tasklist"  ; break ;
+        default: break ;
+    }
     return str ;
 }
 
@@ -277,5 +277,80 @@
     MarkdownModel *aModel = [editor.parser modelForModelListBlockFirst] ;
     editor.selectedRange = NSMakeRange(aModel.range.length + aModel.range.location, 0) ;
 }
+
+
+
+
++ (int)keyboardEnterTypedInTextView:(MarkdownEditor *)textView
+                    modelInPosition:(MarkdownModel *)aModel
+            shouldChangeTextInRange:(NSRange)range {
+    
+    NSMutableString *tmpString = [textView.text mutableCopy] ;
+    NSString *insertULString = @"\n* " ;
+    NSString *insertOLString = @"" ;
+    NSString *insertTLString = @"\n* [ ]  " ; // 只有checkbox 多加一个空格. 为了展示问题
+    
+    if (aModel.type == MarkdownSyntaxULLists) {
+        insertULString = @"\n* " ;
+        [tmpString insertString:insertULString atIndex:range.location] ;
+        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+        textView.selectedRange = NSMakeRange(range.location + insertULString.length, 0) ;
+        
+        return NO ;
+    }
+    else if (aModel.type == MarkdownSyntaxOLLists) {
+        int orderNum = [[[aModel.str componentsSeparatedByString:@"."] firstObject] intValue] ;
+        orderNum ++ ;
+        NSString *orderStr = STR_FORMAT(@"%d",orderNum) ;
+        insertOLString = STR_FORMAT(@"\n%@. ",orderStr) ;
+        [tmpString insertString:insertOLString atIndex:range.location] ;
+        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+        textView.selectedRange = NSMakeRange(range.location + insertOLString.length, 0) ;
+        
+        return NO ;
+    }
+    else if (aModel.type == MarkdownSyntaxTaskLists) {
+        if ([aModel.str hasPrefix:@"* [ ]  "]) {
+            [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
+            [tmpString insertString:@"\n" atIndex:range.location - aModel.str.length] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length + 1 textView:textView] ;
+            textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
+            
+            return YES ;
+        }
+        
+        [tmpString insertString:insertTLString atIndex:range.location] ;
+        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+        textView.selectedRange = NSMakeRange(range.location + insertTLString.length - 1, 0) ; // 只有checkbox 多加一个空格. 为了展示问题
+        return NO ;
+    }
+    
+    
+    // 两下回车, 删除mark
+    else if (aModel.type == -1) {
+        if ([insertULString hasPrefix:@"\n"]) insertULString = [insertULString substringFromIndex:1] ;
+        if (
+            // ul
+            [aModel.str isEqualToString:insertULString] ||
+            // ol
+            [aModel.str containsString:@". "]
+            ) {  // tl 在前面处理过了
+            
+            [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length textView:textView] ;
+            textView.selectedRange = NSMakeRange(range.location - aModel.str.length, 0) ;
+            return YES ;
+        }
+    }
+    
+    return 100 ; // 未知情况, 传到下一个model去处理
+}
+
+
+
+
+
+
+
 
 @end

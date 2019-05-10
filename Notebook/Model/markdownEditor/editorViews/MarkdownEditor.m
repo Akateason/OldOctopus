@@ -144,6 +144,7 @@ static const int kTag_InlineCodeView    = 50000 ;
     }
 }
 
+// preview one photo
 - (void)showPreviewCtrller:(MdInlineModel *)inlineImageModel {
     [ArticlePhotoPreviewVC showFromCtrller:self.xt_viewController model:inlineImageModel deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
         WEAK_SELF
@@ -222,7 +223,6 @@ static const int kTag_InlineCodeView    = 50000 ;
     MarkdownModel *model = [self updateTextStyle] ;
     [self doSomethingWhenUserSelectPartOfArticle:model] ;
 }
-
 
 - (void)setTopOffset:(CGFloat)topOffset {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -463,53 +463,13 @@ static const int kTag_InlineCodeView    = 50000 ;
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if (![text isEqualToString:@"\n"]) return YES ;
+    // get current model
+    MarkdownModel *thisModel = [self.parser getBlkModelForCustomPosition:range.location - 1] ;
+    // list model
+    int result = [MdListModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
+    if (result != 100) return result ;
     
-    MarkdownModel *lstModel = [self.parser getBlkModelForCustomPosition:range.location - 1] ;
-    NSMutableString *tmpString = [self.text mutableCopy] ;
-
-    if (lstModel.type == MarkdownSyntaxOLLists) {
-        int orderNum = [[[lstModel.str componentsSeparatedByString:@"."] firstObject] intValue] ;
-        orderNum ++ ;
-        NSString *orderStr = STR_FORMAT(@"%d",orderNum) ;
-        if (lstModel.str.length < orderStr.length + 4) { //两下回车
-            [tmpString deleteCharactersInRange:NSMakeRange(range.location - lstModel.str.length, lstModel.str.length)] ;
-            [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + 2 textView:self] ;
-            self.selectedRange = NSMakeRange(range.location, 0) ;
-            return NO ;
-        }
-
-        [tmpString insertString:STR_FORMAT(@"\n\n%@.  ",orderStr) atIndex:range.location] ;
-        [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:self] ;
-
-        self.selectedRange = NSMakeRange(range.location + orderStr.length + 4, 0) ;
-        return NO ;
-    }
-    else if (lstModel.type == MarkdownSyntaxTaskLists) {
-        if (lstModel.str.length < 8) { //两下回车
-            [tmpString deleteCharactersInRange:NSMakeRange(range.location - lstModel.str.length, lstModel.str.length)] ;
-            [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + 2 textView:self] ;
-            self.selectedRange = NSMakeRange(range.location, 0) ;
-            return NO ;
-        }
-
-        [tmpString insertString:@"\n\n* [ ]  " atIndex:range.location] ;
-        [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:self] ;
-        self.selectedRange = NSMakeRange(range.location + 8, 0) ;
-        return NO ;
-    }
-    else if (lstModel.type == MarkdownSyntaxULLists) {
-        if (lstModel.str.length < 4) { //两下回车
-            [tmpString deleteCharactersInRange:NSMakeRange(range.location - lstModel.str.length, lstModel.str.length)] ;
-            [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + 2 textView:self] ;
-            self.selectedRange = NSMakeRange(range.location, 0) ;
-            return NO ;
-        }
-
-        [tmpString insertString:@"\n\n*  " atIndex:range.location] ;
-        [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:self] ;
-        self.selectedRange = NSMakeRange(range.location + 4, 0) ;
-        return NO ;
-    }
+    
     
     return YES ;
 }
