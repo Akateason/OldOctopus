@@ -94,20 +94,10 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     
     [self.downloadButton bk_whenTapped:^{
         
-        __block UIImage *imgSave = [weakSelf.zoomPic valueForKey:@"backImage"] ;
-        dispatch_queue_t queue = dispatch_queue_create("pictureSaveInAlbum", NULL);
-        dispatch_async(queue, ^{
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            [library saveImage:imgSave
-                       toAlbum:@"小章鱼"
-               completionBlock:^(NSError *error) {
-                   if (!error) {
-                       dispatch_async(dispatch_get_main_queue(), ^{
-                           [SVProgressHUD showSuccessWithStatus:@"图片已保存"] ;
-                       });
-                   }
-               }];
-        });
+        UIImage *imgSave = [weakSelf.zoomPic valueForKey:@"backImage"] ;
+        [CommonFunc saveImageToLibrary:imgSave complete:^(bool success) {
+            [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
+        }] ;
         
     }] ;
 }

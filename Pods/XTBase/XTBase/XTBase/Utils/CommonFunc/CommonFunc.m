@@ -14,6 +14,7 @@
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "UIImage+AddFunction.h"
 #import  "sys/utsname.h"
+#import <Photos/Photos.h>
 
 #define SCORE_STR_LOW @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@"
 #define SCORE_STR_HIGH @"itms-apps://itunes.apple.com/app/id%@"
@@ -23,34 +24,74 @@
 
 #pragma mark-- save images to library
 
-+ (void)saveImageToLibrary:(UIImage *)savedImage albumName:(NSString *)name {
-    __block UIImage *imgSave = savedImage;
-
-    dispatch_queue_t queue = dispatch_queue_create("pictureSaveInAlbum", NULL);
-    dispatch_async(queue, ^{
-        imgSave                  = [self getSuBaoJiangWaterMask:imgSave];
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library saveImage:imgSave
-                    toAlbum:name
-            completionBlock:^(NSError *error) {
-                if (!error) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                                       //                   [XTHudManager showWordHudWithTitle:WD_HUD_PIC_SAVE_SUCCESS] ;
-                                   });
-                }
-            }];
-
-    });
+/**
+ * 创建相册
+ */
++ (void)albumWithName:(NSString *)albumName blkGetAlbum:(void(^)(PHAssetCollection *album))blkGetAlbum {
+    PHFetchResult<PHAssetCollection *> *collectionResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    for (PHAssetCollection *collection in collectionResult) {
+        if ([collection.localizedTitle isEqualToString:albumName]) {
+            blkGetAlbum(collection) ;
+            return ;
+        }
+    }
+    
+    
+    // 如果相册不存在,就创建新的相册(文件夹)
+    __block NSString *collectionId = nil; // __block修改block外部的变量的值
+    // 这个方法会在相册创建完毕后才会返回
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+        // 新建一个PHAssertCollectionChangeRequest对象, 用来创建一个新的相册
+        collectionId = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:albumName].placeholderForCreatedAssetCollection.localIdentifier;
+        
+        blkGetAlbum([PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[collectionId] options:nil].firstObject) ;
+    } error:nil] ;
 }
 
-+ (UIImage *)getSuBaoJiangWaterMask:(UIImage *)orgImage {
-    orgImage = [orgImage imageCompressWithTargetWidth:640];
-
-    CGRect rect = CGRectMake(18, orgImage.size.height - 66 - 8, 44, 66);
-    orgImage    = [orgImage imageWithWaterMask:[UIImage imageNamed:@"waterMask"] inRect:rect];
-
-    return orgImage;
++ (void)saveImageToLibrary:(UIImage *)savedImage complete:(void(^)(bool success))complete {
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        // 新建一个PHAssetCreationRequest对象, 保存图片到"相机胶卷"
+        // 返回PHAsset(图片)的字符串标识 NSString *assetId =
+        [PHAssetCreationRequest creationRequestForAssetFromImage:savedImage].placeholderForCreatedAsset.localIdentifier;
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"保存图片到相机胶卷中失败");
+            if (complete) complete(NO) ;
+            return;
+        }
+        NSLog(@"成功保存图片到相机胶卷中");
+        if (complete) complete(YES) ;
+    }];
 }
+
+//+ (void)saveImageToLibrary:(UIImage *)savedImage albumName:(NSString *)name {
+//    __block UIImage *imgSave = savedImage;
+//
+//    dispatch_queue_t queue = dispatch_queue_create("pictureSaveInAlbum", NULL);
+//    dispatch_async(queue, ^{
+//        imgSave                  = [self getSuBaoJiangWaterMask:imgSave];
+//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//        [library saveImage:imgSave
+//                    toAlbum:name
+//            completionBlock:^(NSError *error) {
+//                if (!error) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                                       //                   [XTHudManager showWordHudWithTitle:WD_HUD_PIC_SAVE_SUCCESS] ;
+//                                   });
+//                }
+//            }];
+//
+//    });
+//}
+
+//+ (UIImage *)getSuBaoJiangWaterMask:(UIImage *)orgImage {
+//    orgImage = [orgImage imageCompressWithTargetWidth:640];
+//
+//    CGRect rect = CGRectMake(18, orgImage.size.height - 66 - 8, 44, 66);
+//    orgImage    = [orgImage imageWithWaterMask:[UIImage imageNamed:@"waterMask"] inRect:rect];
+//
+//    return orgImage;
+//}
 
 #pragma mark-- version
 

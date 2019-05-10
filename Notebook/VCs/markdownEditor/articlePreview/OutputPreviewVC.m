@@ -44,13 +44,8 @@
     
     [self.btSave bk_whenTapped:^{
         
-        ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init] ;
-        [lib saveImage:weakSelf.outpuImage toAlbum:@"小章鱼" completionBlock:^(NSError *error) {
-            if (error) return ;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
-            }) ;
+        [CommonFunc saveImageToLibrary:weakSelf.outpuImage complete:^(bool success) {
+            [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
         }] ;
     }] ;
 }

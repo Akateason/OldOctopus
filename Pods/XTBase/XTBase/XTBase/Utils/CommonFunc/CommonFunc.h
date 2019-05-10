@@ -14,12 +14,11 @@
 
 #pragma mark - save images to library
 
-+ (void)saveImageToLibrary:(UIImage *)savedImage
-                 albumName:(NSString *)name;
++ (void)saveImageToLibrary:(UIImage *)savedImage complete:(void(^)(bool success))complete ;
 
 #pragma mark - water mask SubaoJiang
 
-+ (UIImage *)getSuBaoJiangWaterMask:(UIImage *)orgImage;
+//+ (UIImage *)getSuBaoJiangWaterMask:(UIImage *)orgImage;
 
 #pragma mark - current appname / version
 
