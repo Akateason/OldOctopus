@@ -84,9 +84,6 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    
-    
-    
     WEAK_SELF
     [self.deleteButton bk_whenTapped:^{
         weakSelf.blkDelete(weakSelf) ;
@@ -95,9 +92,13 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     [self.downloadButton bk_whenTapped:^{
         
         UIImage *imgSave = [weakSelf.zoomPic valueForKey:@"backImage"] ;
-        [CommonFunc saveImageToLibrary:imgSave complete:^(bool success) {
-            [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
-        }] ;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [CommonFunc saveImageToLibrary:imgSave complete:^(bool success) {
+                
+                    [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
+                
+            }] ;
+        }) ;
         
     }] ;
 }

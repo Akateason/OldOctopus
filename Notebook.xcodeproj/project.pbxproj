@@ -43,6 +43,7 @@
 		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
 		8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */; };
+		8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F56FE94228556B50030D3F9 /* OutputPreviewsNailView.m */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
 		8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F579FE0222FB65B00C54929 /* XTCloudHandler.m */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
@@ -225,6 +226,8 @@
 		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
 		8F50AAA02276A3D500B32B5B /* XTMarkdownParser+Fetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XTMarkdownParser+Fetcher.h"; sourceTree = "<group>"; };
 		8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XTMarkdownParser+Fetcher.m"; sourceTree = "<group>"; };
+		8F56FE93228556B50030D3F9 /* OutputPreviewsNailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputPreviewsNailView.h; sourceTree = "<group>"; };
+		8F56FE94228556B50030D3F9 /* OutputPreviewsNailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OutputPreviewsNailView.m; sourceTree = "<group>"; };
 		8F579FDC222E547F00C54929 /* Notebook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notebook.entitlements; sourceTree = "<group>"; };
 		8F579FDD222E54A500C54929 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		8F579FDF222FB65B00C54929 /* XTCloudHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTCloudHandler.h; sourceTree = "<group>"; };
@@ -501,6 +504,8 @@
 			children = (
 				8F2C760E2282D3B700A6DC89 /* OutputPreviewVC.h */,
 				8F2C760F2282D3B700A6DC89 /* OutputPreviewVC.m */,
+				8F56FE93228556B50030D3F9 /* OutputPreviewsNailView.h */,
+				8F56FE94228556B50030D3F9 /* OutputPreviewsNailView.m */,
 			);
 			path = articlePreview;
 			sourceTree = "<group>";
@@ -1296,6 +1301,7 @@
 				8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */,
 				8F79AE77226881F000E8FD0D /* UIView+OctupusExtension.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
+				8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,
 				8FA2295922646A9500D736E2 /* ArticleInfoVC.m in Sources */,
 				8FA1420B2271D44D00A23873 /* TrashEmptyView.m in Sources */,
