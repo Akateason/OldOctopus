@@ -22,6 +22,8 @@
 #import "MDCodeBlockEditor.h"
 #import "ArticlePhotoPreviewVC.h"
 #import "XTMarkdownParser+ImageUtil.h"
+#import "MdBlockModel.h"
+
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue       = 30.f  ;
@@ -462,11 +464,16 @@ static const int kTag_InlineCodeView    = 50000 ;
 #pragma mark - textview Delegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    // Handle user input a "return" charactor .
     if (![text isEqualToString:@"\n"]) return YES ;
     // get current model
     MarkdownModel *thisModel = [self.parser getBlkModelForCustomPosition:range.location - 1] ;
     // list model
     int result = [MdListModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
+    if (result != 100) return result ;
+    // quote model
+    result = [MdBlockModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
     if (result != 100) return result ;
     
     

@@ -13,6 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MdBlockModel : MarkdownModel
 + (void)toolbarEventQuoteBlock:(MarkdownEditor *)editor ;
 + (void)toolbarEventCodeBlock:(MarkdownEditor *)editor ;
+
+
++ (int)keyboardEnterTypedInTextView:(MarkdownEditor *)textView
+                    modelInPosition:(MarkdownModel *)aModel
+            shouldChangeTextInRange:(NSRange)range ;
 @end
 
 NS_ASSUME_NONNULL_END

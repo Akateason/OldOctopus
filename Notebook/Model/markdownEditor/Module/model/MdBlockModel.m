@@ -210,4 +210,37 @@
 
 }
 
+
+
+
+
+
++ (int)keyboardEnterTypedInTextView:(MarkdownEditor *)textView
+                    modelInPosition:(MarkdownModel *)aModel
+            shouldChangeTextInRange:(NSRange)range {
+    
+    NSMutableString *tmpString = [textView.text mutableCopy] ;
+    NSString *insertQuoteString = @"\n> " ;
+    
+    if (aModel.type == MarkdownSyntaxBlockquotes) {
+        if ([aModel.str isEqualToString:@"> "]) {     // 两下回车, 删除mark
+            [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length textView:textView] ;
+            textView.selectedRange = NSMakeRange(range.location - aModel.str.length, 0) ;
+            return YES ;
+        }
+        
+        [tmpString insertString:insertQuoteString atIndex:range.location] ;
+        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+        textView.selectedRange = NSMakeRange(range.location + insertQuoteString.length, 0) ;
+        
+        return NO ;
+    }
+    
+    return 100 ; // 未知情况, 传到下一个model去处理
+}
+
+
+
+
 @end
