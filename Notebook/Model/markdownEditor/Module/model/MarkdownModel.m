@@ -59,7 +59,9 @@
     return _markIndentationPosition ;
 }
 
-
+- (int)wholeNestCountForquoteAndList {
+    return self.textIndentationPosition ;
+}
 
 
 

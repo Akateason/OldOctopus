@@ -60,7 +60,6 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
 
     NSDictionary *resultDic = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
-//    UIFont *paragraphFont = configuration.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
     
@@ -70,11 +69,11 @@
             NSUInteger numberOfmark = prefix.length ;
             
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineSpacing = 16 ;
+            paragraphStyle.lineSpacing = 10 ;
             UIFont *hFont = [self fontWithHSize:numberOfmark] ;
             resultDic = @{NSFontAttributeName : hFont ,
-                                      NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
-                                      NSParagraphStyleAttributeName : paragraphStyle
+                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                          NSParagraphStyleAttributeName : paragraphStyle
                                       } ;
             [attributedString addAttributes:resultDic range:self.range] ;
             
@@ -82,7 +81,10 @@
             NSRange markRange = NSMakeRange(location, numberOfmark + 1) ;
             if (numberOfmark + 1 > length) return attributedString ;
             
-            [attributedString addAttributes:MDThemeConfiguration.sharedInstance.editorThemeObj.invisibleMarkStyle range:markRange] ;
+            
+            NSMutableDictionary *tmpdic = [MDThemeConfiguration.sharedInstance.editorThemeObj.invisibleMarkStyle mutableCopy] ;
+            [tmpdic setValue:paragraphStyle forKey:NSParagraphStyleAttributeName] ;
+            [attributedString addAttributes:tmpdic range:markRange] ;
         }
             break;
             
@@ -105,24 +107,28 @@
             NSString *prefix = [self prefixOfTitle] ;
             NSUInteger numberOfmark = prefix.length ;
 
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineSpacing = 10 ;
             UIFont *hFont = [self fontWithHSize:numberOfmark] ;
             resultDic = @{NSFontAttributeName : hFont ,
-                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor) ,
+                          NSParagraphStyleAttributeName : paragraphStyle
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
             
+            NSMutableDictionary *tmpdic = [MDThemeConfiguration.sharedInstance.editorThemeObj.invisibleMarkStyle mutableCopy] ;
             if (tvPosition > location + numberOfmark + 1) {
                 // hide "# " marks
                 NSRange markRange = NSMakeRange(location, numberOfmark + 1) ;
                 if (numberOfmark + 1 > length) return attributedString ;
                 
-                [attributedString addAttributes:MDThemeConfiguration.sharedInstance.editorThemeObj.invisibleMarkStyle range:markRange] ;
+                [tmpdic setValue:paragraphStyle forKey:NSParagraphStyleAttributeName] ;
+                [attributedString addAttributes:tmpdic range:markRange] ;
             }
             else {
                 NSRange markRange = NSMakeRange(location, numberOfmark) ;
-                [attributedString addAttributes:MDThemeConfiguration.sharedInstance.editorThemeObj.markStyle range:markRange] ;
+                [attributedString addAttributes:tmpdic range:markRange] ;
             }
- 
         }
             break;
             

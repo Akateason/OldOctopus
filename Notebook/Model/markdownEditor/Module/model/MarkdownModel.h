@@ -29,8 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) int textIndentationPosition ; // 文字缩进的位置  , 一共有多少嵌套, 缩进多少
 @property (nonatomic) int markIndentationPosition ; // 绘制mark的位置,  当前model的mark在第几个层级
-@property (nonatomic) int quoteAndList_Level ;      // 单行内 所对应的层级(只有引用和列表)
-
+@property (nonatomic) int quoteAndList_Level ;      // 单行内 所对应的层级(只记录引用和列表) 最外层未0, 然后递增
+@property (nonatomic) int wholeNestCountForquoteAndList ;    // (只取最外层), 此行, 一共有多少层级嵌套.(只记录引用和列表)
 
 @property (strong, nonatomic)   MarkdownModel   *subBlkModel ;
 

@@ -65,6 +65,7 @@
     int num = self.textIndentationPosition ;
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new] ;
     paragraphStyle.firstLineHeadIndent = 16 * num ;
+    paragraphStyle.lineSpacing = 10 ; // 列表内的行间距为：10px
     NSDictionary *dic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor),
                           NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                           NSParagraphStyleAttributeName: paragraphStyle
