@@ -63,7 +63,14 @@
     return self.textIndentationPosition ;
 }
 
-
+- (CGFloat)valueOfparaBeginEndSpaceOffset {
+    switch (self.paraBeginEndSpaceOffset) {
+        case 0: return 0 ;
+        case 1: return kDefaultFontSize * 1.3 ;
+        case 2: return kDefaultFontSize * 2.  ;
+    }
+    return 0 ;
+}
 
 
 - (NSString *)displayStringForLeftLabel {
@@ -88,16 +95,34 @@
 
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               {
-//    if (self.type == -1) { // paragraph
-//        NSDictionary *resultDic = @{NSBackgroundColorAttributeName : [[XTColorFetcher sharedInstance] randomColor]} ;
-//        [attributedString addAttributes:resultDic range:self.range] ;
-//    }
+    if (self.type == -1) { // paragraph
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineSpacing = 10 ;
+        paragraphStyle.paragraphSpacing = self.valueOfparaBeginEndSpaceOffset ;
+        NSDictionary *diction = @{NSFontAttributeName : MDThemeConfiguration.sharedInstance.editorThemeObj.font,
+                                  NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                                  NSParagraphStyleAttributeName : paragraphStyle
+                                  } ;
+        [attributedString addAttributes:diction range:self.range] ;
+    }
     
     return attributedString ;
 }
 
 - (NSMutableAttributedString *)addAttrOnEditState:(NSMutableAttributedString *)attributedString
                                          position:(NSUInteger)tvPosition {
+    
+    if (self.type == -1) { // paragraph
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineSpacing = 10 ;
+        paragraphStyle.paragraphSpacing = self.valueOfparaBeginEndSpaceOffset ;
+        NSDictionary *diction = @{NSFontAttributeName : MDThemeConfiguration.sharedInstance.editorThemeObj.font,
+                                  NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                                  NSParagraphStyleAttributeName : paragraphStyle
+                                  } ;
+        [attributedString addAttributes:diction range:self.range] ;
+    }
+
     return attributedString ;
 }
 

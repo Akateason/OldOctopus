@@ -69,7 +69,7 @@
             NSUInteger numberOfmark = prefix.length ;
             
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineSpacing = 10 ;
+            paragraphStyle.paragraphSpacing = self.valueOfparaBeginEndSpaceOffset ;
             UIFont *hFont = [self fontWithHSize:numberOfmark] ;
             resultDic = @{NSFontAttributeName : hFont ,
                           NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
@@ -106,9 +106,9 @@
         case MarkdownSyntaxHeaders: {
             NSString *prefix = [self prefixOfTitle] ;
             NSUInteger numberOfmark = prefix.length ;
-
+            
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineSpacing = 10 ;
+            paragraphStyle.paragraphSpacing = self.valueOfparaBeginEndSpaceOffset ;
             UIFont *hFont = [self fontWithHSize:numberOfmark] ;
             resultDic = @{NSFontAttributeName : hFont ,
                           NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor) ,
@@ -116,17 +116,19 @@
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
             
-            NSMutableDictionary *tmpdic = [MDThemeConfiguration.sharedInstance.editorThemeObj.invisibleMarkStyle mutableCopy] ;
             if (tvPosition > location + numberOfmark + 1) {
                 // hide "# " marks
                 NSRange markRange = NSMakeRange(location, numberOfmark + 1) ;
                 if (numberOfmark + 1 > length) return attributedString ;
                 
+                NSMutableDictionary *tmpdic = [MDThemeConfiguration.sharedInstance.editorThemeObj.invisibleMarkStyle mutableCopy] ;
                 [tmpdic setValue:paragraphStyle forKey:NSParagraphStyleAttributeName] ;
                 [attributedString addAttributes:tmpdic range:markRange] ;
             }
             else {
+                NSMutableDictionary *tmpdic = [MDThemeConfiguration.sharedInstance.editorThemeObj.markStyle mutableCopy] ;
                 NSRange markRange = NSMakeRange(location, numberOfmark) ;
+                [tmpdic setValue:paragraphStyle forKey:NSParagraphStyleAttributeName] ;
                 [attributedString addAttributes:tmpdic range:markRange] ;
             }
         }

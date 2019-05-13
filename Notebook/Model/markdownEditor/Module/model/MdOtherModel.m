@@ -41,6 +41,7 @@
             UIFont *hrFont = [UIFont systemFontOfSize:4] ;
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineSpacing = 0 ;
+            paragraphStyle.paragraphSpacing = kDefaultFontSize * 1.3 ;
             resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_seplineLineColor) ,
                           NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_seplineLineColor) ,
                           NSFontAttributeName : hrFont ,

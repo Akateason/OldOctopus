@@ -177,6 +177,8 @@
             pModel.inlineModels = resInlineListFromParagraph ;
             [tmplist addObject:pModel] ;
         }
+        
+        
     }] ;
     
     paralist = tmplist ;
@@ -184,6 +186,8 @@
     self.paraList = tmplist ; // get all para and inlines .
     paralist = nil ;
     tmplist = nil ;
+    
+    [self optParaListThenWrapInParaBeginEnd] ;
     
     // parse for hr
     NSMutableArray *tmpHrlist = [@[] mutableCopy] ;
@@ -195,6 +199,16 @@
     }
     self.hrList = tmpHrlist ;
 }
+
+- (void)optParaListThenWrapInParaBeginEnd {
+    [self.paraList enumerateObjectsUsingBlock:^(MarkdownModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (self.paraList.count - 1 > idx) {
+            MarkdownModel *nextModel = self.paraList[idx + 1] ;
+            model.paraBeginEndSpaceOffset = nextModel.type == MarkdownSyntaxHeaders ? 2 : 1 ;
+        }
+    }] ;
+}
+    
 
 - (id)parsingGetABlockStyleModelFromParaModel:(MarkdownModel *)pModel {
     
