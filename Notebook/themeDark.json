@@ -2,7 +2,6 @@
     "textColor":"ffffff",
     "markColor":"909399",
     "seplineLineColor":"e5e5e5",
-    "inlineCodeBGColor":"f05d4a",
     "quoteTextColor":"777777",
     "themeColor":"f05d4a",
     "homeTitleTextColor":"ffffff",
@@ -14,5 +13,6 @@
     "navBarColor":"000000",
     "navTextColor":"ffffff",
     "iconColor":"8e969f",
-    "drawerColor":"2b2f33"
+    "drawerColor":"2b2f33",
+    "linkColor":"99DBFF"
 }

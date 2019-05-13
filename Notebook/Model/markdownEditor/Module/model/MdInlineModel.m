@@ -83,7 +83,7 @@
             [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 1)] ;
             
-            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor) ,
+            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75),
                           NSFontAttributeName : paragraphFont ,
                           } ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
@@ -95,7 +95,7 @@
             break ;
         case MarkdownInlineLinks: {
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:self.range] ;
-            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_themeColor),
+            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_linkColor),
                           NSFontAttributeName : paragraphFont,
                           NSUnderlineStyleAttributeName : @1
                           };
@@ -175,7 +175,7 @@
             [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 1)] ;
             
-            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_inlineCodeBGColor) ,
+            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ,
                           NSFontAttributeName : paragraphFont,
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
@@ -187,21 +187,13 @@
             break ;
         case MarkdownInlineLinks: {
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:self.range] ;
-            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_themeColor),
+            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_linkColor),
                           NSFontAttributeName : paragraphFont,
                           NSUnderlineStyleAttributeName : @1
                           };
             NSString *prefixAddFKH = [[self.str componentsSeparatedByString:@"]"] firstObject] ;
             NSRange tmpRange = NSMakeRange(location + 1, prefixAddFKH.length - 1) ;
             [attributedString addAttributes:resultDic range:tmpRange] ;
-//            [attributedString addAttributes:configuration.editorThemeObj.markStyle range:self.range] ;
-//            resultDic = @{NSForegroundColorAttributeName : [UIColor xt_skyBlue],
-//                          NSFontAttributeName : paragraphFont,
-//                          NSUnderlineStyleAttributeName : @1
-//                          };
-//            NSString *prefixAddFKH = [[self.str componentsSeparatedByString:@"]"] firstObject] ;
-//            NSRange tmpRange = NSMakeRange(location + 1, prefixAddFKH.length - 1) ;
-//            [attributedString addAttributes:resultDic range:tmpRange] ;
         }
             break ;
         case MarkdownInlineImage : {

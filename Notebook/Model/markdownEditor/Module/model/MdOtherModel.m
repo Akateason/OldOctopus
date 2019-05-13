@@ -81,9 +81,13 @@
         }
             break;
         case MarkdownSyntaxHr: {
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineSpacing = 0 ;
+            paragraphStyle.paragraphSpacing = kDefaultFontSize * 1.3 ;
             resultDic = @{NSBackgroundColorAttributeName : [UIColor clearColor] ,
                           NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor) ,
                           NSFontAttributeName : configuration.editorThemeObj.font,
+                          NSParagraphStyleAttributeName : paragraphStyle
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
         }

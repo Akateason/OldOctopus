@@ -72,7 +72,7 @@
             paragraphStyle.paragraphSpacing = self.valueOfparaBeginEndSpaceOffset ;
             UIFont *hFont = [self fontWithHSize:numberOfmark] ;
             resultDic = @{NSFontAttributeName : hFont ,
-                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .8),
                           NSParagraphStyleAttributeName : paragraphStyle
                                       } ;
             [attributedString addAttributes:resultDic range:self.range] ;
@@ -111,7 +111,7 @@
             paragraphStyle.paragraphSpacing = self.valueOfparaBeginEndSpaceOffset ;
             UIFont *hFont = [self fontWithHSize:numberOfmark] ;
             resultDic = @{NSFontAttributeName : hFont ,
-                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor) ,
+                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) ,
                           NSParagraphStyleAttributeName : paragraphStyle
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;

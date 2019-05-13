@@ -23,6 +23,7 @@
 #import "ArticlePhotoPreviewVC.h"
 #import "XTMarkdownParser+ImageUtil.h"
 #import "MdBlockModel.h"
+#import <SafariServices/SafariServices.h>
 
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
@@ -199,7 +200,26 @@ static const int kTag_InlineCodeView    = 50000 ;
 
 - (void)clickALinkModel:(MdInlineModel *)model {
     if (model.type != MarkdownInlineLinks) return ;
-        
+
+    NSString *link = model.linkUrl ;
+    if (![link hasPrefix:@"http"]) {
+        link = [@"http://" stringByAppendingString:link] ;
+    }
+    
+    @weakify(self)
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleActionSheet title:model.linkUrl message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"跳转到此链接",@"编辑此链接"] fromWithView:self CallBackBlock:^(NSInteger btnIndex) {
+        @strongify(self)
+        if (btnIndex == 1) {
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:link]] ;
+            [self.xt_viewController presentViewController:safariVC animated:YES completion:nil] ;
+        }
+        else if (btnIndex == 2) {
+            [self editLink:model] ;
+        }
+    }] ;
+}
+
+- (void)editLink:(MdInlineModel *)model {
     @weakify(self)
     [MDEditUrlView showOnView:self window:self.window model:model keyboardHeight:keyboardHeight callback:^(BOOL isConfirm, NSString *title, NSString *url) {
         @strongify(self)
@@ -441,12 +461,16 @@ static const int kTag_InlineCodeView    = 50000 ;
         rectForIC.origin.x -= [MDThemeConfiguration sharedInstance].editorThemeObj.inlineCodeSideFlex ;
         rectForIC.size.width += [MDThemeConfiguration sharedInstance].editorThemeObj.inlineCodeSideFlex ;
         if (CGSizeEqualToSize(rectForIC.size, CGSizeZero)) continue ;
-
+        
         UIView *item = [[UIView alloc] init] ;
         item.frame = rectForIC ;
-        item.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_themeColor, .2) ;
+        item.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .03) ;
         item.userInteractionEnabled = YES ;
         item.tag = kTag_InlineCodeView ;
+        item.xt_borderWidth = .25 ;
+        item.xt_borderColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+        item.xt_cornerRadius = 3 ;
+        
         WEAK_SELF
         [item bk_whenTapped:^{
             if (!weakSelf.isFirstResponder) [weakSelf becomeFirstResponder] ;

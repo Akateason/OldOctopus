@@ -76,7 +76,7 @@
             paragraphStyle.lineSpacing = 10 ;
 //            paragraphStyle.paragraphSpacing = kDefaultFontSize ;
             NSDictionary * object = @{NSFontAttributeName : self.font,
-                                      NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                                      NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75),
                                       NSParagraphStyleAttributeName : paragraphStyle
                                       } ;
             object;
@@ -132,9 +132,9 @@
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.minimumLineHeight = 25 ;
 //        paragraphStyle.lineSpacing = 10 ;
-        _codeBlockStyle = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_themeColor, .3) ,
+        _codeBlockStyle = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .03) ,
                             NSFontAttributeName : self.font ,
-                            NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_themeColor) ,
+                            NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_linkColor) ,
                             NSParagraphStyleAttributeName : paragraphStyle
                             };
     }

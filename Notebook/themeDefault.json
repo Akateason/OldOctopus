@@ -1,8 +1,7 @@
 {
     "textColor":"181211",
     "markColor":"909399",
-    "seplineLineColor":"e5e5e5",
-    "inlineCodeBGColor":"f05d4a",
+    "seplineLineColor":"e5e5e5",    
     "quoteTextColor":"777777",
     "themeColor":"f05d4a",
     "homeTitleTextColor":"222222",
@@ -14,7 +13,8 @@
     "navBarColor":"ffffff",
     "navTextColor":"000000",
     "iconColor":"6b737b",
-    "drawerColor":"f9f6f6"
+    "drawerColor":"f9f6f6",
+    "linkColor":"277DAD"
 }
 
 
