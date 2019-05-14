@@ -38,13 +38,13 @@
         }
             break;
         case MarkdownSyntaxHr: {
-            UIFont *hrFont = [UIFont systemFontOfSize:4] ;
+            
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineSpacing = 0 ;
-            paragraphStyle.paragraphSpacing = kDefaultFontSize * 1.3 ;
-            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_seplineLineColor) ,
-                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_seplineLineColor) ,
-                          NSFontAttributeName : hrFont ,
+            paragraphStyle.lineSpacing = 0;
+            paragraphStyle.paragraphSpacing = kDefaultFontSize * 1.3;
+            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                          NSFontAttributeName : configuration.editorThemeObj.font ,
                           NSParagraphStyleAttributeName : paragraphStyle
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
@@ -57,9 +57,7 @@
         case MarkdownSyntaxTable: {
             [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
         }
-            break ;
-
-
+            break ;            
         default: break;
     }
     
@@ -84,9 +82,9 @@
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineSpacing = 0 ;
             paragraphStyle.paragraphSpacing = kDefaultFontSize * 1.3 ;
-            resultDic = @{NSBackgroundColorAttributeName : [UIColor clearColor] ,
-                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor) ,
-                          NSFontAttributeName : configuration.editorThemeObj.font,
+            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                          NSFontAttributeName : configuration.editorThemeObj.font ,
                           NSParagraphStyleAttributeName : paragraphStyle
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;

@@ -74,7 +74,6 @@
         _basicStyle = ({
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineSpacing = 10 ;
-//            paragraphStyle.paragraphSpacing = kDefaultFontSize ;
             NSDictionary * object = @{NSFontAttributeName : self.font,
                                       NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75),
                                       NSParagraphStyleAttributeName : paragraphStyle
@@ -83,6 +82,17 @@
         });
     }
     return _basicStyle;
+}
+
++ (NSDictionary *)basicStyleWithParaSpacing:(float)paraSpacing {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 10 ;
+    paragraphStyle.paragraphSpacing = paraSpacing ;
+    NSDictionary *diction = @{NSFontAttributeName : MDThemeConfiguration.sharedInstance.editorThemeObj.font,
+                              NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
+                              NSParagraphStyleAttributeName : paragraphStyle
+                              } ;
+    return diction ;
 }
 
 - (NSDictionary *)quoteStyle {
@@ -119,7 +129,7 @@
     if (!_listInvisibleMarkStyle) {
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
         paragraphStyle.firstLineHeadIndent = 16 ;
-        _listInvisibleMarkStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor),
+        _listInvisibleMarkStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ,
                                     NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                                     NSParagraphStyleAttributeName: paragraphStyle
                                     } ;
@@ -131,7 +141,6 @@
     if (!_codeBlockStyle) {
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.minimumLineHeight = 25 ;
-//        paragraphStyle.lineSpacing = 10 ;
         _codeBlockStyle = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .03) ,
                             NSFontAttributeName : self.font ,
                             NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_linkColor) ,
@@ -148,7 +157,4 @@
     return _inlineCodeSideFlex ;
 }
 
-
 @end
-
-

@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic)   UIFont          *boldItalicFont ;
 
 @property (copy, nonatomic)     NSDictionary    *basicStyle ;
++ (NSDictionary *)basicStyleWithParaSpacing:(float)paraSpacing ;
+
 @property (copy, nonatomic)     NSDictionary    *markStyle ;
 @property (copy, nonatomic)     NSDictionary    *invisibleMarkStyle ;
 

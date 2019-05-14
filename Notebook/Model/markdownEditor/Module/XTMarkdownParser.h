@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)listBlockParsingFinished:(NSArray *)list ;
 //- (void)codeBlockParsingFinished:(NSArray *)list ;
 - (void)inlineCodeParsingFinished:(NSArray *)list ;
+- (void)hrParsingFinished:(NSArray *)list ;
 - (NSRange)currentCursorRange ;
 @end
 

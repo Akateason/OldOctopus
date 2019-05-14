@@ -96,14 +96,7 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString
                                               {
     if (self.type == -1) { // paragraph
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.lineSpacing = 10 ;
-        paragraphStyle.paragraphSpacing = self.valueOfparaBeginEndSpaceOffset ;
-        NSDictionary *diction = @{NSFontAttributeName : MDThemeConfiguration.sharedInstance.editorThemeObj.font,
-                                  NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
-                                  NSParagraphStyleAttributeName : paragraphStyle
-                                  } ;
-        [attributedString addAttributes:diction range:self.range] ;
+        [attributedString addAttributes:[MDEditorTheme basicStyleWithParaSpacing:self.valueOfparaBeginEndSpaceOffset] range:self.range] ;
     }
     
     return attributedString ;
@@ -113,14 +106,7 @@
                                          position:(NSUInteger)tvPosition {
     
     if (self.type == -1) { // paragraph
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.lineSpacing = 10 ;
-        paragraphStyle.paragraphSpacing = self.valueOfparaBeginEndSpaceOffset ;
-        NSDictionary *diction = @{NSFontAttributeName : MDThemeConfiguration.sharedInstance.editorThemeObj.font,
-                                  NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_textColor),
-                                  NSParagraphStyleAttributeName : paragraphStyle
-                                  } ;
-        [attributedString addAttributes:diction range:self.range] ;
+        [attributedString addAttributes:[MDEditorTheme basicStyleWithParaSpacing:self.valueOfparaBeginEndSpaceOffset] range:self.range] ;
     }
 
     return attributedString ;

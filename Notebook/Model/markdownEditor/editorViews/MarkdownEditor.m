@@ -24,14 +24,15 @@
 #import "XTMarkdownParser+ImageUtil.h"
 #import "MdBlockModel.h"
 #import <SafariServices/SafariServices.h>
-
+#import "HrView.h"
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue       = 30.f  ;
 static const int kTag_QuoteMarkView     = 66777 ;
 static const int kTag_ListMarkView      = 32342 ;
-static const int kTag_CodeBlkView       = 40000 ;
+//static const int kTag_CodeBlkView       = 40000 ;
 static const int kTag_InlineCodeView    = 50000 ;
+static const int kTag_HrView            = 60000 ;
 
 @interface MarkdownEditor ()<XTMarkdownParserDelegate, UITextViewDelegate>
 @property (strong, nonatomic) UIImageView   *imgLeftCornerMarker ;
@@ -480,6 +481,19 @@ static const int kTag_InlineCodeView    = 50000 ;
         [self addSubview:item] ;
     }
 }
+
+- (void)hrParsingFinished:(NSArray *)list {
+    for (UIView *subView in self.subviews) if (subView.tag == kTag_HrView) [subView removeFromSuperview] ;
+    for (int i = 0; i < list.count; i++) {
+        MarkdownModel *model = list[i] ;
+        CGRect rectForHr = [self xt_frameOfTextRange:NSMakeRange(model.range.location, model.range.length - 1)] ;
+        HrView *hr = [[HrView alloc] init] ;
+        hr.tag = kTag_HrView ;
+        hr.frame = CGRectMake(0, rectForHr.origin.y, APP_WIDTH - 30 * 2, 16) ;
+        [self addSubview:hr] ;
+    }
+}
+
 
 - (NSRange)currentCursorRange {
     return self.selectedRange ;

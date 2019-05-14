@@ -92,6 +92,7 @@
     [self drawListBlk] ;
 //    [self drawCodeBlk] ;
     [self drawInlineCode] ;
+    [self drawHr] ;
     self.currentPositionModelList = tmpCurrentModelList ;
     return tmpCurrentModelList ;
 }
@@ -387,6 +388,10 @@
         }] ;
     }] ;
     if (self.delegate) [self.delegate inlineCodeParsingFinished:tmplist] ;
+}
+
+- (void)drawHr {
+    if (self.delegate) [self.delegate hrParsingFinished:self.hrList] ;
 }
 
 
