@@ -216,8 +216,10 @@ typedef void(^BlkTapBookCell)(void);
 }
 
 - (void)addbook {
+    @weakify(self)
     self.nBookVC =
     [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+        @strongify(self)
         // create new book
         NoteBooks *aBook = [[NoteBooks alloc] initWithName:bookName emoji:emoji] ;
         [NoteBooks createNewBook:aBook] ;
@@ -226,6 +228,11 @@ typedef void(^BlkTapBookCell)(void);
         [self render] ;
         [self setCurrentBook:aBook] ;
         self.blkBookChanged(aBook) ;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil] ;
+        });
+        
     } cancel:^{
         self.nBookVC = nil ;
     }] ;

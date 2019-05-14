@@ -167,6 +167,8 @@
     
     self.btBack.xt_theme_imageColor = k_md_iconColor ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
+    [self.btBack xt_enlargeButtonsTouchArea] ;
+    [self.btMore xt_enlargeButtonsTouchArea] ;
     
     self.navArea.backgroundColor = nil ;
     self.topBar.backgroundColor = nil ;

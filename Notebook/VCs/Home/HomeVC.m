@@ -174,6 +174,7 @@
     self.nameOfNoteBook.text = @"";
     self.nameOfNoteBook.xt_theme_textColor = XT_MAKE_theme_color(k_md_homeTitleTextColor, .8) ;
     
+    [self.btAdd xt_enlargeButtonsTouchArea] ;
     self.btAdd.xt_theme_imageColor = k_md_iconColor ;
     @weakify(self)
     [self.btAdd bk_addEventHandler:^(id sender) {
@@ -207,6 +208,7 @@
         
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
+    [self.btMore xt_enlargeButtonsTouchArea] ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
     [self.btMore bk_addEventHandler:^(id sender) {
         
@@ -337,6 +339,12 @@
         return ;
     }
     
+    if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
+        NoteCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
+        [cell setRevealPosition:(SWCellRevealPositionLeft) animated:YES] ;        
+        return ;
+    }
+    
     NSInteger row = indexPath.row ;
     Note *aNote = self.listNotes[row] ;
     [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
@@ -394,17 +402,7 @@
                      }] ;
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    NSLog(@"%f",scrollView.mj_offsetY) ;
-//
-////    float searchHeight = [HomeSearchCell xt_cellHeight] ;
-////    if (scrollView.mj_offsetY > - searchHeight) {
-////
-////    }
-////    else {
-////
-////    }
-//}
+
 
 
 #pragma mark - MarkdownVCDelegate <NSObject>
