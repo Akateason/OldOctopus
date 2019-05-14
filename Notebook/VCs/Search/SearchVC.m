@@ -47,16 +47,14 @@
         @strongify(self)
         [self.tf resignFirstResponder] ;
         [self dismissViewControllerAnimated:YES completion:nil] ;
-//        [self.navigationController popViewControllerAnimated:YES] ;
+        
     } forControlEvents:UIControlEventTouchUpInside] ;
     
-    [[[[self.tf.rac_textSignal filter:^BOOL(NSString * _Nullable value) {
-        return value.length > 0 ;
-    }] throttle:.3]
+    [[[self.tf.rac_textSignal throttle:.3]
       deliverOnMainThread]
      subscribeNext:^(NSString * _Nullable x) {
         @strongify(self)
-        [self.table xt_loadNewInfoInBackGround:YES] ;
+         [self render] ;
     }] ;
     
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
@@ -86,18 +84,20 @@
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.6)  ;
     
     [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
-    [self.table xt_setup] ;
+    
+    self.table.estimatedRowHeight           = 0;
+    self.table.estimatedSectionHeaderHeight = 0;
+    self.table.estimatedSectionFooterHeight = 0;
+    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.table.dataSource = self ;
     self.table.delegate = self ;
-    self.table.xt_Delegate = self ;
-    self.table.mj_footer = nil ;
     self.table.backgroundColor = nil ;
     self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
 }
 
 #pragma mark - table
 
-- (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
+- (void)render {
     NSString *searchForText = self.tf.text ;
     if (searchForText.length) {
         NSString *sql = self.isTrash ? XT_STR_FORMAT(@"searchContent like '%%%@%%' and isDeleted == 1",searchForText)
@@ -108,7 +108,7 @@
     else
         self.listResult = @[] ;
     
-    endRefresh() ;
+    [self.table cyl_reloadData] ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
