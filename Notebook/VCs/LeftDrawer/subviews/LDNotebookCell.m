@@ -13,6 +13,9 @@
 
 @implementation LDNotebookCell
 
+
+
+
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     

@@ -82,13 +82,16 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="55"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="notebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtt-qN-bwB">
-                                        <rect key="frame" x="111" y="19" width="89" height="28"/>
+                                        <rect key="frame" x="111" y="19" width="179" height="28"/>
                                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🐙" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4z-de-b20">
                                         <rect key="frame" x="81" y="21" width="25" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="N9P-8S-iCG"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -133,6 +136,7 @@
                                     <constraint firstItem="Iem-sC-USA" firstAttribute="centerY" secondItem="aOM-bE-UPx" secondAttribute="centerY" id="A9U-87-ODU"/>
                                     <constraint firstItem="Iem-sC-USA" firstAttribute="top" secondItem="sR7-fP-hLo" secondAttribute="top" id="Do0-PN-NHz"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="centerY" secondItem="f4z-de-b20" secondAttribute="centerY" id="Lux-fT-Jku"/>
+                                    <constraint firstItem="sR7-fP-hLo" firstAttribute="leading" secondItem="xtt-qN-bwB" secondAttribute="trailing" constant="10" id="Slx-ka-2UU"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="leading" secondItem="f4z-de-b20" secondAttribute="trailing" constant="5" id="Wsd-b8-htS"/>
                                     <constraint firstAttribute="trailing" secondItem="Iem-sC-USA" secondAttribute="trailing" constant="15" id="YAx-nN-aNB"/>
                                     <constraint firstItem="aOM-bE-UPx" firstAttribute="top" secondItem="tuM-IH-oeE" secondAttribute="top" constant="17" id="dBK-Qw-SP3"/>

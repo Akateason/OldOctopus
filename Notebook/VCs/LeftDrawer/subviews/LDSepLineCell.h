@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LDSepLineCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *sep;
-
 @end
 
 NS_ASSUME_NONNULL_END

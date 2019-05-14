@@ -33,7 +33,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PQ-14-RbS">
-                                <rect key="frame" x="60" y="0.0" width="45.5" height="37.5"/>
+                                <rect key="frame" x="60" y="0.0" width="224" height="37.5"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -43,6 +43,7 @@
                         <constraints>
                             <constraint firstItem="2PQ-14-RbS" firstAttribute="top" secondItem="N8N-3x-uMO" secondAttribute="top" id="UwD-01-Tiu"/>
                             <constraint firstItem="zra-9u-iGA" firstAttribute="centerY" secondItem="N8N-3x-uMO" secondAttribute="centerY" id="Zl0-wd-ZWr"/>
+                            <constraint firstAttribute="trailing" secondItem="2PQ-14-RbS" secondAttribute="trailing" constant="10" id="lga-9g-ur5"/>
                             <constraint firstItem="zra-9u-iGA" firstAttribute="leading" secondItem="N8N-3x-uMO" secondAttribute="leading" constant="15" id="onz-5M-NmJ"/>
                             <constraint firstItem="2PQ-14-RbS" firstAttribute="leading" secondItem="zra-9u-iGA" secondAttribute="trailing" constant="21" id="u7i-c4-4sK"/>
                             <constraint firstAttribute="bottom" secondItem="2PQ-14-RbS" secondAttribute="bottom" id="vs6-kz-fUm"/>
