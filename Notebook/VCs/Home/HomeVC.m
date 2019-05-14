@@ -30,7 +30,7 @@
 #import "TrashEmptyView.h"
 
 
-@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, UIViewControllerTransitioningDelegate>
+@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
@@ -321,6 +321,7 @@
     cell.revealPosition = SWCellRevealPositionRightExtended ;
     cell.draggableBorderWidth = 200 ;
     cell.dataSource = self ;
+    cell.delegate = self ;
     [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
     
     return cell ;
@@ -367,6 +368,22 @@
 - (NSArray *)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)cell1 {
     return [self setupPanList] ;
 }
+
+- (void)revealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell willMoveToPosition:(SWCellRevealPosition)position {
+    if (position == SWCellRevealPositionLeft) {
+        NoteCell *aCell = (NoteCell *)revealTableViewCell ;
+        NSArray *visibleCells = [self.table visibleCells] ;
+        for (UITableViewCell *cell in visibleCells) {
+            
+            if ( [cell isKindOfClass:[SWRevealTableViewCell class]] &&
+                 ((SWRevealTableViewCell *)cell).revealPosition != SWCellRevealPositionCenter &&
+                 cell.xt_indexPath.row != aCell.xt_indexPath.row )
+                
+                [(SWRevealTableViewCell *)cell setRevealPosition:SWCellRevealPositionCenter animated:YES] ;
+        }
+    }
+}
+
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(NoteCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) return ;
