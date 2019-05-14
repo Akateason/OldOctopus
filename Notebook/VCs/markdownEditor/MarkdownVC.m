@@ -53,9 +53,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    if (self.aNote) {
-        self.textView.text = self.aNote.content ;
-    }
+    if (self.aNote) self.textView.text = self.aNote.content ;
     
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -90,6 +88,8 @@
     [super viewDidAppear:animated] ;
     
     [self.textView renderLeftSideAndToobar] ;
+    
+    if (!self.aNote) [self.textView becomeFirstResponder] ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
