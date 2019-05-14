@@ -34,7 +34,7 @@
     self.area.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.06].CGColor;
     self.area.layer.shadowOffset = CGSizeMake(0,4) ;
     self.area.layer.shadowOpacity = 40 ;
-    self.area.layer.shadowRadius = .06 ;
+    self.area.layer.shadowRadius = 10 ;
     
     @weakify(self)
     [[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSDate * _Nullable x) {
