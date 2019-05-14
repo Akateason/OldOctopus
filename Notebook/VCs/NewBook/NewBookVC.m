@@ -58,9 +58,20 @@
     
     self.lbTitle.xt_theme_textColor = k_md_textColor ;
     self.underline.xt_theme_backgroundColor = k_md_themeColor ;
-    self.btCreate.xt_theme_textColor = XT_MAKE_theme_color(k_md_themeColor, .5) ;
+    self.btCreate.xt_theme_textColor = XT_MAKE_theme_color(k_md_themeColor, 1) ;
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.tfName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    @weakify(self)
+    [self.tfName.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+        @strongify(self)
+        if (x.length > 0)
+            self.btCreate.xt_theme_textColor = XT_MAKE_theme_color(k_md_themeColor, 1) ;
+        else
+            self.btCreate.xt_theme_textColor = XT_MAKE_theme_color(k_md_themeColor, .5) ;
+        
+        self.btCreate.enabled = x.length > 0 ;
+    }] ;
+    
     
     UIColor *phColor = [MDThemeConfiguration.sharedInstance themeColor:XT_MAKE_theme_color(k_md_textColor, .4)] ;
     [self.tfName setValue:phColor forKeyPath:@"_placeholderLabel.textColor"] ;

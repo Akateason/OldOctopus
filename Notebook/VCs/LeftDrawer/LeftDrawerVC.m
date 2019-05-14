@@ -126,6 +126,12 @@ typedef void(^BlkTapBookCell)(void);
     }] ;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated] ;
+    
+    self.lbTrash.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
+}
+
 #pragma mark -
 
 - (void)render {

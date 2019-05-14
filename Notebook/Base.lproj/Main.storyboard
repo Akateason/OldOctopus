@@ -398,7 +398,7 @@
                                     <constraint firstAttribute="width" constant="40" id="AR8-bi-TM4"/>
                                     <constraint firstAttribute="height" constant="38" id="g1T-ot-DyU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
                                 <state key="normal" title="取消">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
