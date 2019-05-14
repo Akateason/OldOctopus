@@ -90,7 +90,7 @@
       deliverOnMainThread]
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
-         [self.table reloadData] ;
+         [self.table cyl_reloadData] ;
      }] ;
     
     [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]]
@@ -341,7 +341,7 @@
     
     if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
         NoteCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
-        [cell setRevealPosition:(SWCellRevealPositionLeft) animated:YES] ;        
+        [cell setRevealPosition:(SWCellRevealPositionLeft) animated:YES] ;
         return ;
     }
     
@@ -411,7 +411,7 @@
     NSMutableArray *tmplist = [self.listNotes mutableCopy] ;
     [tmplist insertObject:aNote atIndex:0] ;
     self.listNotes = tmplist ;
-    [self.table reloadData] ;
+    [self.table cyl_reloadData] ;
 }
 
 - (void)editNoteComplete:(Note *)aNote {
@@ -425,7 +425,7 @@
         }
     }] ;
     self.listNotes = tmplist ;
-    [self.table reloadData] ;
+    [self.table cyl_reloadData] ;
 }
 
 #pragma mark - prop
