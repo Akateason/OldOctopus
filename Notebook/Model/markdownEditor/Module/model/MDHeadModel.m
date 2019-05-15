@@ -160,4 +160,24 @@
     editor.selectedRange = NSMakeRange(model.range.length + model.range.location, 0) ;
 }
 
+
+
++ (int)keyboardEnterTypedInTextView:(MarkdownEditor *)textView
+                    modelInPosition:(MarkdownModel *)aModel
+            shouldChangeTextInRange:(NSRange)range {
+    
+    NSMutableString *tmpString = [textView.text mutableCopy] ;
+    NSString *insertEnterString = @"\n\n" ;
+    
+    if (aModel.type == MarkdownSyntaxHeaders) {
+        [tmpString insertString:insertEnterString atIndex:range.location] ;
+        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+        textView.selectedRange = NSMakeRange(range.location + insertEnterString.length, 0) ;
+        return NO ;
+    }
+    return 100 ; // 未知情况, 传到下一个model去处理
+}
+
+
+
 @end

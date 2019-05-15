@@ -18,13 +18,8 @@
 @implementation AppDelegate
 
 - (void)test {
-    
 
 }
-
-
-
-
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -53,5 +48,10 @@
         completionHandler(UIBackgroundFetchResultNewData);
     }] ;
 }
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    
+}
+
 
 @end

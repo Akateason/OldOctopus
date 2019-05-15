@@ -7,13 +7,14 @@
 //
 
 #import "BasicVC.h"
-@class LeftDrawerVC ;
+@class LeftDrawerVC, NewBookVC ;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeVC : BasicVC
 @property (readonly, weak, nonatomic) IBOutlet   UITableView    *table;
 @property (readonly, strong, nonatomic)          LeftDrawerVC   *leftVC ;
+@property (strong, nonatomic)                    NewBookVC      *nBookVC ;
 @property (nonatomic)                            CGRect         rectSchBarCell ;
 @end
 

@@ -28,7 +28,7 @@
 #import "GuidingVC.h"
 #import "SchBarPositiveTransition.h"
 #import "TrashEmptyView.h"
-
+#import "HomeVC+Util.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -38,12 +38,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbUser;
 @property (weak, nonatomic) IBOutlet UIButton *btAdd;
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
-@property (weak, nonatomic) IBOutlet UILabel *bookEmoji;
 
 @property (strong, nonatomic) LeftDrawerVC *leftVC ;
 @property (copy, nonatomic) NSArray *listNotes ;
 @property (strong, nonatomic) HomeEmptyPHView *phView ;
-@property (strong, nonatomic) NewBookVC *nBookVC ;
 @property (strong, nonatomic) LOTAnimationView *animationSync ;
 @property (strong, nonatomic) SchBarPositiveTransition *transition ;
 @end
@@ -75,14 +73,16 @@
         [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
-    [[[[[[NSNotificationCenter defaultCenter]
+//    [
+     [[[[[NSNotificationCenter defaultCenter]
     rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
         takeUntil:self.rac_willDeallocSignal]
        deliverOnMainThread]
-      throttle:.5] subscribeNext:^(NSNotification * _Nullable x) {
+//      throttle:.5]
+     subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
-        [self.table xt_loadNewInfoInBackGround:YES] ;
+        [self.table xt_loadNewInfoInBackGround:NO] ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
@@ -107,29 +107,25 @@
 - (void)renderTable:(void(^)(void))completion {
     if (self.leftVC.currentBook.vType == Notebook_Type_recent) {
         self.nameOfNoteBook.text = @"最近使用" ;
-        self.bookEmoji.text = @"" ;
         self.listNotes = [Note xt_findWhere:@"isDeleted == 0 order by modifyDateOnServer DESC limit 20"] ;
         completion() ;
         return ;
     }
     else if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
         self.nameOfNoteBook.text = @"垃圾桶" ;
-        self.bookEmoji.text = @"" ;
         self.listNotes = [Note xt_findWhere:@"isDeleted == 1"] ;
         completion() ;
         return ;
     }
     else if (self.leftVC.currentBook.vType == Notebook_Type_staging) {
         self.nameOfNoteBook.text = @"暂存区" ;
-        self.bookEmoji.text = @"" ;
         self.listNotes = [[Note xt_findWhere:@"noteBookId == '' and isDeleted == 0"] xt_orderby:@"modifyDateOnServer" descOrAsc:YES] ;
         completion() ;
         return ;
     }
     
     // note book normal
-    self.nameOfNoteBook.text = self.leftVC.currentBook.name ;
-    self.bookEmoji.text = self.leftVC.currentBook.displayEmoji ;
+    self.nameOfNoteBook.text = XT_STR_FORMAT(@"%@ %@",self.leftVC.currentBook.displayEmoji,self.leftVC.currentBook.name) ;
     
     @weakify(self)
     [Note noteListWithNoteBook:self.leftVC.currentBook completion:^(NSArray * _Nonnull list) {
@@ -170,7 +166,6 @@
     self.topSafeAreaView.xt_theme_backgroundColor = k_md_bgColor ;
     self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
     
-    self.bookEmoji.text = @"" ;
     self.nameOfNoteBook.text = @"";
     self.nameOfNoteBook.xt_theme_textColor = XT_MAKE_theme_color(k_md_homeTitleTextColor, .8) ;
     
@@ -179,83 +174,24 @@
     @weakify(self)
     [self.btAdd bk_addEventHandler:^(id sender) {
         @strongify(self)
-        if (![XTIcloudUser hasLogin]) {
-            [XTIcloudUser alertUserToLoginICloud] ;
-            return ;
-        }
-        
-        @weakify(self)
-        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"🖋 新建笔记",@"📒 新建笔记本"] fromWithView:self.btAdd CallBackBlock:^(NSInteger btnIndex) {
-            @strongify(self)
-            if (btnIndex == 1) {
-                [MarkdownVC newWithNote:nil bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
-            }
-            else if (btnIndex == 2) {
-                self.nBookVC =
-                [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
-                    // create new book
-                    NoteBooks *aBook = [[NoteBooks alloc] initWithName:bookName emoji:emoji] ;
-                    [NoteBooks createNewBook:aBook] ;
-                    self.nBookVC = nil ;
-                    
-                    [self.leftVC render] ;
-                    [self.leftVC refreshHomeWithBook:aBook] ;
-                } cancel:^{
-                    self.nBookVC = nil ;
-                }] ;
-            }
-        }] ;
-        
+        [self addBtOnClick:sender] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btMore xt_enlargeButtonsTouchArea] ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
     [self.btMore bk_addEventHandler:^(id sender) {
-        
-        if (![XTIcloudUser hasLogin]) {
-            [XTIcloudUser alertUserToLoginICloud] ;
-            return ;
-        }
-        @weakify(self)
-        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除笔记本" otherButtonTitles:@[@"重命名笔记本"] fromWithView:self.btMore CallBackBlock:^(NSInteger btnIndex) {
-            @strongify(self)
-            if (btnIndex == 1) { //  rename book
-                __block NoteBooks *aBook = self.leftVC.currentBook ;
-                @weakify(self)
-                self.nBookVC =
-                [NewBookVC showMeFromCtrller:self editBook:aBook changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
-                    @strongify(self)
-                    aBook.name = bookName ;
-                    aBook.emoji = [@{@"native":emoji} yy_modelToJSONString] ;
-                    [NoteBooks updateMyBook:aBook] ;
-                    self.nBookVC = nil ;
-                    [self.leftVC render] ;
-                    [self.leftVC setCurrentBook:aBook] ;
-                } cancel:^{
-                    @strongify(self)
-                    self.nBookVC = nil ;
-                }] ;
-            }
-            else if (btnIndex == 2) { // delete book
-                @weakify(self)
-                [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"删除笔记本" message:@"删除笔记本会将此笔记本内的文章都移入回收站" cancelButtonTitle:@"取消" destructiveButtonTitle:@"确认" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex1) {
-                    @strongify(self)
-                    if (btnIndex1 == 1) {
-                        @weakify(self)
-                        [NoteBooks deleteBook:self.leftVC.currentBook done:^{
-                            @strongify(self)
-                            self.leftVC.currentBook = nil ;
-                            [self.leftVC render] ;
-                        }] ;
-                    }
-                }] ;
-
-            }
-        }] ;
+        @strongify(self)
+        [self moreBtOnClick:sender] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     self.lbUser.userInteractionEnabled = YES ;
     [self.lbUser bk_whenTapped:^{
+        @strongify(self)
+        [self openDrawer] ;
+    }] ;
+    
+    self.nameOfNoteBook.userInteractionEnabled = YES ;
+    [self.nameOfNoteBook bk_whenTapped:^{
         @strongify(self)
         [self openDrawer] ;
     }] ;
@@ -270,11 +206,13 @@
         bool isSync = [x boolValue] ;
         if (isSync) {
             [self.animationSync play] ;
+            self.animationSync.hidden = NO ;
         }
         else {
             [self.animationSync stop] ;
+            self.animationSync.hidden = YES ;
         }
-        self.animationSync.hidden = !isSync ;
+
     }] ;
     
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
@@ -295,10 +233,13 @@
 #pragma mark - table
 
 - (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
+//    self.animationSync.hidden = NO ;
+//    [self.animationSync play] ;
+//    WEAK_SELF
     [self renderTable:^{
         endRefresh() ;
-        
-//        self.table.mj_offsetY = [HomeSearchCell xt_cellHeight] ;
+//        [weakSelf.animationSync stop] ;
+//        self.animationSync.hidden = YES ;
     }] ;
 }
 
@@ -384,31 +325,28 @@
     }
 }
 
-
 - (void)tableView:(UITableView *)tableView willDisplayCell:(NoteCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) return ;
-    
+
     cell.lbTitle.alpha = 0. ;
     [UIView animateWithDuration:0.2
                      animations:^{
                          cell.lbTitle.alpha = 1 ;
                      }
-                     completion:^(BOOL finished) {
+                     completion:nil] ;
 
-                     }] ;
-    
     cell.lbTitle.layer.transform = CATransform3DMakeTranslation(10, 0, 0) ;
     [UIView animateWithDuration:.25
                      animations:^{
                          cell.lbTitle.layer.transform = CATransform3DIdentity ;
                      }
                      completion:nil] ;
-    
-    cell.layer.transform = CATransform3DMakeScale(0.76, 0.76, 1) ;
-    [UIView animateWithDuration:.25
-                     animations:^{
-                         cell.layer.transform = CATransform3DIdentity ;
-                     }] ;
+
+//    cell.layer.transform = CATransform3DMakeScale(0.76, 0.76, 1) ;
+//    [UIView animateWithDuration:.25
+//                     animations:^{
+//                         cell.layer.transform = CATransform3DIdentity ;
+//                     }] ;
     
     cell.lbDate.alpha = 0. ;
     cell.lbContent.alpha = 0. ;
@@ -504,11 +442,5 @@
     self.transition.isPositive = NO ;
     return self.transition ;
 }
-
-
-
-
-
-
 
 @end

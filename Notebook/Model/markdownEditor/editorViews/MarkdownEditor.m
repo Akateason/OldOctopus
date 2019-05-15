@@ -25,6 +25,7 @@
 #import "MdBlockModel.h"
 #import <SafariServices/SafariServices.h>
 #import "HrView.h"
+#import "MDHeadModel.h"
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue       = 30.f  ;
@@ -188,6 +189,7 @@ static const int kTag_HrView            = 60000 ;
 - (void)drawLeftDisplayLabel:(MarkdownModel *)model {
     [self hide_lbLeftCornerMarker] ;
     if (!model) return ;
+    if (!self.isFirstResponder) return ;
     
     UIImage *img = [UIImage imageNamed:[self.parser iconImageStringOfPosition:self.selectedRange.location model:model]] ;
     self.imgLeftCornerMarker.image = img ;
@@ -494,7 +496,6 @@ static const int kTag_HrView            = 60000 ;
     }
 }
 
-
 - (NSRange)currentCursorRange {
     return self.selectedRange ;
 }
@@ -513,7 +514,12 @@ static const int kTag_HrView            = 60000 ;
     // quote model
     result = [MdBlockModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
     if (result != 100) return result ;
-    
+    // para model
+    result = [MarkdownModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
+    if (result != 100) return result ;
+    // head model
+    result = [MDHeadModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
+    if (result != 100) return result ;
     
     
     return YES ;

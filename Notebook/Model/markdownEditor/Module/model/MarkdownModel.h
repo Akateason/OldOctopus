@@ -66,6 +66,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 // ********* rewrite in subcls ********* //
 
++ (int)keyboardEnterTypedInTextView:(MarkdownEditor *)textView
+                    modelInPosition:(MarkdownModel *)aModel
+            shouldChangeTextInRange:(NSRange)range ;
+
 @end
 
 NS_ASSUME_NONNULL_END

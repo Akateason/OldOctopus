@@ -128,6 +128,7 @@
 		8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FACF6DE222002BB0067DDA4 /* NBRTEColorPickerView.m */; };
 		8FB72910225EF703003A73C1 /* LaunchingEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7290F225EF703003A73C1 /* LaunchingEvents.m */; };
 		8FBA041E228A98B200EED229 /* HrView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA041D228A98B200EED229 /* HrView.m */; };
+		8FBA0421228BC0E900EED229 /* HomeVC+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA0420228BC0E800EED229 /* HomeVC+Util.m */; };
 		8FC431202265B8330002C9A1 /* md_home_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC4311F2265B8320002C9A1 /* md_home_search@2x.png */; };
 		8FC431222265B9FA0002C9A1 /* home_bar_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC431212265B9FA0002C9A1 /* home_bar_add@2x.png */; };
 		8FC431272265CCAF0002C9A1 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC431262265CCAF0002C9A1 /* SearchVC.m */; };
@@ -356,6 +357,8 @@
 		8FB7290F225EF703003A73C1 /* LaunchingEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchingEvents.m; sourceTree = "<group>"; };
 		8FBA041C228A98B200EED229 /* HrView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HrView.h; sourceTree = "<group>"; };
 		8FBA041D228A98B200EED229 /* HrView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HrView.m; sourceTree = "<group>"; };
+		8FBA041F228BC0E800EED229 /* HomeVC+Util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeVC+Util.h"; sourceTree = "<group>"; };
+		8FBA0420228BC0E800EED229 /* HomeVC+Util.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HomeVC+Util.m"; sourceTree = "<group>"; };
 		8FC4311F2265B8320002C9A1 /* md_home_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_home_search@2x.png"; sourceTree = "<group>"; };
 		8FC431212265B9FA0002C9A1 /* home_bar_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_bar_add@2x.png"; sourceTree = "<group>"; };
 		8FC431252265CCAF0002C9A1 /* SearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
@@ -888,6 +891,8 @@
 			children = (
 				8FE5A3D7224B6CE800947D14 /* HomeVC.h */,
 				8FE5A3D8224B6CE800947D14 /* HomeVC.m */,
+				8FBA041F228BC0E800EED229 /* HomeVC+Util.h */,
+				8FBA0420228BC0E800EED229 /* HomeVC+Util.m */,
 				8F79AE782269CD9100E8FD0D /* HomeVC+PanGestureHandler.h */,
 				8F79AE792269CD9100E8FD0D /* HomeVC+PanGestureHandler.m */,
 				8FA141FE22715E8000A23873 /* SchBarPositiveTransition.h */,
@@ -1279,6 +1284,7 @@
 				8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */,
 				8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */,
 				8F1A7B102277148C00A69EAD /* MDCodeBlockEditor.m in Sources */,
+				8FBA0421228BC0E900EED229 /* HomeVC+Util.m in Sources */,
 				8FC431272265CCAF0002C9A1 /* SearchVC.m in Sources */,
 				8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,

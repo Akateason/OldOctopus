@@ -9,6 +9,7 @@
 #import "MarkdownModel.h"
 #import <XTlib/XTlib.h>
 #import "XTMarkdownParser.h"
+#import "MarkdownEditor.h"
 
 @implementation MarkdownModel
 
@@ -66,8 +67,10 @@
 - (CGFloat)valueOfparaBeginEndSpaceOffset {
     switch (self.paraBeginEndSpaceOffset) {
         case 0: return 0 ;
-        case 1: return kDefaultFontSize * 1.3 ;
-        case 2: return kDefaultFontSize * 2.  ;
+//        case 1: return kDefaultFontSize * 1.3 ;
+        case 1: return kDefaultFontSize * 1.3 - (kDefaultFontSize + 10) ;
+//        case 2: return kDefaultFontSize * 2. ;
+        case 2: return kDefaultFontSize * 2. - (kDefaultFontSize + 10) ;
     }
     return 0 ;
 }
@@ -125,5 +128,24 @@
     p.subBlkModel = self.subBlkModel ;
     return p ;
 }
+
+
++ (int)keyboardEnterTypedInTextView:(MarkdownEditor *)textView
+                    modelInPosition:(MarkdownModel *)aModel
+            shouldChangeTextInRange:(NSRange)range {
+    
+    NSMutableString *tmpString = [textView.text mutableCopy] ;
+    NSString *insertEnterString = @"\n\n" ;
+    
+    if (aModel.type == -1) {
+        [tmpString insertString:insertEnterString atIndex:range.location] ;
+        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+        textView.selectedRange = NSMakeRange(range.location + insertEnterString.length, 0) ;
+        return NO ;
+    }
+    return 100 ; // 未知情况, 传到下一个model去处理
+}
+
+
 
 @end

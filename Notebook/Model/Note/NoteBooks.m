@@ -49,7 +49,7 @@
 
 + (void)fetchAllNoteBook:(void(^)(NSArray<NoteBooks *> *array))completion {
     
-    NSArray *tmplist = [[NoteBooks xt_findWhere:@"isDeleted == 0"] xt_orderby:@"createDateOnServer" descOrAsc:0] ;
+    NSArray *tmplist = [[NoteBooks xt_findWhere:@"isDeleted == 0"] xt_orderby:@"createDateOnServer" descOrAsc:1] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         completion(tmplist) ;

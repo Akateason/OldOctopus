@@ -24,7 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)makeHeaderWithSize:(NSString *)mark
                     editor:(MarkdownEditor *)editor ;
-    
+
+
+
++ (int)keyboardEnterTypedInTextView:(MarkdownEditor *)textView
+                    modelInPosition:(MarkdownModel *)aModel
+            shouldChangeTextInRange:(NSRange)range ;
+
 @end
 
 NS_ASSUME_NONNULL_END

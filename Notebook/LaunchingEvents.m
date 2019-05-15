@@ -147,7 +147,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             [Note getFromServerComplete:^{
                 if ([Note xt_count]) XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ; // pull all in first time
             }] ;
         }] ;
     }

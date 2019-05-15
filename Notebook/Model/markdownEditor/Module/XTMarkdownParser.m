@@ -202,14 +202,27 @@
 }
 
 - (void)optParaListThenWrapInParaBeginEnd {
-    [self.paraList enumerateObjectsUsingBlock:^(MarkdownModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (self.paraList.count - 1 > idx) {
-            MarkdownModel *nextModel = self.paraList[idx + 1] ;
-            model.paraBeginEndSpaceOffset = nextModel.type == MarkdownSyntaxHeaders ? 2 : 1 ;
-        }
-    }] ;
-}
+    NSMutableArray *list = [self.paraList mutableCopy] ;
     
+    for (int i = 0; i < self.paraList.count; i++) {
+        MarkdownModel *model = self.paraList[i] ;
+        if (model.type == MarkdownSyntaxHeaders) {
+            if (i >= 1) {
+                MarkdownModel *lastModel = self.paraList[i - 1] ;
+                lastModel.paraBeginEndSpaceOffset = 2 ;
+                [list replaceObjectAtIndex:i - 1 withObject:lastModel] ;
+            }
+            
+            if (self.paraList.count - 1 > i) {
+                MarkdownModel *nextModel = self.paraList[i + 1] ;
+                model.paraBeginEndSpaceOffset = nextModel.type == MarkdownSyntaxHeaders ? 2 : 1 ;
+                [list replaceObjectAtIndex:i withObject:model] ;
+            }
+        }
+    }
+    
+    self.paraList = list ;
+}    
 
 - (id)parsingGetABlockStyleModelFromParaModel:(MarkdownModel *)pModel {
     

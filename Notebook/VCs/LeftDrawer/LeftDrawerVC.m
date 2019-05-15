@@ -15,13 +15,18 @@
 #import <UIViewController+CWLateralSlide.h>
 #import "HiddenUtil.h"
 
+// lastBook
+// @key     kUDCached_lastBook_RecID
+// @value   recID,  trash, recent , staging 这三种的话就保存vType.toStr
+static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 
 typedef void(^BlkBookSelectedHasChanged)(NoteBooks *book) ;
 typedef void(^BlkTapBookCell)(void);
 
-@interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, LDHeadViewDelegate> {
-    
-}
+@interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, LDHeadViewDelegate>
+
+@property (nonatomic)       BOOL    isFirstTime ;
+
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (copy, nonatomic) NSArray *booklist ;
 @property (copy, nonatomic) BlkBookSelectedHasChanged blkBookChanged ;
@@ -39,6 +44,7 @@ typedef void(^BlkTapBookCell)(void);
 @property (strong, nonatomic) NoteBooks *addBook ;
 
 @property (strong, nonatomic) NewBookVC *nBookVC ;
+
 @end
 
 @implementation LeftDrawerVC
@@ -85,7 +91,6 @@ typedef void(^BlkTapBookCell)(void);
     }] ;
     
     (self.btTheme.selected) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
-
 }
 
 - (void)prepareUI {
@@ -120,7 +125,7 @@ typedef void(^BlkTapBookCell)(void);
     }] ;
     
     
-    // 暗开关
+    // 清数据 暗开关
     [self.bottomArea bk_whenTouches:2 tapped:7 handler:^{
         [HiddenUtil showAlert] ;
     }] ;
@@ -135,7 +140,6 @@ typedef void(^BlkTapBookCell)(void);
 #pragma mark -
 
 - (void)render {
-    
     self.bookTrash = [NoteBooks createOtherBookWithType:(Notebook_Type_trash)] ;
     self.lbTrash.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
     
@@ -167,6 +171,14 @@ typedef void(^BlkTapBookCell)(void);
 }
 
 - (NoteBooks *)nextUsefulBook {
+    if (!_isFirstTime) {
+        NSString *value = XT_USERDEFAULT_GET_VAL(kUDCached_lastBook_RecID) ;
+        NoteBooks *book = [NoteBooks xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",value) ] ;
+        if (!book) book = [NoteBooks createOtherBookWithType:value.intValue] ;
+        _isFirstTime = YES ;
+        if (book) return book ;
+    }
+    
     if (self.booklist && self.booklist.count) {
         return self.booklist.firstObject ;
     }
@@ -175,6 +187,15 @@ typedef void(^BlkTapBookCell)(void);
 
 - (void)setCurrentBook:(NoteBooks *)currentBook {
     _currentBook = currentBook ;
+    
+    NSString *cachedValue ;
+    if (currentBook.vType == Notebook_Type_trash || currentBook.vType == Notebook_Type_recent || currentBook.vType == Notebook_Type_staging) {
+        cachedValue = @(currentBook.vType).stringValue ;
+    }
+    else {
+        cachedValue = currentBook.icRecordName ;
+    }
+    XT_USERDEFAULT_SET_VAL(cachedValue, kUDCached_lastBook_RecID) ;
     
     [self.booklist enumerateObjectsUsingBlock:^(NoteBooks  *book, NSUInteger idx, BOOL * _Nonnull stop) {
         book.isOnSelect = NO ;
