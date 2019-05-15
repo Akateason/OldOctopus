@@ -19,7 +19,7 @@
 typedef void(^BlkBookSelectedHasChanged)(NoteBooks *book) ;
 typedef void(^BlkTapBookCell)(void);
 
-@interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource, LDHeadViewDelegate> {
+@interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, LDHeadViewDelegate> {
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -253,6 +253,7 @@ typedef void(^BlkTapBookCell)(void);
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LDNotebookCell *cell = [LDNotebookCell xt_fetchFromTable:tableView] ;
     cell.dataSource = self ;
+    cell.delegate = self ;
     [cell xt_configure:self.booklist[indexPath.row] indexPath:indexPath] ;
     return cell ;
 }
@@ -323,6 +324,22 @@ typedef void(^BlkTapBookCell)(void);
     item2.width = 60;
     return @[item1, item2] ;
 }
+
+- (void)revealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell willMoveToPosition:(SWCellRevealPosition)position {
+    if (position == SWCellRevealPositionLeft) {
+        LDNotebookCell *aCell = (LDNotebookCell *)revealTableViewCell ;
+        NSArray *visibleCells = [self.table visibleCells] ;
+        for (UITableViewCell *cell in visibleCells) {
+            
+            if ( [cell isKindOfClass:[SWRevealTableViewCell class]] &&
+                ((SWRevealTableViewCell *)cell).revealPosition != SWCellRevealPositionCenter &&
+                cell.xt_indexPath.row != aCell.xt_indexPath.row )
+                
+                [(SWRevealTableViewCell *)cell setRevealPosition:SWCellRevealPositionCenter animated:YES] ;
+        }
+    }
+}
+
 
 - (void)editBook:(NoteBooks *)book {
     __block NoteBooks *aBook = book ;

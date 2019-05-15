@@ -171,8 +171,12 @@
     [self.btMore xt_enlargeButtonsTouchArea] ;
     
     self.navArea.backgroundColor = nil ;
+    
     self.topBar.backgroundColor = nil ;
-    [self.topBar oct_addBlurBgWithAlpha:.97] ;
+
+    [self.topBar setNeedsDisplay] ;
+    [self.topBar layoutIfNeeded] ;
+    [self.topBar oct_addBlurBg] ;
 }
 
 - (IBAction)backAction:(id)sender {
