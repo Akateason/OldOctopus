@@ -107,6 +107,14 @@ XT_SINGLETON_M(XTCloudHandler)
                     return ;
                 }
                 
+                if (!userInfo) {
+                    [self alertCallUserToIcloud] ;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        blkUser(nil) ;
+                    }) ;
+                    return ;
+                }
+                
                 XTIcloudUser *user = [XTIcloudUser new] ;
                 user.userRecordName = userInfo.userRecordID.recordName ;
                 user.familyName = userInfo.nameComponents.familyName ;

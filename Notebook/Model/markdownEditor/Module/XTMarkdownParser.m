@@ -119,9 +119,7 @@
     }
     
     if (model.subBlkModel != nil) {
-//        NSArray *clistInSub =
         [self renderByModel:model.subBlkModel textView:textView position:position attr:attributedString] ;
-//        [tmpCurrentlist addObjectsFromArray:clistInSub] ;
     }
     
     return tmpCurrentlist ;
@@ -178,8 +176,6 @@
             pModel.inlineModels = resInlineListFromParagraph ;
             [tmplist addObject:pModel] ;
         }
-        
-        
     }] ;
     
     paralist = tmplist ;

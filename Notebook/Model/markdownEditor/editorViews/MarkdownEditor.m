@@ -157,7 +157,7 @@ static const int kTag_HrView            = 60000 ;
             
             if (btnIndex == 1) {
                 NSMutableString *tmpString = [weakSelf.text mutableCopy] ;
-                [tmpString deleteCharactersInRange:NSMakeRange(inlineImageModel.range.location, inlineImageModel.range.length + 3)] ;
+                [tmpString deleteCharactersInRange:NSMakeRange(inlineImageModel.location, inlineImageModel.length + 1)] ;
                 weakSelf.text = tmpString ;
                 [weakSelf updateTextStyle] ;
                 

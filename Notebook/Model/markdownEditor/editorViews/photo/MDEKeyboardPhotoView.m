@@ -44,18 +44,24 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     @weakify(photoView)
     [photoView.btViewCamera bk_whenTapped:^{
         @strongify(photoView)
-        [photoView cameraAddCrop:blkPressCameraBt] ;
-        [photoView removeFromSuperview] ;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [photoView cameraAddCrop:blkPressCameraBt] ;
+            [photoView removeFromSuperview] ;
+        }) ;
     }] ;
     [photoView.btViewAlbum bk_whenTapped:^{
         @strongify(photoView)
-        [photoView albumAddCrop:blkPressAlbum] ;
-        [photoView removeFromSuperview] ;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [photoView albumAddCrop:blkPressAlbum] ;
+            [photoView removeFromSuperview] ;
+        }) ;
     }] ;
     [photoView.btCancel bk_addEventHandler:^(id sender) {
         @strongify(photoView)
-        blkCancel() ;
-        [photoView removeFromSuperview] ;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            blkCancel() ;
+            [photoView removeFromSuperview] ;
+        }) ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [photoView addMeAboveKeyboardViewWithKeyboardHeight:height] ;
@@ -73,8 +79,10 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
         @weakify(vc)
         [XTPACropImageVC showFromCtrller:vc imageOrigin:imageList.firstObject croppedImageCallback:^(UIImage *_Nonnull image) {
             @strongify(vc)
-            [vc dismissViewControllerAnimated:YES completion:nil];
-            blkGetImage(image) ;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [vc dismissViewControllerAnimated:YES completion:nil];
+                blkGetImage(image) ;
+            }) ;
         }];
     }];
 }
@@ -177,25 +185,31 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     NSInteger row  = indexPath.row;
     PHAsset *photo = [self.allPhotos objectAtIndex:row];
 
-    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    options.resizeMode             = PHImageRequestOptionsResizeModeFast;
-    options.synchronous            = YES;
-    @weakify(self)
-    [self.manager requestImageForAsset:photo
-                            targetSize:PHImageManagerMaximumSize
-                           contentMode:PHImageContentModeDefault
-                               options:options
-                         resultHandler:^(UIImage *result, NSDictionary *info) {
-                             @strongify(self)
-                             if (result) {
-                                 @weakify(self)
-                                 [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:result croppedImageCallback:^(UIImage *_Nonnull image){
-                                     @strongify(self)
-                                     self.blkFlowPressed(image) ;
-                                     [self removeFromSuperview] ;
-                                 }];
-                             }                             
-                         }] ;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+        options.resizeMode             = PHImageRequestOptionsResizeModeFast;
+        options.synchronous            = YES;
+        @weakify(self)
+        [self.manager requestImageForAsset:photo
+                                targetSize:PHImageManagerMaximumSize
+                               contentMode:PHImageContentModeDefault
+                                   options:options
+                             resultHandler:^(UIImage *result, NSDictionary *info) {
+                                 @strongify(self)
+                                 if (result) {
+                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                         @weakify(self)
+                                         [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:result croppedImageCallback:^(UIImage *_Nonnull image){
+                                             @strongify(self)
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 self.blkFlowPressed(image) ;
+                                                 [self removeFromSuperview] ;
+                                             }) ;
+                                         }];
+                                     }) ;
+                                 }
+                             }] ;
+    }) ;
 }
 
 #pragma mark - props

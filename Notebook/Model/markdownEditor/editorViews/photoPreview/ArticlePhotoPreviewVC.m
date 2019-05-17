@@ -64,6 +64,7 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
         }] ;
         bt ;
     }) ;
+    [self.deleteButton xt_enlargeButtonsTouchArea] ;
     
     self.downloadButton = ({
         UIButton *bt = [UIButton new] ;
@@ -79,6 +80,7 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
         }] ;
         bt ;
     }) ;
+    [self.downloadButton xt_enlargeButtonsTouchArea] ;
 }
 
 - (void)viewDidLoad {

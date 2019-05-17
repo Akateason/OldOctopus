@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)       int      isDeleted ;
 @property (copy, nonatomic) NSString *name ;
 @property (nonatomic)       int      isTop ; // 置顶
-@property (copy, nonatomic) NSString *from ; // 发自
+@property (copy, nonatomic) NSString *comeFrom ; // 发自
 
 
 - (NSString *)displayEmoji ;

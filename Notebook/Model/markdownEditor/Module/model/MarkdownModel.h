@@ -37,9 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int paraBeginEndSpaceOffset ;
 - (CGFloat)valueOfparaBeginEndSpaceOffset ;
 
+@property (nonatomic)       NSUInteger location ;
+@property (nonatomic)       NSUInteger length ;
 
-- (NSUInteger)location ;
-- (NSUInteger)length ;
 - (UIFont *)defaultFont ;
 - (NSDictionary *)defultStyle ;
 

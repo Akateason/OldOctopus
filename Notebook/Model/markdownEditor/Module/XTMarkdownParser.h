@@ -65,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 // draw native
 - (void)drawQuoteBlk ;
 - (void)drawListBlk ;
+- (void)drawInlineCode ;
+- (void)drawHr ;
 
 @end
 

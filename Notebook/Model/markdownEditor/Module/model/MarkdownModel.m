@@ -92,13 +92,23 @@
     return @"" ;
 }
 
+//- (void)setRange:(NSRange)range {
+//    _range = range ;
+//
+//    self.location = range.location ;
+//    self.length = range.length ;
+//}
+
 - (NSUInteger)location {
-    return self.range.location ;
+    _location = self.range.location ;
+    return _location ;
 }
 
 - (NSUInteger)length {
-    return self.range.length ;
+    _length = self.range.length ;
+    return _length ;
 }
+
 
 - (UIFont *)defaultFont {
     return [MDThemeConfiguration sharedInstance].editorThemeObj.font ;

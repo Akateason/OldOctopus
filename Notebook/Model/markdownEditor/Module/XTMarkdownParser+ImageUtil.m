@@ -27,7 +27,12 @@
 - (NSAttributedString *)attrbuteStringWithInlineImageModel:(MdInlineModel *)model image:(UIImage *)image {
     NSTextAttachment *attach = [self attachmentStandardFromImage:image] ;
     NSMutableAttributedString *attrAttach = [[NSAttributedString attributedStringWithAttachment:attach] mutableCopy] ;
-    [attrAttach addAttributes:@{kKey_MDInlineImageModel:[model yy_modelToJSONString]} range:NSMakeRange(0, attrAttach.length)] ;
+//    NSLog(@"img json : %@",[model yy_modelToJSONObject]) ;
+    NSMutableDictionary *jsonObj = [[model yy_modelToJSONObject] mutableCopy] ;
+    [jsonObj setValue:@(model.location) forKey:@"location"] ;
+    [jsonObj setValue:@(model.length) forKey:@"length"] ;
+    
+    [attrAttach addAttributes:@{kKey_MDInlineImageModel:[jsonObj yy_modelToJSONString]} range:NSMakeRange(0, attrAttach.length)] ;
     return attrAttach ;
 }
 
@@ -61,8 +66,6 @@
         }
         NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
         [str insertAttributedString:attrAttach atIndex:loc] ;
-        
-        
         
     }] ;
     
@@ -101,12 +104,13 @@
             @weakify(self)
             [self.imgManager imageWithUrlStr:imgUrl complete:^(UIImage * _Nonnull image) {
                 @strongify(self)
+                
+                [str beginEditing] ;
                 NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
                 [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
-                [self updateAttributedText:str textView:textView] ;
-                
-                [self drawListBlk] ;
-                [self drawQuoteBlk] ;
+                [str endEditing] ;
+
+                [self parseTextAndGetModelsInCurrentCursor:str.string textView:textView] ;
             }] ;
         }
         
