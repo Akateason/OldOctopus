@@ -26,12 +26,12 @@
     _lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     _lbContent.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     _lbDate.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+    _img_isTop.hidden = YES ;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
     self.area.xt_theme_backgroundColor =  selected ? XT_MAKE_theme_color(k_md_textColor, 0.03) : k_md_bgColor ;
 }
 
@@ -45,6 +45,7 @@ static int kLimitCount = 70 ;
     if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
     _lbContent.text = content ;
     _lbDate.text = [[NSDate xt_getDateWithTick:note.modifyDateOnServer] xt_timeInfo] ;
+    _img_isTop.hidden = !note.isTop ;
 }
 
 - (void)trashMode:(BOOL)isTrashmode {

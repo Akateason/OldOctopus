@@ -8,10 +8,13 @@
 
 #import "HomeVC.h"
 
+@class SWRevealTableViewCell ;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeVC (PanGestureHandler)
-- (NSArray *)setupPanList ;
+
+- (NSArray *)setupPanList:(SWRevealTableViewCell *)cell ;
+
 @end
 
 NS_ASSUME_NONNULL_END

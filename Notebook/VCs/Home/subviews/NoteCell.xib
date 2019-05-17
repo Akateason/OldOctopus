@@ -43,16 +43,25 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_cell_top_corner.png" translatesAutoresizingMaskIntoConstraints="NO" id="BmT-RM-iF6">
+                                <rect key="frame" x="309" y="0.0" width="11" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="11" id="EJm-pw-mpe"/>
+                                    <constraint firstAttribute="height" constant="11" id="phf-Vx-5it"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="7lz-1p-FH9" secondAttribute="trailing" constant="20" id="7oJ-FT-UPi"/>
                             <constraint firstItem="1c7-tb-3hL" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="20" id="LbE-MK-PQe"/>
+                            <constraint firstAttribute="trailing" secondItem="BmT-RM-iF6" secondAttribute="trailing" id="MaQ-X4-4uY"/>
                             <constraint firstAttribute="trailing" secondItem="1c7-tb-3hL" secondAttribute="trailing" constant="20" id="O96-UM-iPC"/>
                             <constraint firstItem="7lz-1p-FH9" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="20" id="Oef-f0-161"/>
                             <constraint firstItem="m7E-Ac-LyT" firstAttribute="width" secondItem="Zzt-FU-u9Q" secondAttribute="width" multiplier="160:320" constant="92" id="mGL-hf-4LA"/>
                             <constraint firstItem="m7E-Ac-LyT" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="20" id="uQf-k3-9Pr"/>
                             <constraint firstItem="1c7-tb-3hL" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="50" id="vJ0-C9-WNh"/>
+                            <constraint firstItem="BmT-RM-iF6" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" id="wr3-8l-yjB"/>
                             <constraint firstItem="m7E-Ac-LyT" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="20" id="yuq-UO-p1m"/>
                         </constraints>
                     </view>
@@ -67,11 +76,15 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="area" destination="Zzt-FU-u9Q" id="fTv-Ke-AUd"/>
+                <outlet property="img_isTop" destination="BmT-RM-iF6" id="hxG-zw-KYf"/>
                 <outlet property="lbContent" destination="1c7-tb-3hL" id="6ie-jb-6xG"/>
                 <outlet property="lbDate" destination="7lz-1p-FH9" id="Gw4-nT-f9J"/>
                 <outlet property="lbTitle" destination="m7E-Ac-LyT" id="fdd-0n-SUQ"/>
             </connections>
-            <point key="canvasLocation" x="40" y="46.776611694152926"/>
+            <point key="canvasLocation" x="-96" y="57.571214392803604"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="home_cell_top_corner.png" width="22" height="22"/>
+    </resources>
 </document>

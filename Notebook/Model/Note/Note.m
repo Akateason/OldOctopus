@@ -34,7 +34,8 @@
     [_record setObject:self.content forKey:@"content"] ;
     [_record setObject:_title forKey:@"title"] ;
     [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
-
+    [_record setObject:@(_isTop) forKey:@"isTop"] ;
+    
     return _record ;
 }
 
@@ -47,6 +48,7 @@
     note.isDeleted = [record[@"isDeleted"] intValue] ;
     note.noteBookId = record[@"noteBookId"] ;
     note.title = record[@"title"] ;
+    note.isTop = [record[@"isTop"] intValue] ;
     return note ;
 }
 
@@ -107,7 +109,8 @@
     NSDictionary *dic = @{@"content" : aNote.content,
                           @"isDeleted" : @(aNote.isDeleted),
                           @"noteBookId" : aNote.noteBookId,
-                          @"title" : aNote.title
+                          @"title" : aNote.title,
+                          @"isTop" : @(aNote.isTop)
                           } ;
     
     [[XTCloudHandler sharedInstance] updateWithRecId:aNote.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {

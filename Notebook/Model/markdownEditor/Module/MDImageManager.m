@@ -50,6 +50,7 @@
             failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail {
 
     NSString *url = @"https://shimodev.com/octopus-api/files?uploadType=media" ;
+//    NSString *url = @"https://shimo.im/octopus-api/files?uploadType=media" ;
 //    NSString *url = @"http://172.17.4.66:9001/files?uploadType=media" ;
     NSData *data = UIImageJPEGRepresentation(image, 1) ;
     

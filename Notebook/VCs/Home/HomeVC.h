@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, strong, nonatomic)          LeftDrawerVC   *leftVC ;
 @property (strong, nonatomic)                    NewBookVC      *nBookVC ;
 @property (nonatomic)                            CGRect         rectSchBarCell ;
+@property (copy, nonatomic)                      NSArray        *listNotes ;
+
+- (void)dealTopNoteLists:(NSArray *)list ;
 @end
 
 NS_ASSUME_NONNULL_END

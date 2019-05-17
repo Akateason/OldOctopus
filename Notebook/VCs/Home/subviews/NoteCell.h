@@ -13,6 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NoteCell : SWRevealTableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *img_isTop;
 @property (weak, nonatomic) IBOutlet UIView *area;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lbContent;

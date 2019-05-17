@@ -40,7 +40,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
 
 @property (strong, nonatomic) LeftDrawerVC *leftVC ;
-@property (copy, nonatomic) NSArray *listNotes ;
 @property (strong, nonatomic) HomeEmptyPHView *phView ;
 @property (strong, nonatomic) LOTAnimationView *animationSync ;
 @property (strong, nonatomic) SchBarPositiveTransition *transition ;
@@ -82,7 +81,8 @@
      subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
-        [self.table xt_loadNewInfoInBackGround:NO] ;
+//        [self.table xt_loadNewInfoInBackGround:NO] ;
+        [self.table xt_loadNewInfoInBackGround:YES] ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
@@ -107,19 +107,22 @@
 - (void)renderTable:(void(^)(void))completion {
     if (self.leftVC.currentBook.vType == Notebook_Type_recent) {
         self.nameOfNoteBook.text = @"最近使用" ;
-        self.listNotes = [Note xt_findWhere:@"isDeleted == 0 order by modifyDateOnServer DESC limit 20"] ;
+        NSArray *list = [Note xt_findWhere:@"isDeleted == 0 order by modifyDateOnServer DESC limit 20"] ;
+        [self dealTopNoteLists:list] ;
         completion() ;
         return ;
     }
     else if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
         self.nameOfNoteBook.text = @"垃圾桶" ;
-        self.listNotes = [Note xt_findWhere:@"isDeleted == 1"] ;
+        NSArray *list = [Note xt_findWhere:@"isDeleted == 1"] ;
+        [self dealTopNoteLists:list] ;
         completion() ;
         return ;
     }
     else if (self.leftVC.currentBook.vType == Notebook_Type_staging) {
         self.nameOfNoteBook.text = @"暂存区" ;
-        self.listNotes = [[Note xt_findWhere:@"noteBookId == '' and isDeleted == 0"] xt_orderby:@"modifyDateOnServer" descOrAsc:YES] ;
+        NSArray *list = [[Note xt_findWhere:@"noteBookId == '' and isDeleted == 0"] xt_orderby:@"modifyDateOnServer" descOrAsc:YES] ;
+        [self dealTopNoteLists:list] ;
         completion() ;
         return ;
     }
@@ -130,9 +133,26 @@
     @weakify(self)
     [Note noteListWithNoteBook:self.leftVC.currentBook completion:^(NSArray * _Nonnull list) {
         @strongify(self)
-        self.listNotes = list ;
+        [self dealTopNoteLists:list] ;
         completion() ;
     }] ;
+}
+
+- (void)dealTopNoteLists:(NSArray *)list {
+    NSMutableArray *topList = [@[] mutableCopy] ;
+    NSMutableArray *normalList = [@[] mutableCopy] ;
+    [list enumerateObjectsUsingBlock:^(Note *aNote, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (aNote.isTop) {
+            [topList addObject:aNote] ;
+        }
+        else {
+            [normalList addObject:aNote] ;
+        }
+    }] ;
+    
+    topList = [[topList xt_orderby:@"modifyDateOnServer" descOrAsc:1] mutableCopy] ;
+    [topList addObjectsFromArray:normalList] ;
+    self.listNotes = topList ;
 }
 
 - (void)openDrawer {
@@ -233,13 +253,8 @@
 #pragma mark - table
 
 - (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
-//    self.animationSync.hidden = NO ;
-//    [self.animationSync play] ;
-//    WEAK_SELF
     [self renderTable:^{
         endRefresh() ;
-//        [weakSelf.animationSync stop] ;
-//        self.animationSync.hidden = YES ;
     }] ;
 }
 
@@ -307,7 +322,7 @@
 }
 
 - (NSArray *)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)cell1 {
-    return [self setupPanList] ;
+    return [self setupPanList:cell1] ;
 }
 
 - (void)revealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell willMoveToPosition:(SWCellRevealPosition)position {
