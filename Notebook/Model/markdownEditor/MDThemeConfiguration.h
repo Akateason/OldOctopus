@@ -18,6 +18,7 @@ static NSString *const k_md_textColor = @"textColor" ;
 static NSString *const k_md_markColor = @"markColor" ;
 static NSString *const k_md_seplineLineColor = @"seplineLineColor" ;
 static NSString *const k_md_quoteTextColor = @"quoteTextColor" ;
+static NSString *const k_md_quoteBarColor = @"quoteBarColor" ;
 static NSString *const k_md_themeColor = @"themeColor" ;
 static NSString *const k_md_homeTitleTextColor = @"homeTitleTextColor" ;
 static NSString *const k_md_bgColor = @"bgColor" ;

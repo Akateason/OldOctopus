@@ -350,7 +350,7 @@ static const int kTag_HrView            = 60000 ;
     
     UIView *quoteItem = [UIView new] ;
     quoteItem.tag = kTag_QuoteMarkView ;
-    quoteItem.xt_theme_backgroundColor = k_md_themeColor ;
+    quoteItem.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_quoteBarColor, 1) ;
     [self addSubview:quoteItem] ;
     [quoteItem mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(model.markIndentationPosition * 18 + 8) ;
@@ -508,11 +508,12 @@ static const int kTag_HrView            = 60000 ;
     if (![text isEqualToString:@"\n"]) return YES ;
     // get current model
     MarkdownModel *thisModel = [self.parser getBlkModelForCustomPosition:range.location - 1] ;
-    // list model
-    int result = [MdListModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
-    if (result != 100) return result ;
+    int result ;
     // quote model
     result = [MdBlockModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
+    if (result != 100) return result ;
+    // list model
+    result = [MdListModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
     if (result != 100) return result ;
     // para model
     result = [MarkdownModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
@@ -520,7 +521,6 @@ static const int kTag_HrView            = 60000 ;
     // head model
     result = [MDHeadModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;
     if (result != 100) return result ;
-    
     
     return YES ;
 }

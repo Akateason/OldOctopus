@@ -26,7 +26,19 @@
         NSString *cuttedlistMarkStr = [model.str substringFromIndex:model.markWillHiddenRange.length] ;
         tmpModel.str = cuttedlistMarkStr ;
         tmpModel.range = NSMakeRange(tmpModel.range.location + model.markWillHiddenRange.length, tmpModel.range.length - model.markWillHiddenRange.length) ;
-        tmpModel.quoteAndList_Level ++ ;
+        if ([str hasPrefix:@" "]) {
+            // 最外部的列表是否是个嵌套列表
+            int findSpaceCount = 0 ;
+            while (1) {
+                NSString *strSpace = [str substringWithRange:NSMakeRange(findSpaceCount, 1)] ;
+                if (![strSpace isEqualToString:@" "]) break ;
+                findSpaceCount ++ ;
+                tmpModel.quoteAndList_Level ++ ; //
+            }
+        }
+        else {
+            tmpModel.quoteAndList_Level ++ ; //
+        }
         
         // 递归
         MarkdownModel *subModel = [parser parsingGetABlockStyleModelFromParaModel:tmpModel] ;
@@ -45,6 +57,10 @@
 
 - (int)textIndentationPosition {
     return ( super.textIndentationPosition ?: (self.countForSpace / 2) ) + 1 ;
+}
+
+- (int)wholeNestCountForquoteAndList {
+    return super.textIndentationPosition ;
 }
 
 - (void)setupCountForSpace {
@@ -66,7 +82,7 @@
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new] ;
     paragraphStyle.firstLineHeadIndent = 16 * num ;
     paragraphStyle.lineSpacing = 10 ; // 列表内的行间距为：10px
-    NSDictionary *dic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor),
+    NSDictionary *dic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor) ,
                           NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                           NSParagraphStyleAttributeName: paragraphStyle
                           } ;
@@ -237,9 +253,9 @@
     NSMutableString *tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
-        [tmpString insertString:@"*  " atIndex:editor.selectedRange.location] ;
+        [tmpString insertString:@"* " atIndex:editor.selectedRange.location] ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
-        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, 0) ;
         return ;
     }
     
@@ -265,9 +281,9 @@
     NSString *orderStr = STR_FORMAT(@"%d",orderNum) ;
     // add
     if (!paraModel) {
-        [tmpString insertString:STR_FORMAT(@"%@.  ",orderStr) atIndex:editor.selectedRange.location] ;
+        [tmpString insertString:STR_FORMAT(@"%@. ",orderStr) atIndex:editor.selectedRange.location] ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
-        editor.selectedRange = NSMakeRange(editor.selectedRange.location + orderStr.length + 2, 0) ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + orderStr.length + 1, 0) ;
         return ;
     }
     
@@ -281,33 +297,46 @@
 
 
 
-
+// 单层列表, 嵌套处理在 blockModel 类中
 + (int)keyboardEnterTypedInTextView:(MarkdownEditor *)textView
                     modelInPosition:(MarkdownModel *)aModel
             shouldChangeTextInRange:(NSRange)range {
-    
+
     NSMutableString *tmpString = [textView.text mutableCopy] ;
     NSString *insertULString = @"\n* " ;
     NSString *insertOLString = @"" ;
     NSString *insertTLString = @"\n* [ ]  " ; // 只有checkbox 多加一个空格. 为了展示问题
     
     if (aModel.type == MarkdownSyntaxULLists) {
+        if (aModel.str.length == 2) {
+            [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length textView:textView] ;
+            textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
+            return NO ;
+        }
+        
         insertULString = @"\n* " ;
         [tmpString insertString:insertULString atIndex:range.location] ;
         [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
         textView.selectedRange = NSMakeRange(range.location + insertULString.length, 0) ;
-        
         return NO ;
     }
     else if (aModel.type == MarkdownSyntaxOLLists) {
-        int orderNum = [[[aModel.str componentsSeparatedByString:@"."] firstObject] intValue] ;
+        NSString *preMark = [[aModel.str componentsSeparatedByString:@"."] firstObject] ;
+        if (preMark.length + 2 == aModel.str.length) {
+            [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length textView:textView] ;
+            textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
+            return NO ;
+        }
+        
+        int orderNum = [preMark intValue] ;
         orderNum ++ ;
         NSString *orderStr = STR_FORMAT(@"%d",orderNum) ;
         insertOLString = STR_FORMAT(@"\n%@. ",orderStr) ;
         [tmpString insertString:insertOLString atIndex:range.location] ;
         [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
         textView.selectedRange = NSMakeRange(range.location + insertOLString.length, 0) ;
-        
         return NO ;
     }
     else if (aModel.type == MarkdownSyntaxTaskLists) {
@@ -316,42 +345,17 @@
             [tmpString insertString:@"\n" atIndex:range.location - aModel.str.length] ;
             [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length + 1 textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
-            
-            return YES ;
+            return NO ;
         }
-        
+
         [tmpString insertString:insertTLString atIndex:range.location] ;
         [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
         textView.selectedRange = NSMakeRange(range.location + insertTLString.length - 1, 0) ; // 只有checkbox 多加一个空格. 为了展示问题
         return NO ;
     }
-    
-    
-    // 两下回车, 删除mark
-    else if (aModel.type == -1) {
-        if ([insertULString hasPrefix:@"\n"]) insertULString = [insertULString substringFromIndex:1] ;
-        if (
-            // ul
-            [aModel.str isEqualToString:insertULString] ||
-            // ol
-            [aModel.str containsString:@". "]
-            ) {  // tl 在前面处理过了
-            
-            [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
-            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length textView:textView] ;
-            textView.selectedRange = NSMakeRange(range.location - aModel.str.length, 0) ;
-            return YES ;
-        }
-    }
-    
+
     return 100 ; // 未知情况, 传到下一个model去处理
 }
-
-
-
-
-
-
 
 
 @end

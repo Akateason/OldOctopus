@@ -38,17 +38,8 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    self.view.backgroundColor = nil ; //
-    [self.view oct_addBlurBg] ;
-    
-    
     self.booklist = [NoteBooks xt_findWhere:@"isOnSelect == 0 AND isDeleted == 0"] ;
-    self.table.separatorStyle = 0 ;
-    self.table.dataSource = self ;
-    self.table.delegate = self ;
-    self.table.backgroundColor = nil ;
     
-    [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     WEAK_SELF
     [self.btClose bk_addEventHandler:^(id sender) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
@@ -57,6 +48,17 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 
 - (void)prepareUI {
     self.lbTitle.xt_theme_textColor = k_md_textColor ;
+    
+    self.view.backgroundColor = nil ;
+    [self.view oct_addBlurBg] ;
+    
+    [self.btClose xt_enlargeButtonsTouchArea] ;
+    
+    [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
+    self.table.separatorStyle = 0 ;
+    self.table.dataSource = self ;
+    self.table.delegate = self ;
+    self.table.backgroundColor = nil ;
 }
 
 #pragma mark - table

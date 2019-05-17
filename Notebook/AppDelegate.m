@@ -18,7 +18,9 @@
 @implementation AppDelegate
 
 - (void)test {
-
+    NSLog(@"test : %@", [[[NSNumberFormatter alloc] init] numberFromString:@"a"]) ;
+    NSLog(@"t : %d", ![[[NSNumberFormatter alloc] init] numberFromString:@"a"] ) ;
+    
 }
 
 

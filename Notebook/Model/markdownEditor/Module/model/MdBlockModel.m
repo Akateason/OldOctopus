@@ -53,10 +53,9 @@
     
     switch (self.type) {
         case MarkdownSyntaxBlockquotes: str = @"md_tb_bt_quote"     ; break ;
-        case MarkdownSyntaxCodeBlock: str   = @"md_tb_bt_blkCode"   ; break ;
+        case MarkdownSyntaxCodeBlock:   str = @"md_tb_bt_blkCode"   ; break ;
         
-        default:
-            break;
+        default: break;
     }
     return str ;
 }
@@ -88,7 +87,6 @@
                                } ;
     return tmpStyle ;
 }
-
 
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
     
@@ -171,8 +169,8 @@
     NSMutableString *tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
-        [tmpString insertString:@">  " atIndex:editor.selectedRange.location] ;
-        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
+        [tmpString insertString:@"> " atIndex:editor.selectedRange.location] ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, 0) ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
         return ;
     }
@@ -207,7 +205,6 @@
     MarkdownModel *modelParse = [editor.parser modelForModelListBlockFirst] ;
     [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
     editor.selectedRange = NSMakeRange(modelParse.range.length + modelParse.range.location, 0) ;
-
 }
 
 
@@ -219,6 +216,9 @@
                     modelInPosition:(MarkdownModel *)aModel
             shouldChangeTextInRange:(NSRange)range {
     
+    int result = [self nest_keyboardEnterTypedInTextView:textView modelInPosition:aModel shouldChangeTextInRange:range] ;
+    if (result != 100) return result ;
+    
     NSMutableString *tmpString = [textView.text mutableCopy] ;
     NSString *insertQuoteString = @"\n> " ;
     
@@ -226,8 +226,8 @@
         if ([aModel.str isEqualToString:@"> "]) {     // 两下回车, 删除mark
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
             [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length textView:textView] ;
-            textView.selectedRange = NSMakeRange(range.location - aModel.str.length, 0) ;
-            return YES ;
+            textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
+            return NO ;
         }
         
         [tmpString insertString:insertQuoteString atIndex:range.location] ;
@@ -240,6 +240,106 @@
     return 100 ; // 未知情况, 传到下一个model去处理
 }
 
+
+// 列表引用 的嵌套 回车处理
++ (int)nest_keyboardEnterTypedInTextView:(MarkdownEditor *)textView
+                         modelInPosition:(MarkdownModel *)aModel
+                 shouldChangeTextInRange:(NSRange)range {
+    
+    NSMutableString *tmpString = [textView.text mutableCopy] ;
+    
+    //1. 先去获得model.str最前面的所有mark
+    NSString *allMarkPreWithoutSpaceBefore = @"" ;
+    int iLengh = 0 ;
+    while (iLengh < aModel.str.length) {
+        NSString *sub = [aModel.str substringWithRange:NSMakeRange(iLengh, 1)] ;
+        if ([sub isEqualToString:@"*"] || [sub isEqualToString:@"-"] || [sub isEqualToString:@"+"] ||
+            [sub isEqualToString:@" "] ||
+            [sub isEqualToString:@">"] ||
+            [sub isEqualToString:@"."] || [[[NSNumberFormatter alloc] init] numberFromString:sub] != NULL
+            ) {
+            iLengh ++ ;
+            if ([sub isEqualToString:@" "] && allMarkPreWithoutSpaceBefore.length == 0) continue ;
+            allMarkPreWithoutSpaceBefore = [allMarkPreWithoutSpaceBefore stringByAppendingString:sub] ;
+            
+        }
+        else break ;
+    }
+    
+    if (
+        (aModel.type == MarkdownSyntaxOLLists || aModel.type == MarkdownSyntaxULLists)
+         &&
+         aModel.markIndentationPosition > 1
+        ) {
+        // 非1级的列表格式
+        if (2 * (aModel.markIndentationPosition - 1) + allMarkPreWithoutSpaceBefore.length == aModel.str.length) {
+            // 退一级
+            [tmpString deleteCharactersInRange:NSMakeRange(aModel.range.location, 2)] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - 2 textView:textView] ;
+            textView.selectedRange = NSMakeRange(range.location - 2, 0) ;
+            return NO ;
+        }
+        else {
+            NSString *markWillAdd = @"\n" ;
+            for (int i = 1; i < aModel.markIndentationPosition ; i++) {
+                markWillAdd = [markWillAdd stringByAppendingString:@"  "] ;
+            }
+            markWillAdd = [markWillAdd stringByAppendingString:allMarkPreWithoutSpaceBefore] ;
+            //markWillAdd = [markWillAdd stringByAppendingString:@" "] ;
+            [tmpString insertString:markWillAdd atIndex:range.location] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + markWillAdd.length textView:textView] ;
+            textView.selectedRange = NSMakeRange(range.location + markWillAdd.length, 0) ;
+            return NO ;
+        }
+    }
+    
+    //是否嵌套了 引用,列表组合
+    if (aModel.wholeNestCountForquoteAndList > 0) {
+        //1. 先去获得model.str最前面的所有mark
+        NSString *allMarkPre = @"" ;
+        int iLengh = 0 ;
+        while (iLengh < aModel.str.length) {
+            NSString *sub = [aModel.str substringWithRange:NSMakeRange(iLengh, 1)] ;
+            if ([sub isEqualToString:@"*"] || [sub isEqualToString:@"-"] || [sub isEqualToString:@"+"] ||
+                [sub isEqualToString:@" "] ||
+                [sub isEqualToString:@">"] ||
+                [sub isEqualToString:@"."] || [[[NSNumberFormatter alloc] init] numberFromString:sub] != NULL
+                ) {
+                allMarkPre = [allMarkPre stringByAppendingString:sub] ;
+                iLengh ++ ;
+            }
+            else break ;
+        }
+        
+        if ([allMarkPre isEqualToString:aModel.str]) {
+            //2. 当mark和model相同, 退一级 嵌套.
+            NSUInteger iLengh = 0 ; //allMarkPre.length - 1 ;
+            while (iLengh < aModel.str.length) {
+                NSString *aChar = [allMarkPre substringWithRange:NSMakeRange(allMarkPre.length - 1 - iLengh, 1)] ;
+                iLengh ++ ;
+                if (![aChar isEqualToString:@" "]) break ;
+            }
+            [tmpString deleteCharactersInRange:aModel.range] ;
+            allMarkPre = [allMarkPre substringToIndex:aModel.length - iLengh] ;
+            [tmpString insertString:allMarkPre atIndex:aModel.location] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:aModel.location + allMarkPre.length textView:textView] ;
+            textView.selectedRange = NSMakeRange(aModel.location + allMarkPre.length, 0) ;
+        }
+        else {
+            //3. 当mark和model不同, 重复上面的嵌套结构
+            NSLog(@"allMarkPre : %@",allMarkPre) ;
+            allMarkPre = [@"\n" stringByAppendingString:allMarkPre] ;
+            [tmpString insertString:allMarkPre atIndex:range.location] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+            textView.selectedRange = NSMakeRange(range.location + allMarkPre.length, 0) ;
+        }
+        return NO ;
+        
+    }
+    
+    
+    return 100 ; // 未知情况, 传到下一个model去处理
+}
 
 
 

@@ -158,6 +158,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 
 - (void)createDefaultBookAndNotes {
     NoteBooks *book = [[NoteBooks alloc] initWithName:@"小章鱼的笔记本" emoji:@"🐙"] ;
+    book.icRecordName = @"book-default" ; // 默认笔记本 id
     book.isSendOnICloud = NO ;
     [book xt_insert] ;
     
@@ -166,6 +167,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     NSString *str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
     Note *note = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"Intro"] ;
     note.isSendOnICloud = NO ;
+    note.icRecordName = @"iOS-note-intro" ; // 默认文章介绍 id
     [note xt_insert] ;
     
     [[XTCloudHandler sharedInstance] saveList:@[book.record,note.record] deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
