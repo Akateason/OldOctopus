@@ -20,6 +20,7 @@
 #import "AppDelegate.h"
 #import "GuidingVC.h"
 #import "HomeVC.h"
+#import "MDNavVC.h"
 
 
 NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
@@ -149,7 +150,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         [self createDefaultBookAndNotes] ;
         
         GuidingVC *guidVC = [GuidingVC show] ;
-        self.appDelegate.window.rootViewController = guidVC;
+        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
+        self.appDelegate.window.rootViewController = navVC;
         [self.appDelegate.window makeKeyAndVisible];
         
         
@@ -164,7 +166,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     }
     else {
         HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
-        self.appDelegate.window.rootViewController = homeVC;
+        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:homeVC] ;
+        self.appDelegate.window.rootViewController = navVC;
         [self.appDelegate.window makeKeyAndVisible];
         
         [self icloudSync:nil] ;

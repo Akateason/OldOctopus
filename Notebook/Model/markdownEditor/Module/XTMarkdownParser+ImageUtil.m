@@ -17,8 +17,12 @@
 - (NSTextAttachment *)attachmentStandardFromImage:(UIImage *)image {
     NSTextAttachment *attachment = [[NSTextAttachment alloc] init] ;
     attachment.image             = image ;
-    CGFloat tvWid                = APP_WIDTH - 10 - kMDEditor_FlexValue ;
-    CGSize resultImgSize         = CGSizeMake(tvWid, tvWid / image.size.width * image.size.height) ;
+    CGFloat tvWidMax             = APP_WIDTH - 10 - kMDEditor_FlexValue * 2 ;
+    CGFloat imgWid = image.size.width ;
+    CGSize resultImgSize = imgWid > tvWidMax ?
+    CGSizeMake(tvWidMax, tvWidMax / imgWid * image.size.height) :
+    image.size ; // 判断是否超过最大宽度, 按比例显示 .
+    
     CGRect rect                  = (CGRect){CGPointZero, resultImgSize};
     attachment.bounds            = rect;
     return attachment ;
@@ -27,7 +31,6 @@
 - (NSAttributedString *)attrbuteStringWithInlineImageModel:(MdInlineModel *)model image:(UIImage *)image {
     NSTextAttachment *attach = [self attachmentStandardFromImage:image] ;
     NSMutableAttributedString *attrAttach = [[NSAttributedString attributedStringWithAttachment:attach] mutableCopy] ;
-//    NSLog(@"img json : %@",[model yy_modelToJSONObject]) ;
     NSMutableDictionary *jsonObj = [[model yy_modelToJSONObject] mutableCopy] ;
     [jsonObj setValue:@(model.location) forKey:@"location"] ;
     [jsonObj setValue:@(model.length) forKey:@"length"] ;
@@ -105,10 +108,9 @@
             [self.imgManager imageWithUrlStr:imgUrl complete:^(UIImage * _Nonnull image) {
                 @strongify(self)
                 
-                [str beginEditing] ;
                 NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
                 [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
-                [str endEditing] ;
+                
 
                 [self parseTextAndGetModelsInCurrentCursor:str.string textView:textView] ;
             }] ;

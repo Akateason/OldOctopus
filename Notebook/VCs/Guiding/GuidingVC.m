@@ -11,6 +11,7 @@
 #import <EllipsePageControl/EllipsePageControl.h>
 #import "AppDelegate.h"
 #import "HomeVC.h"
+#import "MDNavVC.h"
 
 @interface GuidingVC () <UIScrollViewDelegate, EllipsePageControlDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView ;
@@ -83,9 +84,10 @@ static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay
     [guidView.lbStart bk_whenTapped:^{
 //        [weakSelf dismissViewControllerAnimated:YES completion:^{
 //        }] ;
-        HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
+        HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:weakSelf.class] controllerIdentifier:@"HomeVC"] ;
+        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:homeVC] ;
         AppDelegate *appDelegaete = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
-        appDelegaete.window.rootViewController = homeVC ;
+        appDelegaete.window.rootViewController = navVC ;
         [appDelegaete.window makeKeyAndVisible] ;
     }] ;
     
@@ -99,9 +101,6 @@ static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay
     _pageCtrl.controlSize = 8 ;
     _pageCtrl.controlSpacing = 15 ;
     [self.view addSubview:_pageCtrl] ;
-    
-    
-    
 }
 
 #pragma mark - scrollview

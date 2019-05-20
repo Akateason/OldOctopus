@@ -76,14 +76,14 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     [XTPhotoAlbumVC openAlbumWithConfig:config fromCtrller:self.ctrller willDismiss:NO getResult:^(NSArray<UIImage *> *_Nonnull imageList, NSArray<PHAsset *> *_Nonnull assetList, XTPhotoAlbumVC *vc) {
         if (!imageList) return;
         
-        @weakify(vc)
-        [XTPACropImageVC showFromCtrller:vc imageOrigin:imageList.firstObject croppedImageCallback:^(UIImage *_Nonnull image) {
-            @strongify(vc)
+//        @weakify(vc)
+//        [XTPACropImageVC showFromCtrller:vc imageOrigin:imageList.firstObject croppedImageCallback:^(UIImage *_Nonnull image) {
+//            @strongify(vc)
             dispatch_async(dispatch_get_main_queue(), ^{
                 [vc dismissViewControllerAnimated:YES completion:nil];
-                blkGetImage(image) ;
+                blkGetImage(imageList.firstObject) ;
             }) ;
-        }];
+//        }];
     }];
 }
 
@@ -94,9 +94,9 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
         if (!imageResult) return;
         
         @strongify(self)
-        [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:imageResult croppedImageCallback:^(UIImage *_Nonnull image){
-            blkGetImage(image) ;
-        }];
+//        [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:imageResult croppedImageCallback:^(UIImage *_Nonnull image){
+            blkGetImage(imageResult) ;
+//        }];
     }];
     self.handler = handler;
 }
@@ -198,14 +198,14 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
                                  @strongify(self)
                                  if (result) {
                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                         @weakify(self)
-                                         [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:result croppedImageCallback:^(UIImage *_Nonnull image){
-                                             @strongify(self)
-                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                 self.blkFlowPressed(image) ;
+//                                         @weakify(self)
+//                                         [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:result croppedImageCallback:^(UIImage *_Nonnull image){
+//                                             @strongify(self)
+//                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 self.blkFlowPressed(result) ;
                                                  [self removeFromSuperview] ;
-                                             }) ;
-                                         }];
+//                                             }) ;
+//                                         }];
                                      }) ;
                                  }
                              }] ;

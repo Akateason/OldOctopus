@@ -69,12 +69,11 @@
         [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
-//    [
+
      [[[[[NSNotificationCenter defaultCenter]
     rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
         takeUntil:self.rac_willDeallocSignal]
        deliverOnMainThread]
-//      throttle:.5]
      subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
@@ -430,7 +429,7 @@
         animation.frame = [self.topArea convertRect:self.lbUser.frame fromView:self.topArea] ;
         animation.frame = CGRectMake(animation.frame.origin.x - animateFlex, animation.frame.origin.y - animateFlex, animation.frame.size.width + 2 * animateFlex, animation.frame.size.height + 2 * animateFlex) ;
         _animationSync = animation ;
-        [self.topArea addSubview:_animationSync] ;
+        [self.topArea insertSubview:_animationSync belowSubview:self.lbUser] ;
     }
     return _animationSync ;
 }
