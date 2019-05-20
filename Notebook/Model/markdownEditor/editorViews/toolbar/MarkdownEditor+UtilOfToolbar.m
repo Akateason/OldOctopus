@@ -89,7 +89,7 @@ ASSOCIATED(photoView, setPhotoView, MDEKeyboardPhotoView *, OBJC_ASSOCIATION_RET
 }
 - (void)toolbarDidSelectSepLine {
     NSMutableString *tmpString = [self.text mutableCopy] ;
-    [tmpString insertString:@"\n---\n\n" atIndex:self.selectedRange.location] ;
+    [tmpString insertString:@"\n\n---\n\n" atIndex:self.selectedRange.location] ;
     [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
     self.selectedRange = NSMakeRange(self.selectedRange.location + 6, 0) ;
 }
