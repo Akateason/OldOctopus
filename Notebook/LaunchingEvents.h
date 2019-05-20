@@ -15,13 +15,15 @@
 extern NSString *const kNotificationSyncCompleteAllPageRefresh ;
 extern NSString *const kFirstTimeLaunch ;
 
-@class UIApplication ;
+@class UIApplication, AppDelegate ;
 
 
 
 @interface LaunchingEvents : NSObject
+@property (strong, nonatomic) AppDelegate *appDelegate ;
 
-- (void)setup:(UIApplication *)application ;
+- (void)setup:(UIApplication *)application
+  appdelegate:(AppDelegate *)appDelegate ;
 
 - (void)setupRemoteNotification:(UIApplication *)application ;
 

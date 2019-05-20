@@ -26,7 +26,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
-    [self.launchingEvents setup:application] ;
+    [self.launchingEvents setup:application appdelegate:self] ;
     
     [self test] ;
     return YES;

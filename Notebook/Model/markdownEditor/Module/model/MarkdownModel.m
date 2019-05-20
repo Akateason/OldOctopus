@@ -157,7 +157,7 @@
             shouldChangeTextInRange:(NSRange)range {
     
     NSMutableString *tmpString = [textView.text mutableCopy] ;
-    NSString *insertEnterString = @"\n\n" ;
+    NSString *insertEnterString = @"\n" ;
     
     if (aModel.type == -1) {
         [tmpString insertString:insertEnterString atIndex:range.location] ;

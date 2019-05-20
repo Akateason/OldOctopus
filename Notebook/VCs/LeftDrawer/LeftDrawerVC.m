@@ -173,9 +173,15 @@ typedef void(^BlkTapBookCell)(void);
 - (NoteBooks *)nextUsefulBook {
     if (!_isFirstTime) {
         NSString *value = XT_USERDEFAULT_GET_VAL(kUDCached_lastBook_RecID) ;
-        NoteBooks *book = [NoteBooks xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",value) ] ;
-        if (!book) book = [NoteBooks createOtherBookWithType:value.intValue] ;
-        _isFirstTime = YES ;
+        NoteBooks *book ;
+        if (value) {
+            book = [NoteBooks xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",value)] ;
+            if (!book) book = [NoteBooks createOtherBookWithType:value.intValue] ;
+            _isFirstTime = YES ;
+        }
+        else {
+            book = [NoteBooks xt_findFirstWhere:@"icRecordName == 'book-default'"] ;
+        }
         if (book) return book ;
     }
     
@@ -195,7 +201,7 @@ typedef void(^BlkTapBookCell)(void);
     else {
         cachedValue = currentBook.icRecordName ;
     }
-    XT_USERDEFAULT_SET_VAL(cachedValue, kUDCached_lastBook_RecID) ;
+    if (currentBook.name) XT_USERDEFAULT_SET_VAL(cachedValue, kUDCached_lastBook_RecID) ;
     
     [self.booklist enumerateObjectsUsingBlock:^(NoteBooks  *book, NSUInteger idx, BOOL * _Nonnull stop) {
         book.isOnSelect = NO ;

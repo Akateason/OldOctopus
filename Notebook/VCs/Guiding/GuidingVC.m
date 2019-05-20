@@ -9,6 +9,8 @@
 #import "GuidingVC.h"
 #import "GuidingView.h"
 #import <EllipsePageControl/EllipsePageControl.h>
+#import "AppDelegate.h"
+#import "HomeVC.h"
 
 @interface GuidingVC () <UIScrollViewDelegate, EllipsePageControlDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView ;
@@ -20,16 +22,15 @@
 
 static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay" ;
 
-+ (void)showFromCtrllerIfNeeded:(UIViewController *)ctrller {
++ (GuidingVC *)show {
     NSString *currentVersion = [CommonFunc getVersionStrOfMyAPP] ;
     NSString *versionCached = XT_USERDEFAULT_GET_VAL(kKey_markForGuidingDisplay) ;
-    if ([currentVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending) return ;
+    if ([currentVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending) return nil ;
     
     GuidingVC *vc = [[GuidingVC alloc] init] ;
-    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve ;
-    [ctrller presentViewController:vc animated:NO completion:^{
-    }] ;
+//    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve ;
     XT_USERDEFAULT_SET_VAL(currentVersion, kKey_markForGuidingDisplay) ;
+    return vc ;
 }
 
 
@@ -80,8 +81,12 @@ static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay
     
     WEAK_SELF
     [guidView.lbStart bk_whenTapped:^{
-        [weakSelf dismissViewControllerAnimated:YES completion:^{
-        }] ;
+//        [weakSelf dismissViewControllerAnimated:YES completion:^{
+//        }] ;
+        HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
+        AppDelegate *appDelegaete = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
+        appDelegaete.window.rootViewController = homeVC ;
+        [appDelegaete.window makeKeyAndVisible] ;
     }] ;
     
     

@@ -17,17 +17,20 @@
 #import <XTReq/XTReq.h>
 #import "MDThemeConfiguration.h"
 #import <Bugly/Bugly.h>
-
+#import "AppDelegate.h"
+#import "GuidingVC.h"
+#import "HomeVC.h"
 
 
 NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
 
 @implementation LaunchingEvents
 
-- (void)setup:(UIApplication *)application {
-//    if (!DEBUG)
+- (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate {
+    //    if (!DEBUG)
         [Bugly startWithAppId:@"8abe605307"] ;
 
+    self.appDelegate = appDelegate ;
     [[MDThemeConfiguration sharedInstance] setup] ;
     [self setupRemoteNotification:application] ;
     [self setupDB] ;
@@ -132,9 +135,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 
 - (void)setupIcloudEvent {
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser * _Nonnull user) {
-        NSLog(@"User Logined : %@", [user yy_modelToJSONString]) ;
-        
-        if (user) {
+        NSLog(@"!!! Icloud User Logined : %@", [user yy_modelToJSONString]) ;
+        if (user.userRecordName) {
             [[XTCloudHandler sharedInstance] saveSubscription] ;
             [self pullOrSync] ;
         }
@@ -144,11 +146,14 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 - (void)pullOrSync {
     BOOL fstTimeLaunch = [XT_USERDEFAULT_GET_VAL(kFirstTimeLaunch) intValue] ;
     if (!fstTimeLaunch) {
+        [self createDefaultBookAndNotes] ;
+        
+        GuidingVC *guidVC = [GuidingVC show] ;
+        self.appDelegate.window.rootViewController = guidVC;
+        [self.appDelegate.window makeKeyAndVisible];
+        
+        
         [NoteBooks getFromServerComplete:^(bool hasData) {
-            if (!hasData) {
-                [self createDefaultBookAndNotes] ;
-                return ;
-            }
             
             [Note getFromServerComplete:^{
                 if ([Note xt_count]) XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
@@ -158,12 +163,16 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         }] ;
     }
     else {
+        HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
+        self.appDelegate.window.rootViewController = homeVC;
+        [self.appDelegate.window makeKeyAndVisible];
+        
         [self icloudSync:nil] ;
     }
 }
 
 - (void)createDefaultBookAndNotes {
-    NoteBooks *book = [[NoteBooks alloc] initWithName:@"小章鱼的笔记本" emoji:@"🐙"] ;
+    NoteBooks *book = [[NoteBooks alloc] initWithName:@"小章鱼" emoji:@"🐙"] ;
     book.icRecordName = @"book-default" ; // 默认笔记本 id
     book.isSendOnICloud = NO ;
     [book xt_insert] ;

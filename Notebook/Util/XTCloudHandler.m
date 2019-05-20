@@ -64,6 +64,9 @@ XT_SINGLETON_M(XTCloudHandler)
 }
 
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser {
+//    blkUser(nil) ;
+//    return ;
+    
     XTIcloudUser *user = [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
     if (user != nil) {
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -105,7 +105,7 @@
         dateStr = @"深夜好" ;
     }
     
-    return XT_STR_FORMAT(@"%@，%@",dateStr, [XTIcloudUser userInCacheSyncGet].givenName) ;
+    return XT_STR_FORMAT(@"%@，%@",dateStr, [XTIcloudUser userInCacheSyncGet].givenName ?: @"小章鱼") ;
 }
 
  

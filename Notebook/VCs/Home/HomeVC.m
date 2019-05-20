@@ -25,7 +25,6 @@
 #import "HomeSearchCell.h"
 #import "NewBookVC.h"
 #import <Lottie/Lottie.h>
-#import "GuidingVC.h"
 #import "SchBarPositiveTransition.h"
 #import "TrashEmptyView.h"
 #import "HomeVC+Util.h"
@@ -51,8 +50,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
-    
-    [GuidingVC showFromCtrllerIfNeeded:self] ;
     
     [self leftVC] ;
     self.listNotes = @[] ;
@@ -128,7 +125,7 @@
     }
     
     // note book normal
-    if (self.leftVC.currentBook != nil) {
+    if (self.leftVC.currentBook.name != nil) {
         self.nameOfNoteBook.text = XT_STR_FORMAT(@"%@ %@",self.leftVC.currentBook.displayEmoji,self.leftVC.currentBook.name) ;
     }
     
@@ -373,9 +370,6 @@
                          cell.lbContent.alpha = 1. ;
                      }] ;
 }
-
-
-
 
 #pragma mark - MarkdownVCDelegate <NSObject>
 

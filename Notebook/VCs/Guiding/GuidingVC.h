@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GuidingVC : BasicVC
 
-+ (void)showFromCtrllerIfNeeded:(UIViewController *)ctrller ;
++ (GuidingVC *)show ;
     
 @end
 
