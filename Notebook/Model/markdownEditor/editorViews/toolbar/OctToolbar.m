@@ -70,6 +70,7 @@
 - (void)hideAllBoards {
     [self.inlineBoard removeFromSuperview] ;
     [self.photoView removeFromSuperview] ;
+    [self.blockBoard removeFromSuperview] ;
 }
 
 - (IBAction)inlinestyleAc:(UIButton *)sender {

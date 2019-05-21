@@ -66,24 +66,13 @@
 
 
 
+
 - (CGFloat)keyboardHeight {
     return self->keyboardHeight ;
 }
 
-- (void)showOriginKeyboard {
-    
-}
-
 - (void)hideKeyboard {
     [self resignFirstResponder] ;
-}
-
-- (void)toolbarDidSelectBoardInline {
-    
-}
-
-- (void)toolbarDidSelectBoardBlock {
-    
 }
 
 - (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView  {
@@ -146,42 +135,5 @@
 - (void)toolbarDidSelectRedo {
     [[self undoManager] redo];
 }
-
-
-
-
-//
-//// board 1
-//- (void)toolbarDidSelectClearToCleanPara ;
-//- (void)toolbarDidSelectH1 ;
-//- (void)toolbarDidSelectH2 ;
-//- (void)toolbarDidSelectH3 ;
-//- (void)toolbarDidSelectH4 ;
-//- (void)toolbarDidSelectH5 ;
-//- (void)toolbarDidSelectH6 ;
-//
-//- (void)toolbarDidSelectBold ;
-//- (void)toolbarDidSelectItalic ;
-//- (void)toolbarDidSelectDeletion ;
-//- (void)toolbarDidSelectInlineCode ;
-//
-//
-//// board 2
-//- (void)toolbarDidSelectUList ;
-//- (void)toolbarDidSelectOrderlist ;
-//
-//- (void)toolbarDidSelectLeftTab ;
-//- (void)toolbarDidSelectRightTab ;
-//
-//- (void)toolbarDidSelectTaskList ;
-//- (void)toolbarDidSelectQuoteBlock ;
-//
-//- (void)toolbarDidSelectSepLine ;
-//
-//- (void)toolbarDidSelectCodeBlock ;
-//- (void)toolbarDidSelectLink ;
-//
-
-
 
 @end

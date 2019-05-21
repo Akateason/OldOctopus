@@ -13,32 +13,10 @@
 @protocol OctToolbarDelegate <NSObject>
 
 - (CGFloat)keyboardHeight ;
-
-- (void)showOriginKeyboard ;
 - (void)hideKeyboard ;
-- (void)toolbarDidSelectBoardInline ;
-- (void)toolbarDidSelectBoardBlock ;
 - (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView ;
 - (void)toolbarDidSelectUndo ;
 - (void)toolbarDidSelectRedo ;
-
-
-
-
-// board 2
-- (void)toolbarDidSelectUList ;
-- (void)toolbarDidSelectOrderlist ;
-
-- (void)toolbarDidSelectLeftTab ;
-- (void)toolbarDidSelectRightTab ;
-
-- (void)toolbarDidSelectTaskList ;
-- (void)toolbarDidSelectQuoteBlock ;
-
-- (void)toolbarDidSelectSepLine ;
-
-- (void)toolbarDidSelectCodeBlock ;
-- (void)toolbarDidSelectLink ;
 
 @end
 

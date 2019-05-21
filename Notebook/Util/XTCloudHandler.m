@@ -127,7 +127,7 @@ XT_SINGLETON_M(XTCloudHandler)
                     blkUser(user) ;
                 }) ;
                 
-                if (user.name.length > 0) {
+                if (user.name.length > 0 && user != nil) {
                     [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
                 }
                 

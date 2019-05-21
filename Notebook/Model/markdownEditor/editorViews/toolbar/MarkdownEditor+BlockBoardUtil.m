@@ -21,13 +21,30 @@
 @implementation MarkdownEditor (BlockBoardUtil)
 
 - (void)toolbarDidSelectLeftTab {
-    
+    MarkdownModel *model = [self.parser modelForModelListBlockFirst] ;
+    if (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists) {
+        MdListModel *listModel = (MdListModel *)model ;
+        if (listModel.countForSpace >= 2) {
+            NSMutableString *tmpString = [self.text mutableCopy] ;
+            [tmpString deleteCharactersInRange:NSMakeRange(model.location, 2)] ;
+            [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
+        }
+    }
 }
 
 - (void)toolbarDidSelectRightTab {
-    
+    MarkdownModel *model = [self.parser modelForModelListBlockFirst] ;
+    if (model.type == MarkdownSyntaxOLLists || model.type == MarkdownSyntaxULLists) {
+//        MdListModel *listModel = (MdListModel *)model ;
+        NSMutableString *tmpString = [self.text mutableCopy] ;
+        [tmpString insertString:@"  " atIndex:model.location] ;
+        [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
+    }
 }
-
 
 - (void)toolbarDidSelectSepLine {
     NSMutableString *tmpString = [self.text mutableCopy] ;
@@ -56,8 +73,8 @@
             [tmpString insertString:linkStr atIndex:self.selectedRange.location] ;
         }
         [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
     }] ;
 }
 
