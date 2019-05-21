@@ -126,7 +126,11 @@ XT_SINGLETON_M(XTCloudHandler)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     blkUser(user) ;
                 }) ;
-                [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
+                
+                if (user.name.length > 0) {
+                    [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
+                }
+                
             }] ;
         }] ;
     }] ;
