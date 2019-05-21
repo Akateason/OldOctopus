@@ -255,7 +255,7 @@
     if (!paraModel) {
         [tmpString insertString:@"* " atIndex:editor.selectedRange.location] ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
-        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, 0) ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
         return ;
     }
     
@@ -283,7 +283,7 @@
     if (!paraModel) {
         [tmpString insertString:STR_FORMAT(@"%@. ",orderStr) atIndex:editor.selectedRange.location] ;
         [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
-        editor.selectedRange = NSMakeRange(editor.selectedRange.location + orderStr.length + 1, 0) ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + orderStr.length + 2, 0) ;
         return ;
     }
     
