@@ -8,10 +8,46 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface OctToolbar : UIView
+@class MDEKeyboardPhotoView, MarkdownModel ;
+@protocol OctToolbarDelegate <NSObject>
+
+- (CGFloat)keyboardHeight ;
+
+- (void)showOriginKeyboard ;
+- (void)hideKeyboard ;
+- (void)toolbarDidSelectBoardInline ;
+- (void)toolbarDidSelectBoardBlock ;
+- (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView ;
+- (void)toolbarDidSelectUndo ;
+- (void)toolbarDidSelectRedo ;
+
+
+
+
+// board 2
+- (void)toolbarDidSelectUList ;
+- (void)toolbarDidSelectOrderlist ;
+
+- (void)toolbarDidSelectLeftTab ;
+- (void)toolbarDidSelectRightTab ;
+
+- (void)toolbarDidSelectTaskList ;
+- (void)toolbarDidSelectQuoteBlock ;
+
+- (void)toolbarDidSelectSepLine ;
+
+- (void)toolbarDidSelectCodeBlock ;
+- (void)toolbarDidSelectLink ;
 
 @end
 
-NS_ASSUME_NONNULL_END
+
+@interface OctToolbar : UIView
+@property (nonatomic, weak) id<OctToolbarDelegate> delegate ;
+
+- (void)renderWithModel:(MarkdownModel *)model ;
+- (void)refresh ;
+@end
+
+

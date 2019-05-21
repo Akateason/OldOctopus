@@ -10,7 +10,27 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol OctToolBarInlineViewDelegate <NSObject>
+// board 1
+- (void)toolbarDidSelectClearToCleanPara ;
+- (void)toolbarDidSelectH1 ;
+- (void)toolbarDidSelectH2 ;
+- (void)toolbarDidSelectH3 ;
+- (void)toolbarDidSelectH4 ;
+- (void)toolbarDidSelectH5 ;
+- (void)toolbarDidSelectH6 ;
+
+- (void)toolbarDidSelectBold ;
+- (void)toolbarDidSelectItalic ;
+- (void)toolbarDidSelectDeletion ;
+- (void)toolbarDidSelectInlineCode ;
+@end
+
+@class MarkdownModel ;
+
 @interface OctToolBarInlineView : UIView
+@property (weak, nonatomic) id<OctToolBarInlineViewDelegate> inlineBoard_Delegate ;
+
 @property (weak, nonatomic) IBOutlet UIView *area1;
 @property (weak, nonatomic) IBOutlet UIView *area2;
 @property (weak, nonatomic) IBOutlet UIView *area3;
@@ -31,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btParaClean;
 
 
+- (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;
+- (void)renderWithModel:(MarkdownModel *)model ;
+- (void)clearUI ;
 
 @end
 

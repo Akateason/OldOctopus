@@ -13,13 +13,9 @@
 
 
 
-@interface MarkdownEditor (UtilOfToolbar) <MDToolbarDelegate>
+@interface MarkdownEditor (UtilOfToolbar)
 
-@property (strong, nonatomic) MDEKeyboardPhotoView *photoView ;
-
-- (MarkdownModel *)cleanMarkOfParagraph ;
-- (MarkdownModel *)lastOneParagraphMarkdownModel ;
-- (MarkdownModel *)lastOneParagraphMarkdownModelWithPosition:(NSUInteger)position ;
+//@property (strong, nonatomic) MDEKeyboardPhotoView *photoView ;
 
 
 @end

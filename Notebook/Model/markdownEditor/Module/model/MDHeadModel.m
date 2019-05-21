@@ -8,7 +8,7 @@
 
 #import "MDHeadModel.h"
 #import "MarkdownEditor.h"
-#import "MarkdownEditor+UtilOfToolbar.h"
+#import "MarkdownEditor+OctToolbarUtil.h"
 #import "XTMarkdownParser+Fetcher.h"
 
 @implementation MDHeadModel
@@ -156,8 +156,8 @@
     [tmpString insertString:mark atIndex:paraModel.range.location] ;
     [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:paraModel.range.location textView:editor] ;
     MarkdownModel *model = [editor.parser modelForModelListBlockFirst] ;
-    [editor doSomethingWhenUserSelectPartOfArticle:model] ;
     editor.selectedRange = NSMakeRange(model.range.length + model.range.location, 0) ;
+    [editor doSomethingWhenUserSelectPartOfArticle:model] ;
 }
 
 

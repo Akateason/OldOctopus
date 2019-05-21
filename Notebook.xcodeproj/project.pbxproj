@@ -18,6 +18,13 @@
 		8F07D656224CD8CE005BA86D /* BasicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F07D655224CD8CE005BA86D /* BasicVC.m */; };
 		8F07D658224CF583005BA86D /* ld_bt_recent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F07D657224CF583005BA86D /* ld_bt_recent@2x.png */; };
 		8F07D65A224CF614005BA86D /* ld_bt_trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F07D659224CF614005BA86D /* ld_bt_trash@2x.png */; };
+		8F0FDEC22293CCF600915C21 /* MarkdownEditor+OctToolbarUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0FDEC12293CCF600915C21 /* MarkdownEditor+OctToolbarUtil.m */; };
+		8F0FDEC82293DAA100915C21 /* MarkdownEditor+InlineBoardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0FDEC72293DAA100915C21 /* MarkdownEditor+InlineBoardUtil.m */; };
+		8F0FDECB2293EB7700915C21 /* OctToolbarBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0FDECA2293EB7700915C21 /* OctToolbarBlockView.m */; };
+		8F0FDECD2293EB8700915C21 /* OctToolbarBlockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0FDECC2293EB8700915C21 /* OctToolbarBlockView.xib */; };
+		8F0FDED02293F12400915C21 /* md_r_tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0FDECE2293F12400915C21 /* md_r_tab@2x.png */; };
+		8F0FDED12293F12400915C21 /* md_l_tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0FDECF2293F12400915C21 /* md_l_tab@2x.png */; };
+		8F0FDED42294014F00915C21 /* MarkdownEditor+BlockBoardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0FDED32294014F00915C21 /* MarkdownEditor+BlockBoardUtil.m */; };
 		8F12DA8F226D9F3600265563 /* HomeSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F12DA8D226D9F3600265563 /* HomeSearchCell.m */; };
 		8F12DA90226D9F3600265563 /* HomeSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F12DA8E226D9F3600265563 /* HomeSearchCell.xib */; };
 		8F1357E22292950E00F5F874 /* OctToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1357E12292950E00F5F874 /* OctToolbar.m */; };
@@ -205,6 +212,17 @@
 		8F07D655224CD8CE005BA86D /* BasicVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BasicVC.m; sourceTree = "<group>"; };
 		8F07D657224CF583005BA86D /* ld_bt_recent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_bt_recent@2x.png"; sourceTree = "<group>"; };
 		8F07D659224CF614005BA86D /* ld_bt_trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_bt_trash@2x.png"; sourceTree = "<group>"; };
+		8F0FDEC02293CCF600915C21 /* MarkdownEditor+OctToolbarUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownEditor+OctToolbarUtil.h"; sourceTree = "<group>"; };
+		8F0FDEC12293CCF600915C21 /* MarkdownEditor+OctToolbarUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownEditor+OctToolbarUtil.m"; sourceTree = "<group>"; };
+		8F0FDEC62293DAA100915C21 /* MarkdownEditor+InlineBoardUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownEditor+InlineBoardUtil.h"; sourceTree = "<group>"; };
+		8F0FDEC72293DAA100915C21 /* MarkdownEditor+InlineBoardUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownEditor+InlineBoardUtil.m"; sourceTree = "<group>"; };
+		8F0FDEC92293EB7700915C21 /* OctToolbarBlockView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctToolbarBlockView.h; sourceTree = "<group>"; };
+		8F0FDECA2293EB7700915C21 /* OctToolbarBlockView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctToolbarBlockView.m; sourceTree = "<group>"; };
+		8F0FDECC2293EB8700915C21 /* OctToolbarBlockView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OctToolbarBlockView.xib; sourceTree = "<group>"; };
+		8F0FDECE2293F12400915C21 /* md_r_tab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_r_tab@2x.png"; sourceTree = "<group>"; };
+		8F0FDECF2293F12400915C21 /* md_l_tab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_l_tab@2x.png"; sourceTree = "<group>"; };
+		8F0FDED22294014F00915C21 /* MarkdownEditor+BlockBoardUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownEditor+BlockBoardUtil.h"; sourceTree = "<group>"; };
+		8F0FDED32294014F00915C21 /* MarkdownEditor+BlockBoardUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownEditor+BlockBoardUtil.m"; sourceTree = "<group>"; };
 		8F12DA8C226D9F3600265563 /* HomeSearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSearchCell.h; sourceTree = "<group>"; };
 		8F12DA8D226D9F3600265563 /* HomeSearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSearchCell.m; sourceTree = "<group>"; };
 		8F12DA8E226D9F3600265563 /* HomeSearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeSearchCell.xib; sourceTree = "<group>"; };
@@ -732,6 +750,8 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F0FDECF2293F12400915C21 /* md_l_tab@2x.png */,
+				8F0FDECE2293F12400915C21 /* md_r_tab@2x.png */,
 				8F1357FA2292AE0C00F5F874 /* tb_para_clean@2x.png */,
 				8F1357F022929A5400F5F874 /* tb_hidekb@2x.png */,
 				8F1357EE2292998100F5F874 /* tb_list@2x.png */,
@@ -809,12 +829,21 @@
 				8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */,
 				8F1357F72292AA4200F5F874 /* KeyboardViewButton.h */,
 				8F1357F82292AA4200F5F874 /* KeyboardViewButton.m */,
-				8F1357F22292A33F00F5F874 /* OctToolBarInlineView.h */,
-				8F1357F32292A33F00F5F874 /* OctToolBarInlineView.m */,
-				8F1357F52292A55500F5F874 /* OctToolBarInlineView.xib */,
 				8F1357E02292950E00F5F874 /* OctToolbar.h */,
 				8F1357E12292950E00F5F874 /* OctToolbar.m */,
 				8F1357E32292974600F5F874 /* OctToolbar.xib */,
+				8F1357F22292A33F00F5F874 /* OctToolBarInlineView.h */,
+				8F1357F32292A33F00F5F874 /* OctToolBarInlineView.m */,
+				8F1357F52292A55500F5F874 /* OctToolBarInlineView.xib */,
+				8F0FDEC92293EB7700915C21 /* OctToolbarBlockView.h */,
+				8F0FDECA2293EB7700915C21 /* OctToolbarBlockView.m */,
+				8F0FDECC2293EB8700915C21 /* OctToolbarBlockView.xib */,
+				8F0FDEC02293CCF600915C21 /* MarkdownEditor+OctToolbarUtil.h */,
+				8F0FDEC12293CCF600915C21 /* MarkdownEditor+OctToolbarUtil.m */,
+				8F0FDEC62293DAA100915C21 /* MarkdownEditor+InlineBoardUtil.h */,
+				8F0FDEC72293DAA100915C21 /* MarkdownEditor+InlineBoardUtil.m */,
+				8F0FDED22294014F00915C21 /* MarkdownEditor+BlockBoardUtil.h */,
+				8F0FDED32294014F00915C21 /* MarkdownEditor+BlockBoardUtil.m */,
 			);
 			path = toolbar;
 			sourceTree = "<group>";
@@ -1154,6 +1183,7 @@
 				8F7A84792244E1EB0099E905 /* md_tb_bt_quote@2x.png in Resources */,
 				8FA2295A22646A9500D736E2 /* ArticleInfoVC.xib in Resources */,
 				8F7A84852244E2550099E905 /* md_tb_bt_h3@2x.png in Resources */,
+				8F0FDECD2293EB8700915C21 /* OctToolbarBlockView.xib in Resources */,
 				8FE5A3EC224CA78100947D14 /* LDHeadView.xib in Resources */,
 				8F7A84722244E1EB0099E905 /* md_tb_bt_h5@2x.png in Resources */,
 				8FFBBB3F224A4CD900A304C7 /* MDEKeyboardPhotoView.xib in Resources */,
@@ -1180,11 +1210,13 @@
 				8FC431202265B8330002C9A1 /* md_home_search@2x.png in Resources */,
 				8F1357E42292974600F5F874 /* OctToolbar.xib in Resources */,
 				8F2A2675226EEC010076EBA4 /* guiding_img_2@2x.png in Resources */,
+				8F0FDED02293F12400915C21 /* md_r_tab@2x.png in Resources */,
 				8FA142042271C5E400A23873 /* book_empty_write_icon@2x.png in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
 				8F6863C52266FB2700261626 /* search_empty@2x.png in Resources */,
 				8FFBBB4A224B278000A304C7 /* MDEKPhotoViewCell.xib in Resources */,
 				8F30399A225217AB00DEB656 /* HomeEmptyPHView.xib in Resources */,
+				8F0FDED12293F12400915C21 /* md_l_tab@2x.png in Resources */,
 				8F931B9D228E90CF00F73219 /* home_cell_top_corner@2x.png in Resources */,
 				8F2A2671226EE88F0076EBA4 /* GuidingView.xib in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
@@ -1318,11 +1350,13 @@
 			files = (
 				8FACF6DB221E8D610067DDA4 /* UIFont+RichTextEditor.m in Sources */,
 				8F679E182238F047008DE1BC /* MDThemeConfiguration.m in Sources */,
+				8F0FDEC22293CCF600915C21 /* MarkdownEditor+OctToolbarUtil.m in Sources */,
 				8FE5A3E4224CA4CC00947D14 /* LeftDrawerVC.m in Sources */,
 				8F07D653224CCED4005BA86D /* NoteBooks.m in Sources */,
 				8F679E2B2238FA17008DE1BC /* MdOtherModel.m in Sources */,
 				8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */,
 				8FEA9E4C225B27C1002A756B /* EmojiJson.m in Sources */,
+				8F0FDEC82293DAA100915C21 /* MarkdownEditor+InlineBoardUtil.m in Sources */,
 				8F6863C922671D0600261626 /* LDSepLineCell.m in Sources */,
 				8F7A844B2244CA5F0099E905 /* MDToolbar.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
@@ -1341,6 +1375,7 @@
 				8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,
 				8F41EECF225B47AE00D9CD35 /* MoveNoteToBookVC.m in Sources */,
+				8F0FDECB2293EB7700915C21 /* OctToolbarBlockView.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
 				8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */,
 				8F7A8443224235960099E905 /* MDImageManager.m in Sources */,
@@ -1378,6 +1413,7 @@
 				8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,
 				8FA2295922646A9500D736E2 /* ArticleInfoVC.m in Sources */,
+				8F0FDED42294014F00915C21 /* MarkdownEditor+BlockBoardUtil.m in Sources */,
 				8FA1420B2271D44D00A23873 /* TrashEmptyView.m in Sources */,
 				8FE5A3F0224CA86A00947D14 /* LDNotebookCell.m in Sources */,
 				8FACF6CC221E7BEE0067DDA4 /* NBRichTextEditor.m in Sources */,

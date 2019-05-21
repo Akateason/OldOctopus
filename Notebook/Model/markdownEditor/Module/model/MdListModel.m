@@ -9,7 +9,7 @@
 #import "MdListModel.h"
 #import <XTlib/XTlib.h>
 #import "MarkdownEditor.h"
-#import "MarkdownEditor+UtilOfToolbar.h"
+#import "MarkdownEditor+OctToolbarUtil.h"
 #import "XTMarkdownParser+Fetcher.h"
 
 @implementation MdListModel

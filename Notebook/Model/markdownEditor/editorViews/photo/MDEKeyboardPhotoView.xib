@@ -16,19 +16,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mdo-GS-Ulm">
-                    <rect key="frame" x="0.0" y="230" width="375" height="50"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="h80-28-S2y"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <state key="normal" title="取消">
-                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                    </state>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PqK-bz-iXu">
-                    <rect key="frame" x="0.0" y="160" width="375" height="100"/>
+                    <rect key="frame" x="0.0" y="151" width="375" height="100"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uBq-FU-Z8e">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -106,7 +95,7 @@
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="VqO-MH-tX7">
-                    <rect key="frame" x="0.0" y="44" width="375" height="116"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="116"/>
                     <color key="backgroundColor" red="0.96857684850000003" green="0.96866267920000004" blue="0.96850520370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="116" id="qeY-3T-PbR"/>
@@ -123,20 +112,16 @@
             <constraints>
                 <constraint firstItem="PqK-bz-iXu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="2JR-IQ-qax"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VqO-MH-tX7" secondAttribute="trailing" id="FOX-yS-hJf"/>
-                <constraint firstItem="PqK-bz-iXu" firstAttribute="top" secondItem="VqO-MH-tX7" secondAttribute="bottom" id="LAM-Tg-KRt"/>
+                <constraint firstItem="PqK-bz-iXu" firstAttribute="top" secondItem="VqO-MH-tX7" secondAttribute="bottom" constant="15" id="LAM-Tg-KRt"/>
                 <constraint firstItem="PqK-bz-iXu" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="OPi-Eu-7hk"/>
                 <constraint firstItem="VqO-MH-tX7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="PK1-tt-3eQ"/>
-                <constraint firstItem="mdo-GS-Ulm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Xlj-14-aPt"/>
-                <constraint firstItem="mdo-GS-Ulm" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="e5L-ug-moO"/>
-                <constraint firstItem="VqO-MH-tX7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="hbh-qh-a6t"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mdo-GS-Ulm" secondAttribute="trailing" id="pym-dc-Q6S"/>
+                <constraint firstItem="VqO-MH-tX7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="hbh-qh-a6t"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="btCancel" destination="mdo-GS-Ulm" id="Sct-PO-BI3"/>
                 <outlet property="btViewAlbum" destination="ixB-Vs-EZp" id="Wmt-tk-tlg"/>
                 <outlet property="btViewCamera" destination="uBq-FU-Z8e" id="QW6-dL-qV6"/>
                 <outlet property="collectionView" destination="VqO-MH-tX7" id="NAo-7d-eib"/>
@@ -146,7 +131,7 @@
         </view>
     </objects>
     <resources>
-        <image name="md_tb_bt_camera.png" width="20" height="20"/>
+        <image name="md_tb_bt_camera.png" width="40" height="40"/>
         <image name="md_tb_bt_photo.png" width="20" height="20"/>
     </resources>
 </document>

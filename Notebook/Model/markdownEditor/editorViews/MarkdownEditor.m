@@ -182,7 +182,7 @@ static const int kTag_HrView            = 60000 ;
     // left lb
     [self drawLeftDisplayLabel:model] ;
     // render toolbar
-//    [self.toolBar renderWithModel:model] ;
+    [self.toolBar renderWithModel:model] ;
     // edit a link
     [self clickALinkModel:(MdInlineModel *)model] ;
 }
@@ -275,6 +275,7 @@ static const int kTag_HrView            = 60000 ;
 }
 
 - (BOOL)canBecomeFirstResponder {
+    [self.toolBar refresh] ;
     self.inputAccessoryView = self.toolBar ;
     // Redraw in case enabbled features have changes
     return [super canBecomeFirstResponder] ;
@@ -325,7 +326,7 @@ static const int kTag_HrView            = 60000 ;
     if (!_toolBar) {
         _toolBar = [OctToolbar xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         _toolBar.frame = CGRectMake(0, 0, [self.class currentScreenBoundsDependOnOrientation].size.width, 41) ;
-//        _toolBar.mdt_delegate = self ;
+        _toolBar.delegate = self ;
     }
     return _toolBar ;
 }
