@@ -201,7 +201,7 @@ static const int kTagOfButton = 88390 ;
             
         case MDB_Undo: imgStr = @"md_tb_bt_undo" ; break ;
         case MDB_Redo: imgStr = @"md_tb_bt_redo" ; break ;
-
+            
         default:
             break;
     }
@@ -227,10 +227,6 @@ static const int kTagOfButton = 88390 ;
         }
 
     }] ;
-    
-    
-
-    
 }
 
 - (UIScrollView *)scrollview{

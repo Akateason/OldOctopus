@@ -11,7 +11,6 @@
 #import <XTlib/XTlib.h>
 #import "MdListModel.h"
 #import <BlocksKit+UIKit.h>
-#import "MDToolbar.h"
 #import "MDEditUrlView.h"
 #import "MarkdownEditor+UtilOfToolbar.h"
 #import "MdInlineModel.h"
@@ -26,6 +25,8 @@
 #import <SafariServices/SafariServices.h>
 #import "HrView.h"
 #import "MDHeadModel.h"
+//#import "MDToolbar.h"
+#import "OctToolbar.h"
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue       = 30.f  ;
@@ -37,7 +38,7 @@ static const int kTag_HrView            = 60000 ;
 
 @interface MarkdownEditor ()<XTMarkdownParserDelegate, UITextViewDelegate>
 @property (strong, nonatomic) UIImageView   *imgLeftCornerMarker ;
-@property (strong, nonatomic) MDToolbar     *toolBar ;
+@property (strong, nonatomic) OctToolbar     *toolBar ;
 
 @end
 
@@ -181,7 +182,7 @@ static const int kTag_HrView            = 60000 ;
     // left lb
     [self drawLeftDisplayLabel:model] ;
     // render toolbar
-    [self.toolBar renderWithModel:model] ;
+//    [self.toolBar renderWithModel:model] ;
     // edit a link
     [self clickALinkModel:(MdInlineModel *)model] ;
 }
@@ -320,11 +321,11 @@ static const int kTag_HrView            = 60000 ;
     }
 }
 
-- (MDToolbar *)toolBar {
+- (OctToolbar *)toolBar {
     if (!_toolBar) {
-        _toolBar = [[MDToolbar alloc] initWithConfigList:nil] ;
+        _toolBar = [OctToolbar xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         _toolBar.frame = CGRectMake(0, 0, [self.class currentScreenBoundsDependOnOrientation].size.width, 41) ;
-        _toolBar.mdt_delegate = self ;
+//        _toolBar.mdt_delegate = self ;
     }
     return _toolBar ;
 }

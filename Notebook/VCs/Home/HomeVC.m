@@ -69,7 +69,7 @@
         [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
-
+    
      [[[[[NSNotificationCenter defaultCenter]
     rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
         takeUntil:self.rac_willDeallocSignal]

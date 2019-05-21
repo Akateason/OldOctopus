@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="OctToolbar">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JCR-rW-dpb">
+                    <rect key="frame" x="17" y="0.0" width="380" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cth-Ci-PD1">
+                            <rect key="frame" x="0.0" y="9" width="54.5" height="22"/>
+                            <state key="normal" image="tb_abc.png"/>
+                            <connections>
+                                <action selector="showKeyboardAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="cyW-PD-ZEQ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vT2-Nk-ruz">
+                            <rect key="frame" x="54.5" y="9" width="54" height="22"/>
+                            <state key="normal" image="tb_inlinetext.png"/>
+                            <connections>
+                                <action selector="inlinestyleAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="iv3-uy-z1d"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rY5-Bk-thG">
+                            <rect key="frame" x="108.5" y="9" width="54.5" height="22"/>
+                            <state key="normal" image="md_tb_bt_olist.png"/>
+                            <connections>
+                                <action selector="listAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="32b-kf-2t5"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fI-aD-Sw2">
+                            <rect key="frame" x="163" y="9" width="54" height="22"/>
+                            <state key="normal" image="md_tb_bt_photo.png"/>
+                            <connections>
+                                <action selector="photoAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="2SX-EH-c8G"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygM-gy-8u2">
+                            <rect key="frame" x="217" y="9" width="54.5" height="22"/>
+                            <state key="normal" image="md_tb_bt_undo.png"/>
+                            <connections>
+                                <action selector="undoAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="42f-Jy-GP5"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AaF-Dn-av8">
+                            <rect key="frame" x="271.5" y="9" width="54" height="22"/>
+                            <state key="normal" image="md_tb_bt_redo.png"/>
+                            <connections>
+                                <action selector="redoAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="UbN-i4-XkE"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZi-jW-PZY">
+                            <rect key="frame" x="325.5" y="9" width="54.5" height="22"/>
+                            <state key="normal" image="tb_hidekb.png"/>
+                            <connections>
+                                <action selector="hideKeyboardAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="T3c-Ki-DFA"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="JCR-rW-dpb" secondAttribute="bottom" id="Dy5-sX-9at"/>
+                <constraint firstItem="JCR-rW-dpb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Gno-oc-W2U"/>
+                <constraint firstItem="JCR-rW-dpb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="17" id="h23-CH-4se"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="JCR-rW-dpb" secondAttribute="trailing" constant="17" id="nTP-n3-lqB"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="btHideKeyboard" destination="tZi-jW-PZY" id="iA1-gu-JcD"/>
+                <outlet property="btInlineStyle" destination="vT2-Nk-ruz" id="Teg-ys-WT8"/>
+                <outlet property="btList" destination="rY5-Bk-thG" id="EZD-FP-00I"/>
+                <outlet property="btPhoto" destination="5fI-aD-Sw2" id="ZxI-mP-jgG"/>
+                <outlet property="btRedo" destination="AaF-Dn-av8" id="V6N-eI-o9G"/>
+                <outlet property="btShowKeyboard" destination="cth-Ci-PD1" id="xNa-7f-fMQ"/>
+                <outlet property="btUndo" destination="ygM-gy-8u2" id="C4h-g6-0cd"/>
+            </connections>
+            <point key="canvasLocation" x="34.782608695652179" y="110.49107142857143"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="md_tb_bt_olist.png" width="20" height="20"/>
+        <image name="md_tb_bt_photo.png" width="20" height="20"/>
+        <image name="md_tb_bt_redo.png" width="20" height="20"/>
+        <image name="md_tb_bt_undo.png" width="20" height="20"/>
+        <image name="tb_abc.png" width="27" height="20"/>
+        <image name="tb_hidekb.png" width="20" height="20"/>
+        <image name="tb_inlinetext.png" width="20" height="20"/>
+    </resources>
+</document>

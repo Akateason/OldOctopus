@@ -25,35 +25,35 @@
     self.layer.masksToBounds = xt_completeRound;
 }
 - (BOOL)xt_completeRound {
-    return self.xt_completeRound;
+    return CGRectGetHeight(self.bounds) / 2.f == self.layer.cornerRadius ;
 }
 
 - (void)setXt_cornerRadius:(float)xt_cornerRadius {
     self.layer.cornerRadius = xt_cornerRadius;
 }
 - (float)xt_cornerRadius {
-    return self.xt_cornerRadius;
+    return self.layer.cornerRadius;
 }
 
 - (void)setXt_borderWidth:(float)xt_borderWidth {
     self.layer.borderWidth = xt_borderWidth;
 }
 - (float)xt_borderWidth {
-    return self.xt_borderWidth;
+    return self.layer.borderWidth;
 }
 
 - (void)setXt_borderColor:(UIColor *)xt_borderColor {
     self.layer.borderColor = xt_borderColor.CGColor;
 }
 - (UIColor *)xt_borderColor {
-    return self.xt_borderColor;
+    return [UIColor colorWithCGColor:self.layer.borderColor];
 }
 
 - (void)setXt_maskToBounds:(BOOL)xt_maskToBounds {
     self.layer.masksToBounds = xt_maskToBounds;
 }
 - (BOOL)xt_maskToBounds {
-    return self.xt_maskToBounds;
+    return self.layer.masksToBounds;
 }
 
 ASSOCIATED_CGPOINT(xt_gradientPt0, setXt_gradientPt0);

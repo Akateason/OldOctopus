@@ -20,6 +20,16 @@
 		8F07D65A224CF614005BA86D /* ld_bt_trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F07D659224CF614005BA86D /* ld_bt_trash@2x.png */; };
 		8F12DA8F226D9F3600265563 /* HomeSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F12DA8D226D9F3600265563 /* HomeSearchCell.m */; };
 		8F12DA90226D9F3600265563 /* HomeSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F12DA8E226D9F3600265563 /* HomeSearchCell.xib */; };
+		8F1357E22292950E00F5F874 /* OctToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1357E12292950E00F5F874 /* OctToolbar.m */; };
+		8F1357E42292974600F5F874 /* OctToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1357E32292974600F5F874 /* OctToolbar.xib */; };
+		8F1357E92292988300F5F874 /* tb_abc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1357E82292988300F5F874 /* tb_abc@2x.png */; };
+		8F1357ED229298F700F5F874 /* tb_inlinetext@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1357EC229298F700F5F874 /* tb_inlinetext@2x.png */; };
+		8F1357EF2292998100F5F874 /* tb_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1357EE2292998100F5F874 /* tb_list@2x.png */; };
+		8F1357F122929A5400F5F874 /* tb_hidekb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1357F022929A5400F5F874 /* tb_hidekb@2x.png */; };
+		8F1357F42292A33F00F5F874 /* OctToolBarInlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1357F32292A33F00F5F874 /* OctToolBarInlineView.m */; };
+		8F1357F62292A55500F5F874 /* OctToolBarInlineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1357F52292A55500F5F874 /* OctToolBarInlineView.xib */; };
+		8F1357F92292AA4200F5F874 /* KeyboardViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1357F82292AA4200F5F874 /* KeyboardViewButton.m */; };
+		8F1357FB2292AE0C00F5F874 /* tb_para_clean@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1357FA2292AE0C00F5F874 /* tb_para_clean@2x.png */; };
 		8F19E10D22819AB000121851 /* ArticlePhotoPreviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F19E10C22819AB000121851 /* ArticlePhotoPreviewVC.m */; };
 		8F19E11022829C3100121851 /* photo_preview_bt_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F19E10E22829C3100121851 /* photo_preview_bt_delete@2x.png */; };
 		8F19E11122829C3100121851 /* photo_preview_bt_download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F19E10F22829C3100121851 /* photo_preview_bt_download@2x.png */; };
@@ -198,6 +208,19 @@
 		8F12DA8C226D9F3600265563 /* HomeSearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSearchCell.h; sourceTree = "<group>"; };
 		8F12DA8D226D9F3600265563 /* HomeSearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSearchCell.m; sourceTree = "<group>"; };
 		8F12DA8E226D9F3600265563 /* HomeSearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeSearchCell.xib; sourceTree = "<group>"; };
+		8F1357E02292950E00F5F874 /* OctToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctToolbar.h; sourceTree = "<group>"; };
+		8F1357E12292950E00F5F874 /* OctToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctToolbar.m; sourceTree = "<group>"; };
+		8F1357E32292974600F5F874 /* OctToolbar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OctToolbar.xib; sourceTree = "<group>"; };
+		8F1357E82292988300F5F874 /* tb_abc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb_abc@2x.png"; sourceTree = "<group>"; };
+		8F1357EC229298F700F5F874 /* tb_inlinetext@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb_inlinetext@2x.png"; sourceTree = "<group>"; };
+		8F1357EE2292998100F5F874 /* tb_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb_list@2x.png"; sourceTree = "<group>"; };
+		8F1357F022929A5400F5F874 /* tb_hidekb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb_hidekb@2x.png"; sourceTree = "<group>"; };
+		8F1357F22292A33F00F5F874 /* OctToolBarInlineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctToolBarInlineView.h; sourceTree = "<group>"; };
+		8F1357F32292A33F00F5F874 /* OctToolBarInlineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctToolBarInlineView.m; sourceTree = "<group>"; };
+		8F1357F52292A55500F5F874 /* OctToolBarInlineView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OctToolBarInlineView.xib; sourceTree = "<group>"; };
+		8F1357F72292AA4200F5F874 /* KeyboardViewButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewButton.h; sourceTree = "<group>"; };
+		8F1357F82292AA4200F5F874 /* KeyboardViewButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewButton.m; sourceTree = "<group>"; };
+		8F1357FA2292AE0C00F5F874 /* tb_para_clean@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb_para_clean@2x.png"; sourceTree = "<group>"; };
 		8F19E10B22819AB000121851 /* ArticlePhotoPreviewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticlePhotoPreviewVC.h; sourceTree = "<group>"; };
 		8F19E10C22819AB000121851 /* ArticlePhotoPreviewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticlePhotoPreviewVC.m; sourceTree = "<group>"; };
 		8F19E10E22829C3100121851 /* photo_preview_bt_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_preview_bt_delete@2x.png"; sourceTree = "<group>"; };
@@ -709,6 +732,11 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F1357FA2292AE0C00F5F874 /* tb_para_clean@2x.png */,
+				8F1357F022929A5400F5F874 /* tb_hidekb@2x.png */,
+				8F1357EE2292998100F5F874 /* tb_list@2x.png */,
+				8F1357EC229298F700F5F874 /* tb_inlinetext@2x.png */,
+				8F1357E82292988300F5F874 /* tb_abc@2x.png */,
 				8F931B9C228E90CF00F73219 /* home_cell_top_corner@2x.png */,
 				8F931B9A228E89F800F73219 /* home_top_note@2x.png */,
 				8F19E10E22829C3100121851 /* photo_preview_bt_delete@2x.png */,
@@ -775,10 +803,18 @@
 		8F8089572281976100AA13BA /* toolbar */ = {
 			isa = PBXGroup;
 			children = (
-				8F0688EC2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.h */,
-				8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */,
 				8F7A84492244CA5F0099E905 /* MDToolbar.h */,
 				8F7A844A2244CA5F0099E905 /* MDToolbar.m */,
+				8F0688EC2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.h */,
+				8F0688ED2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m */,
+				8F1357F72292AA4200F5F874 /* KeyboardViewButton.h */,
+				8F1357F82292AA4200F5F874 /* KeyboardViewButton.m */,
+				8F1357F22292A33F00F5F874 /* OctToolBarInlineView.h */,
+				8F1357F32292A33F00F5F874 /* OctToolBarInlineView.m */,
+				8F1357F52292A55500F5F874 /* OctToolBarInlineView.xib */,
+				8F1357E02292950E00F5F874 /* OctToolbar.h */,
+				8F1357E12292950E00F5F874 /* OctToolbar.m */,
+				8F1357E32292974600F5F874 /* OctToolbar.xib */,
 			);
 			path = toolbar;
 			sourceTree = "<group>";
@@ -1076,6 +1112,7 @@
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
 				8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */,
 				8FA142082271D3D100A23873 /* emty_trash_bg@2x.png in Resources */,
+				8F1357EF2292998100F5F874 /* tb_list@2x.png in Resources */,
 				8FA142062271D2EE00A23873 /* TrashEmptyView.xib in Resources */,
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
 				8F41EED1225B487300D9CD35 /* m_note_close@2x.png in Resources */,
@@ -1086,6 +1123,7 @@
 				8F679E1222363EB7008DE1BC /* zample.md in Resources */,
 				8FE5A3F1224CA86A00947D14 /* LDNotebookCell.xib in Resources */,
 				8F00DD73226F0F780028B5BA /* launchingImage@2x.png in Resources */,
+				8F1357FB2292AE0C00F5F874 /* tb_para_clean@2x.png in Resources */,
 				8F7A84932244E4DA0099E905 /* md_tb_bt_underline@2x.png in Resources */,
 				8F41EED3225B4B6200D9CD35 /* m_note_right_paint@2x.png in Resources */,
 				8F19E11122829C3100121851 /* photo_preview_bt_download@2x.png in Resources */,
@@ -1110,6 +1148,7 @@
 				8F7A843F2240C7470099E905 /* check-box-on@2x.png in Resources */,
 				8F7A848F2244E4510099E905 /* md_tb_bt_link@2x.png in Resources */,
 				8F7A848D2244E44B0099E905 /* md_tb_bt_italic@2x.png in Resources */,
+				8F1357E92292988300F5F874 /* tb_abc@2x.png in Resources */,
 				8F7A847D2244E1EB0099E905 /* md_tb_bt_ulist@2x.png in Resources */,
 				8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */,
 				8F7A84792244E1EB0099E905 /* md_tb_bt_quote@2x.png in Resources */,
@@ -1128,15 +1167,18 @@
 				8F7A847C2244E1EB0099E905 /* md_tb_bt_tasklist@2x.png in Resources */,
 				8FEA9E392254D11B002A756B /* home_title_add@2x.png in Resources */,
 				8FA229452260628200D736E2 /* themeDefault.json in Resources */,
+				8F1357ED229298F700F5F874 /* tb_inlinetext@2x.png in Resources */,
 				8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
 				8F2A2673226EE98D0076EBA4 /* guiding_img_1@2x.png in Resources */,
+				8F1357F62292A55500F5F874 /* OctToolBarInlineView.xib in Resources */,
 				8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */,
 				8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */,
 				8FC431222265B9FA0002C9A1 /* home_bar_add@2x.png in Resources */,
 				8FA232D7224E07C400163685 /* NoteCell.xib in Resources */,
 				8F7A84712244E1EB0099E905 /* md_tb_bt_olist@2x.png in Resources */,
 				8FC431202265B8330002C9A1 /* md_home_search@2x.png in Resources */,
+				8F1357E42292974600F5F874 /* OctToolbar.xib in Resources */,
 				8F2A2675226EEC010076EBA4 /* guiding_img_2@2x.png in Resources */,
 				8FA142042271C5E400A23873 /* book_empty_write_icon@2x.png in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
@@ -1146,6 +1188,7 @@
 				8F931B9D228E90CF00F73219 /* home_cell_top_corner@2x.png in Resources */,
 				8F2A2671226EE88F0076EBA4 /* GuidingView.xib in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
+				8F1357F122929A5400F5F874 /* tb_hidekb@2x.png in Resources */,
 				8F6863CA22671D0600261626 /* LDSepLineCell.xib in Resources */,
 				8F7A84892244E4380099E905 /* md_tb_bt_bold@2x.png in Resources */,
 			);
@@ -1283,6 +1326,7 @@
 				8F6863C922671D0600261626 /* LDSepLineCell.m in Sources */,
 				8F7A844B2244CA5F0099E905 /* MDToolbar.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
+				8F1357F92292AA4200F5F874 /* KeyboardViewButton.m in Sources */,
 				8F0688EE2248D5E800A7B183 /* MarkdownEditor+UtilOfToolbar.m in Sources */,
 				8F05C57F22754F150047CC04 /* XTMarkdownParser+ImageUtil.m in Sources */,
 				8F6863C22266FA7A00261626 /* SearchEmptyVC.m in Sources */,
@@ -1320,6 +1364,7 @@
 				8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */,
 				8F19E10D22819AB000121851 /* ArticlePhotoPreviewVC.m in Sources */,
 				8FACF6DF222002BB0067DDA4 /* NBRTEColorPickerView.m in Sources */,
+				8F1357E22292950E00F5F874 /* OctToolbar.m in Sources */,
 				8F12DA8F226D9F3600265563 /* HomeSearchCell.m in Sources */,
 				8FBA041E228A98B200EED229 /* HrView.m in Sources */,
 				8F41EEC7225B3B7500D9CD35 /* SWRevealTableViewCell.m in Sources */,
@@ -1328,6 +1373,7 @@
 				8FE5A3D9224B6CE800947D14 /* HomeVC.m in Sources */,
 				8FA229482260640700D736E2 /* MDEditorTheme.m in Sources */,
 				8F79AE77226881F000E8FD0D /* UIView+OctupusExtension.m in Sources */,
+				8F1357F42292A33F00F5F874 /* OctToolBarInlineView.m in Sources */,
 				8FACF6D2221E8C4A0067DDA4 /* UITextView+XTAddition.m in Sources */,
 				8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,
