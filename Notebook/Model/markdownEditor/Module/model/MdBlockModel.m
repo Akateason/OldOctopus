@@ -280,7 +280,7 @@
             return NO ;
         }
         else {
-            if (aModel.type == MarkdownSyntaxOLLists) {
+            if (aModel.type == MarkdownSyntaxOLLists && aModel.subBlkModel == nil) {
                 int countForOL = [[[allMarkPreWithoutSpaceBefore componentsSeparatedByString:@"."] firstObject] intValue] ;
                 countForOL ++ ;
                 allMarkPreWithoutSpaceBefore = XT_STR_FORMAT(@"%d.",countForOL) ;
