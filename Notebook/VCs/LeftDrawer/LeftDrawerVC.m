@@ -321,7 +321,7 @@ typedef void(^BlkTapBookCell)(void);
 }
 
 - (NSArray*)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell {
-    UIColor *itemBgColor = UIColorRGBA(24, 18, 17, .03) ;
+    UIColor *itemBgColor = XT_MD_THEME_COLOR_KEY_A(k_md_drawerColor, 1) ;
     
     SWCellButtonItem *item1 = [SWCellButtonItem itemWithImage:[UIImage imageNamed:@"home_del_note"] handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
 // delete book

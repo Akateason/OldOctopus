@@ -25,6 +25,7 @@
 - (void)toolbarDidSelectClearToCleanPara {
     MarkdownModel *model = [self cleanMarkOfParagraph] ;
     self.selectedRange = NSMakeRange(model.range.location + model.range.length, 0) ;
+    [self doSomethingWhenUserSelectPartOfArticle:model] ;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
 }

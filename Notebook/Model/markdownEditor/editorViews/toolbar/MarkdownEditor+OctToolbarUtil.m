@@ -43,6 +43,7 @@
         tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@" "] firstObject] ;
         [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
         blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 1)) ;
+        blkModel.type = -1 ;
     }
     [self.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:blkModel.range.location textView:self] ;
     self.selectedRange = NSMakeRange(blkModel.range.location + blkModel.range.length, 0) ;
