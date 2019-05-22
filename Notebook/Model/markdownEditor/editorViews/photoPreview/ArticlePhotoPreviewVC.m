@@ -60,7 +60,7 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
         [bt mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(32, 32)) ;
             make.left.equalTo(self.view).offset(18) ;
-            make.bottom.equalTo(self.view.mas_bottomMargin).offset(18) ;
+            make.bottom.equalTo(self.view.mas_bottomMargin).offset(-18) ;
         }] ;
         bt ;
     }) ;
@@ -76,7 +76,7 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
         [bt mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(32, 32)) ;
             make.right.equalTo(self.view).offset(-18) ;
-            make.bottom.equalTo(self.view.mas_bottomMargin).offset(18) ;
+            make.bottom.equalTo(self.view.mas_bottomMargin).offset(-18) ;
         }] ;
         bt ;
     }) ;
