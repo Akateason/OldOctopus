@@ -8,7 +8,7 @@
 
 #import "MarkdownVC.h"
 #import "MarkdownEditor.h"
-#import "MarkdownEditor+UtilOfToolbar.h"
+#import "MarkdownEditor+OctToolbarUtil.h"
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>

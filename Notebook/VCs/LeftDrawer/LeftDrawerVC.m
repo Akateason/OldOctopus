@@ -321,6 +321,8 @@ typedef void(^BlkTapBookCell)(void);
 }
 
 - (NSArray*)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell {
+    UIColor *itemBgColor = UIColorRGBA(24, 18, 17, .03) ;
+    
     SWCellButtonItem *item1 = [SWCellButtonItem itemWithImage:[UIImage imageNamed:@"home_del_note"] handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
 // delete book
         NoteBooks *aBook = ((LDNotebookCell *)cell).xt_model ;
@@ -336,8 +338,8 @@ typedef void(^BlkTapBookCell)(void);
         }] ;
         return YES ;
     }] ;
-    item1.xt_theme_backgroundColor = k_md_themeColor ;    
-    item1.tintColor = [UIColor whiteColor];
+    item1.backgroundColor = itemBgColor ;
+    item1.tintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
     item1.width = 60;
     
     SWCellButtonItem *item2 = [SWCellButtonItem itemWithImage:[UIImage imageNamed:@"home_edit_book"] handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
@@ -346,8 +348,8 @@ typedef void(^BlkTapBookCell)(void);
         [self editBook:aBook] ;
         return YES ;
     }] ;
-    item2.backgroundColor = [UIColor colorWithWhite:0 alpha:.6];
-    item2.tintColor = [UIColor whiteColor];
+    item2.backgroundColor = itemBgColor ;
+    item2.tintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
     item2.width = 60;
     return @[item1, item2] ;
 }

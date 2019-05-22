@@ -43,7 +43,7 @@
         item1.image = [UIImage imageNamed:@"home_del_note"] ;
         
         
-        SWCellButtonItem *item2 = [SWCellButtonItem itemWithTitle:@"恢复笔记" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
+        SWCellButtonItem *item2 = [SWCellButtonItem itemWithTitle:@"恢复" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
             __block Note *aNote = ((NoteCell *)cell).xt_model ;
             // Move Note
             [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要恢复此文章吗?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {

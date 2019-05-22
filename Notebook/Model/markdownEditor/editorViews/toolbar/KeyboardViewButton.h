@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface KeyboardViewButton : UIButton
 
+@property (nonatomic) BOOL closeSelectedStatus ;
+
 @end
 
 NS_ASSUME_NONNULL_END

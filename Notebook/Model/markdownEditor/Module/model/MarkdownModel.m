@@ -43,7 +43,7 @@
     _textIndentationPosition = 0 ;
     MarkdownModel *tmpModel = self ;
     
-    if (tmpModel.type == MarkdownSyntaxULLists || tmpModel.type == MarkdownSyntaxOLLists) {
+    if ( (tmpModel.type == MarkdownSyntaxULLists || tmpModel.type == MarkdownSyntaxOLLists) && tmpModel.subBlkModel != nil ){
         int idx = 0 ;
         while (1) {
             NSString *aChar = [self.str substringWithRange:NSMakeRange(idx, 1)] ;

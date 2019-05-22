@@ -103,23 +103,23 @@
 
 - (NSRange)markWillHiddenRange {
     if (_markWillHiddenRange.length == 0) {
-        NSUInteger countForMark = _countForSpace ;
+        NSUInteger countRes = _countForSpace ;
         switch (self.type) {
             case MarkdownSyntaxOLLists: {
-                countForMark += ( [[[self.str componentsSeparatedByString:@"."] firstObject] length] + 1 ) ;
+                countRes = ( [[[self.str componentsSeparatedByString:@"."] firstObject] length] + 2 ) ;
             }
                 break ;
             case MarkdownSyntaxULLists: {
-                countForMark += 2 ;
+                countRes += 2 ;
             }
                 break ;
             case MarkdownSyntaxTaskLists: {
-                countForMark += ( [[[self.str componentsSeparatedByString:@"]"] firstObject] length] + 1 ) ;
+                countRes = ( [[[self.str componentsSeparatedByString:@"]"] firstObject] length] + 1 ) ;
             }
                 break ;
             default: break ;
         }
-        _markWillHiddenRange = NSMakeRange(self.range.location, countForMark) ;
+        _markWillHiddenRange = NSMakeRange(self.range.location, countRes) ;
     }
     return _markWillHiddenRange ;
 }

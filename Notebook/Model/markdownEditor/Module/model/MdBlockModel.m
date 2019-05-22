@@ -273,19 +273,25 @@
         ) {
         // 非1级的列表格式
         if (2 * (aModel.markIndentationPosition - 1) + allMarkPreWithoutSpaceBefore.length == aModel.str.length) {
-            // 退一级
+            // 缩进退一级
             [tmpString deleteCharactersInRange:NSMakeRange(aModel.range.location, 2)] ;
             [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - 2 textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location - 2, 0) ;
             return NO ;
         }
         else {
+            if (aModel.type == MarkdownSyntaxOLLists) {
+                int countForOL = [[[allMarkPreWithoutSpaceBefore componentsSeparatedByString:@"."] firstObject] intValue] ;
+                countForOL ++ ;
+                allMarkPreWithoutSpaceBefore = XT_STR_FORMAT(@"%d.",countForOL) ;
+            }
+            
             NSString *markWillAdd = @"\n" ;
             for (int i = 1; i < aModel.markIndentationPosition ; i++) {
                 markWillAdd = [markWillAdd stringByAppendingString:@"  "] ;
             }
             markWillAdd = [markWillAdd stringByAppendingString:allMarkPreWithoutSpaceBefore] ;
-            //markWillAdd = [markWillAdd stringByAppendingString:@" "] ;
+            if (aModel.subBlkModel == nil) markWillAdd = [markWillAdd stringByAppendingString:@" "] ;
             [tmpString insertString:markWillAdd atIndex:range.location] ;
             [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + markWillAdd.length textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location + markWillAdd.length, 0) ;

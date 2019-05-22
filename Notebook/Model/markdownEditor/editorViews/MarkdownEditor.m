@@ -12,7 +12,7 @@
 #import "MdListModel.h"
 #import <BlocksKit+UIKit.h>
 #import "MDEditUrlView.h"
-#import "MarkdownEditor+UtilOfToolbar.h"
+#import "MarkdownEditor+OctToolbarUtil.h"
 #import "MdInlineModel.h"
 #import <XTlib/XTSIAlertView.h>
 #import "XTMarkdownParser+ImageUtil.h"
