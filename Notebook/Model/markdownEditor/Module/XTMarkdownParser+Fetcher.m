@@ -46,8 +46,10 @@ NS_INLINE BOOL xt_LocationInRange(NSUInteger loc, NSRange range) {
     NSArray *modellist = self.currentPositionModelList ;
     
     for (MarkdownModel *model in modellist) {
-        tmpModel = model ;
+        
         if (model.type < MarkdownInlineUnknown && xt_LocationInRange(cursorRange.location, model.range)) {
+//        if (model.type < MarkdownInlineUnknown && NSLocationInRange(cursorRange.location, model.range)) {
+            tmpModel = model ;
             return tmpModel ;
         }
     }

@@ -291,7 +291,7 @@
                 markWillAdd = [markWillAdd stringByAppendingString:@"  "] ;
             }
             markWillAdd = [markWillAdd stringByAppendingString:allMarkPreWithoutSpaceBefore] ;
-            if (aModel.subBlkModel == nil) markWillAdd = [markWillAdd stringByAppendingString:@" "] ;
+            if (aModel.type == MarkdownSyntaxOLLists && aModel.subBlkModel == nil) markWillAdd = [markWillAdd stringByAppendingString:@" "] ;
             [tmpString insertString:markWillAdd atIndex:range.location] ;
             [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + markWillAdd.length textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location + markWillAdd.length, 0) ;

@@ -24,7 +24,7 @@
     
     WEAK_SELF
     [self bk_addEventHandler:^(id sender) {
-        if (weakSelf.closeSelectedStatus) return ;
+        
         
         weakSelf.layer.transform = CATransform3DMakeScale(1.1, 1.1, 1) ;
         [UIView animateWithDuration:.2 animations:^{
