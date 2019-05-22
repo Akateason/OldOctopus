@@ -144,6 +144,9 @@ static const int kTag_HrView            = 60000 ;
         }
         else {
             if (!self.isFirstResponder) [self becomeFirstResponder] ;
+            if (characterIndex == textStorage.length - 1) {
+                characterIndex = textStorage.length ; // debug选择最后一个字符的问题
+            }
             self.selectedRange = NSMakeRange(characterIndex, 0) ; // 回 默认
             [self parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
         }
