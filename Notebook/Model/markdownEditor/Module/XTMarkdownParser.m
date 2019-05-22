@@ -61,6 +61,10 @@
                                    customPosition:(NSUInteger)positionCus
                                          textView:(UITextView *)textView {
     
+    [[textView.undoManager prepareWithInvocationTarget:self] parseTextAndGetModelsInCurrentCursor:text customPosition:positionCus textView:textView] ;
+    [textView.undoManager setActionName:NSLocalizedString(@"actions.editor-parse", @"parse text")] ;
+
+    
     NSUInteger position = (positionCus == -1) ? textView.selectedRange.location : positionCus ;
     __block NSMutableArray *tmpCurrentModelList = [@[] mutableCopy] ;
     __block NSMutableAttributedString *attributedString = [self updateImages:text textView:textView] ;
@@ -94,6 +98,9 @@
     [self drawInlineCode] ;
     [self drawHr] ;
     self.currentPositionModelList = tmpCurrentModelList ;
+    if (positionCus != -1 && textView.selectedRange.length == 0) {
+        textView.selectedRange = NSMakeRange(positionCus, 0) ;
+    }
     return tmpCurrentModelList ;
 }
 

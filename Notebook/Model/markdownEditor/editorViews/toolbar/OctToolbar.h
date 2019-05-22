@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class MDEKeyboardPhotoView, MarkdownModel ;
+@class MDEKeyboardPhotoView, MarkdownModel, MarkdownEditor ;
 @protocol OctToolbarDelegate <NSObject>
 
 - (CGFloat)keyboardHeight ;
@@ -17,6 +17,7 @@
 - (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView ;
 - (void)toolbarDidSelectUndo ;
 - (void)toolbarDidSelectRedo ;
+- (MarkdownEditor *)fromEditor ;
 
 @end
 

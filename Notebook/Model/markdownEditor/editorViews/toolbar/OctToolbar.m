@@ -12,7 +12,8 @@
 #import "MDEKeyboardPhotoView.h"
 #import "MarkdownModel.h"
 #import "OctToolbarBlockView.h"
-
+#import "MarkdownEditor.h"
+#import "XTMarkdownParser+Fetcher.h"
 
 @interface OctToolbar ()
 @property (weak, nonatomic)IBOutlet UIButton *btShowKeyboard ;
@@ -41,6 +42,9 @@
     else if (model.type < MarkdownInlineUnknown) {
         [self.blockBoard renderWithModel:model] ;
     }
+    
+    self.btUndo.enabled = self.delegate.fromEditor.undoManager.canUndo ;
+    self.btRedo.enabled = self.delegate.fromEditor.undoManager.canRedo ;
 }
 
 - (void)clearUI {
@@ -92,17 +96,18 @@
 }
 
 - (IBAction)undoAc:(UIButton *)sender {
-//    [self moveUnderLineFromView:sender] ;
     [self.delegate toolbarDidSelectUndo] ;
+    MarkdownModel *model = [self.delegate.fromEditor.parser modelForModelListInlineFirst] ;
+    [self renderWithModel:model] ;
 }
 
 - (IBAction)redoAc:(UIButton *)sender {
-//    [self moveUnderLineFromView:sender] ;
     [self.delegate toolbarDidSelectRedo] ;
+    MarkdownModel *model = [self.delegate.fromEditor.parser modelForModelListInlineFirst] ;
+    [self renderWithModel:model] ;
 }
 
 - (IBAction)hideKeyboardAc:(UIButton *)sender {
-//    [self moveUnderLineFromView:sender] ;
     [self.delegate hideKeyboard] ;
     
     [self hideAllBoards] ;

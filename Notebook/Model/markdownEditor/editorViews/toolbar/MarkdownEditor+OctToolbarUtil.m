@@ -68,6 +68,10 @@
 
 
 
+
+
+
+
 - (CGFloat)keyboardHeight {
     return self->keyboardHeight ;
 }
@@ -131,10 +135,14 @@
 }
 
 - (void)toolbarDidSelectUndo {
-    [[self undoManager] undo];
+    [[self undoManager] undo] ;
 }
 - (void)toolbarDidSelectRedo {
-    [[self undoManager] redo];
+    [[self undoManager] redo] ;
+}
+
+- (MarkdownEditor *)fromEditor {
+    return self ;
 }
 
 @end
