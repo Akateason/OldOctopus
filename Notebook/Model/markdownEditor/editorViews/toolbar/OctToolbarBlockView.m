@@ -116,6 +116,7 @@
     [self.btLink bk_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectLink] ;
+        [weakSelf removeFromSuperview] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btCodeBlock bk_addEventHandler:^(UIButton *sender) {
