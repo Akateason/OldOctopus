@@ -25,13 +25,13 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支持 Markdown 编写" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4G-Mh-Rok">
-                            <rect key="frame" x="230.5" y="989.5" width="202" height="26.5"/>
+                            <rect key="frame" x="230.5" y="1270" width="202" height="26.5"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                             <color key="textColor" red="0.96205264329999995" green="0.3265309334" blue="0.2008676529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OpO-rK-EZa">
-                            <rect key="frame" x="184.5" y="1031" width="294" height="38.5"/>
+                            <rect key="frame" x="184.5" y="1311.5" width="294" height="38.5"/>
                             <string key="text">轻量化，易读易写的纯文本格式编写文档
 支持图片，图表、数学式</string>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -46,7 +46,7 @@
                         <constraint firstItem="w4G-Mh-Rok" firstAttribute="centerX" secondItem="CxZ-Yx-lnN" secondAttribute="centerX" id="I4T-OV-YNc"/>
                         <constraint firstItem="OpO-rK-EZa" firstAttribute="top" secondItem="w4G-Mh-Rok" secondAttribute="bottom" constant="15" id="PQ5-Ve-OtB"/>
                         <constraint firstItem="OpO-rK-EZa" firstAttribute="centerX" secondItem="CxZ-Yx-lnN" secondAttribute="centerX" id="PgK-HX-BlO"/>
-                        <constraint firstItem="w4G-Mh-Rok" firstAttribute="top" secondItem="peE-R0-bOT" secondAttribute="bottom" constant="50" id="wyh-0f-udB"/>
+                        <constraint firstAttribute="bottom" secondItem="OpO-rK-EZa" secondAttribute="bottom" constant="150" id="j6d-BA-54Q"/>
                         <constraint firstItem="peE-R0-bOT" firstAttribute="width" secondItem="CxZ-Yx-lnN" secondAttribute="width" multiplier="68:75" id="ynV-TW-79J"/>
                     </constraints>
                 </view>
@@ -60,13 +60,13 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="多端同步实时存储" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4M-ti-bcs">
-                            <rect key="frame" x="242.5" y="989.5" width="178.5" height="26.5"/>
+                            <rect key="frame" x="242.5" y="1270" width="178.5" height="26.5"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                             <color key="textColor" red="0.96205264329999995" green="0.3265309334" blue="0.2008676529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prp-yi-AzN">
-                            <rect key="frame" x="211.5" y="1031" width="240" height="38.5"/>
+                            <rect key="frame" x="211.5" y="1311.5" width="240" height="38.5"/>
                             <string key="text">iCloud一键登录
 Mac 与 iPhone 内容实时同步存储</string>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -78,10 +78,10 @@ Mac 与 iPhone 内容实时同步存储</string>
                     <constraints>
                         <constraint firstItem="SzR-Mh-aNH" firstAttribute="centerY" secondItem="NfP-fJ-vfv" secondAttribute="centerY" constant="-111.25" id="39V-4c-Kg3"/>
                         <constraint firstItem="prp-yi-AzN" firstAttribute="centerX" secondItem="NfP-fJ-vfv" secondAttribute="centerX" id="560-1A-hJF"/>
-                        <constraint firstItem="P4M-ti-bcs" firstAttribute="top" secondItem="SzR-Mh-aNH" secondAttribute="bottom" constant="50" id="NVe-ZM-8Gf"/>
                         <constraint firstItem="SzR-Mh-aNH" firstAttribute="width" secondItem="NfP-fJ-vfv" secondAttribute="width" multiplier="68:75" id="euz-V8-UrX"/>
                         <constraint firstItem="prp-yi-AzN" firstAttribute="top" secondItem="P4M-ti-bcs" secondAttribute="bottom" constant="15" id="gKF-ee-N3i"/>
                         <constraint firstItem="SzR-Mh-aNH" firstAttribute="centerX" secondItem="NfP-fJ-vfv" secondAttribute="centerX" id="k5H-Hv-F4t"/>
+                        <constraint firstAttribute="bottom" secondItem="prp-yi-AzN" secondAttribute="bottom" constant="150" id="kb3-uA-Vdn"/>
                         <constraint firstItem="P4M-ti-bcs" firstAttribute="centerX" secondItem="NfP-fJ-vfv" secondAttribute="centerX" id="yJ5-iu-s3x"/>
                     </constraints>
                 </view>
@@ -95,13 +95,13 @@ Mac 与 iPhone 内容实时同步存储</string>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支持深色模式" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oug-Up-VG1">
-                            <rect key="frame" x="265" y="989.5" width="134" height="26.5"/>
+                            <rect key="frame" x="265" y="1265" width="134" height="26.5"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                             <color key="textColor" red="0.96205264329910278" green="0.32653093338012695" blue="0.20086765289306641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxQ-he-LN4">
-                            <rect key="frame" x="193" y="1031" width="277.5" height="38.5"/>
+                            <rect key="frame" x="193" y="1306.5" width="277.5" height="38.5"/>
                             <string key="text">深色模式，主题
 更舒心的编写体验，给眼睛贴心的保护</string>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -109,7 +109,7 @@ Mac 与 iPhone 内容实时同步存储</string>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开启美好故事" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7l-Gu-4yc">
-                            <rect key="frame" x="237" y="1084.5" width="190" height="40"/>
+                            <rect key="frame" x="237" y="1360" width="190" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="See-S5-O0o"/>
                                 <constraint firstAttribute="width" constant="190" id="n5T-3P-xSJ"/>
@@ -125,11 +125,11 @@ Mac 与 iPhone 内容实时同步存储</string>
                         <constraint firstItem="zz6-aW-rq8" firstAttribute="centerX" secondItem="laa-QA-lgI" secondAttribute="centerX" id="CTT-bq-NEm"/>
                         <constraint firstItem="Oug-Up-VG1" firstAttribute="centerX" secondItem="laa-QA-lgI" secondAttribute="centerX" id="FV4-p4-cb5"/>
                         <constraint firstItem="zz6-aW-rq8" firstAttribute="centerY" secondItem="laa-QA-lgI" secondAttribute="centerY" constant="-111.25" id="Gzh-58-INp"/>
+                        <constraint firstAttribute="bottom" secondItem="z7l-Gu-4yc" secondAttribute="bottom" constant="100" id="Mix-Ab-IDm"/>
                         <constraint firstItem="z7l-Gu-4yc" firstAttribute="centerX" secondItem="laa-QA-lgI" secondAttribute="centerX" id="NBu-YG-GwJ"/>
                         <constraint firstItem="xxQ-he-LN4" firstAttribute="top" secondItem="Oug-Up-VG1" secondAttribute="bottom" constant="15" id="Okf-wI-GEh"/>
-                        <constraint firstItem="Oug-Up-VG1" firstAttribute="top" secondItem="zz6-aW-rq8" secondAttribute="bottom" constant="50" id="Pob-XM-eYZ"/>
+                        <constraint firstItem="z7l-Gu-4yc" firstAttribute="top" secondItem="xxQ-he-LN4" secondAttribute="bottom" constant="15" id="bmz-Mu-eNm"/>
                         <constraint firstItem="zz6-aW-rq8" firstAttribute="width" secondItem="laa-QA-lgI" secondAttribute="width" multiplier="68:75" id="sZs-IA-fNC"/>
-                        <constraint firstItem="z7l-Gu-4yc" firstAttribute="top" secondItem="xxQ-he-LN4" secondAttribute="bottom" constant="15" id="xHg-pz-r5j"/>
                     </constraints>
                 </view>
             </subviews>

@@ -9,7 +9,9 @@
 #import "GuidingICloud.h"
 #import <BlocksKit+UIKit.h>
 #import "MDThemeConfiguration.h"
-
+#import "Note.h"
+#import "MarkdownVC.h"
+#import "AppDelegate.h"
 
 @implementation GuidingICloud
 XT_SINGLETON_M(GuidingICloud)
@@ -19,7 +21,13 @@ XT_SINGLETON_M(GuidingICloud)
     GuidingICloud *guid = [GuidingICloud xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     [[UIView xt_topWindow] addSubview:guid] ;
     [guid mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo([UIView xt_topWindow]) ;
+        if (IS_IPAD) {
+            make.size.mas_equalTo(CGSizeMake(400, 800)) ;
+        }
+        else {
+            make.size.mas_equalTo(APPFRAME.size) ;
+        }
+        make.center.equalTo([UIView xt_topWindow]) ;
     }] ;
     return guid ;
 }
@@ -59,12 +67,23 @@ XT_SINGLETON_M(GuidingICloud)
     }] ;
     
     [self.lbHowToOpen bk_whenTapped:^{
-        
+        Note *aNote = [Note xt_findFirstWhere:@"icRecordName == 'iOS-note-guide'"] ;
+        if (aNote.content) {
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
+            UINavigationController *navVC = (UINavigationController *)(appDelegate.window.rootViewController) ;
+            [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:navVC.topViewController] ;
+            
+            [weakSelf removeFromSuperview] ;
+        }
     }] ;
     
     [self.btClose bk_whenTapped:^{
         [weakSelf removeFromSuperview] ;
     }] ;
+    
+    if (IS_IPAD) {
+        self.backgroundColor = nil ;
+    }
 }
 
 

@@ -49,9 +49,6 @@
 #pragma mark - life
 
 - (void)viewDidLoad {
-    [XTIcloudUser alertUserToLoginICloud] ;
-    
-    
     [super viewDidLoad] ;
     
     [self leftVC] ;
@@ -73,10 +70,11 @@
     }] ;
     
     
-     [[[[[NSNotificationCenter defaultCenter]
+     [[[[[[NSNotificationCenter defaultCenter]
     rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
         takeUntil:self.rac_willDeallocSignal]
        deliverOnMainThread]
+      throttle:1.]
      subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;

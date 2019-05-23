@@ -146,14 +146,22 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 
 - (void)pullOrSync {
     BOOL fstTimeLaunch = [XT_USERDEFAULT_GET_VAL(kFirstTimeLaunch) intValue] ;
-    if (!fstTimeLaunch) {
+    
+    GuidingVC *guidVC = [GuidingVC show] ;
+    if (!fstTimeLaunch || guidVC != nil) {
         [self createDefaultBookAndNotes] ;
         
-        GuidingVC *guidVC = [GuidingVC show] ;
-        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
-        self.appDelegate.window.rootViewController = navVC;
-        [self.appDelegate.window makeKeyAndVisible];
-        
+        if (IS_IPAD) {
+            HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
+            MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:homeVC] ;
+            self.appDelegate.window.rootViewController = navVC;
+            [self.appDelegate.window makeKeyAndVisible];
+        }
+        else {
+            MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
+            self.appDelegate.window.rootViewController = navVC;
+            [self.appDelegate.window makeKeyAndVisible];
+        }
         
         [NoteBooks getFromServerComplete:^(bool hasData) {
             
@@ -180,25 +188,26 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     book.icRecordName = @"book-default" ; // 默认笔记本 id
     book.isSendOnICloud = NO ;
     [book xt_insert] ;
-//    intro
-    NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"intro" ofType:@"md"] ;
+//    introUseICloud
+    NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"introUseICloud" ofType:@"md"] ;
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     NSString *str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
+    Note *noteICloud = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"如何打开iCloud?"] ;
+    noteICloud.isSendOnICloud = NO ;
+    noteICloud.icRecordName = @"iOS-note-guide" ; // 默认文章介绍 id
+    [noteICloud xt_insert] ;
+//    intro
+    path = [[NSBundle bundleForClass:self.class] pathForResource:@"intro" ofType:@"md"] ;
+    data = [[NSData alloc] initWithContentsOfFile:path];
+    str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
     Note *note = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"欢迎使用小章鱼🐙"] ;
     note.isSendOnICloud = NO ;
     note.icRecordName = @"iOS-note-intro" ; // 默认文章介绍 id
     [note xt_insert] ;
-//    introUseICloud
-    path = [[NSBundle bundleForClass:self.class] pathForResource:@"introUseICloud" ofType:@"md"] ;
-    data = [[NSData alloc] initWithContentsOfFile:path];
-    str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
-    Note *noteICloud = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"如何打开iCloud?"] ;
-    noteICloud.isSendOnICloud = NO ;
-    noteICloud.icRecordName = @"iOS-note-intro" ; // 默认文章介绍 id
-    [noteICloud xt_insert] ;
+
 
 //  Upload default items .
-    [[XTCloudHandler sharedInstance] saveList:@[book.record,note.record,noteICloud.record] deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+    [[XTCloudHandler sharedInstance] saveList:@[book.record,noteICloud.record,note.record] deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
         
         if (!error) {
             book.isSendOnICloud = YES ;
