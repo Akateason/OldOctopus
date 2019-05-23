@@ -49,6 +49,9 @@
 #pragma mark - life
 
 - (void)viewDidLoad {
+    [XTIcloudUser alertUserToLoginICloud] ;
+    
+    
     [super viewDidLoad] ;
     
     [self leftVC] ;
@@ -153,7 +156,7 @@
     self.listNotes = topList ;
 }
 
-- (void)openDrawer {
+- (void)openDrawer {    
     if (![XTIcloudUser hasLogin]) {
         [XTIcloudUser alertUserToLoginICloud] ;
         return ;
