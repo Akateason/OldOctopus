@@ -180,10 +180,10 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     book.isSendOnICloud = NO ;
     [book xt_insert] ;
     
-    NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"zample" ofType:@"md"] ;
+    NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"intro" ofType:@"md"] ;
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     NSString *str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
-    Note *note = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"Intro"] ;
+    Note *note = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"欢迎使用小章鱼🐙"] ;
     note.isSendOnICloud = NO ;
     note.icRecordName = @"iOS-note-intro" ; // 默认文章介绍 id
     [note xt_insert] ;

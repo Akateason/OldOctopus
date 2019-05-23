@@ -71,7 +71,7 @@
 		8F65DBF1221BECFE0067C321 /* NotebookUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBF0221BECFE0067C321 /* NotebookUITests.m */; };
 		8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679DFB2232436B008DE1BC /* MarkdownVC.m */; };
 		8F679E00223243B2008DE1BC /* MarkdownEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679DFF223243B2008DE1BC /* MarkdownEditor.m */; };
-		8F679E1222363EB7008DE1BC /* zample.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F679E1122363EB7008DE1BC /* zample.md */; };
+		8F679E1222363EB7008DE1BC /* intro.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F679E1122363EB7008DE1BC /* intro.md */; };
 		8F679E182238F047008DE1BC /* MDThemeConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E172238F047008DE1BC /* MDThemeConfiguration.m */; };
 		8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E1D2238F2E2008DE1BC /* MarkdownModel.m */; };
 		8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F679E212238F9BC008DE1BC /* MDHeadModel.m */; };
@@ -291,7 +291,7 @@
 		8F679DFB2232436B008DE1BC /* MarkdownVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownVC.m; sourceTree = "<group>"; };
 		8F679DFE223243B2008DE1BC /* MarkdownEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownEditor.h; sourceTree = "<group>"; };
 		8F679DFF223243B2008DE1BC /* MarkdownEditor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownEditor.m; sourceTree = "<group>"; };
-		8F679E1122363EB7008DE1BC /* zample.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = zample.md; sourceTree = "<group>"; };
+		8F679E1122363EB7008DE1BC /* intro.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = intro.md; sourceTree = "<group>"; };
 		8F679E152238A957008DE1BC /* MdParserRegexpHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MdParserRegexpHeader.h; sourceTree = "<group>"; };
 		8F679E162238F047008DE1BC /* MDThemeConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDThemeConfiguration.h; sourceTree = "<group>"; };
 		8F679E172238F047008DE1BC /* MDThemeConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDThemeConfiguration.m; sourceTree = "<group>"; };
@@ -626,7 +626,7 @@
 				8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */,
 				8FEA9E47225B2713002A756B /* emojisJson.json */,
 				8F7A8435223BD1770099E905 /* zample2.md */,
-				8F679E1122363EB7008DE1BC /* zample.md */,
+				8F679E1122363EB7008DE1BC /* intro.md */,
 				8F79AE74226881AC00E8FD0D /* Util */,
 				8F41EEC3225B3B5200D9CD35 /* Vendor */,
 				8F7A843B2240C7340099E905 /* source */,
@@ -1139,7 +1139,7 @@
 				8F07D658224CF583005BA86D /* ld_bt_recent@2x.png in Resources */,
 				8FEA9E48225B2713002A756B /* emojisJson.json in Resources */,
 				8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */,
-				8F679E1222363EB7008DE1BC /* zample.md in Resources */,
+				8F679E1222363EB7008DE1BC /* intro.md in Resources */,
 				8FE5A3F1224CA86A00947D14 /* LDNotebookCell.xib in Resources */,
 				8F00DD73226F0F780028B5BA /* launchingImage@2x.png in Resources */,
 				8F1357FB2292AE0C00F5F874 /* tb_para_clean@2x.png in Resources */,
