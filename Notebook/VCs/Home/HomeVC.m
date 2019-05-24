@@ -231,7 +231,6 @@
             [self.animationSync stop] ;
             self.animationSync.hidden = YES ;
         }
-
     }] ;
     
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
@@ -419,6 +418,9 @@
 }
 
 - (CGFloat)movingDistance {
+    if (IS_IPAD) {
+        return 300. ;
+    }
     return  62. / 75. * APP_WIDTH ;
 }
 
