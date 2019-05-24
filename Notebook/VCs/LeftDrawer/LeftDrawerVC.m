@@ -56,7 +56,7 @@ typedef void(^BlkTapBookCell)(void);
     UIView *circle = [UIView new] ;
     circle.backgroundColor = sender.selected ? UIColorHex(@"f9f6f6") : UIColorHex(@"2b2f33") ;
     CGPoint point = [self.bottomArea convertPoint:self.btTheme.center toView:self.view.window] ;
-    circle.frame = CGRectMake(0, 0, APP_HEIGHT * 2, APP_HEIGHT * 2) ;
+    circle.frame = CGRectMake(0, 0, APP_HEIGHT * 2 + 100, APP_HEIGHT * 2 + 100) ;
     circle.center = point ;
     circle.xt_completeRound = YES ;
     [self.view.window addSubview:circle] ;

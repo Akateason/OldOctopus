@@ -340,11 +340,15 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
         if (!recordZoneError) {
 //            NSLog(@"previous : %@",previousToken) ;
 //            NSLog(@"change : %@",serverChangeToken) ;
-            [XTArchive archiveSomething:serverChangeToken path:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [XTArchive archiveSomething:serverChangeToken path:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+            });
         }
         else {
             if (recordZoneError.code == 21) { // CKErrorChangeTokenExpired
-                [XTFileManager deleteFile:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [XTFileManager deleteFile:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+                }) ;
             }
         }
     } ;

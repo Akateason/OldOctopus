@@ -46,21 +46,21 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
         @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
             [photoView cameraAddCrop:blkPressCameraBt] ;
-            [photoView removeFromSuperview] ;
+//            [photoView removeFromSuperview] ;
         }) ;
     }] ;
     [photoView.btViewAlbum bk_whenTapped:^{
         @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
             [photoView albumAddCrop:blkPressAlbum] ;
-            [photoView removeFromSuperview] ;
+//            [photoView removeFromSuperview] ;
         }) ;
     }] ;
     [photoView.btCancel bk_addEventHandler:^(id sender) {
         @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
             blkCancel() ;
-            [photoView removeFromSuperview] ;
+//            [photoView removeFromSuperview] ;
         }) ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
@@ -203,7 +203,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 //                                             @strongify(self)
 //                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                  self.blkFlowPressed(result) ;
-                                                 [self removeFromSuperview] ;
+//                                                 [self removeFromSuperview] ;
 //                                             }) ;
 //                                         }];
                                      }) ;

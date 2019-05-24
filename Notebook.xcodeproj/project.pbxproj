@@ -686,10 +686,10 @@
 				8F05C57B22754CD40047CC04 /* XTMarkdownParser+Regular.m */,
 				8F05C57D22754F150047CC04 /* XTMarkdownParser+ImageUtil.h */,
 				8F05C57E22754F150047CC04 /* XTMarkdownParser+ImageUtil.m */,
-				8F50AAA02276A3D500B32B5B /* XTMarkdownParser+Fetcher.h */,
-				8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */,
 				8F7A8441224235960099E905 /* MDImageManager.h */,
 				8F7A8442224235960099E905 /* MDImageManager.m */,
+				8F50AAA02276A3D500B32B5B /* XTMarkdownParser+Fetcher.h */,
+				8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */,
 				8F679E1F2238F973008DE1BC /* model */,
 			);
 			path = Module;
