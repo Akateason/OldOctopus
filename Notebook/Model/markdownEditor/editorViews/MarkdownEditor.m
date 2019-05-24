@@ -384,6 +384,10 @@ static const int kTag_HrView            = 60000 ;
     for (int i = 0; i < list.count; i++) {
         MdListModel *model = list[i] ;
         CGRect rectForModel = [self xt_frameOfTextRange:NSMakeRange([model realRange].location, 3)] ;
+        if ([model.str isEqualToString:@"* "]) {
+            rectForModel = [self caretRectForPosition:self.selectedTextRange.start] ; // 如果得到的是已经被隐藏的model,比如"* ", 那么返回光标的位置.
+        }
+        
         if (CGSizeEqualToSize(rectForModel.size, CGSizeZero)) continue ;
         
         UIView *item ;
@@ -525,7 +529,7 @@ static const int kTag_HrView            = 60000 ;
     // Handle user input a "return" charactor .
     if (![text isEqualToString:@"\n"]) return YES ;
     // get current model
-    MarkdownModel *thisModel = [self.parser getBlkModelForCustomPosition:range.location - 1] ;
+    MarkdownModel *thisModel = [self.parser getBlkModelForCustomPosition:range.location] ;
     int result ;
     // quote model
     result = [MdBlockModel keyboardEnterTypedInTextView:self modelInPosition:thisModel shouldChangeTextInRange:range] ;

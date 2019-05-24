@@ -153,7 +153,7 @@
             break ;
         case MarkdownSyntaxTaskLists: {
             NSInteger markLoc = [[self.str componentsSeparatedByString:@"]"] firstObject].length + 1 ;
-            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(self.location, markLoc)] ;
+            [attributedString addAttributes:self.xt_invisibleListStyle range:NSMakeRange(self.location, markLoc)] ;
             
             if (self.taskItemSelected) {
                 resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
@@ -191,7 +191,7 @@
             break ;
         case MarkdownSyntaxTaskLists: {
             NSInteger markLoc = [[self.str componentsSeparatedByString:@"]"] firstObject].length + 1 ;
-            [attributedString addAttributes:configuration.editorThemeObj.listInvisibleMarkStyle range:NSMakeRange(self.location, markLoc)] ;
+            [attributedString addAttributes:self.xt_invisibleListStyle range:NSMakeRange(self.location, markLoc)] ;
             
             if (self.taskItemSelected) {
                 resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
@@ -310,14 +310,14 @@
     if (aModel.type == MarkdownSyntaxULLists) {
         if (aModel.str.length == 2) {
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
-            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length textView:textView] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length + 1 textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
             return NO ;
         }
         
         insertULString = @"\n* " ;
         [tmpString insertString:insertULString atIndex:range.location] ;
-        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + insertULString.length textView:textView] ;
         textView.selectedRange = NSMakeRange(range.location + insertULString.length, 0) ;
         return NO ;
     }
@@ -325,7 +325,7 @@
         NSString *preMark = [[aModel.str componentsSeparatedByString:@"."] firstObject] ;
         if (preMark.length + 2 == aModel.str.length) {
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
-            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length textView:textView] ;
+            [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length + 1 textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
             return NO ;
         }
@@ -335,7 +335,7 @@
         NSString *orderStr = STR_FORMAT(@"%d",orderNum) ;
         insertOLString = STR_FORMAT(@"\n%@. ",orderStr) ;
         [tmpString insertString:insertOLString atIndex:range.location] ;
-        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + insertOLString.length textView:textView] ;
         textView.selectedRange = NSMakeRange(range.location + insertOLString.length, 0) ;
         return NO ;
     }
@@ -347,9 +347,9 @@
             textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
             return NO ;
         }
-
+        
         [tmpString insertString:insertTLString atIndex:range.location] ;
-        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location textView:textView] ;
+        [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location + insertTLString.length - 1 textView:textView] ;
         textView.selectedRange = NSMakeRange(range.location + insertTLString.length - 1, 0) ; // 只有checkbox 多加一个空格. 为了展示问题
         return NO ;
     }
@@ -359,3 +359,4 @@
 
 
 @end
+
