@@ -214,7 +214,7 @@ static const int kTag_HrView            = 60000 ;
     }
     
     @weakify(self)
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleActionSheet title:model.linkUrl message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"跳转到此链接",@"编辑此链接"] fromWithView:self CallBackBlock:^(NSInteger btnIndex) {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleActionSheet title:model.linkUrl message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"跳转到此链接",@"编辑此链接",@"删除此链接"] fromWithView:self CallBackBlock:^(NSInteger btnIndex) {
         @strongify(self)
         if (btnIndex == 1) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:link]] ;
@@ -222,6 +222,9 @@ static const int kTag_HrView            = 60000 ;
         }
         else if (btnIndex == 2) {
             [self editLink:model] ;
+        }
+        else if (btnIndex == 3) {
+            [self deleteLink:model] ;
         }
     }] ;
 }
@@ -246,6 +249,16 @@ static const int kTag_HrView            = 60000 ;
         [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
         [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
     }] ;
+}
+
+- (void)deleteLink:(MdInlineModel *)model {
+    if (!model || model.type != MarkdownInlineLinks) return ;
+    
+    NSMutableString *tmpString = [self.text mutableCopy] ;
+    [tmpString deleteCharactersInRange:model.range] ;
+    [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
+    self.selectedRange = NSMakeRange(model.location, 0) ;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
 }
 
 - (void)parseAllTextFinishedThenRenderLeftSideAndToolbar {

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -98,7 +98,6 @@
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="编辑URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxl-Ox-yur">
                     <rect key="frame" x="152" y="20" width="71" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -133,6 +132,7 @@
                 <constraint firstItem="VjU-en-Bes" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="1:2.5" id="GBV-eQ-clh"/>
                 <constraint firstItem="7Tp-2f-dNk" firstAttribute="top" secondItem="X05-vH-GOv" secondAttribute="bottom" constant="14" id="GNT-Cq-yuG"/>
                 <constraint firstItem="X05-vH-GOv" firstAttribute="top" secondItem="Bbe-HK-GfH" secondAttribute="bottom" constant="8" id="Iz6-Jg-uiW"/>
+                <constraint firstItem="sxl-Ox-yur" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="OUd-Tz-sh2"/>
                 <constraint firstItem="Bbe-HK-GfH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="P6B-Bx-iED"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VjU-en-Bes" secondAttribute="trailing" constant="24" id="S2l-qB-YVs"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Tsa-rv-JLt" secondAttribute="bottom" constant="40" id="YaR-f6-u8H"/>
