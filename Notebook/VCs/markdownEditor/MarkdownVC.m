@@ -69,21 +69,12 @@
         if (!self.aNote) return ;
         
         __block Note *noteFromIcloud = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
-        if ([noteFromIcloud.content isEqualToString:self.aNote.content]) return ;
+        if ([noteFromIcloud.content isEqualToString:self.aNote.content]) return ; // 如果内容一样,不处理
         
-        @weakify(self)
-        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"有另一台设备正在更改这篇文章, 请选择一个你想要的版本" message:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@[@"是的, 用他的版本",@"不, 用我现在的版本"] fromWithView:self.view CallBackBlock:^(NSInteger btnIndex) {
-            @strongify(self)
-            if (btnIndex == 0) { // icloud
-                self.aNote = noteFromIcloud ;
-                [self.textView.parser parseTextAndGetModelsInCurrentCursor:self.aNote.content textView:self.textView] ;
-                MarkdownModel *model = [self.textView.parser modelForModelListInlineFirst] ;
-                [self.textView doSomethingWhenUserSelectPartOfArticle:model] ;
-            }
-            else if (btnIndex == 1) { // local
-                return ;
-            }
-        }] ;
+        self.aNote = noteFromIcloud ;
+        [self.textView.parser parseTextAndGetModelsInCurrentCursor:self.aNote.content textView:self.textView] ;
+        MarkdownModel *model = [self.textView.parser modelForModelListInlineFirst] ;
+        [self.textView doSomethingWhenUserSelectPartOfArticle:model] ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
