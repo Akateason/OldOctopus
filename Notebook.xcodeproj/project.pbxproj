@@ -365,10 +365,10 @@
 		8FA1420A2271D44D00A23873 /* TrashEmptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrashEmptyView.m; sourceTree = "<group>"; };
 		8FA2294122603C2A00D736E2 /* NSObject+XTThemeColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+XTThemeColor.h"; sourceTree = "<group>"; };
 		8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XTThemeColor.m"; sourceTree = "<group>"; };
-		8FA229442260628200D736E2 /* themeDefault.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themeDefault.json; path = ../../themeDefault.json; sourceTree = "<group>"; };
+		8FA229442260628200D736E2 /* themeDefault.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = themeDefault.json; sourceTree = "<group>"; };
 		8FA229462260640700D736E2 /* MDEditorTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEditorTheme.h; sourceTree = "<group>"; };
 		8FA229472260640700D736E2 /* MDEditorTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEditorTheme.m; sourceTree = "<group>"; };
-		8FA229492260951B00D736E2 /* themeDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themeDark.json; path = Notebook/themeDark.json; sourceTree = SOURCE_ROOT; };
+		8FA229492260951B00D736E2 /* themeDark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = themeDark.json; path = Notebook/Model/markdownEditor/theme/themeDark.json; sourceTree = SOURCE_ROOT; };
 		8FA2295022645CF600D736E2 /* md_ed_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_ed_more@2x.png"; sourceTree = "<group>"; };
 		8FA2295622646A9500D736E2 /* ArticleInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleInfoVC.h; sourceTree = "<group>"; };
 		8FA2295722646A9500D736E2 /* ArticleInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleInfoVC.m; sourceTree = "<group>"; };
@@ -659,21 +659,14 @@
 		8F679DFD2232437E008DE1BC /* markdownEditor */ = {
 			isa = PBXGroup;
 			children = (
-				8FA229442260628200D736E2 /* themeDefault.json */,
-				8FA229492260951B00D736E2 /* themeDark.json */,
-				8F679E162238F047008DE1BC /* MDThemeConfiguration.h */,
-				8F679E172238F047008DE1BC /* MDThemeConfiguration.m */,
-				8FA229462260640700D736E2 /* MDEditorTheme.h */,
-				8FA229472260640700D736E2 /* MDEditorTheme.m */,
-				8FA2294122603C2A00D736E2 /* NSObject+XTThemeColor.h */,
-				8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */,
+				8F9612772297E15700CB72DF /* theme */,
 				8FEA9E3E2254D75D002A756B /* editorViews */,
-				8F679E042232468C008DE1BC /* Module */,
+				8F679E042232468C008DE1BC /* Parser */,
 			);
 			path = markdownEditor;
 			sourceTree = "<group>";
 		};
-		8F679E042232468C008DE1BC /* Module */ = {
+		8F679E042232468C008DE1BC /* Parser */ = {
 			isa = PBXGroup;
 			children = (
 				8F679E152238A957008DE1BC /* MdParserRegexpHeader.h */,
@@ -687,7 +680,7 @@
 				8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */,
 				8F679E1F2238F973008DE1BC /* model */,
 			);
-			path = Module;
+			path = Parser;
 			sourceTree = "<group>";
 		};
 		8F679E1F2238F973008DE1BC /* model */ = {
@@ -823,6 +816,21 @@
 				8F0FDED32294014F00915C21 /* MarkdownEditor+BlockBoardUtil.m */,
 			);
 			path = toolbar;
+			sourceTree = "<group>";
+		};
+		8F9612772297E15700CB72DF /* theme */ = {
+			isa = PBXGroup;
+			children = (
+				8FA229442260628200D736E2 /* themeDefault.json */,
+				8FA229492260951B00D736E2 /* themeDark.json */,
+				8F679E162238F047008DE1BC /* MDThemeConfiguration.h */,
+				8F679E172238F047008DE1BC /* MDThemeConfiguration.m */,
+				8FA229462260640700D736E2 /* MDEditorTheme.h */,
+				8FA229472260640700D736E2 /* MDEditorTheme.m */,
+				8FA2294122603C2A00D736E2 /* NSObject+XTThemeColor.h */,
+				8FA2294222603C2A00D736E2 /* NSObject+XTThemeColor.m */,
+			);
+			path = theme;
 			sourceTree = "<group>";
 		};
 		8F9BECBE227012F400EAEAD2 /* subviews */ = {
