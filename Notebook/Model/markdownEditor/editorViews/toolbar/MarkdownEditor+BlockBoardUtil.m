@@ -13,7 +13,7 @@
 #import "MdBlockModel.h"
 #import "MdInlineModel.h"
 #import "MDEKeyboardPhotoView.h"
-#import "MDImageManager.h"
+#import "XTMarkdownParser+ImageUtil.h"
 #import "XTMarkdownParser+Fetcher.h"
 #import "MdInlineModel.h"
 #import "MarkdownEditor+OctToolbarUtil.h"

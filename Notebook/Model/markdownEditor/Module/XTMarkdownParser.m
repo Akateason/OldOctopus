@@ -15,7 +15,7 @@
 #import "model/MdBlockModel.h"
 #import "model/MdOtherModel.h"
 #import "MarkdownEditor.h"
-#import "MDImageManager.h"
+#import "XTMarkdownParser+ImageUtil.h"
 #import "XTMarkdownParser+Regular.h"
 #import "XTMarkdownParser+ImageUtil.h"
 #import "Note.h"

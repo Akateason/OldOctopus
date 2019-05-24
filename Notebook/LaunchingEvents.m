@@ -10,7 +10,7 @@
 #import <XTlib/XTlib.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "XTCloudHandler.h"
-#import "MDImageManager.h"
+#import "XTMarkdownParser+ImageUtil.h"
 #import "Note.h"
 #import "NoteBooks.h"
 #import <UserNotifications/UserNotifications.h>
