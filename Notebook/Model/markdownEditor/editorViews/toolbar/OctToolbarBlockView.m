@@ -22,7 +22,7 @@
         case MarkdownSyntaxTaskLists: self.btTaskList.selected = YES; break ;
         case MarkdownSyntaxBlockquotes: self.btQuote.selected = YES; break ;
         case MarkdownSyntaxHr: self.btSepline.selected = YES; break ;
-        case MarkdownInlineLinks: self.btLink.selected = YES; break ;
+        case MarkdownSyntaxMultipleMath: self.btMath.selected = YES; break ;
         case MarkdownSyntaxCodeBlock: self.btCodeBlock.selected = YES; break ;
             
         default:
@@ -38,7 +38,7 @@
     self.btTaskList.selected = NO ;
     self.btQuote.selected = NO ;
     self.btSepline.selected = NO ;
-    self.btLink.selected = NO ;
+    self.btMath.selected = NO ;
     self.btCodeBlock.selected = NO ;
 }
 
@@ -74,7 +74,6 @@
     self.area6.xt_cornerRadius = 6 ;
     
     self.xt_theme_backgroundColor = k_md_drawerColor ;
-    
     
     
     WEAK_SELF
@@ -113,17 +112,15 @@
         [weakSelf.blkBoard_Delegate toolbarDidSelectSepLine] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btLink bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
-        [weakSelf.blkBoard_Delegate toolbarDidSelectLink] ;
-        [weakSelf removeFromSuperview] ;
-    } forControlEvents:(UIControlEventTouchUpInside)] ;
-    
     [self.btCodeBlock bk_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectCodeBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
+    [self.btMath bk_addEventHandler:^(UIButton *sender) {
+        sender.selected = !sender.selected ;
+        [weakSelf.blkBoard_Delegate toolbarDidSelectMathBlock] ;
+    } forControlEvents:(UIControlEventTouchUpInside)] ;
 }
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight {

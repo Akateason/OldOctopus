@@ -78,12 +78,14 @@
 }
 
 - (IBAction)inlinestyleAc:(UIButton *)sender {
+    [self hideAllBoards] ;
     [self moveUnderLineFromView:sender] ;
     // add inline board .
     [self.inlineBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight] ;
 }
 
 - (IBAction)listAc:(UIButton *)sender {
+    [self hideAllBoards] ;
     [self moveUnderLineFromView:sender] ;
     // add block board .
     [self.blockBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight] ;

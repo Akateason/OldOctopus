@@ -24,9 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)toolbarDidSelectItalic ;
 - (void)toolbarDidSelectDeletion ;
 - (void)toolbarDidSelectInlineCode ;
+- (void)toolbarDidSelectLink ;
 @end
 
-@class MarkdownModel ;
+@class MarkdownModel, KeyboardViewButton ;
 
 @interface OctToolBarInlineView : UIView
 @property (weak, nonatomic) id<OctToolBarInlineViewDelegate> inlineBoard_Delegate ;
@@ -35,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *area2;
 @property (weak, nonatomic) IBOutlet UIView *area3;
 @property (weak, nonatomic) IBOutlet UIView *area4;
+@property (weak, nonatomic) IBOutlet UIView *area5;
+@property (weak, nonatomic) IBOutlet UIView *area6;
 
 @property (weak, nonatomic) IBOutlet UIButton *btBold;
 @property (weak, nonatomic) IBOutlet UIButton *btItalic;
@@ -49,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIButton *btInlineCode;
 @property (weak, nonatomic) IBOutlet UIButton *btParaClean;
+@property (weak, nonatomic) IBOutlet KeyboardViewButton *btLink;
 
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;

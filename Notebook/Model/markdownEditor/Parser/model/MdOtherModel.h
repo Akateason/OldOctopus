@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MdOtherModel : MarkdownModel
-
++ (void)toolbarEventMath:(MarkdownEditor *)editor ;
 @end
 
 NS_ASSUME_NONNULL_END

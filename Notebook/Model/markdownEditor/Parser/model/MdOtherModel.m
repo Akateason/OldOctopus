@@ -8,6 +8,10 @@
 
 #import "MdOtherModel.h"
 #import <XTlib/XTlib.h>
+#import "MarkdownEditor.h"
+#import "MarkdownEditor+OctToolbarUtil.h"
+#import "XTMarkdownParser+Fetcher.h"
+
 
 @implementation MdOtherModel
 
@@ -105,5 +109,47 @@
     
     return attributedString ;
 }
+
+
++ (void)toolbarEventMath:(MarkdownEditor *)editor {
+    NSMutableString *tmpString = [editor.text mutableCopy] ;
+    MarkdownModel *blkModel = [editor.parser modelForModelListBlockFirst] ;
+    // delete
+    if (blkModel.type == MarkdownSyntaxMultipleMath) {
+        NSString *tmpPrefixStr = blkModel.str ;
+        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location + blkModel.range.length - 3, 3)] ;
+        tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@"\n"] firstObject] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:blkModel.location + blkModel.length - 6 textView:editor] ;
+        editor.selectedRange = NSMakeRange(blkModel.location + blkModel.length - 6, 0) ;
+        editor.typingAttributes = [MDThemeConfiguration sharedInstance].editorThemeObj.basicStyle ;
+        return ;
+    }
+    
+    MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    tmpString = [editor.text mutableCopy] ;
+    // add
+    if (!paraModel) {
+        [tmpString insertString:@"$$\n \n$$" atIndex:editor.selectedRange.location] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
+        id modelParse = [editor.parser modelForModelListBlockFirst] ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 3, 0) ;
+        [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
+        return ;
+    }
+    
+    // replace
+    if (paraModel.type == MarkdownSyntaxMultipleMath) return ;
+    
+    [tmpString insertString:@"\n$$" atIndex:paraModel.range.location + paraModel.range.length] ;
+    [tmpString insertString:@"$$\n" atIndex:paraModel.range.location] ;
+    [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
+    MarkdownModel *modelParse = [editor.parser modelForModelListBlockFirst] ;
+    [editor doSomethingWhenUserSelectPartOfArticle:modelParse] ;
+    editor.selectedRange = NSMakeRange(modelParse.range.length + modelParse.range.location, 0) ;
+
+}
+
+
 
 @end

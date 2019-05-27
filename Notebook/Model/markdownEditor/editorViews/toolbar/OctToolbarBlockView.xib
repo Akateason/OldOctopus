@@ -135,7 +135,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZiW-oB-QZt" customClass="KeyboardViewButton">
                             <rect key="frame" x="0.0" y="0.0" width="90" height="60"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="链接" image="md_tb_bt_link.png">
+                            <state key="normal" title="数学公式" image="md_l_math.png">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                         </button>
@@ -204,7 +204,7 @@
                 <outlet property="area6" destination="jHS-ct-ECw" id="Z06-lk-sGP"/>
                 <outlet property="btCodeBlock" destination="Wps-2h-vwc" id="tXk-nN-Kk4"/>
                 <outlet property="btLeftTab" destination="1k8-rd-p9L" id="2lw-jR-jGn"/>
-                <outlet property="btLink" destination="ZiW-oB-QZt" id="1kF-uP-P4m"/>
+                <outlet property="btMath" destination="ZiW-oB-QZt" id="tJS-0J-KZm"/>
                 <outlet property="btOlist" destination="bJl-xt-Vcj" id="suV-Qr-uNO"/>
                 <outlet property="btQuote" destination="lah-NW-plu" id="VMc-Yu-iZ4"/>
                 <outlet property="btRightTabg" destination="Zzx-nd-UzH" id="5x2-GH-BsL"/>
@@ -216,10 +216,10 @@
         </view>
     </objects>
     <resources>
+        <image name="md_l_math.png" width="20" height="20"/>
         <image name="md_l_tab.png" width="20" height="20"/>
         <image name="md_r_tab.png" width="20" height="20"/>
         <image name="md_tb_bt_blkCode.png" width="20" height="20"/>
-        <image name="md_tb_bt_link.png" width="20" height="20"/>
         <image name="md_tb_bt_olist.png" width="20" height="20"/>
         <image name="md_tb_bt_quote.png" width="20" height="20"/>
         <image name="md_tb_bt_sepline.png" width="20" height="20"/>

@@ -161,6 +161,7 @@
 		8FEA9E48225B2713002A756B /* emojisJson.json in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA9E47225B2713002A756B /* emojisJson.json */; };
 		8FEA9E4C225B27C1002A756B /* EmojiJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEA9E4B225B27C1002A756B /* EmojiJson.m */; };
 		8FEA9E4E225B35A8002A756B /* home_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA9E4D225B35A7002A756B /* home_empty@2x.png */; };
+		8FFAE089229BD22500CDAC47 /* md_l_math@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */; };
 		8FFBBB3D224A4CAF00A304C7 /* MDEKeyboardPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */; };
 		8FFBBB3F224A4CD900A304C7 /* MDEKeyboardPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */; };
 		8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB42224A4FE500A304C7 /* md_tb_bt_camera@2x.png */; };
@@ -409,6 +410,7 @@
 		8FEA9E4A225B27C1002A756B /* EmojiJson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmojiJson.h; sourceTree = "<group>"; };
 		8FEA9E4B225B27C1002A756B /* EmojiJson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiJson.m; sourceTree = "<group>"; };
 		8FEA9E4D225B35A7002A756B /* home_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_empty@2x.png"; sourceTree = "<group>"; };
+		8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_l_math@2x.png"; sourceTree = "<group>"; };
 		8FFBBB3B224A4CAF00A304C7 /* MDEKeyboardPhotoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEKeyboardPhotoView.h; sourceTree = "<group>"; };
 		8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEKeyboardPhotoView.m; sourceTree = "<group>"; };
 		8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEKeyboardPhotoView.xib; sourceTree = "<group>"; };
@@ -722,6 +724,7 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */,
 				8F0C15DF229684B200E8837D /* guid_close@2x.png */,
 				8F0C15E0229684B200E8837D /* guid_icloud_top_icon@2x.png */,
 				8F0FDECF2293F12400915C21 /* md_l_tab@2x.png */,
@@ -1099,6 +1102,7 @@
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
 				8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */,
 				8FA142082271D3D100A23873 /* emty_trash_bg@2x.png in Resources */,
+				8FFAE089229BD22500CDAC47 /* md_l_math@2x.png in Resources */,
 				8F1357EF2292998100F5F874 /* tb_list@2x.png in Resources */,
 				8FA142062271D2EE00A23873 /* TrashEmptyView.xib in Resources */,
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,

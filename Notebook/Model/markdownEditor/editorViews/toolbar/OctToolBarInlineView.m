@@ -11,6 +11,7 @@
 #import "MDThemeConfiguration.h"
 #import <BlocksKit+UIKit.h>
 #import "MarkdownModel.h"
+#import "KeyboardViewButton.h"
 
 @implementation OctToolBarInlineView
 
@@ -38,6 +39,7 @@
         } break ;
         case MarkdownInlineDeletions: self.btDeletion.selected = YES ; break ;
         case MarkdownInlineInlineCode: self.btInlineCode.selected = YES ; break ;
+        case MarkdownInlineLinks: self.btLink.selected = YES ; break ;
             
         default:
             break;
@@ -55,7 +57,8 @@
     self.bth4.selected = NO ;
     self.bth5.selected = NO ;
     self.bth6.selected = NO ;
-    self.btParaClean.selected = NO ;    
+    self.btParaClean.selected = NO ;
+    self.btLink.selected = NO ;
 }
 
 - (void)awakeFromNib {
@@ -65,32 +68,33 @@
     self.area2.backgroundColor = [UIColor whiteColor] ;
     self.area3.backgroundColor = [UIColor whiteColor] ;
     self.area4.backgroundColor = [UIColor whiteColor] ;
+    self.area5.backgroundColor = [UIColor whiteColor] ;
+    self.area6.backgroundColor = [UIColor whiteColor] ;
     
     self.area1.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
     self.area2.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
     self.area3.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
     self.area4.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
+    self.area5.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
+    self.area6.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
     
     self.area1.xt_borderWidth = .5 ;
     self.area2.xt_borderWidth = .5 ;
     self.area3.xt_borderWidth = .5 ;
     self.area4.xt_borderWidth = .5 ;
+    self.area5.xt_borderWidth = .5 ;
+    self.area6.xt_borderWidth = .5 ;
     
     self.area1.xt_cornerRadius = 6 ;
     self.area2.xt_cornerRadius = 6 ;
     self.area3.xt_cornerRadius = 6 ;
     self.area4.xt_cornerRadius = 6 ;
+    self.area5.xt_cornerRadius = 6 ;
+    self.area6.xt_cornerRadius = 6 ;
     
     self.xt_theme_backgroundColor = k_md_drawerColor ;
     
-    UIView *midLine = [UIView new] ;
-    midLine.backgroundColor = UIColorRGBA(24, 18, 17, .1) ;
-    [self addSubview:midLine] ;
-    [midLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(.5)) ;
-        make.left.right.equalTo(self.area2) ;
-        make.centerY.equalTo(self.area2.mas_centerY) ;
-    }] ;
+    
     
     
     WEAK_SELF
@@ -147,6 +151,12 @@
     [self.btParaClean bk_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectClearToCleanPara] ;
+    } forControlEvents:(UIControlEventTouchUpInside)] ;
+    
+    [self.btLink bk_addEventHandler:^(UIButton *sender) {
+        sender.selected = !sender.selected ;
+        [weakSelf.inlineBoard_Delegate toolbarDidSelectLink] ;
+        [weakSelf removeFromSuperview] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
 }
 

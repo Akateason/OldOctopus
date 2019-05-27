@@ -39,9 +39,12 @@
         [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
         blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 1 + 4)) ;
     }
-//    else if (blkModel.type == MarkdownSyntaxBlockquotes) {
-//
-//    }
+    else if (blkModel.type == MarkdownSyntaxMultipleMath) {
+        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location + blkModel.range.length - 3, 3)] ;
+        tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@"\n"] firstObject] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
+        blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 1 + 3)) ;
+    }
     else if (blkModel.type != -1) {
         tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@" "] firstObject] ;
         [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;

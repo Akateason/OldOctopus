@@ -17,6 +17,7 @@
 #import "XTMarkdownParser+Fetcher.h"
 #import "MdInlineModel.h"
 #import "MarkdownEditor+OctToolbarUtil.h"
+#import "MdOtherModel.h"
 
 @implementation MarkdownEditor (BlockBoardUtil)
 
@@ -59,31 +60,6 @@
     self.selectedRange = NSMakeRange(self.selectedRange.location + 6, 0) ;
 }
 
-- (void)toolbarDidSelectLink {
-    MarkdownModel *model = [self.parser modelForModelListInlineFirst] ;
-    @weakify(self)
-    [MDEditUrlView showOnView:self window:self.window model:model keyboardHeight:keyboardHeight callback:^(BOOL isConfirm, NSString *title, NSString *url) {
-        @strongify(self)
-        if (!isConfirm) {
-            [self becomeFirstResponder] ;
-            return ;
-        }
-        
-        NSMutableString *tmpString = [self.text mutableCopy] ;
-        NSString *linkStr = STR_FORMAT(@"[%@](%@)",title,url) ;
-        if (model && model.type == MarkdownInlineLinks) {
-            [tmpString deleteCharactersInRange:model.range] ;
-            [tmpString insertString:linkStr atIndex:model.range.location] ;
-        }
-        else {
-            [tmpString insertString:linkStr atIndex:self.selectedRange.location] ;
-        }
-        [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
-    }] ;
-}
-
 - (void)toolbarDidSelectUList {
     [MdListModel toolbarEventForUlist:self] ;
 }
@@ -102,6 +78,10 @@
 
 - (void)toolbarDidSelectQuoteBlock {
     [MdBlockModel toolbarEventQuoteBlock:self] ;
+}
+
+- (void)toolbarDidSelectMathBlock {
+    [MdOtherModel toolbarEventMath:self] ;
 }
 
 @end

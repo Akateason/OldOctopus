@@ -22,7 +22,7 @@
 - (void)toolbarDidSelectSepLine ;
 
 - (void)toolbarDidSelectCodeBlock ;
-- (void)toolbarDidSelectLink ;
+- (void)toolbarDidSelectMathBlock ;
 @end
 
 
@@ -45,8 +45,8 @@
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btQuote;
 
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btSepline;
-@property (weak, nonatomic) IBOutlet KeyboardViewButton *btLink;
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btCodeBlock;
+@property (weak, nonatomic) IBOutlet KeyboardViewButton *btMath;
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;
 - (void)renderWithModel:(MarkdownModel *)model ;
