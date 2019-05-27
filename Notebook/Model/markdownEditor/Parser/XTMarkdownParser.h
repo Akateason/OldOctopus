@@ -63,12 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)countForCharactor ;
 - (NSInteger)countForPara ;
 
-// draw native
-- (void)drawQuoteBlk ;
-- (void)drawListBlk ;
-- (void)drawInlineCode ;
-- (void)drawHr ;
-
 @end
 
 NS_ASSUME_NONNULL_END
