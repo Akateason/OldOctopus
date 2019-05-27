@@ -165,13 +165,25 @@
 
 
 + (void)toolbarEventQuoteBlock:(MarkdownEditor *)editor {
-    MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
     NSMutableString *tmpString = [editor.text mutableCopy] ;
+    MarkdownModel *blockModel = [editor.parser modelForModelListBlockFirst] ;
+    // delete
+    if (blockModel.type == MarkdownSyntaxBlockquotes) {
+        [tmpString deleteCharactersInRange:NSMakeRange(blockModel.range.location, 2)] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:blockModel.location + blockModel.length - 2 textView:editor] ;
+        editor.selectedRange = NSMakeRange(blockModel.range.location, 0) ;
+        editor.typingAttributes = [MDThemeConfiguration sharedInstance].editorThemeObj.basicStyle ;
+        return ;
+    }
+    
+    // clear
+    MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
         [tmpString insertString:@"> " atIndex:editor.selectedRange.location] ;
-        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 1, 0) ;
-        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:editor] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:editor.selectedRange.location + 2 textView:editor] ;
+        editor.selectedRange = NSMakeRange(editor.selectedRange.location + 2, 0) ;
         return ;
     }
     // replace
@@ -184,8 +196,22 @@
 }
 
 + (void)toolbarEventCodeBlock:(MarkdownEditor *)editor {
-    MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
     NSMutableString *tmpString = [editor.text mutableCopy] ;
+    MarkdownModel *blkModel = [editor.parser modelForModelListBlockFirst] ;
+    // delete
+    if (blkModel.type == MarkdownSyntaxCodeBlock) {
+        NSString *tmpPrefixStr = blkModel.str ;
+        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location + blkModel.range.length - 4, 4)] ;
+        tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@"\n"] firstObject] ;
+        [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
+        [editor.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:blkModel.location + blkModel.length - 8 textView:editor] ;
+        editor.selectedRange = NSMakeRange(blkModel.location + blkModel.length - 8, 0) ;
+        editor.typingAttributes = [MDThemeConfiguration sharedInstance].editorThemeObj.basicStyle ;
+        return ;
+    }
+    
+    MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
+    tmpString = [editor.text mutableCopy] ;
     // add
     if (!paraModel) {
         [tmpString insertString:@"```\n \n```" atIndex:editor.selectedRange.location] ;
@@ -227,6 +253,7 @@
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
             [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
+            textView.typingAttributes = [MDThemeConfiguration sharedInstance].editorThemeObj.basicStyle ;
             return NO ;
         }
         

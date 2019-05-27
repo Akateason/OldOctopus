@@ -82,6 +82,7 @@
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new] ;
     paragraphStyle.firstLineHeadIndent = 16 * num ;
     paragraphStyle.lineSpacing = 10 ; // 列表内的行间距为：10px
+//    paragraphStyle.paragraphSpacing = kDefaultFontSize ;
     NSDictionary *dic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor) ,
                           NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                           NSParagraphStyleAttributeName: paragraphStyle
@@ -249,6 +250,13 @@
 }
 
 + (void)toolbarEventForUlist:(MarkdownEditor *)editor {
+    MarkdownModel *blkModel = [editor.parser modelForModelListBlockFirst] ;
+    if (blkModel.type == MarkdownSyntaxULLists) {
+        // del
+        [editor cleanMarkOfParagraph] ;
+        return ;
+    }
+    
     MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
     NSMutableString *tmpString = [editor.text mutableCopy] ;
     // add
@@ -268,6 +276,13 @@
 }
 
 + (void)toolbarEventForOrderList:(MarkdownEditor *)editor {
+    MarkdownModel *blkModel = [editor.parser modelForModelListBlockFirst] ;
+    if (blkModel.type == MarkdownSyntaxOLLists) {
+        // del
+        [editor cleanMarkOfParagraph] ;
+        return ;
+    }
+    
     MarkdownModel *paraModel = [editor cleanMarkOfParagraph] ;
     NSMutableString *tmpString = [editor.text mutableCopy] ;
     
@@ -312,6 +327,7 @@
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
             [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length + 1 textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
+            textView.typingAttributes = [MDThemeConfiguration sharedInstance].editorThemeObj.basicStyle ;
             return NO ;
         }
         
@@ -327,6 +343,7 @@
             [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
             [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length + 1 textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
+            textView.typingAttributes = [MDThemeConfiguration sharedInstance].editorThemeObj.basicStyle ;
             return NO ;
         }
         
@@ -341,10 +358,11 @@
     }
     else if (aModel.type == MarkdownSyntaxTaskLists) {
         if ([aModel.str hasPrefix:@"* [ ]  "]) {
-            [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length, aModel.str.length)] ;
-            [tmpString insertString:@"\n" atIndex:range.location - aModel.str.length] ;
+            [tmpString deleteCharactersInRange:NSMakeRange(range.location - aModel.str.length + 1, aModel.str.length)] ;
+            [tmpString insertString:@"\n" atIndex:range.location - aModel.str.length + 1] ;
             [textView.parser parseTextAndGetModelsInCurrentCursor:tmpString customPosition:range.location - aModel.str.length + 1 textView:textView] ;
             textView.selectedRange = NSMakeRange(range.location - aModel.str.length + 1, 0) ;
+            textView.typingAttributes = [MDThemeConfiguration sharedInstance].editorThemeObj.basicStyle ;
             return NO ;
         }
         
@@ -357,6 +375,4 @@
     return 100 ; // 未知情况, 传到下一个model去处理
 }
 
-
 @end
-

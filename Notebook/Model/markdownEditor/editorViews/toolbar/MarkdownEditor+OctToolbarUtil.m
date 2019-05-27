@@ -39,6 +39,9 @@
         [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;
         blkModel.range = NSMakeRange(blkModel.range.location, blkModel.range.length - (tmpPrefixStr.length + 1 + 4)) ;
     }
+//    else if (blkModel.type == MarkdownSyntaxBlockquotes) {
+//
+//    }
     else if (blkModel.type != -1) {
         tmpPrefixStr = [[tmpPrefixStr componentsSeparatedByString:@" "] firstObject] ;
         [tmpString deleteCharactersInRange:NSMakeRange(blkModel.range.location, tmpPrefixStr.length + 1)] ;

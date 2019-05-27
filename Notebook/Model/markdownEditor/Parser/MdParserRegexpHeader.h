@@ -102,7 +102,8 @@ typedef NS_ENUM(int, MarkdownInlineType){
 #define MDPR_text               "^[^\\n]+"
 
 #define MDPR_frontmatter        "^---\\n([\\s\\S]+?)---(?:\\n+|$)"
-#define MDPR_multiplemath       "^\\$\\$\\n([\\s\\S]+?)\\n\\$\\$(?:\\n+|$)"
+#define MDPR_multiplemath       "(\\$\\$)([\\s\\S]*?)(\\$\\$)"
+
 
 #define MDPR_checkbox           "^\\[([ x])\\] +"
 #define MDPR_bullet             "(?:[*+-] \\[(?:X|x|\\s)\\]|[*+-]|\\d+\\.)"

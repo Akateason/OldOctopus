@@ -27,7 +27,6 @@
 @property (copy, nonatomic)     NSArray                     *hrList ;                   // 分割线
 @property (strong, nonatomic)   NSMutableAttributedString   *editAttrStr ;
 @property (copy, nonatomic)     NSArray                     *currentPositionModelList ; // 当前光标位置所对应的model
-
 @end
 
 @implementation XTMarkdownParser
@@ -63,7 +62,6 @@
     
     [[textView.undoManager prepareWithInvocationTarget:self] parseTextAndGetModelsInCurrentCursor:text customPosition:positionCus textView:textView] ;
     [textView.undoManager setActionName:NSLocalizedString(@"actions.editor-parse", @"parse text")] ;
-
     
     NSUInteger position = (positionCus == -1) ? textView.selectedRange.location : positionCus ;
     __block NSMutableArray *tmpCurrentModelList = [@[] mutableCopy] ;
@@ -73,7 +71,7 @@
     [self parsingModelsForText:attributedString.string] ;
     NSArray *wholeList = [self.paraList arrayByAddingObjectsFromArray:self.hrList] ;
     
-    // render attr
+    // render attr text in textview
     [attributedString beginEditing] ;
     // add default style
     [attributedString addAttributes:self.configuration.editorThemeObj.basicStyle range:NSMakeRange(0, text.length)] ;
@@ -89,18 +87,20 @@
         }
     }] ;
     [attributedString endEditing] ;
-    
-    // update
-    [self updateAttributedText:attributedString textView:textView] ;
-    [self drawQuoteBlk] ;
-    [self drawListBlk] ;
-//    [self drawCodeBlk] ;
-    [self drawInlineCode] ;
-    [self drawHr] ;
+    [self updateAttributedText:attributedString textView:textView] ; // render attrtext
     self.currentPositionModelList = tmpCurrentModelList ;
     if (positionCus != -1 && textView.selectedRange.length == 0) {
         textView.selectedRange = NSMakeRange(positionCus, 0) ;
     }
+    
+    // render native views .
+    [self drawQuoteBlk] ;
+    [self drawListBlk] ;
+//  [self drawCodeBlk] ;
+    [self drawInlineCode] ;
+    [self drawHr] ;
+    [self drawMaths] ;
+    
     return tmpCurrentModelList ;
 }
 
@@ -133,8 +133,16 @@
 }
 
 - (void)parsingModelsForText:(NSString *)text {
+    //1.1 parse math blk
+    NSMutableArray *mathBlkList = [@[] mutableCopy] ;
+    NSRegularExpression *expMa = regexp(MDPR_multiplemath, NSRegularExpressionAnchorsMatchLines) ;
+    NSArray *matsMa = [expMa matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
+    for (NSTextCheckingResult *result in matsMa) {
+        MdOtherModel *model = [MdOtherModel modelWithType:MarkdownSyntaxMultipleMath range:result.range str:[text substringWithRange:result.range]] ;
+        [mathBlkList addObject:model] ;
+    }
     
-    //1. parse code blk
+    //1.2 parse code blk
     NSMutableArray *codeBlkList = [@[] mutableCopy] ;
     NSRegularExpression *expCb = regexp(MDPR_codeBlock, NSRegularExpressionAnchorsMatchLines) ;
     NSArray *matsCb = [expCb matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
@@ -158,7 +166,18 @@
     
     [paralist enumerateObjectsUsingBlock:^(MarkdownModel *pModel, NSUInteger idx, BOOL * _Nonnull stop) {
         MarkdownModel *resModel = [self parsingGetABlockStyleModelFromParaModel:pModel] ;
-        //4.1 exchange codeblk model for paraModel
+        //4.1.1 exchange mathblk model for paraModel
+        BOOL isMathBlk = NO ;
+        for (MarkdownModel *maModel in mathBlkList) {
+            if ( pModel.location >= maModel.location && pModel.location + pModel.length <= maModel.location + maModel.length ) {
+                [tmplist addObject:maModel] ;
+                isMathBlk = YES ;
+                break ;
+            }
+        }
+        if (isMathBlk) return ; // continue
+        
+        //4.1.2 exchange codeblk model for paraModel
         BOOL isCodeBlk = NO ;
         for (MarkdownModel *cbModel in codeBlkList) {
             if ( pModel.location >= cbModel.location && pModel.location + pModel.length <= cbModel.location + cbModel.length ) {
@@ -168,7 +187,6 @@
             }
         }
         if (isCodeBlk) return ; // continue
-        
         
         //4.2 judge is block Style .
         if (resModel) {
@@ -327,7 +345,7 @@
 
 
 #pragma mark - update attr text in text view
-
+// 此处待优化.
 - (void)updateAttributedText:(NSAttributedString *)attributedString
                     textView:(UITextView *)textView {
     
@@ -410,6 +428,15 @@
     if (self.delegate) [self.delegate hrParsingFinished:self.hrList] ;
 }
 
+- (void)drawMaths {
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    [self.paraList enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.type == MarkdownSyntaxMultipleMath) {
+            [tmplist addObject:model] ;
+        }
+    }] ;
+    if (self.delegate) [self.delegate mathListParsingFinished:tmplist] ;
+}
 
 #pragma mark - article infos
 

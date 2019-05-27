@@ -13,7 +13,7 @@ target 'Notebook' do
   pod 'Bugly'
   pod 'EllipsePageControl'
   pod 'lottie-ios','2.5.3'
-
+  pod 'iosMath'
   
   
   

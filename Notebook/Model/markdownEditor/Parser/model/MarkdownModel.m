@@ -89,7 +89,7 @@
 
 
 - (NSString *)displayStringForLeftLabel {
-    return @"" ;
+    return @"tb_para_clean" ;
 }
 
 //- (void)setRange:(NSRange)range {

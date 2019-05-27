@@ -25,8 +25,9 @@
 #import <SafariServices/SafariServices.h>
 #import "HrView.h"
 #import "MDHeadModel.h"
-//#import "MDToolbar.h"
 #import "OctToolbar.h"
+#import <iosMath/iosMath.h>
+
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue       = 30.f  ;
@@ -35,6 +36,7 @@ static const int kTag_ListMarkView      = 32342 ;
 //static const int kTag_CodeBlkView       = 40000 ;
 static const int kTag_InlineCodeView    = 50000 ;
 static const int kTag_HrView            = 60000 ;
+static const int kTag_MathView          = 78089 ;
 
 @interface MarkdownEditor ()<XTMarkdownParserDelegate, UITextViewDelegate>
 @property (strong, nonatomic) UIImageView   *imgLeftCornerMarker ;
@@ -517,6 +519,29 @@ static const int kTag_HrView            = 60000 ;
         [self addSubview:hr] ;
     }
 }
+
+- (void)mathListParsingFinished:(NSArray *)list {
+    for (UIView *subView in self.subviews) if (subView.tag == kTag_MathView) [subView removeFromSuperview] ;
+    for (int i = 0; i < list.count; i++) {
+        MarkdownModel *model = list[i] ;
+        if (model.isOnEditState) continue ;
+        
+        CGRect rectForMath = [self xt_frameOfTextRange:NSMakeRange(model.range.location, model.range.length - 1)] ;
+        MTMathUILabel *label = [[MTMathUILabel alloc] init] ;
+        label.tag = kTag_MathView ;
+        NSMutableString *mathStr = [model.str mutableCopy] ;
+        [mathStr deleteCharactersInRange:NSMakeRange(mathStr.length - 3, 3)] ;
+        [mathStr deleteCharactersInRange:NSMakeRange(0, 3)] ;
+        
+        label.latex = mathStr ;
+        label.labelMode = kMTMathUILabelModeText;
+        label.textAlignment = kMTTextAlignmentCenter;
+        label.fontSize = [MDThemeConfiguration sharedInstance].editorThemeObj.fontSize + 5 ;
+        label.frame = rectForMath ;
+        [self addSubview:label] ;
+    }
+}
+
 
 - (NSRange)currentCursorRange {
     return self.selectedRange ;

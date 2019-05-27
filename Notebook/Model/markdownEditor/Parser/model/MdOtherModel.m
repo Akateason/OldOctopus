@@ -27,18 +27,18 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
     
     MDThemeConfiguration *configuration = MDThemeConfiguration.sharedInstance ;
-    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    NSMutableDictionary *resultDic = [configuration.editorThemeObj.basicStyle mutableCopy] ;
     UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
     
     switch (self.type) {
         case MarkdownSyntaxMultipleMath: {
-            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
+            [resultDic setObject:XT_MD_THEME_COLOR_KEY(k_md_bgColor) forKey:NSForegroundColorAttributeName] ;
+            [attributedString addAttributes:resultDic range:self.range] ;
         }
             break;
         case MarkdownSyntaxHr: {
-            
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineSpacing = 0;
             paragraphStyle.paragraphSpacing = kDefaultFontSize * 1.3;
