@@ -162,6 +162,7 @@
 		8FEA9E4C225B27C1002A756B /* EmojiJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEA9E4B225B27C1002A756B /* EmojiJson.m */; };
 		8FEA9E4E225B35A8002A756B /* home_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEA9E4D225B35A7002A756B /* home_empty@2x.png */; };
 		8FFAE089229BD22500CDAC47 /* md_l_math@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */; };
+		8FFAE137229D16A100CDAC47 /* ld_reply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE136229D16A000CDAC47 /* ld_reply@2x.png */; };
 		8FFBBB3D224A4CAF00A304C7 /* MDEKeyboardPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */; };
 		8FFBBB3F224A4CD900A304C7 /* MDEKeyboardPhotoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */; };
 		8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB42224A4FE500A304C7 /* md_tb_bt_camera@2x.png */; };
@@ -411,6 +412,7 @@
 		8FEA9E4B225B27C1002A756B /* EmojiJson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiJson.m; sourceTree = "<group>"; };
 		8FEA9E4D225B35A7002A756B /* home_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_empty@2x.png"; sourceTree = "<group>"; };
 		8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_l_math@2x.png"; sourceTree = "<group>"; };
+		8FFAE136229D16A000CDAC47 /* ld_reply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_reply@2x.png"; sourceTree = "<group>"; };
 		8FFBBB3B224A4CAF00A304C7 /* MDEKeyboardPhotoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEKeyboardPhotoView.h; sourceTree = "<group>"; };
 		8FFBBB3C224A4CAF00A304C7 /* MDEKeyboardPhotoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEKeyboardPhotoView.m; sourceTree = "<group>"; };
 		8FFBBB3E224A4CD900A304C7 /* MDEKeyboardPhotoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEKeyboardPhotoView.xib; sourceTree = "<group>"; };
@@ -724,6 +726,7 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8FFAE136229D16A000CDAC47 /* ld_reply@2x.png */,
 				8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */,
 				8F0C15DF229684B200E8837D /* guid_close@2x.png */,
 				8F0C15E0229684B200E8837D /* guid_icloud_top_icon@2x.png */,
@@ -1162,6 +1165,7 @@
 				8F1357ED229298F700F5F874 /* tb_inlinetext@2x.png in Resources */,
 				8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
+				8FFAE137229D16A100CDAC47 /* ld_reply@2x.png in Resources */,
 				8F2A2673226EE98D0076EBA4 /* guiding_img_1@2x.png in Resources */,
 				8F1357F62292A55500F5F874 /* OctToolBarInlineView.xib in Resources */,
 				8F0C15E1229684B200E8837D /* guid_close@2x.png in Resources */,

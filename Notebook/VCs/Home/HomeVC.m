@@ -28,8 +28,9 @@
 #import "SchBarPositiveTransition.h"
 #import "TrashEmptyView.h"
 #import "HomeVC+Util.h"
+#import <SafariServices/SafariServices.h>
 
-@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
+@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate, LeftDrawerVCDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
@@ -45,6 +46,13 @@
 @end
 
 @implementation HomeVC
+
+#pragma mark - LeftDrawerVCDelegate
+- (void)reply {
+    SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://shimo.im/forms/bvVAXVnavgjCjqm7/fill"]] ;
+    //        https://shimo.im/forms/bvVAXVnavgjCjqm7/fill 小章鱼移动端问题反馈
+    [self.navigationController presentViewController:safariVC animated:YES completion:nil] ;
+}
 
 #pragma mark - life
 
@@ -400,6 +408,7 @@
         _leftVC = ({
             LeftDrawerVC * object = [LeftDrawerVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"LeftDrawerVC"] ;
             object.distance = self.movingDistance ;
+            object.delegate = self ;
             object;
        });
     }
