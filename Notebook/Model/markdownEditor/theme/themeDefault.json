@@ -5,17 +5,16 @@
     "quoteTextColor":"777777",
     "themeColor":"f05d4a",
     "homeTitleTextColor":"222222",
-    "bgColor":"ffffff",
-    "blackColor":"000000",
+    "bgColor":"ffffff",    
     "quoteBarColor":"858281",
-    
+    "linkColor":"277DAD"
     
     "statusBarIsWhite":"0",
     "navBarColor":"ffffff",
     "navTextColor":"000000",
     "iconColor":"6b737b",
     "drawerColor":"f9f6f6",
-    "linkColor":"277DAD"
+    
 }
 
 

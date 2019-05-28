@@ -162,7 +162,7 @@
                           }] ;    
     
     //3. parsing get block list first . replace codeBlock First. if is block then parse for inline attr , if not a block parse this para's inline attr .
-    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    NSMutableArray *tmplist = [codeBlkList mutableCopy] ;
     
     [paralist enumerateObjectsUsingBlock:^(MarkdownModel *pModel, NSUInteger idx, BOOL * _Nonnull stop) {
         MarkdownModel *resModel = [self parsingGetABlockStyleModelFromParaModel:pModel] ;
@@ -181,7 +181,6 @@
         BOOL isCodeBlk = NO ;
         for (MarkdownModel *cbModel in codeBlkList) {
             if ( pModel.location >= cbModel.location && pModel.location + pModel.length <= cbModel.location + cbModel.length ) {
-                [tmplist addObject:cbModel] ;
                 isCodeBlk = YES ;
                 break ;
             }

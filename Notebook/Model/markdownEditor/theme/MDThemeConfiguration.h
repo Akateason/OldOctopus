@@ -22,7 +22,6 @@ static NSString *const k_md_quoteBarColor = @"quoteBarColor" ;
 static NSString *const k_md_themeColor = @"themeColor" ;
 static NSString *const k_md_homeTitleTextColor = @"homeTitleTextColor" ;
 static NSString *const k_md_bgColor = @"bgColor" ;
-static NSString *const k_md_blackColor = @"blackColor"  ;
 static NSString *const k_md_iconColor = @"iconColor" ;
 static NSString *const k_md_drawerColor = @"drawerColor" ;
 static NSString *const k_md_linkColor = @"linkColor" ;

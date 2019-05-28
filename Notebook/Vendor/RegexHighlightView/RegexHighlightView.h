@@ -60,6 +60,9 @@ typedef enum {
 @property(nonatomic) NSDictionary *highlightColor;
 @property(nonatomic) NSDictionary *highlightDefinition;
 
+- (id)initWithText:(NSString *)text ;
+
+
 -(void)setHighlightDefinition:(NSDictionary*)highlightDefinition;
 -(void)setHighlightDefinitionWithContentsOfFile:(NSString*)path;
 

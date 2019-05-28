@@ -28,6 +28,7 @@
 //
 
 #import "RegexHighlightView.h"
+#import <XTlib/XTlib.h>
 
 #define EMPTY @""
 
@@ -46,147 +47,55 @@ NSString *const kRegexHighlightViewTypeAttribute = @"attribute";
 NSString *const kRegexHighlightViewTypeProject = @"project";
 NSString *const kRegexHighlightViewTypeOther = @"other";
 
-@interface RegexHighlightView() {
+@interface RegexHighlightView() <UITextViewDelegate> {
     id internalDelegate;
 }
-- (NSAttributedString*)highlightText:(NSAttributedString*)stringIn;
+- (NSAttributedString*)highlightText:(NSString*)stringIn;
 - (NSRange)visibleRangeOfTextView:(UITextView*)textView;
 + (NSDictionary*)defaultDefinition;
 @end
 
-@interface RegexHighlightViewDelegate : NSObject<UITextViewDelegate>
-@end
-@implementation RegexHighlightViewDelegate
-//Update the syntax highlighting if the text gets changed or the scrollview gets updated
-- (void)textViewDidChange:(UITextView *)textView {
-    [textView setNeedsDisplay];
-}
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	[scrollView setNeedsDisplay];
-}
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    //Only update the text if the text changed
-	NSString* newText = [text stringByReplacingOccurrencesOfString:@"\t" withString:@"    "];
-	if(![newText isEqualToString:text]) {
-		textView.text = [textView.text stringByReplacingCharactersInRange:range withString:newText];
-		return NO;
-	}
-	return YES;
-}
-@end
 
-//static CGFloat MARGIN = 8;
-static CGFloat MARGIN = 0;
+
 static NSMutableDictionary* highlightThemes;
 
 @implementation RegexHighlightView
 @synthesize highlightColor;
 @synthesize highlightDefinition;
 
--(void)setHighlightColor:(NSDictionary*)newHighlightColor {
-    if(highlightColor!=newHighlightColor) {
-        highlightColor = newHighlightColor;
-        [self setNeedsLayout];
-    }
-}
--(void)setHighlightDefinition:(NSDictionary*)newHighlightDefinition {
-    if(highlightDefinition!=newHighlightDefinition) {
-        highlightDefinition = newHighlightDefinition;
-        [self setNeedsLayout];
-    }
-}
 -(void)setHighlightDefinitionWithContentsOfFile:(NSString*)newPath {
     [self setHighlightDefinition:[NSDictionary dictionaryWithContentsOfFile:newPath]];
+    
+    NSRange selectedRange = self.selectedRange ;
+    self.attributedText = [self highlightText:self.text] ;
+    self.selectedRange = selectedRange ;
 }
 
--(id)init {
+- (id)initWithText:(NSString *)text {
     self = [super init];
     if(self) {
-        
+        self.text = text ;
+        self.attributedText = [self highlightText:self.text] ;
+        self.delegate = self ;
+
+//        @weakify(self)
+//        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
+//            @strongify(self)
+//            if (self.markedTextRange != nil) return ;
+//
+//            NSRange selectedRange = self.selectedRange ;
+//            self.attributedText = [self highlightText:self.text] ;
+//            self.selectedRange = selectedRange ;
+//        }] ;
     }
     return self;
 }
--(id)initWithCoder:(NSCoder*)decoder {
-    self = [super initWithCoder:decoder];
-    if (self) {
-        self.textColor = [UIColor clearColor];
-        self.delegate = (internalDelegate=[[RegexHighlightViewDelegate alloc] init]);
-    }
-    return self;
-}
--(id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.textColor = [UIColor clearColor];
-        self.delegate = (internalDelegate=[[RegexHighlightViewDelegate alloc] init]);
-    }
-    return self;
-    
-}
 
--(void)drawRect:(CGRect)rect {
-    if(self.text.length<=0) {
-        self.text = EMPTY;
-        return;
-    }
 
-    //Prepare View for drawing
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetTextMatrix(context,CGAffineTransformIdentity);
-    CGContextTranslateCTM(context,0,([self bounds]).size.height);
-    CGContextScaleCTM(context,1.0,-1.0);
-
-    //Get the view frame size
-    CGSize size = self.frame.size;
-    
-    //Determine default text color
-    UIColor* textColor = nil;
-    if(!self.highlightColor||!(textColor=[self.highlightColor objectForKey:kRegexHighlightViewTypeText])) {
-        if([self.textColor isEqual:[UIColor clearColor]]) {
-            if(!(textColor=[[RegexHighlightView highlightTheme:kRegexHighlightViewThemeDefault] objectForKey:kRegexHighlightViewTypeText]))
-               textColor = [UIColor blackColor];
-        } else textColor = self.textColor;
-    }
-    
-    //Set line height, font, color and break mode
-    CGFloat minimumLineHeight = [self.text sizeWithFont:self.font].height,maximumLineHeight = minimumLineHeight;
-    CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)self.font.fontName,self.font.pointSize,NULL);
-    CTLineBreakMode lineBreakMode = kCTLineBreakByWordWrapping;
-    
-    //Apply paragraph settings
-    CTParagraphStyleRef style = CTParagraphStyleCreate((CTParagraphStyleSetting[3]){
-        {kCTParagraphStyleSpecifierMinimumLineHeight,sizeof(minimumLineHeight),&minimumLineHeight},
-        {kCTParagraphStyleSpecifierMaximumLineHeight,sizeof(maximumLineHeight),&maximumLineHeight},
-        {kCTParagraphStyleSpecifierLineBreakMode,sizeof(CTLineBreakMode),&lineBreakMode}
-    },3);
-    NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)font,(NSString*)kCTFontAttributeName,(__bridge id)textColor.CGColor,(NSString*)kCTForegroundColorAttributeName,(__bridge id)style,(NSString*)kCTParagraphStyleAttributeName,nil];
-                
-    //Create path to work with a frame with applied margins
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddRect(path,NULL,CGRectMake(MARGIN+0.0,(-self.contentOffset.y+0),(size.width-2*MARGIN),(size.height+self.contentOffset.y-MARGIN)));
-        
-        
-    //Create attributed string, with applied syntax highlighting
-    CFAttributedStringRef attributedString = (__bridge CFAttributedStringRef)[self highlightText:[[NSAttributedString alloc] initWithString:self.text attributes:attributes]];
-    
-    //Draw the frame
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attributedString);
-    CTFrameRef frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0,CFAttributedStringGetLength(attributedString)),path,NULL);
-    CTFrameDraw(frame,context);
-}
-
--(NSRange)visibleRangeOfTextView:(UITextView *)textView {
-    CGRect bounds = textView.bounds;
-    //Get start and end bouns for text position
-    UITextPosition *start = [textView characterRangeAtPoint:bounds.origin].start,*end = [textView characterRangeAtPoint:CGPointMake(CGRectGetMaxX(bounds),CGRectGetMaxY(bounds))].end;
-    //Make a range out of it and return
-    return NSMakeRange([textView offsetFromPosition:textView.beginningOfDocument toPosition:start],[textView offsetFromPosition:start toPosition:end]);
-}
-
--(NSAttributedString*)highlightText:(NSAttributedString*)attributedString {
+-(NSAttributedString*)highlightText:(NSString*)string {
     //Create a mutable attribute string to set the highlighting
-    NSString* string = attributedString.string; NSRange range = NSMakeRange(0,[string length]);
-    NSMutableAttributedString* coloredString = [[NSMutableAttributedString alloc] initWithAttributedString:attributedString];
+    NSRange range = NSMakeRange(0,[string length]);
+    NSMutableAttributedString* coloredString = [[NSMutableAttributedString alloc] initWithString:string];
     
     //Define the definition to use
     NSDictionary* definition = nil;
@@ -392,4 +301,30 @@ static NSMutableDictionary* highlightThemes;
     [definition setObject:@"(Kristian|Kraljic)" forKey:kRegexHighlightViewTypeOther];
     return definition;
 }
+
+//- (CGRect)caretRectForPosition:(UITextPosition *)position {
+//    CGRect originalRect = [super caretRectForPosition:position];
+//    originalRect.size.height = (self.font.lineHeight <= 0.2) ? 16 + 2 : self.font.lineHeight + 2 ;
+//    originalRect.size.width = 2 ;
+//    return originalRect;
+//}
+
+
+- (void)textViewDidChange:(UITextView *)textView {
+    NSRange selectedRange = self.selectedRange ;
+    self.attributedText = [self highlightText:self.text] ;
+    self.selectedRange = selectedRange ;
+}
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    //Only update the text if the text changed
+    NSString* newText = [text stringByReplacingOccurrencesOfString:@"\t" withString:@"    "];
+    if(![newText isEqualToString:text]) {
+        textView.text = [textView.text stringByReplacingCharactersInRange:range withString:newText];
+        return NO;
+    }
+    return YES;
+}
+
 @end

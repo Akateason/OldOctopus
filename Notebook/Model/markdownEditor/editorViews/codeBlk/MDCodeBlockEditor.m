@@ -21,29 +21,27 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor redColor] ;
+        self.backgroundColor = UIColorHexA(@"123123", .03) ;
         
         NSString *firstPrefix = [[model.str componentsSeparatedByString:@"\n"] firstObject] ;
         NSRange range = NSMakeRange(firstPrefix.length + 1, model.length - 4 - firstPrefix.length - 1) ;
         NSString *textStr = [model.str substringWithRange:range] ;
         
-        RegexHighlightView *highlightView = [[RegexHighlightView alloc] init] ;
-        highlightView.text = textStr ;
+        RegexHighlightView *highlightView = [[RegexHighlightView alloc] initWithText:textStr] ;
         [highlightView setHighlightTheme:kRegexHighlightViewThemeDefault] ;
         highlightView.font = [MDThemeConfiguration sharedInstance].editorThemeObj.font ;
-        
+        highlightView.scrollEnabled = NO ;
         [highlightView setHighlightDefinitionWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"java" ofType:@"plist"]] ;
-
+        
 //        highlightView.userInteractionEnabled = NO ;
         [self addSubview:highlightView] ;
         [highlightView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self) ;
             make.top.equalTo(self.mas_top).offset(30) ;
-            make.left.equalTo(self.mas_left).offset(30) ;
-            make.right.equalTo(self.mas_right).offset(-30) ;
+            make.left.equalTo(self.mas_left).offset(15) ;
+            make.right.equalTo(self.mas_right).offset(-15) ;
         }] ;
         self.highlightView = highlightView ;
-        
         
     }
     return self ;
