@@ -146,21 +146,21 @@
                     <rect key="frame" x="20" y="180" width="269.5" height="60"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgq-zb-Fh5" customClass="KeyboardViewButton">
-                            <rect key="frame" x="0.0" y="24" width="89.5" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="89.5" height="60"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="标题4" image="md_tb_bt_h4.png">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hT3-QB-dmT" customClass="KeyboardViewButton">
-                            <rect key="frame" x="89.5" y="24" width="89.5" height="20"/>
+                            <rect key="frame" x="89.5" y="0.0" width="89.5" height="60"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="标题5" image="md_tb_bt_h5.png">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnT-Wl-aTn" customClass="KeyboardViewButton">
-                            <rect key="frame" x="179" y="24" width="89.5" height="20"/>
+                            <rect key="frame" x="179" y="0.0" width="89.5" height="60"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="标题6" image="md_tb_bt_h6.png">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -169,14 +169,17 @@
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Jgq-zb-Fh5" secondAttribute="bottom" id="2MG-h4-IF7"/>
+                        <constraint firstItem="Jgq-zb-Fh5" firstAttribute="top" secondItem="1ZN-Xc-9Es" secondAttribute="top" id="3u5-7d-2RR"/>
                         <constraint firstAttribute="height" constant="60" id="4Cw-vH-iag"/>
-                        <constraint firstAttribute="bottom" secondItem="Jgq-zb-Fh5" secondAttribute="bottom" constant="16" id="GBI-AY-LYv"/>
+                        <constraint firstItem="hT3-QB-dmT" firstAttribute="top" secondItem="1ZN-Xc-9Es" secondAttribute="top" id="CuP-48-TRT"/>
                         <constraint firstAttribute="trailing" secondItem="dnT-Wl-aTn" secondAttribute="trailing" constant="1" id="HQ8-jl-REa"/>
                         <constraint firstItem="hT3-QB-dmT" firstAttribute="leading" secondItem="Jgq-zb-Fh5" secondAttribute="trailing" id="KKt-47-Xjo"/>
+                        <constraint firstAttribute="bottom" secondItem="hT3-QB-dmT" secondAttribute="bottom" id="KyE-1C-NU2"/>
                         <constraint firstItem="dnT-Wl-aTn" firstAttribute="width" secondItem="Jgq-zb-Fh5" secondAttribute="width" id="NeH-md-8dg"/>
                         <constraint firstItem="Jgq-zb-Fh5" firstAttribute="leading" secondItem="1ZN-Xc-9Es" secondAttribute="leading" id="Opt-ym-mtl"/>
-                        <constraint firstAttribute="bottom" secondItem="dnT-Wl-aTn" secondAttribute="bottom" constant="16" id="dWp-gt-Pun"/>
-                        <constraint firstAttribute="bottom" secondItem="hT3-QB-dmT" secondAttribute="bottom" constant="16" id="kL0-7Q-zFB"/>
+                        <constraint firstItem="dnT-Wl-aTn" firstAttribute="top" secondItem="1ZN-Xc-9Es" secondAttribute="top" id="TDv-AM-XYy"/>
+                        <constraint firstAttribute="bottom" secondItem="dnT-Wl-aTn" secondAttribute="bottom" id="goX-bG-wPC"/>
                         <constraint firstItem="hT3-QB-dmT" firstAttribute="width" secondItem="Jgq-zb-Fh5" secondAttribute="width" id="l0A-DZ-CGZ"/>
                         <constraint firstItem="dnT-Wl-aTn" firstAttribute="leading" secondItem="hT3-QB-dmT" secondAttribute="trailing" id="xdf-Z5-kBG"/>
                     </constraints>

@@ -8,7 +8,11 @@
 
 #import "MDCodeBlockEditor.h"
 #import "MDThemeConfiguration.h"
+#import "RegexHighlightView.h"
 
+@interface MDCodeBlockEditor ()
+@property (strong, nonatomic) RegexHighlightView *highlightView ;
+@end
 
 @implementation MDCodeBlockEditor
 
@@ -17,17 +21,32 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-//        self.xt_theme_backgroundColor = [] //XT_MAKE_theme_color(k_md_themeColor, .3) ;
-//        self.xt_theme_textColor = k_md_themeColor ;
-        self.scrollEnabled = NO ;
-        self.backgroundColor = nil ;
+        self.backgroundColor = [UIColor redColor] ;
         
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:model.str attributes:[MDThemeConfiguration sharedInstance].editorThemeObj.codeBlockStyle] ;
-        self.attributedText = attributedString ;
+        NSString *firstPrefix = [[model.str componentsSeparatedByString:@"\n"] firstObject] ;
+        NSRange range = NSMakeRange(firstPrefix.length + 1, model.length - 4 - firstPrefix.length - 1) ;
+        NSString *textStr = [model.str substringWithRange:range] ;
+        
+        RegexHighlightView *highlightView = [[RegexHighlightView alloc] init] ;
+        highlightView.text = textStr ;
+        [highlightView setHighlightTheme:kRegexHighlightViewThemeDefault] ;
+        highlightView.font = [MDThemeConfiguration sharedInstance].editorThemeObj.font ;
+        
+        [highlightView setHighlightDefinitionWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"java" ofType:@"plist"]] ;
+
+//        highlightView.userInteractionEnabled = NO ;
+        [self addSubview:highlightView] ;
+        [highlightView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self) ;
+            make.top.equalTo(self.mas_top).offset(30) ;
+            make.left.equalTo(self.mas_left).offset(30) ;
+            make.right.equalTo(self.mas_right).offset(-30) ;
+        }] ;
+        self.highlightView = highlightView ;
         
         
     }
-    return self;
+    return self ;
 }
 
 

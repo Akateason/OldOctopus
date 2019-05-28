@@ -73,7 +73,7 @@
     self.area5.xt_cornerRadius = 6 ;
     self.area6.xt_cornerRadius = 6 ;
     
-    self.xt_theme_backgroundColor = k_md_drawerColor ;
+    self.backgroundColor = UIColorHex(@"f9f6f6") ;
     
     
     WEAK_SELF

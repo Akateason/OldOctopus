@@ -96,7 +96,7 @@
     // render native views .
     [self drawQuoteBlk] ;
     [self drawListBlk] ;
-//  [self drawCodeBlk] ;
+    [self drawCodeBlk] ;
     [self drawInlineCode] ;
     [self drawHr] ;
     [self drawMaths] ;
@@ -402,15 +402,15 @@
     if (self.delegate) [self.delegate listBlockParsingFinished:tmplist] ;
 }
 
-//- (void)drawCodeBlk {
-//    NSMutableArray *tmplist = [@[] mutableCopy] ;
-//    [self.paraList enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if (model.type == MarkdownSyntaxCodeBlock) {
-//            [tmplist addObject:model] ;
-//        }
-//    }] ;
-////    if (self.delegate) [self.delegate codeBlockParsingFinished:tmplist] ;
-//}
+- (void)drawCodeBlk {
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    [self.paraList enumerateObjectsUsingBlock:^(MarkdownModel *_Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.type == MarkdownSyntaxCodeBlock) {
+            [tmplist addObject:model] ;
+        }
+    }] ;
+    if (self.delegate) [self.delegate codeBlockParsingFinished:tmplist] ;
+}
 
 - (void)drawInlineCode {
     NSMutableArray *tmplist = [@[] mutableCopy] ;

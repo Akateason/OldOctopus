@@ -26,14 +26,16 @@
 #import "HrView.h"
 #import "MDHeadModel.h"
 #import "OctToolbar.h"
-#import <iosMath/iosMath.h>
+#import <iosMath/IosMath.h>
+#import "RegexHighlightView.h"
+
 
 
 NSString *const kNOTIFICATION_NAME_EDITOR_DID_CHANGE = @"kNOTIFICATION_NAME_EDITOR_DID_CHANGE" ;
 const CGFloat kMDEditor_FlexValue       = 30.f  ;
 static const int kTag_QuoteMarkView     = 66777 ;
 static const int kTag_ListMarkView      = 32342 ;
-//static const int kTag_CodeBlkView       = 40000 ;
+static const int kTag_CodeBlkView       = 40000 ;
 static const int kTag_InlineCodeView    = 50000 ;
 static const int kTag_HrView            = 60000 ;
 static const int kTag_MathView          = 78089 ;
@@ -460,22 +462,26 @@ static const int kTag_MathView          = 78089 ;
     }
 }
 
-//- (void)codeBlockParsingFinished:(NSArray *)list {
-//    for (UIView *subView in self.subviews) if (subView.tag == kTag_CodeBlkView) [subView removeFromSuperview] ;
-//
-//    for (int i = 0; i < list.count; i++) {
-//        MdBlockModel *model = list[i] ;
-//        CGRect rectForBlk = [self xt_frameOfTextRange:model.range] ;
-//        if (CGSizeEqualToSize(rectForBlk.size, CGSizeZero)) continue ;
-//
-//        MDCodeBlockEditor *codeBlkItem = [[MDCodeBlockEditor alloc] initWithFrame:rectForBlk model:model] ;
-//        codeBlkItem.xt_borderWidth = 1 ;
-//        codeBlkItem.xt_borderColor = [UIColor redColor] ;
-//        codeBlkItem.tag = kTag_CodeBlkView ;
-//        codeBlkItem.userInteractionEnabled = YES ;
-//        [self addSubview:codeBlkItem] ;
-//    }
-//}
+- (void)codeBlockParsingFinished:(NSArray *)list {
+    for (UIView *subView in self.subviews) if (subView.tag == kTag_CodeBlkView) [subView removeFromSuperview] ;
+
+    for (int i = 0; i < list.count; i++) {
+        MdBlockModel *model = list[i] ;
+        if (model.isOnEditState) continue ;
+        
+//        NSString *firstPrefix = [[model.str componentsSeparatedByString:@"\n"] firstObject] ;
+//        NSRange range = NSMakeRange(firstPrefix.length + model.location, model.length - 4 - firstPrefix.length) ;
+        CGRect rectForBlk = [self xt_frameOfTextRange:model.range] ;
+        if (CGSizeEqualToSize(rectForBlk.size, CGSizeZero)) continue ;
+        
+        MDCodeBlockEditor *codeBlkItem = [[MDCodeBlockEditor alloc] initWithFrame:rectForBlk model:model] ;
+        codeBlkItem.xt_borderWidth = 1 ;
+        codeBlkItem.xt_borderColor = [UIColor redColor] ;
+        codeBlkItem.tag = kTag_CodeBlkView ;
+//        codeBlkItem.userInteractionEnabled = NO ;
+        [self addSubview:codeBlkItem] ;
+    }
+}
 
 - (void)inlineCodeParsingFinished:(NSArray *)list {
     for (UIView *subView in self.subviews) if (subView.tag == kTag_InlineCodeView) [subView removeFromSuperview] ;
@@ -537,6 +543,7 @@ static const int kTag_MathView          = 78089 ;
         label.labelMode = kMTMathUILabelModeText;
         label.textAlignment = kMTTextAlignmentCenter;
         label.fontSize = [MDThemeConfiguration sharedInstance].editorThemeObj.fontSize + 5 ;
+        label.textColor = XT_MD_THEME_COLOR_KEY(k_md_textColor) ;
         label.frame = rectForMath ;
         [self addSubview:label] ;
     }

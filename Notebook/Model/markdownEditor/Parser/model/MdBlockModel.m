@@ -113,9 +113,9 @@
         case MarkdownSyntaxCodeBlock: {
             [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
             
-            resultDic = [self attrCodeBlockHideMark] ;
-            [attributedString addAttributes:resultDic range:NSMakeRange(location, 3)] ;
-            [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 3, 3)] ;
+//            resultDic = [self attrCodeBlockHideMark] ;
+//            [attributedString addAttributes:resultDic range:NSMakeRange(location, 3)] ;
+//            [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 3, 3)] ;
         }
             break ;
             

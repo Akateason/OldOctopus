@@ -33,7 +33,7 @@
 - (NSMutableAttributedString *)addAttrOnPreviewState:(NSMutableAttributedString *)attributedString {
     
     MDThemeConfiguration *configuration = MDThemeConfiguration.sharedInstance ;
-    NSDictionary *resultDic = configuration.editorThemeObj.basicStyle ;
+    NSMutableDictionary *resultDic = [configuration.editorThemeObj.basicStyle mutableCopy] ;
     UIFont *paragraphFont = configuration.editorThemeObj.font ;
     NSUInteger location = self.range.location ;
     NSUInteger length = self.range.length ;
@@ -43,7 +43,7 @@
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 2, 2)] ;
             
-            resultDic = @{NSFontAttributeName : configuration.editorThemeObj.boldFont} ;
+            [resultDic setObject:configuration.editorThemeObj.boldFont forKey:NSFontAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 2, length - 4)] ;
         }
             break ;
@@ -51,7 +51,7 @@
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 1)] ;
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 1, 1)] ;
             
-            resultDic = @{NSFontAttributeName : configuration.editorThemeObj.italicFont};
+            [resultDic setObject:configuration.editorThemeObj.italicFont forKey:NSFontAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
         }
             break ;
@@ -59,7 +59,7 @@
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 3)] ;
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 3, 3)] ;
             
-            resultDic = @{NSFontAttributeName : configuration.editorThemeObj.boldItalicFont};
+            [resultDic setObject:configuration.editorThemeObj.boldItalicFont forKey:NSFontAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 3, length - 6)] ;
         }
             break ;
@@ -67,9 +67,8 @@
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location, 2)] ;
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:NSMakeRange(location + length - 2, 2)] ;
             
-            resultDic = @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle),
-                          NSFontAttributeName : paragraphFont
-                          };
+            [resultDic setObject:@(NSUnderlineStyleSingle) forKey:NSStrikethroughStyleAttributeName] ;
+            [resultDic setObject:paragraphFont forKey:NSFontAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 2, length - 4)] ;
         }
             break ;

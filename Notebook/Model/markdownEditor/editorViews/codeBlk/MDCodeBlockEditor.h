@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MDCodeBlockEditor : UITextView
+@interface MDCodeBlockEditor : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame
                         model:(MdBlockModel *)model ;
