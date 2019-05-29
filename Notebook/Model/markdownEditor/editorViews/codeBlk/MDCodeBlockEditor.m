@@ -26,9 +26,8 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.03) ;
-        self.xt_borderColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.1) ;
-        self.xt_borderWidth = .3 ;
+        self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        
         
         self.model = model ;
         
@@ -42,7 +41,8 @@
         NSString *codeStr = [[model.str componentsSeparatedByString:@"\n"] firstObject] ;
         codeStr = [codeStr substringFromIndex:3] ;
         self.oldCodeStr = codeStr ;
-        [self.btCodeType setTitle:XT_STR_FORMAT(@"「%@」",codeStr) forState:0] ;
+        codeStr = codeStr.length ? codeStr : @"点击选择代码块语言" ;
+        [self.btCodeType setTitle:XT_STR_FORMAT(@"%@",codeStr) forState:0] ;
         
         RegexHighlightView *highlightView =
         [[RegexHighlightView alloc] initWithText:textStr
@@ -60,7 +60,20 @@
         highlightView.regexDelegate = self ;
         highlightView.backgroundColor = nil ;
         self.highlightView = highlightView ;
-
+        
+        UIView *bgView = [UIView new] ;
+        bgView.backgroundColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.03) ;
+        bgView.xt_borderColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.1) ;
+        bgView.xt_borderWidth = .5 ;
+        bgView.xt_cornerRadius = 4. ;
+        [self addSubview:bgView] ;
+        [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self) ;
+            make.top.equalTo(highlightView.mas_top).offset(5) ;
+//            make.top.equalTo(highlightView.mas_top).offset(0) ;
+//            make.bottom.equalTo(highlightView.mas_bottom).offset(0) ;
+            make.bottom.equalTo(highlightView.mas_bottom).offset(-15) ;
+        }] ;
         
     }
     return self ;

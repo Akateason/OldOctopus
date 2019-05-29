@@ -560,6 +560,8 @@ static const int kTag_MathView          = 78089 ;
     [tmpstr deleteCharactersInRange:NSMakeRange(location + 3, oldCode.length)] ;
     [tmpstr insertString:code atIndex:location + 3] ;
     [self.parser parseTextAndGetModelsInCurrentCursor:tmpstr textView:self] ;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
 }
 
 
