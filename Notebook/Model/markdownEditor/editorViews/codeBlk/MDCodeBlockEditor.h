@@ -11,8 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MDCodeBlockEditor : UIView
+@protocol MDCodeBlockEditorDelegate <NSObject>
+- (void)changeCodeFormatWithLocation:(NSUInteger)location
+                       newCodeString:(NSString *)code
+                             oldCode:(NSString *)oldCode ;
+@end
 
+
+@interface MDCodeBlockEditor : UIView
+@property (weak, nonatomic) id <MDCodeBlockEditorDelegate> delegate ;
 - (instancetype)initWithFrame:(CGRect)frame
                         model:(MdBlockModel *)model ;
     

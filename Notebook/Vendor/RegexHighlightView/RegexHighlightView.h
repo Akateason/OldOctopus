@@ -26,6 +26,8 @@
 //  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //  OTHER DEALINGS IN THE SOFTWARE.
 //
+// @CHANGED BY TEASON
+
 
 #import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
@@ -55,12 +57,19 @@ typedef enum {
     kRegexHighlightViewThemeSunset
 } RegexHighlightViewTheme;
 
-@interface RegexHighlightView : UITextView
+@protocol RegexHighlightViewDelegate <NSObject>
+- (void)textChanged:(NSString *)text ;
+@end
 
+
+@interface RegexHighlightView : UITextView
+@property(weak, nonatomic) id <RegexHighlightViewDelegate> regexDelegate ;
 @property(nonatomic) NSDictionary *highlightColor;
 @property(nonatomic) NSDictionary *highlightDefinition;
 
-- (id)initWithText:(NSString *)text ;
+- (id)initWithText:(NSString *)text
+             theme:(RegexHighlightViewTheme)theme
+              path:(NSString *)newPath ;
 
 
 -(void)setHighlightDefinition:(NSDictionary*)highlightDefinition;
@@ -69,4 +78,6 @@ typedef enum {
 -(void)setHighlightTheme:(RegexHighlightViewTheme)theme;
 +(NSDictionary*)highlightTheme:(RegexHighlightViewTheme)theme;
 
+
+- (NSAttributedString *)highlightText:(NSString*)string ;
 @end

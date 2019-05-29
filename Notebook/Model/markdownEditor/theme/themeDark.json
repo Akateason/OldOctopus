@@ -7,11 +7,11 @@
     "homeTitleTextColor":"ffffff",
     "bgColor":"1f2123",
     "quoteBarColor":"A4A5A6",
-    "linkColor":"99DBFF"
+    "linkColor":"99DBFF",
     
     "statusBarIsWhite":"1",
     "navBarColor":"000000",
     "navTextColor":"ffffff",
     "iconColor":"8e969f",
-    "drawerColor":"222528",    
+    "drawerColor":"222528",
 }

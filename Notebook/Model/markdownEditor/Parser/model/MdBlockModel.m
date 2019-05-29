@@ -111,7 +111,13 @@
         }
             break ;
         case MarkdownSyntaxCodeBlock: {
-            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineSpacing = 5 ;
+            resultDic = @{NSBackgroundColorAttributeName : [UIColor clearColor] ,
+                          NSFontAttributeName : [UIFont systemFontOfSize:kDefaultFontSize] ,
+                          NSForegroundColorAttributeName : [UIColor clearColor] ,
+                          NSParagraphStyleAttributeName : paragraphStyle} ;
+            [attributedString addAttributes:resultDic range:self.range] ;
             
 //            resultDic = [self attrCodeBlockHideMark] ;
 //            [attributedString addAttributes:resultDic range:NSMakeRange(location, 3)] ;

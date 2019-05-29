@@ -40,10 +40,9 @@ static const int kTag_InlineCodeView    = 50000 ;
 static const int kTag_HrView            = 60000 ;
 static const int kTag_MathView          = 78089 ;
 
-@interface MarkdownEditor ()<XTMarkdownParserDelegate, UITextViewDelegate>
+@interface MarkdownEditor ()<XTMarkdownParserDelegate, UITextViewDelegate, MDCodeBlockEditorDelegate>
 @property (strong, nonatomic) UIImageView   *imgLeftCornerMarker ;
-@property (strong, nonatomic) OctToolbar     *toolBar ;
-
+@property (strong, nonatomic) OctToolbar    *toolBar ;
 @end
 
 @implementation MarkdownEditor
@@ -86,11 +85,10 @@ static const int kTag_MathView          = 78089 ;
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         if (self.markedTextRange != nil) return ;
+        if (!self.isFirstResponder) return ;
         
         [self parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
-        
-//        self.typingAttributes = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
-        
+        //        self.typingAttributes = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
         [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
     }] ;
     
@@ -464,21 +462,19 @@ static const int kTag_MathView          = 78089 ;
 
 - (void)codeBlockParsingFinished:(NSArray *)list {
     for (UIView *subView in self.subviews) if (subView.tag == kTag_CodeBlkView) [subView removeFromSuperview] ;
-
+    
     for (int i = 0; i < list.count; i++) {
         MdBlockModel *model = list[i] ;
         if (model.isOnEditState) continue ;
         
-//        NSString *firstPrefix = [[model.str componentsSeparatedByString:@"\n"] firstObject] ;
-//        NSRange range = NSMakeRange(firstPrefix.length + model.location, model.length - 4 - firstPrefix.length) ;
         CGRect rectForBlk = [self xt_frameOfTextRange:model.range] ;
         if (CGSizeEqualToSize(rectForBlk.size, CGSizeZero)) continue ;
         
-        MDCodeBlockEditor *codeBlkItem = [[MDCodeBlockEditor alloc] initWithFrame:rectForBlk model:model] ;
-        codeBlkItem.xt_borderWidth = 1 ;
-        codeBlkItem.xt_borderColor = [UIColor redColor] ;
+        MDCodeBlockEditor *codeBlkItem = [[MDCodeBlockEditor alloc] initWithFrame:rectForBlk model:model] ;        
         codeBlkItem.tag = kTag_CodeBlkView ;
-//        codeBlkItem.userInteractionEnabled = NO ;
+        codeBlkItem.userInteractionEnabled = YES ;
+        codeBlkItem.delegate = self ;
+        
         [self addSubview:codeBlkItem] ;
     }
 }
@@ -553,6 +549,19 @@ static const int kTag_MathView          = 78089 ;
 - (NSRange)currentCursorRange {
     return self.selectedRange ;
 }
+
+#pragma mark - MDCodeBlockEditorDelegate <NSObject>
+- (void)changeCodeFormatWithLocation:(NSUInteger)location
+                       newCodeString:(NSString *)code
+                             oldCode:(NSString *)oldCode {
+    
+    [self resignFirstResponder] ;
+    NSMutableString *tmpstr = [self.text mutableCopy] ;
+    [tmpstr deleteCharactersInRange:NSMakeRange(location + 3, oldCode.length)] ;
+    [tmpstr insertString:code atIndex:location + 3] ;
+    [self.parser parseTextAndGetModelsInCurrentCursor:tmpstr textView:self] ;
+}
+
 
 #pragma mark - textview Delegate
 

@@ -29,6 +29,7 @@
 
 #import "RegexHighlightView.h"
 #import <XTlib/XTlib.h>
+#import "MDThemeConfiguration.h"
 
 #define EMPTY @""
 
@@ -47,11 +48,8 @@ NSString *const kRegexHighlightViewTypeAttribute = @"attribute";
 NSString *const kRegexHighlightViewTypeProject = @"project";
 NSString *const kRegexHighlightViewTypeOther = @"other";
 
-@interface RegexHighlightView() <UITextViewDelegate> {
-    id internalDelegate;
-}
+@interface RegexHighlightView() <UITextViewDelegate>
 - (NSAttributedString*)highlightText:(NSString*)stringIn;
-- (NSRange)visibleRangeOfTextView:(UITextView*)textView;
 + (NSDictionary*)defaultDefinition;
 @end
 
@@ -64,80 +62,90 @@ static NSMutableDictionary* highlightThemes;
 @synthesize highlightDefinition;
 
 -(void)setHighlightDefinitionWithContentsOfFile:(NSString*)newPath {
-    [self setHighlightDefinition:[NSDictionary dictionaryWithContentsOfFile:newPath]];
-    
-    NSRange selectedRange = self.selectedRange ;
-    self.attributedText = [self highlightText:self.text] ;
-    self.selectedRange = selectedRange ;
+    self.textColor = [UIColor clearColor];
+    self.highlightDefinition = [NSDictionary dictionaryWithContentsOfFile:newPath] ;
 }
 
-- (id)initWithText:(NSString *)text {
-    self = [super init];
+- (id)initWithText:(NSString *)text
+             theme:(RegexHighlightViewTheme)theme
+              path:(NSString *)newPath
+{
+    self = [super init] ;
     if(self) {
-        self.text = text ;
-        self.attributedText = [self highlightText:self.text] ;
         self.delegate = self ;
-
-//        @weakify(self)
-//        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UITextViewTextDidChangeNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
-//            @strongify(self)
-//            if (self.markedTextRange != nil) return ;
-//
-//            NSRange selectedRange = self.selectedRange ;
-//            self.attributedText = [self highlightText:self.text] ;
-//            self.selectedRange = selectedRange ;
-//        }] ;
+        [self setHighlightTheme:theme] ;
+        [self setHighlightDefinitionWithContentsOfFile:newPath] ;
+        self.textColor = [UIColor clearColor];
+        NSAttributedString *attr = [self highlightText:text] ;
+        self.attributedText = attr ;
+        self.font = [UIFont systemFontOfSize:16] ;
     }
     return self;
 }
 
 
--(NSAttributedString*)highlightText:(NSString*)string {
+- (NSAttributedString *)highlightText:(NSString*)string {
+    UIColor* textColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ;
+    
     //Create a mutable attribute string to set the highlighting
-    NSRange range = NSMakeRange(0,[string length]);
-    NSMutableAttributedString* coloredString = [[NSMutableAttributedString alloc] initWithString:string];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 5 ;
+    NSDictionary *dic = @{NSForegroundColorAttributeName : textColor ,
+                          NSFontAttributeName : [UIFont systemFontOfSize:16] ,
+                          NSParagraphStyleAttributeName : paragraphStyle ,} ;
+    NSMutableAttributedString *coloredString = [[NSMutableAttributedString alloc] initWithString:string attributes:dic];
+    NSRange range = NSMakeRange(0,[string length]) ;
+    
+    [coloredString beginEditing] ;
     
     //Define the definition to use
-    NSDictionary* definition = nil;
-    if(!(definition=self.highlightDefinition))
-        definition = [RegexHighlightView defaultDefinition];
+    NSDictionary *definition = self.highlightDefinition ;
+    if(!(definition=self.highlightDefinition)) definition = [RegexHighlightView defaultDefinition];
     
     //For each definition entry apply the highlighting to matched ranges
     for(NSString* key in definition) {
         NSString* expression = [definition objectForKey:key];
-        if(!expression||[expression length]<=0) continue;
+        if(!expression||[expression length]<=0) continue ;
         NSArray* matches = [[NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionDotMatchesLineSeparators error:nil] matchesInString:string options:0 range:range];
-        for(NSTextCheckingResult* match in matches) {
+        for (NSTextCheckingResult* match in matches) {
             UIColor* textColor = nil;
             //Get the text color, if it is a custom key and no color was defined, choose black
             if(!self.highlightColor||!(textColor=([self.highlightColor objectForKey:key])))
                 if(!(textColor=[[RegexHighlightView highlightTheme:kRegexHighlightViewThemeDefault] objectForKey:key]))
-                    textColor = [UIColor blackColor];
-            [coloredString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)textColor.CGColor range:[match rangeAtIndex:0]];                            
+                    textColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ;
+            [coloredString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)textColor.CGColor range:[match rangeAtIndex:0]];
+
+            
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineSpacing = 5 ;
+            [coloredString addAttributes:@{NSForegroundColorAttributeName : textColor ,
+                                           NSFontAttributeName : [UIFont systemFontOfSize:16] ,
+                                           NSParagraphStyleAttributeName : paragraphStyle ,
+                                           }
+                                   range:match.range] ;
+
         }
     }
     
-    return coloredString.copy;
+    [coloredString endEditing] ;
+    
+    return coloredString ;
 }
 
--(void)setHighlightTheme:(RegexHighlightViewTheme)theme {
+- (void)setHighlightTheme:(RegexHighlightViewTheme)theme {
+    self.textColor = [UIColor clearColor];
     self.highlightColor = [RegexHighlightView highlightTheme:theme];
     
-    //Set font, text color and background color back to default
-    self.textColor = [UIColor clearColor];
-    UIColor* backgroundColor = [self.highlightColor objectForKey:kRegexHighlightViewTypeBackground];
-    if(backgroundColor)
-         self.backgroundColor = backgroundColor;
+    UIColor *backgroundColor = [self.highlightColor objectForKey:kRegexHighlightViewTypeBackground];
+    if (backgroundColor) self.backgroundColor = backgroundColor;
     else self.backgroundColor = [UIColor whiteColor];
-    self.font = [UIFont systemFontOfSize:(theme!=kRegexHighlightViewThemePresentation?14.0:18.0)];
 }
 
 +(NSDictionary*)highlightTheme:(RegexHighlightViewTheme)theme {
     //Check if the highlight theme has already been defined
     NSDictionary* themeColor = nil;
-    if(!highlightThemes) highlightThemes = [NSMutableDictionary dictionary];
-    if((themeColor=[highlightThemes objectForKey:[NSNumber numberWithInt:theme]]))
-        return themeColor;
+    if (!highlightThemes) highlightThemes = [NSMutableDictionary dictionary];
+    if ((themeColor = [highlightThemes objectForKey:[NSNumber numberWithInt:theme]])) return themeColor;
     
     //If not define the theme and return it
     switch(theme) {
@@ -160,7 +168,7 @@ static NSMutableDictionary* highlightThemes;
             break;
         case kRegexHighlightViewThemeDefault:
             themeColor = [NSDictionary dictionaryWithObjectsAndKeys:
-                    [UIColor colorWithRed:0.0/255 green:0.0/255 blue:0.0/255 alpha:1],kRegexHighlightViewTypeText,
+                    XT_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.75),kRegexHighlightViewTypeText,
                     [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1],kRegexHighlightViewTypeBackground,
                     [UIColor colorWithRed:0.0/255 green:131.0/255 blue:39.0/255 alpha:1],kRegexHighlightViewTypeComment,
                     [UIColor colorWithRed:0.0/255 green:131.0/255 blue:39.0/255 alpha:1],kRegexHighlightViewTypeDocumentationComment,
@@ -284,7 +292,7 @@ static NSMutableDictionary* highlightThemes;
     } else return nil;
 }
 
-+(NSDictionary*)defaultDefinition {
++ (NSDictionary*)defaultDefinition {
     //It is recommended to use an ordered dictionary, because the highlighting will take place in the same order the dictionary enumerator returns the definitions
     NSMutableDictionary* definition = [NSMutableDictionary dictionary];
     [definition setObject:@"(?<!\\w)(and|or|xor|for|do|while|foreach|as|return|die|exit|if|then|else|elseif|new|delete|try|throw|catch|finally|class|function|string|array|object|resource|var|bool|boolean|int|integer|float|double|real|string|array|global|const|static|public|private|protected|published|extends|switch|true|false|null|void|this|self|struct|char|signed|unsigned|short|long|print)(?!\\w)" forKey:kRegexHighlightViewTypeKeyword];
@@ -302,20 +310,16 @@ static NSMutableDictionary* highlightThemes;
     return definition;
 }
 
-//- (CGRect)caretRectForPosition:(UITextPosition *)position {
-//    CGRect originalRect = [super caretRectForPosition:position];
-//    originalRect.size.height = (self.font.lineHeight <= 0.2) ? 16 + 2 : self.font.lineHeight + 2 ;
-//    originalRect.size.width = 2 ;
-//    return originalRect;
-//}
-
-
 - (void)textViewDidChange:(UITextView *)textView {
     NSRange selectedRange = self.selectedRange ;
     self.attributedText = [self highlightText:self.text] ;
     self.selectedRange = selectedRange ;
+    self.font = [UIFont systemFontOfSize:16] ;
+    
+//    if (self.regexDelegate) {
+//        [self.regexDelegate textChanged:self.text] ;
+//    }
 }
-
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     //Only update the text if the text changed

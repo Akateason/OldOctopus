@@ -83,7 +83,7 @@
     paragraphStyle.firstLineHeadIndent = 16 * num ;
     paragraphStyle.lineSpacing = 10 ; // 列表内的行间距为：10px
 //    paragraphStyle.paragraphSpacing = kDefaultFontSize ;
-    NSDictionary *dic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor) ,
+    NSDictionary *dic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_markColor, .75) ,                          
                           NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                           NSParagraphStyleAttributeName: paragraphStyle
                           } ;

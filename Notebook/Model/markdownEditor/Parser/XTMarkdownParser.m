@@ -162,7 +162,8 @@
                           }] ;    
     
     //3. parsing get block list first . replace codeBlock First. if is block then parse for inline attr , if not a block parse this para's inline attr .
-    NSMutableArray *tmplist = [codeBlkList mutableCopy] ;
+    NSMutableArray *tmplist = [mathBlkList mutableCopy] ;
+    [tmplist addObjectsFromArray:codeBlkList] ;
     
     [paralist enumerateObjectsUsingBlock:^(MarkdownModel *pModel, NSUInteger idx, BOOL * _Nonnull stop) {
         MarkdownModel *resModel = [self parsingGetABlockStyleModelFromParaModel:pModel] ;
@@ -170,7 +171,6 @@
         BOOL isMathBlk = NO ;
         for (MarkdownModel *maModel in mathBlkList) {
             if ( pModel.location >= maModel.location && pModel.location + pModel.length <= maModel.location + maModel.length ) {
-                [tmplist addObject:maModel] ;
                 isMathBlk = YES ;
                 break ;
             }
@@ -378,7 +378,7 @@
         }
         
     }] ;
-    if (self.delegate) [self.delegate quoteBlockParsingFinished:tmplist] ;
+    if (self.delegate && tmplist.count) [self.delegate quoteBlockParsingFinished:tmplist] ;
 }
 
 - (void)drawListBlk {
@@ -398,7 +398,7 @@
             model = model.subBlkModel ;
         }
     }] ;
-    if (self.delegate) [self.delegate listBlockParsingFinished:tmplist] ;
+    if (self.delegate && tmplist.count) [self.delegate listBlockParsingFinished:tmplist] ;
 }
 
 - (void)drawCodeBlk {
@@ -408,7 +408,7 @@
             [tmplist addObject:model] ;
         }
     }] ;
-    if (self.delegate) [self.delegate codeBlockParsingFinished:tmplist] ;
+    if (self.delegate && tmplist.count) [self.delegate codeBlockParsingFinished:tmplist] ;
 }
 
 - (void)drawInlineCode {
@@ -420,11 +420,11 @@
             }
         }] ;
     }] ;
-    if (self.delegate) [self.delegate inlineCodeParsingFinished:tmplist] ;
+    if (self.delegate && tmplist.count) [self.delegate inlineCodeParsingFinished:tmplist] ;
 }
 
 - (void)drawHr {
-    if (self.delegate) [self.delegate hrParsingFinished:self.hrList] ;
+    if (self.delegate && self.hrList.count) [self.delegate hrParsingFinished:self.hrList] ;
 }
 
 - (void)drawMaths {
@@ -434,7 +434,7 @@
             [tmplist addObject:model] ;
         }
     }] ;
-    if (self.delegate) [self.delegate mathListParsingFinished:tmplist] ;
+    if (self.delegate && tmplist.count) [self.delegate mathListParsingFinished:tmplist] ;
 }
 
 #pragma mark - article infos
