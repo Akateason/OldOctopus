@@ -69,7 +69,7 @@
         [self addSubview:bgView] ;
         [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self) ;
-            make.top.equalTo(highlightView.mas_top).offset(5) ;
+            make.top.equalTo(highlightView.mas_top).offset(0) ; //5
 //            make.top.equalTo(highlightView.mas_top).offset(0) ;
 //            make.bottom.equalTo(highlightView.mas_bottom).offset(0) ;
             make.bottom.equalTo(highlightView.mas_bottom).offset(-15) ;
