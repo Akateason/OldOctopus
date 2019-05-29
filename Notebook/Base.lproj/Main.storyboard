@@ -294,17 +294,23 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9O-94-jlJ">
-                                        <rect key="frame" x="324" y="16" width="30" height="30"/>
+                                        <rect key="frame" x="330" y="19" width="24" height="24"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="2Cc-xY-GAq"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="21" id="3Fg-ef-N3b"/>
-                                            <constraint firstAttribute="height" constant="30" id="BgJ-Ig-WEc"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="EwH-TK-QZt"/>
+                                            <constraint firstAttribute="width" constant="24" id="2Cc-xY-GAq"/>
+                                            <constraint firstAttribute="height" constant="24" id="BgJ-Ig-WEc"/>
                                         </constraints>
                                         <state key="normal" image="ld_theme_night.png"/>
                                         <connections>
                                             <action selector="themeChange:" destination="C7r-Ea-0Bq" eventType="touchUpInside" id="GUf-uf-8aK"/>
                                         </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5YQ-2t-ZHp">
+                                        <rect key="frame" x="272" y="19" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="4oG-Kw-CmS"/>
+                                            <constraint firstAttribute="width" constant="24" id="hhg-LG-BU3"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="ld_reply.png"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -312,9 +318,11 @@
                                     <constraint firstItem="p3R-oz-fOe" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="DOK-X6-MxJ"/>
                                     <constraint firstAttribute="height" constant="62" id="HnF-9s-Lyy"/>
                                     <constraint firstItem="p3R-oz-fOe" firstAttribute="leading" secondItem="F70-cj-TbX" secondAttribute="leading" constant="24" id="Ita-QY-2mR"/>
+                                    <constraint firstItem="s9O-94-jlJ" firstAttribute="leading" secondItem="5YQ-2t-ZHp" secondAttribute="trailing" constant="34" id="UdB-aW-NW7"/>
                                     <constraint firstItem="2V7-Gu-ayp" firstAttribute="leading" secondItem="p3R-oz-fOe" secondAttribute="trailing" constant="21" id="Vf8-zY-0Ak"/>
                                     <constraint firstAttribute="trailing" secondItem="s9O-94-jlJ" secondAttribute="trailing" constant="21" id="bUr-ez-oTK"/>
                                     <constraint firstItem="s9O-94-jlJ" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="jmE-N5-CHx"/>
+                                    <constraint firstItem="5YQ-2t-ZHp" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="mgq-th-emA"/>
                                     <constraint firstItem="2V7-Gu-ayp" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="ufT-Ly-pIr"/>
                                 </constraints>
                             </view>
@@ -338,6 +346,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bottomArea" destination="F70-cj-TbX" id="f5e-kl-ti7"/>
+                        <outlet property="btReply" destination="5YQ-2t-ZHp" id="eSz-M1-n6J"/>
                         <outlet property="btTheme" destination="s9O-94-jlJ" id="Elk-bo-gif"/>
                         <outlet property="flexTrailOfTable" destination="hiL-3C-Mef" id="jH9-oU-udH"/>
                         <outlet property="imgTrash" destination="p3R-oz-fOe" id="j0u-8k-ltO"/>
@@ -729,6 +738,7 @@
     <resources>
         <image name="home_bar_add.png" width="40" height="40"/>
         <image name="ld_bt_trash.png" width="48" height="48"/>
+        <image name="ld_reply.png" width="48" height="48"/>
         <image name="ld_theme_night.png" width="48" height="48"/>
         <image name="m_note_close.png" width="36" height="36"/>
         <image name="m_note_right_paint.png" width="88" height="158"/>

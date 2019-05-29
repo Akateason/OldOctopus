@@ -15,6 +15,9 @@
 #import <UIViewController+CWLateralSlide.h>
 #import "HiddenUtil.h"
 
+
+
+
 // lastBook
 // @key     kUDCached_lastBook_RecID
 // @value   recID,  trash, recent , staging 这三种的话就保存vType.toStr
@@ -37,6 +40,7 @@ typedef void(^BlkTapBookCell)(void);
 @property (weak, nonatomic) IBOutlet UILabel *lbTrash;
 @property (weak, nonatomic) IBOutlet UIButton *btTheme;
 @property (weak, nonatomic) IBOutlet UIImageView *imgTrash;
+@property (weak, nonatomic) IBOutlet UIButton *btReply;
 
 @property (strong, nonatomic) NoteBooks *bookTrash ;
 @property (strong, nonatomic) NoteBooks *bookRecent ;
@@ -91,6 +95,7 @@ typedef void(^BlkTapBookCell)(void);
     }] ;
     
     (self.btTheme.selected) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
+    
 }
 
 - (void)prepareUI {
@@ -115,6 +120,9 @@ typedef void(^BlkTapBookCell)(void);
     [self.btTheme xt_enlargeButtonsTouchArea] ;
     self.btTheme.selected = ![[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"themeDefault"] ;
     
+    self.btReply.xt_theme_imageColor = k_md_iconColor ;
+    [self.btReply xt_enlargeButtonsTouchArea] ;
+    
     self.bottomArea.userInteractionEnabled = YES ;
     @weakify(self)
     [self.bottomArea bk_whenTapped:^{
@@ -124,6 +132,12 @@ typedef void(^BlkTapBookCell)(void);
         self.blkTapped() ;
     }] ;
     
+    [self.btReply bk_whenTapped:^{
+        @strongify(self)
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self.delegate reply] ;
+        }] ;
+    }] ;
     
     // 清数据 暗开关
     [self.bottomArea bk_whenTouches:2 tapped:7 handler:^{
