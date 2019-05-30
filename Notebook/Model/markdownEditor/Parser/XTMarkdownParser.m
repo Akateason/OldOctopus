@@ -306,20 +306,12 @@
             }
             
             if (i == MarkdownInlineLinks) {
-                // 链接 和 图片
-                NSString *prefixCha = [[paraModel.str substringWithRange:result.range] substringWithRange:NSMakeRange(0, 1)] ;
+                // 链接 是一张 图片
+                NSUInteger newLock = result.range.location - 1 ;
+                NSString *prefixCha = [paraModel.str substringWithRange:NSMakeRange(newLock, 1)];
                 if ([prefixCha isEqualToString:@"!"]) {
-                    NSRange tmpRange = NSMakeRange(paraModel.range.location + result.range.location, result.range.length) ;
-                    MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineImage range:tmpRange str:[paraModel.str substringWithRange:result.range]] ;
-                    [tmpInlineList addObject:resModel] ;
+                    continue ;
                 }
-                else {
-                    NSRange tmpRange = NSMakeRange(paraModel.range.location + result.range.location, result.range.length) ;
-                    MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineLinks range:tmpRange str:[paraModel.str substringWithRange:result.range]] ;
-                    [tmpInlineList addObject:resModel] ;
-                }
-                
-                continue ;
             }
             
             NSRange tmpRange = NSMakeRange(paraModel.range.location + result.range.location, result.range.length) ;

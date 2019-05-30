@@ -133,13 +133,15 @@
 }
 
 - (UIView *)makePlaceHolderView {
+    if (!self.tf.text.length) {
+        return nil ;
+    }
     SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
     return phVC.view ;
 }
 
-- (BOOL)enableScrollWhenPlaceHolderViewShowing {
-    return YES ;
-}
+
+
 
 
 

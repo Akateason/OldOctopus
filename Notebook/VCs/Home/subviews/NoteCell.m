@@ -40,10 +40,10 @@ static int kLimitCount = 70 ;
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {
     [super xt_configure:note indexPath:indexPath] ;
     
-    _lbTitle.text = [Note filterMarkdownString:note.title] ;
+    _lbTitle.attributedText = [[NSAttributedString alloc] initWithString:[Note filterMarkdownString:note.title]] ;
     NSString *content = [Note filterMarkdownString:note.content] ;
     if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
-    _lbContent.text = content ;
+    _lbContent.attributedText = [[NSAttributedString alloc] initWithString:content] ;
     _lbDate.text = [[NSDate xt_getDateWithTick:note.modifyDateOnServer] xt_timeInfo] ;
     _img_isTop.hidden = !note.isTop ;
 }

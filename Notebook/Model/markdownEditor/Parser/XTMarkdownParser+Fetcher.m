@@ -14,7 +14,8 @@
 #pragma mark - return current model with position
 
 NS_INLINE BOOL xt_LocationInRange(NSUInteger loc, NSRange range) {
-    return ((loc >= range.location) && (loc - range.location) <= range.length) ? YES : NO;
+//    return ((loc >= range.location) && (loc - range.location) <= range.length) ? YES : NO;
+    return NSLocationInRange(loc, range) ;
 }
 
 - (MarkdownModel *)modelForModelListInlineFirst {

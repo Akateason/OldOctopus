@@ -23,9 +23,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-K2-8VY">
-                    <rect key="frame" x="94" y="183" width="226" height="237.5"/>
+                    <rect key="frame" x="138" y="321" width="138" height="99.5"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="ljM-K2-8VY" secondAttribute="height" multiplier="41:43" id="DbU-Wr-WvL"/>
+                        <constraint firstAttribute="width" secondItem="ljM-K2-8VY" secondAttribute="height" multiplier="25:18" id="DbU-Wr-WvL"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂时没有找到相应关键词" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9i-ig-lVs">
@@ -40,13 +40,13 @@
                 <constraint firstItem="ljM-K2-8VY" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DYh-gq-shm"/>
                 <constraint firstItem="S9i-ig-lVs" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="cfQ-SI-pcF"/>
                 <constraint firstItem="S9i-ig-lVs" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="oP4-Ij-Qhb"/>
-                <constraint firstItem="ljM-K2-8VY" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="41:75" id="rE0-9n-Q6L"/>
+                <constraint firstItem="ljM-K2-8VY" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="25:75" id="rE0-9n-Q6L"/>
                 <constraint firstItem="S9i-ig-lVs" firstAttribute="top" secondItem="ljM-K2-8VY" secondAttribute="bottom" constant="20" id="uOJ-et-xwd"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>
     </objects>
     <resources>
-        <image name="search_empty.png" width="410" height="428"/>
+        <image name="search_empty.png" width="124" height="89.5"/>
     </resources>
 </document>
