@@ -55,5 +55,14 @@
     
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application{
+    if (![XTIcloudUser userInCacheSyncGet]) {
+        [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+            [self.launchingEvents pullAll] ;
+        }] ;
+    }
+}
+
+
 
 @end

@@ -88,6 +88,8 @@
         [self.leftVC render] ;
 //        [self.table xt_loadNewInfoInBackGround:NO] ;
         [self.table xt_loadNewInfoInBackGround:YES] ;
+                  
+         self.lbUser.text = [[XTIcloudUser userInCacheSyncGet].givenName substringToIndex:1] ?: @"🐙" ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
@@ -243,7 +245,7 @@
     
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
         @strongify(self)
-        self.lbUser.text = [user.givenName substringToIndex:1] ;
+        self.lbUser.text = [user.givenName substringToIndex:1] ?: @"🐙" ;
     }] ;
 }
 

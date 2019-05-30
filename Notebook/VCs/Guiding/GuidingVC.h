@@ -7,6 +7,7 @@
 //
 
 #import "BasicVC.h"
+static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay" ;
 
 NS_ASSUME_NONNULL_BEGIN
 

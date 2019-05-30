@@ -21,28 +21,9 @@ extern NSString *const kFirstTimeLaunch ;
 
 @interface LaunchingEvents : NSObject
 @property (strong, nonatomic) AppDelegate *appDelegate ;
-
-- (void)setup:(UIApplication *)application
-  appdelegate:(AppDelegate *)appDelegate ;
-
-- (void)setupRemoteNotification:(UIApplication *)application ;
-
-- (void)setupDB ;
-
-- (void)setupNaviStyle ;
-
-- (void)setupIqKeyboard ;
-
-- (void)setupIcloudEvent ;
-
-- (void)pullOrSync ;
-
-- (void)createDefaultBookAndNotes ;
-
+- (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate ;
 - (void)icloudSync:(void(^)(void))completeBlk ;
-
-- (void)uploadAllLocalDataIfNotUploaded ;
-
+- (void)pullAll ;
 @end
 
 

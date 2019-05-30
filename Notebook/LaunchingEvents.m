@@ -37,6 +37,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupDB] ;
     [self setupNaviStyle] ;
     [self setupIqKeyboard] ;
+    [self setupLoadingHomePage] ;
     [self setupIcloudEvent] ;
     [self uploadAllLocalDataIfNotUploaded] ;
 }
@@ -134,12 +135,27 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 
+- (void)setupLoadingHomePage {
+    NSString *currentVersion = [CommonFunc getVersionStrOfMyAPP] ;
+    NSString *versionCached = XT_USERDEFAULT_GET_VAL(kKey_markForGuidingDisplay) ;
+    if ([currentVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending) return ;
+    
+    [self createDefaultBookAndNotes] ;
+}
+
+
 - (void)setupIcloudEvent {
     [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser * _Nonnull user) {
         NSLog(@"!!! Icloud User Logined : %@", [user yy_modelToJSONString]) ;
         if (user.userRecordName) {
             [[XTCloudHandler sharedInstance] saveSubscription] ;
             [self pullOrSync] ;
+        }
+        else {
+            HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
+            MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:homeVC] ;
+            self.appDelegate.window.rootViewController = navVC;
+            [self.appDelegate.window makeKeyAndVisible];
         }
     }] ;
 }
@@ -149,7 +165,6 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     
     GuidingVC *guidVC = [GuidingVC show] ;
     if (!fstTimeLaunch || guidVC != nil) {
-        [self createDefaultBookAndNotes] ;
         
         if (IS_IPAD) {
             HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
@@ -163,14 +178,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             [self.appDelegate.window makeKeyAndVisible];
         }
         
-        [NoteBooks getFromServerComplete:^(bool hasData) {
-            
-            [Note getFromServerComplete:^{
-                if ([Note xt_count]) XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ; // pull all in first time
-            }] ;
-        }] ;
+        [self pullAll] ;
     }
     else {
         HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
@@ -180,6 +188,17 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         
         [self icloudSync:nil] ;
     }
+}
+
+- (void)pullAll {
+    [NoteBooks getFromServerComplete:^(bool hasData) {
+        
+        [Note getFromServerComplete:^{
+            if ([Note xt_count]) XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ; // pull all in first time
+        }] ;
+    }] ;
 }
 
 - (void)createDefaultBookAndNotes {

@@ -81,9 +81,9 @@ XT_SINGLETON_M(XTCloudHandler)
         // 这里要 提醒用户开 icloud drive
         @strongify(self)
         if (error || applicationPermissionStatus == CKApplicationPermissionStatusDenied) {
-//            if (error.code == 9) {
-                [self alertCallUserToIcloud] ;
-//            }
+            
+            [self alertCallUserToIcloud] ;
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 blkUser(nil) ;
             }) ;

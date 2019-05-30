@@ -26,7 +26,7 @@
 #define CurrentWidth    APP_WIDTH
 //[UIView currentScreenBoundsDependOnOrientation].size.width
 
-static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay" ;
+
 
 + (GuidingVC *)show {
     if (IS_IPAD) {
