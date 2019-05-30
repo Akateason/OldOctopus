@@ -41,8 +41,6 @@
     return attrAttach ;
 }
 
-
-
 // do when editor launch . (insert img placeholder)
 - (NSMutableAttributedString *)readArticleFirstTimeAndInsertImagePHWhenEditorDidLaunching:(NSString *)text
                                                                                  textView:(UITextView *)textView {
@@ -50,14 +48,11 @@
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text] ;
     [str beginEditing] ;
     
-    NSRegularExpression *expLink = regexp(MDIL_LINKS, NSRegularExpressionAnchorsMatchLines) ;
+    NSRegularExpression *expLink = regexp(MDIL_IMAGES, NSRegularExpressionAnchorsMatchLines) ;
     NSArray *matsLink = [expLink matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
     for (NSTextCheckingResult *result in matsLink) {
-        NSString *prefixCha = [[text substringWithRange:result.range] substringWithRange:NSMakeRange(0, 1)] ;
-        if ([prefixCha isEqualToString:@"!"]) {
-            MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineImage range:result.range str:[text substringWithRange:result.range]] ;
-            [imageModelList addObject:resModel] ;
-        }
+        MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineImage range:result.range str:[text substringWithRange:result.range]] ;
+        [imageModelList addObject:resModel] ;
     }
     
     [imageModelList enumerateObjectsUsingBlock:^(MdInlineModel * _Nonnull imgModel, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -88,14 +83,11 @@
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text] ;
     [str beginEditing] ;
     
-    NSRegularExpression *expLink = regexp(MDIL_LINKS, NSRegularExpressionAnchorsMatchLines) ;
+    NSRegularExpression *expLink = regexp(MDIL_IMAGES, NSRegularExpressionAnchorsMatchLines) ;
     NSArray *matsLink = [expLink matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
     for (NSTextCheckingResult *result in matsLink) {
-        NSString *prefixCha = [[text substringWithRange:result.range] substringWithRange:NSMakeRange(0, 1)] ;
-        if ([prefixCha isEqualToString:@"!"]) {
-            MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineImage range:result.range str:[text substringWithRange:result.range]] ;
-            [imageModelList addObject:resModel] ;
-        }
+        MdInlineModel *resModel = [MdInlineModel modelWithType:MarkdownInlineImage range:result.range str:[text substringWithRange:result.range]] ;
+        [imageModelList addObject:resModel] ;
     }
     
     [imageModelList enumerateObjectsUsingBlock:^(MdInlineModel * _Nonnull imgModel, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -135,6 +127,10 @@
 
 
 
+
+
+
+
 @interface MDImageManager ()
 
 @end
@@ -160,7 +156,6 @@
 }
 
 /**
- https://shimodev.com/octopus-api/files?uploadType=media
  headers: {
  Authorization: `Basic ${Base64.encode(userRecordName + ':' + '123456')}`
  Content-Type:image/jpeg
@@ -171,11 +166,8 @@
             success:(void (^)(NSURLResponse *response, id responseObject))success
             failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail {
     
-    //    NSString *url = @"https://shimodev.com/octopus-api/files?uploadType=media" ;
     NSString *url = @"https://shimo.im/octopus-api/files?uploadType=media" ;
-    //    NSString *url = @"http://172.17.4.66:9001/files?uploadType=media" ;
     NSData *data = UIImageJPEGRepresentation(image, 1) ;
-    
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName) ;
     NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
     NSDictionary *header = @{@"Authorization" : code,

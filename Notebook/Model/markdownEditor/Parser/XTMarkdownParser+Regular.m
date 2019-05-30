@@ -59,7 +59,9 @@
         case MarkdownInlineInlineCode:
             return regexp(MDIL_INLINECODE, 0);
         case MarkdownInlineLinks:
-            return regexp(MDIL_LINKS, 0);
+            return regexp(MDIL_LINKURL, 0);
+        case MarkdownInlineImage:
+            return regexp(MDIL_IMAGES, 0);
         case MarkdownInlineEscape:
             return regexp(MDIL_ESCAPE , 0);
             
