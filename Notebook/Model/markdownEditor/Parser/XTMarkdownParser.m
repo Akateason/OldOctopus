@@ -151,6 +151,16 @@
         [codeBlkList addObject:model] ;
     }
     
+    //1.3 parse table blk
+    NSMutableArray *tableBlkList = [@[] mutableCopy] ;
+    NSRegularExpression *expTb = regexp(MDPR_table, NSRegularExpressionAnchorsMatchLines) ;
+    NSArray *matsTb = [expTb matchesInString:text options:0 range:NSMakeRange(0, text.length)] ;
+    for (NSTextCheckingResult *result in matsTb) {
+        MdOtherModel *model = [MdOtherModel modelWithType:MarkdownSyntaxTable range:result.range str:[text substringWithRange:result.range]] ;
+        [tableBlkList addObject:model] ;
+    }
+
+    
     
     //2. parse for paragraphs, get outside paras
     NSMutableArray *paralist = [@[] mutableCopy] ;
@@ -164,10 +174,11 @@
     //3. parsing get block list first . replace codeBlock First. if is block then parse for inline attr , if not a block parse this para's inline attr .
     NSMutableArray *tmplist = [mathBlkList mutableCopy] ;
     [tmplist addObjectsFromArray:codeBlkList] ;
+    [tmplist addObjectsFromArray:tableBlkList] ;
     
     [paralist enumerateObjectsUsingBlock:^(MarkdownModel *pModel, NSUInteger idx, BOOL * _Nonnull stop) {
         MarkdownModel *resModel = [self parsingGetABlockStyleModelFromParaModel:pModel] ;
-        //4.1.1 exchange mathblk model for paraModel
+        //4.1.1 ignore mathblk model for paraModel
         BOOL isMathBlk = NO ;
         for (MarkdownModel *maModel in mathBlkList) {
             if ( pModel.location >= maModel.location && pModel.location + pModel.length <= maModel.location + maModel.length ) {
@@ -177,7 +188,7 @@
         }
         if (isMathBlk) return ; // continue
         
-        //4.1.2 exchange codeblk model for paraModel
+        //4.1.2 ignore codeblk model for paraModel
         BOOL isCodeBlk = NO ;
         for (MarkdownModel *cbModel in codeBlkList) {
             if ( pModel.location >= cbModel.location && pModel.location + pModel.length <= cbModel.location + cbModel.length ) {
@@ -186,6 +197,17 @@
             }
         }
         if (isCodeBlk) return ; // continue
+        
+        //4.1.3 ignore table model for paraModel
+        BOOL isTable = NO ;
+        for (MarkdownModel *tableModel in tableBlkList) {
+            if ( pModel.location >= tableModel.location && pModel.location + pModel.length <= tableModel.location + tableModel.length ) {
+                isTable = YES ;
+                break ;
+            }
+        }
+        if (isTable) return ; // continue
+        
         
         //4.2 judge is block Style .
         if (resModel) {
@@ -269,8 +291,7 @@
                     return [MdBlockModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range] level:pModel.quoteAndList_Level] ;
                 }
                     
-                case MarkdownSyntaxMultipleMath:
-                case MarkdownSyntaxNpTable:
+                case MarkdownSyntaxMultipleMath:                
                 case MarkdownSyntaxTable: {
                     return [MdOtherModel modelWithType:i range:tmpRange str:[pModel.str substringWithRange:result.range] level:pModel.quoteAndList_Level] ;
                 }

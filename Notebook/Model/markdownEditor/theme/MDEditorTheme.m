@@ -117,6 +117,7 @@
 - (NSDictionary *)invisibleMarkStyle {
     if (!_invisibleMarkStyle) {
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+        paragraphStyle.lineSpacing = 10 ;
         _invisibleMarkStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor),
                                 NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                                 NSParagraphStyleAttributeName: paragraphStyle

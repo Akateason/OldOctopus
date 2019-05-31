@@ -86,7 +86,6 @@
                           NSFontAttributeName : paragraphFont ,
                           } ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
-            
             resultDic = [resultDic mutableCopy] ;
             [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + length - 2, 1)] ;

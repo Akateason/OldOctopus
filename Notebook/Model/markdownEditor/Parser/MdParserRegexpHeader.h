@@ -44,8 +44,7 @@ typedef NS_ENUM(int, MarkdownSyntaxType){
     MarkdownSyntaxMultipleMath, //  数学
     MarkdownSyntaxHr, // 分割线
     
-    MarkdownSyntaxTable ,
-    MarkdownSyntaxNpTable ,
+    MarkdownSyntaxTable ,    
     
     NumberOfMarkdownSyntax // count  优先级从低到高.
 } ;
@@ -108,8 +107,9 @@ typedef NS_ENUM(int, MarkdownInlineType){
 #define MDPR_checkbox           "^\\[([ x])\\] +"
 #define MDPR_bullet             "(?:[*+-] \\[(?:X|x|\\s)\\]|[*+-]|\\d+\\.)"
 
-#define MDPR_NpTable            "^ *([^|\\n ].*\\|.*)\\n *([-:]+ *\\|[-| :]*)(?:\\n((?:.*[^>\\n ].*(?:\\n|$))*)\\n*|$)"
+
 #define MDPR_table              "^ *\\|(.+)\\n *\\|?( *[-:]+[-| :]*)(?:\\n((?: *[^>\\n ].*(?:\\n|$))*)\\n*|$)"
+
 
 #define MDIL_BOLD               "(?<!\\*)\\*{2}(?=[^ \\t*])(.+?)(?<=[^ \\t*])\\*{2}(?!\\*)|(?<!\\_)\\_{2}(?=[^ \\t_])(.+?)(?<=[^ \\t_])\\_{2}(?!\\_)"
 

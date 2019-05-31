@@ -78,7 +78,6 @@ static const int kTag_MathView          = 78089 ;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapThisEditorAndFindImageAttach:)];
     [self addGestureRecognizer:tapGesture] ;
-
     
     @weakify(self)
     // user typing
@@ -118,6 +117,10 @@ static const int kTag_MathView          = 78089 ;
         }
     }) ;
 }
+
+
+
+
 
 // User Finger Touch cursor moving
 - (void)didTapThisEditorAndFindImageAttach:(UITapGestureRecognizer *)sender {
@@ -536,9 +539,9 @@ static const int kTag_MathView          = 78089 ;
         [mathStr deleteCharactersInRange:NSMakeRange(0, 3)] ;
         
         label.latex = mathStr ;
-        label.labelMode = kMTMathUILabelModeText;
+        label.labelMode = kMTMathUILabelModeDisplay;
         label.textAlignment = kMTTextAlignmentCenter;
-        label.fontSize = [MDThemeConfiguration sharedInstance].editorThemeObj.fontSize + 5 ;
+        label.fontSize = [MDThemeConfiguration sharedInstance].editorThemeObj.fontSize ;
         label.textColor = XT_MD_THEME_COLOR_KEY(k_md_textColor) ;
         label.frame = rectForMath ;
         [self addSubview:label] ;

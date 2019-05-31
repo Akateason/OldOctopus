@@ -151,7 +151,6 @@
     return p ;
 }
 
-
 + (int)keyboardEnterTypedInTextView:(MarkdownEditor *)textView
                     modelInPosition:(MarkdownModel *)aModel
             shouldChangeTextInRange:(NSRange)range {
@@ -167,7 +166,5 @@
     }
     return 100 ; // 未知情况, 传到下一个model去处理
 }
-
-
 
 @end

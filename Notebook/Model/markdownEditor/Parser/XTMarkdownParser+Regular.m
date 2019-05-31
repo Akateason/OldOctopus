@@ -34,11 +34,9 @@
             return regexp(MDPR_hr, NSRegularExpressionAnchorsMatchLines) ;
         case MarkdownSyntaxMultipleMath:
             return regexp(MDPR_multiplemath, NSRegularExpressionAnchorsMatchLines) ;
-        case MarkdownSyntaxNpTable:
-            return regexp(MDPR_NpTable, NSRegularExpressionAnchorsMatchLines) ;
         case MarkdownSyntaxTable :
             return regexp(MDPR_table, NSRegularExpressionAnchorsMatchLines) ;
-            
+        
         case NumberOfMarkdownSyntax: break ;
     }
     return nil;

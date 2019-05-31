@@ -22,7 +22,7 @@
 //        case MarkdownSyntaxMultipleMath: str = @"数学"; break;
         case MarkdownSyntaxHr: str = @"md_tb_bt_sepline" ; break ;
 //        case MarkdownSyntaxTable: str = @"表格1" ; break ;
-//        case MarkdownSyntaxNpTable: str = @"表格2" ; break ;
+// todo ,
         default: break;
     }
     return str ;
@@ -54,12 +54,9 @@
             [attributedString addAttributes:resultDic range:self.range] ;
         }
             break ;
-        case MarkdownSyntaxNpTable: {
-            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
-        }
-            break ;
         case MarkdownSyntaxTable: {
-            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
+//            resultDic = @{NSBackgroundColorAttributeName : [UIColor redColor] } ;
+            [attributedString addAttributes:[MDThemeConfiguration sharedInstance].editorThemeObj.codeBlockStyle range:self.range] ;
         }
             break ;            
         default: break;
@@ -93,11 +90,7 @@
                           } ;
             [attributedString addAttributes:resultDic range:self.range] ;
         }
-            break;
-        case MarkdownSyntaxNpTable: {
-            [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
-        }
-            break ;
+            break;        
         case MarkdownSyntaxTable: {
             [attributedString addAttributes:configuration.editorThemeObj.codeBlockStyle range:self.range] ;
         }
