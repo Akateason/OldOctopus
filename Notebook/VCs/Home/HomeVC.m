@@ -30,6 +30,8 @@
 #import "HomeVC+Util.h"
 #import <SafariServices/SafariServices.h>
 
+#import "OctWebEditor.h"
+
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate, LeftDrawerVCDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -58,6 +60,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
+    
+    OctWebEditor *webEditor = [[OctWebEditor alloc] initWithFrame:self.view.bounds] ;
+    [self.view addSubview:webEditor] ;
+    
     
     [self leftVC] ;
     self.listNotes = @[] ;
