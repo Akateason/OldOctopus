@@ -14,11 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^BlkDeleteFinished)(void) ;
 typedef void(^BlkOutputOnClick)(void) ;
 
+
+@protocol ArticleInfoVCDelegate <NSObject>
+- (UIViewController *)fromCtrller ;
+@end
+
 @interface ArticleInfoVC : BasicVC
+@property (weak, nonatomic) id <ArticleInfoVCDelegate> delegate ;
 @property (strong, nonatomic) Note *aNote ;
 @property (copy, nonatomic) BlkDeleteFinished blkDelete ;
 @property (copy, nonatomic) BlkOutputOnClick blkOutput ;
-@property (nonatomic) CGFloat distance ;
+
 @property (strong, nonatomic) XTMarkdownParser *parser ;
 
 
@@ -42,6 +48,8 @@ typedef void(^BlkOutputOnClick)(void) ;
 
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
+
++ (CGFloat)movingDistance ;
 
 @end
 

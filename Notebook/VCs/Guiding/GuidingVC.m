@@ -97,12 +97,9 @@
     
     WEAK_SELF
     [guidView.lbStart bk_whenTapped:^{
-//        [weakSelf dismissViewControllerAnimated:YES completion:^{
-//        }] ;
-        HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:weakSelf.class] controllerIdentifier:@"HomeVC"] ;
-        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:homeVC] ;
+        
         AppDelegate *appDelegaete = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
-        appDelegaete.window.rootViewController = navVC ;
+        appDelegaete.window.rootViewController = [HomeVC getMe];
         [appDelegaete.window makeKeyAndVisible] ;
     }] ;
     

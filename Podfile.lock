@@ -33,7 +33,6 @@ PODS:
   - CHTCollectionViewWaterfallLayout (0.9.7):
     - CHTCollectionViewWaterfallLayout/ObjC (= 0.9.7)
   - CHTCollectionViewWaterfallLayout/ObjC (0.9.7)
-  - CWLateralSlide (1.6.4)
   - CYLTableViewPlaceHolder (1.0.9)
   - EllipsePageControl (0.0.4)
   - FDFullscreenPopGesture (1.1)
@@ -46,6 +45,7 @@ PODS:
   - lottie-ios (2.5.3)
   - Masonry (1.1.0)
   - MJRefresh (3.2.0)
+  - MSDynamicsDrawerViewController (1.5.1)
   - ReactiveObjC (3.1.1)
   - RSKImageCropper (2.2.1)
   - RxWebViewController (0.0.2)
@@ -99,11 +99,11 @@ PODS:
 
 DEPENDENCIES:
   - Bugly
-  - CWLateralSlide
   - EllipsePageControl
   - iosMath
   - IQKeyboardManager
   - lottie-ios (= 2.5.3)
+  - MSDynamicsDrawerViewController
   - SDWebImage (<= 4.4.6)
   - XTlib
   - XTlib/Animations
@@ -115,7 +115,6 @@ SPEC REPOS:
     - BlocksKit
     - Bugly
     - CHTCollectionViewWaterfallLayout
-    - CWLateralSlide
     - CYLTableViewPlaceHolder
     - EllipsePageControl
     - FDFullscreenPopGesture
@@ -126,6 +125,7 @@ SPEC REPOS:
     - lottie-ios
     - Masonry
     - MJRefresh
+    - MSDynamicsDrawerViewController
     - ReactiveObjC
     - RSKImageCropper
     - RxWebViewController
@@ -147,7 +147,6 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CHTCollectionViewWaterfallLayout: 9d11068fafecac106695bb5a5d6d0f738483b598
-  CWLateralSlide: b7933f4a03d652fbec6789bb45dc567011e892ca
   CYLTableViewPlaceHolder: 678e070180a24e2f241adc7830d5d7f5e2abbaa5
   EllipsePageControl: d6c436006d72119c6cbba45af6648d15a7af7d3a
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
@@ -158,6 +157,7 @@ SPEC CHECKSUMS:
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
+  MSDynamicsDrawerViewController: 2874df90f5e9453dc7d4e32f8038b50615d4baa7
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   RSKImageCropper: 98296ad26b41753f796b6898d015509598f13d97
   RxWebViewController: 79bcbf51aff13d93db9779404348b052ab0cd440
@@ -174,6 +174,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 42e9866c38e9ff081ea334f380a87d21c0e96927
+PODFILE CHECKSUM: ea4f28bdac73641c45664a8f21e1a909eeef5bab
 
 COCOAPODS: 1.6.1

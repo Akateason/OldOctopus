@@ -15,7 +15,6 @@
 
 @interface LeftDrawerVC : BasicVC
 @property (weak, nonatomic) id<LeftDrawerVCDelegate> delegate ;
-@property (nonatomic) CGFloat distance ;
 @property (strong, nonatomic) NoteBooks *currentBook ;
 
 - (void)render ;

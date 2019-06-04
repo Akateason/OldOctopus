@@ -12,6 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeVC : BasicVC
++ (UIViewController *)getMe ;
+
 @property (readonly, weak, nonatomic) IBOutlet   UITableView    *table;
 @property (readonly, strong, nonatomic)          LeftDrawerVC   *leftVC ;
 @property (strong, nonatomic)                    NewBookVC      *nBookVC ;
@@ -19,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic)                      NSArray        *listNotes ;
 
 - (void)dealTopNoteLists:(NSArray *)list ;
++ (CGFloat)movingDistance ;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -13,10 +13,10 @@
 #import "AppDelegate.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
 #import "ArticleInfoVC.h"
-#import <UIViewController+CWLateralSlide.h>
 #import "XTMarkdownParser+Fetcher.h"
 #import "OutputPreviewVC.h"
 #import "OutputPreviewsNailView.h"
+#import "UIViewController+CWLateralSlide.h"
 
 @interface MarkdownVC ()
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -161,11 +161,6 @@
     }) ;
     
     self.view.xt_theme_backgroundColor = k_md_bgColor ;
-    @weakify(self)
-    [self cw_registerShowIntractiveWithEdgeGesture:YES transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
-        @strongify(self)
-        if (direction == CWDrawerTransitionFromRight) [self moreAction:nil] ;
-    }] ;
     
     self.btBack.xt_theme_imageColor = k_md_iconColor ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
@@ -179,6 +174,18 @@
     [self.topBar setNeedsDisplay] ;
     [self.topBar layoutIfNeeded] ;
     [self.topBar oct_addBlurBg] ;
+    
+
+    [self registGesture] ;
+}
+
+- (void)registGesture {
+    __weak typeof(self)weakSelf = self;
+    [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
+        if (direction == CWDrawerTransitionFromRight) { // 右侧滑出
+            [weakSelf moreAction:nil];
+        }
+    }];
 }
 
 - (IBAction)backAction:(id)sender {
@@ -189,7 +196,7 @@
     if (self.textView.isFirstResponder) [self.textView resignFirstResponder] ;
     
     [self infoVC] ;
-    self.infoVC.distance = self.movingDistance ;
+    
     self.infoVC.aNote = self.aNote ;
     self.infoVC.parser = self.textView.parser ;
     WEAK_SELF
@@ -209,8 +216,7 @@
         }) ;
     } ;
     
-    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.1 scaleY:1 direction:CWDrawerTransitionFromRight backImage:nil] ;
-    self.infoVC.view.width = self.movingDistance ;
+    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:[ArticleInfoVC movingDistance] maskAlpha:0.4 scaleY:1 direction:CWDrawerTransitionFromRight backImage:nil] ;
     [self cw_showDrawerViewController:self.infoVC animationType:0 configuration:conf] ;
 }
 
@@ -272,15 +278,15 @@
 - (ArticleInfoVC *)infoVC{
     if(!_infoVC){
         _infoVC = ({
-            ArticleInfoVC * object = [ArticleInfoVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
-            object;
+            ArticleInfoVC *infoVC = [ArticleInfoVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
+            infoVC;
        });
     }
     return _infoVC;
 }
 
-- (CGFloat)movingDistance {
-    return  48. / 75. * APP_WIDTH ;
+- (UIViewController *)fromCtrller {
+    return self ;
 }
 
 @end

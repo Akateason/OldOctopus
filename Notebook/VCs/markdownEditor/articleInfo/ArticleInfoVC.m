@@ -8,7 +8,7 @@
 
 #import "ArticleInfoVC.h"
 #import "XTMarkdownParser.h"
-
+#import "UIViewController+CWLateralSlide.h"
 
 
 @interface ArticleInfoVC ()
@@ -16,6 +16,15 @@
 @end
 
 @implementation ArticleInfoVC
+
++ (CGFloat)movingDistance {
+    if (IS_IPAD) return 280 ;
+    return  48. / 75. * APP_WIDTH ;
+}
+
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,9 +48,16 @@
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)] ;
     [self.view addGestureRecognizer:recognizer] ;
     
-    self.rightForRightCorner.constant = APP_WIDTH - self.distance + self.imgRight.width + 20 ;
+    self.rightForRightCorner.constant = 0 ;
     
     [self bind] ;
+    
+//    @weakify(self)
+//    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidChangeStatusBarOrientationNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
+//
+//        @strongify(self)
+//        [[NSNotificationCenter defaultCenter] postNotificationName:CWLateralSlideTapNoticationKey object:self];
+//    }] ;
 }
 
 - (void)bind {
@@ -68,28 +84,14 @@
         if (btnIndex == 1) {
             self.aNote.isDeleted = YES ;
             [Note updateMyNote:self.aNote] ;
-            [self dismissViewControllerAnimated:YES completion:^{}] ;
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }] ;
             
             self.blkDelete() ;
         }
     }] ;
 }
 
-
-
-
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "HomeVC.h"
-#import <UIViewController+CWLateralSlide.h>
 #import "LeftDrawerVC.h"
 #import "NoteBooks.h"
 #import "Note.h"
@@ -29,8 +28,10 @@
 #import "TrashEmptyView.h"
 #import "HomeVC+Util.h"
 #import <SafariServices/SafariServices.h>
-
+#import "MDNavVC.h"
 #import "OctWebEditor.h"
+#import "NHSlidingController.h"
+#import "UIViewController+SlidingController.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate, LeftDrawerVCDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -49,6 +50,19 @@
 
 @implementation HomeVC
 
+#pragma mark - public
+
++ (UIViewController *)getMe {
+    HomeVC *topVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
+    MDNavVC *navVC = [[MDNavVC alloc]initWithRootViewController:topVC] ;
+    LeftDrawerVC *bottomVC = [LeftDrawerVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"LeftDrawerVC"];
+    bottomVC.delegate = topVC ;
+    topVC.leftVC = bottomVC ;
+    NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:navVC bottomViewController:bottomVC];
+    slidingController.slideDistance = self.movingDistance ;
+    return slidingController ;
+}
+
 #pragma mark - LeftDrawerVCDelegate
 - (void)reply {
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://shimo.im/forms/bvVAXVnavgjCjqm7/fill"]] ;
@@ -63,7 +77,6 @@
     
     OctWebEditor *webEditor = [[OctWebEditor alloc] initWithFrame:self.view.bounds] ;
     [self.view addSubview:webEditor] ;
-    
     
     [self leftVC] ;
     self.listNotes = @[] ;
@@ -80,9 +93,10 @@
     
     [self.leftVC bookCellTapped:^{
         @strongify(self)
-        [self.leftVC dismissViewControllerAnimated:YES completion:nil] ;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.slidingController setDrawerOpened:NO animated:YES] ;
+        });
     }] ;
-    
     
      [[[[[[NSNotificationCenter defaultCenter]
     rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
@@ -177,8 +191,7 @@
     }
     
     [self.leftVC render] ;
-    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.1 scaleY:1 direction:CWDrawerTransitionFromLeft backImage:nil] ;
-    [self cw_showDrawerViewController:self.leftVC animationType:0 configuration:conf] ;
+    [self.slidingController toggleDrawer] ;
 }
 
 - (void)prepareUI {
@@ -232,10 +245,6 @@
     }] ;
     
     [self.leftVC render] ;
-    [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
-        @strongify(self)
-        if (direction == CWDrawerTransitionFromLeft) [self openDrawer] ;
-    }] ;
     
     [[RACObserve([XTCloudHandler sharedInstance], isSyncingOnICloud) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
         bool isSync = [x boolValue] ;
@@ -411,18 +420,6 @@
 
 #pragma mark - prop
 
-- (LeftDrawerVC *)leftVC{
-    if(!_leftVC){
-        _leftVC = ({
-            LeftDrawerVC * object = [LeftDrawerVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"LeftDrawerVC"] ;
-            object.distance = self.movingDistance ;
-            object.delegate = self ;
-            object;
-       });
-    }
-    return _leftVC;
-}
-
 - (HomeEmptyPHView *)phView {
     if (!_phView) {
         _phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
@@ -434,7 +431,7 @@
     return _phView ;
 }
 
-- (CGFloat)movingDistance {
++ (CGFloat)movingDistance {
     if (IS_IPAD) {
         return 300. ;
     }

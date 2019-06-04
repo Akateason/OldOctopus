@@ -12,9 +12,10 @@
 #import "NoteBooks.h"
 #import "Note.h"
 #import "NewBookVC.h"
-#import <UIViewController+CWLateralSlide.h>
 #import "HiddenUtil.h"
-
+#import "NHSlidingController.h"
+#import "UIViewController+SlidingController.h"
+#import "HomeVC.h"
 
 
 
@@ -71,7 +72,7 @@ typedef void(^BlkTapBookCell)(void);
         circle.layer.transform = CATransform3DIdentity ;
         circle.alpha = .8 ;
     } completion:^(BOOL finished) {
-
+        
         (!bt.selected) ? [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDark"] : [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDefault"] ;
         (!bt.selected) ? [bt setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [bt setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
         bt.selected = !bt.selected ;
@@ -111,7 +112,7 @@ typedef void(^BlkTapBookCell)(void);
     self.table.xt_theme_backgroundColor = k_md_drawerColor ;
     self.bottomArea.xt_theme_backgroundColor = k_md_drawerColor ;
     
-    self.flexTrailOfTable.constant = APP_WIDTH - self.distance ;
+    self.flexTrailOfTable.constant = APP_WIDTH - HomeVC.movingDistance ;
     
     self.lbTrash.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.imgTrash.xt_theme_imageColor = k_md_iconColor ;
@@ -134,9 +135,7 @@ typedef void(^BlkTapBookCell)(void);
     
     [self.btReply bk_whenTapped:^{
         @strongify(self)
-        [self dismissViewControllerAnimated:YES completion:^{
-            [self.delegate reply] ;
-        }] ;
+        [self.delegate reply] ;
     }] ;
     
     // 清数据 暗开关
@@ -277,7 +276,8 @@ typedef void(^BlkTapBookCell)(void);
         self.blkBookChanged(aBook) ;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES completion:nil] ;
+            
+            [self.slidingController setDrawerOpened:NO animated:YES] ;
         });
         
     } cancel:^{

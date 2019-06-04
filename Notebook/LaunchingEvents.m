@@ -152,9 +152,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             [self pullOrSync] ;
         }
         else {
-            HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
-            MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:homeVC] ;
-            self.appDelegate.window.rootViewController = navVC;
+            self.appDelegate.window.rootViewController = [HomeVC getMe];
             [self.appDelegate.window makeKeyAndVisible];
         }
     }] ;
@@ -167,9 +165,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     if (!fstTimeLaunch || guidVC != nil) {
         
         if (IS_IPAD) {
-            HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
-            MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:homeVC] ;
-            self.appDelegate.window.rootViewController = navVC;
+            self.appDelegate.window.rootViewController = [HomeVC getMe];;
             [self.appDelegate.window makeKeyAndVisible];
         }
         else {
@@ -180,10 +176,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         
         [self pullAll] ;
     }
-    else {
-        HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
-        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:homeVC] ;
-        self.appDelegate.window.rootViewController = navVC;
+    else {    
+        self.appDelegate.window.rootViewController = [HomeVC getMe];;
         [self.appDelegate.window makeKeyAndVisible];
         
         [self icloudSync:nil] ;
