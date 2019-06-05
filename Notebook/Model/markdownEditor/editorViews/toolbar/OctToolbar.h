@@ -17,7 +17,7 @@
 - (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView ;
 - (void)toolbarDidSelectUndo ;
 - (void)toolbarDidSelectRedo ;
-- (MarkdownEditor *)fromEditor ;
+- (UIView *)fromEditor ;
 
 @end
 

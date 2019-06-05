@@ -10,9 +10,11 @@
 #import "UIWebView+GUIFixes.h"
 #import <XTlib/XTlib.h>
 #import "OctToolbar.h"
+#import <BlocksKit+UIKit.h>
 
 @interface OctWebEditor () <UIWebViewDelegate,OctToolbarDelegate>
 @property (strong, nonatomic) OctToolbar    *toolBar ;
+@property (strong, nonatomic) JSContext     *context ;
 @end
 
 
@@ -23,6 +25,17 @@
     if (self) {
         [self createWebViewWithFrame:frame];
         [self setupHTMLEditor];
+        
+        // keyboard showing
+        @weakify(self)
+        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
+            @strongify(self)
+            NSDictionary *info = [x userInfo] ;
+            CGSize kbSize      = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size ;
+            // get keyboard height
+            self->keyboardHeight = kbSize.height ;
+        }];
+        
     }
     return self;
 }
@@ -49,7 +62,6 @@
 - (void)setupHTMLEditor {
     NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
     NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;    //file:///Users/teason23/Library/Developer/CoreSimulator/Devices/9A0690D2-F81F-4239-8966-2D9D6DCD1F96/data/Containers/Bundle/Application/588FF939-567D-4B36-9C1C-1A4E86C2277D/Notebook.app/index.html
-
     
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
@@ -57,24 +69,45 @@
     [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
 
+- (void)setupJSCore {
+    self.context[@"WebViewBridge"] = self;
+
+//    WebViewBridge
+    @weakify(self)
+    self.context[@"WebViewBridge"] = ^(JSValue *func, JSValue *json) {
+        @strongify(self)
+        NSLog(@"WebViewBridge func : %@\njson : %@",func,json) ;
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.toolBar refresh] ;
+//        }) ;
+
+        
+    } ;
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     return YES ;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    JSContext *context = [self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    [context setExceptionHandler:^(JSContext *ctx, JSValue *expectValue) {
+        NSLog(@"js core err : %@", expectValue);
+    }];
+    
+    self.context = context;
+    [self setupJSCore] ;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.toolBar refresh] ;
+        self.webView.customInputAccessoryView = self.toolBar ;
+    }) ;
     
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     NSLog(@"err : %@",error) ;
 }
-
-//- (BOOL)canBecomeFirstResponder {
-//    [self.toolBar refresh] ;
-//    self.webView.customInputAccessoryView = self.toolBar ;
-//    // Redraw in case enabbled features have changes
-//    return [super canBecomeFirstResponder] ;
-//}
 
 - (OctToolbar *)toolBar {
     if (!_toolBar) {
@@ -83,6 +116,12 @@
         _toolBar.delegate = self ;
     }
     return _toolBar ;
+}
+
+- (JSValue *)nativeCallJSWithFunc:(NSString *)func json:(NSString *)json {
+    NSArray *args = json ? @[[@{@"method":func} yy_modelToJSONString], json] : @[[@{@"method":func} yy_modelToJSONString]] ;
+    JSValue *n = [self.context[@"WebViewBridgeCallback"] callWithArguments:args] ;
+    return n ;
 }
 
 

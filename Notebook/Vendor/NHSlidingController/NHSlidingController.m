@@ -72,15 +72,6 @@ static const CGFloat slidingSpeed = 1500.0;
     [_topViewController didMoveToParentViewController:self];
 }
 
-//-(void)setupTheShadow
-//{
-//
-//    self.topViewContainer.layer.shadowColor = [UIColor blackColor].CGColor;
-//    self.topViewContainer.layer.shadowOpacity = 0.7;
-//    self.topViewContainer.layer.shadowRadius = 8.0;
-//    self.topViewContainer.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.topViewContainer.bounds].CGPath;
-//}
-
 -(void)setupTheGestureRecognizers
 {
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];

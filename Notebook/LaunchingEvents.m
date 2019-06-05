@@ -22,6 +22,7 @@
 #import "HomeVC.h"
 #import "MDNavVC.h"
 
+#import "TestVC.h"
 
 NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
 
@@ -40,6 +41,9 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupLoadingHomePage] ;
     [self setupIcloudEvent] ;
     [self uploadAllLocalDataIfNotUploaded] ;
+    
+    
+    
 }
 
 
@@ -165,7 +169,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     if (!fstTimeLaunch || guidVC != nil) {
         
         if (IS_IPAD) {
-            self.appDelegate.window.rootViewController = [HomeVC getMe];;
+            self.appDelegate.window.rootViewController = [HomeVC getMe];
             [self.appDelegate.window makeKeyAndVisible];
         }
         else {
@@ -176,8 +180,10 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         
         [self pullAll] ;
     }
-    else {    
-        self.appDelegate.window.rootViewController = [HomeVC getMe];;
+    else {
+//        self.appDelegate.window.rootViewController = [TestVC getMe];
+//        [self.appDelegate.window makeKeyAndVisible];
+        self.appDelegate.window.rootViewController = [HomeVC getMe];
         [self.appDelegate.window makeKeyAndVisible];
         
         [self icloudSync:nil] ;

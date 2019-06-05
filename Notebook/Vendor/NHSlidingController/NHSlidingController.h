@@ -22,13 +22,13 @@
            bottomViewController:(UIViewController *)bottomViewController;
 
 ///This methods opens the drawer if it is closed and closes it if it is opened. (Animated)
--(void)toggleDrawer;
+- (void)toggleDrawer;
 
--(void)openDrawerAnimated:(BOOL)animated;
+- (void)openDrawerAnimated:(BOOL)animated;
 - (void)setDrawerOpened:(BOOL)opened animated:(BOOL)animated ;
 
 ///Use this method to change the topViewController and animate the change (go all the way to
 /// the right, change ViewController and come back in place)
--(void)setTopViewController:(UIViewController *)topViewController animated:(BOOL)animated;
+- (void)setTopViewController:(UIViewController *)topViewController animated:(BOOL)animated;
 
 @end

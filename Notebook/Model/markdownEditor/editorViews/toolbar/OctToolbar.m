@@ -99,14 +99,14 @@
 
 - (IBAction)undoAc:(UIButton *)sender {
     [self.delegate toolbarDidSelectUndo] ;
-    MarkdownModel *model = [self.delegate.fromEditor.parser modelForModelListInlineFirst] ;
-    [self renderWithModel:model] ;
+//    MarkdownModel *model = [self.delegate.fromEditor.parser modelForModelListInlineFirst] ;
+//    [self renderWithModel:model] ;
 }
 
 - (IBAction)redoAc:(UIButton *)sender {
     [self.delegate toolbarDidSelectRedo] ;
-    MarkdownModel *model = [self.delegate.fromEditor.parser modelForModelListInlineFirst] ;
-    [self renderWithModel:model] ;
+//    MarkdownModel *model = [self.delegate.fromEditor.parser modelForModelListInlineFirst] ;
+//    [self renderWithModel:model] ;
 }
 
 - (IBAction)hideKeyboardAc:(UIButton *)sender {
