@@ -93,7 +93,7 @@
 
 - (IBAction)photoAc:(UIButton *)sender {
     [self moveUnderLineFromView:sender] ;
-    // add photo board
+    // add photo board .
     self.photoView = [self.delegate toolbarDidSelectPhotoView] ;
 }
 
