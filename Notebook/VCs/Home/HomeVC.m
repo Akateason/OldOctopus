@@ -108,7 +108,7 @@
              LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
              [events icloudSync:^{}] ;
          }
-     }]  ;
+     }] ;
 }
 
 - (void)renderTable:(void(^)(void))completion {
