@@ -60,11 +60,14 @@
 }
 
 - (void)setupHTMLEditor {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
-    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;    //file:///Users/teason23/Library/Developer/CoreSimulator/Devices/9A0690D2-F81F-4239-8966-2D9D6DCD1F96/data/Containers/Bundle/Application/588FF939-567D-4B36-9C1C-1A4E86C2277D/Notebook.app/index.html
-    
+    //group
+//    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
+//    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
+    //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
+    // link
+    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
@@ -73,9 +76,9 @@
     self.context[@"WebViewBridge"] = self;
 
 //    WebViewBridge
-    @weakify(self)
+//    @weakify(self)
     self.context[@"WebViewBridge"] = ^(JSValue *func, JSValue *json) {
-        @strongify(self)
+//        @strongify(self)
         NSLog(@"WebViewBridge func : %@\njson : %@",func,json) ;
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            [self.toolBar refresh] ;
@@ -99,8 +102,10 @@
     [self setupJSCore] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.toolBar refresh] ;
         self.webView.customInputAccessoryView = self.toolBar ;
+        [self.toolBar setNeedsLayout] ;
+        [self.toolBar layoutIfNeeded] ;
+        [self.toolBar refresh] ;
     }) ;
     
 }

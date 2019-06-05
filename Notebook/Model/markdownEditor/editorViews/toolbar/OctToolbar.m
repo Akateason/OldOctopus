@@ -33,6 +33,8 @@
 
 @implementation OctToolbar
 
+
+
 - (void)renderWithModel:(MarkdownModel *)model {
     [self clearUI] ;
     
@@ -60,11 +62,18 @@
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     
+    self.bounds = CGRectMake(0, 0, [UIView currentScreenBoundsDependOnOrientation].size.width, 41) ;
+    
+    [self setNeedsLayout] ;
+    [self layoutIfNeeded] ;
+    
     self.underLineView.width = self.btInlineStyle.width - 4 ;
     self.underLineView.centerX = self.btShowKeyboard.centerX + 17;
     self.underLineView.bottom = self.bottom ;
     [self addSubview:self.underLineView] ;
+        
 }
+
 
 - (IBAction)showKeyboardAc:(UIButton *)sender {
     [self moveUnderLineFromView:sender] ;

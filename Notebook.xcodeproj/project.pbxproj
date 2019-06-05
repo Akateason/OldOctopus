@@ -1801,6 +1801,7 @@
 		8F679DFD2232437E008DE1BC /* markdownEditor */ = {
 			isa = PBXGroup;
 			children = (
+				8F8089572281976100AA13BA /* toolbar */,
 				8F9612772297E15700CB72DF /* theme */,
 				8FEA9E3E2254D75D002A756B /* editorViews */,
 				8F679E042232468C008DE1BC /* Parser */,
@@ -1959,7 +1960,8 @@
 				8F0FDED22294014F00915C21 /* MarkdownEditor+BlockBoardUtil.h */,
 				8F0FDED32294014F00915C21 /* MarkdownEditor+BlockBoardUtil.m */,
 			);
-			path = toolbar;
+			name = toolbar;
+			path = editorViews/toolbar;
 			sourceTree = "<group>";
 		};
 		8F9612772297E15700CB72DF /* theme */ = {
@@ -2095,7 +2097,6 @@
 				8F19E109228197CD00121851 /* codeBlk */,
 				8F19E108228197AF00121851 /* photo */,
 				8F19E107228197A300121851 /* link */,
-				8F8089572281976100AA13BA /* toolbar */,
 			);
 			path = editorViews;
 			sourceTree = "<group>";
