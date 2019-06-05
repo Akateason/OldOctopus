@@ -123,19 +123,46 @@
 
 - (void)nativeCallJSWithFunc:(NSString *)func
                         json:(NSString *)json
-                  completion:(void(^)(BOOL isComplete))completion {
+            getCompletionVal:(void(^)(JSValue *val))completion {
     
     json = !json ? @"" : json ;
     JSValue *jsFun = self.context[@"WebViewBridgeCallback"];
+    NSArray *args = @[[@{@"method":func} yy_modelToJSONString], json] ;
+    
+    BOOL callStraight = [func isEqualToString:@"getMarkdown"] || [func isEqualToString:@"getAllPhotos"] ;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         //使用js的window.setTimeout方法执行需要调用的方法
-        //        JSValue *n = [jsFun callWithArguments:args] ;
-        JSValue *n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @0, [@{@"method":func} yy_modelToJSONString], json]] ;
-        if (completion) completion([n toBool]) ;
+        JSValue *n ;
+        if (callStraight) {
+            n = [jsFun callWithArguments:args] ;
+        }
+        else {
+            n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @0, [@{@"method":func} yy_modelToJSONString], json]] ;
+        }
+        if (completion) completion(n) ;
     });
 }
 
+- (void)nativeCallJSWithFunc:(NSString *)func
+                        json:(NSString *)json
+                  completion:(void(^)(BOOL isComplete))completion {
+    [self nativeCallJSWithFunc:func json:json getCompletionVal:^(JSValue *val) {
+        if (completion) completion(val.toBool) ;
+    }] ;
+}
 
+- (void)getMarkdown:(void(^)(NSString *markdown))complete {
+    [self nativeCallJSWithFunc:@"getMarkdown" json:nil getCompletionVal:^(JSValue *val) {
+        complete(val.toString) ;
+    }] ;
+}
+
+- (void)getAllPhotos:(void(^)(NSString *json))complete {    
+    [self nativeCallJSWithFunc:@"getAllPhotos" json:nil getCompletionVal:^(JSValue *val) {
+        complete(val.toString) ;
+    }] ;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

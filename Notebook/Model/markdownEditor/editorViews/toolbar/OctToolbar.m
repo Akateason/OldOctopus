@@ -71,7 +71,7 @@
     self.underLineView.centerX = self.btShowKeyboard.centerX + 17;
     self.underLineView.bottom = self.bottom ;
     [self addSubview:self.underLineView] ;
-        
+    
 }
 
 

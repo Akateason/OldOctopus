@@ -20,6 +20,15 @@
                         json:(NSString *)json
                   completion:(void(^)(BOOL isComplete))completion ;
 
+- (void)nativeCallJSWithFunc:(NSString *)func
+                        json:(NSString *)json
+            getCompletionVal:(void(^)(JSValue *val))completion ;
+
+
+- (void)getMarkdown:(void(^)(NSString *markdown))complete ;
+- (void)getAllPhotos:(void(^)(NSString *json))complete ;
+
+
 @end
 
 

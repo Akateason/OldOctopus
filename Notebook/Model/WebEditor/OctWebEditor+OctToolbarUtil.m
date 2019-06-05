@@ -86,9 +86,13 @@
     }] ;
 }
 - (void)toolbarDidSelectRedo {
-    [self nativeCallJSWithFunc:@"redo" json:nil completion:^(BOOL isComplete) {
+    [self getMarkdown:^(NSString *markdown) {
         
     }] ;
+    
+//    [self nativeCallJSWithFunc:@"redo" json:nil completion:^(BOOL isComplete) {
+//
+//    }] ;
 }
 
 - (UIView *)fromEditor {
