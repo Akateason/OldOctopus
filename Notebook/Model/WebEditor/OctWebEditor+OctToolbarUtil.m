@@ -20,7 +20,9 @@
 }
 
 - (void)hideKeyboard {
-    JSValue *val = [self nativeCallJSWithFunc:@"hideKeyboard" json:nil] ;
+    [self nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView  {
@@ -79,11 +81,14 @@
 //}
 
 - (void)toolbarDidSelectUndo {
-    JSValue *val = [self nativeCallJSWithFunc:@"undo" json:nil] ;
-
+    [self nativeCallJSWithFunc:@"undo" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 - (void)toolbarDidSelectRedo {
-    JSValue *val = [self nativeCallJSWithFunc:@"redo" json:nil] ;
+    [self nativeCallJSWithFunc:@"redo" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (UIView *)fromEditor {

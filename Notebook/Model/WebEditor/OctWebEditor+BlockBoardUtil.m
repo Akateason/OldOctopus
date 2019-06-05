@@ -11,40 +11,57 @@
 @implementation OctWebEditor (BlockBoardUtil)
 
 - (void)toolbarDidSelectLeftTab {
-    JSValue *val = [self nativeCallJSWithFunc:@"tabLeft" json:nil] ;
+    [self nativeCallJSWithFunc:@"tabLeft" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectRightTab {
-    JSValue *val = [self nativeCallJSWithFunc:@"tabRight" json:nil] ;
+    [self nativeCallJSWithFunc:@"tabRight" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectSepLine {
-    JSValue *val = [self nativeCallJSWithFunc:@"sepline" json:nil] ;
+    [self nativeCallJSWithFunc:@"sepline" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectUList {
-    JSValue *val = [self nativeCallJSWithFunc:@"uList" json:nil] ;
+    [self nativeCallJSWithFunc:@"uList" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectOrderlist {
-    JSValue *val = [self nativeCallJSWithFunc:@"oList" json:nil] ;
+    [self nativeCallJSWithFunc:@"oList" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectTaskList {
-    JSValue *val = [self nativeCallJSWithFunc:@"tList" json:nil] ;
+    [self nativeCallJSWithFunc:@"tList" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectCodeBlock {
-    JSValue *val = [self nativeCallJSWithFunc:@"codeBlock" json:nil] ;
+    [self nativeCallJSWithFunc:@"codeBlock" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectQuoteBlock {
-    JSValue *val = [self nativeCallJSWithFunc:@"quote" json:nil] ;
+    [self nativeCallJSWithFunc:@"quote" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectMathBlock {
-    JSValue *val = [self nativeCallJSWithFunc:@"mathFormula" json:nil] ;
-    
+    [self nativeCallJSWithFunc:@"mathFormula" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 @end

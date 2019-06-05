@@ -11,51 +11,75 @@
 @implementation OctWebEditor (InlineBoardUtil)
 
 - (void)toolbarDidSelectClearToCleanPara {
-    JSValue *val = [self nativeCallJSWithFunc:@"clearAllFomat" json:nil] ;
+    [self nativeCallJSWithFunc:@"clearAllFomat" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectH1 {
-    JSValue *val = [self nativeCallJSWithFunc:@"titleWithSize" json:@"1"] ;
+    [self nativeCallJSWithFunc:@"titleWithSize" json:@"1" completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectH2 {
-    JSValue *val = [self nativeCallJSWithFunc:@"titleWithSize" json:@"2"] ;
+    [self nativeCallJSWithFunc:@"titleWithSize" json:@"2" completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectH3 {
-    JSValue *val = [self nativeCallJSWithFunc:@"titleWithSize" json:@"3"] ;
+    [self nativeCallJSWithFunc:@"titleWithSize" json:@"3" completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectH4 {
-    JSValue *val = [self nativeCallJSWithFunc:@"titleWithSize" json:@"4"] ;
+    [self nativeCallJSWithFunc:@"titleWithSize" json:@"4" completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectH5 {
-    JSValue *val = [self nativeCallJSWithFunc:@"titleWithSize" json:@"5"] ;
+    [self nativeCallJSWithFunc:@"titleWithSize" json:@"5" completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectH6 {
-    JSValue *val = [self nativeCallJSWithFunc:@"titleWithSize" json:@"6"] ;
+    [self nativeCallJSWithFunc:@"titleWithSize" json:@"6" completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectBold {
-    JSValue *val = [self nativeCallJSWithFunc:@"bold" json:nil] ;
+    [self nativeCallJSWithFunc:@"bold" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectItalic {
-    JSValue *val = [self nativeCallJSWithFunc:@"italic" json:nil] ;
+    [self nativeCallJSWithFunc:@"italic" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectDeletion {
-    JSValue *val = [self nativeCallJSWithFunc:@"deletionLine" json:nil] ;
+    [self nativeCallJSWithFunc:@"deletionLine" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectInlineCode {
-    JSValue *val = [self nativeCallJSWithFunc:@"inlineCode" json:nil] ;
+    [self nativeCallJSWithFunc:@"inlineCode" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectLink {
-    JSValue *val = [self nativeCallJSWithFunc:@"addLink" json:nil] ;
+    [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 
 }
 

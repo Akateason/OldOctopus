@@ -66,7 +66,7 @@
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
-    // link
+    //link
     NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
@@ -83,8 +83,6 @@
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            [self.toolBar refresh] ;
 //        }) ;
-
-        
     } ;
 }
 
@@ -123,10 +121,18 @@
     return _toolBar ;
 }
 
-- (JSValue *)nativeCallJSWithFunc:(NSString *)func json:(NSString *)json {
-    NSArray *args = json ? @[[@{@"method":func} yy_modelToJSONString], json] : @[[@{@"method":func} yy_modelToJSONString]] ;
-    JSValue *n = [self.context[@"WebViewBridgeCallback"] callWithArguments:args] ;
-    return n ;
+- (void)nativeCallJSWithFunc:(NSString *)func
+                        json:(NSString *)json
+                  completion:(void(^)(BOOL isComplete))completion {
+    
+    json = !json ? @"" : json ;
+    JSValue *jsFun = self.context[@"WebViewBridgeCallback"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //使用js的window.setTimeout方法执行需要调用的方法
+        //        JSValue *n = [jsFun callWithArguments:args] ;
+        JSValue *n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @0, [@{@"method":func} yy_modelToJSONString], json]] ;
+        if (completion) completion([n toBool]) ;
+    });
 }
 
 
