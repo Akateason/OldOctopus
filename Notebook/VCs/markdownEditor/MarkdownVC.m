@@ -265,11 +265,11 @@
 
 - (OctWebEditor *)editor {
     if (!_editor) {
-        _editor = [[OctWebEditor alloc] initWithFrame:self.view.bounds] ;
+        _editor = [[OctWebEditor alloc] init] ;
         [self.view addSubview:_editor] ;
         [_editor mas_makeConstraints:^(MASConstraintMaker *make) {
             if (@available(iOS 11.0, *)) {
-                make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop) ;
+                make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
             } else {
                 make.top.equalTo(self.view.xt_viewController.mas_topLayoutGuideBottom) ;
             }

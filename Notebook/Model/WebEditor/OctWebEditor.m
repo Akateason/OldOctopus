@@ -22,12 +22,12 @@
 
 @implementation OctWebEditor
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)init {
+    self = [super init] ;
     if (self) {
         self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         
-        [self createWebViewWithFrame:frame];
+        [self createWebView];
         [self setupHTMLEditor];
         
         // keyboard showing
@@ -44,9 +44,9 @@
     return self;
 }
 
-- (void)createWebViewWithFrame:(CGRect)frame {
+- (void)createWebView {
     NSAssert(!_webView, @"The web view must not exist when this method is called!") ;
-    _webView = [[UIWebView alloc] initWithFrame:frame] ;
+    _webView = [[UIWebView alloc] init] ;
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
     _webView.delegate = self ;
     _webView.scalesPageToFit = NO ;
@@ -146,7 +146,7 @@
         }
         
         if (callReplaceImage) {
-            n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @3000, [@{@"method":func} yy_modelToJSONString], json]] ;
+            n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @300, [@{@"method":func} yy_modelToJSONString], json]] ;
         }
         
         if (completion) completion(n) ;

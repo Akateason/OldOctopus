@@ -75,8 +75,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    OctWebEditor *webEditor = [[OctWebEditor alloc] initWithFrame:self.view.bounds] ;
-    [self.view addSubview:webEditor] ;
+//    OctWebEditor *webEditor = [[OctWebEditor alloc] initWithFrame:self.view.bounds] ;
+//    [self.view addSubview:webEditor] ;
     
     [self leftVC] ;
     self.listNotes = @[] ;
