@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *btViewCamera;
 @property (weak, nonatomic) IBOutlet UIView *btViewAlbum;
-@property (weak, nonatomic) IBOutlet UIButton *btCancel;
+@property (weak, nonatomic) IBOutlet UIView *btLink;
 
 + (instancetype)showViewFromCtrller:(UIViewController *)ctrller
                            kbheight:(CGFloat)height

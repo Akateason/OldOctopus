@@ -9,14 +9,17 @@
 #import "MarkdownVC.h"
 #import "MarkdownEditor.h"
 #import "MarkdownEditor+OctToolbarUtil.h"
+#import "XTMarkdownParser+Fetcher.h"
+#import "OctWebEditor.h"
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
 #import "ArticleInfoVC.h"
-#import "XTMarkdownParser+Fetcher.h"
 #import "OutputPreviewVC.h"
 #import "OutputPreviewsNailView.h"
 #import "UIViewController+CWLateralSlide.h"
+
+
 
 @interface MarkdownVC ()
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -25,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
 @property (strong, nonatomic) MarkdownEditor    *textView ;
+@property (strong, nonatomic) OctWebEditor *editor ;
 @property (strong, nonatomic) XTCameraHandler   *handler;
 @property (strong, nonatomic) ArticleInfoVC     *infoVC ;
 
@@ -150,9 +154,9 @@
 #pragma mark - UI
 
 - (void)prepareUI {
-    [self textView] ;
-    self.textView.xt_theme_backgroundColor = k_md_bgColor ;
-    self.textView.xt_theme_textColor = k_md_textColor ;
+    [self editor] ;
+    self.editor.xt_theme_backgroundColor = k_md_bgColor ;
+//    self.textView.xt_theme_textColor = k_md_textColor ;
     
     self.fd_prefersNavigationBarHidden = YES ;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -259,21 +263,37 @@
 
 #pragma mark - prop
 
-- (MarkdownEditor *)textView{
-    if(!_textView){
-        _textView = ({
-            MarkdownEditor * editor = [[MarkdownEditor alloc]init] ;
-            [self.view insertSubview:editor atIndex:0] ;
-            [editor mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(self.view) ;
-                make.top.equalTo(self.mas_topLayoutGuideBottom) ;
-                make.bottom.equalTo(self.view) ;
-            }] ;
-            editor;
-       });
+- (OctWebEditor *)editor {
+    if (!_editor) {
+        _editor = [[OctWebEditor alloc] initWithFrame:self.view.bounds] ;
+        [self.view addSubview:_editor] ;
+        [_editor mas_makeConstraints:^(MASConstraintMaker *make) {
+            if (@available(iOS 11.0, *)) {
+                make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop) ;
+            } else {
+                make.top.equalTo(self.view.xt_viewController.mas_topLayoutGuideBottom) ;
+            }
+            make.bottom.left.right.equalTo(self) ;
+        }] ;
     }
-    return _textView;
+    return _editor ;
 }
+
+//- (MarkdownEditor *)textView{
+//    if(!_textView){
+//        _textView = ({
+//            MarkdownEditor * editor = [[MarkdownEditor alloc]init] ;
+//            [self.view insertSubview:editor atIndex:0] ;
+//            [editor mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.left.right.equalTo(self.view) ;
+//                make.top.equalTo(self.mas_topLayoutGuideBottom) ;
+//                make.bottom.equalTo(self.view) ;
+//            }] ;
+//            editor;
+//       });
+//    }
+//    return _textView;
+//}
 
 - (ArticleInfoVC *)infoVC{
     if(!_infoVC){

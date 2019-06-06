@@ -11,6 +11,7 @@
 #import <XTlib/XTlib.h>
 #import "OctToolbar.h"
 #import <BlocksKit+UIKit.h>
+#import "MDThemeConfiguration.h"
 
 @interface OctWebEditor () <UIWebViewDelegate,OctToolbarDelegate>
 @property (strong, nonatomic) OctToolbar    *toolBar ;
@@ -23,6 +24,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        
         [self createWebViewWithFrame:frame];
         [self setupHTMLEditor];
         
@@ -41,33 +44,34 @@
 }
 
 - (void)createWebViewWithFrame:(CGRect)frame {
-    NSAssert(!_webView, @"The web view must not exist when this method is called!");
-    
-    _webView = [[UIWebView alloc] initWithFrame:frame];
-    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _webView.delegate = self;
-    _webView.scalesPageToFit = NO;
-    _webView.dataDetectorTypes = UIDataDetectorTypeNone;
-    _webView.backgroundColor = [UIColor whiteColor];
-    _webView.opaque = NO;
-    _webView.scrollView.bounces = NO;
-    _webView.usesGUIFixes = YES;
-    _webView.keyboardDisplayRequiresUserAction = NO;
-    _webView.scrollView.bounces = YES;
-    _webView.allowsInlineMediaPlayback = YES;
-
-    [self addSubview:_webView];
+    NSAssert(!_webView, @"The web view must not exist when this method is called!") ;
+    _webView = [[UIWebView alloc] initWithFrame:frame] ;
+    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
+    _webView.delegate = self ;
+    _webView.scalesPageToFit = NO ;
+    _webView.dataDetectorTypes = UIDataDetectorTypeNone ;
+    _webView.backgroundColor = [UIColor whiteColor] ;
+    _webView.opaque = NO ;
+    _webView.scrollView.bounces = NO ;
+    _webView.usesGUIFixes = YES ;
+    _webView.keyboardDisplayRequiresUserAction = NO ;
+    _webView.scrollView.bounces = YES ;
+    _webView.allowsInlineMediaPlayback = YES ;
+    [self addSubview:_webView] ;
+    [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self) ;
+    }] ;
 }
 
 - (void)setupHTMLEditor {
     //group
-//    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
-//    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
+    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
     //link
-    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
+//    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
@@ -105,7 +109,6 @@
         [self.toolBar layoutIfNeeded] ;
         [self.toolBar refresh] ;
     }) ;
-    
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

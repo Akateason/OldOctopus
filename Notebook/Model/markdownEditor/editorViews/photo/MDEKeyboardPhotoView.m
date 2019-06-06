@@ -56,13 +56,13 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 //            [photoView removeFromSuperview] ;
         }) ;
     }] ;
-    [photoView.btCancel bk_addEventHandler:^(id sender) {
+    [photoView.btLink bk_whenTapped:^{
         @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
             blkCancel() ;
-//            [photoView removeFromSuperview] ;
+            //            [photoView removeFromSuperview] ;
         }) ;
-    } forControlEvents:UIControlEventTouchUpInside] ;
+    }] ;
     
     [photoView addMeAboveKeyboardViewWithKeyboardHeight:height] ;
     
@@ -121,7 +121,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     self.collectionView.delegate = self ;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
-    float cellHeight = keyboardHeight - 158. ;
+    float cellHeight = keyboardHeight - 158. - 8. - 50. ;
     layout.itemSize = CGSizeMake(cellHeight, cellHeight) ;
     layout.minimumInteritemSpacing = 6.0f ;
     self.h_collection.constant = cellHeight - APP_SAFEAREA_TABBAR_FLEX ;
