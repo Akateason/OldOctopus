@@ -10,10 +10,10 @@
 #import "MDEditUrlView.h"
 #import "MDEKeyboardPhotoView.h"
 #import "XTMarkdownParser+ImageUtil.h"
+#import "WebPhotoHandler.h"
+
 
 @implementation OctWebEditor (OctToolbarUtil)
-
-
 
 - (CGFloat)keyboardHeight {
     return self->keyboardHeight ;
@@ -30,13 +30,13 @@
     MDEKeyboardPhotoView *photoView =
     [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - 40 WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
         @strongify(self)
-//        [self uploadImage:image] ;
+        [self sendImageLocalPathWithImage:image] ;
     } cameraOnPressed:^(UIImage * _Nonnull image) {
         @strongify(self)
-//        [self uploadImage:image] ;
+        [self sendImageLocalPathWithImage:image] ;
     } albumOnPressed:^(UIImage * _Nonnull image) {
         @strongify(self)
-//        [self uploadImage:image] ;
+        [self sendImageLocalPathWithImage:image] ;
     } linkPressed:^{
         @strongify(self)
         [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(BOOL isComplete) {
@@ -46,56 +46,68 @@
     return photoView ;
 }
 
-//- (void)uploadImage:(UIImage *)image {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//
-//        @weakify(self)
-//        [self.parser.imgManager uploadImage:image progress:^(float pgs) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD showProgress:pgs status:@"正在上传图片"]  ;
-//            }) ;
-//        } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
-//            @strongify(self)
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD dismiss] ;
-//
-//                NSString *url = responseObject[@"url"] ;
-//                if (!url) {
-//                    [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
-//                }
-//                else { // success .
-//                    NSMutableString *tmpString = [self.text mutableCopy] ;
-//                    NSString *tickStr = @([[NSDate date] xt_getTick]).stringValue ;
-//                    NSString *imgStringWillInsert = XT_STR_FORMAT(@"![%@](%@)\n\n",tickStr,url) ;
-//                    [tmpString insertString:imgStringWillInsert atIndex:self.selectedRange.location] ;
-//                    [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
-//                    self.selectedRange = NSMakeRange(self.selectedRange.location + imgStringWillInsert.length + 3, 0) ;
-//
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
-//                }
-//            }) ;
-//        } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
-//            }) ;
-//        }] ;
-//
-//    }) ;
-//}
+- (void)sendImageLocalPathWithImage:(UIImage *)image {
+    WebPhoto *photo = [WebPhoto new] ;
+    photo.fromNoteClientID = self.note_clientID ;
+    photo.localPath = XT_DOCUMENTS_PATH_TRAIL_(XT_STR_FORMAT(@"%d_%lld",self.note_clientID,[NSDate xt_getNowTick])) ;
+    NSData *data = UIImageJPEGRepresentation(image, 1) ;
+    [data writeToFile:photo.localPath atomically:YES] ;
+    
+    [photo xt_insert] ;
+    
+    @weakify(self)
+    [self uploadImage:image complete:^(NSString *url) {
+        if (url.length) {
+            photo.url = url ;
+            photo.isUploaded = 1 ;
+            [photo xt_update] ;
+            @strongify(self)
+            [self nativeCallJSWithFunc:@"replaceImage" json:[@{@"oldSrc":photo.localPath,@"src":url} yy_modelToJSONString] completion:^(BOOL isComplete) {
+                
+            }] ;
+        }
+    }] ;
+    
+    [self nativeCallJSWithFunc:@"inserImage" json:photo.localPath completion:^(BOOL isComplete) {
+    }] ;
+}
+
+
+- (void)uploadImage:(UIImage *)image
+           complete:(void(^)(NSString *url))completion {
+    MDImageManager *imgManager = [MDImageManager new] ;
+
+//    @weakify(self)
+    [imgManager uploadImage:image progress:^(float pgs) {
+        
+    } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
+//        @strongify(self)
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *url = responseObject[@"url"] ;
+            if (!url) {
+                // upload failed
+            }
+            else { // success .
+                completion(url) ;
+            }
+        }) ;
+    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+
+    }] ;
+    
+}
 
 - (void)toolbarDidSelectUndo {
     [self nativeCallJSWithFunc:@"undo" json:nil completion:^(BOOL isComplete) {
         
     }] ;
 }
+
 - (void)toolbarDidSelectRedo {
-    [self getMarkdown:^(NSString *markdown) {
-        
+    [self nativeCallJSWithFunc:@"redo" json:nil completion:^(BOOL isComplete) {
+
     }] ;
-    
-//    [self nativeCallJSWithFunc:@"redo" json:nil completion:^(BOOL isComplete) {
-//
-//    }] ;
 }
 
 - (UIView *)fromEditor {

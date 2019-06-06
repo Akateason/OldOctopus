@@ -21,6 +21,7 @@
 #import "GuidingVC.h"
 #import "HomeVC.h"
 #import "MDNavVC.h"
+#import "WebPhotoHandler.h"
 
 #import "TestVC.h"
 
@@ -112,6 +113,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     
     [Note       xt_createTable] ;
     [NoteBooks  xt_createTable] ;
+    [WebPhoto   xt_createTable] ;
     
     // upgrade db
     [[XTFMDBBase sharedInstance] dbUpgradeTable:Note.class paramsAdd:@[@"searchContent"] version:2] ;
@@ -132,7 +134,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 }
 
 - (void)setupIqKeyboard {
-    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager] ;
     manager.enable             = YES ; // 控制整个功能是否启用。
     manager.enableAutoToolbar  = NO ;  // 控制是否显示键盘上的工具条
 }

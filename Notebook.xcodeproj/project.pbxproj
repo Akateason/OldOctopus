@@ -85,6 +85,7 @@
 		8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F56FE94228556B50030D3F9 /* OutputPreviewsNailView.m */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
 		8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F579FE0222FB65B00C54929 /* XTCloudHandler.m */; };
+		8F5C7E4422A8FDB40032680D /* WebPhotoHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C7E4322A8FDB40032680D /* WebPhotoHandler.m */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
 		8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD2221BECFC0067C321 /* Main.storyboard */; };
 		8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD5221BECFE0067C321 /* Assets.xcassets */; };
@@ -852,6 +853,8 @@
 		8F579FDD222E54A500C54929 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		8F579FDF222FB65B00C54929 /* XTCloudHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTCloudHandler.h; sourceTree = "<group>"; };
 		8F579FE0222FB65B00C54929 /* XTCloudHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTCloudHandler.m; sourceTree = "<group>"; };
+		8F5C7E4222A8FDB40032680D /* WebPhotoHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebPhotoHandler.h; sourceTree = "<group>"; };
+		8F5C7E4322A8FDB40032680D /* WebPhotoHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebPhotoHandler.m; sourceTree = "<group>"; };
 		8F65DBC9221BECFC0067C321 /* Notebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F65DBCC221BECFC0067C321 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8F65DBCD221BECFC0067C321 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1593,6 +1596,8 @@
 			children = (
 				8F08FB6122A8C328008AB6A6 /* WebModel.h */,
 				8F08FB6222A8C328008AB6A6 /* WebModel.m */,
+				8F5C7E4222A8FDB40032680D /* WebPhotoHandler.h */,
+				8F5C7E4322A8FDB40032680D /* WebPhotoHandler.m */,
 			);
 			path = webModel;
 			sourceTree = "<group>";
@@ -3596,6 +3601,7 @@
 				8F1357F92292AA4200F5F874 /* KeyboardViewButton.m in Sources */,
 				8F05C57F22754F150047CC04 /* XTMarkdownParser+ImageUtil.m in Sources */,
 				8F6863C22266FA7A00261626 /* SearchEmptyVC.m in Sources */,
+				8F5C7E4422A8FDB40032680D /* WebPhotoHandler.m in Sources */,
 				8F08FB7922A8E819008AB6A6 /* TableCreatorView.m in Sources */,
 				8FE5A3EA224CA77400947D14 /* LDHeadView.m in Sources */,
 				8F173D8122A4C13A00FA4D8D /* UIWebView+GUIFixes.m in Sources */,

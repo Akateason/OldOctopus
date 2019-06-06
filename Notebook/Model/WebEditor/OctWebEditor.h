@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "WebModel.h"
+#import "Note.h"
 
 
 @interface OctWebEditor : UIView {
-    CGFloat     keyboardHeight ;
+    CGFloat keyboardHeight ;
 }
 @property (strong, nonatomic) UIWebView *webView ;
 @property (strong, nonatomic) WebModel *webInfo ;
+@property (nonatomic) int note_clientID ;
 
 - (void)nativeCallJSWithFunc:(NSString *)func
                         json:(NSString *)json
