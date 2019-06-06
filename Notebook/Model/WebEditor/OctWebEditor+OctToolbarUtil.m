@@ -68,7 +68,7 @@
         }
     }] ;
     
-    [self nativeCallJSWithFunc:@"inserImage" json:photo.localPath completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"insertImage" json:photo.localPath completion:^(BOOL isComplete) {
     }] ;
 }
 
