@@ -66,13 +66,13 @@
 
 - (void)setupHTMLEditor {
     //group
-//    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
-//    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
+    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
     //link
-    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
+//    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
@@ -132,7 +132,7 @@
     json = !json ? @"" : json ;
     JSValue *jsFun = self.context[@"WebViewBridgeCallback"];
     NSArray *args = @[[@{@"method":func} yy_modelToJSONString], json] ;
-    
+    BOOL callReplaceImage = [func isEqualToString:@"replaceImage"] ;
     BOOL callStraight = [func isEqualToString:@"getMarkdown"] || [func isEqualToString:@"getAllPhotos"] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -144,6 +144,11 @@
         else {
             n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @0, [@{@"method":func} yy_modelToJSONString], json]] ;
         }
+        
+        if (callReplaceImage) {
+            n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @3000, [@{@"method":func} yy_modelToJSONString], json]] ;
+        }
+        
         if (completion) completion(n) ;
     });
 }

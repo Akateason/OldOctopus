@@ -49,7 +49,7 @@
 - (void)sendImageLocalPathWithImage:(UIImage *)image {
     WebPhoto *photo = [WebPhoto new] ;
     photo.fromNoteClientID = self.note_clientID ;
-    photo.localPath = XT_DOCUMENTS_PATH_TRAIL_(XT_STR_FORMAT(@"%d_%lld",self.note_clientID,[NSDate xt_getNowTick])) ;
+    photo.localPath = XT_DOCUMENTS_PATH_TRAIL_(XT_STR_FORMAT(@"%d_%lld.jpg",self.note_clientID,[NSDate xt_getNowTick])) ;
     NSData *data = UIImageJPEGRepresentation(image, 1) ;
     [data writeToFile:photo.localPath atomically:YES] ;
     
@@ -68,7 +68,7 @@
         }
     }] ;
     
-    [self nativeCallJSWithFunc:@"insertImage" json:photo.localPath completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"insertImage" json:[@{@"src":photo.localPath} yy_modelToJSONString] completion:^(BOOL isComplete) {
     }] ;
 }
 
