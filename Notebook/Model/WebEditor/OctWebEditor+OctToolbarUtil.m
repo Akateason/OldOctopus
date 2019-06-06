@@ -37,8 +37,11 @@
     } albumOnPressed:^(UIImage * _Nonnull image) {
         @strongify(self)
 //        [self uploadImage:image] ;
-    } cancel:^{
-        
+    } linkPressed:^{
+        @strongify(self)
+        [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(BOOL isComplete) {
+            
+        }] ;
     }] ;
     return photoView ;
 }

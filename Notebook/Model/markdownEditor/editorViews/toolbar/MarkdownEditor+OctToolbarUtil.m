@@ -98,8 +98,8 @@
     } albumOnPressed:^(UIImage * _Nonnull image) {
         @strongify(self)
         [self uploadImage:image] ;
-    } cancel:^{
-
+    } linkPressed:^{        
+        
     }] ;
     return photoView ;
 }

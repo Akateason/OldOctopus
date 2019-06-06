@@ -40,6 +40,12 @@
     self.btSepline.selected = NO ;
     self.btMath.selected = NO ;
     self.btCodeBlock.selected = NO ;
+    self.btTable.selected = NO ;
+    self.btHtml.selected = NO ;
+    self.btVegaChart.selected = NO ;
+    self.btFlowChart.selected = NO ;
+    self.btSequnceDiag.selected = NO ;
+    self.btMermaid.selected = NO ;
 }
 
 - (void)awakeFromNib {
@@ -51,6 +57,8 @@
     self.area4.backgroundColor = [UIColor whiteColor] ;
     self.area5.backgroundColor = [UIColor whiteColor] ;
     self.area6.backgroundColor = [UIColor whiteColor] ;
+    self.area7.backgroundColor = [UIColor whiteColor] ;
+    self.area8.backgroundColor = [UIColor whiteColor] ;
     
     self.area1.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
     self.area2.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
@@ -58,6 +66,8 @@
     self.area4.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
     self.area5.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
     self.area6.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
+    self.area7.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
+    self.area8.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
     
     self.area1.xt_borderWidth = .5 ;
     self.area2.xt_borderWidth = .5 ;
@@ -65,6 +75,8 @@
     self.area4.xt_borderWidth = .5 ;
     self.area5.xt_borderWidth = .5 ;
     self.area6.xt_borderWidth = .5 ;
+    self.area7.xt_borderWidth = .5 ;
+    self.area8.xt_borderWidth = .5 ;
     
     self.area1.xt_cornerRadius = 6 ;
     self.area2.xt_cornerRadius = 6 ;
@@ -72,6 +84,8 @@
     self.area4.xt_cornerRadius = 6 ;
     self.area5.xt_cornerRadius = 6 ;
     self.area6.xt_cornerRadius = 6 ;
+    self.area7.xt_cornerRadius = 6 ;
+    self.area8.xt_cornerRadius = 6 ;
     
     self.backgroundColor = UIColorHex(@"f9f6f6") ;
     
@@ -121,6 +135,37 @@
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectMathBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
+    
+    [self.btTable bk_addEventHandler:^(UIButton *sender) {
+        sender.selected = !sender.selected ;
+        [weakSelf.blkBoard_Delegate toolbarDidSelectTable] ;
+        [weakSelf removeFromSuperview] ;
+    } forControlEvents:UIControlEventTouchUpInside] ;
+
+    [self.btHtml bk_addEventHandler:^(UIButton *sender) {
+        sender.selected = !sender.selected ;
+        [weakSelf.blkBoard_Delegate toolbarDidSelectHtml] ;
+    } forControlEvents:UIControlEventTouchUpInside] ;
+    
+    [self.btVegaChart bk_addEventHandler:^(UIButton *sender) {
+        sender.selected = !sender.selected ;
+        [weakSelf.blkBoard_Delegate toolbarDidSelectVegaChart] ;
+    } forControlEvents:UIControlEventTouchUpInside] ;
+    
+    [self.btFlowChart bk_addEventHandler:^(UIButton *sender) {
+        sender.selected = !sender.selected ;
+        [weakSelf.blkBoard_Delegate toolbarDidSelectFlowChart] ;
+    } forControlEvents:UIControlEventTouchUpInside] ;
+    
+    [self.btSequnceDiag bk_addEventHandler:^(UIButton *sender) {
+        sender.selected = !sender.selected ;
+        [weakSelf.blkBoard_Delegate toolbarDidSelectSequnceDiag] ;
+    } forControlEvents:UIControlEventTouchUpInside] ;
+    
+    [self.btMermaid bk_addEventHandler:^(UIButton *sender) {
+        sender.selected = !sender.selected ;
+        [weakSelf.blkBoard_Delegate toolbarDidSelectMermaid] ;
+    } forControlEvents:UIControlEventTouchUpInside] ;
 }
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight {

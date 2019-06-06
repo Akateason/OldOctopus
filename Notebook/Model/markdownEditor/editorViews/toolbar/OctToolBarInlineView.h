@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)toolbarDidSelectItalic ;
 - (void)toolbarDidSelectDeletion ;
 - (void)toolbarDidSelectInlineCode ;
-- (void)toolbarDidSelectLink ;
+- (void)toolbarDidSelectUnderline ;
 @end
 
 @class MarkdownModel, KeyboardViewButton ;
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIButton *btInlineCode;
 @property (weak, nonatomic) IBOutlet UIButton *btParaClean;
-@property (weak, nonatomic) IBOutlet KeyboardViewButton *btLink;
+@property (weak, nonatomic) IBOutlet UIButton *btUnderline;
 
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;

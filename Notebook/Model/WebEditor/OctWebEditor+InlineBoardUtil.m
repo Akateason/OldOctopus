@@ -11,7 +11,7 @@
 @implementation OctWebEditor (InlineBoardUtil)
 
 - (void)toolbarDidSelectClearToCleanPara {
-    [self nativeCallJSWithFunc:@"clearAllFomat" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(BOOL isComplete) {
         
     }] ;
 }
@@ -80,7 +80,12 @@
     [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(BOOL isComplete) {
         
     }] ;
+}
 
+- (void)toolbarDidSelectUnderline {
+    [self nativeCallJSWithFunc:@"underline" json:nil completion:^(BOOL isComplete) {
+        
+    }] ;
 }
 
 @end

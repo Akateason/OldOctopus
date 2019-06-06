@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
-
+#import "WebModel.h"
 
 
 @interface OctWebEditor : UIView {
     CGFloat     keyboardHeight ;
 }
 @property (strong, nonatomic) UIWebView *webView ;
+@property (strong, nonatomic) WebModel *webInfo ;
 
 - (void)nativeCallJSWithFunc:(NSString *)func
                         json:(NSString *)json

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
          WhenUserPressedPhotoOnList:(void(^)(UIImage *image))blkPressedPhotoList
                     cameraOnPressed:(void(^)(UIImage *image))blkPressCameraBt
                      albumOnPressed:(void(^)(UIImage *image))blkPressAlbum
-                             cancel:(void(^)(void))blkCancel ;
+                        linkPressed:(void(^)(void))linkPressed ;
 
 @end
 

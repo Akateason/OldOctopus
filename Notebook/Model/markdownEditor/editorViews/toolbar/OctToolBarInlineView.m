@@ -39,7 +39,7 @@
         } break ;
         case MarkdownInlineDeletions: self.btDeletion.selected = YES ; break ;
         case MarkdownInlineInlineCode: self.btInlineCode.selected = YES ; break ;
-        case MarkdownInlineLinks: self.btLink.selected = YES ; break ;
+        case MarkdownInlineLinks: self.btUnderline.selected = YES ; break ;
             
         default:
             break;
@@ -58,7 +58,7 @@
     self.bth5.selected = NO ;
     self.bth6.selected = NO ;
     self.btParaClean.selected = NO ;
-    self.btLink.selected = NO ;
+    self.btUnderline.selected = NO ;
 }
 
 - (void)awakeFromNib {
@@ -153,10 +153,9 @@
         [weakSelf.inlineBoard_Delegate toolbarDidSelectClearToCleanPara] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btLink bk_addEventHandler:^(UIButton *sender) {
+    [self.btUnderline bk_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
-        [weakSelf.inlineBoard_Delegate toolbarDidSelectLink] ;
-//        [weakSelf removeFromSuperview] ;
+        [weakSelf.inlineBoard_Delegate toolbarDidSelectUnderline] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
 }
 

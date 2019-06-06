@@ -24,8 +24,6 @@
     
     WEAK_SELF
     [self bk_addEventHandler:^(id sender) {
-        
-        
         weakSelf.layer.transform = CATransform3DMakeScale(1.1, 1.1, 1) ;
         [UIView animateWithDuration:.2 animations:^{
             weakSelf.layer.transform = CATransform3DIdentity ;

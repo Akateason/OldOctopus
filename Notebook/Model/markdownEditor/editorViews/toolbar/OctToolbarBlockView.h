@@ -23,6 +23,13 @@
 
 - (void)toolbarDidSelectCodeBlock ;
 - (void)toolbarDidSelectMathBlock ;
+
+- (void)toolbarDidSelectTable ;
+- (void)toolbarDidSelectHtml ;
+- (void)toolbarDidSelectVegaChart ;
+- (void)toolbarDidSelectFlowChart ;
+- (void)toolbarDidSelectSequnceDiag ;
+- (void)toolbarDidSelectMermaid ;
 @end
 
 
@@ -35,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet UIView *area4;
 @property (weak, nonatomic) IBOutlet UIView *area5;
 @property (weak, nonatomic) IBOutlet UIView *area6;
+@property (weak, nonatomic) IBOutlet UIView *area7;
+@property (weak, nonatomic) IBOutlet UIView *area8;
 
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btUlist;
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btOlist;
@@ -47,6 +56,15 @@
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btSepline;
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btCodeBlock;
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btMath;
+
+@property (weak, nonatomic) IBOutlet KeyboardViewButton *btTable;
+@property (weak, nonatomic) IBOutlet KeyboardViewButton *btHtml;
+
+@property (weak, nonatomic) IBOutlet KeyboardViewButton *btVegaChart;
+@property (weak, nonatomic) IBOutlet KeyboardViewButton *btFlowChart;
+@property (weak, nonatomic) IBOutlet KeyboardViewButton *btSequnceDiag;
+@property (weak, nonatomic) IBOutlet KeyboardViewButton *btMermaid;
+
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;
 - (void)renderWithModel:(MarkdownModel *)model ;

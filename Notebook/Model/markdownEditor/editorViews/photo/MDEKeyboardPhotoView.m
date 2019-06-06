@@ -33,7 +33,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
          WhenUserPressedPhotoOnList:(void(^)(UIImage *image))blkPressedPhotoList
                     cameraOnPressed:(void(^)(UIImage *image))blkPressCameraBt
                      albumOnPressed:(void(^)(UIImage *image))blkPressAlbum
-                             cancel:(void(^)(void))blkCancel {
+                        linkPressed:(void(^)(void))linkPressed {
     
     MDEKeyboardPhotoView *photoView = [MDEKeyboardPhotoView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     [photoView setupCollections:height] ;
@@ -57,10 +57,10 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
         }) ;
     }] ;
     [photoView.btLink bk_whenTapped:^{
-        @strongify(photoView)
+//        @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
-            blkCancel() ;
-            //            [photoView removeFromSuperview] ;
+            linkPressed() ;
+//            [photoView removeFromSuperview] ;
         }) ;
     }] ;
     
