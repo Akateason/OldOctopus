@@ -66,13 +66,13 @@
 
 - (void)setupHTMLEditor {
     //group
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
-    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
+//    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
+//    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
     //link
-//    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
+    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
@@ -146,7 +146,7 @@
         }
         
         if (callReplaceImage) {
-            n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @3000, [@{@"method":func} yy_modelToJSONString], json]] ;
+            n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @300, [@{@"method":func} yy_modelToJSONString], json]] ;
         }
         
         if (completion) completion(n) ;
