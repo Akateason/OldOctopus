@@ -14,7 +14,7 @@
 #import "MDThemeConfiguration.h"
 
 
-@interface OctWebEditor () <UIWebViewDelegate,OctToolbarDelegate>
+@interface OctWebEditor () <UIWebViewDelegate>
 @property (strong, nonatomic) OctToolbar    *toolBar ;
 @property (strong, nonatomic) JSContext     *context ;
 @end
@@ -66,13 +66,13 @@
 
 - (void)setupHTMLEditor {
     //group
-//    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
-//    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
+    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
     //link
-    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
+//    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
@@ -106,9 +106,7 @@
     [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55 + APP_STATUSBAR_HEIGHT)) completion:^(BOOL isComplete) {
     }] ;
     
-    [self nativeCallJSWithFunc:@"setTheme" json:self.themeStr ?: @"light" completion:^(BOOL isComplete) {
-        
-    }] ;
+    [self changeTheme] ;
     
     [self renderNote] ;
 }
@@ -198,6 +196,11 @@
 - (void)renderNote {
     [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(BOOL isComplete) {
         
+    }] ;
+}
+
+- (void)changeTheme {
+    [self nativeCallJSWithFunc:@"setTheme" json:self.themeStr ?: @"light" completion:^(BOOL isComplete) {
     }] ;
 }
 

@@ -33,7 +33,7 @@
 - (void)getMarkdown:(void(^)(NSString *markdown))complete ;
 - (void)getAllPhotos:(void(^)(NSString *json))complete ;
 
-
+- (void)changeTheme ;
 - (void)renderNote ;
 @end
 

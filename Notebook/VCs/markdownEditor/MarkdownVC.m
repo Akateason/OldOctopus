@@ -58,35 +58,36 @@
         self.editor.aNote = self.aNote ;
     }
 
-//    @weakify(self)
+    @weakify(self)
 //    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
 //        @strongify(self)
 //        // Update Your Note
 //        [self updateMyNote] ;
 //        if (!self.thisArticleHasChanged) self.thisArticleHasChanged = YES ;
 //    }] ;
-//
-//    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-//        @strongify(self)
-//        // Sync your note
-//        if (!self.aNote) return ;
-//
-//        __block Note *noteFromIcloud = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
-//        if ([noteFromIcloud.content isEqualToString:self.aNote.content]) return ; // 如果内容一样,不处理
-//
-//        self.aNote = noteFromIcloud ;
-//        [self.textView.parser parseTextAndGetModelsInCurrentCursor:self.aNote.content textView:self.textView] ;
-//        MarkdownModel *model = [self.textView.parser modelForModelListInlineFirst] ;
-//        [self.textView doSomethingWhenUserSelectPartOfArticle:model] ;
-//    }] ;
-//
-//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
-//       takeUntil:self.rac_willDeallocSignal]
-//      deliverOnMainThread]
-//     subscribeNext:^(NSNotification * _Nullable x) {
-//         @strongify(self)
-//         [self.textView parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
-//     }] ;
+
+    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        // Sync your note
+        if (!self.aNote) return ;
+        
+        __block Note *noteFromIcloud = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
+        if ([noteFromIcloud.content isEqualToString:self.aNote.content]) return ; // 如果内容一样,不处理
+        
+        self.aNote = noteFromIcloud ;
+        self.editor.aNote = noteFromIcloud ;
+        [self.editor renderNote] ;
+    }] ;
+
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
+       takeUntil:self.rac_willDeallocSignal]
+      deliverOnMainThread]
+     subscribeNext:^(NSNotification * _Nullable x) {
+         @strongify(self)
+         self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
+         [self.editor changeTheme] ;
+     }] ;
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
