@@ -81,14 +81,36 @@
     self.context[@"WebViewBridge"]  = self;
 
 //    WebViewBridge
-//    @weakify(self)
-    self.context[@"WebViewBridge"] = ^(JSValue *func, JSValue *json) {
-//        @strongify(self)
+    @weakify(self)
+    self.context[@"WebViewBridge"] = ^(NSString *func, NSString *json) {
+        @strongify(self)
         NSLog(@"WebViewBridge func : %@\njson : %@",func,json) ;
+        if ([func isEqualToString:@"change"]) {
+            WebModel *model = [WebModel yy_modelWithJSON:json] ;
+            self.webInfo = model ;
+        }
+        else if ([func isEqualToString:@"typeList"]) {
+            
+        }
+        else if ([func isEqualToString:@"formatList"]) {
+            
+        }
+        
+        //todo
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            [self.toolBar refresh] ;
 //        }) ;
     } ;
+    
+    
+    [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55 + APP_STATUSBAR_HEIGHT)) completion:^(BOOL isComplete) {
+    }] ;
+    
+    [self nativeCallJSWithFunc:@"setTheme" json:self.themeStr ?: @"light" completion:^(BOOL isComplete) {
+        
+    }] ;
+    
+    [self renderNote] ;
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -170,6 +192,12 @@
 - (void)getAllPhotos:(void(^)(NSString *json))complete {    
     [self nativeCallJSWithFunc:@"getAllPhotos" json:nil getCompletionVal:^(JSValue *val) {
         complete(val.toString) ;
+    }] ;
+}
+
+- (void)renderNote {
+    [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(BOOL isComplete) {
+        
     }] ;
 }
 

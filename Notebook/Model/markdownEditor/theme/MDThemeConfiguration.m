@@ -21,12 +21,14 @@ XT_SINGLETON_M(MDThemeConfiguration)
 
 - (void)setup {
     NSString *theme = XT_USERDEFAULT_GET_VAL(kUDIdentiferOfTheme) ;
-    [self changeTheme:theme?:@"themeDefault"] ;
+    [self changeTheme:theme?:@"light"] ;
 }
 
 - (void)changeTheme:(NSString *)theme {
     NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:theme ofType:@"json"] ;
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    if (!data) return ;
+    
     self.dicForConfig = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     
     self.editorThemeObj = nil ;
@@ -51,8 +53,9 @@ XT_SINGLETON_M(MDThemeConfiguration)
 
 - (NSDictionary *)dicForConfig {
     if (!_dicForConfig) {
-        NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"themeDefault" ofType:@"json"] ;
+        NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"light" ofType:@"json"] ;
         NSData *data = [[NSData alloc] initWithContentsOfFile:path] ;
+        if (!data) return @{} ;
         _dicForConfig = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] ;
     }
     return _dicForConfig ;

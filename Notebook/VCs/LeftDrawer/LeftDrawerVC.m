@@ -73,7 +73,7 @@ typedef void(^BlkTapBookCell)(void);
         circle.alpha = .8 ;
     } completion:^(BOOL finished) {
         
-        (!bt.selected) ? [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDark"] : [[MDThemeConfiguration sharedInstance] changeTheme:@"themeDefault"] ;
+        (!bt.selected) ? [[MDThemeConfiguration sharedInstance] changeTheme:@"dark"] : [[MDThemeConfiguration sharedInstance] changeTheme:@"light"] ;
         (!bt.selected) ? [bt setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [bt setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
         bt.selected = !bt.selected ;
         
@@ -119,7 +119,7 @@ typedef void(^BlkTapBookCell)(void);
     
     self.btTheme.xt_theme_imageColor = k_md_iconColor ;
     [self.btTheme xt_enlargeButtonsTouchArea] ;
-    self.btTheme.selected = ![[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"themeDefault"] ;
+    self.btTheme.selected = ![[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"light"] ;
     
     self.btReply.xt_theme_imageColor = k_md_iconColor ;
     [self.btReply xt_enlargeButtonsTouchArea] ;

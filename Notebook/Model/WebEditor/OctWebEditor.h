@@ -16,8 +16,10 @@
     CGFloat keyboardHeight ;
 }
 @property (strong, nonatomic) UIWebView *webView ;
-@property (strong, nonatomic) WebModel *webInfo ;
-@property (nonatomic) int note_clientID ;
+@property (strong, nonatomic) WebModel  *webInfo ;
+@property (nonatomic)         int       note_clientID ;
+@property (strong, nonatomic) Note      *aNote ;
+@property (copy, nonatomic)   NSString  *themeStr ;
 
 - (void)nativeCallJSWithFunc:(NSString *)func
                         json:(NSString *)json
@@ -32,6 +34,7 @@
 - (void)getAllPhotos:(void(^)(NSString *json))complete ;
 
 
+- (void)renderNote ;
 @end
 
 

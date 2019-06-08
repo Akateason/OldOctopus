@@ -9,7 +9,7 @@
 #import "ArticleInfoVC.h"
 #import "XTMarkdownParser.h"
 #import "UIViewController+CWLateralSlide.h"
-
+#import "WebModel.h"
 
 @interface ArticleInfoVC ()
 
@@ -65,9 +65,9 @@
     self.lbBookName.text = book.displayBookName ?: @"暂存区" ;
     self.lbCreateTime.text = [NSDate xt_getStrWithTick:self.aNote.createDateOnServer format:kTIME_STR_FORMAT_YYYY_MM_dd_HH_mm] ;
     self.lbUpdateTime.text = [NSDate xt_getStrWithTick:self.aNote.modifyDateOnServer format:kTIME_STR_FORMAT_YYYY_MM_dd_HH_mm] ;
-    self.lbCountOfWord.text = @(self.parser.countForWord).stringValue ;
-    self.lbCountOfCharactor.text = @(self.parser.countForCharactor).stringValue ;
-    self.lbCountOfPara.text = @(self.parser.countForPara).stringValue ;
+    self.lbCountOfWord.text = @(self.webInfo.wordCount.word).stringValue ;
+    self.lbCountOfCharactor.text = @(self.webInfo.wordCount.character).stringValue ;
+    self.lbCountOfPara.text = @(self.webInfo.wordCount.paragraph).stringValue ;
 }
 
 - (void)handleSwipeFrom:(id)gesture {

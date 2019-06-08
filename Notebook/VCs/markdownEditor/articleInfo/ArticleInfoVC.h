@@ -7,7 +7,7 @@
 //
 
 #import "BasicVC.h"
-@class XTMarkdownParser ;
+@class XTMarkdownParser,WebModel ;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +25,7 @@ typedef void(^BlkOutputOnClick)(void) ;
 @property (copy, nonatomic) BlkDeleteFinished blkDelete ;
 @property (copy, nonatomic) BlkOutputOnClick blkOutput ;
 
-@property (strong, nonatomic) XTMarkdownParser *parser ;
+@property (strong, nonatomic) WebModel *webInfo ;
 
 
 @property (weak, nonatomic) IBOutlet UIView *topArea;
