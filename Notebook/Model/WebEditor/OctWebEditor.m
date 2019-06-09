@@ -12,7 +12,8 @@
 #import "OctToolbar.h"
 #import <BlocksKit+UIKit.h>
 #import "MDThemeConfiguration.h"
-
+#import "WebPhotoHandler.h"
+#import "OctWebEditor+OctToolbarUtil.h"
 
 @interface OctWebEditor () <UIWebViewDelegate>
 @property (strong, nonatomic) OctToolbar    *toolBar ;
@@ -41,6 +42,16 @@
             self->keyboardHeight = kbSize.height ;
         }] ;
         
+        [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {
+            @strongify(self)
+            
+            WebPhoto *photo = [WebPhoto xt_findWhere:XT_STR_FORMAT(@"fromNoteClientID == '%@'",self.aNote.icRecordName)].firstObject ;
+            if (!photo) return ;
+            
+            NSData *imageData = [NSData dataWithContentsOfFile:photo.localPath] ;
+            UIImage *image = [UIImage imageWithData:imageData] ;
+            [self uploadWebPhoto:photo image:image] ;
+        }];
     }
     return self;
 }

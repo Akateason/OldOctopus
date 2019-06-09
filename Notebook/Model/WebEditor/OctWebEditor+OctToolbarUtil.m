@@ -55,6 +55,13 @@
     
     [photo xt_insert] ;
     
+    [self uploadWebPhoto:photo image:image] ;
+    
+    [self nativeCallJSWithFunc:@"insertImage" json:[@{@"src":photo.localPath} yy_modelToJSONString] completion:^(BOOL isComplete) {
+    }] ;
+}
+
+- (void)uploadWebPhoto:(WebPhoto *)photo image:(UIImage *)image {
     @weakify(self)
     [self uploadImage:image complete:^(NSString *url) {
         if (url.length) {
@@ -67,11 +74,7 @@
             }] ;
         }
     }] ;
-    
-    [self nativeCallJSWithFunc:@"insertImage" json:[@{@"src":photo.localPath} yy_modelToJSONString] completion:^(BOOL isComplete) {
-    }] ;
 }
-
 
 - (void)uploadImage:(UIImage *)image
            complete:(void(^)(NSString *url))completion {

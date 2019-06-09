@@ -18,8 +18,8 @@ static NSString *const kNote_Editor_CHANGE = @"kNote_Editor_CHANGE" ;
 }
 @property (strong, nonatomic) UIWebView *webView ;
 @property (strong, nonatomic) WebModel  *webInfo ;
-@property (copy, nonatomic)   NSArray *typeInlineList ;
-@property (nonatomic)         int     typePara ;
+@property (copy, nonatomic)   NSArray   *typeInlineList ;
+@property (nonatomic)         int       typePara ;
 
 @property (nonatomic)         int       note_clientID ;
 @property (strong, nonatomic) Note      *aNote ;

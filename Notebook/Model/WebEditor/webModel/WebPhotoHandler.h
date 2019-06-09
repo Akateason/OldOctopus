@@ -19,7 +19,7 @@
 // 传过去之后， 删除一条记录。
 @interface WebPhoto : NSObject
 @property (nonatomic, copy) NSString    *localPath ; // pk
-@property (nonatomic)       int         fromNoteClientID ;
+@property (nonatomic)       int         fromNoteClientID ; //note id
 @property (nonatomic)       BOOL        isUploaded ;
 @property (nonatomic, copy) NSString    *url ;
 

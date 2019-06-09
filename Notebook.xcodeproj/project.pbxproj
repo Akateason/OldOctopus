@@ -1616,8 +1616,6 @@
 			isa = PBXGroup;
 			children = (
 				8F08FB6022A8C1FD008AB6A6 /* webModel */,
-				8F173D8022A4C13A00FA4D8D /* UIWebView+GUIFixes.h */,
-				8F173D7F22A4C13A00FA4D8D /* UIWebView+GUIFixes.m */,
 				8F173D7922A1385B00FA4D8D /* OctWebEditor.h */,
 				8F173D7A22A1385B00FA4D8D /* OctWebEditor.m */,
 				8FEBC28322A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.h */,
@@ -1626,6 +1624,8 @@
 				8FEBC28722A68BEB004EB0F5 /* OctWebEditor+InlineBoardUtil.m */,
 				8FEBC28922A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.h */,
 				8FEBC28A22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m */,
+				8F173D8022A4C13A00FA4D8D /* UIWebView+GUIFixes.h */,
+				8F173D7F22A4C13A00FA4D8D /* UIWebView+GUIFixes.m */,
 			);
 			path = WebEditor;
 			sourceTree = "<group>";
