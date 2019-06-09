@@ -65,6 +65,7 @@
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btSequnceDiag;
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btMermaid;
 
+- (void)renderWithType:(int)type ;
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;
 - (void)renderWithModel:(MarkdownModel *)model ;

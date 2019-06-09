@@ -33,7 +33,14 @@
 
 @implementation OctToolbar
 
-
+- (void)renderWithParaType:(int)para inlineList:(NSArray *)inlineList {
+    [self clearUI] ;
+    
+    NSMutableArray *tmplist = [inlineList mutableCopy] ;
+    [tmplist addObject:@(para)] ;
+    [self.inlineBoard renderWithlist:tmplist] ;
+    [self.blockBoard renderWithType:para] ;
+}
 
 - (void)renderWithModel:(MarkdownModel *)model {
     [self clearUI] ;
@@ -55,7 +62,7 @@
 }
 
 - (void)refresh {
-    self.underLineView.centerX = self.btShowKeyboard.centerX + 17;
+    self.underLineView.centerX = self.btShowKeyboard.centerX + 17 ;
 }
 
 

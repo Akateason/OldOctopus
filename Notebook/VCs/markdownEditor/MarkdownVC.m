@@ -59,12 +59,12 @@
     }
 
     @weakify(self)
-//    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-//        @strongify(self)
-//        // Update Your Note
-//        [self updateMyNote] ;
-//        if (!self.thisArticleHasChanged) self.thisArticleHasChanged = YES ;
-//    }] ;
+    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        // Update Your Note
+        [self updateMyNote] ;
+        if (!self.thisArticleHasChanged) self.thisArticleHasChanged = YES ;
+    }] ;
 
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -93,7 +93,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated] ;
     
-//    [self.textView renderLeftSideAndToobar] ;
 //    if (!self.aNote) [self.textView becomeFirstResponder] ;
 }
 

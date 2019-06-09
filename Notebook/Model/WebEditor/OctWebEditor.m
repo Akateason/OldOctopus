@@ -17,6 +17,7 @@
 @interface OctWebEditor () <UIWebViewDelegate>
 @property (strong, nonatomic) OctToolbar    *toolBar ;
 @property (strong, nonatomic) JSContext     *context ;
+
 @end
 
 
@@ -88,18 +89,21 @@
         if ([func isEqualToString:@"change"]) {
             WebModel *model = [WebModel yy_modelWithJSON:json] ;
             self.webInfo = model ;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
         }
         else if ([func isEqualToString:@"typeList"]) {
-            
+            NSArray *typelist = [WebModel currentTypeWithList:json] ;
+            self.typePara = [typelist.firstObject intValue] ;
         }
         else if ([func isEqualToString:@"formatList"]) {
-            
+            NSArray *list = [WebModel currentTypeWithList:json] ;
+            self.typeInlineList = list ;
         }
         
-        //todo
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.toolBar refresh] ;
-//        }) ;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.toolBar refresh] ;
+            [self.toolBar renderWithParaType:self.typePara inlineList:self.typeInlineList] ;
+        }) ;
     } ;
     
     

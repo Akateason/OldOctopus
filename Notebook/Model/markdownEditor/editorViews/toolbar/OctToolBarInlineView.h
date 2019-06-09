@@ -56,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;
+- (void)renderWithlist:(NSArray *)list ;
+
 - (void)renderWithModel:(MarkdownModel *)model ;
 - (void)clearUI ;
 

@@ -12,19 +12,25 @@ NS_ASSUME_NONNULL_BEGIN
 @class WordCount ;
 
 @interface WebModel : NSObject
-@property (copy, nonatomic) NSString *markdown ;
-@property (strong, nonatomic)WordCount *wordCount ;
+@property (copy, nonatomic)     NSString    *markdown ;
+@property (strong, nonatomic)   WordCount   *wordCount ;
 
++ (NSArray *)currentTypeWithList:(NSString *)jsonlist  ;
 
 @end
-
 
 @interface WordCount : NSObject
 @property (nonatomic) int word ;
 @property (nonatomic) int paragraph ;
 @property (nonatomic) int character ;
 @property (nonatomic) int all ;
-
 @end
+
+
+
+
+
+
+
 
 NS_ASSUME_NONNULL_END

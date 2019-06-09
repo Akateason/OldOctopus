@@ -15,6 +15,29 @@
 
 @implementation OctToolBarInlineView
 
+- (void)renderWithlist:(NSArray *)list {
+    for (NSNumber *num in list) {
+        int type = [num intValue] ;
+        switch (type) {
+            case MarkdownSyntaxH1: self.bth1.selected = YES; break;
+            case MarkdownSyntaxH2: self.bth2.selected = YES; break;
+            case MarkdownSyntaxH3: self.bth3.selected = YES; break;
+            case MarkdownSyntaxH4: self.bth4.selected = YES; break;
+            case MarkdownSyntaxH5: self.bth5.selected = YES; break;
+            case MarkdownSyntaxH6: self.bth6.selected = YES; break;
+            case MarkdownSyntaxUnknown: self.btParaClean.selected = YES; break;
+            case MarkdownInlineBold: self.btBold.selected = YES ; break ;
+            case MarkdownInlineItalic: self.btItalic.selected = YES ; break ;
+            case MarkdownInlineDeletions: self.btDeletion.selected = YES ; break ;
+            case MarkdownInlineInlineCode: self.btInlineCode.selected = YES ; break ;
+            case MarkdownInlineLinks: self.btUnderline.selected = YES ; break ;
+            
+            default:
+                break;
+        }
+    }
+}
+
 - (void)renderWithModel:(MarkdownModel *)model {
     switch (model.type) {
         case MarkdownSyntaxHeaders: {

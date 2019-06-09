@@ -26,6 +26,12 @@ typedef NS_ENUM(int, MarkdownSyntaxType){
     
     // 标题
     MarkdownSyntaxHeaders, // h1-h6
+    MarkdownSyntaxH1,
+    MarkdownSyntaxH2,
+    MarkdownSyntaxH3,
+    MarkdownSyntaxH4,
+    MarkdownSyntaxH5,
+    MarkdownSyntaxH6,
 //    MarkdownSyntaxLHeader, // line header  ====的上面一行
     
     // 列表
@@ -44,7 +50,8 @@ typedef NS_ENUM(int, MarkdownSyntaxType){
     MarkdownSyntaxMultipleMath, //  数学
     MarkdownSyntaxHr, // 分割线
     
-    MarkdownSyntaxTable ,    
+    MarkdownSyntaxTable , // 表格
+    
     
     NumberOfMarkdownSyntax // count  优先级从低到高.
 } ;

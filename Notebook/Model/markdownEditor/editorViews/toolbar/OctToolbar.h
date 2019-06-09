@@ -24,6 +24,7 @@
 
 @interface OctToolbar : UIView
 @property (nonatomic, weak) id<OctToolbarDelegate> delegate ;
+- (void)renderWithParaType:(int)para inlineList:(NSArray *)inlineList ;
 
 - (void)renderWithModel:(MarkdownModel *)model ;
 - (void)refresh ;

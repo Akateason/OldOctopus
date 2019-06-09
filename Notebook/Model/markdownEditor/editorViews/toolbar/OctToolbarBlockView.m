@@ -15,6 +15,22 @@
 
 @implementation OctToolbarBlockView
 
+- (void)renderWithType:(int)type {
+    switch (type) {
+        case MarkdownSyntaxULLists: self.btUlist.selected = YES; break ;
+        case MarkdownSyntaxOLLists: self.btOlist.selected = YES; break ;
+        case MarkdownSyntaxTaskLists: self.btTaskList.selected = YES; break ;
+        case MarkdownSyntaxBlockquotes: self.btQuote.selected = YES; break ;
+        case MarkdownSyntaxHr: self.btSepline.selected = YES; break ;
+        case MarkdownSyntaxMultipleMath: self.btMath.selected = YES; break ;
+        case MarkdownSyntaxCodeBlock: self.btCodeBlock.selected = YES; break ;
+        case MarkdownSyntaxTable:self.btTable.selected = YES; break ;
+        default:
+            break;
+    }
+}
+
+
 - (void)renderWithModel:(MarkdownModel *)model {
     switch (model.type) {
         case MarkdownSyntaxULLists: self.btUlist.selected = YES; break ;
