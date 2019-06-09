@@ -71,6 +71,7 @@
             @strongify(self)
             [self nativeCallJSWithFunc:@"replaceImage" json:[@{@"oldSrc":photo.localPath,@"src":url} yy_modelToJSONString] completion:^(BOOL isComplete) {
                 
+                [photo xt_deleteModel] ; // 上传成功,删除photo
             }] ;
         }
     }] ;
