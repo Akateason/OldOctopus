@@ -18,37 +18,66 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
 @property (strong, nonatomic) XTZoomPicture *zoomPic ;
 @property (copy, nonatomic) BlkDeleteOnClick blkDelete ;
 
+@property (copy, nonatomic) NSString *src ;
+
 @end
 
 @implementation ArticlePhotoPreviewVC
 
-+ (instancetype)showFromCtrller:(UIViewController *)fromCtrller
-                  model:(MdInlineModel *)model
-          deleteOnClick:(void(^)(ArticlePhotoPreviewVC *vc))deleteOnClick
++ (instancetype)showFromView:(UIView *)fromView
+                           json:(NSString *)json
+                  deleteOnClick:(void(^)(ArticlePhotoPreviewVC *vc))deleteOnClick
 {
-    ArticlePhotoPreviewVC *vc = [[ArticlePhotoPreviewVC alloc] init] ;
-    vc.modelImage = (MdInlineModel *)model ;
-    [vc setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    [fromCtrller presentViewController:vc animated:YES completion:^{}] ;
-    vc.blkDelete = deleteOnClick ;
-    return vc ;
+    ArticlePhotoPreviewVC *view = [[ArticlePhotoPreviewVC alloc] init] ;
+    NSDictionary *dic = [WebModel convertjsonStringToJsonObj:json] ;
+    view.src = dic[@"token"][@"src"] ;
+    
+    [view prepareUI] ;
+        
+    [fromView addSubview:view] ;
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(fromView) ;
+    }] ;
+    view.blkDelete = deleteOnClick ;
+    return view ;
 }
+
+
+//+ (instancetype)showFromCtrller:(UIViewController *)fromCtrller
+//                  model:(MdInlineModel *)model
+//          deleteOnClick:(void(^)(ArticlePhotoPreviewVC *vc))deleteOnClick
+//{
+//    ArticlePhotoPreviewVC *vc = [[ArticlePhotoPreviewVC alloc] init] ;
+//    vc.modelImage = (MdInlineModel *)model ;
+//    [vc setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+//    [fromCtrller presentViewController:vc animated:YES completion:^{}] ;
+//    vc.blkDelete = deleteOnClick ;
+//    return vc ;
+//}
+
 
 - (void)prepareUI {
     self.deleteButton.hidden = YES ;
     self.downloadButton.hidden = YES ;
     
+    
+    
     @weakify(self)
-    self.zoomPic = [[XTZoomPicture alloc] initWithFrame:APPFRAME imageUrl:self.modelImage.imageUrl tapped:^{
+    self.zoomPic = [[XTZoomPicture alloc] initWithFrame:APPFRAME imageUrl:self.src tapped:^{
         @strongify(self)
-        [self dismissViewControllerAnimated:YES completion:nil] ;
+        [self removeFromSuperview] ;
     } loadComplete:^{
         @strongify(self)
         self.downloadButton.hidden = NO ;
         self.deleteButton.hidden = NO ;
     }] ;
+    if (![self.src hasPrefix:@"http"]) {
+        NSData *data = [NSData dataWithContentsOfFile:self.src] ;
+        UIImage *image = [UIImage imageWithData:data] ;
+        self.zoomPic.imageView.image = image ;
+    }
     
-    [self.view addSubview:self.zoomPic] ;
+    [self addSubview:self.zoomPic] ;
     
     self.deleteButton = ({
         UIButton *bt = [UIButton new] ;
@@ -56,11 +85,11 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
         bt.xt_borderWidth = 1 ;
         bt.xt_cornerRadius = 4 ;
         [bt setImage:[UIImage imageNamed:@"photo_preview_bt_delete"] forState:0] ;
-        [self.view addSubview:bt] ;
+        [self addSubview:bt] ;
         [bt mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(32, 32)) ;
-            make.left.equalTo(self.view).offset(18) ;
-            make.bottom.equalTo(self.view.mas_bottomMargin).offset(-18) ;
+            make.left.equalTo(self).offset(18) ;
+            make.bottom.equalTo(self.mas_bottomMargin).offset(-18) ;
         }] ;
         bt ;
     }) ;
@@ -72,19 +101,16 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
         bt.xt_borderWidth = 1 ;
         bt.xt_cornerRadius = 4 ;
         [bt setImage:[UIImage imageNamed:@"photo_preview_bt_download"] forState:0] ;
-        [self.view addSubview:bt] ;
+        [self addSubview:bt] ;
         [bt mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(32, 32)) ;
-            make.right.equalTo(self.view).offset(-18) ;
-            make.bottom.equalTo(self.view.mas_bottomMargin).offset(-18) ;
+            make.right.equalTo(self).offset(-18) ;
+            make.bottom.equalTo(self.mas_bottomMargin).offset(-18) ;
         }] ;
         bt ;
     }) ;
     [self.downloadButton xt_enlargeButtonsTouchArea] ;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad] ;
+    
     
     WEAK_SELF
     [self.deleteButton bk_whenTapped:^{
@@ -97,13 +123,17 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
         dispatch_async(dispatch_get_main_queue(), ^{
             [CommonFunc saveImageToLibrary:imgSave complete:^(bool success) {
                 
-                    [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
+                [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
                 
             }] ;
         }) ;
         
     }] ;
 }
+
+
+
+
 
 
 

@@ -160,21 +160,21 @@ static const int kTag_MathView          = 78089 ;
 
 // preview one photo
 - (void)showPreviewCtrller:(MdInlineModel *)inlineImageModel {
-    [ArticlePhotoPreviewVC showFromCtrller:self.xt_viewController model:inlineImageModel deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
-        WEAK_SELF
-        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"是否要删除此图片" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil fromWithView:self CallBackBlock:^(NSInteger btnIndex) {
-            
-            if (btnIndex == 1) {
-                NSMutableString *tmpString = [weakSelf.text mutableCopy] ;
-                [tmpString deleteCharactersInRange:NSMakeRange(inlineImageModel.location, inlineImageModel.length + 1)] ;
-                weakSelf.text = tmpString ;
-                [weakSelf updateTextStyle] ;
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
-                [vc dismissViewControllerAnimated:YES completion:nil] ;
-            }
-        }] ;
-    }] ;
+//    [ArticlePhotoPreviewVC showFromCtrller:self.xt_viewController model:inlineImageModel deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
+//        WEAK_SELF
+//        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"是否要删除此图片" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil fromWithView:self CallBackBlock:^(NSInteger btnIndex) {
+//            
+//            if (btnIndex == 1) {
+//                NSMutableString *tmpString = [weakSelf.text mutableCopy] ;
+//                [tmpString deleteCharactersInRange:NSMakeRange(inlineImageModel.location, inlineImageModel.length + 1)] ;
+//                weakSelf.text = tmpString ;
+//                [weakSelf updateTextStyle] ;
+//                
+//                [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ; // notificate for update .
+//                [vc dismissViewControllerAnimated:YES completion:nil] ;
+//            }
+//        }] ;
+//    }] ;
 }
 
 #pragma mark - func

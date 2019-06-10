@@ -93,7 +93,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated] ;
     
-//    if (!self.aNote) [self.textView becomeFirstResponder] ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

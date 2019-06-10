@@ -13,20 +13,20 @@
 
 @implementation WebModel
 
-+ (NSArray *)convertjsonStringToArray:(NSString *)jsonString {
-    NSArray *retArrray = nil;
++ (id)convertjsonStringToJsonObj:(NSString *)jsonString {
+    id ret = nil;
     if ([jsonString isKindOfClass:[NSString class]]) {
         NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        retArrray = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:NULL];
-        return  retArrray;
+        ret = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:NULL];
+        return  ret;
     }
     else {
-        return retArrray;
+        return ret;
     }
 }
 
 + (NSArray *)currentTypeWithList:(NSString *)jsonlist  {    
-    NSArray *list = [self convertjsonStringToArray:jsonlist] ;
+    NSArray *list = [self convertjsonStringToJsonObj:jsonlist] ;
     NSMutableArray *tmplist = [@[] mutableCopy] ;
     for (NSString *str in list) {
         int val = [self getTypeFromStr:str] ;

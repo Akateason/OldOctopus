@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WebModel : NSObject
 @property (copy, nonatomic)     NSString    *markdown ;
 @property (strong, nonatomic)   WordCount   *wordCount ;
-+ (NSArray *)convertjsonStringToArray:(NSString *)jsonString ;
++ (id)convertjsonStringToJsonObj:(NSString *)jsonString ;
 
 + (NSArray *)currentTypeWithList:(NSString *)jsonlist  ;
 

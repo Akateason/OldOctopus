@@ -7,11 +7,19 @@
 //
 
 #import "BasicVC.h"
+#import "WebModel.h"
 @class MdInlineModel ;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ArticlePhotoPreviewVC : BasicVC
+@interface ArticlePhotoPreviewVC : UIView
+
++ (instancetype)showFromView:(UIView *)fromView
+                        json:(NSString *)json
+               deleteOnClick:(void(^)(ArticlePhotoPreviewVC *vc))deleteOnClick ;
+
+
+
 
 @property (nonatomic, strong) MdInlineModel *modelImage ;
 

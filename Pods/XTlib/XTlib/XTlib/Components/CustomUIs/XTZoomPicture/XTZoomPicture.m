@@ -22,7 +22,7 @@ typedef void (^BlkLoadComplete)(void);
 @property (nonatomic) float imgWidth;
 @property (nonatomic) float imgHeight;
 @property (nonatomic) float imgRate_H_W; // h / w
-@property (nonatomic, strong) UIImageView *imageView;
+
 @property (nonatomic, strong) UIImage *backImage;
 @property (copy, nonatomic) NSString *urlStr;
 @end
@@ -81,8 +81,7 @@ typedef void (^BlkLoadComplete)(void);
         @weakify(self)
             [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.urlStr] completed:^(UIImage *_Nullable image, NSError *_Nullable error, SDImageCacheType cacheType, NSURL *_Nullable imageURL) {
                 @strongify(self)
-                
-                self.backImage = image;
+                    self.backImage = image;
                 [aiView stopAnimating];
                 [aiView removeFromSuperview];
 

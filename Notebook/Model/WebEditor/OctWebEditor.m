@@ -14,10 +14,12 @@
 #import "MDThemeConfiguration.h"
 #import "WebPhotoHandler.h"
 #import "OctWebEditor+OctToolbarUtil.h"
+#import "ArticlePhotoPreviewVC.h"
 
 @interface OctWebEditor () <UIWebViewDelegate>
 @property (strong, nonatomic) OctToolbar    *toolBar ;
 @property (strong, nonatomic) JSContext     *context ;
+@property (copy, nonatomic)   NSString      *currentImageJsonToDelete ;
 
 @end
 
@@ -29,8 +31,9 @@
     if (self) {
         self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         
-        [self createWebView];
-        [self setupHTMLEditor];
+        [self createWebView] ;
+        [self webViewInjectSetup] ;
+        [self setupHTMLEditor] ;
         
         // keyboard showing
         @weakify(self)
@@ -63,36 +66,60 @@
     _webView.delegate = self ;
     _webView.scalesPageToFit = NO ;
     _webView.dataDetectorTypes = UIDataDetectorTypeNone ;
-    _webView.backgroundColor = [UIColor whiteColor] ;
+    _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
     _webView.opaque = NO ;
-    _webView.scrollView.bounces = NO ;
     _webView.usesGUIFixes = YES ;
     _webView.keyboardDisplayRequiresUserAction = NO ;
-    _webView.scrollView.bounces = YES ;
     _webView.allowsInlineMediaPlayback = YES ;
     [self addSubview:_webView] ;
     [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self) ;
     }] ;
+    
 }
 
 - (void)setupHTMLEditor {
     //group
-//    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
-//    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
+    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
     //link
-    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
-    
+//    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
+
     [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
 
 - (void)setupJSCore {
-    self.context[@"WebViewBridge"]  = self;
+    //55
+    [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(BOOL isComplete) {
+    }] ;
+    
+    [self changeTheme] ;
+    
+    [self renderNote] ;
+    
+    if (!self.aNote) {
+        [self nativeCallJSWithFunc:@"openKeyboard" json:nil completion:^(BOOL isComplete) {
+        }] ;
+    }
+}
 
-//    WebViewBridge
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return YES ;
+}
+
+- (void)webViewInjectSetup {
+    JSContext *context = [self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    [context setExceptionHandler:^(JSContext *ctx, JSValue *expectValue) {
+        NSLog(@"js core err : %@", expectValue);
+    }];
+    
+    self.context = context;
+    self.context[@"WebViewBridge"]  = self;
+    
+    //    WebViewBridge
     @weakify(self)
     self.context[@"WebViewBridge"] = ^(NSString *func, NSString *json) {
         @strongify(self)
@@ -110,6 +137,18 @@
             NSArray *list = [WebModel currentTypeWithList:json] ;
             self.typeInlineList = list ;
         }
+        else if ([func isEqualToString:@"selectImage"]) {
+            self.currentImageJsonToDelete = json ;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                WEAK_SELF
+                [ArticlePhotoPreviewVC showFromView:self.window json:json deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
+                    [vc removeFromSuperview] ;
+                    [weakSelf nativeCallJSWithFunc:@"deleteImage" json:json completion:^(BOOL isComplete) {
+                    }] ;
+                }] ;
+            }) ;
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.toolBar refresh] ;
@@ -117,26 +156,9 @@
         }) ;
     } ;
     
-    //55
-    [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(BOOL isComplete) {
-    }] ;
-    
-    [self changeTheme] ;
-    
-    [self renderNote] ;
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    return YES ;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    JSContext *context = [self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    [context setExceptionHandler:^(JSContext *ctx, JSValue *expectValue) {
-        NSLog(@"js core err : %@", expectValue);
-    }];
-    
-    self.context = context;
     [self setupJSCore] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
