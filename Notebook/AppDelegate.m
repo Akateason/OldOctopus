@@ -21,7 +21,14 @@
     NSLog(@"test : %@", [[[NSNumberFormatter alloc] init] numberFromString:@"a"]) ;
     NSLog(@"t : %d", ![[[NSNumberFormatter alloc] init] numberFromString:@"a"] ) ;
     
+//    NSString *jsonlist = @"[\"h3\"]" ;
+//    NSArray *list = [self.class convertjsonStringToDict:jsonlist] ;
+//    NSArray *list = [NSArray yy_modelArrayWithClass:[NSString class] json:jsonlist] ;
+    
 }
+
+
+
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

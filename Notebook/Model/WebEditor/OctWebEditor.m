@@ -117,8 +117,8 @@
         }) ;
     } ;
     
-    
-    [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55 + APP_STATUSBAR_HEIGHT)) completion:^(BOOL isComplete) {
+    //55
+    [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(BOOL isComplete) {
     }] ;
     
     [self changeTheme] ;
@@ -226,5 +226,8 @@
     // Drawing code
 }
 */
+
+
+
 
 @end

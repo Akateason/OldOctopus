@@ -40,6 +40,8 @@ static NSString *const kNote_Editor_CHANGE = @"kNote_Editor_CHANGE" ;
 - (void)changeTheme ;
 - (void)renderNote ;
 
+
+
 @end
 
 

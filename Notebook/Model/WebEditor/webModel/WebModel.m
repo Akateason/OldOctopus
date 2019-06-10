@@ -9,11 +9,24 @@
 #import "WebModel.h"
 #import "MdParserRegexpHeader.h"
 #import <XTlib/XTlib.h>
+#import "OctWebEditor.h"
 
 @implementation WebModel
 
-+ (NSArray *)currentTypeWithList:(NSString *)jsonlist  {
-    NSArray *list = [NSArray yy_modelWithJSON:jsonlist] ;
++ (NSArray *)convertjsonStringToArray:(NSString *)jsonString {
+    NSArray *retArrray = nil;
+    if ([jsonString isKindOfClass:[NSString class]]) {
+        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        retArrray = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:NULL];
+        return  retArrray;
+    }
+    else {
+        return retArrray;
+    }
+}
+
++ (NSArray *)currentTypeWithList:(NSString *)jsonlist  {    
+    NSArray *list = [self convertjsonStringToArray:jsonlist] ;
     NSMutableArray *tmplist = [@[] mutableCopy] ;
     for (NSString *str in list) {
         int val = [self getTypeFromStr:str] ;
