@@ -124,7 +124,9 @@
     @weakify(self)
     self.context[@"WebViewBridge"] = ^(NSString *func, NSString *json) {
         @strongify(self)
+        
         NSLog(@"WebViewBridge func : %@\njson : %@",func,json) ;
+        
         if ([func isEqualToString:@"change"]) {
             WebModel *model = [WebModel yy_modelWithJSON:json] ;
             self.webInfo = model ;
@@ -149,6 +151,9 @@
                     }] ;
                 }] ;
             }) ;
+        }
+        else if ([func isEqualToString:@"setPureHtml"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Make_Big_Photo object:json] ;
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -51,13 +51,6 @@
     self.rightForRightCorner.constant = 0 ;
     
     [self bind] ;
-    
-//    @weakify(self)
-//    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidChangeStatusBarOrientationNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
-//
-//        @strongify(self)
-//        [[NSNotificationCenter defaultCenter] postNotificationName:CWLateralSlideTapNoticationKey object:self];
-//    }] ;
 }
 
 - (void)bind {

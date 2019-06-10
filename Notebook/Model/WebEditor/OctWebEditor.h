@@ -12,6 +12,7 @@
 #import "Note.h"
 
 static NSString *const kNote_Editor_CHANGE = @"kNote_Editor_CHANGE" ;
+static NSString *const kNote_Editor_Make_Big_Photo = @"kNote_Editor_Make_Big_Photo" ;
 
 @interface OctWebEditor : UIView {
     CGFloat keyboardHeight ;

@@ -15,7 +15,8 @@
 #import "OutputPreviewVC.h"
 #import "OutputPreviewsNailView.h"
 #import "UIViewController+CWLateralSlide.h"
-
+#import "OctWebEditor+OctToolbarUtil.h"
+#import <WebKit/WebKit.h>
 
 
 @interface MarkdownVC ()
@@ -88,6 +89,12 @@
          [self.editor changeTheme] ;
      }] ;
     
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        NSString *json = x.object ;
+        [self snapShotFullScreen:json] ;
+    }] ;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -214,19 +221,67 @@
     } ;
     
     // 预览
-//    self.infoVC.blkOutput = ^{
-//        if (weakSelf.textView.isFirstResponder) {
-//            [weakSelf.textView resignFirstResponder] ;
-//            [weakSelf.textView parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
-//            //@issue 预览之前, 把 所有, 左边展示的 mark 去掉 .
-//        }
-//       dispatch_async(dispatch_get_main_queue(), ^{
-//            [weakSelf snapShotFullScreen] ;
-//        }) ;
-//    } ;
+    self.infoVC.blkOutput = ^{
+        [weakSelf.editor hideKeyboard] ;
+        [weakSelf.editor nativeCallJSWithFunc:@"getPureHtml" json:nil completion:^(BOOL isComplete) {}] ;
+    } ;
     
     CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:[ArticleInfoVC movingDistance] maskAlpha:0.4 scaleY:1 direction:CWDrawerTransitionFromRight backImage:nil] ;
     [self cw_showDrawerViewController:self.infoVC animationType:0 configuration:conf] ;
+}
+
+- (void)snapShotFullScreen:(NSString *)htmlString {
+    NSMutableString *tmpStr = [htmlString mutableCopy] ;
+    [tmpStr deleteCharactersInRange:NSMakeRange(0, 1)] ;
+    htmlString = [tmpStr substringToIndex:tmpStr.length - 1] ;
+    htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"] ;
+    htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\t" withString:@"\t"] ;
+    htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""] ;
+
+    NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"test.html") ;
+    [htmlString writeToFile:path atomically:YES encoding:(NSUTF8StringEncoding) error:nil] ;
+    
+    UIWebView *webView = [[UIWebView alloc] init] ;
+//    NSURL *editorURL = [NSURL fileURLWithPath:path] ;
+//    [webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
+    [webView loadHTMLString:htmlString baseURL:nil] ;
+
+    [self.view addSubview:webView] ;
+    [webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view) ;
+    }] ;
+    
+    
+    
+    
+//    OutputPreviewsNailView *nail = [OutputPreviewsNailView makeANail] ;
+//    nail.top = textHeight ;
+//    [self.view addSubview:nail] ;
+//
+//    UIGraphicsBeginImageContextWithOptions(CGSizeMake(APP_WIDTH, textHeight + nail.height), YES, [UIScreen mainScreen].scale) ;
+//
+//    CGPoint savedContentOffset = self.textView.contentOffset;
+//    CGRect savedFrame = self.textView.frame;
+//
+//    self.textView.mj_offsetY = - 55 ;
+//    self.textView.frame = CGRectMake(30, 0, self.textView.contentSize.width , self.textView.contentSize.height) ;
+//    self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + nail.height) ;
+//
+//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
+//    UIGraphicsEndImageContext() ;
+//
+//    self.navArea.hidden = NO ;
+//    self.textView.contentOffset = savedContentOffset;
+//    self.textView.frame = savedFrame;
+//    self.view.frame = APPFRAME ;
+//    [nail removeFromSuperview] ;
+//    nail = nil ;
+//
+//    if (!image) return ;
+//
+//    [self dismissViewControllerAnimated:YES completion:nil] ;
+//    [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
 }
 
 
