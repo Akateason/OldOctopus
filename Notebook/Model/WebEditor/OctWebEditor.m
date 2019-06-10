@@ -67,6 +67,7 @@
     _webView.scalesPageToFit = NO ;
     _webView.dataDetectorTypes = UIDataDetectorTypeNone ;
     _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+//    _webView.xt_theme_backgroundColor = k_md_bgColor ;
     _webView.opaque = NO ;
     _webView.usesGUIFixes = YES ;
     _webView.keyboardDisplayRequiresUserAction = NO ;
