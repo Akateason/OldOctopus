@@ -34,6 +34,7 @@
 @property (copy, nonatomic)   NSString          *myBookID ;
 
 @property (nonatomic) BOOL thisArticleHasChanged ;
+@property (strong, nonatomic) JSContext *context ;
 @end
 
 @implementation MarkdownVC
@@ -231,6 +232,10 @@
 }
 
 - (void)snapShotFullScreen:(NSString *)htmlString {
+    [self dismissViewControllerAnimated:YES completion:nil] ;
+    
+    self.editor.hidden = YES ;
+    
     NSMutableString *tmpStr = [htmlString mutableCopy] ;
     [tmpStr deleteCharactersInRange:NSMakeRange(0, 1)] ;
     htmlString = [tmpStr substringToIndex:tmpStr.length - 1] ;
@@ -238,51 +243,60 @@
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\t" withString:@"\t"] ;
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""] ;
 
-    NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"test.html") ;
-    [htmlString writeToFile:path atomically:YES encoding:(NSUTF8StringEncoding) error:nil] ;
+//    NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"test.html") ;
+//    [htmlString writeToFile:path atomically:YES encoding:(NSUTF8StringEncoding) error:nil] ;
     
-    UIWebView *webView = [[UIWebView alloc] init] ;
-//    NSURL *editorURL = [NSURL fileURLWithPath:path] ;
-//    [webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
+    WKWebView *webView = [[WKWebView alloc] init] ;
+    webView.navigationDelegate = (id<WKNavigationDelegate>)self ;
     [webView loadHTMLString:htmlString baseURL:nil] ;
-
+    webView.frame = self.view.bounds ;
     [self.view addSubview:webView] ;
-    [webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view) ;
-    }] ;
-    
-    
-    
-    
-//    OutputPreviewsNailView *nail = [OutputPreviewsNailView makeANail] ;
-//    nail.top = textHeight ;
-//    [self.view addSubview:nail] ;
-//
-//    UIGraphicsBeginImageContextWithOptions(CGSizeMake(APP_WIDTH, textHeight + nail.height), YES, [UIScreen mainScreen].scale) ;
-//
-//    CGPoint savedContentOffset = self.textView.contentOffset;
-//    CGRect savedFrame = self.textView.frame;
-//
-//    self.textView.mj_offsetY = - 55 ;
-//    self.textView.frame = CGRectMake(30, 0, self.textView.contentSize.width , self.textView.contentSize.height) ;
-//    self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + nail.height) ;
-//
-//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
-//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
-//    UIGraphicsEndImageContext() ;
-//
-//    self.navArea.hidden = NO ;
-//    self.textView.contentOffset = savedContentOffset;
-//    self.textView.frame = savedFrame;
-//    self.view.frame = APPFRAME ;
-//    [nail removeFromSuperview] ;
-//    nail = nil ;
-//
-//    if (!image) return ;
-//
-//    [self dismissViewControllerAnimated:YES completion:nil] ;
-//    [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
 }
+
+#pragma mark - wkWeb for Photo
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable value, NSError * _Nullable error) {
+            NSLog(@"value : %@",value) ;
+            [self makeSnapshot:webView height:[value floatValue]] ;
+        }] ;
+    }) ;
+}
+
+- (void)makeSnapshot:(WKWebView *)webview height:(float)height {
+    __block WKWebView *webView = webview ;
+    float textHeight = height ;
+    webView.height = height ;
+    [webView setNeedsLayout] ;
+    [webView layoutIfNeeded] ;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        OutputPreviewsNailView *nail = [OutputPreviewsNailView makeANail] ;
+        nail.top = textHeight ;
+        [self.view addSubview:nail] ;
+    
+        self.view.frame = CGRectMake(APP_SAFEAREA_STATUSBAR_FLEX, 0, APP_WIDTH , textHeight + nail.height) ;
+        [self.view setNeedsLayout] ;
+        [self.view layoutIfNeeded] ;
+        
+        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, YES, [UIScreen mainScreen].scale) ;
+        [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:YES] ;
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
+        UIGraphicsEndImageContext();
+
+        self.view.frame = APPFRAME ;
+        [nail removeFromSuperview] ;
+        [webView removeFromSuperview] ;
+        webView = nil ;
+        nail = nil ;
+        self.editor.hidden = NO ;
+
+        if (!image) return ;
+
+        [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
+    }) ;
+}
+
 
 
 //- (void)snapShotFullScreen {
