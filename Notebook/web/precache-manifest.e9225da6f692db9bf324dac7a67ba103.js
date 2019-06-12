@@ -1692,16 +1692,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "danielbd.e77b34d4.woff"
   },
   {
-    "revision": "7bb398ecc780b1d31d30c3a87764befb",
+    "revision": "bdcfdd1ad8d16bc72990500b7e2e4855",
     "url": "index.html"
   },
   {
-    "revision": "da095d32c0ba303eecf9",
-    "url": "main.43ba4439.chunk.css"
+    "revision": "e21b661459c34006bdf0",
+    "url": "main.27ea2d0c.chunk.css"
   },
   {
-    "revision": "da095d32c0ba303eecf9",
-    "url": "main.ae51d664.chunk.js"
+    "revision": "e21b661459c34006bdf0",
+    "url": "main.b27a77e7.chunk.js"
   },
   {
     "revision": "3afbb2a57bf45e649851c02e8b8903de",
