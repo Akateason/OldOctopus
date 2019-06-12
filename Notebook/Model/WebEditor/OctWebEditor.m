@@ -18,8 +18,10 @@
 
 
 @interface OctWebEditor () <UIWebViewDelegate>
+{
+    NSArray<NSString *> *_disabledActions ;
+}
 @property (strong, nonatomic) OctToolbar    *toolBar ;
-
 @end
 
 
@@ -32,6 +34,17 @@
         
         [self createWebView] ;
         [self setupHTMLEditor] ;
+
+        _disabledActions = @[
+                                      [@[@"_", @"lo", @"oku", @"p", @":"] componentsJoinedByString:@""], // _lookup: 查询按钮
+                                      [@[@"_", @"s", @"har", @"e", @":"] componentsJoinedByString:@""], // _share:分享按钮
+                                      [@[@"_", @"d", @"e", @"fine", @":"] componentsJoinedByString:@""], // _define:Define
+                                      [@[@"_", @"ad", @"dS", @"hor", @"tcu", @"t:"] componentsJoinedByString:@""], // _addShortcut:学习...
+                                      [@[@"_", @"tr", @"ans", @"lit", @"era", @"te", @"Ch", @"ine", @"se", @":"] componentsJoinedByString:@""], // _transliterateChinese:简<=>繁
+                                      [@[@"_", @"re", @"ana", @"ly", @"ze", @":"] componentsJoinedByString:@""] // _reanalyze:分享按钮
+                                      ] ;
+
+
         
         // keyboard showing
         @weakify(self)
@@ -59,12 +72,9 @@
             @strongify(self)
             self.toolBar.hidden = YES ;
         }] ;
-
-        
         
         [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {
             @strongify(self)
-            
             WebPhoto *photo = [WebPhoto xt_findWhere:XT_STR_FORMAT(@"fromNoteClientID == '%@'",self.aNote.icRecordName)].firstObject ;
             if (!photo) return ;
             
@@ -227,9 +237,8 @@
     [self setupJSCore] ;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-//        self.webView.customInputAccessoryView = self.toolBar ;
-//        [self disableInputAccessoryView] ;
         [self removeInputAccessoryViewFromWKWebView:webView] ;
+        [self enableSelectAll] ;
         
         [self.toolBar setNeedsLayout] ;
         [self.toolBar layoutIfNeeded] ;
@@ -259,63 +268,65 @@
 /**
  隐藏 webview 的 inputAccessoryView
  */
-- (void)disableInputAccessoryView {
-    Class class = NSClassFromString(@"WKContentView");
-    SEL selector = sel_getUid("inputAccessoryView");
-    Method method = class_getInstanceMethod(class, selector);
-    if (method) {
-        IMP original = method_getImplementation(method);
-        IMP override = imp_implementationWithBlock(^UIView*(id me) {
-            WKWebView *webView = [me valueForKey:@"_webView"];
-            if ([webView.superview isKindOfClass:[WKWebView class]]) {
-                return nil;
-            } else {
-                return ((UIView *(*)(id, SEL))original)(me, selector);
-            }
-        });
-        method_setImplementation(method, override);
-    }
-}
-
-
 - (void)removeInputAccessoryViewFromWKWebView:(WKWebView *)webView {
-    
     UIView *targetView;
-    
     for (UIView *view in webView.scrollView.subviews) {
-        
         if([[view.class description] hasPrefix:@"WKContent"]) {
-            
             targetView = view;
-            
         }
-        
     }
     if (!targetView) {
-        
         return;
         
     }
     NSString *noInputAccessoryViewClassName = [NSString stringWithFormat:@"%@_NoInputAccessoryView", targetView.class.superclass];
-    
     Class newClass = NSClassFromString(noInputAccessoryViewClassName);
-    
     if(newClass == nil) {
-        
         newClass = objc_allocateClassPair(targetView.class, [noInputAccessoryViewClassName cStringUsingEncoding:NSASCIIStringEncoding], 0);
-        
         if(!newClass) {
-            
             return;
-            
         }
         Method method = class_getInstanceMethod([self class], @selector(inputAccessoryView));
-        
         class_addMethod(newClass, @selector(inputAccessoryView), method_getImplementation(method), method_getTypeEncoding(method));
-        
         objc_registerClassPair(newClass);
     }
     object_setClass(targetView, newClass);
+}
+
+
+- (void)enableSelectAll {
+    Class class = NSClassFromString(@"WKContentView");
+    SEL selector = sel_getUid("canPerformActionForWebView:withSender:");
+    Method method = class_getInstanceMethod(class, selector);
+    
+    if (!method) {
+        selector = sel_getUid("canPerformAction:withSender:");
+        method = class_getInstanceMethod(class, selector);
+    }
+    
+    if (method) {
+        IMP original = method_getImplementation(method);
+        IMP override = imp_implementationWithBlock(^BOOL(id me, SEL action, id sender) {
+            if (action == @selector(selectAll:)) {
+                return YES;
+            } else if ([self isDisabledAction:action]) {
+                return NO;
+            } else {
+                return ((BOOL (*)(id, SEL, SEL, id))original)(me, selector, action, sender);
+            }
+        });
+        method_setImplementation(method, override);
+    }
+    
+}
+
+- (BOOL)isDisabledAction:(SEL) action {
+    for (int i = 0; i < [_disabledActions count]; i++) {
+        if ([[_disabledActions objectAtIndex:i] isEqualToString:NSStringFromSelector(action)]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end
