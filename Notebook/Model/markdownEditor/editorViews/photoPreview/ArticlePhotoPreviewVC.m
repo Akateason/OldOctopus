@@ -28,16 +28,16 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
                            json:(NSString *)json
                   deleteOnClick:(void(^)(ArticlePhotoPreviewVC *vc))deleteOnClick
 {
-    ArticlePhotoPreviewVC *view = [[ArticlePhotoPreviewVC alloc] init] ;
+    ArticlePhotoPreviewVC *view = [[ArticlePhotoPreviewVC alloc] initWithFrame:APPFRAME] ;
     NSDictionary *dic = [WebModel convertjsonStringToJsonObj:json] ;
     view.src = dic[@"token"][@"src"] ;
     
     [view prepareUI] ;
         
     [fromView addSubview:view] ;
-    [view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(fromView) ;
-    }] ;
+//    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(fromView) ;
+//    }] ;
     view.blkDelete = deleteOnClick ;
     return view ;
 }
@@ -63,7 +63,7 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     
     
     @weakify(self)
-    self.zoomPic = [[XTZoomPicture alloc] initWithFrame:APPFRAME imageUrl:self.src tapped:^{
+    self.zoomPic = [[XTZoomPicture alloc] initWithFrame:self.bounds imageUrl:self.src tapped:^{
         @strongify(self)
         [self removeFromSuperview] ;
     } loadComplete:^{

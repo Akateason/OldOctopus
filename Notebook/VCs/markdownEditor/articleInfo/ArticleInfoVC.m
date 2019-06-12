@@ -22,10 +22,6 @@
     return  48. / 75. * APP_WIDTH ;
 }
 
-
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

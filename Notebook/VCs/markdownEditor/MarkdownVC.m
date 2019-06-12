@@ -34,7 +34,6 @@
 @property (copy, nonatomic)   NSString          *myBookID ;
 
 @property (nonatomic) BOOL thisArticleHasChanged ;
-@property (strong, nonatomic) JSContext *context ;
 @end
 
 @implementation MarkdownVC
@@ -114,6 +113,9 @@
         // Create New Note
         [self createNewNote] ;
     }
+    
+    
+
 }
 
 #pragma mark - Func
@@ -209,7 +211,7 @@
 }
 
 - (IBAction)moreAction:(id)sender {
-    [self.editor nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(BOOL isComplete) {
+    [self.editor nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(NSString *val, NSError *error) {
     }] ;
 
     [self infoVC] ;
@@ -224,7 +226,7 @@
     // 预览
     self.infoVC.blkOutput = ^{
         [weakSelf.editor hideKeyboard] ;
-        [weakSelf.editor nativeCallJSWithFunc:@"getPureHtml" json:nil completion:^(BOOL isComplete) {}] ;
+        [weakSelf.editor nativeCallJSWithFunc:@"getPureHtml" json:nil completion:^(NSString *val, NSError *error) {}] ;
     } ;
     
     CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:[ArticleInfoVC movingDistance] maskAlpha:0.4 scaleY:1 direction:CWDrawerTransitionFromRight backImage:nil] ;
@@ -242,7 +244,7 @@
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"] ;
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\t" withString:@"\t"] ;
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""] ;
-
+    
 //    NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"test.html") ;
 //    [htmlString writeToFile:path atomically:YES encoding:(NSUTF8StringEncoding) error:nil] ;
     

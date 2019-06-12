@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <JavaScriptCore/JavaScriptCore.h>
 #import "WebModel.h"
 #import "Note.h"
+#import <WebKit/WebKit.h>
 
 static NSString *const kNote_Editor_CHANGE = @"kNote_Editor_CHANGE" ;
 static NSString *const kNote_Editor_Make_Big_Photo = @"kNote_Editor_Make_Big_Photo" ;
@@ -17,7 +17,7 @@ static NSString *const kNote_Editor_Make_Big_Photo = @"kNote_Editor_Make_Big_Pho
 @interface OctWebEditor : UIView {
     CGFloat keyboardHeight ;
 }
-@property (strong, nonatomic) UIWebView *webView ;
+@property (strong, nonatomic) WKWebView *webView ;
 @property (strong, nonatomic) WebModel  *webInfo ;
 @property (copy, nonatomic)   NSArray   *typeInlineList ;
 @property (nonatomic)         int       typePara ;
@@ -28,11 +28,7 @@ static NSString *const kNote_Editor_Make_Big_Photo = @"kNote_Editor_Make_Big_Pho
 
 - (void)nativeCallJSWithFunc:(NSString *)func
                         json:(NSString *)json
-                  completion:(void(^)(BOOL isComplete))completion ;
-
-- (void)nativeCallJSWithFunc:(NSString *)func
-                        json:(NSString *)json
-            getCompletionVal:(void(^)(JSValue *val))completion ;
+                  completion:(void(^)(NSString *val, NSError *error))completion ;
 
 
 - (void)getMarkdown:(void(^)(NSString *markdown))complete ;

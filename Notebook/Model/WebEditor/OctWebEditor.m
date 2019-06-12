@@ -16,10 +16,9 @@
 #import "OctWebEditor+OctToolbarUtil.h"
 #import "ArticlePhotoPreviewVC.h"
 
+
 @interface OctWebEditor () <UIWebViewDelegate>
 @property (strong, nonatomic) OctToolbar    *toolBar ;
-@property (strong, nonatomic) JSContext     *context ;
-@property (copy, nonatomic)   NSString      *currentImageJsonToDelete ;
 
 @end
 
@@ -32,18 +31,36 @@
         self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         
         [self createWebView] ;
-        [self webViewInjectSetup] ;
         [self setupHTMLEditor] ;
         
         // keyboard showing
         @weakify(self)
-        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
+        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
             @strongify(self)
             NSDictionary *info = [x userInfo] ;
-            CGSize kbSize      = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size ;
+            CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+            // 工具条的Y值 == 键盘的Y值 - 工具条的高度
+            if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
+                self.toolBar.top = self.height - self.toolBar.height;
+            }
+            else {
+                self.toolBar.top = endKeyboardRect.origin.y - self.toolBar.height;
+            }
+            
+            self.toolBar.width = APP_WIDTH ;
+            if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
+            self.toolBar.hidden = NO ;
+            
             // get keyboard height
-            self->keyboardHeight = kbSize.height ;
+            self->keyboardHeight = endKeyboardRect.origin.y - self.toolBar.height * 3 ;
         }] ;
+        
+        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
+            @strongify(self)
+            self.toolBar.hidden = YES ;
+        }] ;
+
+        
         
         [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {
             @strongify(self)
@@ -54,30 +71,70 @@
             NSData *imageData = [NSData dataWithContentsOfFile:photo.localPath] ;
             UIImage *image = [UIImage imageWithData:imageData] ;
             [self uploadWebPhoto:photo image:image] ;
-        }];
+        }] ;
+        
     }
     return self;
 }
 
 - (void)createWebView {
     NSAssert(!_webView, @"The web view must not exist when this method is called!") ;
-    _webView = [[UIWebView alloc] init] ;
+    _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:[WKWebViewConfiguration new]] ;
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
-    _webView.delegate = self ;
-    _webView.scalesPageToFit = NO ;
-    _webView.dataDetectorTypes = UIDataDetectorTypeNone ;
+    _webView.navigationDelegate = (id <WKNavigationDelegate>)self ;
     _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
-//    _webView.xt_theme_backgroundColor = k_md_bgColor ;
     _webView.opaque = NO ;
-    _webView.usesGUIFixes = YES ;
-    _webView.keyboardDisplayRequiresUserAction = NO ;
-    _webView.allowsInlineMediaPlayback = YES ;
     [self addSubview:_webView] ;
     [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self) ;
     }] ;
-    
+    [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
 }
+
+// WKScriptMessageHandler delegate
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+//    NSString *name = message.name ; // 就是上边注入到 JS 的哪个名字，在这里是 nativeMethod
+    NSString *body = message.body ;       // 就是 JS 调用 Native 时，传过来的 value
+    NSLog(@"%@", body) ;
+    NSDictionary *ret = [WebModel convertjsonStringToJsonObj:body] ;
+    NSString *func = ret[@"method"] ;
+    NSDictionary *jsonDic = ret[@"params"] ;
+    NSString *json = [jsonDic yy_modelToJSONString] ;
+    NSLog(@"WebViewBridge func : %@\njson : %@",func,jsonDic) ;
+    
+    if ([func isEqualToString:@"change"]) {
+        WebModel *model = [WebModel yy_modelWithJSON:jsonDic] ;
+        self.webInfo = model ;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
+    }
+    else if ([func isEqualToString:@"typeList"]) {
+        NSArray *typelist = [WebModel currentTypeWithList:json] ;
+        self.typePara = [typelist.firstObject intValue] ;
+    }
+    else if ([func isEqualToString:@"formatList"]) {
+        NSArray *list = [WebModel currentTypeWithList:json] ;
+        self.typeInlineList = list ;
+    }
+    else if ([func isEqualToString:@"selectImage"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            WEAK_SELF
+            [ArticlePhotoPreviewVC showFromView:self.window json:json deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
+                [vc removeFromSuperview] ;
+                [weakSelf nativeCallJSWithFunc:@"deleteImage" json:json completion:^(NSString *val, NSError *error) {
+                }] ;
+            }] ;
+        }) ;
+    }
+    else if ([func isEqualToString:@"setPureHtml"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Make_Big_Photo object:json] ;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.toolBar refresh] ;
+        [self.toolBar renderWithParaType:self.typePara inlineList:self.typeInlineList] ;
+    }) ;
+}
+
 
 - (void)setupHTMLEditor {
     //group
@@ -93,159 +150,101 @@
 }
 
 - (void)setupJSCore {
-    //55
-    [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(NSString *val, NSError *error) {
     }] ;
     
     [self changeTheme] ;
     
     [self renderNote] ;
-    
+
     if (!self.aNote) {
-        [self nativeCallJSWithFunc:@"openKeyboard" json:nil completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"openKeyboard" json:nil completion:^(NSString *val, NSError *error) {
         }] ;
     }
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    return YES ;
+- (OctToolbar *)toolBar {
+    if (!_toolBar) {
+        _toolBar = [OctToolbar xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+        _toolBar.frame = CGRectMake(0, 2000, [self.class currentScreenBoundsDependOnOrientation].size.width, 41) ;
+        _toolBar.delegate = (id<OctToolbarDelegate>)self ;
+    }
+    return _toolBar ;
 }
 
-- (void)webViewInjectSetup {
-    JSContext *context = [self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    [context setExceptionHandler:^(JSContext *ctx, JSValue *expectValue) {
-        NSLog(@"js core err : %@", expectValue);
-    }];
+
+- (void)nativeCallJSWithFunc:(NSString *)func
+                        json:(NSString *)json
+                  completion:(void(^)(NSString *val, NSError *error))completion {
+
+    json = [json stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] ;
+    json = [json stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"] ;
+    json = [json stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"] ;
+    json = [json stringByReplacingOccurrencesOfString:@"\b" withString:@"\\b"] ;
+    json = [json stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"] ;
+    json = [json stringByReplacingOccurrencesOfString:@"\t" withString:@"\\t"] ;
     
-    self.context = context;
-    self.context[@"WebViewBridge"]  = self;
-    
-    //    WebViewBridge
-    @weakify(self)
-    self.context[@"WebViewBridge"] = ^(NSString *func, NSString *json) {
-        @strongify(self)
-        
-        NSLog(@"WebViewBridge func : %@\njson : %@",func,json) ;
-        
-        if ([func isEqualToString:@"change"]) {
-            WebModel *model = [WebModel yy_modelWithJSON:json] ;
-            self.webInfo = model ;
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
-        }
-        else if ([func isEqualToString:@"typeList"]) {
-            NSArray *typelist = [WebModel currentTypeWithList:json] ;
-            self.typePara = [typelist.firstObject intValue] ;
-        }
-        else if ([func isEqualToString:@"formatList"]) {
-            NSArray *list = [WebModel currentTypeWithList:json] ;
-            self.typeInlineList = list ;
-        }
-        else if ([func isEqualToString:@"selectImage"]) {
-            self.currentImageJsonToDelete = json ;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                WEAK_SELF
-                [ArticlePhotoPreviewVC showFromView:self.window json:json deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
-                    [vc removeFromSuperview] ;
-                    [weakSelf nativeCallJSWithFunc:@"deleteImage" json:json completion:^(BOOL isComplete) {
-                    }] ;
-                }] ;
-            }) ;
-        }
-        else if ([func isEqualToString:@"setPureHtml"]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Make_Big_Photo object:json] ;
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.toolBar refresh] ;
-            [self.toolBar renderWithParaType:self.typePara inlineList:self.typeInlineList] ;
-        }) ;
-    } ;
-    
+    json = !json ? @"" : json ;
+
+    NSString *js = XT_STR_FORMAT(@"WebViewBridgeCallback({\"method\":\"%@\"}, \"%@\")",func,json) ;
+    NSLog(@"js : %@",js) ;
+    [_webView evaluateJavaScript:js completionHandler:^(id _Nullable val, NSError * _Nullable error) {
+        NSLog(@"%@ \nerr : %@", val, error) ;
+        if (completion) completion(val, error) ;
+    }] ;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+
+
+
+- (void)getMarkdown:(void(^)(NSString *markdown))complete {
+    [self nativeCallJSWithFunc:@"getMarkdown" json:nil completion:^(NSString *val, NSError *error) {
+        complete(val) ;
+    }] ;
+}
+
+- (void)getAllPhotos:(void(^)(NSString *json))complete {
+    [self nativeCallJSWithFunc:@"getAllPhotos" json:nil completion:^(NSString *val, NSError *error) {
+        complete(val) ;
+    }] ;
+}
+
+- (void)renderNote {
+    [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(NSString *val, NSError *error) {
+    
+    }] ;
+}
+
+- (void)changeTheme {
+    [self nativeCallJSWithFunc:@"setTheme" json:self.themeStr ?: @"light" completion:^(NSString *val, NSError *error) {
+    
+    }] ;
+}
+
+#pragma mark - wkwebview delegate
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self setupJSCore] ;
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.webView.customInputAccessoryView = self.toolBar ;
+//        self.webView.customInputAccessoryView = self.toolBar ;
+//        [self disableInputAccessoryView] ;
+        [self removeInputAccessoryViewFromWKWebView:webView] ;
+        
         [self.toolBar setNeedsLayout] ;
         [self.toolBar layoutIfNeeded] ;
         [self.toolBar refresh] ;
     }) ;
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    NSLog(@"err : %@",error) ;
-}
-
-- (OctToolbar *)toolBar {
-    if (!_toolBar) {
-        _toolBar = [OctToolbar xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-        _toolBar.frame = CGRectMake(0, 0, [self.class currentScreenBoundsDependOnOrientation].size.width, 41) ;
-        _toolBar.delegate = self ;
-    }
-    return _toolBar ;
-}
-
-- (void)nativeCallJSWithFunc:(NSString *)func
-                        json:(NSString *)json
-            getCompletionVal:(void(^)(JSValue *val))completion {
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation {
     
-    json = !json ? @"" : json ;
-    JSValue *jsFun = self.context[@"WebViewBridgeCallback"];
-    NSArray *args = @[[@{@"method":func} yy_modelToJSONString], json] ;
-    BOOL callReplaceImage = [func isEqualToString:@"replaceImage"] ;
-    BOOL callStraight = [func isEqualToString:@"getMarkdown"] || [func isEqualToString:@"getAllPhotos"] ;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //使用js的window.setTimeout方法执行需要调用的方法
-        JSValue *n ;
-        if (callStraight) {
-            n = [jsFun callWithArguments:args] ;
-        }
-        else {
-            n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @0, [@{@"method":func} yy_modelToJSONString], json]] ;
-        }
-        
-        if (callReplaceImage) {
-            n = [jsFun.context[@"setTimeout"] callWithArguments:@[jsFun, @300, [@{@"method":func} yy_modelToJSONString], json]] ;
-        }
-        
-        if (completion) completion(n) ;
-    });
 }
 
-- (void)nativeCallJSWithFunc:(NSString *)func
-                        json:(NSString *)json
-                  completion:(void(^)(BOOL isComplete))completion {
-    [self nativeCallJSWithFunc:func json:json getCompletionVal:^(JSValue *val) {
-        if (completion) completion(val.toBool) ;
-    }] ;
-}
 
-- (void)getMarkdown:(void(^)(NSString *markdown))complete {
-    [self nativeCallJSWithFunc:@"getMarkdown" json:nil getCompletionVal:^(JSValue *val) {
-        complete(val.toString) ;
-    }] ;
-}
 
-- (void)getAllPhotos:(void(^)(NSString *json))complete {    
-    [self nativeCallJSWithFunc:@"getAllPhotos" json:nil getCompletionVal:^(JSValue *val) {
-        complete(val.toString) ;
-    }] ;
-}
 
-- (void)renderNote {
-    [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(BOOL isComplete) {
-        
-    }] ;
-}
 
-- (void)changeTheme {
-    [self nativeCallJSWithFunc:@"setTheme" json:self.themeStr ?: @"light" completion:^(BOOL isComplete) {
-    }] ;
-}
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -257,5 +256,66 @@
 
 
 
+/**
+ 隐藏 webview 的 inputAccessoryView
+ */
+- (void)disableInputAccessoryView {
+    Class class = NSClassFromString(@"WKContentView");
+    SEL selector = sel_getUid("inputAccessoryView");
+    Method method = class_getInstanceMethod(class, selector);
+    if (method) {
+        IMP original = method_getImplementation(method);
+        IMP override = imp_implementationWithBlock(^UIView*(id me) {
+            WKWebView *webView = [me valueForKey:@"_webView"];
+            if ([webView.superview isKindOfClass:[WKWebView class]]) {
+                return nil;
+            } else {
+                return ((UIView *(*)(id, SEL))original)(me, selector);
+            }
+        });
+        method_setImplementation(method, override);
+    }
+}
+
+
+- (void)removeInputAccessoryViewFromWKWebView:(WKWebView *)webView {
+    
+    UIView *targetView;
+    
+    for (UIView *view in webView.scrollView.subviews) {
+        
+        if([[view.class description] hasPrefix:@"WKContent"]) {
+            
+            targetView = view;
+            
+        }
+        
+    }
+    if (!targetView) {
+        
+        return;
+        
+    }
+    NSString *noInputAccessoryViewClassName = [NSString stringWithFormat:@"%@_NoInputAccessoryView", targetView.class.superclass];
+    
+    Class newClass = NSClassFromString(noInputAccessoryViewClassName);
+    
+    if(newClass == nil) {
+        
+        newClass = objc_allocateClassPair(targetView.class, [noInputAccessoryViewClassName cStringUsingEncoding:NSASCIIStringEncoding], 0);
+        
+        if(!newClass) {
+            
+            return;
+            
+        }
+        Method method = class_getInstanceMethod([self class], @selector(inputAccessoryView));
+        
+        class_addMethod(newClass, @selector(inputAccessoryView), method_getImplementation(method), method_getTypeEncoding(method));
+        
+        objc_registerClassPair(newClass);
+    }
+    object_setClass(targetView, newClass);
+}
 
 @end

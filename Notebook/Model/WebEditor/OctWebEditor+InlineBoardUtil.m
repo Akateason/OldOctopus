@@ -12,109 +12,112 @@
 @implementation OctWebEditor (InlineBoardUtil)
 
 - (void)toolbarDidSelectClearToCleanPara {
-    [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
 }
 
 - (void)toolbarDidSelectH1 {
     if (self.typePara == MarkdownSyntaxH1) {
-        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
+            
         }] ;
     }
     else {
-        [self nativeCallJSWithFunc:@"titleWithSize" json:@"1" completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"titleWithSize" json:@"1" completion:^(NSString *val, NSError *error) {
         }] ;
     }
 }
 
 - (void)toolbarDidSelectH2 {
     if (self.typePara == MarkdownSyntaxH2) {
-        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
+            
         }] ;
     }
     else {
-        [self nativeCallJSWithFunc:@"titleWithSize" json:@"2" completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"titleWithSize" json:@"2" completion:^(NSString *val, NSError *error) {
         }] ;
     }
 }
 
 - (void)toolbarDidSelectH3 {
     if (self.typePara == MarkdownSyntaxH3) {
-        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
+            
         }] ;
     }
     else {
-        [self nativeCallJSWithFunc:@"titleWithSize" json:@"3" completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"titleWithSize" json:@"3" completion:^(NSString *val, NSError *error) {
         }] ;
     }
 }
 
 - (void)toolbarDidSelectH4 {
     if (self.typePara == MarkdownSyntaxH4) {
-        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
         }] ;
     }
     else {
-        [self nativeCallJSWithFunc:@"titleWithSize" json:@"4" completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"titleWithSize" json:@"4" completion:^(NSString *val, NSError *error) {
         }] ;
     }
 }
 
 - (void)toolbarDidSelectH5 {
     if (self.typePara == MarkdownSyntaxH5) {
-        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
         }] ;
     }
     else {
-        [self nativeCallJSWithFunc:@"titleWithSize" json:@"5" completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"titleWithSize" json:@"5" completion:^(NSString *val, NSError *error) {
         }] ;
     }
 }
 
 - (void)toolbarDidSelectH6 {
     if (self.typePara == MarkdownSyntaxH6) {
-        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
         }] ;
     }
     else {
-        [self nativeCallJSWithFunc:@"titleWithSize" json:@"6" completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"titleWithSize" json:@"6" completion:^(NSString *val, NSError *error) {
         }] ;
     }
 }
 
 - (void)toolbarDidSelectBold {
-    [self nativeCallJSWithFunc:@"bold" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"bold" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
 }
 
 - (void)toolbarDidSelectItalic {
-    [self nativeCallJSWithFunc:@"italic" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"italic" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
 }
 
 - (void)toolbarDidSelectDeletion {
-    [self nativeCallJSWithFunc:@"deletionLine" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"deletionLine" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
 }
 
 - (void)toolbarDidSelectInlineCode {
-    [self nativeCallJSWithFunc:@"inlineCode" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"inlineCode" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
 }
 
 - (void)toolbarDidSelectLink {
-    [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
 }
 
 - (void)toolbarDidSelectUnderline {
-    [self nativeCallJSWithFunc:@"underline" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"underline" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
 }

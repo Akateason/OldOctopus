@@ -20,7 +20,7 @@
 }
 
 - (void)hideKeyboard {
-    [self nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
 }
@@ -39,7 +39,7 @@
         [self sendImageLocalPathWithImage:image] ;
     } linkPressed:^{
         @strongify(self)
-        [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(BOOL isComplete) {
+        [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }] ;
@@ -57,7 +57,7 @@
     
     [self uploadWebPhoto:photo image:image] ;
     
-    [self nativeCallJSWithFunc:@"insertImage" json:[@{@"src":photo.localPath} yy_modelToJSONString] completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"insertImage" json:[@{@"src":photo.localPath} yy_modelToJSONString] completion:^(NSString *val, NSError *error) {
     }] ;
 }
 
@@ -69,7 +69,7 @@
             photo.isUploaded = 1 ;
             [photo xt_update] ;
             @strongify(self)
-            [self nativeCallJSWithFunc:@"replaceImage" json:[@{@"oldSrc":photo.localPath,@"src":url} yy_modelToJSONString] completion:^(BOOL isComplete) {
+            [self nativeCallJSWithFunc:@"replaceImage" json:[@{@"oldSrc":photo.localPath,@"src":url} yy_modelToJSONString] completion:^(NSString *val, NSError *error) {
                 
                 [photo xt_deleteModel] ; // 上传成功,删除photo
             }] ;
@@ -103,13 +103,13 @@
 }
 
 - (void)toolbarDidSelectUndo {
-    [self nativeCallJSWithFunc:@"undo" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"undo" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
 }
 
 - (void)toolbarDidSelectRedo {
-    [self nativeCallJSWithFunc:@"redo" json:nil completion:^(BOOL isComplete) {
+    [self nativeCallJSWithFunc:@"redo" json:nil completion:^(NSString *val, NSError *error) {
 
     }] ;
 }
