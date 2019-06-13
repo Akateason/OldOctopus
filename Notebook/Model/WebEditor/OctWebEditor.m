@@ -131,13 +131,13 @@
             WEAK_SELF
             [ArticlePhotoPreviewVC showFromView:self.window json:json deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
                 [vc removeFromSuperview] ;
-                [weakSelf nativeCallJSWithFunc:@"deleteImage" json:json completion:^(NSString *val, NSError *error) {
+                [weakSelf nativeCallJSWithFunc:@"deleteImage" json:jsonDic completion:^(NSString *val, NSError *error) {
                 }] ;
             }] ;
         }) ;
     }
     else if ([func isEqualToString:@"setPureHtml"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Make_Big_Photo object:json] ;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Make_Big_Photo object:body] ;
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -185,26 +185,32 @@
 
 
 - (void)nativeCallJSWithFunc:(NSString *)func
-                        json:(NSString *)json
+                        json:(id)obj
                   completion:(void(^)(NSString *val, NSError *error))completion {
-
-    json = [json stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] ;
-    json = [json stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"] ;
-    json = [json stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"] ;
-    json = [json stringByReplacingOccurrencesOfString:@"\b" withString:@"\\b"] ;
-    json = [json stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"] ;
-    json = [json stringByReplacingOccurrencesOfString:@"\t" withString:@"\\t"] ;
     
-    json = !json ? @"" : json ;
-
-    NSString *js = XT_STR_FORMAT(@"WebViewBridgeCallback({\"method\":\"%@\"}, \"%@\")",func,json) ;
+    NSString *json ;
+    if ([obj isKindOfClass:[NSString class]]) {
+        json = obj ;
+        json = [json stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"] ;
+        json = [json stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"] ;
+        json = [json stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"] ;
+        json = [json stringByReplacingOccurrencesOfString:@"\b" withString:@"\\b"] ;
+        json = [json stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"] ;
+        json = [json stringByReplacingOccurrencesOfString:@"\t" withString:@"\\t"] ;
+        json = XT_STR_FORMAT(@"'%@'",json) ;
+    }
+    else {
+        json = [obj yy_modelToJSONString] ;
+    }
+    json = !json ? @"''" : json ;
+    
+    NSString *js = XT_STR_FORMAT(@"WebViewBridgeCallback({\"method\":\"%@\"}, %@)",func,json) ;
     NSLog(@"js : %@",js) ;
     [_webView evaluateJavaScript:js completionHandler:^(id _Nullable val, NSError * _Nullable error) {
         NSLog(@"%@ \nerr : %@", val, error) ;
         if (completion) completion(val, error) ;
-    }] ;
+    }] ;    
 }
-
 
 
 

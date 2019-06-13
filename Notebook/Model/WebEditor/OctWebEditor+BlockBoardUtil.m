@@ -79,8 +79,8 @@
         int columnCount = [column intValue] ?: 3 ;
         
         NSDictionary *dic = @{@"rows":@(lineCount),@"columns":@(columnCount)} ;
-        [self nativeCallJSWithFunc:@"table" json:[dic yy_modelToJSONString] completion:^(NSString *val, NSError *error) {
-    
+        [self nativeCallJSWithFunc:@"table" json:dic completion:^(NSString *val, NSError *error) {
+            
         }] ;
     }] ;
     

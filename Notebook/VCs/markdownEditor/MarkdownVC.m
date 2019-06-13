@@ -66,7 +66,7 @@
         [self updateMyNote] ;
         if (!self.thisArticleHasChanged) self.thisArticleHasChanged = YES ;
     }] ;
-
+    
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         // Sync your note
@@ -79,7 +79,7 @@
         self.editor.aNote = noteFromIcloud ;
         [self.editor renderNote] ;
     }] ;
-
+    
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
        takeUntil:self.rac_willDeallocSignal]
       deliverOnMainThread]

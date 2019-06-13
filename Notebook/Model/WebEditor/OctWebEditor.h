@@ -26,10 +26,13 @@ static NSString *const kNote_Editor_Make_Big_Photo = @"kNote_Editor_Make_Big_Pho
 @property (strong, nonatomic) Note      *aNote ;
 @property (copy, nonatomic)   NSString  *themeStr ;
 
+/**
+ native call js.
+ obj是json时,传入ret或list
+ */
 - (void)nativeCallJSWithFunc:(NSString *)func
-                        json:(NSString *)json
+                        json:(id)obj
                   completion:(void(^)(NSString *val, NSError *error))completion ;
-
 
 - (void)getMarkdown:(void(^)(NSString *markdown))complete ;
 - (void)getAllPhotos:(void(^)(NSString *json))complete ;

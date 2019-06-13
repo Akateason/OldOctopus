@@ -57,7 +57,8 @@
     
     [self uploadWebPhoto:photo image:image] ;
     
-    [self nativeCallJSWithFunc:@"insertImage" json:[@{@"src":photo.localPath} yy_modelToJSONString] completion:^(NSString *val, NSError *error) {
+    [self nativeCallJSWithFunc:@"insertImage" json:@{@"src":photo.localPath} completion:^(NSString *val, NSError *error) {
+        
     }] ;
 }
 
@@ -69,7 +70,7 @@
             photo.isUploaded = 1 ;
             [photo xt_update] ;
             @strongify(self)
-            [self nativeCallJSWithFunc:@"replaceImage" json:[@{@"oldSrc":photo.localPath,@"src":url} yy_modelToJSONString] completion:^(NSString *val, NSError *error) {
+            [self nativeCallJSWithFunc:@"replaceImage" json:@{@"oldSrc":photo.localPath,@"src":url} completion:^(NSString *val, NSError *error) {
                 
                 [photo xt_deleteModel] ; // 上传成功,删除photo
             }] ;

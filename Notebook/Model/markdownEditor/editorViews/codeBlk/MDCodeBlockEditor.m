@@ -36,7 +36,7 @@
         NSString *textStr = [model.str substringWithRange:range] ;
         
         NSString *themeKey = [[MDThemeConfiguration sharedInstance] currentThemeKey] ;
-        RegexHighlightViewTheme theme = [themeKey isEqualToString:@"themeDefault"] ? kRegexHighlightViewThemeDefault : kRegexHighlightViewThemeMidnight ;
+        RegexHighlightViewTheme theme = [themeKey isEqualToString:@"light"] ? kRegexHighlightViewThemeDefault : kRegexHighlightViewThemeMidnight ;
         
         NSString *codeStr = [[model.str componentsSeparatedByString:@"\n"] firstObject] ;
         codeStr = [codeStr substringFromIndex:3] ;
