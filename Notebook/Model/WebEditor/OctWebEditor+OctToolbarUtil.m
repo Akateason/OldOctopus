@@ -51,15 +51,13 @@
     photo.fromNoteClientID = self.note_clientID ;
     photo.localPath = XT_DOCUMENTS_PATH_TRAIL_(XT_STR_FORMAT(@"%d_%lld.jpg",self.note_clientID,[NSDate xt_getNowTick])) ;
     NSData *data = UIImageJPEGRepresentation(image, 1) ;
-    [data writeToFile:photo.localPath atomically:YES] ;
-    
-    [photo xt_insert] ;
-    
-    [self uploadWebPhoto:photo image:image] ;
-    
-    [self nativeCallJSWithFunc:@"insertImage" json:@{@"src":photo.localPath} completion:^(NSString *val, NSError *error) {
-        
-    }] ;
+    BOOL success = [data writeToFile:photo.localPath atomically:YES];
+    if (success) {
+        [photo xt_insert] ;
+        [self uploadWebPhoto:photo image:image] ;
+        [self nativeCallJSWithFunc:@"insertImage" json:@{@"src":photo.localPath} completion:^(NSString *val, NSError *error) {
+        }] ;
+    }        
 }
 
 - (void)uploadWebPhoto:(WebPhoto *)photo image:(UIImage *)image {
@@ -100,7 +98,7 @@
             }
         }) ;
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-
+        
     }] ;
     
 }

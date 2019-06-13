@@ -14,7 +14,7 @@
 #import "WebPhotoHandler.h"
 #import "OctWebEditor+OctToolbarUtil.h"
 #import "ArticlePhotoPreviewVC.h"
-
+#import "AppDelegate.h"
 
 @interface OctWebEditor () <UIWebViewDelegate>
 {
@@ -35,13 +35,13 @@
         [self setupHTMLEditor] ;
 
         _disabledActions = @[
-                                      [@[@"_", @"lo", @"oku", @"p", @":"] componentsJoinedByString:@""], // _lookup: 查询按钮
-                                      [@[@"_", @"s", @"har", @"e", @":"] componentsJoinedByString:@""], // _share:分享按钮
-                                      [@[@"_", @"d", @"e", @"fine", @":"] componentsJoinedByString:@""], // _define:Define
-                                      [@[@"_", @"ad", @"dS", @"hor", @"tcu", @"t:"] componentsJoinedByString:@""], // _addShortcut:学习...
-                                      [@[@"_", @"tr", @"ans", @"lit", @"era", @"te", @"Ch", @"ine", @"se", @":"] componentsJoinedByString:@""], // _transliterateChinese:简<=>繁
-                                      [@[@"_", @"re", @"ana", @"ly", @"ze", @":"] componentsJoinedByString:@""] // _reanalyze:分享按钮
-                                      ] ;
+                              [@[@"_", @"lo", @"oku", @"p", @":"] componentsJoinedByString:@""], // _lookup: 查询按钮
+                              [@[@"_", @"s", @"har", @"e", @":"] componentsJoinedByString:@""], // _share:分享按钮
+                              [@[@"_", @"d", @"e", @"fine", @":"] componentsJoinedByString:@""], // _define:Define
+                              [@[@"_", @"ad", @"dS", @"hor", @"tcu", @"t:"] componentsJoinedByString:@""], // _addShortcut:学习...
+                              [@[@"_", @"tr", @"ans", @"lit", @"era", @"te", @"Ch", @"ine", @"se", @":"] componentsJoinedByString:@""], // _transliterateChinese:简<=>繁
+                              [@[@"_", @"re", @"ana", @"ly", @"ze", @":"] componentsJoinedByString:@""] // _reanalyze:分享按钮
+                              ] ;
 
 
         
@@ -139,7 +139,7 @@
         }) ;
     }
     else if ([func isEqualToString:@"setPureHtml"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Make_Big_Photo object:body] ;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Make_Big_Photo object:ret[@"params"]] ;
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -150,20 +150,23 @@
 
 
 - (void)setupHTMLEditor {
-    //group
-    NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
-    NSURL *fileURL = [NSURL fileURLWithPath:path] ;
-    NSString *basePath = [XTArchive getDocumentsPath] ;
-    NSURL *baseURL = [NSURL fileURLWithPath:basePath] ;
-    [self.webView loadFileURL:fileURL allowingReadAccessToURL:baseURL] ;
-    
+    if (!g_isLoadWebViewOnline) {
+        //group
+        NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
+        NSURL *fileURL = [NSURL fileURLWithPath:path] ;
+        NSString *basePath = [XTArchive getDocumentsPath] ;
+        NSURL *baseURL = [NSURL fileURLWithPath:basePath] ;
+        [self.webView loadFileURL:fileURL allowingReadAccessToURL:baseURL] ;
+    }
+    else {
+        //link
+        NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
+        [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
+    }
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
-    //link
-//    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
-
-//    [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
+    
 }
 
 - (void)setupJSCore {
@@ -203,6 +206,7 @@
         json = [json stringByReplacingOccurrencesOfString:@"\b" withString:@"\\b"] ;
         json = [json stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"] ;
         json = [json stringByReplacingOccurrencesOfString:@"\t" withString:@"\\t"] ;
+        json = [json stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"] ;
         json = XT_STR_FORMAT(@"'%@'",json) ;
     }
     else {

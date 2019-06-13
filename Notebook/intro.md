@@ -1,95 +1,85 @@
-### 欢迎使用小章鱼🐙
+### 移动端-落笔，游刃有鱼
 
-小章鱼是一款简洁、美观的笔记App，您可以使用它来记录笔记，浏览文章。小章鱼支持markdown语法，使用起来方便快捷。
-[小章鱼官网「戳我」](shimo.im/octopus)
+**小章鱼**是一款支持 Markdown 的所见即所得编辑器；设计的初衷是提供一个美、便捷和安全的写作环境帮助作者达成写作的意义。
 
-![1558593342](https:/shimo.im/octopus-api/files/basic/_074e9bb2241e7f6cb71878cb5a543325/md5/614b4680d510e812bf9795f233e86ee4.jpg)
+![img](https:/shimodev.com/octopus-api/files/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/0d84226bad4594981c42244b298e735b.png)￼ 理论上，使用这个笔记本软件，并不需要任何技能。她如你用过的任何实体笔记本，打开一个新的页面便可直接书写将向你展示她最基本的功能，熟悉使用可让你事半功倍。
 
+------
 
-##### iCloud直接登录
+### 一、工具栏
 
-打开 **iCloud应用权限** 与 **iCloud云盘权限**，小章鱼立马静悄悄得完成登录。
-通过iCloud云盘数据私密存储，自己的笔记，只有自己知道。
+如果你要编辑一段文字，点击相应内容区域调起键盘，工具栏功能如下：
 
-##### 应用布局与排版
+![img](https:/shimodev.com/octopus-api/files/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/7ad9cb3fd0c62ea2c3b8324b9178097d.png)
 
-* 抽屉式的左边栏，在这里新建或修改你的笔记本。
-![1558520003](https:/shimo.im/octopus-api/files/basic/_074e9bb2241e7f6cb71878cb5a543325/md5/6f5c4398e706b5ca15ac02eea7ca41b9.jpg)
+------
 
-* 点击月亮按钮（切换主题），黑夜模式在夜里更护眼。
+### 二、基础文本样式
 
-![1558520431](https:/shimo.im/octopus-api/files/basic/_074e9bb2241e7f6cb71878cb5a543325/md5/10e9980f37339b640346105917e32b59.jpg)
+如果你写了一段话，希望改变其中某个部分的样式，仅需选中文字，使用工具栏选项如下：
 
-一条分割线出现在这里
+![img](https:/shimodev.com/octopus-api/files/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/0bf01feeb3a4bcf3b12d9f74d0836042.png)
 
----
+如果想对某段文档做类型转换，点击本段文字的任何地方，使用工具栏选项，可以让文本在正文、标题、引用、列表、代码块、HTML 块、数据公式间自由转换。如下：
 
-##### 新建笔记
+![img](https:/shimodev.com/octopus-api/files/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/5244b374c9a258dafcf7d838679351a8.png)
 
-在小章鱼首页点击右上角`+`号，新建笔记。
+当你想让文字变为链接时，你可以长按选中文字，使用工具栏链接选项，输入链接地址即可；当然你可以点击链接文字，来跳转相应地址查看。你还可以使用工具栏轻松插入图片和链接，如下图：
 
-##### 工具栏
+![img](https:/shimodev.com/octopus-api/files/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/af0f77e971e6beba2c082078cfaae415.png)
 
-灵活使用工具栏，美化你的笔记。
-![1558581571](https:/shimo.im/octopus-api/files/basic/_074e9bb2241e7f6cb71878cb5a543325/md5/f456dceed107667c7e4474c57db5d8fd.jpg)
+￼当然，如果你熟悉 Markdown，上面的所有内容都可以通过直接书写标记来实现不同样式；如果你不熟悉这个标记语言也不会影响你的使用。
 
-##### 标题 & 行内样式
+> **Markdown** 是一种轻量级标记语言，创始人为 John Gruber。它允许人们「使用易读易写的纯文本格式编写文档，然后转换成有效的 HTML 文档」。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。详细参考 [Markdown 基础语法](https://markdown-zh.readthedocs.io/en/latest/blockelements/)。
 
-点击工具栏中的正文按钮，你可以自由切换他们：
-![1558582034](https:/shimo.im/octopus-api/files/basic/_074e9bb2241e7f6cb71878cb5a543325/md5/bf997b985ea013e879c09b6beb5558ae.jpg)
+------
 
-# 这是H1标题
+### 三、块、列表与图表
 
-## 这是H2标题
+如上面所见，编辑时你可以插入图片、引用、HTML、图表，也可以通过工具栏来进行转换（大部分可以相互转换）。它主要分为三类：基础块和标题、进阶级别的模块、To-do List 和图表。如果你想直接添加某种样式的块，可以直接在行首输入相应符号，来满足更专业和高效的编辑，我们可以创建一个表样来展示具体的功能：
 
-### 这是H3标题
+| **基础块和标题**      | ![img](https:/shimodev.com/octopus-api/files/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/4038f98ca4f28751f18b782b3bbf8bf0.png)￼ |
+| --------------------- | ------------------------------------------------------------ |
+| **进组级别块**        | ![img](https:/shimodev.com/octopus-api/files/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/2e4cd2045cf3749e565511950c7fef52.png)￼ |
+| **列表与 To-do List** | ![img](https:/shimodev.com/octopus-api/files/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/bf48b720f92878fd881069eb3355996b.png)￼ |
+| **图表**              | ![img](https:/shimodev.com/octopus-api/files/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/cb61a0f67df469dca6a4879ddf06ae74.png)￼ |
 
-#### 这是H4标题
+一旦你非常熟悉这些功能，就可以通过符号来创建，而不需要调用工具栏来进行选择，比如可以通过 `-``-``-` 来创建一个分割线：
 
-##### 这是H5标题
+------
 
-###### 这是H6标题
+比如可以通过来`</code><code>````创建一个代码模块：
 
-这是全部的行内样式，**强调**、*斜体*、[链接](shimo.im/octopus)、~~删除线~~、`行内代码`。
-手指点击上面的行内样式，或者拉选需要编辑的文字，当行内样式获取焦点后，会出现 markdown 的语法符号，当你将光标移出的时候，一切又回到了初始的状态，markdown 语法符号消失。
-
-##### 列表 & 其他
-
-点击工具栏中的列表按钮，你会发现他们：
-![1558583051](https:/shimo.im/octopus-api/files/basic/_074e9bb2241e7f6cb71878cb5a543325/md5/dbe0e1209214db34489c7566724f409f.jpg)
-
-*常规功能*
-
-* 这是符号列表
-1. 这是编号列表
-* [ ] 这是任务列表        
-
->   这是引用块
-
-*嵌套形式*
-
-> * 引用还可以嵌套列表
-
-* > 列表和引用可以互相嵌套
-
-*列表的缩进*
-
-* 一级列表
-* 二级列表
-* 三级列表
-
-*代码块*
-
-```
-hello，这里是一段代码块。
-int a = 1 ；
+```javascript
+void function(){    console.log('void ' + arguments.callee.toString() + '()')}()
 ```
 
----
-##### 图片
+或者用````来插入你要展示的数学公式：
 
-点击工具栏的图片按钮，插入相册中的图片：
-![1558593111](https:/shimo.im/octopus-api/files/basic/_074e9bb2241e7f6cb71878cb5a543325/md5/0f2416c42c29cafb6b3f109c373cba9d.jpg)
+```
+\begin{cases}
+a_1x+b_1y+c_1z=d_1\\
+a_2x+b_2y+c_2z=d_2\\
+a_3x+b_3y+c_3z=d_3\\
+\end{cases}
+```
 
-点击图片进行预览，保存，删除
-![1558593388](https:/shimo.im/octopus-api/files/basic/_074e9bb2241e7f6cb71878cb5a543325/md5/0710e4a6e44de630d5dfc0d8f15b814c.jpg)
+------
+
+### 三、存储
+
+现阶段的小章鱼仅支持用 iCloud 登录并能在你的多个设备间实时同步，当然，本地编辑也完全没有问题。由于存储空间对于每个人都非常重要，我们特此为每个用户提供了独立的云端图片存储，将不占用 iCloud 的空间。
+
+------
+
+### 四、设置和个性化
+
+如所有 macOS App，通过侧边栏偏好设置，可以进行登录用户操作、更换主题、列表排序方式和文本编辑器的个性化设置，当然，还可以通过此订阅更高级的功能。
+
+------
+
+### 五、最后
+
+这是一个渐进式的 App，我们将不断思考并认真考虑每一位用户的反馈，并对她进行改进和升级，订阅用户将会在第一时间获得更高的版本，甚至参与 Beta 体验计划。如果你有任何建议，甚至是吐槽，请 [点击这里](https://fankui.shimo.im/?add=小章鱼) 给我们反馈。
+
+希望你喜欢她。谢谢~~
