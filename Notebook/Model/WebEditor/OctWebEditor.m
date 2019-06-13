@@ -90,7 +90,10 @@
 
 - (void)createWebView {
     NSAssert(!_webView, @"The web view must not exist when this method is called!") ;
-    _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:[WKWebViewConfiguration new]] ;
+    WKWebViewConfiguration *config = [WKWebViewConfiguration new] ;
+    [config.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"] ;
+    _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:config] ;
+
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
     _webView.navigationDelegate = (id <WKNavigationDelegate>)self ;
     _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
@@ -149,15 +152,20 @@
 
 - (void)setupHTMLEditor {
     //group
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]] ;
-    NSURL *editorURL = [bundle URLForResource:@"index" withExtension:@"html"] ;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"] ;
+    NSURL *fileURL = [NSURL fileURLWithPath:path] ;
+    [self.webView loadFileURL:fileURL allowingReadAccessToURL:fileURL] ;
+    
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
     //link
 //    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
 
-    [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
+
+//    NSString *FILE_PATH = [XTArchive getDocumentsPath] ;
+//    [self.webView loadFileURL:editorURL allowingReadAccessToURL:[NSURL fileURLWithPath:FILE_PATH]] ;
 }
 
 - (void)setupJSCore {
@@ -167,7 +175,7 @@
     [self changeTheme] ;
     
     [self renderNote] ;
-
+    
     if (!self.aNote) {
         [self nativeCallJSWithFunc:@"openKeyboard" json:nil completion:^(NSString *val, NSError *error) {
         }] ;
