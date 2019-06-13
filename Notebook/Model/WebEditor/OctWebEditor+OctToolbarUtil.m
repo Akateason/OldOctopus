@@ -71,8 +71,9 @@
             [photo xt_update] ;
             @strongify(self)
             [self nativeCallJSWithFunc:@"replaceImage" json:@{@"oldSrc":photo.localPath,@"src":url} completion:^(NSString *val, NSError *error) {
-                
-                [photo xt_deleteModel] ; // 上传成功,删除photo
+                if ([val boolValue]) {
+                    [photo xt_deleteModel] ; // 上传成功,删除photo
+                }
             }] ;
         }
     }] ;
