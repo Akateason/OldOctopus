@@ -22,6 +22,7 @@
 #import "HomeVC.h"
 #import "MDNavVC.h"
 #import "WebPhotoHandler.h"
+#import <SSZipArchive/SSZipArchive.h>
 
 #import "TestVC.h"
 
@@ -35,6 +36,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
     self.appDelegate = appDelegate ;
     [[MDThemeConfiguration sharedInstance] setup] ;
+    [self setupWebZipPackage] ;
     [self setupRemoteNotification:application] ;
     [self setupDB] ;
     [self setupNaviStyle] ;
@@ -42,9 +44,22 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupLoadingHomePage] ;
     [self setupIcloudEvent] ;
     [self uploadAllLocalDataIfNotUploaded] ;
+}
+
+static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation" ;
+- (void)setupWebZipPackage {
+    NSString *pathIndex = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
     
+    NSString *currentVersion = [CommonFunc getVersionStrOfMyAPP] ;
+    NSString *versionCached = XT_USERDEFAULT_GET_VAL(kMark_UNZip_Operation) ;
+    BOOL isNotNewVersion = [currentVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending ;
     
-    
+    if (![XTFileManager isFileExist:pathIndex] || !isNotNewVersion) {
+        NSString *zipPath = [[NSBundle mainBundle] pathForResource:@"web" ofType:@"zip"] ;
+        NSString *unzipPath = [XTArchive getDocumentsPath] ;
+        [SSZipArchive unzipFileAtPath:zipPath toDestination:unzipPath];
+        XT_USERDEFAULT_SET_VAL(currentVersion, kMark_UNZip_Operation) ;
+    }
 }
 
 

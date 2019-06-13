@@ -7,7 +7,6 @@
 //
 
 #import "OctWebEditor.h"
-#import "UIWebView+GUIFixes.h"
 #import <XTlib/XTlib.h>
 #import "OctToolbar.h"
 #import <BlocksKit+UIKit.h>
@@ -51,7 +50,7 @@
         [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
             @strongify(self)
             NSDictionary *info = [x userInfo] ;
-            CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+//            CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
             CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
             // 工具条的Y值 == 键盘的Y值 - 工具条的高度
             if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
@@ -152,9 +151,11 @@
 
 - (void)setupHTMLEditor {
     //group
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"] ;
+    NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
     NSURL *fileURL = [NSURL fileURLWithPath:path] ;
-    [self.webView loadFileURL:fileURL allowingReadAccessToURL:fileURL] ;
+    NSString *basePath = [XTArchive getDocumentsPath] ;
+    NSURL *baseURL = [NSURL fileURLWithPath:basePath] ;
+    [self.webView loadFileURL:fileURL allowingReadAccessToURL:baseURL] ;
     
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
@@ -163,9 +164,6 @@
 //    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
 
 //    [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
-
-//    NSString *FILE_PATH = [XTArchive getDocumentsPath] ;
-//    [self.webView loadFileURL:editorURL allowingReadAccessToURL:[NSURL fileURLWithPath:FILE_PATH]] ;
 }
 
 - (void)setupJSCore {

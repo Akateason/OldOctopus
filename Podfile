@@ -14,15 +14,7 @@ target 'Notebook' do
   pod 'lottie-ios','2.5.3'
   pod 'iosMath'
   pod 'MSDynamicsDrawerViewController'
-
-#  pod 'Cordova'
-  # Any core Cordova plugins we need
-#  pod 'cordova-plugin-console'
-#  pod 'cordova-plugin-device'
-
-  # A handy starter template we'll add our own www bits to
-#  pod 'phonegap-ios-template'
-
-
+  pod 'SSZipArchive'
+  
   
 end

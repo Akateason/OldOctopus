@@ -105,6 +105,7 @@ DEPENDENCIES:
   - lottie-ios (= 2.5.3)
   - MSDynamicsDrawerViewController
   - SDWebImage (<= 4.4.6)
+  - SSZipArchive
   - XTlib
   - XTlib/Animations
   - XTlib/CustomUIs
@@ -174,6 +175,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: ea4f28bdac73641c45664a8f21e1a909eeef5bab
+PODFILE CHECKSUM: db38433aa9a124bfc3d36d03db72818f57e3efc6
 
 COCOAPODS: 1.6.1
