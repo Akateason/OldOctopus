@@ -51,6 +51,7 @@
         [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
             @strongify(self)
             NSDictionary *info = [x userInfo] ;
+            CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
             CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
             // 工具条的Y值 == 键盘的Y值 - 工具条的高度
             if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
@@ -65,7 +66,7 @@
             self.toolBar.hidden = NO ;
             
             // get keyboard height
-            self->keyboardHeight = endKeyboardRect.origin.y - self.toolBar.height * 3 ;
+            self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - self.toolBar.height) ;
         }] ;
         
         [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
@@ -277,7 +278,6 @@
     }
     if (!targetView) {
         return;
-        
     }
     NSString *noInputAccessoryViewClassName = [NSString stringWithFormat:@"%@_NoInputAccessoryView", targetView.class.superclass];
     Class newClass = NSClassFromString(noInputAccessoryViewClassName);
