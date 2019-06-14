@@ -16,11 +16,11 @@
 #import "ArticlePhotoPreviewVC.h"
 #import "AppDelegate.h"
 
-@interface OctWebEditor () <UIWebViewDelegate>
-{
+@interface OctWebEditor () <UIWebViewDelegate> {
     NSArray<NSString *> *_disabledActions ;
 }
 @property (strong, nonatomic) OctToolbar    *toolBar ;
+@property (copy, nonatomic) NSString *firstTimeArticle ;
 @end
 
 
@@ -29,6 +29,7 @@
 - (instancetype)init {
     self = [super init] ;
     if (self) {
+        self.articleCanBeUpdate = NO ;
         self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         
         [self createWebView] ;
@@ -42,8 +43,6 @@
                               [@[@"_", @"tr", @"ans", @"lit", @"era", @"te", @"Ch", @"ine", @"se", @":"] componentsJoinedByString:@""], // _transliterateChinese:简<=>繁
                               [@[@"_", @"re", @"ana", @"ly", @"ze", @":"] componentsJoinedByString:@""] // _reanalyze:分享按钮
                               ] ;
-
-
         
         // keyboard showing
         @weakify(self)
@@ -82,7 +81,6 @@
             UIImage *image = [UIImage imageWithData:imageData] ;
             [self uploadWebPhoto:photo image:image] ;
         }] ;
-        
     }
     return self;
 }
@@ -118,7 +116,10 @@
     if ([func isEqualToString:@"change"]) {
         WebModel *model = [WebModel yy_modelWithJSON:jsonDic] ;
         self.webInfo = model ;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
+        // 文章没改过, 不提交
+        if (![model.markdown isEqualToString:self.firstTimeArticle]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
+        }
     }
     else if ([func isEqualToString:@"typeList"]) {
         NSArray *typelist = [WebModel currentTypeWithList:json] ;
@@ -166,10 +167,9 @@
     //refence
 //    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
 //    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
-    
 }
 
-- (void)setupJSCore {
+- (void)setupJSCoreWhenFinishLoad {
     [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(NSString *val, NSError *error) {
     }] ;
     
@@ -237,8 +237,12 @@
 }
 
 - (void)renderNote {
+    WEAK_SELF
     [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(NSString *val, NSError *error) {
-    
+        if (!error) {
+            weakSelf.articleCanBeUpdate = YES ;
+            weakSelf.firstTimeArticle = weakSelf.aNote.content ;
+        }
     }] ;
 }
 
@@ -251,7 +255,7 @@
 #pragma mark - wkwebview delegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    [self setupJSCore] ;
+    [self setupJSCoreWhenFinishLoad] ;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self removeInputAccessoryViewFromWKWebView:webView] ;

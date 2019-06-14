@@ -26,6 +26,8 @@ static NSString *const kNote_Editor_Make_Big_Photo = @"kNote_Editor_Make_Big_Pho
 @property (strong, nonatomic) Note      *aNote ;
 @property (copy, nonatomic)   NSString  *themeStr ;
 
+@property (nonatomic)         BOOL      articleCanBeUpdate ; // 如果未setMarkdown则不能上传, 如果文章比对一致不能上传 default NO
+
 /**
  native call js.
  obj是json时,传入ret或list

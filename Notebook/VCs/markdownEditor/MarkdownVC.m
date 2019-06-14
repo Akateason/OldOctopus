@@ -33,7 +33,6 @@
 @property (strong, nonatomic) Note              *aNote ;
 @property (copy, nonatomic)   NSString          *myBookID ;
 
-@property (nonatomic) BOOL thisArticleHasChanged ;
 @end
 
 @implementation MarkdownVC
@@ -64,7 +63,6 @@
         @strongify(self)
         // Update Your Note
         [self updateMyNote] ;
-        if (!self.thisArticleHasChanged) self.thisArticleHasChanged = YES ;
     }] ;
     
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -107,15 +105,12 @@
     
     if (self.aNote) {
         // Update Your Note
-        if (self.thisArticleHasChanged) [self updateMyNote] ;
+        [self updateMyNote] ;
     }
     else {
         // Create New Note
         [self createNewNote] ;
     }
-    
-    
-
 }
 
 #pragma mark - Func
@@ -141,11 +136,11 @@
             [self.delegate addNoteComplete:self.aNote] ;
         }
     }] ;
-    
 }
 
 - (void)updateMyNote {
     if (!self.aNote) return ;
+    if (!self.editor.articleCanBeUpdate) return ;
     
     @weakify(self)
     [self.editor getMarkdown:^(NSString *markdown) {
@@ -223,7 +218,7 @@
         [weakSelf.navigationController popViewControllerAnimated:YES] ;
     } ;
     
-    // 预览
+    // 导出预览
     self.infoVC.blkOutput = ^{
         [weakSelf.editor hideKeyboard] ;
         [weakSelf.editor nativeCallJSWithFunc:@"getPureHtml" json:nil completion:^(NSString *val, NSError *error) {}] ;
@@ -243,8 +238,6 @@
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\t" withString:@"\t"] ;
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""] ;
     
-//    UIWebView *webView = [[UIWebView alloc] init] ;
-//    webView.delegate = self ;
     WKWebView *webView = [[WKWebView alloc] init] ;
     webView.navigationDelegate = (id<WKNavigationDelegate>)self ;
     [webView loadHTMLString:htmlString baseURL:nil] ;
@@ -262,18 +255,8 @@
     }) ;
 }
 
-//- (void)webViewDidFinishLoad:(UIWebView *)webView {
-////    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-////        [webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable value, NSError * _Nullable error) {
-////            NSLog(@"value : %@",value) ;
-//            [self makeSnapshot:webView height:1000] ;
-////        }] ;
-////    }) ;
-//}
-
-
-- (void)makeSnapshot:(UIWebView *)webview height:(float)height {
-    __block UIWebView *webView = webview ;
+- (void)makeSnapshot:(WKWebView *)webview height:(float)height {
+    __block WKWebView *webView = webview ;
     float textHeight = height ;
     webView.height = height ;
     [webView setNeedsLayout] ;
