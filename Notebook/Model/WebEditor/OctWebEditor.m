@@ -29,7 +29,6 @@
 - (instancetype)init {
     self = [super init] ;
     if (self) {
-        self.articleCanBeUpdate = NO ;
         self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         
         [self createWebView] ;
@@ -116,9 +115,12 @@
     if ([func isEqualToString:@"change"]) {
         WebModel *model = [WebModel yy_modelWithJSON:jsonDic] ;
         self.webInfo = model ;
-        // 文章没改过, 不提交
-        if (![model.markdown isEqualToString:self.firstTimeArticle]) {
+        if (![model.markdown isEqualToString:@"\n"] && self.firstTimeArticle != nil && ![model.markdown isEqualToString:self.firstTimeArticle]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
+        }
+        else {
+            // 文章没改过, 不提交
+            self.articleAreTheSame = YES ;
         }
     }
     else if ([func isEqualToString:@"typeList"]) {
@@ -242,8 +244,10 @@
     WEAK_SELF
     [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(NSString *val, NSError *error) {
         if (!error) {
-            weakSelf.articleCanBeUpdate = YES ;
-            weakSelf.firstTimeArticle = weakSelf.aNote.content ;
+            if (weakSelf.firstTimeArticle == nil) {
+                weakSelf.firstTimeArticle = weakSelf.aNote.content ;
+                weakSelf.webViewHasSetMarkdown = YES ;
+            }
         }
     }] ;
 }

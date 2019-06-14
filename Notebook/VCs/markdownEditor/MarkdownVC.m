@@ -105,6 +105,14 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
     
+    if (!self.editor.webViewHasSetMarkdown) {
+        return ;
+    }
+    
+    if (self.editor.articleAreTheSame) {
+        return ;
+    }
+    
     if (self.aNote) {
         // Update Your Note
         [self updateMyNote] ;
@@ -142,7 +150,13 @@
 
 - (void)updateMyNote {
     if (!self.aNote) return ;
-    if (!self.editor.articleCanBeUpdate) return ;
+    if (!self.editor.webViewHasSetMarkdown) {
+        return ;
+    }
+    
+    if (self.editor.articleAreTheSame) {
+        return ;
+    }
     
     @weakify(self)
     [self.editor getMarkdown:^(NSString *markdown) {

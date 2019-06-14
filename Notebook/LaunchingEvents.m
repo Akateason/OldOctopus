@@ -44,6 +44,8 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupLoadingHomePage] ;
     [self setupIcloudEvent] ;
     [self uploadAllLocalDataIfNotUploaded] ;
+    
+    [SVProgressHUD setDefaultStyle:(SVProgressHUDStyleDark)];
 }
 
 static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation" ;
