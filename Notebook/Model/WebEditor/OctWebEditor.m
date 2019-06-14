@@ -16,7 +16,7 @@
 #import "ArticlePhotoPreviewVC.h"
 #import "AppDelegate.h"
 
-@interface OctWebEditor () <UIWebViewDelegate> {
+@interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
 }
 @property (strong, nonatomic) OctToolbar    *toolBar ;
@@ -154,6 +154,7 @@
     if (!g_isLoadWebViewOnline) {
         //group
         NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
+//        NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"pic.html") ;
         NSURL *fileURL = [NSURL fileURLWithPath:path] ;
         NSString *basePath = [XTArchive getDocumentsPath] ;
         NSURL *baseURL = [NSURL fileURLWithPath:basePath] ;
@@ -162,6 +163,7 @@
     else {
         //link
         NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
+//        NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:8887/mycode/pic.html"] ;
         [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
     }
     //refence

@@ -19,7 +19,7 @@
 #import <WebKit/WebKit.h>
 
 
-@interface MarkdownVC ()
+@interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
 @property (weak, nonatomic) IBOutlet UIButton *btBack;
 @property (weak, nonatomic) IBOutlet UIView *navArea;
@@ -32,7 +32,9 @@
 
 @property (strong, nonatomic) Note              *aNote ;
 @property (copy, nonatomic)   NSString          *myBookID ;
-
+@property (strong, nonatomic) WKWebView         *webView ;
+@property (strong, nonatomic) OutputPreviewsNailView *nail ;
+@property (nonatomic)         float             snapDuration ;
 @end
 
 @implementation MarkdownVC
@@ -231,6 +233,7 @@
 - (void)snapShotFullScreen:(NSString *)htmlString {
     [self dismissViewControllerAnimated:YES completion:nil] ;
     
+    [SVProgressHUD show] ;
     self.editor.hidden = YES ;
     
     NSMutableString *tmpStr = [htmlString mutableCopy] ;
@@ -238,54 +241,71 @@
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\t" withString:@"\t"] ;
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""] ;
     
-    WKWebView *webView = [[WKWebView alloc] init] ;
-    webView.navigationDelegate = (id<WKNavigationDelegate>)self ;
-    [webView loadHTMLString:htmlString baseURL:nil] ;
-    webView.frame = self.view.bounds ;
-    [self.view addSubview:webView] ;
-}
-
-#pragma mark - wkWeb for Photo
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable value, NSError * _Nullable error) {
-            NSLog(@"value : %@",value) ;
-            [self makeSnapshot:webView height:[value floatValue]] ;
-        }] ;
-    }) ;
-}
-
-- (void)makeSnapshot:(WKWebView *)webview height:(float)height {
-    __block WKWebView *webView = webview ;
-    float textHeight = height ;
-    webView.height = height ;
-    [webView setNeedsLayout] ;
-    [webView layoutIfNeeded] ;
+    NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"pic.html") ;
+    [htmlString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil] ;
+    NSURL *url = [NSURL fileURLWithPath:path] ;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        OutputPreviewsNailView *nail = [OutputPreviewsNailView makeANail] ;
-        nail.top = textHeight ;
-        [self.view addSubview:nail] ;
+    WKWebViewConfiguration *config = [WKWebViewConfiguration new] ;
+    [config.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"] ;
+    _webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config] ;
+    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
+    _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    _webView.opaque = NO ;
+    [self.view addSubview:_webView] ;
+    [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
+    
+    
+    [_webView loadFileURL:url allowingReadAccessToURL:url] ;
+    
+//    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:8887/mycode/pic.html"] ;
+//    [_webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    NSString *body = message.body ;       // 就是 JS 调用 Native 时，传过来的 value
+    NSLog(@"%@", body) ;
+    NSDictionary *ret = [WebModel convertjsonStringToJsonObj:body] ;
+    NSString *func = ret[@"method"] ;
+    NSDictionary *jsonDic = ret[@"params"] ;
+//    NSString *json = [jsonDic yy_modelToJSONString] ;
+    NSLog(@"WebViewBridge func : %@\njson : %@",func,jsonDic) ;
+    
+    
+    if ([func isEqualToString:@"readySnapshot"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false,  [UIScreen mainScreen].scale) ;
+            [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
+            UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
+            UIGraphicsEndImageContext() ;
+            
+            [self.nail removeFromSuperview] ;
+            [self.webView removeFromSuperview] ;
+            self.webView = nil ;
+            self.nail = nil ;
+            self.editor.hidden = NO ;
+            
+            [SVProgressHUD dismiss] ;
+            
+            if (!image) return ;
+            [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
+        }) ;
+    }
+    else if ([func isEqualToString:@"snapshotHeight"]) {
         
-        self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + nail.height) ;
+        float textHeight = [ret[@"params"] floatValue] ;
+        self.snapDuration = (float)textHeight / (float)APP_HEIGHT * .1 ;
+        self.webView.height = textHeight ;
+        [self.webView setNeedsLayout] ;
+        [self.webView layoutIfNeeded] ;
+
+        self.nail = [OutputPreviewsNailView makeANail] ;
+        self.nail.top = textHeight ;
+        [self.view addSubview:self.nail] ;
+
+        self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
         [self.view setNeedsLayout] ;
         [self.view layoutIfNeeded] ;
-        
-        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false,  [UIScreen mainScreen].scale) ;
-        [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
-        UIGraphicsEndImageContext() ;
-
-        [nail removeFromSuperview] ;
-        [webView removeFromSuperview] ;
-        webView = nil ;
-        nail = nil ;
-        self.editor.hidden = NO ;
-        
-        if (!image) return ;
-        
-        [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
-    }) ;
+    }
 }
 
 #pragma mark - prop
