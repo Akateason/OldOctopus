@@ -17,7 +17,7 @@
 #import "UIViewController+CWLateralSlide.h"
 #import "OctWebEditor+OctToolbarUtil.h"
 #import <WebKit/WebKit.h>
-
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -55,6 +55,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
+    
     
     if (self.aNote) {
         self.editor.aNote = self.aNote ;
@@ -97,21 +98,15 @@
     }] ;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated] ;
-    
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated] ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
     
-    if (!self.editor.webViewHasSetMarkdown) {
-        return ;
-    }
-    
-    if (self.editor.articleAreTheSame) {
-        return ;
-    }
+    if (!self.editor.webViewHasSetMarkdown) return ;
+    if (self.editor.articleAreTheSame) return ;
     
     if (self.aNote) {
         // Update Your Note
@@ -150,13 +145,8 @@
 
 - (void)updateMyNote {
     if (!self.aNote) return ;
-    if (!self.editor.webViewHasSetMarkdown) {
-        return ;
-    }
-    
-    if (self.editor.articleAreTheSame) {
-        return ;
-    }
+    if (!self.editor.webViewHasSetMarkdown) return ;
+    if (self.editor.articleAreTheSame) return ;
     
     @weakify(self)
     [self.editor getMarkdown:^(NSString *markdown) {
