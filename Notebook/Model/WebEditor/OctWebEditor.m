@@ -67,10 +67,10 @@
             self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
             float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {
-                }] ;
-            }) ;
+            
+            [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {
+            }] ;
+        
             
         }] ;
         
