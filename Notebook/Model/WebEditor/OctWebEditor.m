@@ -122,6 +122,7 @@
         self.webInfo = model ;
         if (![model.markdown isEqualToString:@"\n"] && self.firstTimeArticle != nil && ![model.markdown isEqualToString:self.firstTimeArticle]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
+            self.articleAreTheSame = NO ;
         }
         else {
             // 文章没改过, 不提交
