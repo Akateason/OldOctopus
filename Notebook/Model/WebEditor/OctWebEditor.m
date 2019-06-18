@@ -53,10 +53,10 @@
             CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
             // 工具条的Y值 == 键盘的Y值 - 工具条的高度
             if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
-                self.toolBar.top = self.height - self.toolBar.height;
+                self.toolBar.top = self.height - kOctEditorToolBarHeight;
             }
             else {
-                self.toolBar.top = endKeyboardRect.origin.y - self.toolBar.height;
+                self.toolBar.top = endKeyboardRect.origin.y - kOctEditorToolBarHeight;
             }
             
             self.toolBar.width = APP_WIDTH ;
@@ -64,9 +64,9 @@
             self.toolBar.hidden = NO ;
             
             // get keyboard height
-            self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - self.toolBar.height) ;
-            
-            [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(self->keyboardHeight + 41).stringValue completion:^(NSString *val, NSError *error) {
+            self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
+            float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
+            [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {
                 
             }] ;
         }] ;
@@ -192,10 +192,11 @@
     }
 }
 
+static const float kOctEditorToolBarHeight = 41. ;
 - (OctToolbar *)toolBar {
     if (!_toolBar) {
         _toolBar = [OctToolbar xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-        _toolBar.frame = CGRectMake(0, 2000, [self.class currentScreenBoundsDependOnOrientation].size.width, 41) ;
+        _toolBar.frame = CGRectMake(0, 2000, [self.class currentScreenBoundsDependOnOrientation].size.width, kOctEditorToolBarHeight) ;
         _toolBar.delegate = (id<OctToolbarDelegate>)self ;
     }
     return _toolBar ;
