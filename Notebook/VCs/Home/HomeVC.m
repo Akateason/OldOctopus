@@ -103,7 +103,6 @@
      subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
-//      [self.table xt_loadNewInfoInBackGround:NO] ;
         [self.table xt_loadNewInfoInBackGround:YES] ;
          
          self.lbUser.text = [[XTIcloudUser userInCacheSyncGet].givenName substringToIndex:1] ?: @"🐙" ;
