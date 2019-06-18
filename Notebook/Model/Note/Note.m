@@ -201,6 +201,18 @@
     return markdownStr ;
 }
 
++ (NSString *)getTitleWithContent:(NSString *)content {
+    NSArray *listForBreak = [content componentsSeparatedByString:@"\n"] ;
+    NSString *title = @"无标题" ;
+    for (NSString *str in listForBreak) {
+        if (str.length) {
+            title = str ;
+            break ;
+        }
+    }
+    return title ;
+}
+
 
 #pragma mark - db
 
@@ -216,6 +228,7 @@
 }
 // Container property , value should be Class or Class name. Same as YYmodel .
 //+ (NSDictionary *)modelContainerPropertyGenericClass;
+
 
 
 @end

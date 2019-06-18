@@ -124,18 +124,10 @@
     @weakify(self)
     [self.editor getMarkdown:^(NSString *markdown) {
         @strongify(self)
-        NSString *articleContent = markdown ;
-        NSArray *listForBreak = [markdown componentsSeparatedByString:@"\n"] ;
-        NSString *title = @"无标题" ;
-        for (NSString *str in listForBreak) {
-            if (str.length) {
-                title = str ;
-                break ;
-            }
-        }
+        NSString *title = [Note getTitleWithContent:markdown] ;
         
-        if (articleContent && articleContent.length) {
-            Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:articleContent title:title] ;
+        if (markdown && markdown.length) {
+            Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:markdown title:title] ;
             self.aNote = newNote ;
             [Note createNewNote:self.aNote] ;
             [self.delegate addNoteComplete:self.aNote] ;
@@ -151,14 +143,7 @@
     @weakify(self)
     [self.editor getMarkdown:^(NSString *markdown) {
         @strongify(self)
-        NSArray *listForBreak = [markdown componentsSeparatedByString:@"\n"] ;
-        NSString *title = @"无标题" ;
-        for (NSString *str in listForBreak) {
-            if (str.length) {
-                title = str ;
-                break ;
-            }
-        }
+        NSString *title = [Note getTitleWithContent:markdown] ;
         
         self.aNote.content = markdown ;
         self.aNote.title = title ;

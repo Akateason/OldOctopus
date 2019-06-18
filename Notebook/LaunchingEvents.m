@@ -347,7 +347,6 @@ NSString *const kNotificationImportFileIn = @"kNotificationImportFileIn" ;
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
     if (url != nil && [url isFileURL]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationImportFileIn object:url] ;
-//        Note *aNote = [[Note alloc] initWithBookID:<#(NSString *)#> content:<#(NSString *)#> title:<#(NSString *)#>]
     }
     return YES;
 }

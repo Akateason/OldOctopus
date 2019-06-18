@@ -56,7 +56,7 @@
 
 + (NSString *)filterMarkdownString:(NSString *)markdownStr ;
 + (NSString *)filterSqliteString:(NSString *)markdownStr ;
-
++ (NSString *)getTitleWithContent:(NSString *)content ;
 @end
 
 

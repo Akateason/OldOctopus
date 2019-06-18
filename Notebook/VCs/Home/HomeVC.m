@@ -123,8 +123,16 @@
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
          NSString *path = x.object ;
+         NSString *md = [[NSString alloc] initWithContentsOfFile:path encoding:(NSUTF8StringEncoding) error:nil] ;
+         NSString *title = [Note getTitleWithContent:md] ;
+         Note *aNote = [[Note alloc] initWithBookID:self.leftVC.currentBook.icRecordName content:md title:title] ;
+         [Note createNewNote:aNote] ;
          
-         
+         @weakify(self)
+         [self renderTable:^{
+             @strongify(self)
+             [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+         }] ;
      }] ;
     
     [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]]
