@@ -259,7 +259,6 @@
 //    NSString *json = [jsonDic yy_modelToJSONString] ;
     NSLog(@"WebViewBridge func : %@\njson : %@",func,jsonDic) ;
     
-    
     if ([func isEqualToString:@"readySnapshot"]) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false,  [UIScreen mainScreen].scale) ;
@@ -282,7 +281,7 @@
     else if ([func isEqualToString:@"snapshotHeight"]) {
         
         float textHeight = [ret[@"params"] floatValue] ;
-        self.snapDuration = (float)textHeight / (float)APP_HEIGHT * .1 ;
+        self.snapDuration = .2 + (float)textHeight / (float)APP_HEIGHT * .2 ;
         self.webView.height = textHeight ;
         [self.webView setNeedsLayout] ;
         [self.webView layoutIfNeeded] ;
