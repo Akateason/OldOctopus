@@ -65,6 +65,10 @@
             
             // get keyboard height
             self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - self.toolBar.height) ;
+            
+            [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(self.toolBar.top) completion:^(NSString *val, NSError *error) {
+                
+            }] ;
         }] ;
         
         [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
