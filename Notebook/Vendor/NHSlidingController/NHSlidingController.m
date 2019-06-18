@@ -43,7 +43,6 @@ static const CGFloat slidingSpeed = 1500.0;
     [super viewDidLoad];
 	
     [self setupTheView];
-//    [self setupTheShadow];
     [self setupTheGestureRecognizers];
 }
 
@@ -55,17 +54,17 @@ static const CGFloat slidingSpeed = 1500.0;
 
 -(void)setupTheView
 {
-	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	
     _bottomViewContainer = [[UIView alloc] initWithFrame:self.view.bounds];
-    _bottomViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+//    _bottomViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     [self.view addSubview:_bottomViewContainer];
     [self.view sendSubviewToBack:_bottomViewContainer];
     [self.view addSubview:_bottomViewController.view];
     [_bottomViewController didMoveToParentViewController:self];
     
     _topViewContainer = [[UIView alloc] initWithFrame:self.view.bounds];
-    _topViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+//    _topViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     [self.view addSubview:_topViewContainer];
     [self.view bringSubviewToFront:_topViewContainer];
     [self.view addSubview:_topViewController.view];
