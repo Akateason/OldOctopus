@@ -64,6 +64,7 @@
 }
 
 #pragma mark - LeftDrawerVCDelegate
+
 - (void)reply {
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://shimo.im/forms/bvVAXVnavgjCjqm7/fill"]] ;
     // https://shimo.im/forms/bvVAXVnavgjCjqm7/fill 小章鱼移动端问题反馈
@@ -74,9 +75,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
-    
-//    OctWebEditor *webEditor = [[OctWebEditor alloc] initWithFrame:self.view.bounds] ;
-//    [self.view addSubview:webEditor] ;
     
     [self leftVC] ;
     self.listNotes = @[] ;

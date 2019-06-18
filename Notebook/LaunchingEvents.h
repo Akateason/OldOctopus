@@ -14,6 +14,7 @@
 
 extern NSString *const kNotificationSyncCompleteAllPageRefresh ;
 extern NSString *const kFirstTimeLaunch ;
+extern NSString *const kNotificationImportFileIn ;
 
 @class UIApplication, AppDelegate ;
 

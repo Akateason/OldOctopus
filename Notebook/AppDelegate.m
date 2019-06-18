@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <XTlib/XTlib.h>
 #import "XTCloudHandler.h"
+#import "Note.h"
 
 @interface AppDelegate ()
 // <UNUserNotificationCenterDelegate>
@@ -76,7 +77,8 @@
 //            ViewController *VC = (ViewController *)self.window.rootViewController;
 //            [VC handleDocumentOpenURL:url];  //handleDocumentOpenURL:公有方法
 //        }
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:<#(nonnull NSNotificationName)#> object:<#(nullable id)#>]
+        Note *aNote = [[Note alloc] initWithBookID:<#(NSString *)#> content:<#(NSString *)#> title:<#(NSString *)#>]
         
         
     }

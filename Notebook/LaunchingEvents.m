@@ -30,6 +30,8 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 @implementation LaunchingEvents
 
+#pragma mark - did finish launching
+
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate {
     //    if (!DEBUG)
         [Bugly startWithAppId:@"8abe605307"] ;
@@ -338,5 +340,19 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         }
     }] ;
 }
+
+#pragma mark - open url
+NSString *const kNotificationImportFileIn = @"kNotificationImportFileIn" ;
+//导入文件,默认导入到当前的笔记本,如果是最近或者垃圾桶,进入暂存区. 导入之后打开此笔记.
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if (url != nil && [url isFileURL]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationImportFileIn object:nil] ;
+//        Note *aNote = [[Note alloc] initWithBookID:<#(NSString *)#> content:<#(NSString *)#> title:<#(NSString *)#>]
+        
+        
+    }
+    return YES;
+}
+
 
 @end
