@@ -96,17 +96,16 @@
         });
     }] ;
     
-     [[[[[[NSNotificationCenter defaultCenter]
-    rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
+     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
         takeUntil:self.rac_willDeallocSignal]
        deliverOnMainThread]
       throttle:1.]
      subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.leftVC render] ;
-//        [self.table xt_loadNewInfoInBackGround:NO] ;
+//      [self.table xt_loadNewInfoInBackGround:NO] ;
         [self.table xt_loadNewInfoInBackGround:YES] ;
-                  
+         
          self.lbUser.text = [[XTIcloudUser userInCacheSyncGet].givenName substringToIndex:1] ?: @"🐙" ;
     }] ;
     
@@ -118,6 +117,16 @@
          [self.table cyl_reloadData] ;
      }] ;
     
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationImportFileIn object:nil]
+       takeUntil:self.rac_willDeallocSignal]
+      deliverOnMainThread]
+     subscribeNext:^(NSNotification * _Nullable x) {
+         @strongify(self)
+         NSString *path = x.object ;
+         
+         
+     }] ;
+    
     [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]]
       takeUntil:self.rac_willDeallocSignal]
      subscribeNext:^(NSDate * _Nullable x) {
@@ -126,7 +135,7 @@
              LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
              [events icloudSync:^{}] ;
          }
-     }]  ;
+     }] ;
 }
 
 - (void)renderTable:(void(^)(void))completion {

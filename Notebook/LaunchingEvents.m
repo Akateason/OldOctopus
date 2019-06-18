@@ -344,12 +344,10 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 #pragma mark - open url
 NSString *const kNotificationImportFileIn = @"kNotificationImportFileIn" ;
 //导入文件,默认导入到当前的笔记本,如果是最近或者垃圾桶,进入暂存区. 导入之后打开此笔记.
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
     if (url != nil && [url isFileURL]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationImportFileIn object:nil] ;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationImportFileIn object:url] ;
 //        Note *aNote = [[Note alloc] initWithBookID:<#(NSString *)#> content:<#(NSString *)#> title:<#(NSString *)#>]
-        
-        
     }
     return YES;
 }

@@ -70,19 +70,8 @@
 
 //file:///private/var/mobile/Containers/Data/Application/929D7113-DCE0-4F39-9436-D85BFD644DC6/Documents/Inbox/%E7%BC%96%E8%BE%91%E5%99%A8%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1.md
 //导入文件,默认导入到当前的笔记本,如果是最近或者垃圾桶,进入暂存区. 导入之后打开此笔记.
-
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    if (url != nil && [url isFileURL]) {
-//        if (self.window.rootViewController && [self.window.rootViewController isKindOfClass:[ViewController class]]) {
-//            ViewController *VC = (ViewController *)self.window.rootViewController;
-//            [VC handleDocumentOpenURL:url];  //handleDocumentOpenURL:公有方法
-//        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:<#(nonnull NSNotificationName)#> object:<#(nullable id)#>]
-        Note *aNote = [[Note alloc] initWithBookID:<#(NSString *)#> content:<#(NSString *)#> title:<#(NSString *)#>]
-        
-        
-    }
-    return YES;
+    return [self.launchingEvents application:app openURL:url options:options] ;
 }
 
 
