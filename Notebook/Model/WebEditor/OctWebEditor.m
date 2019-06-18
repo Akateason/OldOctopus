@@ -66,7 +66,7 @@
             // get keyboard height
             self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - self.toolBar.height) ;
             
-            [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(self->keyboardHeight + 41).stringValue completion:^(NSString *val, NSError *error) {
+            [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(self->keyboardHeight).stringValue completion:^(NSString *val, NSError *error) {
                 
             }] ;
         }] ;
