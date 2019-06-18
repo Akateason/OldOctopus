@@ -35,6 +35,9 @@
 @property (strong, nonatomic) WKWebView         *webView ;
 @property (strong, nonatomic) OutputPreviewsNailView *nail ;
 @property (nonatomic)         float             snapDuration ;
+
+@property (nonatomic)         BOOL              webSnapshotChecker ;
+@property (strong, nonatomic) UIActivityIndicatorView *activityView ;
 @end
 
 @implementation MarkdownVC
@@ -222,7 +225,12 @@
 - (void)snapShotFullScreen:(NSString *)htmlString {
     [self dismissViewControllerAnimated:YES completion:nil] ;
     
-    [SVProgressHUD show] ;
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] ;
+    self.activityView.center = self.view.window.center ;
+    [self.view.window addSubview:self.activityView] ;
+    self.activityView.color = [UIColor darkGrayColor] ;
+    [self.activityView startAnimating] ;
+
     self.editor.hidden = YES ;
     
     NSMutableString *tmpStr = [htmlString mutableCopy] ;
@@ -244,8 +252,8 @@
     [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
     
     
+    self.webSnapshotChecker = YES ;
     [_webView loadFileURL:url allowingReadAccessToURL:url] ;
-    
 //    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:8887/mycode/pic.html"] ;
 //    [_webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
@@ -260,39 +268,60 @@
     NSLog(@"WebViewBridge func : %@\njson : %@",func,jsonDic) ;
     
     if ([func isEqualToString:@"readySnapshot"]) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false,  [UIScreen mainScreen].scale) ;
-            [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
-            UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
-            UIGraphicsEndImageContext() ;
-            
-            [self.nail removeFromSuperview] ;
-            [self.webView removeFromSuperview] ;
-            self.webView = nil ;
-            self.nail = nil ;
-            self.editor.hidden = NO ;
-            
-            [SVProgressHUD dismiss] ;
-            
-            if (!image) return ;
-            [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
-        }) ;
+        if (self.webSnapshotChecker == NO) return ;
+        
+        self.webSnapshotChecker = NO ;
+
     }
     else if ([func isEqualToString:@"snapshotHeight"]) {
-        
         float textHeight = [ret[@"params"] floatValue] ;
-        self.snapDuration = .2 + (float)textHeight / (float)APP_HEIGHT * .2 ;
-        self.webView.height = textHeight ;
-        [self.webView setNeedsLayout] ;
-        [self.webView layoutIfNeeded] ;
-
-        self.nail = [OutputPreviewsNailView makeANail] ;
-        self.nail.top = textHeight ;
-        [self.view addSubview:self.nail] ;
-
-        self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
-        [self.view setNeedsLayout] ;
-        [self.view layoutIfNeeded] ;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.snapDuration = .2 + (float)textHeight / (float)APP_HEIGHT * .2 ;
+            self.webView.height = textHeight ;
+        
+            
+//            self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
+            self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight) ;
+            [self.view setNeedsLayout] ;
+            [self.view layoutIfNeeded] ;
+            CGSize size = self.view.frame.size ;
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                UIGraphicsBeginImageContextWithOptions(size, true,  [UIScreen mainScreen].scale) ;
+                [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
+                UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
+                UIGraphicsEndImageContext() ;
+                
+                [self.webView removeFromSuperview] ;
+                self.webView = nil ;
+                
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:image] ;
+                [self.view addSubview:imageView] ;
+                imageView.height = textHeight ;
+                
+                self.nail = [OutputPreviewsNailView makeANail] ;
+                self.nail.top = textHeight ;
+                [self.view addSubview:self.nail] ;
+                self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
+                image = [UIImage getImageFromView:self.view] ;
+                
+                
+                [self.nail removeFromSuperview] ;
+                self.nail = nil ;
+                [imageView removeFromSuperview] ;
+                imageView = nil ;
+                
+                self.editor.hidden = NO ;
+//                [SVProgressHUD dismiss] ;
+                [self.activityView stopAnimating] ;
+                
+                if (!image) return ;
+                [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
+            }) ;
+        }) ;
+        
     }
 }
 
