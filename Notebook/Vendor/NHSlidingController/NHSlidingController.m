@@ -113,9 +113,12 @@ static const CGFloat slidingSpeed = 1500.0;
     
     _topViewContainer.width = w ;
     _topViewContainer.height = h ;
+    
+    [self.view setNeedsLayout] ;
+    [self.view layoutIfNeeded] ;
 }
 
--(void)setupTheGestureRecognizers {
+- (void)setupTheGestureRecognizers {
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
     panGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:panGestureRecognizer];
@@ -208,7 +211,7 @@ static const CGFloat slidingSpeed = 1500.0;
     return YES;
 }
 
--(void)panned:(UIPanGestureRecognizer *)recognizer {
+- (void)panned:(UIPanGestureRecognizer *)recognizer {
 	CGFloat translation = [recognizer translationInView:self.view].x;
     [recognizer setTranslation:CGPointZero inView:self.view];
     
