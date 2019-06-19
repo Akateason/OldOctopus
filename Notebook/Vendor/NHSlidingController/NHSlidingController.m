@@ -154,7 +154,7 @@ static const CGFloat slidingSpeed = 1500.0;
         CGRect frame = self.view.bounds;
         CGPoint centerForOutside = CGPointMake(frame.size.width * 1.5, CGRectGetMidY(frame));
         [UIView animateWithDuration:0.3 animations:^{
-            _topViewContainer.center = centerForOutside;
+            self->_topViewContainer.center = centerForOutside;
         } completion:^(BOOL finished) {
             self.topViewController = topViewController;
             [self toggleDrawer];
@@ -177,7 +177,7 @@ static const CGFloat slidingSpeed = 1500.0;
     }
     
     [UIView animateWithDuration:duration animations:^{
-        _topViewContainer.center = center;
+        self->_topViewContainer.center = center;
     }];
 }
 
@@ -236,19 +236,19 @@ static const CGFloat slidingSpeed = 1500.0;
         
         CGFloat distanceToTheEdge = centerForEdge - _topViewContainer.center.x;
         CGFloat timeToEdgeWithCurrentVelocity = fabs(distanceToTheEdge) / fabs(velocity);
-        CGFloat timeToEdgeWithStandardVelocity = fabsf(distanceToTheEdge) / slidingSpeed;
+        CGFloat timeToEdgeWithStandardVelocity = fabs(distanceToTheEdge) / slidingSpeed;
                 
         if (timeToEdgeWithCurrentVelocity < 0.7 * timeToEdgeWithStandardVelocity) {
             //Bounce and open
             center.x = centerForBounce;
             
             [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                _topViewContainer.center = center;
+                self->_topViewContainer.center = center;
             } completion:^(BOOL finished) {
-                CGPoint center = _topViewContainer.center;
+                CGPoint center = self->_topViewContainer.center;
                 center.x = centerForEdge;
                 [UIView animateWithDuration:0.3 animations:^{
-                    _topViewContainer.center = center;
+                    self->_topViewContainer.center = center;
                 } completion:^(BOOL finished) {
                     self.drawerOpened = finalOpenState;
                 }];
@@ -258,7 +258,7 @@ static const CGFloat slidingSpeed = 1500.0;
             center.x = centerForEdge;
             
             [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                _topViewContainer.center = center;
+                self->_topViewContainer.center = center;
             } completion:^(BOOL finished) {
                 self.drawerOpened = finalOpenState;
             }];
@@ -267,7 +267,7 @@ static const CGFloat slidingSpeed = 1500.0;
             CGFloat duration = distanceToTheEdge / slidingSpeed;
             center.x = centerForEdge;
             [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                _topViewContainer.center = center;
+                self->_topViewContainer.center = center;
             } completion:^(BOOL finished) {
                 self.drawerOpened = finalOpenState;
             }];
