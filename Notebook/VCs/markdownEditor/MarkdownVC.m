@@ -175,6 +175,7 @@
     [self.btBack xt_enlargeButtonsTouchArea] ;
     [self.btMore xt_enlargeButtonsTouchArea] ;
     
+    
     self.navArea.backgroundColor = nil ;
     
     self.topBar.backgroundColor = nil ;

@@ -75,26 +75,28 @@
 }
 
 
-////是否支持屏幕旋转
-//- (BOOL)shouldAutorotate {
-//    if (IS_IPAD) {
-//        return YES ;
-//    }
-//    return NO ;
-//}
-//
-//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-//    if (IS_IPAD) {
-//        return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight ;
-//    }
-//    return UIInterfaceOrientationMaskPortrait;
-//}
-//
-//- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)nowWindow {
-//    if (IS_IPAD) {
-//        return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight ;
-//    }
-//    return UIInterfaceOrientationMaskPortrait;
-//}
+#pragma mark --
+#pragma mark - screen rotate
+
+- (BOOL)shouldAutorotate {
+    if (IS_IPAD) {
+        return YES ;
+    }
+    return NO ;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    if (IS_IPAD) {
+        return UIInterfaceOrientationMaskAll ;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)nowWindow {
+    if (IS_IPAD) {
+        return UIInterfaceOrientationMaskAll ;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
 
 @end

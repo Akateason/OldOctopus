@@ -123,7 +123,7 @@
     if ([func isEqualToString:@"change"]) {
         WebModel *model = [WebModel yy_modelWithJSON:jsonDic] ;
         self.webInfo = model ;
-        if (![model.markdown isEqualToString:@"\n"] && self.firstTimeArticle != nil && ![model.markdown isEqualToString:self.firstTimeArticle]) {
+        if (![model.markdown isEqualToString:@"\n"] && self.webViewHasSetMarkdown && ![model.markdown isEqualToString:self.firstTimeArticle]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
             self.articleAreTheSame = NO ;
         }
@@ -272,7 +272,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self setupJSCoreWhenFinishLoad] ;
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self removeInputAccessoryViewFromWKWebView:webView] ;
         [self enableSelectAll] ;

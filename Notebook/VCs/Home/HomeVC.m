@@ -231,7 +231,8 @@
     self.nameOfNoteBook.text = @"";
     self.nameOfNoteBook.xt_theme_textColor = XT_MAKE_theme_color(k_md_homeTitleTextColor, .8) ;
     
-    [self.btAdd xt_enlargeButtonsTouchArea] ;
+
+    self.btAdd.touchExtendInset = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     self.btAdd.xt_theme_imageColor = k_md_iconColor ;
     @weakify(self)
     [self.btAdd bk_addEventHandler:^(id sender) {
@@ -239,7 +240,7 @@
         [self addBtOnClick:sender] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btMore xt_enlargeButtonsTouchArea] ;
+    self.btMore.touchExtendInset = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
     [self.btMore bk_addEventHandler:^(id sender) {
         @strongify(self)
