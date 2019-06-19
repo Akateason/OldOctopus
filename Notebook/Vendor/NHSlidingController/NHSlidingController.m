@@ -9,6 +9,8 @@
 #import "NHSlidingController.h"
 #import "UIViewController+SlidingController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <XTlib/XTlib.h>
+#import "AppDelegate.h"
 
 #define SIZECLASS_2_STR(sizeClass) [[self class] sizeClassInt2Str:sizeClass]
 
@@ -33,19 +35,20 @@ static const CGFloat slidingSpeed = 1500.0;
 {
     self = [super init];
     if (self) {
-        [self setBottomViewController:bottomViewController];
-        [self setTopViewController:topViewController];
-		
+        self.topViewController = topViewController ;
+        self.bottomViewController = bottomViewController ;
 		self.slideDistance = 200.0;
     }
     return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-	
-    [self setupTheView];
-    [self setupTheGestureRecognizers];
+    [super viewDidLoad] ;
+    
+    AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
+    [self setupTheViewWithSize:appDelegate.window.size] ;
+    
+    [self setupTheGestureRecognizers] ;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,36 +57,65 @@ static const CGFloat slidingSpeed = 1500.0;
 
 #pragma mark - Setup Helpers
 
--(void)setupTheView
-{
-//    [_bottomViewContainer removeFromSuperview] ;
-//    [_bottomViewController.view removeFromSuperview] ;
-//    [_topViewContainer removeFromSuperview] ;
-//    [_topViewController.view removeFromSuperview] ;
+- (void)setupTheViewWithSize:(CGSize)size {
+    float w = size.width ;
+    float h = size.height ;
+    CGRect rect = CGRectMake(0, 0, w, h) ;
+    NSValue *val = [NSValue valueWithCGSize:size] ;
     
+    if (_bottomViewContainer.subviews) {
+        for (UIView *subView in _bottomViewContainer.subviews) [subView removeFromSuperview] ;
+        [_bottomViewContainer removeFromSuperview] ;
+        _bottomViewContainer = nil ;
+    }
+    if (_topViewContainer.subviews) {
+        for (UIView *subView in _topViewContainer.subviews) [subView removeFromSuperview] ;
+        [_topViewContainer removeFromSuperview] ;
+        _topViewContainer = nil ;
+    }
     
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-	
-    _bottomViewContainer = [[UIView alloc] initWithFrame:self.view.bounds];
-    _bottomViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+    self.view.frame = rect ;
+    
+    _bottomViewContainer = [[UIView alloc] initWithFrame:rect];
+    _bottomViewContainer.center = self.view.center ;
+    _bottomViewContainer.width = w ;
+    _bottomViewContainer.height = h ;
     [self.view addSubview:_bottomViewContainer];
     [self.view sendSubviewToBack:_bottomViewContainer];
-//    [self.view addSubview:_bottomViewController.view];
-//    [_bottomViewController didMoveToParentViewController:self];
-//    [_bottomViewContainer addSubview:_bottomViewController.view];
     
-    _topViewContainer = [[UIView alloc] initWithFrame:self.view.bounds];
-    _topViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+    _topViewContainer = [[UIView alloc] initWithFrame:rect];
+    _topViewContainer.center = self.view.center ;
+    _topViewContainer.width = w ;
+    _topViewContainer.height = h ;
     [self.view addSubview:_topViewContainer];
     [self.view bringSubviewToFront:_topViewContainer];
-//    [self.view addSubview:_topViewController.view];
-//    [_topViewController didMoveToParentViewController:self];
-//    [_topViewContainer addSubview:_topViewController.view];
     
+    _bottomViewController.view.frame = _bottomViewContainer.bounds ;
+    [_bottomViewContainer addSubview:_bottomViewController.view];
+    [self.view sendSubviewToBack:_bottomViewContainer];
+    _bottomViewController.slidingController = self;
+    
+    _topViewController.view.clipsToBounds = YES ;
+    _topViewController.view.frame = _topViewContainer.bounds ;
+    [_topViewContainer addSubview:_topViewController.view] ;
+    [self.view bringSubviewToFront:_topViewContainer];
+    _topViewController.slidingController = self;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNoteSlidingSizeChanging object:val] ;
 }
 
--(void)setupTheGestureRecognizers
-{
+- (void)resetSize:(CGSize)size {
+    float w = size.width ;
+    float h = size.height ;
+    
+    _bottomViewContainer.width = w ;
+    _bottomViewContainer.height = h ;
+    
+    _topViewContainer.width = w ;
+    _topViewContainer.height = h ;
+}
+
+-(void)setupTheGestureRecognizers {
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
     panGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:panGestureRecognizer];
@@ -96,48 +128,15 @@ static const CGFloat slidingSpeed = 1500.0;
 
 #pragma mark - Custom Accessors
 
--(void)setTopViewController:(UIViewController *)topViewController
-{
-    //remove old view controller
-    [_topViewController.view removeFromSuperview];
-//    [_topViewController removeFromParentViewController];
-    
-    //replace with the new
-    topViewController.view.frame = self.view.bounds;
-    _topViewController = topViewController;
-
-//    [self addChildViewController:topViewController];
-    topViewController.view.clipsToBounds = YES;
-    [_topViewContainer addSubview:topViewController.view];
-    [self.view bringSubviewToFront:_topViewContainer];
-	
-	_topViewController.slidingController = self;
-}
-
--(void)setBottomViewController:(UIViewController *)bottomViewController
-{
-    //remove old view controller
-    [_bottomViewController.view removeFromSuperview];
-//    [_bottomViewController removeFromParentViewController];
-    
-    bottomViewController.view.frame = self.view.bounds;
-    _bottomViewController = bottomViewController;
-    
-//    [self addChildViewController:bottomViewController];
-    [_bottomViewContainer addSubview:bottomViewController.view];
-    [self.view sendSubviewToBack:_bottomViewContainer];
-	
-	_bottomViewController.slidingController = self;
-}
-
--(void)setDrawerOpened:(BOOL)drawerOpened
-{
+-(void)setDrawerOpened:(BOOL)drawerOpened {
     _drawerOpened = drawerOpened;
+    
     if (drawerOpened) {
         _topViewContainer.userInteractionEnabled = NO;
         tapGestureRecognizer.enabled = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidOpenNotification object:self];
-    } else {
+    }
+    else {
         _topViewContainer.userInteractionEnabled = YES;
         tapGestureRecognizer.enabled = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidCloseNotification object:self];
@@ -146,11 +145,11 @@ static const CGFloat slidingSpeed = 1500.0;
 
 #pragma mark - Animation Trigger Methods
 
--(void)setTopViewController:(UIViewController *)topViewController animated:(BOOL)animated
-{
+-(void)setTopViewController:(UIViewController *)topViewController animated:(BOOL)animated {
     if (!self.drawerOpened) {
         [self toggleDrawer];
     }
+    
     if (animated) {
         CGRect frame = self.view.bounds;
         CGPoint centerForOutside = CGPointMake(frame.size.width * 1.5, CGRectGetMidY(frame));
@@ -160,7 +159,8 @@ static const CGFloat slidingSpeed = 1500.0;
             self.topViewController = topViewController;
             [self toggleDrawer];
         }];
-    } else {
+    }
+    else {
         self.topViewController = topViewController;
     }
 }
@@ -288,27 +288,24 @@ static const CGFloat slidingSpeed = 1500.0;
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    
+
     NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass));
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    
+
     NSLog(@"willTransitionToTraitCollection: current %@, new: %@", SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass), SIZECLASS_2_STR(newCollection.horizontalSizeClass));
 //    [self updateConstraintsForSizeClass:newCollection.horizontalSizeClass];
-    
-    
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    
+
     NSLog(@"viewWillTransitionToSize: size %@", NSStringFromCGSize(size));
-    
-    [self setBottomViewController:self.bottomViewController];
-    [self setTopViewController:self.topViewController];
-    [self setupTheView] ;
+    [self resetSize:size] ;
+    NSValue *val = [NSValue valueWithCGSize:size] ;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNoteSlidingSizeChanging object:val] ;
 }
 
 

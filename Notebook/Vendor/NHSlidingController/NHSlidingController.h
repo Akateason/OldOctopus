@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#define kSlidingControllerDidOpenNotification @"kSlidingControllerDidOpenNotification"
-#define kSlidingControllerDidCloseNotification @"kSlidingControllerDidCloseNotification"
+#define kSlidingControllerDidOpenNotification   @"kSlidingControllerDidOpenNotification"
+#define kSlidingControllerDidCloseNotification  @"kSlidingControllerDidCloseNotification"
+#define kNoteSlidingSizeChanging                @"kNoteSlidingSizeChanging"
 
 @interface NHSlidingController : UIViewController <UIGestureRecognizerDelegate>
 
