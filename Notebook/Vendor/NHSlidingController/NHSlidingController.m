@@ -56,10 +56,10 @@ static const CGFloat slidingSpeed = 1500.0;
 
 -(void)setupTheView
 {
-    [_bottomViewContainer removeFromSuperview] ;
-    [_bottomViewController.view removeFromSuperview] ;
-    [_topViewContainer removeFromSuperview] ;
-    [_topViewController.view removeFromSuperview] ;
+//    [_bottomViewContainer removeFromSuperview] ;
+//    [_bottomViewController.view removeFromSuperview] ;
+//    [_topViewContainer removeFromSuperview] ;
+//    [_topViewController.view removeFromSuperview] ;
     
     
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -68,15 +68,18 @@ static const CGFloat slidingSpeed = 1500.0;
     _bottomViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     [self.view addSubview:_bottomViewContainer];
     [self.view sendSubviewToBack:_bottomViewContainer];
-    [self.view addSubview:_bottomViewController.view];
-    [_bottomViewController didMoveToParentViewController:self];
+//    [self.view addSubview:_bottomViewController.view];
+//    [_bottomViewController didMoveToParentViewController:self];
+//    [_bottomViewContainer addSubview:_bottomViewController.view];
     
     _topViewContainer = [[UIView alloc] initWithFrame:self.view.bounds];
     _topViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     [self.view addSubview:_topViewContainer];
     [self.view bringSubviewToFront:_topViewContainer];
-    [self.view addSubview:_topViewController.view];
-    [_topViewController didMoveToParentViewController:self];
+//    [self.view addSubview:_topViewController.view];
+//    [_topViewController didMoveToParentViewController:self];
+//    [_topViewContainer addSubview:_topViewController.view];
+    
 }
 
 -(void)setupTheGestureRecognizers
@@ -97,13 +100,13 @@ static const CGFloat slidingSpeed = 1500.0;
 {
     //remove old view controller
     [_topViewController.view removeFromSuperview];
-    [_topViewController removeFromParentViewController];
+//    [_topViewController removeFromParentViewController];
     
     //replace with the new
     topViewController.view.frame = self.view.bounds;
     _topViewController = topViewController;
 
-    [self addChildViewController:topViewController];
+//    [self addChildViewController:topViewController];
     topViewController.view.clipsToBounds = YES;
     [_topViewContainer addSubview:topViewController.view];
     [self.view bringSubviewToFront:_topViewContainer];
@@ -115,12 +118,12 @@ static const CGFloat slidingSpeed = 1500.0;
 {
     //remove old view controller
     [_bottomViewController.view removeFromSuperview];
-    [_bottomViewController removeFromParentViewController];
+//    [_bottomViewController removeFromParentViewController];
     
     bottomViewController.view.frame = self.view.bounds;
     _bottomViewController = bottomViewController;
     
-    [self addChildViewController:bottomViewController];
+//    [self addChildViewController:bottomViewController];
     [_bottomViewContainer addSubview:bottomViewController.view];
     [self.view sendSubviewToBack:_bottomViewContainer];
 	
@@ -269,7 +272,6 @@ static const CGFloat slidingSpeed = 1500.0;
                 self.drawerOpened = finalOpenState;
             }];
         }
-    
     }
 }
 
@@ -296,15 +298,17 @@ static const CGFloat slidingSpeed = 1500.0;
     NSLog(@"willTransitionToTraitCollection: current %@, new: %@", SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass), SIZECLASS_2_STR(newCollection.horizontalSizeClass));
 //    [self updateConstraintsForSizeClass:newCollection.horizontalSizeClass];
     
-    [self setBottomViewController:self.bottomViewController];
-    [self setTopViewController:self.topViewController];
-    [self setupTheView] ;
+    
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
     NSLog(@"viewWillTransitionToSize: size %@", NSStringFromCGSize(size));
+    
+    [self setBottomViewController:self.bottomViewController];
+    [self setTopViewController:self.topViewController];
+    [self setupTheView] ;
 }
 
 

@@ -272,7 +272,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self setupJSCoreWhenFinishLoad] ;
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self removeInputAccessoryViewFromWKWebView:webView] ;
         [self enableSelectAll] ;
