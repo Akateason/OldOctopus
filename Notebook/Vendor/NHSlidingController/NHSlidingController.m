@@ -10,6 +10,8 @@
 #import "UIViewController+SlidingController.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define SIZECLASS_2_STR(sizeClass) [[self class] sizeClassInt2Str:sizeClass]
+
 // Standard speed for the sliding in pt/s
 static const CGFloat slidingSpeed = 1500.0;
 
@@ -54,17 +56,23 @@ static const CGFloat slidingSpeed = 1500.0;
 
 -(void)setupTheView
 {
-//    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [_bottomViewContainer removeFromSuperview] ;
+    [_bottomViewController.view removeFromSuperview] ;
+    [_topViewContainer removeFromSuperview] ;
+    [_topViewController.view removeFromSuperview] ;
+    
+    
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	
     _bottomViewContainer = [[UIView alloc] initWithFrame:self.view.bounds];
-//    _bottomViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+    _bottomViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     [self.view addSubview:_bottomViewContainer];
     [self.view sendSubviewToBack:_bottomViewContainer];
     [self.view addSubview:_bottomViewController.view];
     [_bottomViewController didMoveToParentViewController:self];
     
     _topViewContainer = [[UIView alloc] initWithFrame:self.view.bounds];
-//    _topViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+    _topViewContainer.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     [self.view addSubview:_topViewContainer];
     [self.view bringSubviewToFront:_topViewContainer];
     [self.view addSubview:_topViewController.view];
@@ -111,6 +119,7 @@ static const CGFloat slidingSpeed = 1500.0;
     
     bottomViewController.view.frame = self.view.bounds;
     _bottomViewController = bottomViewController;
+    
     [self addChildViewController:bottomViewController];
     [_bottomViewContainer addSubview:bottomViewController.view];
     [self.view sendSubviewToBack:_bottomViewContainer];
@@ -267,5 +276,52 @@ static const CGFloat slidingSpeed = 1500.0;
 -(void)tapped:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self toggleDrawer];
 }
+
+
+
+
+
+#pragma mark - add test
+#pragma mark Size Class Related
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass));
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    
+    NSLog(@"willTransitionToTraitCollection: current %@, new: %@", SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass), SIZECLASS_2_STR(newCollection.horizontalSizeClass));
+//    [self updateConstraintsForSizeClass:newCollection.horizontalSizeClass];
+    
+    [self setBottomViewController:self.bottomViewController];
+    [self setTopViewController:self.topViewController];
+    [self setupTheView] ;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    NSLog(@"viewWillTransitionToSize: size %@", NSStringFromCGSize(size));
+}
+
+
+#pragma mark -
+#pragma mark Helper Method
+
++ (NSString*)sizeClassInt2Str:(UIUserInterfaceSizeClass)sizeClass {
+    switch (sizeClass) {
+        case UIUserInterfaceSizeClassCompact:
+            return @"UIUserInterfaceSizeClassCompact";
+        case UIUserInterfaceSizeClassRegular:
+            return @"UIUserInterfaceSizeClassRegular";
+        case UIUserInterfaceSizeClassUnspecified:
+        default:
+            return @"UIUserInterfaceSizeClassUnspecified";
+    }
+}
+
 
 @end
