@@ -36,7 +36,7 @@ typedef void(^BlkTapBookCell)(void);
 @property (copy, nonatomic) BlkBookSelectedHasChanged blkBookChanged ;
 @property (copy, nonatomic) BlkTapBookCell blkTapped ;
 @property (strong, nonatomic) UIView *btAdd ;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *flexTrailOfTable;
+
 @property (weak, nonatomic) IBOutlet UIView *bottomArea;
 @property (weak, nonatomic) IBOutlet UILabel *lbTrash;
 @property (weak, nonatomic) IBOutlet UIButton *btTheme;
@@ -95,12 +95,13 @@ typedef void(^BlkTapBookCell)(void);
         [self.table reloadData] ;
     }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        NSValue *val = x.object ;
-        CGSize size = [val CGSizeValue] ;
-        self.flexTrailOfTable.constant = size.width - HomeVC.movingDistance ;        
-    }] ;
+//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+//        @strongify(self)
+//        NSValue *val = x.object ;
+//        CGSize size = [val CGSizeValue] ;
+//
+//        //self.flexTrailOfTable.constant = size.width - HomeVC.movingDistance ;
+//    }] ;
     
     (self.btTheme.selected) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
     
@@ -120,7 +121,7 @@ typedef void(^BlkTapBookCell)(void);
     self.table.xt_theme_backgroundColor = k_md_drawerColor ;
     self.bottomArea.xt_theme_backgroundColor = k_md_drawerColor ;
     
-    self.flexTrailOfTable.constant = APP_WIDTH - HomeVC.movingDistance ;
+//    self.flexTrailOfTable.constant = APP_WIDTH - HomeVC.movingDistance ;
     
     self.lbTrash.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.imgTrash.xt_theme_imageColor = k_md_iconColor ;

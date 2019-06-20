@@ -11,32 +11,36 @@
 #import <QuartzCore/QuartzCore.h>
 #import <XTlib/XTlib.h>
 #import "AppDelegate.h"
+#import "MDThemeConfiguration.h"
 
 #define SIZECLASS_2_STR(sizeClass) [[self class] sizeClassInt2Str:sizeClass]
 
 // Standard speed for the sliding in pt/s
-static const CGFloat slidingSpeed = 1500.0;
+static const CGFloat slidingSpeed = 800;
 
 @interface NHSlidingController () {
     UITapGestureRecognizer *tapGestureRecognizer;
 }
 
-@property (nonatomic, strong) UIView *topViewContainer;
-@property (nonatomic, strong) UIView *bottomViewContainer;
-
-@property (nonatomic) BOOL drawerOpened;
+@property (nonatomic, strong) UIView    *topViewContainer;
+@property (nonatomic, strong) UIView    *bottomViewContainer;
+@property (nonatomic)         CGSize    m_containerSize;
+@property (nonatomic)         BOOL      drawerOpened;
 
 @end
 
 @implementation NHSlidingController
 
 - (id)initWithTopViewController:(UIViewController *)topViewController
-           bottomViewController:(UIViewController *)bottomViewController {
+           bottomViewController:(UIViewController *)bottomViewController
+                  slideDistance:(CGFloat)distance
+{
     self = [super init];
     if (self) {
         self.topViewController = topViewController ;
         self.bottomViewController = bottomViewController ;
-		self.slideDistance = 200.0;
+        self.slideDistance = distance ?: 200 ;
+        self.view.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
     }
     return self;
 }
@@ -57,6 +61,7 @@ static const CGFloat slidingSpeed = 1500.0;
 #pragma mark - Setup Helpers
 
 - (void)setupTheViewWithSize:(CGSize)size {
+    self.m_containerSize = size ;
     float w = size.width ;
     float h = size.height ;
     CGRect rect = CGRectMake(0, 0, w, h) ;
@@ -77,7 +82,7 @@ static const CGFloat slidingSpeed = 1500.0;
     
     _bottomViewContainer = [[UIView alloc] initWithFrame:rect];
     _bottomViewContainer.center = self.view.center ;
-    _bottomViewContainer.width = w ;
+    _bottomViewContainer.width = self.slideDistance ;
     _bottomViewContainer.height = h ;
     [self.view addSubview:_bottomViewContainer];
     [self.view sendSubviewToBack:_bottomViewContainer];
@@ -104,17 +109,18 @@ static const CGFloat slidingSpeed = 1500.0;
 }
 
 - (void)resetSize:(CGSize)size {
+    self.m_containerSize = size ;
     float w = size.width ;
     float h = size.height ;
     
-    _bottomViewContainer.width = w ;
+    _bottomViewContainer.width = self.slideDistance ;
     _bottomViewContainer.height = h ;
     
-    _topViewContainer.width = w ;
     _topViewContainer.height = h ;
+    _topViewContainer.width = _drawerOpened ? w - self.slideDistance : w ;
     
-    [self.view setNeedsLayout] ;
-    [self.view layoutIfNeeded] ;
+//    [self.view setNeedsLayout] ;
+//    [self.view layoutIfNeeded] ;
 }
 
 - (void)setupTheGestureRecognizers {
@@ -168,18 +174,14 @@ static const CGFloat slidingSpeed = 1500.0;
 }
 
 - (void)setDrawerOpened:(BOOL)opened animated:(BOOL)animated {
-    self.drawerOpened = opened;
+    self.drawerOpened = opened ;
     
     CGFloat duration = self.slideDistance / slidingSpeed;
-    CGPoint center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
-
-    if (opened) {
-        center.x += self.slideDistance;
-        [self.bottomViewController viewWillAppear:YES];
-    }
+    if (opened) [self.bottomViewController viewWillAppear:YES];
     
     [UIView animateWithDuration:duration animations:^{
-        self->_topViewContainer.center = center;
+        self.topViewContainer.left = opened ? self.slideDistance : 0 ;
+        self.topViewContainer.width = opened ? self.m_containerSize.width - self.slideDistance : self.m_containerSize.width ;
     }];
 }
 
@@ -213,71 +215,75 @@ static const CGFloat slidingSpeed = 1500.0;
 - (void)panned:(UIPanGestureRecognizer *)recognizer {
 	CGFloat translation = [recognizer translationInView:self.view].x;
     [recognizer setTranslation:CGPointZero inView:self.view];
+    NSLog(@"x : %lf",translation) ;
+    float openedLeft = self.slideDistance ;
+    float left = _topViewContainer.left ;
+    left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
+    self->_topViewContainer.width = self.m_containerSize.width - left ;
+    self->_topViewContainer.left = left ;
     
-	CGFloat openedWidthCenter = CGRectGetMidX(self.view.bounds) + self.slideDistance;
-	
-    CGPoint center = _topViewContainer.center;
-    center.x = center.x < openedWidthCenter ? center.x + translation : center.x + translation / (1.0 + center.x - openedWidthCenter);
-	center.x = MAX(center.x, CGRectGetMidX(self.view.bounds));
-    _topViewContainer.center = center;
-        
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        CGFloat velocity = [recognizer velocityInView:self.view].x;
-        
-        CGFloat centerForEdge, centerForBounce;
-        BOOL finalOpenState;
-        if (velocity > 0) {
-            centerForEdge = CGRectGetMidX(self.view.bounds) + self.slideDistance;
-            centerForBounce = centerForEdge + 22.0;
-            finalOpenState = YES;
-        } else {
-            centerForEdge = CGRectGetMidX(self.view.bounds);
-            centerForBounce = (centerForEdge - 22.0);
-            finalOpenState = NO;
-        }
-        
-        CGFloat distanceToTheEdge = centerForEdge - _topViewContainer.center.x;
-        CGFloat timeToEdgeWithCurrentVelocity = fabs(distanceToTheEdge) / fabs(velocity);
-        CGFloat timeToEdgeWithStandardVelocity = fabs(distanceToTheEdge) / slidingSpeed;
-                
-        if (timeToEdgeWithCurrentVelocity < 0.7 * timeToEdgeWithStandardVelocity) {
-            //Bounce and open
-            center.x = centerForBounce;
-            
-            [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                self->_topViewContainer.center = center;
-            } completion:^(BOOL finished) {
-                CGPoint center = self->_topViewContainer.center;
-                center.x = centerForEdge;
-                [UIView animateWithDuration:0.3 animations:^{
-                    self->_topViewContainer.center = center;
-                } completion:^(BOOL finished) {
-                    self.drawerOpened = finalOpenState;
-                }];
-            }];
-        } else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
-            //finish the sliding with the current speed
-            center.x = centerForEdge;
-            
-            [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                self->_topViewContainer.center = center;
+    if (recognizer.state != UIGestureRecognizerStateEnded) return ;
+    
+    CGFloat leftForEdge, leftForBounce;
+    BOOL finalOpenState;
+    CGFloat velocity = [recognizer velocityInView:self.view].x;
+    
+    if (velocity > 0) {
+        leftForEdge = self.slideDistance;
+        leftForBounce = leftForEdge + 22.0;
+        finalOpenState = YES;
+    }
+    else {
+        leftForEdge = 0;
+        leftForBounce = leftForEdge - 22.0;
+        finalOpenState = NO;
+    }
+    
+    CGFloat distanceToTheEdge = leftForEdge - _topViewContainer.left;
+    CGFloat timeToEdgeWithCurrentVelocity = fabs(distanceToTheEdge) / fabs(velocity);
+    CGFloat timeToEdgeWithStandardVelocity = fabs(distanceToTheEdge) / slidingSpeed;
+    if (timeToEdgeWithCurrentVelocity < 0.7 * timeToEdgeWithStandardVelocity) {
+        //Bounce and open
+        left = leftForBounce;
+
+        [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self->_topViewContainer.left = left;
+        } completion:^(BOOL finished) {
+            CGFloat left = self->_topViewContainer.left;
+            left = leftForEdge;
+            [UIView animateWithDuration:0.3 animations:^{
+                self->_topViewContainer.width = self.m_containerSize.width - left ;
+                self->_topViewContainer.left = left;
             } completion:^(BOOL finished) {
                 self.drawerOpened = finalOpenState;
             }];
-        } else {
-            //finish the sliding wiht minimum speed
-            CGFloat duration = distanceToTheEdge / slidingSpeed;
-            center.x = centerForEdge;
-            [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                self->_topViewContainer.center = center;
-            } completion:^(BOOL finished) {
-                self.drawerOpened = finalOpenState;
-            }];
-        }
+        }];
+    }
+    else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
+        //finish the sliding with the current speed
+        left = leftForEdge;
+
+        [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self->_topViewContainer.width = self.m_containerSize.width - left ;
+            self->_topViewContainer.left = left;
+        } completion:^(BOOL finished) {
+            self.drawerOpened = finalOpenState;
+        }];
+    }
+    else {
+        //finish the sliding wiht minimum speed
+        CGFloat duration = distanceToTheEdge / slidingSpeed;
+        left = leftForEdge;
+        [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self->_topViewContainer.width = self.m_containerSize.width - left ;
+            self->_topViewContainer.left = left;
+        } completion:^(BOOL finished) {
+            self.drawerOpened = finalOpenState;
+        }];
     }
 }
 
--(void)tapped:(UITapGestureRecognizer *)tapGestureRecognizer {
+- (void)tapped:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self toggleDrawer];
 }
 

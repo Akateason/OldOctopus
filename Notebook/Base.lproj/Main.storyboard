@@ -348,7 +348,6 @@
                         <outlet property="bottomArea" destination="F70-cj-TbX" id="f5e-kl-ti7"/>
                         <outlet property="btReply" destination="5YQ-2t-ZHp" id="eSz-M1-n6J"/>
                         <outlet property="btTheme" destination="s9O-94-jlJ" id="Elk-bo-gif"/>
-                        <outlet property="flexTrailOfTable" destination="hiL-3C-Mef" id="jH9-oU-udH"/>
                         <outlet property="imgTrash" destination="p3R-oz-fOe" id="j0u-8k-ltO"/>
                         <outlet property="lbTrash" destination="2V7-Gu-ayp" id="4rY-SA-nEg"/>
                         <outlet property="table" destination="p5O-A2-KpC" id="oZ2-gm-Ydh"/>

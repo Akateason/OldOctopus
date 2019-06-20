@@ -20,7 +20,8 @@
 @property (nonatomic) CGFloat slideDistance;
 
 - (id)initWithTopViewController:(UIViewController *)topViewController
-           bottomViewController:(UIViewController *)bottomViewController;
+           bottomViewController:(UIViewController *)bottomViewController
+                  slideDistance:(CGFloat)distance ;
 
 ///This methods opens the drawer if it is closed and closes it if it is opened. (Animated)
 - (void)toggleDrawer;

@@ -58,8 +58,7 @@
     LeftDrawerVC *bottomVC = [LeftDrawerVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"LeftDrawerVC"];
     bottomVC.delegate = topVC ;
     topVC.leftVC = bottomVC ;
-    NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:navVC bottomViewController:bottomVC];
-    slidingController.slideDistance = self.movingDistance ;
+    NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:navVC bottomViewController:bottomVC slideDistance:self.movingDistance] ;
     return slidingController ;
 }
 
@@ -68,7 +67,8 @@
 - (void)reply {
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://shimo.im/forms/bvVAXVnavgjCjqm7/fill"]] ;
     // https://shimo.im/forms/bvVAXVnavgjCjqm7/fill 小章鱼移动端问题反馈
-    [self.navigationController presentViewController:safariVC animated:YES completion:nil] ;
+//    NSLog(@"aa %@",self.slidingController) ;
+    [self.slidingController presentViewController:safariVC animated:YES completion:nil] ;
 }
 
 #pragma mark - life
