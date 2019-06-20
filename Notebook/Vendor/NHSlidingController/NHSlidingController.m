@@ -31,8 +31,7 @@ static const CGFloat slidingSpeed = 1500.0;
 @implementation NHSlidingController
 
 - (id)initWithTopViewController:(UIViewController *)topViewController
-           bottomViewController:(UIViewController *)bottomViewController
-{
+           bottomViewController:(UIViewController *)bottomViewController {
     self = [super init];
     if (self) {
         self.topViewController = topViewController ;
@@ -52,7 +51,7 @@ static const CGFloat slidingSpeed = 1500.0;
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    [super didReceiveMemoryWarning] ;
 }
 
 #pragma mark - Setup Helpers
@@ -131,7 +130,7 @@ static const CGFloat slidingSpeed = 1500.0;
 
 #pragma mark - Custom Accessors
 
--(void)setDrawerOpened:(BOOL)drawerOpened {
+- (void)setDrawerOpened:(BOOL)drawerOpened {
     _drawerOpened = drawerOpened;
     
     if (drawerOpened) {
@@ -299,7 +298,6 @@ static const CGFloat slidingSpeed = 1500.0;
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
 
     NSLog(@"willTransitionToTraitCollection: current %@, new: %@", SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass), SIZECLASS_2_STR(newCollection.horizontalSizeClass));
-//    [self updateConstraintsForSizeClass:newCollection.horizontalSizeClass];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -326,6 +324,5 @@ static const CGFloat slidingSpeed = 1500.0;
             return @"UIUserInterfaceSizeClassUnspecified";
     }
 }
-
 
 @end

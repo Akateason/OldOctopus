@@ -17,9 +17,13 @@
 @implementation TestVC
 
 + (UIViewController *)getMe {
-    UIViewController *topVC = [HomeVC getMe] ;
+    NHSlidingController *topVC = [HomeVC getMe] ;
+    topVC.slideDistance = 100 ;
+    
     TestVC *bottomVC = [TestVC new] ;
+    
     NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:bottomVC bottomViewController:topVC] ;
+    slidingController.slideDistance = 300 ;
     return slidingController ;
 }
 
