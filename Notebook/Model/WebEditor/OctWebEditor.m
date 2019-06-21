@@ -89,10 +89,11 @@ XT_SINGLETON_M(OctWebEditor)
     
     UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goBack)] ;
     swipe.direction = UISwipeGestureRecognizerDirectionRight ;
-    swipe.delegate = self.navigationController ;
     [_webView addGestureRecognizer:swipe] ;
-    
+}
 
+- (void)goBack {
+    [self.xt_navigationController popViewControllerAnimated:YES] ;
 }
 
 - (void)leavePage {
@@ -302,9 +303,6 @@ static const float kOctEditorToolBarHeight = 41. ;
     }) ;
 }
 
-#pragma mark --
-#pragma mark - util
-
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
     NSLog(@"error: %@",error) ;
 }
@@ -314,15 +312,8 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
+#pragma mark --
+#pragma mark - util
 
 /**
  隐藏 webview 的 inputAccessoryView
