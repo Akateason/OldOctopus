@@ -231,7 +231,8 @@ static const float kOctEditorToolBarHeight = 41. ;
     NSString *js = XT_STR_FORMAT(@"WebViewBridgeCallback({\"method\":\"%@\"}, %@)",func,json) ;
     NSLog(@"js : %@",js) ;
     [_webView evaluateJavaScript:js completionHandler:^(id _Nullable val, NSError * _Nullable error) {
-        NSLog(@"%@ \nerr : %@", val, error) ;
+        NSLog(@"%@", val) ;
+        if (error) NSLog(@"%@", error) ;
         if (completion) completion(val, error) ;
     }] ;    
 }
@@ -283,12 +284,13 @@ static const float kOctEditorToolBarHeight = 41. ;
     }) ;
 }
 
-- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation {
-    
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
+    NSLog(@"error: %@",error) ;
 }
 
-
-
+- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
+    NSLog(@"error: %@",error) ;
+}
 
 
 
