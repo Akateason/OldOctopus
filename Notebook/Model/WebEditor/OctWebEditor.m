@@ -92,6 +92,7 @@ XT_SINGLETON_M(OctWebEditor)
 }
 
 - (void)leavePage {
+    [self hideKeyboard] ;
     self.articleAreTheSame = NO ;
     self.webViewHasSetMarkdown = NO ;
     self.aNote = nil ;
