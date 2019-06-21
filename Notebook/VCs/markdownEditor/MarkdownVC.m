@@ -108,6 +108,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
     
+    [self.editor leavePage] ;
     if (!self.editor.webViewHasSetMarkdown) return ;
     if (self.editor.articleAreTheSame) return ;
     
@@ -118,8 +119,10 @@
     else {
         // Create New Note
         [self createNewNote] ;
-    }
+    }        
 }
+
+
 
 #pragma mark - Func
 
@@ -330,7 +333,7 @@
 
 - (OctWebEditor *)editor {
     if (!_editor) {
-        _editor = [[OctWebEditor alloc] init] ;
+        _editor = [OctWebEditor sharedInstance] ;
         [self.view insertSubview:_editor atIndex:0] ;
         [_editor mas_makeConstraints:^(MASConstraintMaker *make) {
             if (@available(iOS 11.0, *)) {

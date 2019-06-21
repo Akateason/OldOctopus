@@ -185,7 +185,6 @@
 		8FEBC28522A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBC28422A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.m */; };
 		8FEBC28822A68BEB004EB0F5 /* OctWebEditor+InlineBoardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBC28722A68BEB004EB0F5 /* OctWebEditor+InlineBoardUtil.m */; };
 		8FEBC28B22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBC28A22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m */; };
-		8FEBC28E22A6DED0004EB0F5 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBC28D22A6DED0004EB0F5 /* TestVC.m */; };
 		8FFAE089229BD22500CDAC47 /* md_l_math@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */; };
 		8FFAE0E2229CDAF400CDAC47 /* asm-mips.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE08D229CDAF400CDAC47 /* asm-mips.plist */; };
 		8FFAE0E3229CDAF400CDAC47 /* metaslang.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE08E229CDAF400CDAC47 /* metaslang.plist */; };
@@ -560,8 +559,6 @@
 		8FEBC28722A68BEB004EB0F5 /* OctWebEditor+InlineBoardUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OctWebEditor+InlineBoardUtil.m"; sourceTree = "<group>"; };
 		8FEBC28922A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OctWebEditor+BlockBoardUtil.h"; sourceTree = "<group>"; };
 		8FEBC28A22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OctWebEditor+BlockBoardUtil.m"; sourceTree = "<group>"; };
-		8FEBC28C22A6DED0004EB0F5 /* TestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVC.h; sourceTree = "<group>"; };
-		8FEBC28D22A6DED0004EB0F5 /* TestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVC.m; sourceTree = "<group>"; };
 		8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_l_math@2x.png"; sourceTree = "<group>"; };
 		8FFAE08D229CDAF400CDAC47 /* asm-mips.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "asm-mips.plist"; sourceTree = "<group>"; };
 		8FFAE08E229CDAF400CDAC47 /* metaslang.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = metaslang.plist; sourceTree = "<group>"; };
@@ -1232,8 +1229,6 @@
 		8FE5A3D5224B6C6800947D14 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				8FEBC28C22A6DED0004EB0F5 /* TestVC.h */,
-				8FEBC28D22A6DED0004EB0F5 /* TestVC.m */,
 				8F18B24222BB90130073552A /* HomePadVC.h */,
 				8F18B24322BB90130073552A /* HomePadVC.m */,
 				8FE5A3D7224B6CE800947D14 /* HomeVC.h */,
@@ -1849,7 +1844,6 @@
 				8F05C57C22754CD40047CC04 /* XTMarkdownParser+Regular.m in Sources */,
 				8F0C15DC2296833200E8837D /* GuidingICloud.m in Sources */,
 				8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */,
-				8FEBC28E22A6DED0004EB0F5 /* TestVC.m in Sources */,
 				8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */,
 				8F08FB6322A8C328008AB6A6 /* WebModel.m in Sources */,
 				8F1A7B102277148C00A69EAD /* MDCodeBlockEditor.m in Sources */,
