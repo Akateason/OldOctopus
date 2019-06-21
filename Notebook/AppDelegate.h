@@ -16,3 +16,4 @@ static const int g_isLoadWebViewOnline = 0 ;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) LaunchingEvents *launchingEvents ;
 @end
+
