@@ -23,6 +23,7 @@
 #import "MDNavVC.h"
 #import "WebPhotoHandler.h"
 #import <SSZipArchive/SSZipArchive.h>
+#import "HomePadVC.h"
 
 #import "TestVC.h"
 
@@ -202,10 +203,11 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         [self pullAll] ;
     }
     else {
-//        self.appDelegate.window.rootViewController = [TestVC getMe];
-//        [self.appDelegate.window makeKeyAndVisible];
-        self.appDelegate.window.rootViewController = [HomeVC getMe] ;
-        [self.appDelegate.window makeKeyAndVisible] ;
+        self.appDelegate.window.rootViewController = [HomePadVC new] ;
+        //[TestVC getMe];
+        [self.appDelegate.window makeKeyAndVisible];
+//        self.appDelegate.window.rootViewController = [HomeVC getMe] ;
+//        [self.appDelegate.window makeKeyAndVisible] ;
         
         [self icloudSync:nil] ;
     }

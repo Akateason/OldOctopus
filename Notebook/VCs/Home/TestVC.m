@@ -7,7 +7,10 @@
 //
 
 #import "TestVC.h"
+
 #import "HomeVC.h"
+#import "LeftDrawerVC.h"
+#import "MDNavVC.h"
 #import "NHSlidingController.h"
 
 @interface TestVC ()
@@ -17,13 +20,22 @@
 @implementation TestVC
 
 + (UIViewController *)getMe {
-    NHSlidingController *topVC = [HomeVC getMe] ;
-//    topVC.view.width = 400 ;
+//    HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
+//    MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:homeVC] ;
+//
+//    LeftDrawerVC *leftVC = [LeftDrawerVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"LeftDrawerVC"] ;
+//    leftVC.delegate = homeVC ;
+//    homeVC.leftVC = leftVC ;
+//
+////    NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:navVC bottomViewController:leftVC slideDistance:HomeVC.movingDistance] ;
+//
+//    TestVC *testVC = [TestVC new] ;
+//
+//    NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:testVC bottomViewController:navVC slideDistance:400] ;
+//    NHSlidingController *slideVC = [[NHSlidingController alloc] initWithTopViewController:slidingController bottomViewController:leftVC slideDistance:600] ;
+//    return slideVC ;
     
-    TestVC *bottomVC = [TestVC new] ;
-    
-    NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:bottomVC bottomViewController:topVC slideDistance:400] ;
-    return slidingController ;
+    return nil ;
 }
 
 
