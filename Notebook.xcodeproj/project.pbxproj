@@ -166,6 +166,7 @@
 		8FC431222265B9FA0002C9A1 /* home_bar_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC431212265B9FA0002C9A1 /* home_bar_add@2x.png */; };
 		8FC431272265CCAF0002C9A1 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC431262265CCAF0002C9A1 /* SearchVC.m */; };
 		8FC9DB8622BC8355003A78D9 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8FC9DB8522BC8355003A78D9 /* web.zip */; };
+		8FC9DB8922BCB04D003A78D9 /* GlobalDisplaySt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC9DB8822BCB04D003A78D9 /* GlobalDisplaySt.m */; };
 		8FE5A3D9224B6CE800947D14 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A3D8224B6CE800947D14 /* HomeVC.m */; };
 		8FE5A3DB224B6E4000947D14 /* md_tb_bt_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE5A3DA224B6E3F00947D14 /* md_tb_bt_photo@2x.png */; };
 		8FE5A3E1224B82E600947D14 /* bt_home_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE5A3E0224B82E500947D14 /* bt_home_add@2x.png */; };
@@ -531,6 +532,8 @@
 		8FC431252265CCAF0002C9A1 /* SearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
 		8FC431262265CCAF0002C9A1 /* SearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
 		8FC9DB8522BC8355003A78D9 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
+		8FC9DB8722BCB04D003A78D9 /* GlobalDisplaySt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalDisplaySt.h; sourceTree = "<group>"; };
+		8FC9DB8822BCB04D003A78D9 /* GlobalDisplaySt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalDisplaySt.m; sourceTree = "<group>"; };
 		8FE5A3D7224B6CE800947D14 /* HomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVC.h; sourceTree = "<group>"; };
 		8FE5A3D8224B6CE800947D14 /* HomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeVC.m; sourceTree = "<group>"; };
 		8FE5A3DA224B6E3F00947D14 /* md_tb_bt_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_photo@2x.png"; sourceTree = "<group>"; };
@@ -1025,6 +1028,8 @@
 				8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */,
 				8F708279226DC4ED000ED214 /* HiddenUtil.h */,
 				8F70827A226DC4ED000ED214 /* HiddenUtil.m */,
+				8FC9DB8722BCB04D003A78D9 /* GlobalDisplaySt.h */,
+				8FC9DB8822BCB04D003A78D9 /* GlobalDisplaySt.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1881,6 +1886,7 @@
 				8F1357E22292950E00F5F874 /* OctToolbar.m in Sources */,
 				8F12DA8F226D9F3600265563 /* HomeSearchCell.m in Sources */,
 				8F18B24122BB78E30073552A /* XTTripleSlidingCtrller.m in Sources */,
+				8FC9DB8922BCB04D003A78D9 /* GlobalDisplaySt.m in Sources */,
 				8FBA041E228A98B200EED229 /* HrView.m in Sources */,
 				8F173DCE22A4D02900FA4D8D /* UIViewController+SlidingController.m in Sources */,
 				8F41EEC7225B3B7500D9CD35 /* SWRevealTableViewCell.m in Sources */,

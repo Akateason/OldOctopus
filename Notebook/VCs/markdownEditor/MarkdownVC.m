@@ -18,6 +18,8 @@
 #import "OctWebEditor+OctToolbarUtil.h"
 #import <WebKit/WebKit.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import "GlobalDisplaySt.h"
+
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -36,7 +38,6 @@
 @property (strong, nonatomic) OutputPreviewsNailView *nail ;
 @property (nonatomic)         float             snapDuration ;
 
-@property (nonatomic)         BOOL              webSnapshotChecker ;
 @property (strong, nonatomic) UIActivityIndicatorView *activityView ;
 @end
 
@@ -119,7 +120,7 @@
     else {
         // Create New Note
         [self createNewNote] ;
-    }        
+    }
 }
 
 
@@ -204,11 +205,12 @@
 }
 
 - (IBAction)moreAction:(id)sender {
+    if (!self.canBeEdited) return ;
+    
     [self.editor nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(NSString *val, NSError *error) {
     }] ;
 
     [self infoVC] ;
-    
     self.infoVC.aNote = self.aNote ;
     self.infoVC.webInfo = self.editor.webInfo ;
     WEAK_SELF
@@ -255,11 +257,7 @@
     [self.view addSubview:_webView] ;
     [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
     
-    
-    self.webSnapshotChecker = YES ;
     [_webView loadFileURL:url allowingReadAccessToURL:url] ;
-//    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:8887/mycode/pic.html"] ;
-//    [_webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
@@ -268,24 +266,15 @@
     NSDictionary *ret = [WebModel convertjsonStringToJsonObj:body] ;
     NSString *func = ret[@"method"] ;
     NSDictionary *jsonDic = ret[@"params"] ;
-//    NSString *json = [jsonDic yy_modelToJSONString] ;
     NSLog(@"WebViewBridge func : %@\njson : %@",func,jsonDic) ;
     
-    if ([func isEqualToString:@"readySnapshot"]) {
-        if (self.webSnapshotChecker == NO) return ;
-        
-        self.webSnapshotChecker = NO ;
-
-    }
-    else if ([func isEqualToString:@"snapshotHeight"]) {
+    if ([func isEqualToString:@"snapshotHeight"]) {
         float textHeight = [ret[@"params"] floatValue] ;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.snapDuration = .2 + (float)textHeight / (float)APP_HEIGHT * .2 ;
             self.webView.height = textHeight ;
-        
             
-//            self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
             self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight) ;
             [self.view setNeedsLayout] ;
             [self.view layoutIfNeeded] ;
@@ -318,7 +307,6 @@
                 imageView = nil ;
                 
                 self.editor.hidden = NO ;
-//                [SVProgressHUD dismiss] ;
                 [self.activityView stopAnimating] ;
                 
                 if (!image) return ;
