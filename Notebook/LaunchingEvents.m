@@ -227,11 +227,12 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         [self pullAll] ;
     }
     else {
-//        self.appDelegate.window.rootViewController = [HomePadVC new] ;
-//        [self.appDelegate.window makeKeyAndVisible];
+//        self.appDelegate.window.rootViewController = [HomePadVC getMe] ;
+//        [self.appDelegate.window makeKeyAndVisible] ;
         
         self.appDelegate.window.rootViewController = [HomeVC getMe] ;
-//        [self.appDelegate.window makeKeyAndVisible] ;
+        [self.appDelegate.window makeKeyAndVisible] ;
+        
         [self icloudSync:nil] ;
     }
 }

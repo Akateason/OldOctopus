@@ -39,6 +39,7 @@
 @property (nonatomic)         float             snapDuration ;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityView ;
+@property (strong, nonatomic) UIView *touchingView ;
 @end
 
 @implementation MarkdownVC
@@ -60,11 +61,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    
     if (self.aNote) {
         self.editor.aNote = self.aNote ;
     }
-
+    
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -93,7 +93,6 @@
          self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
          [self.editor changeTheme] ;
      }] ;
-    
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -157,7 +156,6 @@
         [Note updateMyNote:self.aNote] ;
         [self.delegate editNoteComplete:self.aNote] ;
     }] ;
-    
 }
 
 #pragma mark - UI
@@ -189,6 +187,14 @@
     [self.topBar oct_addBlurBg] ;
     
     [self registGesture] ;
+    
+    
+    [self.view addSubview:self.touchingView] ;
+    [self.touchingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view) ;
+    }] ;
+    [self.view bringSubviewToFront:self.touchingView] ;
+    self.touchingView.hidden = YES ;
 }
 
 - (void)registGesture {
@@ -347,6 +353,24 @@
 
 - (UIViewController *)fromCtrller {
     return self ;
+}
+
+- (UIView *)touchingView {
+    if (!_touchingView) {
+        _touchingView = [UIView new] ;
+        _touchingView.backgroundColor = [UIColor xt_sugarRed] ;
+    }
+    return _touchingView ;
+}
+
+- (void)setCanBeEdited:(BOOL)canBeEdited {
+    _canBeEdited = canBeEdited ;
+    
+    [OctWebEditor sharedInstance].userInteractionEnabled = canBeEdited ;
+    self.touchingView.hidden = canBeEdited ;
+    if (!canBeEdited) {
+        [self.view bringSubviewToFront:self.touchingView] ;
+    }
 }
 
 @end

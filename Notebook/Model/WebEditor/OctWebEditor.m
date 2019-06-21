@@ -108,6 +108,7 @@ XT_SINGLETON_M(OctWebEditor)
     _webView.navigationDelegate = (id <WKNavigationDelegate>)self ;
     _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
     _webView.opaque = NO ;
+    _webView.allowsBackForwardNavigationGestures = YES ;
     [self addSubview:_webView] ;
     [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self) ;

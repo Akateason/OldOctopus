@@ -9,6 +9,8 @@
 #import "HomePadVC.h"
 #import "HomeVC.h"
 #import "MarkdownVC.h"
+#import "LeftDrawerVC.h"
+#import "NHSlidingController.h"
 
 @interface HomePadVC ()
 @property (strong, nonatomic) UIView        *leftContainer ;
@@ -19,12 +21,31 @@
 
 @implementation HomePadVC
 
++ (UIViewController *)getMe {
+    HomePadVC *hPadVC = [HomePadVC new] ;
+    LeftDrawerVC *leftVC = [LeftDrawerVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"LeftDrawerVC"];
+    leftVC.delegate = hPadVC.homeVC ;
+    hPadVC.homeVC.leftVC = leftVC ;
+    NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:hPadVC bottomViewController:leftVC slideDistance:HomeVC.movingDistance] ;
+    return slidingController ;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
+        _editorVC = [MarkdownVC newWithNote:[Note new] bookID:@"1" fromCtrller:_homeVC] ;
+        _editorVC.view.backgroundColor = [UIColor xt_skyBlue] ;
+        _editorVC.canBeEdited = NO ;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    _homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
-    _editorVC = [MarkdownVC newWithNote:[Note new] bookID:@"1" fromCtrller:_homeVC] ;
-    //[MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarddownVC"] ;
+//[MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarddownVC"] ;
 //    _editorVC.aNote = [Note new] ;
 //    _editorVC.delegate = _homeVC ;
 //    _editorVC.myBookID = @"0" ;
@@ -49,7 +70,6 @@
     [_leftContainer addSubview:_homeVC.view] ;
     _editorVC.view.frame = _rightContainer.bounds ;
     [_rightContainer addSubview:_editorVC.view] ;
-    
     
 }
 

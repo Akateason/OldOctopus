@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomePadVC : BasicVC
 
++ (UIViewController *)getMe ;
+
 @end
 
 NS_ASSUME_NONNULL_END
