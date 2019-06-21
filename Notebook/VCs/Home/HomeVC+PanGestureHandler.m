@@ -30,7 +30,9 @@
                 if (btnIndex == 1) {
                     
                     [Note deleteThisNoteFromICloud:aNote complete:^(bool success) {
-                        [self.table xt_loadNewInfoInBackGround:YES] ;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.table xt_loadNewInfoInBackGround:YES] ;
+                        }) ;
                     }] ;
                     
                 }
@@ -58,7 +60,9 @@
                     [book xt_update] ;
                     [NoteBooks updateMyBook:book] ;
                     
-                    [self.table xt_loadNewInfoInBackGround:YES] ;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.table xt_loadNewInfoInBackGround:YES] ;
+                    }) ;
                 }
             }] ;
             
@@ -80,7 +84,10 @@
                 if (btnIndex == 1) {
                     aNote.isDeleted = YES ;
                     [Note updateMyNote:aNote] ;
-                    [self.table xt_loadNewInfoInBackGround:YES] ;
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.table xt_loadNewInfoInBackGround:YES] ;
+                    }) ;
                 }
             }] ;
             return YES ;

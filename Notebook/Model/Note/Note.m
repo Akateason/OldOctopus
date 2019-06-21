@@ -138,7 +138,7 @@
             [XTCloudHandler.sharedInstance saveList:nil deleteList:@[record.recordID] complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
                 
                 if (!error) {
-                    [delNote xt_deleteModel] ;
+                    [delNote xt_deleteModel] ;                    
                     completion(YES) ;
                 }
                 else {
