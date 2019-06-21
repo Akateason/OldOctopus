@@ -189,12 +189,12 @@
     [self registGesture] ;
     
     
-    [self.view addSubview:self.touchingView] ;
-    [self.touchingView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view) ;
-    }] ;
-    [self.view bringSubviewToFront:self.touchingView] ;
-    self.touchingView.hidden = YES ;
+//    [self.view addSubview:self.touchingView] ;
+//    [self.touchingView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view) ;
+//    }] ;
+//    [self.view bringSubviewToFront:self.touchingView] ;
+//    self.touchingView.hidden = YES ;
 }
 
 - (void)registGesture {
@@ -367,10 +367,10 @@
     _canBeEdited = canBeEdited ;
     
     [OctWebEditor sharedInstance].userInteractionEnabled = canBeEdited ;
-    self.touchingView.hidden = canBeEdited ;
-    if (!canBeEdited) {
-        [self.view bringSubviewToFront:self.touchingView] ;
-    }
+//    self.touchingView.hidden = canBeEdited ;
+//    if (!canBeEdited) {
+//        [self.view bringSubviewToFront:self.touchingView] ;
+//    }
 }
 
 @end

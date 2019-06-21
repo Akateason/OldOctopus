@@ -151,7 +151,7 @@ static const CGFloat slidingSpeed = 1500.0;
 
 #pragma mark - Animation Trigger Methods
 
--(void)setTopViewController:(UIViewController *)topViewController animated:(BOOL)animated {
+- (void)setTopViewController:(UIViewController *)topViewController animated:(BOOL)animated {
     if (!self.drawerOpened) {
         [self toggleDrawer];
     }
@@ -174,9 +174,9 @@ static const CGFloat slidingSpeed = 1500.0;
 - (void)setDrawerOpened:(BOOL)opened animated:(BOOL)animated {
     self.drawerOpened = opened ;
     
-    CGFloat duration = self.slideDistance / slidingSpeed;
+    CGFloat duration = self.slideDistance / slidingSpeed ;
+    
 //    if (opened) [self.bottomViewController viewWillAppear:YES];
-//
 //    [UIView animateWithDuration:duration animations:^{
 //        self.topViewContainer.left = opened ? self.slideDistance : 0 ;
 //        self.topViewContainer.width = opened ? self.m_containerSize.width - self.slideDistance : self.m_containerSize.width ;

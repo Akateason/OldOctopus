@@ -68,11 +68,8 @@ XT_SINGLETON_M(OctWebEditor)
         self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
         float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
         
-        
         [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {
         }] ;
-        
-        
     }] ;
     
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
@@ -89,6 +86,13 @@ XT_SINGLETON_M(OctWebEditor)
         UIImage *image = [UIImage imageWithData:imageData] ;
         [self uploadWebPhoto:photo image:image] ;
     }] ;
+    
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goBack)] ;
+    swipe.direction = UISwipeGestureRecognizerDirectionRight ;
+    swipe.delegate = self.navigationController ;
+    [_webView addGestureRecognizer:swipe] ;
+    
+
 }
 
 - (void)leavePage {
@@ -105,10 +109,10 @@ XT_SINGLETON_M(OctWebEditor)
     _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:config] ;
 
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
+    _webView.allowsBackForwardNavigationGestures = YES ;
     _webView.navigationDelegate = (id <WKNavigationDelegate>)self ;
     _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
     _webView.opaque = NO ;
-    _webView.allowsBackForwardNavigationGestures = YES ;
     [self addSubview:_webView] ;
     [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self) ;
