@@ -10,9 +10,12 @@
 #import "WebModel.h"
 #import "Note.h"
 #import <WebKit/WebKit.h>
+#import <XTlib/XTlib.h>
 
-static NSString *const kNote_Editor_CHANGE = @"kNote_Editor_CHANGE" ;
-static NSString *const kNote_Editor_Make_Big_Photo = @"kNote_Editor_Make_Big_Photo" ;
+static NSString *const kNote_Editor_CHANGE          = @"kNote_Editor_CHANGE" ;
+static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Photo" ;
+
+
 
 @interface OctWebEditor : UIView {
     CGFloat keyboardHeight ;
@@ -43,7 +46,12 @@ static NSString *const kNote_Editor_Make_Big_Photo = @"kNote_Editor_Make_Big_Pho
 - (void)changeTheme ;
 - (void)renderNote ;
 
+// initial
+- (void)setup ;
+// close
+- (void)leavePage ;
 
+XT_SINGLETON_H(OctWebEditor)
 
 @end
 

@@ -12,6 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 extern NSString *const kNotificationSyncCompleteAllPageRefresh ;
 extern NSString *const kFirstTimeLaunch ;
 extern NSString *const kNotificationImportFileIn ;
@@ -20,7 +21,7 @@ extern NSString *const kNotificationImportFileIn ;
 
 
 
-@interface LaunchingEvents : NSObject
+@interface LaunchingEvents : NSObject 
 @property (strong, nonatomic) AppDelegate *appDelegate ;
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate ;
 - (void)icloudSync:(void(^)(void))completeBlk ;

@@ -14,6 +14,7 @@
 @end
 
 @interface MarkdownVC : BasicVC
+@property (nonatomic)       BOOL                    canBeEdited ;
 @property (weak, nonatomic) id <MarkdownVCDelegate> delegate ;
 
 + (instancetype)newWithNote:(Note *)note

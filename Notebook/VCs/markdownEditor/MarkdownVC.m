@@ -18,6 +18,8 @@
 #import "OctWebEditor+OctToolbarUtil.h"
 #import <WebKit/WebKit.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import "GlobalDisplaySt.h"
+
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -36,8 +38,8 @@
 @property (strong, nonatomic) OutputPreviewsNailView *nail ;
 @property (nonatomic)         float             snapDuration ;
 
-@property (nonatomic)         BOOL              webSnapshotChecker ;
 @property (strong, nonatomic) UIActivityIndicatorView *activityView ;
+@property (strong, nonatomic) UIView *touchingView ;
 @end
 
 @implementation MarkdownVC
@@ -59,11 +61,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    
     if (self.aNote) {
         self.editor.aNote = self.aNote ;
     }
-
+    
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -93,7 +94,6 @@
          [self.editor changeTheme] ;
      }] ;
     
-    
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         NSString *json = x.object ;
@@ -108,6 +108,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
     
+    [self.editor leavePage] ;
     if (!self.editor.webViewHasSetMarkdown) return ;
     if (self.editor.articleAreTheSame) return ;
     
@@ -120,6 +121,8 @@
         [self createNewNote] ;
     }
 }
+
+
 
 #pragma mark - Func
 
@@ -153,7 +156,6 @@
         [Note updateMyNote:self.aNote] ;
         [self.delegate editNoteComplete:self.aNote] ;
     }] ;
-    
 }
 
 #pragma mark - UI
@@ -185,6 +187,14 @@
     [self.topBar oct_addBlurBg] ;
     
     [self registGesture] ;
+    
+    
+//    [self.view addSubview:self.touchingView] ;
+//    [self.touchingView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view) ;
+//    }] ;
+//    [self.view bringSubviewToFront:self.touchingView] ;
+//    self.touchingView.hidden = YES ;
 }
 
 - (void)registGesture {
@@ -201,11 +211,12 @@
 }
 
 - (IBAction)moreAction:(id)sender {
+    if (!self.canBeEdited) return ;
+    
     [self.editor nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(NSString *val, NSError *error) {
     }] ;
 
     [self infoVC] ;
-    
     self.infoVC.aNote = self.aNote ;
     self.infoVC.webInfo = self.editor.webInfo ;
     WEAK_SELF
@@ -252,11 +263,7 @@
     [self.view addSubview:_webView] ;
     [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
     
-    
-    self.webSnapshotChecker = YES ;
     [_webView loadFileURL:url allowingReadAccessToURL:url] ;
-//    NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:8887/mycode/pic.html"] ;
-//    [_webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
@@ -265,24 +272,15 @@
     NSDictionary *ret = [WebModel convertjsonStringToJsonObj:body] ;
     NSString *func = ret[@"method"] ;
     NSDictionary *jsonDic = ret[@"params"] ;
-//    NSString *json = [jsonDic yy_modelToJSONString] ;
     NSLog(@"WebViewBridge func : %@\njson : %@",func,jsonDic) ;
     
-    if ([func isEqualToString:@"readySnapshot"]) {
-        if (self.webSnapshotChecker == NO) return ;
-        
-        self.webSnapshotChecker = NO ;
-
-    }
-    else if ([func isEqualToString:@"snapshotHeight"]) {
+    if ([func isEqualToString:@"snapshotHeight"]) {
         float textHeight = [ret[@"params"] floatValue] ;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.snapDuration = .2 + (float)textHeight / (float)APP_HEIGHT * .2 ;
             self.webView.height = textHeight ;
-        
             
-//            self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
             self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight) ;
             [self.view setNeedsLayout] ;
             [self.view layoutIfNeeded] ;
@@ -315,7 +313,6 @@
                 imageView = nil ;
                 
                 self.editor.hidden = NO ;
-//                [SVProgressHUD dismiss] ;
                 [self.activityView stopAnimating] ;
                 
                 if (!image) return ;
@@ -330,7 +327,7 @@
 
 - (OctWebEditor *)editor {
     if (!_editor) {
-        _editor = [[OctWebEditor alloc] init] ;
+        _editor = [OctWebEditor sharedInstance] ;
         [self.view insertSubview:_editor atIndex:0] ;
         [_editor mas_makeConstraints:^(MASConstraintMaker *make) {
             if (@available(iOS 11.0, *)) {
@@ -356,6 +353,24 @@
 
 - (UIViewController *)fromCtrller {
     return self ;
+}
+
+- (UIView *)touchingView {
+    if (!_touchingView) {
+        _touchingView = [UIView new] ;
+        _touchingView.backgroundColor = [UIColor xt_sugarRed] ;
+    }
+    return _touchingView ;
+}
+
+- (void)setCanBeEdited:(BOOL)canBeEdited {
+    _canBeEdited = canBeEdited ;
+    
+    [OctWebEditor sharedInstance].userInteractionEnabled = canBeEdited ;
+//    self.touchingView.hidden = canBeEdited ;
+//    if (!canBeEdited) {
+//        [self.view bringSubviewToFront:self.touchingView] ;
+//    }
 }
 
 @end

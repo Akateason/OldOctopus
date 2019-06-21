@@ -22,9 +22,13 @@
 #import "HomeVC.h"
 #import "MDNavVC.h"
 #import "WebPhotoHandler.h"
+#import "HomePadVC.h"
+#import "OctWebEditor.h"
 #import <SSZipArchive/SSZipArchive.h>
 
-#import "TestVC.h"
+
+
+
 
 NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
 
@@ -34,11 +38,11 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate {
     //    if (!DEBUG)
-        [Bugly startWithAppId:@"8abe605307"] ;
+    [Bugly startWithAppId:@"8abe605307"] ;
 
     self.appDelegate = appDelegate ;
     [[MDThemeConfiguration sharedInstance] setup] ;
-    [self setupWebZipPackage] ;
+    [self setupWebZipPackageAndSetupWebView] ;
     [self setupRemoteNotification:application] ;
     [self setupDB] ;
     [self setupNaviStyle] ;
@@ -46,12 +50,18 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupLoadingHomePage] ;
     [self setupIcloudEvent] ;
     [self uploadAllLocalDataIfNotUploaded] ;
+    [self setupHudStyle] ;
     
-    [SVProgressHUD setDefaultStyle:(SVProgressHUDStyleDark)];
 }
 
+
+
+/**
+ 1. setupWebZipPackage
+ 2. setupWebView
+ */
 static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation" ;
-- (void)setupWebZipPackage {
+- (void)setupWebZipPackageAndSetupWebView {
     NSString *pathIndex = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
     
     NSString *currentVersion = [CommonFunc getVersionStrOfMyAPP] ;
@@ -61,9 +71,23 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation" ;
     if (![XTFileManager isFileExist:pathIndex] || !isNotNewVersion) {
         NSString *zipPath = [[NSBundle mainBundle] pathForResource:@"web" ofType:@"zip"] ;
         NSString *unzipPath = [XTArchive getDocumentsPath] ;
-        [SSZipArchive unzipFileAtPath:zipPath toDestination:unzipPath];
+        [SSZipArchive unzipFileAtPath:zipPath toDestination:unzipPath delegate:(id <SSZipArchiveDelegate>)self];
         XT_USERDEFAULT_SET_VAL(currentVersion, kMark_UNZip_Operation) ;
     }
+    else {
+        [self setupWebView] ;
+    }
+}
+
+/**
+ SSZipArchiveDelegate
+ */
+- (void)zipArchiveDidUnzipArchiveAtPath:(NSString *)path zipInfo:(unz_global_info)zipInfo unzippedPath:(NSString *)unzippedPath {
+    [self setupWebView] ;
+}
+
+- (void)setupWebView {
+    [[OctWebEditor sharedInstance] setup] ;
 }
 
 
@@ -100,6 +124,7 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation" ;
  
  }
  */
+
 - (void)setupRemoteNotification:(UIApplication *)application {
     // 官方文档(无视警告)
     //    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
@@ -202,8 +227,9 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         [self pullAll] ;
     }
     else {
-//        self.appDelegate.window.rootViewController = [TestVC getMe];
-//        [self.appDelegate.window makeKeyAndVisible];
+//        self.appDelegate.window.rootViewController = [HomePadVC getMe] ;
+//        [self.appDelegate.window makeKeyAndVisible] ;
+        
         self.appDelegate.window.rootViewController = [HomeVC getMe] ;
         [self.appDelegate.window makeKeyAndVisible] ;
         
@@ -351,5 +377,8 @@ NSString *const kNotificationImportFileIn = @"kNotificationImportFileIn" ;
     return YES;
 }
 
+- (void)setupHudStyle {
+    [SVProgressHUD setDefaultStyle:(SVProgressHUDStyleDark)];
+}
 
 @end

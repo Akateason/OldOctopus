@@ -7,7 +7,6 @@
 //
 
 #import "OctWebEditor.h"
-#import <XTlib/XTlib.h>
 #import "OctToolbar.h"
 #import <BlocksKit+UIKit.h>
 #import "MDThemeConfiguration.h"
@@ -27,69 +26,81 @@
 
 @implementation OctWebEditor
 
-- (instancetype)init {
-    self = [super init] ;
-    if (self) {
-        self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
-        
-        [self createWebView] ;
-        [self setupHTMLEditor] ;
+XT_SINGLETON_M(OctWebEditor)
 
-        _disabledActions = @[
-                              [@[@"_", @"lo", @"oku", @"p", @":"] componentsJoinedByString:@""], // _lookup: 查询按钮
-                              [@[@"_", @"s", @"har", @"e", @":"] componentsJoinedByString:@""], // _share:分享按钮
-                              [@[@"_", @"d", @"e", @"fine", @":"] componentsJoinedByString:@""], // _define:Define
-                              [@[@"_", @"ad", @"dS", @"hor", @"tcu", @"t:"] componentsJoinedByString:@""], // _addShortcut:学习...
-                              [@[@"_", @"tr", @"ans", @"lit", @"era", @"te", @"Ch", @"ine", @"se", @":"] componentsJoinedByString:@""], // _transliterateChinese:简<=>繁
-                              [@[@"_", @"re", @"ana", @"ly", @"ze", @":"] componentsJoinedByString:@""] // _reanalyze:分享按钮
-                              ] ;
+#pragma mark --
+#pragma mark - life
+- (void)setup {
+    self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    
+    [self createWebView] ;
+    [self setupHTMLEditor] ;
+    
+    _disabledActions = @[
+                         [@[@"_", @"lo", @"oku", @"p", @":"] componentsJoinedByString:@""], // _lookup: 查询按钮
+                         [@[@"_", @"s", @"har", @"e", @":"] componentsJoinedByString:@""], // _share:分享按钮
+                         [@[@"_", @"d", @"e", @"fine", @":"] componentsJoinedByString:@""], // _define:Define
+                         [@[@"_", @"ad", @"dS", @"hor", @"tcu", @"t:"] componentsJoinedByString:@""], // _addShortcut:学习...
+                         [@[@"_", @"tr", @"ans", @"lit", @"era", @"te", @"Ch", @"ine", @"se", @":"] componentsJoinedByString:@""], // _transliterateChinese:简<=>繁
+                         [@[@"_", @"re", @"ana", @"ly", @"ze", @":"] componentsJoinedByString:@""] // _reanalyze:分享按钮
+                         ] ;
+    
+    // keyboard showing
+    @weakify(self)
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
+        @strongify(self)
+        NSDictionary *info = [x userInfo] ;
+        //            CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+        CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        // 工具条的Y值 == 键盘的Y值 - 工具条的高度
+        if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
+            self.toolBar.top = self.height - kOctEditorToolBarHeight;
+        }
+        else {
+            self.toolBar.top = endKeyboardRect.origin.y - kOctEditorToolBarHeight;
+        }
         
-        // keyboard showing
-        @weakify(self)
-        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
-            @strongify(self)
-            NSDictionary *info = [x userInfo] ;
-//            CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-            CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-            // 工具条的Y值 == 键盘的Y值 - 工具条的高度
-            if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
-                self.toolBar.top = self.height - kOctEditorToolBarHeight;
-            }
-            else {
-                self.toolBar.top = endKeyboardRect.origin.y - kOctEditorToolBarHeight;
-            }
-            
-            self.toolBar.width = APP_WIDTH ;
-            if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
-            self.toolBar.hidden = NO ;
-            
-            // get keyboard height
-            self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
-            float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
-            
-            
-            [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {
-            }] ;
+        self.toolBar.width = APP_WIDTH ;
+        if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
+        self.toolBar.hidden = NO ;
         
-            
+        // get keyboard height
+        self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
+        float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
+        
+        [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {
         }] ;
+    }] ;
+    
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
+        @strongify(self)
+        self.toolBar.hidden = YES ;
+    }] ;
+    
+    [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {
+        @strongify(self)
+        WebPhoto *photo = [WebPhoto xt_findWhere:XT_STR_FORMAT(@"fromNoteClientID == '%@'",self.aNote.icRecordName)].firstObject ;
+        if (!photo) return ;
         
-        [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
-            @strongify(self)
-            self.toolBar.hidden = YES ;
-        }] ;
-        
-        [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {
-            @strongify(self)
-            WebPhoto *photo = [WebPhoto xt_findWhere:XT_STR_FORMAT(@"fromNoteClientID == '%@'",self.aNote.icRecordName)].firstObject ;
-            if (!photo) return ;
-            
-            NSData *imageData = [NSData dataWithContentsOfFile:photo.localPath] ;
-            UIImage *image = [UIImage imageWithData:imageData] ;
-            [self uploadWebPhoto:photo image:image] ;
-        }] ;
-    }
-    return self;
+        NSData *imageData = [NSData dataWithContentsOfFile:photo.localPath] ;
+        UIImage *image = [UIImage imageWithData:imageData] ;
+        [self uploadWebPhoto:photo image:image] ;
+    }] ;
+    
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goBack)] ;
+    swipe.direction = UISwipeGestureRecognizerDirectionRight ;
+    [_webView addGestureRecognizer:swipe] ;
+}
+
+- (void)goBack {
+    [self.xt_navigationController popViewControllerAnimated:YES] ;
+}
+
+- (void)leavePage {
+    [self hideKeyboard] ;
+    self.articleAreTheSame = NO ;
+    self.webViewHasSetMarkdown = NO ;
+    self.aNote = nil ;
 }
 
 - (void)createWebView {
@@ -99,6 +110,7 @@
     _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:config] ;
 
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
+    _webView.allowsBackForwardNavigationGestures = YES ;
     _webView.navigationDelegate = (id <WKNavigationDelegate>)self ;
     _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
     _webView.opaque = NO ;
@@ -160,12 +172,10 @@
     }) ;
 }
 
-
 - (void)setupHTMLEditor {
     if (!g_isLoadWebViewOnline) {
         //group
         NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
-//        NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"pic.html") ;
         NSURL *fileURL = [NSURL fileURLWithPath:path] ;
         NSString *basePath = [XTArchive getDocumentsPath] ;
         NSURL *baseURL = [NSURL fileURLWithPath:basePath] ;
@@ -177,9 +187,6 @@
 //        NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:8887/mycode/pic.html"] ;
         [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
     }
-    //refence
-//    NSString *basePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"web"] ;
-//    NSURL *editorURL = [NSURL fileURLWithPath:basePath isDirectory:YES] ;
 }
 
 - (void)setupJSCoreWhenFinishLoad {
@@ -196,6 +203,9 @@
     }
 }
 
+#pragma mark --
+#pragma mark - props
+
 static const float kOctEditorToolBarHeight = 41. ;
 - (OctToolbar *)toolBar {
     if (!_toolBar) {
@@ -206,6 +216,14 @@ static const float kOctEditorToolBarHeight = 41. ;
     return _toolBar ;
 }
 
+- (void)setANote:(Note *)aNote {
+    _aNote = aNote ;
+    
+    [self setupJSCoreWhenFinishLoad] ;
+}
+
+#pragma mark --
+#pragma mark - func
 
 - (void)nativeCallJSWithFunc:(NSString *)func
                         json:(id)obj
@@ -237,8 +255,6 @@ static const float kOctEditorToolBarHeight = 41. ;
     }] ;    
 }
 
-
-
 - (void)getMarkdown:(void(^)(NSString *markdown))complete {
     [self nativeCallJSWithFunc:@"getMarkdown" json:nil completion:^(NSString *val, NSError *error) {
         complete(val) ;
@@ -252,6 +268,8 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 - (void)renderNote {
+    if (!self.aNote) return ;
+    
     WEAK_SELF
     [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(NSString *val, NSError *error) {
         if (!error) {
@@ -269,6 +287,7 @@ static const float kOctEditorToolBarHeight = 41. ;
     }] ;
 }
 
+#pragma mark --
 #pragma mark - wkwebview delegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
@@ -294,6 +313,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 
 
+#pragma mark --
 #pragma mark - util
 
 /**
@@ -347,7 +367,6 @@ static const float kOctEditorToolBarHeight = 41. ;
         });
         method_setImplementation(method, override);
     }
-    
 }
 
 - (BOOL)isDisabledAction:(SEL) action {

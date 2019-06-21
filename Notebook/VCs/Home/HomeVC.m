@@ -42,7 +42,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btAdd;
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
 
-@property (strong, nonatomic) LeftDrawerVC *leftVC ;
+
 @property (strong, nonatomic) HomeEmptyPHView *phView ;
 @property (strong, nonatomic) LOTAnimationView *animationSync ;
 @property (strong, nonatomic) SchBarPositiveTransition *transition ;

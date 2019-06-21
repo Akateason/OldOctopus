@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIViewController *)getMe ;
 
 @property (readonly, weak, nonatomic) IBOutlet   UITableView    *table;
-@property (readonly, strong, nonatomic)          LeftDrawerVC   *leftVC ;
+@property (strong, nonatomic)                    LeftDrawerVC   *leftVC ;
 @property (strong, nonatomic)                    NewBookVC      *nBookVC ;
 @property (nonatomic)                            CGRect         rectSchBarCell ;
 @property (copy, nonatomic)                      NSArray        *listNotes ;
