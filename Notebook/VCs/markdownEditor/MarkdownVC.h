@@ -13,9 +13,20 @@
 - (void)editNoteComplete:(Note *)aNote ;
 @end
 
+@protocol MarkdownVCPanGestureDelegate <NSObject>
+- (BOOL)oct_gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer ;
+- (void)oct_panned:(UIPanGestureRecognizer *)recognizer ;
+@end
+
+@protocol MDVC_PadVCPanGestureDelegate <NSObject>
+- (void)pad_panned:(UIPanGestureRecognizer *)recognizer ;
+@end
+
 @interface MarkdownVC : BasicVC
-@property (nonatomic)       BOOL                    canBeEdited ;
-@property (weak, nonatomic) id <MarkdownVCDelegate> delegate ;
+@property (weak, nonatomic) id<MarkdownVCPanGestureDelegate>    oct_panDelegate ;
+@property (weak, nonatomic) id<MDVC_PadVCPanGestureDelegate>    pad_panDelegate ;
+@property (nonatomic)       BOOL                                canBeEdited ;
+@property (weak, nonatomic) id<MarkdownVCDelegate>              delegate ;
 
 + (instancetype)newWithNote:(Note *)note
                      bookID:(NSString *)bookID

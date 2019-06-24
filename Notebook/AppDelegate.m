@@ -10,6 +10,9 @@
 #import <XTlib/XTlib.h>
 #import "XTCloudHandler.h"
 #import "Note.h"
+#import "GlobalDisplaySt.h"
+#import "HomePadVC.h"
+#import "HomeVC.h"
 
 @interface AppDelegate ()
 // <UNUserNotificationCenterDelegate>
@@ -65,6 +68,18 @@
         [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
             [self.launchingEvents pullAll] ;
         }] ;
+    }
+    
+    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self.window.rootViewController] ;
+    
+    int displayMode = [GlobalDisplaySt sharedInstance].displayMode ;
+    if (displayMode == GDST_Home_2_Column_Verical_default) {
+        self.window.rootViewController = [HomeVC getMe] ;
+        [self.window makeKeyAndVisible] ;
+    }
+    else if (displayMode == GDST_Home_3_Column_Horizon) {
+        self.window.rootViewController = [HomePadVC getMe] ;
+        [self.window makeKeyAndVisible] ;
     }
 }
 

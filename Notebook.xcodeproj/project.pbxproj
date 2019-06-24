@@ -52,7 +52,6 @@
 		8F173D7B22A1385B00FA4D8D /* OctWebEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F173D7A22A1385B00FA4D8D /* OctWebEditor.m */; };
 		8F173DCE22A4D02900FA4D8D /* UIViewController+SlidingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F173DCA22A4D02900FA4D8D /* UIViewController+SlidingController.m */; };
 		8F173DCF22A4D02900FA4D8D /* NHSlidingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F173DCC22A4D02900FA4D8D /* NHSlidingController.m */; };
-		8F18B24122BB78E30073552A /* XTTripleSlidingCtrller.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F18B24022BB78E30073552A /* XTTripleSlidingCtrller.m */; };
 		8F18B24422BB90130073552A /* HomePadVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F18B24322BB90130073552A /* HomePadVC.m */; };
 		8F19E10D22819AB000121851 /* ArticlePhotoPreviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F19E10C22819AB000121851 /* ArticlePhotoPreviewVC.m */; };
 		8F19E11022829C3100121851 /* photo_preview_bt_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F19E10E22829C3100121851 /* photo_preview_bt_delete@2x.png */; };
@@ -364,8 +363,6 @@
 		8F173DCB22A4D02900FA4D8D /* NHSlidingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHSlidingController.h; sourceTree = "<group>"; };
 		8F173DCC22A4D02900FA4D8D /* NHSlidingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHSlidingController.m; sourceTree = "<group>"; };
 		8F173DCD22A4D02900FA4D8D /* UIViewController+SlidingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SlidingController.h"; sourceTree = "<group>"; };
-		8F18B23F22BB78E30073552A /* XTTripleSlidingCtrller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTTripleSlidingCtrller.h; sourceTree = "<group>"; };
-		8F18B24022BB78E30073552A /* XTTripleSlidingCtrller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTTripleSlidingCtrller.m; sourceTree = "<group>"; };
 		8F18B24222BB90130073552A /* HomePadVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePadVC.h; sourceTree = "<group>"; };
 		8F18B24322BB90130073552A /* HomePadVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePadVC.m; sourceTree = "<group>"; };
 		8F19E10B22819AB000121851 /* ArticlePhotoPreviewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticlePhotoPreviewVC.h; sourceTree = "<group>"; };
@@ -760,8 +757,6 @@
 				8F173DCA22A4D02900FA4D8D /* UIViewController+SlidingController.m */,
 				8F173DCB22A4D02900FA4D8D /* NHSlidingController.h */,
 				8F173DCC22A4D02900FA4D8D /* NHSlidingController.m */,
-				8F18B23F22BB78E30073552A /* XTTripleSlidingCtrller.h */,
-				8F18B24022BB78E30073552A /* XTTripleSlidingCtrller.m */,
 			);
 			path = NHSlidingController;
 			sourceTree = "<group>";
@@ -1018,6 +1013,8 @@
 		8F79AE74226881AC00E8FD0D /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				8FC9DB8722BCB04D003A78D9 /* GlobalDisplaySt.h */,
+				8FC9DB8822BCB04D003A78D9 /* GlobalDisplaySt.m */,
 				8F579FDF222FB65B00C54929 /* XTCloudHandler.h */,
 				8F579FE0222FB65B00C54929 /* XTCloudHandler.m */,
 				8F7A84462244BD6B0099E905 /* MDNavVC.h */,
@@ -1028,8 +1025,6 @@
 				8F79AE76226881F000E8FD0D /* UIView+OctupusExtension.m */,
 				8F708279226DC4ED000ED214 /* HiddenUtil.h */,
 				8F70827A226DC4ED000ED214 /* HiddenUtil.m */,
-				8FC9DB8722BCB04D003A78D9 /* GlobalDisplaySt.h */,
-				8FC9DB8822BCB04D003A78D9 /* GlobalDisplaySt.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1885,7 +1880,6 @@
 				8F19E10D22819AB000121851 /* ArticlePhotoPreviewVC.m in Sources */,
 				8F1357E22292950E00F5F874 /* OctToolbar.m in Sources */,
 				8F12DA8F226D9F3600265563 /* HomeSearchCell.m in Sources */,
-				8F18B24122BB78E30073552A /* XTTripleSlidingCtrller.m in Sources */,
 				8FC9DB8922BCB04D003A78D9 /* GlobalDisplaySt.m in Sources */,
 				8FBA041E228A98B200EED229 /* HrView.m in Sources */,
 				8F173DCE22A4D02900FA4D8D /* UIViewController+SlidingController.m in Sources */,

@@ -12,6 +12,8 @@
 #import <XTlib/XTlib.h>
 #import "AppDelegate.h"
 #import "MDThemeConfiguration.h"
+#import "MarkdownVC.h"
+#import "GlobalDisplaySt.h"
 
 #define SIZECLASS_2_STR(sizeClass) [[self class] sizeClassInt2Str:sizeClass]
 
@@ -19,7 +21,7 @@
 //static const CGFloat slidingSpeed = 800;
 static const CGFloat slidingSpeed = 1500.0;
 
-@interface NHSlidingController () {
+@interface NHSlidingController ()<MarkdownVCPanGestureDelegate> {
     UITapGestureRecognizer *tapGestureRecognizer;
 }
 
@@ -137,6 +139,10 @@ static const CGFloat slidingSpeed = 1500.0;
 - (void)setDrawerOpened:(BOOL)drawerOpened {
     _drawerOpened = drawerOpened;
     
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = drawerOpened ? 1 : 0 ;
+    }
+    
     if (drawerOpened) {
         _topViewContainer.userInteractionEnabled = NO;
         tapGestureRecognizer.enabled = YES;
@@ -192,7 +198,6 @@ static const CGFloat slidingSpeed = 1500.0;
     [UIView animateWithDuration:duration animations:^{
         self->_topViewContainer.center = center;
     }];
-
 }
 
 #pragma mark - Public Methods
@@ -203,6 +208,17 @@ static const CGFloat slidingSpeed = 1500.0;
 
 -(void)openDrawerAnimated:(BOOL)animated {
     [self setDrawerOpened:YES animated:animated];
+}
+
+
+#pragma mark - MarkdownVCPanGestureDelegate <NSObject>
+
+- (BOOL)oct_gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return [self gestureRecognizerShouldBegin:gestureRecognizer] ;
+}
+
+- (void)oct_panned:(UIPanGestureRecognizer *)recognizer {
+    [self panned:recognizer] ;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -370,13 +386,14 @@ static const CGFloat slidingSpeed = 1500.0;
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
 
-    NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass));
+    NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass)) ;
+
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
 
-    NSLog(@"willTransitionToTraitCollection: current %@, new: %@", SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass), SIZECLASS_2_STR(newCollection.horizontalSizeClass));
+    NSLog(@"willTransitionToTraitCollection: current %@, new: %@", SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass), SIZECLASS_2_STR(newCollection.horizontalSizeClass)) ;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -386,13 +403,15 @@ static const CGFloat slidingSpeed = 1500.0;
     [self resetSize:size] ;
     NSValue *val = [NSValue valueWithCGSize:size] ;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNoteSlidingSizeChanging object:val] ;
+    
+    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
 }
 
 
 #pragma mark -
 #pragma mark Helper Method
 
-+ (NSString*)sizeClassInt2Str:(UIUserInterfaceSizeClass)sizeClass {
++ (NSString *)sizeClassInt2Str:(UIUserInterfaceSizeClass)sizeClass {
     switch (sizeClass) {
         case UIUserInterfaceSizeClassCompact:
             return @"UIUserInterfaceSizeClassCompact";

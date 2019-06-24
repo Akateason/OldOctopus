@@ -39,7 +39,6 @@
 @property (nonatomic)         float             snapDuration ;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityView ;
-@property (strong, nonatomic) UIView *touchingView ;
 @end
 
 @implementation MarkdownVC
@@ -54,6 +53,7 @@
     vc.aNote = note ;
     vc.delegate = ctrller ;
     vc.myBookID = bookID ;
+    vc.canBeEdited = YES ;
     [ctrller.navigationController pushViewController:vc animated:YES] ;
     return vc ;
 }
@@ -99,7 +99,65 @@
         NSString *json = x.object ;
         [self snapShotFullScreen:json] ;
     }] ;
+    
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+        id target = self.navigationController.interactivePopGestureRecognizer.delegate ;
+        // 创建全屏滑动手势，调用系统自带滑动手势的target的action方法
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:@selector(handleNavigationTransition:)];
+        pan.delegate = (id<UIGestureRecognizerDelegate>)self;
+        [self.view addGestureRecognizer:pan];
+        // 禁止使用系统自带的滑动手势
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+    else {
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+        pan.delegate = (id<UIGestureRecognizerDelegate>)self;
+        [self.view addGestureRecognizer:pan];
+    }
 }
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return YES ;
+    
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != 1) {
+        return YES ;
+    }
+    
+    return [self.oct_panDelegate oct_gestureRecognizerShouldBegin:gestureRecognizer] ;
+}
+
+- (void)panned:(UIPanGestureRecognizer *)recognizer {
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
+    
+    CGFloat velocity = [recognizer velocityInView:self.view].x ;
+    switch ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon) {
+        // 里层
+        case -1: [self.pad_panDelegate pad_panned:recognizer] ; break;
+        case 0: { // 中层
+            if (velocity > 0) { //NSLog(@"👉") ;
+                [self.oct_panDelegate oct_panned:recognizer] ; // 外层
+            }
+            else { //NSLog(@"👈") ;
+                [self.pad_panDelegate pad_panned:recognizer] ; // 里层
+            }
+
+        } break;
+        // 外层
+        case  1: [self.oct_panDelegate oct_panned:recognizer] ; break;
+
+        default: break;
+    }
+    
+    
+}
+
+- (void)handleNavigationTransition:(id)ges {} // 调用系统自带滑动手势的target的action方法
+
+
+
+
+
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated] ;
@@ -162,6 +220,7 @@
 
 - (void)prepareUI {
     [self editor] ;
+    self.editor.webView.userInteractionEnabled = self.canBeEdited ;
     self.editor.xt_theme_backgroundColor = k_md_bgColor ;
     self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
     
@@ -177,9 +236,7 @@
     [self.btBack xt_enlargeButtonsTouchArea] ;
     [self.btMore xt_enlargeButtonsTouchArea] ;
     
-    
     self.navArea.backgroundColor = nil ;
-    
     self.topBar.backgroundColor = nil ;
 
     [self.topBar setNeedsDisplay] ;
@@ -187,14 +244,6 @@
     [self.topBar oct_addBlurBg] ;
     
     [self registGesture] ;
-    
-    
-//    [self.view addSubview:self.touchingView] ;
-//    [self.touchingView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.view) ;
-//    }] ;
-//    [self.view bringSubviewToFront:self.touchingView] ;
-//    self.touchingView.hidden = YES ;
 }
 
 - (void)registGesture {
@@ -353,24 +402,6 @@
 
 - (UIViewController *)fromCtrller {
     return self ;
-}
-
-- (UIView *)touchingView {
-    if (!_touchingView) {
-        _touchingView = [UIView new] ;
-        _touchingView.backgroundColor = [UIColor xt_sugarRed] ;
-    }
-    return _touchingView ;
-}
-
-- (void)setCanBeEdited:(BOOL)canBeEdited {
-    _canBeEdited = canBeEdited ;
-    
-    [OctWebEditor sharedInstance].userInteractionEnabled = canBeEdited ;
-//    self.touchingView.hidden = canBeEdited ;
-//    if (!canBeEdited) {
-//        [self.view bringSubviewToFront:self.touchingView] ;
-//    }
 }
 
 @end

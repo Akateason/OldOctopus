@@ -86,15 +86,10 @@ XT_SINGLETON_M(OctWebEditor)
         UIImage *image = [UIImage imageWithData:imageData] ;
         [self uploadWebPhoto:photo image:image] ;
     }] ;
-    
-    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goBack)] ;
-    swipe.direction = UISwipeGestureRecognizerDirectionRight ;
-    [_webView addGestureRecognizer:swipe] ;
+        
 }
 
-- (void)goBack {
-    [self.xt_navigationController popViewControllerAnimated:YES] ;
-}
+
 
 - (void)leavePage {
     [self hideKeyboard] ;
@@ -342,7 +337,6 @@ static const float kOctEditorToolBarHeight = 41. ;
     }
     object_setClass(targetView, newClass);
 }
-
 
 - (void)enableSelectAll {
     Class class = NSClassFromString(@"WKContentView");
