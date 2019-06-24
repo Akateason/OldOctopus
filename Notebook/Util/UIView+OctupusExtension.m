@@ -18,23 +18,12 @@
     BOOL isDarkMode = [[MDThemeConfiguration sharedInstance].currentThemeKey containsString:@"dark"] ;
     UIBlurEffect *blurEffrct = [UIBlurEffect effectWithStyle:isDarkMode ? UIBlurEffectStyleDark : UIBlurEffectStyleLight] ;
     UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffrct] ;
-//    visualEffectView.alpha = alpha ;
+
     visualEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self insertSubview:visualEffectView atIndex:0] ;
     [visualEffectView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self) ;
     }] ;
-    
-    
-//    [self setNeedsDisplay] ;
-//    [self layoutIfNeeded] ;
-//    UIImage *img = [UIImage imageWithColor:XT_MD_THEME_COLOR_KEY(k_md_bgColor) size:self.bounds.size] ;
-//    img = [self blur:img] ;
-//    UIImageView *imgView = [[UIImageView alloc] initWithImage:img] ;
-//    [self insertSubview:imgView atIndex:0] ;
-//    [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self) ;
-//    }] ;
 }
 
 

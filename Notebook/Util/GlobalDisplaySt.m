@@ -35,5 +35,4 @@ XT_SINGLETON_M(GlobalDisplaySt)
     NSLog(@"gdst_level_for_horizon %d",gdst_level_for_horizon) ;
 }
 
-
 @end

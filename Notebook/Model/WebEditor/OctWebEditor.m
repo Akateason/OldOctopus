@@ -31,7 +31,7 @@ XT_SINGLETON_M(OctWebEditor)
 #pragma mark --
 #pragma mark - life
 - (void)setup {
-    self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    self.webView.xt_theme_backgroundColor = k_md_bgColor ;
     
     [self createWebView] ;
     [self setupHTMLEditor] ;
@@ -106,8 +106,7 @@ XT_SINGLETON_M(OctWebEditor)
 
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
     _webView.allowsBackForwardNavigationGestures = YES ;
-    _webView.navigationDelegate = (id <WKNavigationDelegate>)self ;
-    _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    _webView.navigationDelegate = (id <WKNavigationDelegate>)self ;    
     _webView.opaque = NO ;
     [self addSubview:_webView] ;
     [_webView mas_makeConstraints:^(MASConstraintMaker *make) {

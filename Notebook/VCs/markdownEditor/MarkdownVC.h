@@ -8,6 +8,9 @@
 
 #import "BasicVC.h"
 
+static NSString *const kNote_pad_Editor_OnClick = @"kNote_pad_Editor_OnClick" ;
+static NSString *const kNote_pad_Editor_PullBack = @"kNote_pad_Editor_PullBack" ;
+
 @protocol MarkdownVCDelegate <NSObject>
 - (void)addNoteComplete:(Note *)aNote ;
 - (void)editNoteComplete:(Note *)aNote ;
@@ -31,6 +34,10 @@
 + (instancetype)newWithNote:(Note *)note
                      bookID:(NSString *)bookID
                 fromCtrller:(UIViewController *)ctrller ;
+
+- (void)setupWithNote:(Note *)note
+               bookID:(NSString *)bookID
+          fromCtrller:(UIViewController *)ctrller ;
 
 @end
 

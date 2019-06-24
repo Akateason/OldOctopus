@@ -38,9 +38,9 @@ XT_SINGLETON_M(MDThemeConfiguration)
     self.navBarColor = UIColorHex(self.dicForConfig[@"navBarColor"]) ;
     self.navTextColor = UIColorHex(self.dicForConfig[@"navTextColor"]) ;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationForThemeColorDidChanged object:nil] ;
-    
     XT_USERDEFAULT_SET_VAL(theme, kUDIdentiferOfTheme) ;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationForThemeColorDidChanged object:nil] ;    
 }
 
 - (void)setStatusBarBlackOrWhite:(BOOL)isWhite {

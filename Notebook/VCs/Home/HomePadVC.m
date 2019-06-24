@@ -14,7 +14,7 @@
 
 
 static const float kWidth_ListView = 400 ;
-static const float slidingSpeed = 1500 ;
+static const float slidingSpeed = 2000 ;
 
 @interface HomePadVC ()
 @property (strong, nonatomic) UIView        *leftContainer ;
@@ -36,12 +36,11 @@ static const float slidingSpeed = 1500 ;
     return slidingController ;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
-        _editorVC = [MarkdownVC newWithNote:[Note new] bookID:@"1" fromCtrller:_homeVC] ;
+        _editorVC = [MarkdownVC newWithNote:nil bookID:nil fromCtrller:_homeVC] ;
         _editorVC.canBeEdited = NO ;
     }
     return self;
@@ -74,6 +73,7 @@ static const float slidingSpeed = 1500 ;
     @weakify(self)
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
+        
         NSValue *val = x.object ;
         self.containerSize = [val CGSizeValue] ;
         
@@ -89,6 +89,33 @@ static const float slidingSpeed = 1500 ;
         self.rightContainer.top = self.view.top ;
         self.rightContainer.bottom = self.view.bottom ;
     }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_ClickNote_In_Pad object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        Note *note = x.object ;
+        [self.editorVC setupWithNote:note bookID:note.noteBookId fromCtrller:self.homeVC] ;
+    }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_pad_Editor_OnClick object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.rightContainer.left = 0 ;
+        } completion:^(BOOL finished) {
+            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
+        }] ;
+    }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_pad_Editor_PullBack object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.rightContainer.left = kWidth_ListView ;
+        } completion:^(BOOL finished) {
+            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0;
+        }] ;
+    }] ;
 }
 
 
@@ -98,7 +125,7 @@ static const float slidingSpeed = 1500 ;
     CGFloat translation = [recognizer translationInView:self.view].x;
     [recognizer setTranslation:CGPointZero inView:self.view];
     
-    NSLog(@"pad_panned : %lf",translation) ;
+//    NSLog(@"pad_panned : %lf",translation) ;
     float openedLeft = 0 ;
     float left = _rightContainer.left ;
     left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;

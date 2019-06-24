@@ -43,9 +43,9 @@ static const CGFloat slidingSpeed = 1500.0;
         self.topViewController = topViewController ;
         self.bottomViewController = bottomViewController ;
         self.slideDistance = distance ?: 200 ;
-        self.view.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        self.view.xt_theme_backgroundColor = k_md_bgColor ;
     }
-    return self;
+    return self; 
 }
 
 - (void)viewDidLoad {
@@ -301,75 +301,7 @@ static const CGFloat slidingSpeed = 1500.0;
                 self.drawerOpened = finalOpenState;
             }];
         }
-    }
-
-    
-//    NSLog(@"x : %lf",translation) ;
-//    float openedLeft = self.slideDistance ;
-//    float left = _topViewContainer.left ;
-//    left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
-//    self->_topViewContainer.width = self.m_containerSize.width - left ;
-//    self->_topViewContainer.left = left ;
-//
-//    if (recognizer.state != UIGestureRecognizerStateEnded) return ;
-//
-//    CGFloat leftForEdge, leftForBounce;
-//    BOOL finalOpenState;
-//    CGFloat velocity = [recognizer velocityInView:self.view].x;
-//
-//    if (velocity > 0) {
-//        leftForEdge = self.slideDistance;
-//        leftForBounce = leftForEdge + 22.0;
-//        finalOpenState = YES;
-//    }
-//    else {
-//        leftForEdge = 0;
-//        leftForBounce = leftForEdge - 22.0;
-//        finalOpenState = NO;
-//    }
-//
-//    CGFloat distanceToTheEdge = leftForEdge - _topViewContainer.left;
-//    CGFloat timeToEdgeWithCurrentVelocity = fabs(distanceToTheEdge) / fabs(velocity);
-//    CGFloat timeToEdgeWithStandardVelocity = fabs(distanceToTheEdge) / slidingSpeed;
-//    if (timeToEdgeWithCurrentVelocity < 0.7 * timeToEdgeWithStandardVelocity) {
-//        //Bounce and open
-//        left = leftForBounce;
-//
-//        [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//            self->_topViewContainer.left = left;
-//        } completion:^(BOOL finished) {
-//            CGFloat left = self->_topViewContainer.left;
-//            left = leftForEdge;
-//            [UIView animateWithDuration:0.3 animations:^{
-//                self->_topViewContainer.width = self.m_containerSize.width - left ;
-//                self->_topViewContainer.left = left;
-//            } completion:^(BOOL finished) {
-//                self.drawerOpened = finalOpenState;
-//            }];
-//        }];
-//    }
-//    else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
-//        //finish the sliding with the current speed
-//        left = leftForEdge;
-//
-//        [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//            self->_topViewContainer.width = self.m_containerSize.width - left ;
-//            self->_topViewContainer.left = left;
-//        } completion:^(BOOL finished) {
-//            self.drawerOpened = finalOpenState;
-//        }];
-//    }
-//    else {
-//        //finish the sliding wiht minimum speed
-//        CGFloat duration = distanceToTheEdge / slidingSpeed;
-//        left = leftForEdge;
-//        [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//            self->_topViewContainer.width = self.m_containerSize.width - left ;
-//            self->_topViewContainer.left = left;
-//        } completion:^(BOOL finished) {
-//            self.drawerOpened = finalOpenState;
-//        }];
-//    }
+    }    
 }
 
 - (void)tapped:(UITapGestureRecognizer *)tapGestureRecognizer {

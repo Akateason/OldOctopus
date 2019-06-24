@@ -49,6 +49,13 @@
     [self bind] ;
 }
 
+- (void)setWebInfo:(WebModel *)webInfo {
+    _webInfo = webInfo ;
+    
+    [self bind] ;
+}
+
+
 - (void)bind {
     NoteBooks *book = [NoteBooks xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.noteBookId)] ;
     self.lbBookName.text = book.displayBookName ?: @"暂存区" ;

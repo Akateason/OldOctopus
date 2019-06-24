@@ -32,6 +32,7 @@
 #import "OctWebEditor.h"
 #import "NHSlidingController.h"
 #import "UIViewController+SlidingController.h"
+#import "GlobalDisplaySt.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate, LeftDrawerVCDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -342,7 +343,12 @@
     
     NSInteger row = indexPath.row ;
     Note *aNote = self.listNotes[row] ;
-    [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+        [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
+    }
 }
 
 - (UIView *)makePlaceHolderView {
@@ -395,12 +401,6 @@
                      }
                      completion:nil] ;
 
-//    cell.layer.transform = CATransform3DMakeScale(0.76, 0.76, 1) ;
-//    [UIView animateWithDuration:.25
-//                     animations:^{
-//                         cell.layer.transform = CATransform3DIdentity ;
-//                     }] ;
-    
     cell.lbDate.alpha = 0. ;
     cell.lbContent.alpha = 0. ;
     [UIView animateWithDuration:1.

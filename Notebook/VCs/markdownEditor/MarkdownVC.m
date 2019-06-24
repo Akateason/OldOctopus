@@ -51,11 +51,22 @@
     
     MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarddownVC"] ;
     vc.aNote = note ;
-    vc.delegate = ctrller ;
+    vc.delegate = (id <MarkdownVCDelegate>)ctrller ;
     vc.myBookID = bookID ;
     vc.canBeEdited = YES ;
     [ctrller.navigationController pushViewController:vc animated:YES] ;
     return vc ;
+}
+
+- (void)setupWithNote:(Note *)note
+               bookID:(NSString *)bookID
+          fromCtrller:(UIViewController *)ctrller {
+    
+    self.aNote = note ;
+    self.delegate = (id <MarkdownVCDelegate>)ctrller ;
+    self.myBookID = bookID ;
+    
+    self.editor.aNote = note ;
 }
 
 - (void)viewDidLoad {
@@ -68,6 +79,8 @@
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
+        
         // Update Your Note
         [self updateMyNote] ;
     }] ;
@@ -92,6 +105,15 @@
          @strongify(self)
          self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
          [self.editor changeTheme] ;
+         
+         for (UIView *sub in self.topBar.subviews) {
+             if ([sub isKindOfClass:UIVisualEffectView.class]) {
+                 [sub removeFromSuperview] ;
+             }
+         }
+         [self.topBar oct_addBlurBg] ;
+         [self.topBar setNeedsLayout] ;
+         [self.topBar layoutIfNeeded] ;
      }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -99,6 +121,28 @@
         NSString *json = x.object ;
         [self snapShotFullScreen:json] ;
     }] ;
+    
+    [[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
+       deliverOnMainThread]
+      throttle:.2]
+     subscribeNext:^(id  _Nullable x) {
+         @strongify(self)
+         int num = [x intValue] ;
+         if ([GlobalDisplaySt sharedInstance].displayMode == 0) return ;
+         
+         self.editor.webView.userInteractionEnabled = num == -1 ;
+         self.canBeEdited = num == -1 ;
+         
+//         [UIView animateWithDuration:.1 animations:^{
+//             if (num == -1) {
+//                 self.btBack.transform = CGAffineTransformIdentity ;
+//             }
+//             else if (num == 0) {
+//                 self.btBack.transform = CGAffineTransformScale(self.btBack.transform, -1, 1) ;
+//             }
+//         }] ;
+         
+     }] ;
     
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
         id target = self.navigationController.interactivePopGestureRecognizer.delegate ;
@@ -109,11 +153,20 @@
         // 禁止使用系统自带的滑动手势
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
-    else {
+    else { // ipad大
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
         pan.delegate = (id<UIGestureRecognizerDelegate>)self;
         [self.view addGestureRecognizer:pan];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)] ;
+        [self.view addGestureRecognizer:tap] ;
     }
+}
+
+- (void)tapped:(UIGestureRecognizer *)recog {
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) return ;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -147,8 +200,6 @@
 
         default: break;
     }
-    
-    
 }
 
 - (void)handleNavigationTransition:(id)ges {} // 调用系统自带滑动手势的target的action方法
@@ -169,6 +220,8 @@
     [self.editor leavePage] ;
     if (!self.editor.webViewHasSetMarkdown) return ;
     if (self.editor.articleAreTheSame) return ;
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
+    
     
     if (self.aNote) {
         // Update Your Note
@@ -256,6 +309,16 @@
 }
 
 - (IBAction)backAction:(id)sender {
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
+        }
+        else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_PullBack object:nil] ;
+        }
+        return ;
+    }
+    
     [self.navigationController popViewControllerAnimated:YES] ;
 }
 
