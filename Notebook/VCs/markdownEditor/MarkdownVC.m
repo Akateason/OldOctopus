@@ -133,14 +133,14 @@
          self.editor.webView.userInteractionEnabled = num == -1 ;
          self.canBeEdited = num == -1 ;
          
-//         [UIView animateWithDuration:.1 animations:^{
-//             if (num == -1) {
-//                 self.btBack.transform = CGAffineTransformIdentity ;
-//             }
-//             else if (num == 0) {
-//                 self.btBack.transform = CGAffineTransformScale(self.btBack.transform, -1, 1) ;
-//             }
-//         }] ;
+         [UIView animateWithDuration:.1 animations:^{
+             if (num == -1) {
+                 self.btBack.transform = CGAffineTransformScale(self.btBack.transform, -1, 1) ;
+             }
+             else {
+                 self.btBack.transform = CGAffineTransformIdentity ;
+             }
+         }] ;
          
      }] ;
     
@@ -297,6 +297,10 @@
     [self.topBar oct_addBlurBg] ;
     
     [self registGesture] ;
+    
+    if (IS_IPAD) {
+        [self.btBack setImage:[UIImage imageNamed:@"nav_back_reverse_item@2x"] forState:0] ;
+    }
 }
 
 - (void)registGesture {
