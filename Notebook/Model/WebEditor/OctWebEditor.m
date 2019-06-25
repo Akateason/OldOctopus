@@ -14,7 +14,8 @@
 #import "OctWebEditor+OctToolbarUtil.h"
 #import "ArticlePhotoPreviewVC.h"
 #import "AppDelegate.h"
-
+#import "NHSlidingController.h"
+#import "GlobalDisplaySt.h"
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -50,7 +51,7 @@ XT_SINGLETON_M(OctWebEditor)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
         NSDictionary *info = [x userInfo] ;
-        //            CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+        // CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
         CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
         // 工具条的Y值 == 键盘的Y值 - 工具条的高度
         if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
@@ -86,11 +87,18 @@ XT_SINGLETON_M(OctWebEditor)
         UIImage *image = [UIImage imageWithData:imageData] ;
         [self uploadWebPhoto:photo image:image] ;
     }] ;
-        
-}
-
-- (void)dealloc {
-    NSLog(@"editor dealloc") ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        NSValue *val = x.object ;
+        CGSize size = [val CGSizeValue] ;
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+            [self nativeCallJSWithFunc:@"setEditorFlex" json:@"28" completion:^(NSString *val, NSError *error) {}] ;
+        }
+        else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+            [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(size.width / 4) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+        }
+    }] ;
 }
 
 - (void)leavePage {

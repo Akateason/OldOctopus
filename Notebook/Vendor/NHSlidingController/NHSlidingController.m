@@ -334,9 +334,10 @@ static const CGFloat slidingSpeed = 1500.0;
     NSLog(@"viewWillTransitionToSize: size %@", NSStringFromCGSize(size)) ;
     [self resetSize:size] ;
     NSValue *val = [NSValue valueWithCGSize:size] ;
+
+    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNoteSlidingSizeChanging object:val] ;
     
-    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
 }
 
 

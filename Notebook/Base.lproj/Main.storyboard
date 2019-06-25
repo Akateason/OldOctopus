@@ -305,7 +305,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5YQ-2t-ZHp">
-                                        <rect key="frame" x="272" y="19" width="24" height="24"/>
+                                        <rect key="frame" x="291" y="19" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="4oG-Kw-CmS"/>
                                             <constraint firstAttribute="width" constant="24" id="hhg-LG-BU3"/>
@@ -318,7 +318,7 @@
                                     <constraint firstItem="p3R-oz-fOe" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="DOK-X6-MxJ"/>
                                     <constraint firstAttribute="height" constant="62" id="HnF-9s-Lyy"/>
                                     <constraint firstItem="p3R-oz-fOe" firstAttribute="leading" secondItem="F70-cj-TbX" secondAttribute="leading" constant="24" id="Ita-QY-2mR"/>
-                                    <constraint firstItem="s9O-94-jlJ" firstAttribute="leading" secondItem="5YQ-2t-ZHp" secondAttribute="trailing" constant="34" id="UdB-aW-NW7"/>
+                                    <constraint firstItem="s9O-94-jlJ" firstAttribute="leading" secondItem="5YQ-2t-ZHp" secondAttribute="trailing" constant="15" id="UdB-aW-NW7"/>
                                     <constraint firstItem="2V7-Gu-ayp" firstAttribute="leading" secondItem="p3R-oz-fOe" secondAttribute="trailing" constant="21" id="Vf8-zY-0Ak"/>
                                     <constraint firstAttribute="trailing" secondItem="s9O-94-jlJ" secondAttribute="trailing" constant="21" id="bUr-ez-oTK"/>
                                     <constraint firstItem="s9O-94-jlJ" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="jmE-N5-CHx"/>
