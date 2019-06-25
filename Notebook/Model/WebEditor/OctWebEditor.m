@@ -21,7 +21,6 @@
     NSArray<NSString *> *_disabledActions ;
 }
 @property (strong, nonatomic) OctToolbar    *toolBar ;
-@property (copy, nonatomic) NSString        *firstTimeArticle ;
 @property (nonatomic)       CGSize          containerSize ;
 @end
 
@@ -113,6 +112,7 @@ XT_SINGLETON_M(OctWebEditor)
     [self hideKeyboard] ;
     self.articleAreTheSame = NO ;
     self.webViewHasSetMarkdown = NO ;
+    self.firstTimeArticle = nil ;
     self.aNote = nil ;
 }
 

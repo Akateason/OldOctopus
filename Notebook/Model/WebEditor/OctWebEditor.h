@@ -31,7 +31,7 @@ static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Ph
 
 @property (nonatomic)         BOOL      articleAreTheSame ;     //如果文章比对一致不能上传      default NO
 @property (nonatomic)         BOOL      webViewHasSetMarkdown ; //如果未setMarkdown则不能上传  default NO
-
+@property (copy, nonatomic) NSString    *firstTimeArticle ; // 首次文章比对
 /**
  native call js.
  obj是json时,传入ret或list

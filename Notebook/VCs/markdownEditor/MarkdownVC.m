@@ -143,11 +143,18 @@
              if (num == -1) {
                  self.emptyView.hidden = YES ;
                  [self.editor openKeyboard] ;
+                 self.myBookID = self.delegate.currentBookID ;
+                 self.editor.webViewHasSetMarkdown = YES ;
              }
              else {
                  self.emptyView.hidden = NO ;
              }
          }
+         
+         if (num == 0) {
+             [self leaveOut] ;
+         }
+         
      }] ;
     
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
@@ -223,11 +230,14 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
     
-    [self.editor leavePage] ;
+    [self leaveOut] ;
+}
+
+- (void)leaveOut {
     if (!self.editor.webViewHasSetMarkdown) return ;
     if (self.editor.articleAreTheSame) return ;
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
     
+    [self.editor leavePage] ;
     
     if (self.aNote) {
         // Update Your Note

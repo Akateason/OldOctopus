@@ -433,6 +433,10 @@
     [self.table cyl_reloadData] ;
 }
 
+- (NSString *)currentBookID {
+    return self.leftVC.currentBook.icRecordName ;
+}
+
 #pragma mark - prop
 
 - (HomeEmptyPHView *)phView {
