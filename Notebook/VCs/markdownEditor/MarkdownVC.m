@@ -68,6 +68,7 @@
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
     self.editor.aNote = note ;
+    [self.editor renderNote] ;
 }
 
 - (void)viewDidLoad {
@@ -124,6 +125,8 @@
         [self snapShotFullScreen:json] ;
     }] ;        
     
+    
+    
     [[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
        deliverOnMainThread]
       throttle:.2]
@@ -149,10 +152,6 @@
              else {
                  self.emptyView.hidden = NO ;
              }
-         }
-         
-         if (num == 0) {
-             [self leaveOut] ;
          }
      }] ;
     
@@ -245,7 +244,7 @@
     else {
         // Create New Note
         [self createNewNote] ;
-    }
+    }    
 }
 
 
@@ -334,6 +333,7 @@
         }
         else {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_PullBack object:nil] ;
+            [self leaveOut] ;
         }
         return ;
     }

@@ -112,9 +112,7 @@ XT_SINGLETON_M(OctWebEditor)
     [self hideKeyboard] ;
     self.articleAreTheSame = NO ;
     self.webViewHasSetMarkdown = NO ;
-    self.firstTimeArticle = nil ;
-    self.aNote = nil ;
-    [self renderNote] ;
+    self.firstTimeArticle = nil ;    
 }
 
 - (void)createWebView {
@@ -197,7 +195,7 @@ XT_SINGLETON_M(OctWebEditor)
     else {
         //link
         NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
-//        NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:8887/mycode/pic.html"] ;
+//      NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:8887/mycode/pic.html"] ;
         [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
     }
 }
@@ -205,9 +203,7 @@ XT_SINGLETON_M(OctWebEditor)
 - (void)setupJSCoreWhenFinishLoad {
     [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(NSString *val, NSError *error){}] ;
     
-    
 //    [self nativeCallJSWithFunc:@"setAutoAdBracket" json:[@(FALSE) stringValue] completion:^(NSString *val, NSError *error) {
-//
 //    }] ;
     
     [self setSideFlex] ;
@@ -286,7 +282,6 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 - (void)renderNote {
-    if (!self.aNote) return ;
     
     WEAK_SELF
     [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(NSString *val, NSError *error) {
