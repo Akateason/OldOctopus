@@ -13,7 +13,7 @@
 #import "GlobalDisplaySt.h"
 
 
-static const float kWidth_ListView = 400 ;
+static const float kWidth_ListView = 320 ;
 static const float slidingSpeed = 2000 ;
 
 @interface HomePadVC ()

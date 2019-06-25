@@ -89,7 +89,9 @@ XT_SINGLETON_M(OctWebEditor)
         
 }
 
-
+- (void)dealloc {
+    NSLog(@"editor dealloc") ;
+}
 
 - (void)leavePage {
     [self hideKeyboard] ;
