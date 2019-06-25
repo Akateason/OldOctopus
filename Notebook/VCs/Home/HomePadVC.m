@@ -13,7 +13,7 @@
 #import "GlobalDisplaySt.h"
 
 
-static const float kWidth_ListView = 320 ;
+const float kWidth_ListView = 320 ;
 static const float slidingSpeed = 2000 ;
 
 @interface HomePadVC ()
@@ -106,6 +106,7 @@ static const float slidingSpeed = 2000 ;
         
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = 0 ;
+            [self moveEmptyView:YES] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
         }] ;
@@ -116,6 +117,7 @@ static const float slidingSpeed = 2000 ;
         
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = kWidth_ListView ;
+            [self moveEmptyView:NO] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0;
         }] ;
@@ -134,7 +136,8 @@ static const float slidingSpeed = 2000 ;
     float left = _rightContainer.left ;
     left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
     self->_rightContainer.left = left ;
-
+    
+    
     if (recognizer.state != UIGestureRecognizerStateEnded) return ;
 
     CGFloat leftForEdge, leftForBounce;
@@ -161,11 +164,13 @@ static const float slidingSpeed = 2000 ;
 
         [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self->_rightContainer.left = left;
+            [self moveEmptyView:finalOpenState == -1] ;
         } completion:^(BOOL finished) {
             CGFloat left = self->_rightContainer.left;
             left = leftForEdge;
             [UIView animateWithDuration:0.3 animations:^{
                 self->_rightContainer.left = left;
+                [self moveEmptyView:finalOpenState == -1] ;
             } completion:^(BOOL finished) {
                 [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
             }];
@@ -177,6 +182,7 @@ static const float slidingSpeed = 2000 ;
 
         [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self->_rightContainer.left = left;
+            [self moveEmptyView:finalOpenState == -1] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
         }];
@@ -187,9 +193,19 @@ static const float slidingSpeed = 2000 ;
         left = leftForEdge;
         [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self->_rightContainer.left = left;
+            [self moveEmptyView:finalOpenState == -1] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
         }];
+    }
+}
+
+- (void)moveEmptyView:(BOOL)stateOn {
+    if (stateOn) {
+        self.editorVC.emptyView.center = self.editorVC.view.center ;
+    }
+    else {
+        self.editorVC.emptyView.left = self.editorVC.view.left ;
     }
 }
 

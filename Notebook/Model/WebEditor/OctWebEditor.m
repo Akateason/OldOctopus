@@ -105,6 +105,10 @@ XT_SINGLETON_M(OctWebEditor)
     }
 }
 
+- (void)openKeyboard {
+    [self nativeCallJSWithFunc:@"openKeyboard" json:nil completion:^(NSString *val, NSError *error) {}] ;
+}
+
 - (void)leavePage {
     [self hideKeyboard] ;
     self.articleAreTheSame = NO ;
@@ -212,8 +216,7 @@ XT_SINGLETON_M(OctWebEditor)
     [self renderNote] ;
     
     if (!self.aNote) {
-        [self nativeCallJSWithFunc:@"openKeyboard" json:nil completion:^(NSString *val, NSError *error) {
-        }] ;
+        [self openKeyboard] ;
     }
 }
 

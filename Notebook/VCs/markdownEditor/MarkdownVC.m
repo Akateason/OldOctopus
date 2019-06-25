@@ -19,7 +19,7 @@
 #import <WebKit/WebKit.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "GlobalDisplaySt.h"
-#import "HomeEmptyPHView.h"
+#import "HomePadVC.h"
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -39,7 +39,7 @@
 @property (nonatomic)         float             snapDuration ;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityView ;
-@property (strong, nonatomic) HomeEmptyPHView *emptyView ;
+
 @end
 
 @implementation MarkdownVC
@@ -66,16 +66,17 @@
     self.aNote = note ;
     self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
-    
+    self.emptyView.hidden = note != nil ;
     self.editor.aNote = note ;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    if (self.aNote) {
-        self.editor.aNote = self.aNote ;
-    }
+    if (self.aNote) self.editor.aNote = self.aNote ;
+    
+    
+    
     
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -133,16 +134,20 @@
          
          self.editor.webView.userInteractionEnabled = num == -1 ;
          self.canBeEdited = num == -1 ;
-         
          [UIView animateWithDuration:.1 animations:^{
-             if (num == -1) {
-                 self.btBack.transform = CGAffineTransformScale(self.btBack.transform, -1, 1) ;
-             }
-             else {
-                 self.btBack.transform = CGAffineTransformIdentity ;
-             }
+             if (num == -1) self.btBack.transform = CGAffineTransformScale(self.btBack.transform, -1, 1) ;
+             else self.btBack.transform = CGAffineTransformIdentity ;
          }] ;
          
+         if (self.aNote == nil) {
+             if (num == -1) {
+                 self.emptyView.hidden = YES ;
+                 [self.editor openKeyboard] ;
+             }
+             else {
+                 self.emptyView.hidden = NO ;
+             }
+         }
      }] ;
     
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
@@ -359,7 +364,7 @@
     [self.view.window addSubview:self.activityView] ;
     self.activityView.color = [UIColor darkGrayColor] ;
     [self.activityView startAnimating] ;
-
+    
     self.editor.hidden = YES ;
     
     NSMutableString *tmpStr = [htmlString mutableCopy] ;
@@ -379,7 +384,6 @@
     _webView.opaque = NO ;
     [self.view addSubview:_webView] ;
     [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
-    
     [_webView loadFileURL:url allowingReadAccessToURL:url] ;
 }
 
@@ -436,7 +440,6 @@
                 [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
             }) ;
         }) ;
-        
     }
 }
 
@@ -475,6 +478,12 @@
 - (HomeEmptyPHView *)emptyView {
     if (!_emptyView) {
         _emptyView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+        _emptyView.bottom = self.view.bottom ;
+        _emptyView.left = self.view.left ;
+        _emptyView.top = self.topBar.bottom ;
+        _emptyView.width = [GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView ;
+        [self.view addSubview:_emptyView] ;
+        _emptyView.hidden = YES ;
     }
     return _emptyView ;
 }

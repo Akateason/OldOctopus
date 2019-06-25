@@ -69,6 +69,7 @@ static const CGFloat slidingSpeed = 1500.0;
     float h = size.height ;
     CGRect rect = CGRectMake(0, 0, w, h) ;
     NSValue *val = [NSValue valueWithCGSize:size] ;
+    [GlobalDisplaySt sharedInstance].containerSize = size ;
     
     if (_bottomViewContainer.subviews) {
         for (UIView *subView in _bottomViewContainer.subviews) [subView removeFromSuperview] ;
@@ -336,6 +337,7 @@ static const CGFloat slidingSpeed = 1500.0;
     NSValue *val = [NSValue valueWithCGSize:size] ;
 
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
+    [GlobalDisplaySt sharedInstance].containerSize = size ;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNoteSlidingSizeChanging object:val] ;
     
 }

@@ -9,6 +9,8 @@
 #import "BasicVC.h"
 #import "MarkdownVC.h"
 
+extern const float kWidth_ListView ;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HomePadVC : BasicVC
