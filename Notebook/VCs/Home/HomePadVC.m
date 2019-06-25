@@ -88,6 +88,10 @@ static const float slidingSpeed = 2000 ;
         self.rightContainer.left = kWidth_ListView ;
         self.rightContainer.top = self.view.top ;
         self.rightContainer.bottom = self.view.bottom ;
+        
+        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) {
+            self.rightContainer.left = 0 ;
+        }
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_ClickNote_In_Pad object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {

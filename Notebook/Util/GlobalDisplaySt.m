@@ -17,7 +17,6 @@ XT_SINGLETON_M(GlobalDisplaySt)
     if (IS_IPAD) {
         if (ctrller.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular || ctrller.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassUnspecified ) {
             [GlobalDisplaySt sharedInstance].displayMode = GDST_Home_3_Column_Horizon ;
-            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0 ;
         }
         else {
             [GlobalDisplaySt sharedInstance].displayMode = GDST_Home_2_Column_Verical_default ;

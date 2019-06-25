@@ -19,7 +19,7 @@
 #import <WebKit/WebKit.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "GlobalDisplaySt.h"
-
+#import "HomeEmptyPHView.h"
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -39,6 +39,7 @@
 @property (nonatomic)         float             snapDuration ;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityView ;
+@property (strong, nonatomic) HomeEmptyPHView *emptyView ;
 @end
 
 @implementation MarkdownVC
@@ -469,6 +470,13 @@
 
 - (UIViewController *)fromCtrller {
     return self ;
+}
+
+- (HomeEmptyPHView *)emptyView {
+    if (!_emptyView) {
+        _emptyView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+    }
+    return _emptyView ;
 }
 
 @end

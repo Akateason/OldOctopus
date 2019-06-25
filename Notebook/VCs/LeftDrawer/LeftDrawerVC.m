@@ -95,13 +95,8 @@ typedef void(^BlkTapBookCell)(void);
         [self.table reloadData] ;
     }] ;
     
-//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-//        @strongify(self)
-//        NSValue *val = x.object ;
-//        CGSize size = [val CGSizeValue] ;
-//
-//        //self.flexTrailOfTable.constant = size.width - HomeVC.movingDistance ;
-//    }] ;
+
+    
     
     (self.btTheme.selected) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
     

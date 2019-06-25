@@ -21,7 +21,8 @@
     NSArray<NSString *> *_disabledActions ;
 }
 @property (strong, nonatomic) OctToolbar    *toolBar ;
-@property (copy, nonatomic) NSString *firstTimeArticle ;
+@property (copy, nonatomic) NSString        *firstTimeArticle ;
+@property (nonatomic)       CGSize          containerSize ;
 @end
 
 
@@ -91,14 +92,17 @@ XT_SINGLETON_M(OctWebEditor)
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         NSValue *val = x.object ;
-        CGSize size = [val CGSizeValue] ;
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
-            [self nativeCallJSWithFunc:@"setEditorFlex" json:@"28" completion:^(NSString *val, NSError *error) {}] ;
-        }
-        else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-            [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(size.width / 4) stringValue] completion:^(NSString *val, NSError *error) {}] ;
-        }
+        self.containerSize = [val CGSizeValue] ;
     }] ;
+}
+
+- (void)setSideFlex {
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+        [self nativeCallJSWithFunc:@"setEditorFlex" json:@"28" completion:^(NSString *val, NSError *error) {}] ;
+    }
+    else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+        [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(self.containerSize.width / 4) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+    }
 }
 
 - (void)leavePage {
@@ -194,8 +198,14 @@ XT_SINGLETON_M(OctWebEditor)
 }
 
 - (void)setupJSCoreWhenFinishLoad {
-    [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(NSString *val, NSError *error) {
-    }] ;
+    [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(NSString *val, NSError *error){}] ;
+    
+    
+//    [self nativeCallJSWithFunc:@"setAutoAdBracket" json:[@(FALSE) stringValue] completion:^(NSString *val, NSError *error) {
+//
+//    }] ;
+    
+    [self setSideFlex] ;
     
     [self changeTheme] ;
     
