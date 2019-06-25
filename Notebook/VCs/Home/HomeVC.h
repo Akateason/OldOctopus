@@ -10,9 +10,9 @@
 @class LeftDrawerVC, NewBookVC ;
 
 static NSString *const kNote_ClickNote_In_Pad = @"kNote_ClickNote_In_Pad" ;
+static NSString *const kNote_new_Note_In_Pad = @"kNote_new_Note_In_Pad" ;
 
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeVC : BasicVC
 + (UIViewController *)getMe ;
@@ -27,4 +27,4 @@ NS_ASSUME_NONNULL_BEGIN
 + (CGFloat)movingDistance ;
 @end
 
-NS_ASSUME_NONNULL_END
+

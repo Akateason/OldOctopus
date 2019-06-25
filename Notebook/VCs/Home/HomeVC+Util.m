@@ -10,6 +10,8 @@
 #import "LeftDrawerVC.h"
 #import "MarkdownVC.h"
 #import "NewBookVC.h"
+#import "GlobalDisplaySt.h"
+#import "OctWebEditor.h"
 
 @implementation HomeVC (Util)
 
@@ -22,10 +24,15 @@
     @weakify(self)
     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"🖋 新建笔记",@"📒 新建笔记本"] fromWithView:sender CallBackBlock:^(NSInteger btnIndex) {
         @strongify(self)
-        if (btnIndex == 1) {
-            [MarkdownVC newWithNote:nil bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+        if (btnIndex == 1) { // new note
+            if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
+            }
+            else {
+                [MarkdownVC newWithNote:nil bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+            }
         }
-        else if (btnIndex == 2) {
+        else if (btnIndex == 2) { // new book
             self.nBookVC =
             [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
                 // create new book

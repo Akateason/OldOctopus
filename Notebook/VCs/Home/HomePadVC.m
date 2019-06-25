@@ -10,6 +10,7 @@
 #import "HomeVC.h"
 #import "LeftDrawerVC.h"
 #import "NHSlidingController.h"
+#import "UIViewController+SlidingController.h"
 #import "GlobalDisplaySt.h"
 
 
@@ -33,6 +34,8 @@ static const float slidingSpeed = 2000 ;
     NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:hPadVC bottomViewController:leftVC slideDistance:HomeVC.movingDistance] ;
     hPadVC.editorVC.oct_panDelegate = (id<MarkdownVCPanGestureDelegate>)slidingController ;
     hPadVC.editorVC.pad_panDelegate = (id<MDVC_PadVCPanGestureDelegate>)hPadVC ;
+    hPadVC.homeVC.slidingController = slidingController ;
+    leftVC.slidingController = slidingController ;
     return slidingController ;
 }
 
@@ -120,6 +123,19 @@ static const float slidingSpeed = 2000 ;
             [self moveEmptyView:NO] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0;
+        }] ;
+    }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_new_Note_In_Pad object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.rightContainer.left = 0 ;
+            [self moveEmptyView:YES] ;
+        } completion:^(BOOL finished) {
+            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
+                        
+            [self.editorVC setupWithNote:nil bookID:nil fromCtrller:self.homeVC] ;
         }] ;
     }] ;
 }

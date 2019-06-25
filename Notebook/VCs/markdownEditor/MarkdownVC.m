@@ -122,7 +122,7 @@
         @strongify(self)
         NSString *json = x.object ;
         [self snapShotFullScreen:json] ;
-    }] ;
+    }] ;        
     
     [[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
        deliverOnMainThread]
@@ -154,7 +154,6 @@
          if (num == 0) {
              [self leaveOut] ;
          }
-         
      }] ;
     
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {

@@ -114,6 +114,7 @@ XT_SINGLETON_M(OctWebEditor)
     self.webViewHasSetMarkdown = NO ;
     self.firstTimeArticle = nil ;
     self.aNote = nil ;
+    [self renderNote] ;
 }
 
 - (void)createWebView {
