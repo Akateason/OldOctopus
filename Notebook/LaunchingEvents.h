@@ -7,8 +7,8 @@
 //
 
 
-#define OCTUPUS_DB_Location         XT_LIBRARY_PATH_TRAIL_(@"noteDB")
-
+#define OCTUPUS_DB_Location_Dev         XT_LIBRARY_PATH_TRAIL_(@"noteDB")
+#define OCTUPUS_DB_Location             XT_LIBRARY_PATH_TRAIL_(@"noteDB_product")
 
 #import <Foundation/Foundation.h>
 
