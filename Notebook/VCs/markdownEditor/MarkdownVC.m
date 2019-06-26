@@ -229,8 +229,15 @@
 }
 
 - (void)leaveOut {
-    if (!self.editor.webViewHasSetMarkdown) return ;
-    if (self.editor.articleAreTheSame) return ;
+    if (!self.editor.webViewHasSetMarkdown) {
+        [self.editor leavePage] ;
+        return ;
+    }
+    
+    if (self.editor.articleAreTheSame) {
+        [self.editor leavePage] ;
+        return ;
+    }
     
     [self.editor leavePage] ;
     
