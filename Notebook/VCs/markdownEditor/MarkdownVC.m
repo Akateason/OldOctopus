@@ -67,8 +67,7 @@
     self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
-    self.editor.aNote = note ;
-    [self.editor renderNote] ;
+    self.editor.aNote = note ;    
 }
 
 - (void)viewDidLoad {

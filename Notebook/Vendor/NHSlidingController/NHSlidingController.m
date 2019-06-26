@@ -183,12 +183,6 @@ static const CGFloat slidingSpeed = 1500.0;
     
     CGFloat duration = self.slideDistance / slidingSpeed ;
     
-//    if (opened) [self.bottomViewController viewWillAppear:YES];
-//    [UIView animateWithDuration:duration animations:^{
-//        self.topViewContainer.left = opened ? self.slideDistance : 0 ;
-//        self.topViewContainer.width = opened ? self.m_containerSize.width - self.slideDistance : self.m_containerSize.width ;
-//    }];
-    
     CGPoint center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
     
     if (opened) {
