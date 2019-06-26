@@ -29,7 +29,7 @@ static const float slidingSpeed = 2000 ;
 + (UIViewController *)getMe {
     HomePadVC *hPadVC = [HomePadVC new] ;
     LeftDrawerVC *leftVC = [LeftDrawerVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"LeftDrawerVC"];
-    leftVC.delegate = (id<LeftDrawerVCDelegate>)hPadVC.homeVC ;
+    
     hPadVC.homeVC.leftVC = leftVC ;
     NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:hPadVC bottomViewController:leftVC slideDistance:HomeVC.movingDistance] ;
     hPadVC.editorVC.oct_panDelegate = (id<MarkdownVCPanGestureDelegate>)slidingController ;

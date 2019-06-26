@@ -299,18 +299,7 @@
                                             <constraint firstAttribute="width" constant="24" id="2Cc-xY-GAq"/>
                                             <constraint firstAttribute="height" constant="24" id="BgJ-Ig-WEc"/>
                                         </constraints>
-                                        <state key="normal" image="ld_theme_night.png"/>
-                                        <connections>
-                                            <action selector="themeChange:" destination="C7r-Ea-0Bq" eventType="touchUpInside" id="GUf-uf-8aK"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5YQ-2t-ZHp">
-                                        <rect key="frame" x="291" y="19" width="24" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="4oG-Kw-CmS"/>
-                                            <constraint firstAttribute="width" constant="24" id="hhg-LG-BU3"/>
-                                        </constraints>
-                                        <state key="normal" backgroundImage="ld_reply.png"/>
+                                        <state key="normal" image="setting_icon.png"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -318,11 +307,9 @@
                                     <constraint firstItem="p3R-oz-fOe" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="DOK-X6-MxJ"/>
                                     <constraint firstAttribute="height" constant="62" id="HnF-9s-Lyy"/>
                                     <constraint firstItem="p3R-oz-fOe" firstAttribute="leading" secondItem="F70-cj-TbX" secondAttribute="leading" constant="24" id="Ita-QY-2mR"/>
-                                    <constraint firstItem="s9O-94-jlJ" firstAttribute="leading" secondItem="5YQ-2t-ZHp" secondAttribute="trailing" constant="15" id="UdB-aW-NW7"/>
                                     <constraint firstItem="2V7-Gu-ayp" firstAttribute="leading" secondItem="p3R-oz-fOe" secondAttribute="trailing" constant="21" id="Vf8-zY-0Ak"/>
                                     <constraint firstAttribute="trailing" secondItem="s9O-94-jlJ" secondAttribute="trailing" constant="21" id="bUr-ez-oTK"/>
                                     <constraint firstItem="s9O-94-jlJ" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="jmE-N5-CHx"/>
-                                    <constraint firstItem="5YQ-2t-ZHp" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="mgq-th-emA"/>
                                     <constraint firstItem="2V7-Gu-ayp" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="ufT-Ly-pIr"/>
                                 </constraints>
                             </view>
@@ -346,8 +333,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bottomArea" destination="F70-cj-TbX" id="f5e-kl-ti7"/>
-                        <outlet property="btReply" destination="5YQ-2t-ZHp" id="eSz-M1-n6J"/>
-                        <outlet property="btTheme" destination="s9O-94-jlJ" id="Elk-bo-gif"/>
+                        <outlet property="btSetting" destination="s9O-94-jlJ" id="F69-9E-aLA"/>
                         <outlet property="imgTrash" destination="p3R-oz-fOe" id="j0u-8k-ltO"/>
                         <outlet property="lbTrash" destination="2V7-Gu-ayp" id="4rY-SA-nEg"/>
                         <outlet property="table" destination="p5O-A2-KpC" id="oZ2-gm-Ydh"/>
@@ -356,6 +342,94 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E36-u5-ZeE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1572" y="1836.4317841079462"/>
+        </scene>
+        <!--SettingVC-->
+        <scene sceneID="Bdr-4C-Fei">
+            <objects>
+                <viewController storyboardIdentifier="SettingVC" id="2SN-3A-iMp" customClass="SettingVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Se6-k6-71P">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="偏好设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pd3-3j-ggA">
+                                <rect key="frame" x="20" y="55" width="116" height="41"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUL-KH-ZkQ">
+                                <rect key="frame" x="335" y="40" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="I9d-HX-pHl"/>
+                                    <constraint firstAttribute="width" constant="20" id="eOW-t6-h5c"/>
+                                </constraints>
+                                <state key="normal" image="m_note_close.png"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账户信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nov-tf-Vlf">
+                                <rect key="frame" x="20" y="126" width="48" height="17"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🐙" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Os-Jl-B2q">
+                                <rect key="frame" x="20" y="158" width="32" height="32"/>
+                                <color key="backgroundColor" red="0.91495835780000001" green="0.33410280939999998" blue="0.33362057810000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="aj2-sw-CkQ"/>
+                                    <constraint firstAttribute="width" constant="32" id="gKS-WC-bbE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="xt_cornerRadius">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="xt_maskToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请登录iCloud账户" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCp-Cd-Hao">
+                                <rect key="frame" x="62" y="161.5" width="143.5" height="25.5"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rny-Af-KMs">
+                                <rect key="frame" x="0.0" y="220" width="375" height="447"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Pd3-3j-ggA" firstAttribute="top" secondItem="pDm-Jk-bp8" secondAttribute="top" constant="35" id="5fi-I6-wg1"/>
+                            <constraint firstItem="rny-Af-KMs" firstAttribute="trailing" secondItem="pDm-Jk-bp8" secondAttribute="trailing" id="6qV-K4-0vH"/>
+                            <constraint firstItem="gCp-Cd-Hao" firstAttribute="leading" secondItem="7Os-Jl-B2q" secondAttribute="trailing" constant="10" id="HVI-Ql-wxV"/>
+                            <constraint firstItem="rny-Af-KMs" firstAttribute="top" secondItem="7Os-Jl-B2q" secondAttribute="bottom" constant="30" id="Jem-JS-TIR"/>
+                            <constraint firstItem="rny-Af-KMs" firstAttribute="bottom" secondItem="pDm-Jk-bp8" secondAttribute="bottom" id="Kvn-K7-8vy"/>
+                            <constraint firstItem="pDm-Jk-bp8" firstAttribute="trailing" secondItem="xUL-KH-ZkQ" secondAttribute="trailing" constant="20" id="PvW-C0-Vm6"/>
+                            <constraint firstItem="7Os-Jl-B2q" firstAttribute="leading" secondItem="pDm-Jk-bp8" secondAttribute="leading" constant="20" id="UY6-91-6y7"/>
+                            <constraint firstItem="rny-Af-KMs" firstAttribute="leading" secondItem="pDm-Jk-bp8" secondAttribute="leading" id="ZMq-iv-iIa"/>
+                            <constraint firstItem="Nov-tf-Vlf" firstAttribute="leading" secondItem="pDm-Jk-bp8" secondAttribute="leading" constant="20" id="boG-r4-333"/>
+                            <constraint firstItem="Pd3-3j-ggA" firstAttribute="leading" secondItem="pDm-Jk-bp8" secondAttribute="leading" constant="20" id="h8A-UX-InE"/>
+                            <constraint firstItem="gCp-Cd-Hao" firstAttribute="centerY" secondItem="7Os-Jl-B2q" secondAttribute="centerY" id="joe-wi-5e0"/>
+                            <constraint firstItem="7Os-Jl-B2q" firstAttribute="top" secondItem="Nov-tf-Vlf" secondAttribute="bottom" constant="15" id="q3J-f6-t0M"/>
+                            <constraint firstItem="xUL-KH-ZkQ" firstAttribute="top" secondItem="pDm-Jk-bp8" secondAttribute="top" constant="20" id="uKn-oS-Fgy"/>
+                            <constraint firstItem="Nov-tf-Vlf" firstAttribute="top" secondItem="Pd3-3j-ggA" secondAttribute="bottom" constant="30" id="vif-Dx-5Vh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pDm-Jk-bp8"/>
+                    </view>
+                    <connections>
+                        <outlet property="btClose" destination="xUL-KH-ZkQ" id="v35-e3-mB6"/>
+                        <outlet property="lbAccountTitle" destination="Nov-tf-Vlf" id="yqF-ut-p9y"/>
+                        <outlet property="lbIcon" destination="7Os-Jl-B2q" id="cdG-al-NeD"/>
+                        <outlet property="lbName" destination="gCp-Cd-Hao" id="yY0-83-7cS"/>
+                        <outlet property="lbTitle" destination="Pd3-3j-ggA" id="qj5-Lj-WlS"/>
+                        <outlet property="table" destination="rny-Af-KMs" id="7pO-f7-xGE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3E5-vb-iQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1572" y="2557.8710644677662"/>
         </scene>
         <!--New BookVC-->
         <scene sceneID="vXp-rB-lN5">
@@ -737,14 +811,13 @@
     <resources>
         <image name="home_bar_add.png" width="40" height="40"/>
         <image name="ld_bt_trash.png" width="48" height="48"/>
-        <image name="ld_reply.png" width="48" height="48"/>
-        <image name="ld_theme_night.png" width="48" height="48"/>
         <image name="m_note_close.png" width="36" height="36"/>
         <image name="m_note_right_paint.png" width="88" height="158"/>
         <image name="md_ed_more.png" width="40" height="40"/>
         <image name="md_home_search.png" width="32" height="32"/>
         <image name="nav_back_item.png" width="40" height="40"/>
         <image name="nb_right_fish.png" width="64" height="185"/>
+        <image name="setting_icon.png" width="49" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="K5F-Ir-RtS"/>

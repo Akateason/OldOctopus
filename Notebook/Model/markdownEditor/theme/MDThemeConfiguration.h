@@ -57,6 +57,9 @@ XT_SINGLETON_H(MDThemeConfiguration)
 
 - (UIColor *)themeColor:(NSString *)key ;
 
+- (void)setThemeDarkOrNight:(BOOL)dark ;
+- (BOOL)isDarkMode ;
+
 @end
 
 

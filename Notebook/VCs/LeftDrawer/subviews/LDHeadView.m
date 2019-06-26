@@ -41,6 +41,38 @@
     self.lbHead.xt_theme_backgroundColor = k_md_themeColor ;
     self.lbHead.textColor = [UIColor whiteColor] ;
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    
+    ([MDThemeConfiguration sharedInstance].isDarkMode) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
+    
+    self.btTheme.xt_theme_imageColor = k_md_iconColor ;
+    [self.btTheme xt_enlargeButtonsTouchArea] ;
+    
+    @weakify(self)
+    [self.btTheme bk_whenTapped:^{
+        @strongify(self)
+        
+        UIView *circle = [UIView new] ;
+        circle.backgroundColor = ([MDThemeConfiguration sharedInstance].isDarkMode) ? UIColorHex(@"f9f6f6") : UIColorHex(@"2b2f33") ;
+        CGPoint point = [self convertPoint:self.btTheme.center toView:self.window] ;
+        circle.frame = CGRectMake(0, 0, APP_HEIGHT * 2 + 100, APP_HEIGHT * 2 + 100) ;
+        circle.center = point ;
+        circle.xt_completeRound = YES ;
+        [self.window addSubview:circle] ;
+        
+        circle.layer.transform = CATransform3DMakeScale(0, 0, 1) ;
+        
+        [UIView animateWithDuration:.25 delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+            circle.layer.transform = CATransform3DIdentity ;
+            circle.alpha = .8 ;
+        } completion:^(BOOL finished) {
+            
+            [[MDThemeConfiguration sharedInstance] setThemeDarkOrNight:(![MDThemeConfiguration sharedInstance].isDarkMode)] ;
+            (![MDThemeConfiguration sharedInstance].isDarkMode) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
+                        
+            [circle removeFromSuperview] ;
+        }] ;
+    }] ;
+    
 }
 
 - (void)setupUser {

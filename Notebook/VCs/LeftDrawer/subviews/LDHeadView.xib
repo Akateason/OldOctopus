@@ -44,6 +44,14 @@
                     <rect key="frame" x="0.0" y="83" width="375" height="156"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4f-iu-cTt">
+                    <rect key="frame" x="335" y="21" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="OjU-JH-tdh"/>
+                        <constraint firstAttribute="width" constant="24" id="UV6-Rn-8za"/>
+                    </constraints>
+                    <state key="normal" image="ld_theme_night.png"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -51,9 +59,11 @@
                 <constraint firstItem="VLl-JU-VyC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Kfn-EQ-e9s"/>
                 <constraint firstItem="nas-EU-zoX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="17" id="SOk-7E-3qh"/>
                 <constraint firstItem="VLl-JU-VyC" firstAttribute="top" secondItem="nas-EU-zoX" secondAttribute="bottom" constant="34" id="UEs-RX-e66"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="E4f-iu-cTt" secondAttribute="trailing" constant="16" id="Vq2-08-CnA"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="VLl-JU-VyC" secondAttribute="bottom" id="bt6-Ow-QEj"/>
                 <constraint firstItem="nas-EU-zoX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="17" id="dTP-ll-4cQ"/>
                 <constraint firstItem="VLl-JU-VyC" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="is5-nU-46t"/>
+                <constraint firstItem="E4f-iu-cTt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="21" id="sWg-8v-YBN"/>
                 <constraint firstItem="KNe-eg-f1E" firstAttribute="centerY" secondItem="nas-EU-zoX" secondAttribute="centerY" id="uGJ-ei-Qfy"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
@@ -61,6 +71,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="btTheme" destination="E4f-iu-cTt" id="Ob8-Ag-WUw"/>
                 <outlet property="lbHead" destination="nas-EU-zoX" id="UcF-Z7-Gf4"/>
                 <outlet property="lbName" destination="KNe-eg-f1E" id="DWs-Iw-Qrs"/>
                 <outlet property="table" destination="VLl-JU-VyC" id="XJP-an-xt5"/>
@@ -68,4 +79,7 @@
             <point key="canvasLocation" x="132" y="311.24437781109447"/>
         </view>
     </objects>
+    <resources>
+        <image name="ld_theme_night.png" width="48" height="48"/>
+    </resources>
 </document>

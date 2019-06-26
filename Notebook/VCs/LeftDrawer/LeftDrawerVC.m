@@ -16,7 +16,7 @@
 #import "NHSlidingController.h"
 #import "UIViewController+SlidingController.h"
 #import "HomeVC.h"
-
+#import "SettingVC.h"
 
 
 // lastBook
@@ -29,6 +29,7 @@ typedef void(^BlkTapBookCell)(void);
 
 @interface LeftDrawerVC () <UITableViewDelegate, UITableViewDataSource, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, LDHeadViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *btSetting;
 @property (nonatomic)       BOOL    isFirstTime ;
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -39,9 +40,7 @@ typedef void(^BlkTapBookCell)(void);
 
 @property (weak, nonatomic) IBOutlet UIView *bottomArea;
 @property (weak, nonatomic) IBOutlet UILabel *lbTrash;
-@property (weak, nonatomic) IBOutlet UIButton *btTheme;
 @property (weak, nonatomic) IBOutlet UIImageView *imgTrash;
-@property (weak, nonatomic) IBOutlet UIButton *btReply;
 
 @property (strong, nonatomic) NoteBooks *bookTrash ;
 @property (strong, nonatomic) NoteBooks *bookRecent ;
@@ -53,33 +52,6 @@ typedef void(^BlkTapBookCell)(void);
 @end
 
 @implementation LeftDrawerVC
-
-- (IBAction)themeChange:(UIButton *)sender {
-    
-    __block UIButton *bt = sender ;
-    
-    UIView *circle = [UIView new] ;
-    circle.backgroundColor = sender.selected ? UIColorHex(@"f9f6f6") : UIColorHex(@"2b2f33") ;
-    CGPoint point = [self.bottomArea convertPoint:self.btTheme.center toView:self.view.window] ;
-    circle.frame = CGRectMake(0, 0, APP_HEIGHT * 2 + 100, APP_HEIGHT * 2 + 100) ;
-    circle.center = point ;
-    circle.xt_completeRound = YES ;
-    [self.view.window addSubview:circle] ;
-    
-    circle.layer.transform = CATransform3DMakeScale(0, 0, 1) ;
-    
-    [UIView animateWithDuration:.25 delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
-        circle.layer.transform = CATransform3DIdentity ;
-        circle.alpha = .8 ;
-    } completion:^(BOOL finished) {
-        
-        (!bt.selected) ? [[MDThemeConfiguration sharedInstance] changeTheme:@"dark"] : [[MDThemeConfiguration sharedInstance] changeTheme:@"light"] ;
-        (!bt.selected) ? [bt setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [bt setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
-        bt.selected = !bt.selected ;
-        
-        [circle removeFromSuperview] ;
-    }] ;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,13 +65,7 @@ typedef void(^BlkTapBookCell)(void);
      subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self.table reloadData] ;
-    }] ;
-    
-
-    
-    
-    (self.btTheme.selected) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
-    
+    }] ;        
 }
 
 - (void)prepareUI {
@@ -121,13 +87,6 @@ typedef void(^BlkTapBookCell)(void);
     self.lbTrash.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.imgTrash.xt_theme_imageColor = k_md_iconColor ;
     
-    self.btTheme.xt_theme_imageColor = k_md_iconColor ;
-    [self.btTheme xt_enlargeButtonsTouchArea] ;
-    self.btTheme.selected = ![[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"light"] ;
-    
-    self.btReply.xt_theme_imageColor = k_md_iconColor ;
-    [self.btReply xt_enlargeButtonsTouchArea] ;
-    
     self.bottomArea.userInteractionEnabled = YES ;
     @weakify(self)
     [self.bottomArea bk_whenTapped:^{
@@ -137,14 +96,15 @@ typedef void(^BlkTapBookCell)(void);
         self.blkTapped() ;
     }] ;
     
-    [self.btReply bk_whenTapped:^{
-        @strongify(self)
-        [self.delegate reply] ;
-    }] ;
-    
     // 清数据 暗开关
     [self.bottomArea bk_whenTouches:2 tapped:7 handler:^{
         [HiddenUtil showAlert] ;
+    }] ;
+    
+    [self.btSetting xt_enlargeButtonsTouchArea] ;
+    [self.btSetting bk_whenTapped:^{
+        @strongify(self)
+        [self.slidingController presentViewController:[SettingVC getMe] animated:YES completion:nil] ;
     }] ;
 }
 

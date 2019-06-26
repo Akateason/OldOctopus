@@ -80,5 +80,12 @@ XT_SINGLETON_M(MDThemeConfiguration)
     return themeColor ;
 }
 
+- (void)setThemeDarkOrNight:(BOOL)dark {
+    (dark) ? [[MDThemeConfiguration sharedInstance] changeTheme:@"dark"] : [[MDThemeConfiguration sharedInstance] changeTheme:@"light"] ;
+}
+
+- (BOOL)isDarkMode {
+    return [self.currentThemeKey isEqualToString:@"dark"] ;
+}
 
 @end

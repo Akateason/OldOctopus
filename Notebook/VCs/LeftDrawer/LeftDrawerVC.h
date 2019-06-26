@@ -9,12 +9,9 @@
 #import "BasicVC.h"
 @class NoteBooks ;
 
-@protocol LeftDrawerVCDelegate <NSObject>
-- (void)reply ;
-@end
+
 
 @interface LeftDrawerVC : BasicVC
-@property (weak, nonatomic) id<LeftDrawerVCDelegate> delegate ;
 @property (strong, nonatomic) NoteBooks *currentBook ;
 
 - (void)render ;

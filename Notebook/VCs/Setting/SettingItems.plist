@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<dict>
+			<key>p</key>
+			<string>setting_normal</string>
+			<key>t</key>
+			<string>通用设置</string>
+			<key>r</key>
+			<string></string>
+		</dict>
+        <dict>
+            <key>p</key>
+            <string>setting_skin</string>
+            <key>t</key>
+            <string>主题皮肤</string>
+            <key>r</key>
+            <string>默认</string>
+        </dict>
+        <dict>
+            <key>p</key>
+            <string>setting_editor</string>
+            <key>t</key>
+            <string>编辑器</string>
+            <key>r</key>
+            <string></string>
+        </dict>
+	</array>
+    
+    <array>
+        <dict>
+            <key>p</key>
+            <string>ld_reply</string>
+            <key>t</key>
+            <string>反馈与建议</string>
+            <key>r</key>
+            <string></string>
+        </dict>
+    </array>
+    
+    
+</array>
+</plist>

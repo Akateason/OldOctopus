@@ -13,8 +13,7 @@
 
 static char NH_slidingControllerKey;
 
--(void)setSlidingController:(NHSlidingController *)slidingController
-{
+- (void)setSlidingController:(NHSlidingController *)slidingController {
 	objc_setAssociatedObject(self, &NH_slidingControllerKey, slidingController, OBJC_ASSOCIATION_ASSIGN);
 	
 	if ([self isKindOfClass:[UINavigationController class]]) {
@@ -25,8 +24,8 @@ static char NH_slidingControllerKey;
 	}
 }
 
--(NHSlidingController *)slidingController
-{
+- (NHSlidingController *)slidingController {
 	return objc_getAssociatedObject(self, &NH_slidingControllerKey);
 }
+
 @end
