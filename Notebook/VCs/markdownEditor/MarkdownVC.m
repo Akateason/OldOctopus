@@ -77,8 +77,6 @@
     if (self.aNote) self.editor.aNote = self.aNote ;
     
     
-    
-    
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)

@@ -212,6 +212,8 @@ XT_SINGLETON_M(OctWebEditor)
     
     [self renderNote] ;
     
+    [self nativeCallJSWithFunc:@"setEditorScrollOffset" json:@"0" completion:^(NSString *val, NSError *error) {}] ;
+    
     if (!self.aNote) {
         [self openKeyboard] ;
     }
