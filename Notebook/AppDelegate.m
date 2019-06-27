@@ -74,6 +74,8 @@
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self.window.rootViewController] ;
     
     int displayMode = [GlobalDisplaySt sharedInstance].displayMode ;
+    if (self.padDisplayMode == displayMode) return ;
+    
     if (displayMode == GDST_Home_2_Column_Verical_default) {
         self.window.rootViewController = [HomeVC getMe] ;
         [self.window makeKeyAndVisible] ;
@@ -82,6 +84,7 @@
         self.window.rootViewController = [HomePadVC getMe] ;
         [self.window makeKeyAndVisible] ;
     }
+    self.padDisplayMode = displayMode ;
 }
 
 //file:///private/var/mobile/Containers/Data/Application/929D7113-DCE0-4F39-9436-D85BFD644DC6/Documents/Inbox/%E7%BC%96%E8%BE%91%E5%99%A8%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1.md

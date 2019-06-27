@@ -124,8 +124,9 @@
     
     
     
-    [[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
+    [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
        deliverOnMainThread]
+       takeUntil:self.rac_willDeallocSignal]
       throttle:.2]
      subscribeNext:^(id  _Nullable x) {
          @strongify(self)

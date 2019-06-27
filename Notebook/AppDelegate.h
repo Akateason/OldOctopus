@@ -15,5 +15,7 @@ static const int g_isLoadWebViewOnline = 0 ;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) LaunchingEvents *launchingEvents ;
+
+@property (nonatomic) int padDisplayMode ;
 @end
 

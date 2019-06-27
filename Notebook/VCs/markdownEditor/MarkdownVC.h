@@ -32,7 +32,7 @@ static NSString *const kNote_pad_Editor_PullBack = @"kNote_pad_Editor_PullBack" 
 @property (weak, nonatomic) id<MDVC_PadVCPanGestureDelegate>    pad_panDelegate ;
 @property (nonatomic)       BOOL                                canBeEdited ;
 @property (weak, nonatomic) id<MarkdownVCDelegate>              delegate ;
-@property (strong, nonatomic) HomeEmptyPHView *emptyView ;
+@property (strong, nonatomic) HomeEmptyPHView                   *emptyView ;
 
 + (instancetype)newWithNote:(Note *)note
                      bookID:(NSString *)bookID
