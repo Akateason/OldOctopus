@@ -133,7 +133,7 @@
          int num = [x intValue] ;
          if ([GlobalDisplaySt sharedInstance].displayMode == 0) return ;
          
-         self.editor.webView.userInteractionEnabled = num == -1 ;
+//         self.editor.webView.userInteractionEnabled = num == -1 ;
          self.canBeEdited = num == -1 ;
          [UIView animateWithDuration:.1 animations:^{
              if (num == -1) self.btBack.transform = CGAffineTransformScale(self.btBack.transform, -1, 1) ;
@@ -180,10 +180,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return YES ;
-    
-    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != 1) {
-        return YES ;
-    }
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != 1) return YES ;
     
     return [self.oct_panDelegate oct_gestureRecognizerShouldBegin:gestureRecognizer] ;
 }
@@ -292,7 +289,7 @@
 
 - (void)prepareUI {
     [self editor] ;
-    self.editor.webView.userInteractionEnabled = self.canBeEdited ;
+//    self.editor.webView.userInteractionEnabled = self.canBeEdited ;
     self.editor.xt_theme_backgroundColor = k_md_bgColor ;
     self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
     

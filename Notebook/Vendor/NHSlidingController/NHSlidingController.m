@@ -145,12 +145,12 @@ static const CGFloat slidingSpeed = 1500.0;
     }
     
     if (drawerOpened) {
-        _topViewContainer.userInteractionEnabled = NO;
+//        _topViewContainer.userInteractionEnabled = NO;
         tapGestureRecognizer.enabled = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidOpenNotification object:self];
     }
     else {
-        _topViewContainer.userInteractionEnabled = YES;
+//        _topViewContainer.userInteractionEnabled = YES;
         tapGestureRecognizer.enabled = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidCloseNotification object:self];
     }
@@ -182,9 +182,7 @@ static const CGFloat slidingSpeed = 1500.0;
     self.drawerOpened = opened ;
     
     CGFloat duration = self.slideDistance / slidingSpeed ;
-    
     CGPoint center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
-    
     if (opened) {
         center.x += self.slideDistance;
         [self.bottomViewController viewWillAppear:YES];
@@ -225,11 +223,11 @@ static const CGFloat slidingSpeed = 1500.0;
         BOOL directionIsHorizontal = (fabs(translation.x) > fabs(translation.y));
         BOOL directionIsToRight = translation.x > 0;
         return directionIsHorizontal && (directionIsToRight || self.drawerOpened);
-    } else if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+    }
+    else if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
         UITapGestureRecognizer *tapRecognizer = (UITapGestureRecognizer *)gestureRecognizer;
         return [tapRecognizer locationInView:self.view].x > self.slideDistance;
     }
-    
     return YES;
 }
 
@@ -333,7 +331,6 @@ static const CGFloat slidingSpeed = 1500.0;
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     [GlobalDisplaySt sharedInstance].containerSize = size ;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNoteSlidingSizeChanging object:val] ;
-    
 }
 
 
