@@ -9,7 +9,7 @@
 #import "SettingVC.h"
 #import "SettingCell.h"
 #import <SafariServices/SafariServices.h>
-
+#import "SetGeneralVC.h"
 
 @interface SettingVC ()
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -99,7 +99,8 @@
     NSDictionary *dic = self.datasource[section][row] ;
     NSString *title = dic[@"t"] ;
     if ([title containsString:@"通用"]) {
-        
+        SetGeneralVC *vc = [SetGeneralVC new] ;
+        [self.navigationController pushViewController:vc animated:YES] ;
     }
     else if ([title containsString:@"主题"]) {
         

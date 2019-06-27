@@ -141,6 +141,8 @@
 		8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A84942244F7D90099E905 /* md_tb_bt_h@2x.png */; };
 		8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A849E2248A6050099E905 /* MDEditUrlView.xib */; };
 		8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */; };
+		8F7B2EB522C36DCA000018DE /* SetGeneralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2EB422C36DC9000018DE /* SetGeneralVC.m */; };
+		8F7B2EB822C370CF000018DE /* SettingNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2EB722C370CF000018DE /* SettingNavBar.m */; };
 		8F7C8EC222C1F70F005731FA /* nav_back_reverse_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */; };
 		8F7C8ECC22C22787005731FA /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8ECB22C22787005731FA /* web.zip */; };
 		8F931B9B228E89F800F73219 /* home_top_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9A228E89F800F73219 /* home_top_note@2x.png */; };
@@ -505,6 +507,10 @@
 		8F7A849E2248A6050099E905 /* MDEditUrlView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MDEditUrlView.xib; sourceTree = "<group>"; };
 		8F7A84A02248AB7A0099E905 /* MDEditUrlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDEditUrlView.h; sourceTree = "<group>"; };
 		8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDEditUrlView.m; sourceTree = "<group>"; };
+		8F7B2EB322C36DC9000018DE /* SetGeneralVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetGeneralVC.h; sourceTree = "<group>"; };
+		8F7B2EB422C36DC9000018DE /* SetGeneralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetGeneralVC.m; sourceTree = "<group>"; };
+		8F7B2EB622C370CF000018DE /* SettingNavBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingNavBar.h; sourceTree = "<group>"; };
+		8F7B2EB722C370CF000018DE /* SettingNavBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingNavBar.m; sourceTree = "<group>"; };
 		8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_reverse_item@2x.png"; sourceTree = "<group>"; };
 		8F7C8ECB22C22787005731FA /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F931B9A228E89F800F73219 /* home_top_note@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_top_note@2x.png"; sourceTree = "<group>"; };
@@ -1267,6 +1273,8 @@
 				8FD7993222C3482400270C2C /* SettingCell.m */,
 				8FD7993322C3482400270C2C /* SettingCell.xib */,
 				8FD7993A22C34F2E00270C2C /* SettingItems.plist */,
+				8F7B2EB622C370CF000018DE /* SettingNavBar.h */,
+				8F7B2EB722C370CF000018DE /* SettingNavBar.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1274,6 +1282,8 @@
 		8FD7994322C3686500270C2C /* SetGeneral */ = {
 			isa = PBXGroup;
 			children = (
+				8F7B2EB322C36DC9000018DE /* SetGeneralVC.h */,
+				8F7B2EB422C36DC9000018DE /* SetGeneralVC.m */,
 			);
 			path = SetGeneral;
 			sourceTree = "<group>";
@@ -1915,6 +1925,7 @@
 				8F08FB7922A8E819008AB6A6 /* TableCreatorView.m in Sources */,
 				8FE5A3EA224CA77400947D14 /* LDHeadView.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
+				8F7B2EB522C36DCA000018DE /* SetGeneralVC.m in Sources */,
 				8F05C57C22754CD40047CC04 /* XTMarkdownParser+Regular.m in Sources */,
 				8F0C15DC2296833200E8837D /* GuidingICloud.m in Sources */,
 				8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */,
@@ -1953,6 +1964,7 @@
 				8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */,
 				8F33884A22A5168A006A7069 /* CWLateralSlideAnimator.m in Sources */,
 				8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */,
+				8F7B2EB822C370CF000018DE /* SettingNavBar.m in Sources */,
 				8F19E10D22819AB000121851 /* ArticlePhotoPreviewVC.m in Sources */,
 				8F1357E22292950E00F5F874 /* OctToolbar.m in Sources */,
 				8F12DA8F226D9F3600265563 /* HomeSearchCell.m in Sources */,
