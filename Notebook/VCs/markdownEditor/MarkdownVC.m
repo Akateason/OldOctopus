@@ -239,8 +239,6 @@
         return ;
     }
     
-    [self.editor leavePage] ;
-    
     if (self.aNote) {
         // Update Your Note
         [self updateMyNote] ;
@@ -248,7 +246,9 @@
     else {
         // Create New Note
         [self createNewNote] ;
-    }    
+    }
+    
+    [self.editor leavePage] ;
 }
 
 

@@ -68,6 +68,7 @@ XT_SINGLETON_M(OctWebEditor)
         // get keyboard height
         self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
         float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
+        if (!param) [self.toolBar removeFromSuperview] ;
         
         [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {
         }] ;
