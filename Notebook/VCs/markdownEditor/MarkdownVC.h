@@ -8,6 +8,7 @@
 
 #import "BasicVC.h"
 #import "HomeEmptyPHView.h"
+#import "OctWebEditor.h"
 
 static NSString *const kNote_pad_Editor_OnClick = @"kNote_pad_Editor_OnClick" ;
 static NSString *const kNote_pad_Editor_PullBack = @"kNote_pad_Editor_PullBack" ;
@@ -33,6 +34,7 @@ static NSString *const kNote_pad_Editor_PullBack = @"kNote_pad_Editor_PullBack" 
 @property (nonatomic)       BOOL                                canBeEdited ;
 @property (weak, nonatomic) id<MarkdownVCDelegate>              delegate ;
 @property (strong, nonatomic) HomeEmptyPHView                   *emptyView ;
+@property (strong, nonatomic) OctWebEditor                      *editor ;
 
 + (instancetype)newWithNote:(Note *)note
                      bookID:(NSString *)bookID

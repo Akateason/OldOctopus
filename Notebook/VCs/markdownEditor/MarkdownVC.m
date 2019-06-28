@@ -7,7 +7,6 @@
 // 假导航
 
 #import "MarkdownVC.h"
-#import "OctWebEditor.h"
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
@@ -28,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
 
-@property (strong, nonatomic) OctWebEditor      *editor ;
+
 @property (strong, nonatomic) XTCameraHandler   *handler;
 @property (strong, nonatomic) ArticleInfoVC     *infoVC ;
 
@@ -67,12 +66,15 @@
     self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
-    self.editor.aNote = note ;    
+    self.editor.aNote = note ;
+    self.editor.left = -[GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28 ;
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
+    self.view.xt_maskToBounds = YES ;
     if (self.aNote) self.editor.aNote = self.aNote ;
     
     
@@ -459,15 +461,13 @@
 - (OctWebEditor *)editor {
     if (!_editor) {
         _editor = [OctWebEditor sharedInstance] ;
+        _editor.bottom = self.view.bottom ;
+        _editor.left = self.view.left ;
+        _editor.top = self.topBar.top ;
+        _editor.width = self.view.width ;
+        _editor.height = self.view.height - self.topBar.top ;
+        
         [self.view insertSubview:_editor atIndex:0] ;
-        [_editor mas_makeConstraints:^(MASConstraintMaker *make) {
-            if (@available(iOS 11.0, *)) {
-                make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
-            } else {
-                make.top.equalTo(self.view.xt_viewController.mas_topLayoutGuideBottom) ;
-            }
-            make.bottom.left.right.equalTo(self.view) ;
-        }] ;
     }
     return _editor ;
 }

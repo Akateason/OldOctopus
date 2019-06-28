@@ -110,6 +110,7 @@ static const float slidingSpeed = 2000 ;
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = 0 ;
             [self moveEmptyView:YES] ;
+            [self setupLeftForRightVC:-1] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
         }] ;
@@ -121,6 +122,7 @@ static const float slidingSpeed = 2000 ;
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = kWidth_ListView ;
             [self moveEmptyView:NO] ;
+            [self setupLeftForRightVC:0] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0;
         }] ;
@@ -134,12 +136,11 @@ static const float slidingSpeed = 2000 ;
             [self moveEmptyView:YES] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
-                        
+            
             [self.editorVC setupWithNote:nil bookID:nil fromCtrller:self.homeVC] ;
         }] ;
     }] ;
 }
-
 
 #pragma mark - MDVC_PadVCPanGestureDelegate <NSObject>
 
@@ -152,7 +153,6 @@ static const float slidingSpeed = 2000 ;
     float left = _rightContainer.left ;
     left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
     self->_rightContainer.left = left ;
-    
     
     if (recognizer.state != UIGestureRecognizerStateEnded) return ;
 
@@ -187,6 +187,7 @@ static const float slidingSpeed = 2000 ;
             [UIView animateWithDuration:0.3 animations:^{
                 self->_rightContainer.left = left;
                 [self moveEmptyView:finalOpenState == -1] ;
+                [self setupLeftForRightVC:finalOpenState] ;
             } completion:^(BOOL finished) {
                 [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
             }];
@@ -199,6 +200,7 @@ static const float slidingSpeed = 2000 ;
         [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self->_rightContainer.left = left;
             [self moveEmptyView:finalOpenState == -1] ;
+            [self setupLeftForRightVC:finalOpenState] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
         }];
@@ -210,10 +212,16 @@ static const float slidingSpeed = 2000 ;
         [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self->_rightContainer.left = left;
             [self moveEmptyView:finalOpenState == -1] ;
+            [self setupLeftForRightVC:finalOpenState] ;
         } completion:^(BOOL finished) {
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
         }];
     }
+}
+
+- (void)setupLeftForRightVC:(int)finalOpenState {
+    float left = finalOpenState != -1 ? (- [GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28.) : 0 ;
+    _editorVC.editor.left = left ;
 }
 
 - (void)moveEmptyView:(BOOL)stateOn {
