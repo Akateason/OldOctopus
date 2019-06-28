@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SetGeneralVC : BasicVC
 
++ (instancetype)getMe ;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -15,6 +15,7 @@ target 'Notebook' do
   pod 'iosMath'
   pod 'MSDynamicsDrawerViewController'
   pod 'SSZipArchive'
+  pod 'JTMaterialSwitch'
 
   
 end

@@ -42,6 +42,7 @@ PODS:
   - FTPopOverMenu (2.0.3)
   - iosMath (0.9.4)
   - IQKeyboardManager (6.3.0)
+  - JTMaterialSwitch (1.1)
   - lottie-ios (2.5.3)
   - Masonry (1.1.0)
   - MJRefresh (3.2.0)
@@ -102,6 +103,7 @@ DEPENDENCIES:
   - EllipsePageControl
   - iosMath
   - IQKeyboardManager
+  - JTMaterialSwitch
   - lottie-ios (= 2.5.3)
   - MSDynamicsDrawerViewController
   - SDWebImage (<= 4.4.6)
@@ -123,6 +125,7 @@ SPEC REPOS:
     - FTPopOverMenu
     - iosMath
     - IQKeyboardManager
+    - JTMaterialSwitch
     - lottie-ios
     - Masonry
     - MJRefresh
@@ -155,6 +158,7 @@ SPEC CHECKSUMS:
   FTPopOverMenu: 8aa89de66e72b53db3e7eeab42243d393237768f
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
   IQKeyboardManager: 2ca9d64893247556f53523dcd8d78641f0ba7c23
+  JTMaterialSwitch: cad8093c3773ff9f6c60005c98d269eb869b5e04
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
@@ -175,6 +179,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 525c3fc8bc9afb12e7a0daf8d369b80b8e7a1595
+PODFILE CHECKSUM: 16f230da0fdec308502d5a45687b8088bed8b4b0
 
 COCOAPODS: 1.6.1

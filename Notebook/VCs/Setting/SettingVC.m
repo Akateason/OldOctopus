@@ -99,7 +99,7 @@
     NSDictionary *dic = self.datasource[section][row] ;
     NSString *title = dic[@"t"] ;
     if ([title containsString:@"通用"]) {
-        SetGeneralVC *vc = [SetGeneralVC new] ;
+        SetGeneralVC *vc = [SetGeneralVC getMe] ;
         [self.navigationController pushViewController:vc animated:YES] ;
     }
     else if ([title containsString:@"主题"]) {

@@ -8,18 +8,24 @@
 
 #import "SetGeneralVC.h"
 #import "SettingNavBar.h"
+#import "SettingCell.h"
 
 @interface SetGeneralVC ()
+@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
+@property (weak, nonatomic) IBOutlet UITableView *table;
 
 @end
 
 @implementation SetGeneralVC
 
++ (instancetype)getMe {
+    SetGeneralVC *vc = [SetGeneralVC getCtrllerFromStory:@"Main" controllerIdentifier:@"SetGeneralVC"] ;
+    return vc ;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
     
     
 }
@@ -33,15 +39,5 @@
     
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
