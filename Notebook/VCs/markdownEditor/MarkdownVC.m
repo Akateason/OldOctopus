@@ -135,7 +135,6 @@
          int num = [x intValue] ;
          if ([GlobalDisplaySt sharedInstance].displayMode == 0) return ;
          
-//         self.editor.webView.userInteractionEnabled = num == -1 ;
          self.canBeEdited = num == -1 ;
          [UIView animateWithDuration:.1 animations:^{
              if (num == -1) self.btBack.transform = CGAffineTransformScale(self.btBack.transform, -1, 1) ;
@@ -287,11 +286,15 @@
     }] ;
 }
 
+
+
+
 #pragma mark - UI
 
 - (void)prepareUI {
     [self editor] ;
-//    self.editor.webView.userInteractionEnabled = self.canBeEdited ;
+    
+
     self.editor.xt_theme_backgroundColor = k_md_bgColor ;
     self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
     
@@ -457,6 +460,19 @@
 }
 
 #pragma mark - prop
+
+- (void)setCanBeEdited:(BOOL)canBeEdited {
+    _canBeEdited = canBeEdited ;
+    
+    if (canBeEdited) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"setEditable" json:[@(TRUE) stringValue] completion:^(NSString *val, NSError *error) {
+        }] ;
+    }
+    else {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"setEditable" json:[@(FALSE) stringValue] completion:^(NSString *val, NSError *error) {
+        }] ;
+    }
+}
 
 - (OctWebEditor *)editor {
     if (!_editor) {
