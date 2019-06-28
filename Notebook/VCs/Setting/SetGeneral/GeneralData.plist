@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>t</key>
+		<string>最新优先</string>
+		<key>r</key>
+		<string></string>
+		<key>s</key>
+		<true/>
+	</dict>
+	<dict>
+		<key>t</key>
+		<string>笔记本</string>
+		<key>r</key>
+		<string>修改时间</string>
+        <key>s</key>
+        <false/>
+	</dict>
+	<dict>
+		<key>t</key>
+		<string>笔记</string>
+		<key>r</key>
+		<string>修改时间</string>
+        <key>s</key>
+        <false/>
+	</dict>
+</array>
+</plist>

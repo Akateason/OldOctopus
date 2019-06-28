@@ -143,6 +143,11 @@
 		8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7A84A12248AB7A0099E905 /* MDEditUrlView.m */; };
 		8F7B2EB522C36DCA000018DE /* SetGeneralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2EB422C36DC9000018DE /* SetGeneralVC.m */; };
 		8F7B2EB822C370CF000018DE /* SettingNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2EB722C370CF000018DE /* SettingNavBar.m */; };
+		8F7B2EBF22C5DF48000018DE /* SettingCellHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2EBE22C5DF48000018DE /* SettingCellHeader.m */; };
+		8F7B2EC122C5E22A000018DE /* GeneralData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2EC022C5E22A000018DE /* GeneralData.plist */; };
+		8F7B2EC522C5E6F9000018DE /* SettingItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2EC322C5E6F9000018DE /* SettingItemCell.m */; };
+		8F7B2EC622C5E6F9000018DE /* SettingItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2EC422C5E6F9000018DE /* SettingItemCell.xib */; };
+		8F7B2EC922C5F83E000018DE /* SettingSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2EC822C5F83E000018DE /* SettingSave.m */; };
 		8F7C8EC222C1F70F005731FA /* nav_back_reverse_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */; };
 		8F7C8ECC22C22787005731FA /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8ECB22C22787005731FA /* web.zip */; };
 		8F931B9B228E89F800F73219 /* home_top_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9A228E89F800F73219 /* home_top_note@2x.png */; };
@@ -511,6 +516,14 @@
 		8F7B2EB422C36DC9000018DE /* SetGeneralVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetGeneralVC.m; sourceTree = "<group>"; };
 		8F7B2EB622C370CF000018DE /* SettingNavBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingNavBar.h; sourceTree = "<group>"; };
 		8F7B2EB722C370CF000018DE /* SettingNavBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingNavBar.m; sourceTree = "<group>"; };
+		8F7B2EBD22C5DF48000018DE /* SettingCellHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingCellHeader.h; sourceTree = "<group>"; };
+		8F7B2EBE22C5DF48000018DE /* SettingCellHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingCellHeader.m; sourceTree = "<group>"; };
+		8F7B2EC022C5E22A000018DE /* GeneralData.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GeneralData.plist; sourceTree = "<group>"; };
+		8F7B2EC222C5E6F9000018DE /* SettingItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingItemCell.h; sourceTree = "<group>"; };
+		8F7B2EC322C5E6F9000018DE /* SettingItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingItemCell.m; sourceTree = "<group>"; };
+		8F7B2EC422C5E6F9000018DE /* SettingItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingItemCell.xib; sourceTree = "<group>"; };
+		8F7B2EC722C5F83E000018DE /* SettingSave.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingSave.h; sourceTree = "<group>"; };
+		8F7B2EC822C5F83E000018DE /* SettingSave.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingSave.m; sourceTree = "<group>"; };
 		8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_reverse_item@2x.png"; sourceTree = "<group>"; };
 		8F7C8ECB22C22787005731FA /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F931B9A228E89F800F73219 /* home_top_note@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_top_note@2x.png"; sourceTree = "<group>"; };
@@ -1264,14 +1277,21 @@
 		8FD7992D22C3451A00270C2C /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				8F7B2EC722C5F83E000018DE /* SettingSave.h */,
+				8F7B2EC822C5F83E000018DE /* SettingSave.m */,
 				8FD7994522C3686500270C2C /* SetEditor */,
 				8FD7994322C3686500270C2C /* SetGeneral */,
 				8FD7994422C3686500270C2C /* SetTheme */,
 				8FD7992E22C3453B00270C2C /* SettingVC.h */,
 				8FD7992F22C3453B00270C2C /* SettingVC.m */,
+				8F7B2EC222C5E6F9000018DE /* SettingItemCell.h */,
+				8F7B2EC322C5E6F9000018DE /* SettingItemCell.m */,
+				8F7B2EC422C5E6F9000018DE /* SettingItemCell.xib */,
 				8FD7993122C3482400270C2C /* SettingCell.h */,
 				8FD7993222C3482400270C2C /* SettingCell.m */,
 				8FD7993322C3482400270C2C /* SettingCell.xib */,
+				8F7B2EBD22C5DF48000018DE /* SettingCellHeader.h */,
+				8F7B2EBE22C5DF48000018DE /* SettingCellHeader.m */,
 				8FD7993A22C34F2E00270C2C /* SettingItems.plist */,
 				8F7B2EB622C370CF000018DE /* SettingNavBar.h */,
 				8F7B2EB722C370CF000018DE /* SettingNavBar.m */,
@@ -1284,6 +1304,7 @@
 			children = (
 				8F7B2EB322C36DC9000018DE /* SetGeneralVC.h */,
 				8F7B2EB422C36DC9000018DE /* SetGeneralVC.m */,
+				8F7B2EC022C5E22A000018DE /* GeneralData.plist */,
 			);
 			path = SetGeneral;
 			sourceTree = "<group>";
@@ -1736,6 +1757,7 @@
 				8FFAE0F8229CDAF400CDAC47 /* prolog.plist in Resources */,
 				8FFAE11D229CDAF400CDAC47 /* aspdotnet-cs.plist in Resources */,
 				8FFAE0F0229CDAF400CDAC47 /* xml.plist in Resources */,
+				8F7B2EC122C5E22A000018DE /* GeneralData.plist in Resources */,
 				8F1357F62292A55500F5F874 /* OctToolBarInlineView.xib in Resources */,
 				8FD7993922C3499100270C2C /* setting_corner@2x.png in Resources */,
 				8FFAE114229CDAF400CDAC47 /* perl.plist in Resources */,
@@ -1775,6 +1797,7 @@
 				8F6863CA22671D0600261626 /* LDSepLineCell.xib in Resources */,
 				8F7A84892244E4380099E905 /* md_tb_bt_bold@2x.png in Resources */,
 				8FFAE0FD229CDAF400CDAC47 /* batch.plist in Resources */,
+				8F7B2EC622C5E6F9000018DE /* SettingItemCell.xib in Resources */,
 				8FD7993522C3482400270C2C /* SettingCell.xib in Resources */,
 				8FFAE11C229CDAF400CDAC47 /* sgml.plist in Resources */,
 				8FFAE0F6229CDAF400CDAC47 /* header.plist in Resources */,
@@ -1910,6 +1933,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F679E182238F047008DE1BC /* MDThemeConfiguration.m in Sources */,
+				8F7B2EBF22C5DF48000018DE /* SettingCellHeader.m in Sources */,
 				8F0FDEC22293CCF600915C21 /* MarkdownEditor+OctToolbarUtil.m in Sources */,
 				8FE5A3E4224CA4CC00947D14 /* LeftDrawerVC.m in Sources */,
 				8F33884B22A5168A006A7069 /* CWDrawerTransition.m in Sources */,
@@ -1919,6 +1943,7 @@
 				8FEA9E4C225B27C1002A756B /* EmojiJson.m in Sources */,
 				8F0FDEC82293DAA100915C21 /* MarkdownEditor+InlineBoardUtil.m in Sources */,
 				8F6863C922671D0600261626 /* LDSepLineCell.m in Sources */,
+				8F7B2EC522C5E6F9000018DE /* SettingItemCell.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
 				8F1357F92292AA4200F5F874 /* KeyboardViewButton.m in Sources */,
 				8F05C57F22754F150047CC04 /* XTMarkdownParser+ImageUtil.m in Sources */,
@@ -1954,6 +1979,7 @@
 				8F2A267A226EED740076EBA4 /* GuidingVC.m in Sources */,
 				8FB72910225EF703003A73C1 /* LaunchingEvents.m in Sources */,
 				8FEBC28522A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.m in Sources */,
+				8F7B2EC922C5F83E000018DE /* SettingSave.m in Sources */,
 				8FEBC28B22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m in Sources */,
 				8F2A267D226EED830076EBA4 /* GuidingView.m in Sources */,
 				8FD7993022C3453B00270C2C /* SettingVC.m in Sources */,
