@@ -17,6 +17,7 @@
 #import "UIViewController+SlidingController.h"
 #import "HomeVC.h"
 #import "SettingVC.h"
+#import "SettingSave.h"
 
 
 // lastBook
@@ -48,7 +49,6 @@ typedef void(^BlkTapBookCell)(void);
 @property (strong, nonatomic) NoteBooks *addBook ;
 
 @property (strong, nonatomic) NewBookVC *nBookVC ;
-
 @end
 
 @implementation LeftDrawerVC
@@ -81,8 +81,6 @@ typedef void(^BlkTapBookCell)(void);
     self.view.xt_theme_backgroundColor = k_md_drawerColor ;
     self.table.xt_theme_backgroundColor = k_md_drawerColor ;
     self.bottomArea.xt_theme_backgroundColor = k_md_drawerColor ;
-    
-//    self.flexTrailOfTable.constant = APP_WIDTH - HomeVC.movingDistance ;
     
     self.lbTrash.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.imgTrash.xt_theme_imageColor = k_md_iconColor ;

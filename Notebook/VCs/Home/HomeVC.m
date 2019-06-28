@@ -33,6 +33,7 @@
 #import "NHSlidingController.h"
 #import "UIViewController+SlidingController.h"
 #import "GlobalDisplaySt.h"
+#import "SettingSave.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -185,7 +186,10 @@
         }
     }] ;
     
-    topList = [[topList xt_orderby:@"modifyDateOnServer" descOrAsc:1] mutableCopy] ;
+    SettingSave *sSave = [SettingSave fetch] ;
+    NSString *orderBy = sSave.sort_isNoteUpdateTime ? @"createDateOnServer" : @"modifyDateOnServer" ;
+    
+    topList = [[topList xt_orderby:orderBy descOrAsc:sSave.sort_isNewestFirst] mutableCopy] ;
     [topList addObjectsFromArray:normalList] ;
     self.listNotes = topList ;
 }

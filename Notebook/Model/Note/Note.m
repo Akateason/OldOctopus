@@ -9,6 +9,7 @@
 #import "Note.h"
 #import "NoteBooks.h"
 #import "XTMarkdownParser.h"
+#import "SettingSave.h"
 
 @implementation Note
 @synthesize content = _content ;
@@ -77,7 +78,9 @@
         return ;
     }
 
-    NSArray *tmplist = [[Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@' and isDeleted == 0",book.icRecordName)] xt_orderby:@"modifyDateOnServer" descOrAsc:1] ;
+    SettingSave *sSave = [SettingSave fetch] ;
+    NSString *orderBy = sSave.sort_isNoteUpdateTime ? @"createDateOnServer" : @"modifyDateOnServer" ;
+    NSArray *tmplist = [[Note xt_findWhere:XT_STR_FORMAT(@"noteBookId == '%@' and isDeleted == 0",book.icRecordName)] xt_orderby:orderBy descOrAsc:sSave.sort_isNewestFirst] ;
     dispatch_async(dispatch_get_main_queue(), ^{
         completion(tmplist) ;
     }) ;

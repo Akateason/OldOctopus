@@ -22,7 +22,12 @@ static NSString *const kUD_SettingSave_KEY = @"kUD_SettingSave_KEY" ;
     NSString *json = XT_USERDEFAULT_GET_VAL(kUD_SettingSave_KEY) ;
     SettingSave *sSave = [SettingSave yy_modelWithJSON:json] ;
     if (!sSave) {
-        sSave = [SettingSave new] ;
+        SettingSave *save = [[SettingSave alloc] init] ;
+        save.sort_isNoteUpdateTime = 0 ;
+        save.sort_isBookUpdateTime = 1 ;
+        save.sort_isNewestFirst = 1 ;
+        
+        sSave = save ;
     }
     return sSave ;
 }

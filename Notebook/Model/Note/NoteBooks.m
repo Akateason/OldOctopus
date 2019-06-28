@@ -8,6 +8,7 @@
 
 #import "NoteBooks.h"
 #import "Note.h"
+#import "SettingSave.h"
 
 @implementation NoteBooks
 
@@ -48,8 +49,9 @@
 }
 
 + (void)fetchAllNoteBook:(void(^)(NSArray<NoteBooks *> *array))completion {
-    
-    NSArray *tmplist = [[NoteBooks xt_findWhere:@"isDeleted == 0"] xt_orderby:@"createDateOnServer" descOrAsc:1] ;
+    SettingSave *sSave = [SettingSave fetch] ;
+    NSString *orderBy = sSave.sort_isBookUpdateTime ? @"createDateOnServer" : @"modifyDateOnServer" ;
+    NSArray *tmplist = [[NoteBooks xt_findWhere:@"isDeleted == 0"] xt_orderby:orderBy descOrAsc:sSave.sort_isNewestFirst] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         completion(tmplist) ;

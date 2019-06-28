@@ -54,7 +54,8 @@
         UIView *circle = [UIView new] ;
         circle.backgroundColor = ([MDThemeConfiguration sharedInstance].isDarkMode) ? UIColorHex(@"f9f6f6") : UIColorHex(@"2b2f33") ;
         CGPoint point = [self convertPoint:self.btTheme.center toView:self.window] ;
-        circle.frame = CGRectMake(0, 0, APP_HEIGHT * 2 + 100, APP_HEIGHT * 2 + 100) ;
+        float side = MAX(APP_HEIGHT, APP_WIDTH) ;
+        circle.frame = CGRectMake(0, 0, side * 2 + 100, side * 2 + 100) ;
         circle.center = point ;
         circle.xt_completeRound = YES ;
         [self.window addSubview:circle] ;
