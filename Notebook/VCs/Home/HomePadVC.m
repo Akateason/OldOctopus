@@ -35,6 +35,7 @@ static const float slidingSpeed = 2000 ;
     hPadVC.editorVC.oct_panDelegate = (id<MarkdownVCPanGestureDelegate>)slidingController ;
     hPadVC.editorVC.pad_panDelegate = (id<MDVC_PadVCPanGestureDelegate>)hPadVC ;
     hPadVC.homeVC.slidingController = slidingController ;
+    hPadVC.slidingController = slidingController ;
     leftVC.slidingController = slidingController ;
     return slidingController ;
 }
@@ -106,36 +107,44 @@ static const float slidingSpeed = 2000 ;
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_pad_Editor_OnClick object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         
+        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
+            [self.slidingController toggleDrawer] ;
+            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0 ;
+            return ;
+        }
+        
+        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = 0 ;
             [self moveEmptyView:YES] ;
             [self setupLeftForRightVC:-1] ;
         } completion:^(BOOL finished) {
-            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
+            
         }] ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_pad_Editor_PullBack object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
+        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0;
         
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = kWidth_ListView ;
             [self moveEmptyView:NO] ;
             [self setupLeftForRightVC:0] ;
         } completion:^(BOOL finished) {
-            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0;
+            
         }] ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_new_Note_In_Pad object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         
+        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
+        
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = 0 ;
             [self moveEmptyView:YES] ;
         } completion:^(BOOL finished) {
-            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
-            
             [self.editorVC setupWithNote:nil bookID:nil fromCtrller:self.homeVC] ;
         }] ;
     }] ;
@@ -168,6 +177,11 @@ static const float slidingSpeed = 2000 ;
         leftForEdge = 0;
         leftForBounce = leftForEdge - 22.0;
         finalOpenState = -1;
+        
+        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
+            [self.slidingController toggleDrawer] ;
+            return ;
+        }
     }
 
     CGFloat distanceToTheEdge = leftForEdge - _rightContainer.left;
@@ -175,8 +189,9 @@ static const float slidingSpeed = 2000 ;
     CGFloat timeToEdgeWithStandardVelocity = fabs(distanceToTheEdge) / slidingSpeed;
     if (timeToEdgeWithCurrentVelocity < 0.7 * timeToEdgeWithStandardVelocity) {
         //Bounce and open
-        left = leftForBounce;
-
+        left = leftForBounce ;
+        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState ;
+        
         [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self->_rightContainer.left = left;
             [self moveEmptyView:finalOpenState == -1] ;
@@ -188,32 +203,35 @@ static const float slidingSpeed = 2000 ;
                 [self moveEmptyView:finalOpenState == -1] ;
                 [self setupLeftForRightVC:finalOpenState] ;
             } completion:^(BOOL finished) {
-                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
+                
             }];
         }];
     }
     else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
         //finish the sliding with the current speed
         left = leftForEdge;
-
+        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
+        
         [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self->_rightContainer.left = left;
             [self moveEmptyView:finalOpenState == -1] ;
             [self setupLeftForRightVC:finalOpenState] ;
         } completion:^(BOOL finished) {
-            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
+            
         }];
     }
     else {
         //finish the sliding wiht minimum speed
         CGFloat duration = distanceToTheEdge / slidingSpeed;
         left = leftForEdge;
+        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
+        
         [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self->_rightContainer.left = left;
             [self moveEmptyView:finalOpenState == -1] ;
             [self setupLeftForRightVC:finalOpenState] ;
         } completion:^(BOOL finished) {
-            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
+            
         }];
     }
 }
