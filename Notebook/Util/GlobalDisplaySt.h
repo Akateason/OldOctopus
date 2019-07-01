@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSUInteger {
-    GDST_Home_2_Column_Verical_default ,
+    GDST_Home_2_Column_Verical_default = 22,
     GDST_Home_3_Column_Horizon ,
 } GDST_Home_mode ;
 

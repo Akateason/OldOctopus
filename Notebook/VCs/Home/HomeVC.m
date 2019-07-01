@@ -273,6 +273,18 @@
         @strongify(self)
         self.lbUser.text = [user.givenName substringToIndex:1] ?: @"🐙" ;
     }] ;
+    
+    if (IS_IPAD) {
+        UIView *sideLine = [UIView new] ;
+        sideLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .5) ;
+        [self.view addSubview:sideLine] ;
+        [sideLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@.5) ;
+            make.top.right.bottom.equalTo(self.view) ;
+        }] ;
+    }
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

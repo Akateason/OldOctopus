@@ -220,8 +220,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     if (!fstTimeLaunch || guidVC != nil) {
         
         if (IS_IPAD) {
-            self.appDelegate.window.rootViewController = [HomeVC getMe];
-            [self.appDelegate.window makeKeyAndVisible];
+//            self.appDelegate.window.rootViewController = [HomeVC getMe];
+//            [self.appDelegate.window makeKeyAndVisible];
         }
         else {
             MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;

@@ -7,7 +7,6 @@
 // 假导航
 
 #import "MarkdownVC.h"
-#import "OctWebEditor.h"
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
@@ -28,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
 
-@property (strong, nonatomic) OctWebEditor      *editor ;
+
 @property (strong, nonatomic) XTCameraHandler   *handler;
 @property (strong, nonatomic) ArticleInfoVC     *infoVC ;
 
@@ -67,12 +66,15 @@
     self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
-    self.editor.aNote = note ;    
+    self.editor.aNote = note ;
+    self.editor.left = -[GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28 ;
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
+    self.view.xt_maskToBounds = YES ;
     if (self.aNote) self.editor.aNote = self.aNote ;
     
     
@@ -124,15 +126,15 @@
     
     
     
-    [[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
+    [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
        deliverOnMainThread]
+       takeUntil:self.rac_willDeallocSignal]
       throttle:.2]
      subscribeNext:^(id  _Nullable x) {
          @strongify(self)
          int num = [x intValue] ;
          if ([GlobalDisplaySt sharedInstance].displayMode == 0) return ;
          
-         self.editor.webView.userInteractionEnabled = num == -1 ;
          self.canBeEdited = num == -1 ;
          [UIView animateWithDuration:.1 animations:^{
              if (num == -1) self.btBack.transform = CGAffineTransformScale(self.btBack.transform, -1, 1) ;
@@ -179,10 +181,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return YES ;
-    
-    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != 1) {
-        return YES ;
-    }
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != 1) return YES ;
     
     return [self.oct_panDelegate oct_gestureRecognizerShouldBegin:gestureRecognizer] ;
 }
@@ -229,10 +228,15 @@
 }
 
 - (void)leaveOut {
-    if (!self.editor.webViewHasSetMarkdown) return ;
-    if (self.editor.articleAreTheSame) return ;
+    if (!self.editor.webViewHasSetMarkdown) {
+        [self.editor leavePage] ;
+        return ;
+    }
     
-    [self.editor leavePage] ;
+    if (self.editor.articleAreTheSame) {
+        [self.editor leavePage] ;
+        return ;
+    }
     
     if (self.aNote) {
         // Update Your Note
@@ -241,7 +245,9 @@
     else {
         // Create New Note
         [self createNewNote] ;
-    }    
+    }
+    
+    [self.editor leavePage] ;
 }
 
 
@@ -280,11 +286,15 @@
     }] ;
 }
 
+
+
+
 #pragma mark - UI
 
 - (void)prepareUI {
     [self editor] ;
-    self.editor.webView.userInteractionEnabled = self.canBeEdited ;
+    
+
     self.editor.xt_theme_backgroundColor = k_md_bgColor ;
     self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
     
@@ -451,18 +461,29 @@
 
 #pragma mark - prop
 
+- (void)setCanBeEdited:(BOOL)canBeEdited {
+    _canBeEdited = canBeEdited ;
+    
+    if (canBeEdited) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"setEditable" json:[@(TRUE) stringValue] completion:^(NSString *val, NSError *error) {
+        }] ;
+    }
+    else {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"setEditable" json:[@(FALSE) stringValue] completion:^(NSString *val, NSError *error) {
+        }] ;
+    }
+}
+
 - (OctWebEditor *)editor {
     if (!_editor) {
         _editor = [OctWebEditor sharedInstance] ;
+        _editor.bottom = self.view.bottom ;
+        _editor.left = self.view.left ;
+        _editor.top = self.topBar.top ;
+        _editor.width = self.view.width ;
+        _editor.height = self.view.height - self.topBar.top ;
+        
         [self.view insertSubview:_editor atIndex:0] ;
-        [_editor mas_makeConstraints:^(MASConstraintMaker *make) {
-            if (@available(iOS 11.0, *)) {
-                make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
-            } else {
-                make.top.equalTo(self.view.xt_viewController.mas_topLayoutGuideBottom) ;
-            }
-            make.bottom.left.right.equalTo(self.view) ;
-        }] ;
     }
     return _editor ;
 }

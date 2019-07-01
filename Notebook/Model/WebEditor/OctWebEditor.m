@@ -68,6 +68,7 @@ XT_SINGLETON_M(OctWebEditor)
         // get keyboard height
         self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
         float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
+        if (!param) [self.toolBar removeFromSuperview] ;
         
         [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {
         }] ;
@@ -324,6 +325,21 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
     NSLog(@"error: %@",error) ;
+}
+
+
+#pragma mark - touch
+
+//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+//    // 如果在当前 view 中 直接返回 self 这样自身就成为了第一响应者 subViews 不再能够接受到响应事件
+////    if ([self pointInside:point withEvent:event]) {
+////        return self;
+////    }
+//    return nil;
+//}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event {
+    return NO ;
 }
 
 
