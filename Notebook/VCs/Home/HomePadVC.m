@@ -43,8 +43,7 @@ static const float slidingSpeed = 2000 ;
     self = [super init];
     if (self) {
         _homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
-        _editorVC = [MarkdownVC newWithNote:nil bookID:nil fromCtrller:_homeVC] ;
-        _editorVC.canBeEdited = NO ;
+        _editorVC = [MarkdownVC newWithNote:nil bookID:nil fromCtrller:_homeVC] ;        
     }
     return self;
 }

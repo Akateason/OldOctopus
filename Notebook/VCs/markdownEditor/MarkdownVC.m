@@ -69,7 +69,7 @@
     self.emptyView.hidden = note != nil ;
     self.editor.aNote = note ;
     self.editor.left = -[GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28 ;
-    
+    self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
 }
 
 - (void)viewDidLoad {
@@ -514,5 +514,8 @@
     }
     return _emptyView ;
 }
+
+
+
 
 @end

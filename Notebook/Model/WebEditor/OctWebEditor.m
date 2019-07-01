@@ -22,7 +22,8 @@
     NSArray<NSString *> *_disabledActions ;
 }
 @property (strong, nonatomic) OctToolbar    *toolBar ;
-@property (nonatomic)       CGSize          containerSize ;
+@property (nonatomic)         CGSize        containerSize ;
+@property (nonatomic)         BOOL          swipeOpen ;
 @end
 
 
@@ -166,6 +167,8 @@ XT_SINGLETON_M(OctWebEditor)
         self.typeInlineList = list ;
     }
     else if ([func isEqualToString:@"selectImage"]) {
+        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             WEAK_SELF
             [ArticlePhotoPreviewVC showFromView:self.window json:json deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
@@ -337,19 +340,28 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 
+#pragma mark --
 #pragma mark - touch
 
-//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
-//    // 如果在当前 view 中 直接返回 self 这样自身就成为了第一响应者 subViews 不再能够接受到响应事件
-////    if ([self pointInside:point withEvent:event]) {
-////        return self;
-////    }
-//    return nil;
-//}
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    self.swipeOpen = YES ;
+    [self hitTest:[[touches anyObject] locationInView:self] withEvent:event] ;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.swipeOpen = NO ;
+    });
+}
 
-//- (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event {
-//    return NO ; // 屏蔽所有, 点击返回
-//}
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) {
+        return [super hitTest:point withEvent:event] ;
+    }
+    if (self.swipeOpen) {
+        return [super hitTest:point withEvent:event] ;
+    }
+    return self ;
+}
+
+
 
 
 
