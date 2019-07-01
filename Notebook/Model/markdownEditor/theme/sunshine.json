@@ -1,21 +1,21 @@
 {
-    "textColor":"181211",
+    "textColor":"302927",
     "markColor":"909399",
     "seplineLineColor":"e5e5e5",
     "quoteTextColor":"777777",
-    "themeColor":"F55333",
-    "homeTitleTextColor":"181211",
-    "bgColor":"ffffff",
+    "themeColor":"AC7310",
+    "homeTitleTextColor":"302927",
+    "bgColor":"FDF6E3",
     "quoteBarColor":"858281",
     "linkColor":"277DAD",
     
     "statusBarIsWhite":"0",
-    "navBarColor":"ffffff",
+    "navBarColor":"FDF6E3",
     "navTextColor":"000000",
     "iconColor":"6b737b",
-    "drawerColor":"F1F3F5",
-    "midDrawerPadColor":"f9f6f6",
-    "drawerSelectedColor":"FFFFFF",
+    "drawerColor":"F1E7CF",
+    "midDrawerPadColor":"F6EED9",
+    "drawerSelectedColor":"FDF6E3",
     
 }
 

@@ -10,6 +10,7 @@
 #import "SettingCell.h"
 #import <SafariServices/SafariServices.h>
 #import "SetGeneralVC.h"
+#import "SetThemeVC.h"
 
 @interface SettingVC ()
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -103,7 +104,8 @@
         [self.navigationController pushViewController:vc animated:YES] ;
     }
     else if ([title containsString:@"主题"]) {
-        
+        SetThemeVC *vc = [SetThemeVC getMe] ;
+        [self.navigationController pushViewController:vc animated:YES] ;
     }
     else if ([title containsString:@"编辑器"]) {
         

@@ -148,6 +148,11 @@
 		8F7B2EC522C5E6F9000018DE /* SettingItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2EC322C5E6F9000018DE /* SettingItemCell.m */; };
 		8F7B2EC622C5E6F9000018DE /* SettingItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2EC422C5E6F9000018DE /* SettingItemCell.xib */; };
 		8F7B2EC922C5F83E000018DE /* SettingSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2EC822C5F83E000018DE /* SettingSave.m */; };
+		8F7B2ECC22C6134F000018DE /* SetThemeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2ECB22C6134F000018DE /* SetThemeVC.m */; };
+		8F7B2ED022C616CA000018DE /* ThemeCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7B2ECE22C616CA000018DE /* ThemeCollectCell.m */; };
+		8F7B2ED122C616CA000018DE /* ThemeCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2ECF22C616CA000018DE /* ThemeCollectCell.xib */; };
+		8F7B2ED422C61D0B000018DE /* midnight.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2ED222C61D0B000018DE /* midnight.json */; };
+		8F7B2ED522C61D0B000018DE /* sunshine.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2ED322C61D0B000018DE /* sunshine.json */; };
 		8F7C8EC222C1F70F005731FA /* nav_back_reverse_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */; };
 		8F7C8ECC22C22787005731FA /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8ECB22C22787005731FA /* web.zip */; };
 		8F931B9B228E89F800F73219 /* home_top_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9A228E89F800F73219 /* home_top_note@2x.png */; };
@@ -524,6 +529,13 @@
 		8F7B2EC422C5E6F9000018DE /* SettingItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingItemCell.xib; sourceTree = "<group>"; };
 		8F7B2EC722C5F83E000018DE /* SettingSave.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingSave.h; sourceTree = "<group>"; };
 		8F7B2EC822C5F83E000018DE /* SettingSave.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingSave.m; sourceTree = "<group>"; };
+		8F7B2ECA22C6134F000018DE /* SetThemeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetThemeVC.h; sourceTree = "<group>"; };
+		8F7B2ECB22C6134F000018DE /* SetThemeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetThemeVC.m; sourceTree = "<group>"; };
+		8F7B2ECD22C616CA000018DE /* ThemeCollectCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeCollectCell.h; sourceTree = "<group>"; };
+		8F7B2ECE22C616CA000018DE /* ThemeCollectCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeCollectCell.m; sourceTree = "<group>"; };
+		8F7B2ECF22C616CA000018DE /* ThemeCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCollectCell.xib; sourceTree = "<group>"; };
+		8F7B2ED222C61D0B000018DE /* midnight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = midnight.json; sourceTree = "<group>"; };
+		8F7B2ED322C61D0B000018DE /* sunshine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sunshine.json; sourceTree = "<group>"; };
 		8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_reverse_item@2x.png"; sourceTree = "<group>"; };
 		8F7C8ECB22C22787005731FA /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F931B9A228E89F800F73219 /* home_top_note@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_top_note@2x.png"; sourceTree = "<group>"; };
@@ -1181,8 +1193,10 @@
 		8F9612772297E15700CB72DF /* theme */ = {
 			isa = PBXGroup;
 			children = (
-				8F71E21E22AB8EAB0009BE62 /* dark.json */,
 				8F71E21D22AB8EAB0009BE62 /* light.json */,
+				8F71E21E22AB8EAB0009BE62 /* dark.json */,
+				8F7B2ED222C61D0B000018DE /* midnight.json */,
+				8F7B2ED322C61D0B000018DE /* sunshine.json */,
 				8F679E162238F047008DE1BC /* MDThemeConfiguration.h */,
 				8F679E172238F047008DE1BC /* MDThemeConfiguration.m */,
 				8FA229462260640700D736E2 /* MDEditorTheme.h */,
@@ -1312,6 +1326,11 @@
 		8FD7994422C3686500270C2C /* SetTheme */ = {
 			isa = PBXGroup;
 			children = (
+				8F7B2ECA22C6134F000018DE /* SetThemeVC.h */,
+				8F7B2ECB22C6134F000018DE /* SetThemeVC.m */,
+				8F7B2ECD22C616CA000018DE /* ThemeCollectCell.h */,
+				8F7B2ECE22C616CA000018DE /* ThemeCollectCell.m */,
+				8F7B2ECF22C616CA000018DE /* ThemeCollectCell.xib */,
 			);
 			path = SetTheme;
 			sourceTree = "<group>";
@@ -1634,6 +1653,7 @@
 				8F0C15E2229684B200E8837D /* guid_icloud_top_icon@2x.png in Resources */,
 				8FFAE103229CDAF400CDAC47 /* postscript.plist in Resources */,
 				8FFAE111229CDAF400CDAC47 /* udo.plist in Resources */,
+				8F7B2ED122C616CA000018DE /* ThemeCollectCell.xib in Resources */,
 				8FD7993722C348E700270C2C /* setting_normal@2x.png in Resources */,
 				8F6863CC2267211000261626 /* ld_bt_staging@2x.png in Resources */,
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
@@ -1751,6 +1771,7 @@
 				8F08FB7B22A8E82B008AB6A6 /* TableCreatorView.xib in Resources */,
 				8FFAE134229CDAF400CDAC47 /* css.plist in Resources */,
 				8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */,
+				8F7B2ED522C61D0B000018DE /* sunshine.json in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
 				8FFAE137229D16A100CDAC47 /* ld_reply@2x.png in Resources */,
 				8F2A2673226EE98D0076EBA4 /* guiding_img_1@2x.png in Resources */,
@@ -1772,6 +1793,7 @@
 				8FFAE0E7229CDAF400CDAC47 /* lisp.plist in Resources */,
 				8FA232D7224E07C400163685 /* NoteCell.xib in Resources */,
 				8F7A84712244E1EB0099E905 /* md_tb_bt_olist@2x.png in Resources */,
+				8F7B2ED422C61D0B000018DE /* midnight.json in Resources */,
 				8FFAE0E5229CDAF400CDAC47 /* tcltk.plist in Resources */,
 				8FC431202265B8330002C9A1 /* md_home_search@2x.png in Resources */,
 				8F1357E42292974600F5F874 /* OctToolbar.xib in Resources */,
@@ -1970,6 +1992,7 @@
 				8F173DCF22A4D02900FA4D8D /* NHSlidingController.m in Sources */,
 				8F65DBDC221BECFE0067C321 /* main.m in Sources */,
 				8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */,
+				8F7B2ED022C616CA000018DE /* ThemeCollectCell.m in Sources */,
 				8F679E252238F9D1008DE1BC /* MdInlineModel.m in Sources */,
 				8F33884922A5168A006A7069 /* UIViewController+CWLateralSlide.m in Sources */,
 				8F7A84482244BD6B0099E905 /* MDNavVC.m in Sources */,
@@ -1979,6 +2002,7 @@
 				8F2A267A226EED740076EBA4 /* GuidingVC.m in Sources */,
 				8FB72910225EF703003A73C1 /* LaunchingEvents.m in Sources */,
 				8FEBC28522A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.m in Sources */,
+				8F7B2ECC22C6134F000018DE /* SetThemeVC.m in Sources */,
 				8F7B2EC922C5F83E000018DE /* SettingSave.m in Sources */,
 				8FEBC28B22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m in Sources */,
 				8F2A267D226EED830076EBA4 /* GuidingView.m in Sources */,
