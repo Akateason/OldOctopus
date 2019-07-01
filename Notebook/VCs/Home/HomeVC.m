@@ -217,20 +217,20 @@
     self.table.xt_Delegate = self ;
     self.table.mj_footer = nil ;
     
-    self.table.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor,1) ;
+    self.table.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : XT_MAKE_theme_color(k_md_bgColor,1) ;
     
     self.table.contentInset = UIEdgeInsetsMake(10, 0, 0, 0) ;
     self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     
-    self.topSafeAreaView.xt_theme_backgroundColor = k_md_bgColor ;
-    self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
+    self.topSafeAreaView.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : k_md_bgColor ;
+    self.topArea.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : k_md_bgColor ;
     
     self.nameOfNoteBook.text = @"";
     self.nameOfNoteBook.xt_theme_textColor = XT_MAKE_theme_color(k_md_homeTitleTextColor, .8) ;
     
 
     self.btAdd.touchExtendInset = UIEdgeInsetsMake(-15, -15, -15, -15) ;
-    self.btAdd.xt_theme_imageColor = k_md_iconColor ;
+    self.btAdd.xt_theme_imageColor = k_md_themeColor ;
     @weakify(self)
     [self.btAdd bk_addEventHandler:^(id sender) {
         @strongify(self)

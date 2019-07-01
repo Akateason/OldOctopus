@@ -20,8 +20,8 @@
     [super awakeFromNib];
     
     self.selectionStyle = 0 ;
-    self.area.xt_theme_backgroundColor = k_md_bgColor ;
-    self.xt_theme_backgroundColor = k_md_bgColor ;
+    self.area.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : k_md_bgColor ;
+    self.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : k_md_bgColor ;
 
     _lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     _lbContent.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
@@ -32,7 +32,12 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
-    self.area.xt_theme_backgroundColor =  selected ? XT_MAKE_theme_color(k_md_textColor, 0.03) : k_md_bgColor ;
+    if (IS_IPAD) {
+        self.area.xt_theme_backgroundColor =  selected ? XT_MAKE_theme_color(k_md_drawerSelectedColor, 1) : XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) ;
+    }
+    else {
+        self.area.xt_theme_backgroundColor =  selected ? XT_MAKE_theme_color(k_md_textColor, 0.03) : k_md_bgColor ;
+    }
 }
 
 static int kLimitCount = 70 ;

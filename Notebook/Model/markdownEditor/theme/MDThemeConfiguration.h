@@ -25,8 +25,8 @@ static NSString *const k_md_bgColor = @"bgColor" ;
 static NSString *const k_md_iconColor = @"iconColor" ;
 static NSString *const k_md_drawerColor = @"drawerColor" ;
 static NSString *const k_md_linkColor = @"linkColor" ;
-
-
+static NSString *const k_md_midDrawerPadColor = @"midDrawerPadColor" ;
+static NSString *const k_md_drawerSelectedColor = @"drawerSelectedColor" ;
 
 #define XT_MAKE_theme_color(_key_,_a_)           [[_key_ stringByAppendingString:@","] stringByAppendingString:@(_a_).stringValue]
 

@@ -21,7 +21,7 @@
     
     self.selectionStyle = 0 ;
     
-    self.xt_theme_backgroundColor = k_md_bgColor ;
+    self.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : k_md_bgColor ;
     self.scBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.lbPh.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.scBar.xt_cornerRadius = 6 ;
