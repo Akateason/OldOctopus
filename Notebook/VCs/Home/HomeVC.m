@@ -270,8 +270,8 @@
         }
     }] ;
     
-//    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-//    }] ;
+    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+    }] ;
     
     if (IS_IPAD) {
         UIView *sideLine = [UIView new] ;
@@ -282,8 +282,6 @@
             make.top.right.bottom.equalTo(self.view) ;
         }] ;
     }
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
