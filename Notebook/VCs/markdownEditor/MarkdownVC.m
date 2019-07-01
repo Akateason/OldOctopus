@@ -133,7 +133,7 @@
      subscribeNext:^(id  _Nullable x) {
          @strongify(self)
          int num = [x intValue] ;
-         if ([GlobalDisplaySt sharedInstance].displayMode == 0) return ;
+         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
          
          self.canBeEdited = num == -1 ;
          [UIView animateWithDuration:.1 animations:^{
@@ -294,7 +294,6 @@
 - (void)prepareUI {
     [self editor] ;
     
-
     self.editor.xt_theme_backgroundColor = k_md_bgColor ;
     self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
     

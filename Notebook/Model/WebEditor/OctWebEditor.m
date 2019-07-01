@@ -338,9 +338,9 @@ static const float kOctEditorToolBarHeight = 41. ;
 //    return nil;
 //}
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event {
-    return NO ;
-}
+//- (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event {
+//    return NO ; // 屏蔽所有, 点击返回
+//}
 
 
 

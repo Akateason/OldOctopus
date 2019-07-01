@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 - (void)setThemeStr:(NSString *)str ;
-
+- (void)setOnSelect:(BOOL)on ;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -49,15 +49,22 @@
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ThemeCollectCell *cell = [ThemeCollectCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
-    
+    [cell setThemeStr:self.themes[indexPath.row]] ;
+    [cell setOnSelect:[[[MDThemeConfiguration sharedInstance] currentThemeKey]
+                       isEqualToString:self.themes[indexPath.row]]] ;
     return cell ;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     return [ThemeCollectCell xt_cellSize] ;
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [[MDThemeConfiguration sharedInstance] changeTheme:self.themes[indexPath.row]] ;
+    [self.collectionView reloadData] ;
+}
+
 
 @end

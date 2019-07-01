@@ -15,7 +15,8 @@
 @implementation UIView (OctupusExtension)
 
 - (void)oct_addBlurBg {
-    BOOL isDarkMode = [[MDThemeConfiguration sharedInstance].currentThemeKey containsString:@"dark"] ;
+    BOOL isDarkMode = [[MDThemeConfiguration sharedInstance].currentThemeKey containsString:@"dark"] ||
+    [[MDThemeConfiguration sharedInstance].currentThemeKey containsString:@"midnight"] ;
     UIBlurEffect *blurEffrct = [UIBlurEffect effectWithStyle:isDarkMode ? UIBlurEffectStyleDark : UIBlurEffectStyleLight] ;
     UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffrct] ;
 

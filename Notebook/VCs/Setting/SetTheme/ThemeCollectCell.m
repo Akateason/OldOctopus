@@ -15,10 +15,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    _imageView.image = [UIImage imageNamed:@"tb_list"] ;
-    
-    self.xt_borderColor = XT_MD_THEME_COLOR_KEY(k_md_themeColor) ;
+    self.xt_borderColor = UIColorHex(@"f5502f") ;
     self.xt_borderWidth = 1. ;
     self.xt_cornerRadius = 10. ;
     
@@ -32,8 +29,11 @@
 }
 
 - (void)setThemeStr:(NSString *)str {
-    
+    self.imageView.image = [UIImage imageNamed:STR_FORMAT(@"theme_%@",str)] ;
 }
 
+- (void)setOnSelect:(BOOL)on {
+    self.xt_borderWidth = on ? 1. : 0 ;
+}
 
 @end

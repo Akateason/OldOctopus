@@ -90,6 +90,15 @@
     return [SettingCell xt_cellHeight] ;
 }
 
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SettingHead"] ;
+    if (!header) header = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"SettingHead"] ;
+    UIView *backgroundView = [[UIView alloc] initWithFrame:header.bounds] ;
+    backgroundView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    header.backgroundView = backgroundView ;
+    return header ;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 25 ;
 }
@@ -116,7 +125,5 @@
         [self presentViewController:safariVC animated:YES completion:nil] ;
     }
 }
-
-
 
 @end
