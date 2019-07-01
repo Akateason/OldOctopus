@@ -82,30 +82,13 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="55"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="notebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtt-qN-bwB">
-                                        <rect key="frame" x="81" y="19" width="209" height="28"/>
+                                        <rect key="frame" x="74" y="18" width="216" height="28"/>
                                         <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🐙" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOM-bE-UPx">
-                                        <rect key="frame" x="17" y="17" width="32" height="32"/>
-                                        <color key="backgroundColor" red="0.91495835780000001" green="0.33410280939999998" blue="0.33362057810000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="lGQ-dz-BAz"/>
-                                            <constraint firstAttribute="height" constant="32" id="shL-ec-MO0"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="xt_cornerRadius">
-                                                <real key="value" value="12"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="xt_maskToBounds" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iem-sC-USA">
-                                        <rect key="frame" x="340" y="23" width="20" height="20"/>
+                                        <rect key="frame" x="340" y="22" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="BpU-Mo-cfy"/>
                                             <constraint firstAttribute="height" constant="20" id="aAG-dE-h1a"/>
@@ -113,24 +96,34 @@
                                         <state key="normal" image="home_bar_add.png"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sR7-fP-hLo">
-                                        <rect key="frame" x="300" y="23" width="20" height="20"/>
+                                        <rect key="frame" x="300" y="22" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="D2f-G3-mrT"/>
                                             <constraint firstAttribute="width" constant="20" id="zhn-YM-6Gr"/>
                                         </constraints>
                                         <state key="normal" image="md_ed_more.png"/>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1eT-Xz-3Wm">
+                                        <rect key="frame" x="20" y="20" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="b6f-ww-mVD"/>
+                                            <constraint firstAttribute="height" constant="24" id="or5-Hx-YgH"/>
+                                        </constraints>
+                                        <state key="normal" image="home_top_icon.png"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45112746949999999" green="0.63476520780000001" blue="0.88979804520000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="1eT-Xz-3Wm" firstAttribute="leading" secondItem="tuM-IH-oeE" secondAttribute="leading" constant="20" id="2QF-Td-b09"/>
                                     <constraint firstItem="Iem-sC-USA" firstAttribute="leading" secondItem="sR7-fP-hLo" secondAttribute="trailing" constant="20" id="7vY-KM-UqE"/>
-                                    <constraint firstItem="Iem-sC-USA" firstAttribute="centerY" secondItem="aOM-bE-UPx" secondAttribute="centerY" id="A9U-87-ODU"/>
+                                    <constraint firstItem="1eT-Xz-3Wm" firstAttribute="top" secondItem="tuM-IH-oeE" secondAttribute="top" constant="20" id="D7i-9Y-LWE"/>
                                     <constraint firstItem="Iem-sC-USA" firstAttribute="top" secondItem="sR7-fP-hLo" secondAttribute="top" id="Do0-PN-NHz"/>
-                                    <constraint firstItem="xtt-qN-bwB" firstAttribute="leading" secondItem="aOM-bE-UPx" secondAttribute="trailing" constant="32" id="P1D-5e-kw3"/>
+                                    <constraint firstItem="xtt-qN-bwB" firstAttribute="centerY" secondItem="1eT-Xz-3Wm" secondAttribute="centerY" id="HOC-Hr-jjh"/>
+                                    <constraint firstItem="Iem-sC-USA" firstAttribute="centerY" secondItem="1eT-Xz-3Wm" secondAttribute="centerY" id="P1T-kl-xCH"/>
                                     <constraint firstItem="sR7-fP-hLo" firstAttribute="leading" secondItem="xtt-qN-bwB" secondAttribute="trailing" constant="10" id="Slx-ka-2UU"/>
                                     <constraint firstAttribute="trailing" secondItem="Iem-sC-USA" secondAttribute="trailing" constant="15" id="YAx-nN-aNB"/>
-                                    <constraint firstItem="aOM-bE-UPx" firstAttribute="top" secondItem="tuM-IH-oeE" secondAttribute="top" constant="17" id="dBK-Qw-SP3"/>
-                                    <constraint firstItem="aOM-bE-UPx" firstAttribute="leading" secondItem="tuM-IH-oeE" secondAttribute="leading" constant="17" id="t1a-EO-NXi"/>
+                                    <constraint firstItem="xtt-qN-bwB" firstAttribute="leading" secondItem="1eT-Xz-3Wm" secondAttribute="trailing" constant="30" id="biv-iT-ENi"/>
+                                    <constraint firstItem="sR7-fP-hLo" firstAttribute="centerY" secondItem="1eT-Xz-3Wm" secondAttribute="centerY" id="n7d-Sw-79d"/>
                                     <constraint firstAttribute="height" constant="55" id="wsz-h2-yb3"/>
                                     <constraint firstItem="xtt-qN-bwB" firstAttribute="centerY" secondItem="sR7-fP-hLo" secondAttribute="centerY" id="zJW-y1-DWi"/>
                                 </constraints>
@@ -165,8 +158,8 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="btAdd" destination="Iem-sC-USA" id="HPF-Ym-dB8"/>
+                        <outlet property="btLeftDraw" destination="1eT-Xz-3Wm" id="zKc-sh-NjL"/>
                         <outlet property="btMore" destination="sR7-fP-hLo" id="EPR-2y-V21"/>
-                        <outlet property="lbUser" destination="aOM-bE-UPx" id="RB2-c1-RMu"/>
                         <outlet property="nameOfNoteBook" destination="xtt-qN-bwB" id="2VP-TL-QcT"/>
                         <outlet property="table" destination="xVy-1l-hby" id="0fk-r4-RBD"/>
                         <outlet property="topArea" destination="tuM-IH-oeE" id="3qp-Aa-UEI"/>
@@ -951,6 +944,7 @@
     </scenes>
     <resources>
         <image name="home_bar_add.png" width="40" height="40"/>
+        <image name="home_top_icon.png" width="48" height="48"/>
         <image name="ld_bt_trash.png" width="48" height="48"/>
         <image name="m_note_close.png" width="40" height="40"/>
         <image name="m_note_right_paint.png" width="88" height="158"/>

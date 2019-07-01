@@ -40,7 +40,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
 @property (weak, nonatomic) IBOutlet UILabel *nameOfNoteBook;
-@property (weak, nonatomic) IBOutlet UILabel *lbUser;
+
+@property (weak, nonatomic) IBOutlet UIButton *btLeftDraw;
+
 @property (weak, nonatomic) IBOutlet UIButton *btAdd;
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
 
@@ -98,7 +100,6 @@
         [self.leftVC render] ;
         [self.table xt_loadNewInfoInBackGround:YES] ;
          
-         self.lbUser.text = [[XTIcloudUser userInCacheSyncGet].givenName substringToIndex:1] ?: @"🐙" ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
@@ -205,8 +206,8 @@
 }
 
 - (void)prepareUI {
-    self.lbUser.xt_theme_backgroundColor = k_md_themeColor ;
-    self.lbUser.textColor = [UIColor whiteColor] ;
+    [self.btLeftDraw xt_enlargeButtonsTouchArea] ;
+    
     
     [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     [HomeSearchCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
@@ -243,8 +244,8 @@
         [self moreBtOnClick:sender] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
-    self.lbUser.userInteractionEnabled = YES ;
-    [self.lbUser bk_whenTapped:^{
+    self.btLeftDraw.userInteractionEnabled = YES ;
+    [self.btLeftDraw bk_whenTapped:^{
         @strongify(self)
         [self openDrawer] ;
     }] ;
@@ -269,10 +270,8 @@
         }
     }] ;
     
-    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-        @strongify(self)
-        self.lbUser.text = [user.givenName substringToIndex:1] ?: @"🐙" ;
-    }] ;
+//    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+//    }] ;
     
     if (IS_IPAD) {
         UIView *sideLine = [UIView new] ;
@@ -469,10 +468,10 @@
         LOTAnimationView *animation = [LOTAnimationView animationNamed:@"userhead_sync_animate" inBundle:[NSBundle bundleForClass:self.class]] ;
         animation.loopAnimation = YES ;
         float animateFlex = 8 ;
-        animation.frame = [self.topArea convertRect:self.lbUser.frame fromView:self.topArea] ;
+        animation.frame = [self.topArea convertRect:self.btLeftDraw.frame fromView:self.topArea] ;
         animation.frame = CGRectMake(animation.frame.origin.x - animateFlex, animation.frame.origin.y - animateFlex, animation.frame.size.width + 2 * animateFlex, animation.frame.size.height + 2 * animateFlex) ;
         _animationSync = animation ;
-        [self.topArea insertSubview:_animationSync belowSubview:self.lbUser] ;
+        [self.topArea insertSubview:_animationSync belowSubview:self.btLeftDraw] ;
     }
     return _animationSync ;
 }
