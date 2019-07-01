@@ -22,8 +22,8 @@
 }
 
 
-+ (CGSize)xt_cellSize {
-    float wid = ( APP_WIDTH - 20. * 2. - 10. ) / 2. ;
++ (CGSize)xt_cellSizeForModel:(id)model {
+    float wid = ( [model floatValue] - 20. * 2. - 10. ) / 2. ;
     float height = wid / 325. * 200. ;
     return CGSizeMake(wid, height) ;
 }

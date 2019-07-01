@@ -26,6 +26,11 @@
         _swt.rippleFillColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         _swt.delegate = (id<JTMaterialSwitchDelegate>)self ;
         [self addSubview:_swt] ;
+        [_swt mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-20 - self.swt.width) ;
+            make.centerY.equalTo(self) ;
+        }] ;
+        
         _swt.hidden = YES ;
     }
     return _swt ;

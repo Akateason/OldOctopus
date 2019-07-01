@@ -102,7 +102,8 @@ typedef void(^BlkTapBookCell)(void);
     [self.btSetting xt_enlargeButtonsTouchArea] ;
     [self.btSetting bk_whenTapped:^{
         @strongify(self)
-        [self.slidingController presentViewController:[SettingVC getMe] animated:YES completion:nil] ;
+        [SettingVC getMeFromCtrller:self.slidingController fromView:self.btSetting] ;
+//        [self.slidingController presentViewController:[SettingVC getMe] animated:YES completion:nil] ;
     }] ;
 }
 

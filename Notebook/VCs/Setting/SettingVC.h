@@ -12,7 +12,8 @@
 
 
 @interface SettingVC : BasicVC
-+ (MDNavVC *)getMe ;
++ (MDNavVC *)getMeFromCtrller:(UIViewController *)contentController
+                     fromView:(UIView *)fromView ;
 @end
 
 

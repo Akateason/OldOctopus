@@ -58,7 +58,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [ThemeCollectCell xt_cellSize] ;
+    return [ThemeCollectCell xt_cellSizeForModel:@(self.view.width)] ;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

@@ -12,6 +12,15 @@
 #import "SetGeneralVC.h"
 #import "SetThemeVC.h"
 #import "SetEditorVC.h"
+#import <XTBase/XTBase.h>
+#import "XTCloudHandler.h"
+#import <XTlib/XTlib.h>
+#import "MDThemeConfiguration.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import "Note.h"
+#import "NoteBooks.h"
+#import "UIView+OctupusExtension.h"
+#import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 
 @interface SettingVC ()
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -26,9 +35,16 @@
 
 @implementation SettingVC
 
-+ (MDNavVC *)getMe {
++ (MDNavVC *)getMeFromCtrller:(UIViewController *)contentController fromView:(UIView *)fromView {
     SettingVC *settignVC = [SettingVC getCtrllerFromStory:@"Main" controllerIdentifier:@"SettingVC"] ;
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:settignVC] ;
+    
+    navVC.modalPresentationStyle = UIModalPresentationPopover ;
+    
+    UIPopoverPresentationController *popVC = navVC.popoverPresentationController ;
+    popVC.sourceView = fromView ;
+    popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
+    [contentController presentViewController:navVC animated:YES completion:^{}] ;
     return navVC ;
 }
 
@@ -95,7 +111,7 @@
     UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SettingHead"] ;
     if (!header) header = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"SettingHead"] ;
     UIView *backgroundView = [[UIView alloc] initWithFrame:header.bounds] ;
-    backgroundView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    backgroundView.xt_theme_backgroundColor = k_md_bgColor ;    
     header.backgroundView = backgroundView ;
     return header ;
 }
