@@ -14,9 +14,10 @@
 #import "HomePadVC.h"
 #import "HomeVC.h"
 #import "OctWebEditor.h"
+#import "GuidingVC.h"
+#import "MDNavVC.h"
 
 @interface AppDelegate ()
-// <UNUserNotificationCenterDelegate>
 
 @end
 
@@ -64,6 +65,7 @@
     
 }
 
+static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     if (![XTIcloudUser userInCacheSyncGet]) {
         [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
@@ -73,6 +75,20 @@
     
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self.window.rootViewController] ;
     
+    if ([self.window.rootViewController isKindOfClass:MDNavVC.class]) return ; // guiding
+    
+    GuidingVC *guidVC = [GuidingVC show] ;
+    if (guidVC != nil) {
+        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
+        self.window.rootViewController = navVC ;
+        [self.window makeKeyAndVisible] ;
+    }
+    else {
+        [self setupRootWIndow] ;
+    }
+}
+
+- (void)setupRootWIndow {
     int displayMode = [GlobalDisplaySt sharedInstance].displayMode ;
     if (self.padDisplayMode == displayMode) return ;
     

@@ -53,7 +53,8 @@
     vc.aNote = note ;
     vc.delegate = (id <MarkdownVCDelegate>)ctrller ;
     vc.myBookID = bookID ;
-    vc.canBeEdited = YES ;
+    if (!note && !bookID) vc.canBeEdited = NO ;
+    else vc.canBeEdited = YES ;    
     [ctrller.navigationController pushViewController:vc animated:YES] ;
     return vc ;
 }

@@ -207,8 +207,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             [self pullOrSync] ;
         }
         else {
-            self.appDelegate.window.rootViewController = [HomeVC getMe];
-            [self.appDelegate.window makeKeyAndVisible];
+//            self.appDelegate.window.rootViewController = [HomeVC getMe];
+//            [self.appDelegate.window makeKeyAndVisible];
         }
     }] ;
 }
@@ -216,30 +216,13 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 - (void)pullOrSync {
     BOOL fstTimeLaunch = [XT_USERDEFAULT_GET_VAL(kFirstTimeLaunch) intValue] ;
     
-    GuidingVC *guidVC = [GuidingVC show] ;
-    if (!fstTimeLaunch || guidVC != nil) {
-        
-        if (IS_IPAD) {
-//            self.appDelegate.window.rootViewController = [HomeVC getMe];
-//            [self.appDelegate.window makeKeyAndVisible];
-        }
-        else {
-            MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
-            self.appDelegate.window.rootViewController = navVC;
-            [self.appDelegate.window makeKeyAndVisible];
-        }
-        
+    if (!fstTimeLaunch) {
         [self pullAll] ;
     }
     else {
-//        self.appDelegate.window.rootViewController = [HomePadVC getMe] ;
-//        [self.appDelegate.window makeKeyAndVisible] ;
-        
-        self.appDelegate.window.rootViewController = [HomeVC getMe] ;
-        [self.appDelegate.window makeKeyAndVisible] ;
-        
         [self icloudSync:nil] ;
     }
+    // Set Rootwindow when did become active .
 }
 
 - (void)pullAll {

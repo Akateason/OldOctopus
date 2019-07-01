@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 #import "HomeVC.h"
 #import "MDNavVC.h"
+#import "GlobalDisplaySt.h"
+#import "HomePadVC.h"
 
 @interface GuidingVC () <UIScrollViewDelegate, EllipsePageControlDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView ;
@@ -101,6 +103,16 @@
         AppDelegate *appDelegaete = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
         appDelegaete.window.rootViewController = [HomeVC getMe];
         [appDelegaete.window makeKeyAndVisible] ;
+        
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+            appDelegaete.window.rootViewController = [HomeVC getMe];
+            [appDelegaete.window makeKeyAndVisible] ;
+        }
+        else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+            appDelegaete.window.rootViewController = [HomePadVC getMe] ;
+            [appDelegaete.window makeKeyAndVisible] ;
+        }
+        
     }] ;
     
     
