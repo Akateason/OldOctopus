@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   EditorSetData.plist
+   Notebook
+
+   Created by teason23 on 2019/7/1.
+   Copyright (c) 2019 teason23. All rights reserved.
+-->
+<plist version="1.0">
+    <array>
+        <array>
+            <dict>
+                <key>t</key>
+                <string>自动补全括号</string>
+                <key>r</key>
+                <string></string>
+                <key>s</key>
+                <true/>
+            </dict>
+        </array>
+        
+        <array>
+            <dict>
+                <key>t</key>
+                <string>行高</string>
+                <key>r</key>
+                <string></string>
+                <key>s</key>
+                <true/>
+            </dict>
+        </array>
+        
+        <array>
+            <dict>
+                <key>t</key>
+                <string>无序列表符号</string>
+                <key>r</key>
+                <string></string>
+                <key>s</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>t</key>
+                <string>宽松的列表</string>
+                <key>r</key>
+                <string></string>
+                <key>s</key>
+                <true/>
+            </dict>
+        </array>
+        
+    </array>
+    
+</plist>

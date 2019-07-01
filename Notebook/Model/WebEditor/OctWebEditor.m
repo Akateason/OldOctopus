@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "NHSlidingController.h"
 #import "GlobalDisplaySt.h"
+#import "SettingSave.h"
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -204,12 +205,11 @@ XT_SINGLETON_M(OctWebEditor)
 - (void)setupJSCoreWhenFinishLoad {
     [self nativeCallJSWithFunc:@"setEditorTop" json:XT_STR_FORMAT(@"%@", @(55)) completion:^(NSString *val, NSError *error){}] ;
     
-//    [self nativeCallJSWithFunc:@"setAutoAdBracket" json:[@(FALSE) stringValue] completion:^(NSString *val, NSError *error) {
-//    }] ;
-    
     [self setSideFlex] ;
     
     [self changeTheme] ;
+    
+    [self setupSettings] ;
     
     [self renderNote] ;
     
@@ -218,6 +218,15 @@ XT_SINGLETON_M(OctWebEditor)
     if (!self.aNote) {
         [self openKeyboard] ;
     }
+}
+
+- (void)setupSettings {
+    SettingSave *sSave = [SettingSave fetch] ;
+    
+    [self nativeCallJSWithFunc:@"setAutoAdBracket" json:[@(sSave.editor_autoAddBracket) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+    [self nativeCallJSWithFunc:@"setLineHeight" json:[@(sSave.editor_lightHeightRate) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+    [self nativeCallJSWithFunc:@"setUListSymbol" json:sSave.editor_md_ulistSymbol completion:^(NSString *val, NSError *error) {}] ;
+    [self nativeCallJSWithFunc:@"setLooseList" json:[@(sSave.editor_isLooseList) stringValue] completion:^(NSString *val, NSError *error) {}] ;
 }
 
 #pragma mark --

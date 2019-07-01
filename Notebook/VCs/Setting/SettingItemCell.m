@@ -38,7 +38,7 @@
     self.xt_theme_backgroundColor = k_md_bgColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbDesc.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
-        
+    self.imgRightCorner.userInteractionEnabled = NO ;
 }
 
 

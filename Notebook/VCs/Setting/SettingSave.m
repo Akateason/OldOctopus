@@ -23,9 +23,14 @@ static NSString *const kUD_SettingSave_KEY = @"kUD_SettingSave_KEY" ;
     SettingSave *sSave = [SettingSave yy_modelWithJSON:json] ;
     if (!sSave) {
         SettingSave *save = [[SettingSave alloc] init] ;
-        save.sort_isNoteUpdateTime = 0 ;
-        save.sort_isBookUpdateTime = 1 ;
-        save.sort_isNewestFirst = 1 ;
+        save.sort_isNoteUpdateTime = FALSE ;
+        save.sort_isBookUpdateTime = TRUE ;
+        save.sort_isNewestFirst = TRUE ;
+        
+        save.editor_autoAddBracket = TRUE ;
+        save.editor_lightHeightRate = 1.6 ;
+        save.editor_md_ulistSymbol = @"-" ;
+        save.editor_isLooseList = TRUE ;
         
         sSave = save ;
     }

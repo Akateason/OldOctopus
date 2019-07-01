@@ -11,6 +11,7 @@
 #import <SafariServices/SafariServices.h>
 #import "SetGeneralVC.h"
 #import "SetThemeVC.h"
+#import "SetEditorVC.h"
 
 @interface SettingVC ()
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -117,7 +118,8 @@
         [self.navigationController pushViewController:vc animated:YES] ;
     }
     else if ([title containsString:@"编辑器"]) {
-        
+        SetEditorVC *vc = [SetEditorVC getMe] ;
+        [self.navigationController pushViewController:vc animated:YES] ;
     }
     else if ([title containsString:@"反馈"]) {
         // https://shimo.im/forms/bvVAXVnavgjCjqm7/fill 小章鱼移动端问题反馈
