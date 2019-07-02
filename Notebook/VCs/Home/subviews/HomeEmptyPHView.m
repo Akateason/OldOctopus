@@ -24,7 +24,7 @@
 
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.imgIcon.xt_theme_imageColor = k_md_iconColor ;
-    self.area.xt_theme_backgroundColor = k_md_bgColor ;
+    self.area.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
     self.lbPh.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     self.lbTitle.font = [UIFont systemFontOfSize:18] ;
     

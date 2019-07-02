@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -36,6 +36,7 @@
                     <color key="backgroundColor" red="0.45112746949999999" green="0.63476520780000001" blue="0.88979804520000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="5Qb-F3-qWp" firstAttribute="centerY" secondItem="oxf-rq-gAq" secondAttribute="centerY" id="9gb-H9-JIc"/>
+                        <constraint firstItem="5Qb-F3-qWp" firstAttribute="leading" secondItem="oxf-rq-gAq" secondAttribute="leading" constant="9" id="KAp-vj-mLD"/>
                         <constraint firstItem="DuI-iE-TVp" firstAttribute="centerX" secondItem="oxf-rq-gAq" secondAttribute="centerX" constant="8.5" id="YEc-hO-WU4"/>
                         <constraint firstItem="DuI-iE-TVp" firstAttribute="centerY" secondItem="oxf-rq-gAq" secondAttribute="centerY" id="kfi-4d-mlu"/>
                         <constraint firstItem="DuI-iE-TVp" firstAttribute="leading" secondItem="5Qb-F3-qWp" secondAttribute="trailing" constant="8" id="qhh-6l-nS1"/>
@@ -59,8 +60,7 @@
             <constraints>
                 <constraint firstItem="oxf-rq-gAq" firstAttribute="top" secondItem="pLp-R3-cAZ" secondAttribute="bottom" constant="30" id="9cb-Y1-4QJ"/>
                 <constraint firstItem="pLp-R3-cAZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Db4-xK-kBs"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="oxf-rq-gAq" secondAttribute="trailing" constant="25" id="Uws-in-1Ly"/>
-                <constraint firstItem="oxf-rq-gAq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="WaH-pB-rSH"/>
+                <constraint firstItem="oxf-rq-gAq" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Vfk-Fx-a8m"/>
                 <constraint firstItem="ZLL-7Q-xyM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="cgv-Qh-NUS"/>
                 <constraint firstItem="pLp-R3-cAZ" firstAttribute="top" secondItem="ZLL-7Q-xyM" secondAttribute="bottom" constant="20" id="tBu-GS-V5k"/>
                 <constraint firstItem="oxf-rq-gAq" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uVd-G0-O9o"/>

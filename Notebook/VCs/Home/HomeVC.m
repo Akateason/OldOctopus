@@ -34,6 +34,8 @@
 #import "UIViewController+SlidingController.h"
 #import "GlobalDisplaySt.h"
 #import "SettingSave.h"
+#import "SearchEmptyVC.h"
+
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -47,9 +49,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
 
 
-@property (strong, nonatomic) HomeEmptyPHView *phView ;
-@property (strong, nonatomic) LOTAnimationView *animationSync ;
-@property (strong, nonatomic) SchBarPositiveTransition *transition ;
+@property (strong, nonatomic) LOTAnimationView          *animationSync ;
+@property (strong, nonatomic) SchBarPositiveTransition  *transition ;
+@property (strong, nonatomic) HomeEmptyPHView           *phView ;
+@property (strong, nonatomic) UIView                    *sEmptyView ;
 @end
 
 @implementation HomeVC
@@ -372,6 +375,9 @@
         return [TrashEmptyView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     }
     else {
+        if (IS_IPAD && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon ) {
+            return self.sEmptyView ;
+        }
         self.phView.book = self.leftVC.currentBook ;
         return self.phView ;
     }
@@ -460,15 +466,23 @@
         _phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         WEAK_SELF
         [_phView.area bk_whenTapped:^{
-            if (IS_IPAD && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon ) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
-            }
-            else {
-                [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
-            }
+            [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
         }] ;
     }
     return _phView ;
+}
+
+- (UIView *)sEmptyView {
+    if (!_sEmptyView) {
+        SearchEmptyVC *vc = [SearchEmptyVC getCtrllerFromNIB] ;
+        [vc viewDidLoad] ;
+        vc.lbWord.text = @"点击开始记录你的新故事..." ;
+        _sEmptyView = vc.view ;
+        [_sEmptyView bk_whenTapped:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
+        }] ;
+    }
+    return _sEmptyView ;
 }
 
 + (CGFloat)movingDistance {

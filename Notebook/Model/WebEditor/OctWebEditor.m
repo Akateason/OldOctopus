@@ -33,6 +33,7 @@ XT_SINGLETON_M(OctWebEditor)
 #pragma mark --
 #pragma mark - life
 - (void)setup {
+    self.xt_theme_backgroundColor = k_md_bgColor ;
     self.webView.xt_theme_backgroundColor = k_md_bgColor ;
     
     [self createWebView] ;
@@ -89,9 +90,6 @@ XT_SINGLETON_M(OctWebEditor)
         UIImage *image = [UIImage imageWithData:imageData] ;
         [self uploadWebPhoto:photo image:image] ;
     }] ;
-    
-
-    
 }
 
 - (void)setSideFlex {

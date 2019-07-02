@@ -52,6 +52,8 @@ static const float slidingSpeed = 2000 ;
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
+    self.view.xt_theme_backgroundColor = k_md_drawerColor ;
+    
     _leftContainer = [UIView new] ;
     _leftContainer.width = kWidth_ListView ;
     _leftContainer.height = self.view.height ;
@@ -110,7 +112,6 @@ static const float slidingSpeed = 2000 ;
         if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
             [self.slidingController setDrawerOpened:NO animated:YES] ;
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0 ;
-            return ;
         }
         
         [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
