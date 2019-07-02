@@ -28,6 +28,8 @@
     self.lbPh.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     self.lbTitle.font = [UIFont systemFontOfSize:18] ;
     
+    self.lbPh.textAlignment = IS_IPAD ? NSTextAlignmentLeft : NSTextAlignmentCenter ;
+    
     self.area.layer.cornerRadius = 10 ;
     self.area.xt_borderColor = [UIColor colorWithRed:51./255.0 green:51./255.0 blue:51./255.0 alpha:0.06] ;
     self.area.xt_borderWidth = .5 ;

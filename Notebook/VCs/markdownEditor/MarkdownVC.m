@@ -154,7 +154,7 @@
             [self.editor leavePage] ;
             self.editor.aNote = nil ;
             self.emptyView.hidden = NO ;
-        }        
+        }
     }] ;
     
     [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
