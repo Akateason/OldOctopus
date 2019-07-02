@@ -22,7 +22,6 @@
     NSArray<NSString *> *_disabledActions ;
 }
 @property (strong, nonatomic) OctToolbar    *toolBar ;
-@property (nonatomic)         CGSize        containerSize ;
 @property (nonatomic)         BOOL          swipeOpen ;
 @end
 
@@ -91,11 +90,8 @@ XT_SINGLETON_M(OctWebEditor)
         [self uploadWebPhoto:photo image:image] ;
     }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        NSValue *val = x.object ;
-        self.containerSize = [val CGSizeValue] ;
-    }] ;
+
+    
 }
 
 - (void)setSideFlex {
@@ -103,7 +99,7 @@ XT_SINGLETON_M(OctWebEditor)
         [self nativeCallJSWithFunc:@"setEditorFlex" json:@"28" completion:^(NSString *val, NSError *error) {}] ;
     }
     else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-        [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(self.containerSize.width / 4) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+        [self nativeCallJSWithFunc:@"setEditorFlex" json:[@([GlobalDisplaySt sharedInstance].containerSize.width / 4) stringValue] completion:^(NSString *val, NSError *error) {}] ;
     }
 }
 
@@ -346,13 +342,13 @@ static const float kOctEditorToolBarHeight = 41. ;
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     self.swipeOpen = YES ;
     [self hitTest:[[touches anyObject] locationInView:self] withEvent:event] ;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.swipeOpen = NO ;
-    });
+    }) ;
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) {
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 || [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
         return [super hitTest:point withEvent:event] ;
     }
     if (self.swipeOpen) {

@@ -82,12 +82,16 @@
         [self.table xt_loadNewInfoInBackGround:YES] ;
         self.btAdd.hidden = book.vType == Notebook_Type_trash ;
         self.btMore.hidden = book.vType == Notebook_Type_trash || book.vType == Notebook_Type_recent || book.vType == Notebook_Type_staging ;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_book_Changed object:book] ;
     }] ;
     
     [self.leftVC bookCellTapped:^{
         @strongify(self)
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.slidingController setDrawerOpened:NO animated:YES] ;
+            if (!IS_IPAD) {
+                [self.slidingController setDrawerOpened:NO animated:YES] ;
+            }
         });
     }] ;
     
@@ -281,6 +285,14 @@
             make.width.equalTo(@.5) ;
             make.top.right.bottom.equalTo(self.view) ;
         }] ;
+        
+        UIView *sideLine2 = [UIView new] ;
+        sideLine2.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .5) ;
+        [self.view addSubview:sideLine2] ;
+        [sideLine2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@.5) ;
+            make.top.left.bottom.equalTo(self.view) ;
+        }] ;
     }
 }
 
@@ -448,7 +460,12 @@
         _phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         WEAK_SELF
         [_phView.area bk_whenTapped:^{
-            [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
+            if (IS_IPAD && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon ) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
+            }
+            else {
+                [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
+            }
         }] ;
     }
     return _phView ;

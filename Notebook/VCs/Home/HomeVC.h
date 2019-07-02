@@ -11,7 +11,7 @@
 
 static NSString *const kNote_ClickNote_In_Pad = @"kNote_ClickNote_In_Pad" ;
 static NSString *const kNote_new_Note_In_Pad = @"kNote_new_Note_In_Pad" ;
-
+static NSString *const kNote_book_Changed = @"kNote_book_Changed" ;
 
 
 @interface HomeVC : BasicVC

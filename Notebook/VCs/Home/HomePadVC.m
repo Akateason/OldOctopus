@@ -56,7 +56,7 @@ static const float slidingSpeed = 2000 ;
     _leftContainer.width = kWidth_ListView ;
     _leftContainer.height = self.view.height ;
     _leftContainer.left = self.view.left ;
-    _leftContainer.top = self.view.top ;
+    _leftContainer.top = APP_STATUSBAR_HEIGHT ;
     _leftContainer.bottom = self.view.bottom ;
     [self.view addSubview:_leftContainer] ;
     
@@ -64,7 +64,7 @@ static const float slidingSpeed = 2000 ;
     _rightContainer.width = APP_WIDTH ;
     _rightContainer.height = self.view.height ;
     _rightContainer.left = kWidth_ListView ;
-    _rightContainer.top = self.view.top ;
+    _rightContainer.top = APP_STATUSBAR_HEIGHT ;
     _rightContainer.bottom = self.view.bottom ;
     [self.view addSubview:_rightContainer] ;
     
@@ -83,13 +83,13 @@ static const float slidingSpeed = 2000 ;
         self.leftContainer.width = kWidth_ListView ;
         self.leftContainer.height = self.view.height ;
         self.leftContainer.left = self.view.left ;
-        self.leftContainer.top = self.view.top ;
+        self.leftContainer.top = APP_STATUSBAR_HEIGHT ;
         self.leftContainer.bottom = self.view.bottom ;
         
         self.rightContainer.width = self.containerSize.width ;
         self.rightContainer.height = self.view.height ;
         self.rightContainer.left = kWidth_ListView ;
-        self.rightContainer.top = self.view.top ;
+        self.rightContainer.top = APP_STATUSBAR_HEIGHT ;
         self.rightContainer.bottom = self.view.bottom ;
         
         if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) {
@@ -108,7 +108,7 @@ static const float slidingSpeed = 2000 ;
         @strongify(self)
         
         if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
-            [self.slidingController toggleDrawer] ;
+            [self.slidingController setDrawerOpened:NO animated:YES] ;
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0 ;
             return ;
         }
@@ -139,13 +139,16 @@ static const float slidingSpeed = 2000 ;
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_new_Note_In_Pad object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         
+        [self.slidingController setDrawerOpened:NO animated:YES] ;
         [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
         
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = 0 ;
             [self moveEmptyView:YES] ;
-        } completion:^(BOOL finished) {
             [self.editorVC setupWithNote:nil bookID:nil fromCtrller:self.homeVC] ;
+            self.editorVC.editor.left = 0 ;
+        } completion:^(BOOL finished) {
+            
         }] ;
     }] ;
 }
@@ -179,7 +182,7 @@ static const float slidingSpeed = 2000 ;
         finalOpenState = -1;
         
         if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
-            [self.slidingController toggleDrawer] ;
+            [self.slidingController setDrawerOpened:NO animated:YES] ;
             return ;
         }
     }

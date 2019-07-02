@@ -103,7 +103,6 @@ typedef void(^BlkTapBookCell)(void);
     [self.btSetting bk_whenTapped:^{
         @strongify(self)
         [SettingVC getMeFromCtrller:self.slidingController fromView:self.btSetting] ;
-//        [self.slidingController presentViewController:[SettingVC getMe] animated:YES completion:nil] ;
     }] ;
 }
 

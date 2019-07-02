@@ -19,6 +19,8 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "GlobalDisplaySt.h"
 #import "HomePadVC.h"
+#import "NHSlidingController.h"
+#import "HomeVC.h"
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -125,7 +127,35 @@
         [self snapShotFullScreen:json] ;
     }] ;        
     
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
+        
+        [self.editor setSideFlex] ;
+        
+        self.editor.bottom = self.view.bottom ;
+        self.editor.top = APP_STATUSBAR_HEIGHT ;
+        self.editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
+        self.editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
+        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) {
+            self.editor.left = 0. ;
+        }
+        else {
+            self.editor.left = -[GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28 ;
+        }
+    }] ;
     
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_book_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        NoteBooks *book = x.object ;
+        
+        if (![self.aNote.noteBookId isEqualToString:book.icRecordName]) {
+            [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error) {}];
+            [self.editor leavePage] ;
+            self.editor.aNote = nil ;
+            self.emptyView.hidden = NO ;
+        }        
+    }] ;
     
     [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
        deliverOnMainThread]
@@ -152,6 +182,10 @@
              else {
                  self.emptyView.hidden = NO ;
              }
+         }
+         
+         if (num != -1) {
+             [self.editor hideKeyboard] ;
          }
      }] ;
     
@@ -479,9 +513,9 @@
         _editor = [OctWebEditor sharedInstance] ;
         _editor.bottom = self.view.bottom ;
         _editor.left = self.view.left ;
-        _editor.top = self.topBar.top ;
+        _editor.top = APP_STATUSBAR_HEIGHT ;
         _editor.width = self.view.width ;
-        _editor.height = self.view.height - self.topBar.top ;
+        _editor.height = self.view.height - APP_STATUSBAR_HEIGHT ;
         
         [self.view insertSubview:_editor atIndex:0] ;
     }
@@ -511,11 +545,12 @@
         _emptyView.width = [GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView ;
         [self.view addSubview:_emptyView] ;
         _emptyView.hidden = YES ;
+        
+        [_emptyView.area bk_whenTapped:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
+        }] ;
     }
     return _emptyView ;
 }
-
-
-
 
 @end

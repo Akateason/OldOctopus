@@ -45,13 +45,15 @@ static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Ph
 
 - (void)changeTheme ;
 - (void)renderNote ;
+- (void)setSideFlex ;
+- (void)openKeyboard ;
 
 // initial
 - (void)setup ;
 // close
 - (void)leavePage ;
 
-- (void)openKeyboard ;
+
 
 XT_SINGLETON_H(OctWebEditor)
 
