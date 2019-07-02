@@ -14,6 +14,8 @@
 #import "MDNavVC.h"
 #import "SearchEmptyVC.h"
 #import "SchBarPositiveTransition.h"
+#import "GlobalDisplaySt.h"
+#import "HomeVC.h"
 
 @interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
@@ -129,7 +131,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row ;
     Note *aNote = self.listResult[row] ;
-    [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:self] ;
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+        [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:self] ;
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
+    }
 }
 
 - (UIView *)makePlaceHolderView {

@@ -128,11 +128,13 @@ static const CGFloat slidingSpeed = 1500.0;
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
     panGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:panGestureRecognizer];
-    
-    tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
-    tapGestureRecognizer.delegate = self;
-    tapGestureRecognizer.enabled = NO;
-    [self.view addGestureRecognizer:tapGestureRecognizer];
+
+    if (!IS_IPAD) {
+        tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+        tapGestureRecognizer.delegate = self;
+        tapGestureRecognizer.enabled = NO;
+        [self.view addGestureRecognizer:tapGestureRecognizer];
+    }
 }
 
 #pragma mark - Custom Accessors
@@ -199,7 +201,7 @@ static const CGFloat slidingSpeed = 1500.0;
     [self setDrawerOpened:!_drawerOpened animated:YES];
 }
 
--(void)openDrawerAnimated:(BOOL)animated {
+- (void)openDrawerAnimated:(BOOL)animated {
     [self setDrawerOpened:YES animated:animated];
 }
 
@@ -239,7 +241,9 @@ static const CGFloat slidingSpeed = 1500.0;
     CGPoint center = _topViewContainer.center;
     center.x = center.x < openedWidthCenter ? center.x + translation : center.x + translation / (1.0 + center.x - openedWidthCenter);
     center.x = MAX(center.x, CGRectGetMidX(self.view.bounds));
-    _topViewContainer.center = center;
+    if (!IS_IPAD) {
+        _topViewContainer.center = center;
+    }
     
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         CGFloat velocity = [recognizer velocityInView:self.view].x;
@@ -294,7 +298,7 @@ static const CGFloat slidingSpeed = 1500.0;
                 self.drawerOpened = finalOpenState;
             }];
         }
-    }    
+    }
 }
 
 - (void)tapped:(UITapGestureRecognizer *)tapGestureRecognizer {

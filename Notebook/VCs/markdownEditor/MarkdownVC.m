@@ -40,7 +40,6 @@
 @property (nonatomic)         float             snapDuration ;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityView ;
-
 @end
 
 @implementation MarkdownVC
@@ -225,21 +224,23 @@
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
     
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
+    
     switch ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon) {
         // 里层
         case -1: [self.pad_panDelegate pad_panned:recognizer] ; break;
         case 0: { // 中层
-            if (velocity > 0) { //NSLog(@"👉") ;
+            if (velocity > 0) { //
+//                NSLog(@"👉") ;
                 [self.oct_panDelegate oct_panned:recognizer] ; // 外层
             }
-            else { //NSLog(@"👈") ;
+            else { //
+//                NSLog(@"👈") ;
                 [self.pad_panDelegate pad_panned:recognizer] ; // 里层
             }
-
         } break;
         // 外层
         case  1: [self.oct_panDelegate oct_panned:recognizer] ; break;
-
+        
         default: break;
     }
 }
@@ -543,6 +544,7 @@
         _emptyView.left = self.view.left ;
         _emptyView.top = self.topBar.bottom ;
         _emptyView.width = [GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView ;
+        _emptyView.lbPh.textAlignment = NSTextAlignmentCenter ;
         [self.view addSubview:_emptyView] ;
         _emptyView.hidden = YES ;
         

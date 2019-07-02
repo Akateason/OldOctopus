@@ -151,6 +151,7 @@ static const float slidingSpeed = 2000 ;
             
         }] ;
     }] ;
+    
 }
 
 #pragma mark - MDVC_PadVCPanGestureDelegate <NSObject>
@@ -164,7 +165,7 @@ static const float slidingSpeed = 2000 ;
     float left = _rightContainer.left ;
     left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
     self->_rightContainer.left = left ;
-    
+
     if (recognizer.state != UIGestureRecognizerStateEnded) return ;
 
     CGFloat leftForEdge, leftForBounce;
