@@ -16,8 +16,8 @@
 - (JTMaterialSwitch *)swt {
     if (!_swt) {
         _swt = [[JTMaterialSwitch alloc] initWithSize:(JTMaterialSwitchSizeSmall) style:(JTMaterialSwitchStyleDefault) state:(JTMaterialSwitchStateOff)] ;
-        _swt.right = APP_WIDTH - 20. ; // self.width - 20 ;
-        _swt.centerY = self.centerY ;
+//        _swt.right = APP_WIDTH - 20. ; // self.width - 20 ;
+//        _swt.centerY = self.centerY ;
         
         _swt.thumbOnTintColor = XT_MD_THEME_COLOR_KEY(k_md_themeColor) ;
         _swt.thumbOffTintColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
@@ -27,8 +27,9 @@
         _swt.delegate = (id<JTMaterialSwitchDelegate>)self ;
         [self addSubview:_swt] ;
         [_swt mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self).offset(-20 - self.swt.width) ;
+            make.right.equalTo(self).offset(-20) ;
             make.centerY.equalTo(self) ;
+            make.size.mas_equalTo(CGSizeMake(30, 25)) ;
         }] ;
         
         _swt.hidden = YES ;
