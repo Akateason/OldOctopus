@@ -15,15 +15,7 @@
     [super awakeFromNib] ;
     
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
-
+    self.xt_theme_backgroundColor = IS_IPAD ? k_md_midDrawerPadColor : k_md_bgColor ;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

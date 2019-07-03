@@ -431,7 +431,7 @@
     [config.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"] ;
     _webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config] ;
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
-    _webView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    _webView.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
     _webView.opaque = NO ;
     [self.view addSubview:_webView] ;
     [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;

@@ -40,7 +40,7 @@
             return YES ;
         }] ;
         item1.backgroundColor = itemBgColor ;
-        item1.tintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
+        item1.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
         item1.width = 70 ;
         item1.image = [UIImage imageNamed:@"home_del_note"] ;
         
@@ -69,7 +69,7 @@
             return YES ;
         }] ;
         item2.backgroundColor = itemBgColor ;
-        item2.tintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
+        item2.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
         item2.width = 70 ;
         item2.image = [UIImage imageNamed:@"home_huifu"] ;
         
@@ -93,7 +93,7 @@
             return YES ;
         }] ;
         item1.backgroundColor = itemBgColor ;
-        item1.tintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
+        item1.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
         item1.width = 70 ;
         item1.image = [UIImage imageNamed:@"home_del_note"] ;
         
@@ -111,7 +111,7 @@
             return YES ;
         }] ;
         item2.backgroundColor = itemBgColor ;
-        item2.tintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
+        item2.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
         item2.width = 70 ;
         item2.image = [UIImage imageNamed:@"home_move_note"] ;
         
@@ -135,7 +135,7 @@
             return YES ;
         }] ;
         item3.backgroundColor = itemBgColor ;
-        item3.tintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
+        item3.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
         item3.width = 70 ;
         item3.image = [UIImage imageNamed:@"home_top_note"] ;
         

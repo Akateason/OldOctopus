@@ -38,7 +38,7 @@
     
     switch (self.type) {
         case MarkdownSyntaxMultipleMath: {
-            [resultDic setObject:XT_MD_THEME_COLOR_KEY(k_md_bgColor) forKey:NSForegroundColorAttributeName] ;
+            [resultDic setObject:XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) forKey:NSForegroundColorAttributeName] ;
             [attributedString addAttributes:resultDic range:self.range] ;
         }
             break;
@@ -46,8 +46,8 @@
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineSpacing = 0;
             paragraphStyle.paragraphSpacing = kDefaultFontSize * 1.3;
-            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
-                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+            resultDic = @{NSBackgroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                          NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ,
                           NSFontAttributeName : configuration.editorThemeObj.font ,
                           NSParagraphStyleAttributeName : paragraphStyle
                           } ;
@@ -83,8 +83,8 @@
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineSpacing = 0 ;
             paragraphStyle.paragraphSpacing = kDefaultFontSize * 1.3 ;
-            resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
-                          NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+            resultDic = @{NSBackgroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                          NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ,
                           NSFontAttributeName : configuration.editorThemeObj.font ,
                           NSParagraphStyleAttributeName : paragraphStyle
                           } ;

@@ -337,32 +337,6 @@ static const float kOctEditorToolBarHeight = 41. ;
     NSLog(@"error: %@",error) ;
 }
 
-
-//#pragma mark --
-//#pragma mark - touch
-//
-//- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    self.swipeOpen = YES ;
-//    [self hitTest:[[touches anyObject] locationInView:self] withEvent:event] ;
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        self.swipeOpen = NO ;
-//    }) ;
-//}
-//
-//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-//    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 || [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
-//        return [super hitTest:point withEvent:event] ;
-//    }
-//    if (self.swipeOpen) {
-//        return [super hitTest:point withEvent:event] ;
-//    }
-//    return self ;
-//}
-
-
-
-
-
 #pragma mark --
 #pragma mark - util
 

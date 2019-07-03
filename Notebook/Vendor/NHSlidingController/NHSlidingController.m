@@ -42,8 +42,8 @@ static const CGFloat slidingSpeed = 1500.0;
     if (self) {
         self.topViewController = topViewController ;
         self.bottomViewController = bottomViewController ;
-        self.slideDistance = distance ?: 200 ;
-        self.view.xt_theme_backgroundColor = k_md_bgColor ;
+        self.slideDistance = distance ?: 200 ;        
+        self.view.xt_theme_backgroundColor = k_md_drawerColor ;
     }
     return self; 
 }

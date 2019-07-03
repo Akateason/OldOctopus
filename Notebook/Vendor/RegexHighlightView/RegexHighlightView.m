@@ -85,7 +85,7 @@ static NSMutableDictionary* highlightThemes;
 
 
 - (NSAttributedString *)highlightText:(NSString*)string {
-    UIColor* textColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ;
+    UIColor* textColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ;
     
     //Create a mutable attribute string to set the highlighting
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -112,7 +112,7 @@ static NSMutableDictionary* highlightThemes;
             //Get the text color, if it is a custom key and no color was defined, choose black
             if(!self.highlightColor||!(textColor=([self.highlightColor objectForKey:key])))
                 if(!(textColor=[[RegexHighlightView highlightTheme:kRegexHighlightViewThemeDefault] objectForKey:key]))
-                    textColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ;
+                    textColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ;
             [coloredString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)textColor.CGColor range:[match rangeAtIndex:0]];
 
             
@@ -168,7 +168,7 @@ static NSMutableDictionary* highlightThemes;
             break;
         case kRegexHighlightViewThemeDefault:
             themeColor = [NSDictionary dictionaryWithObjectsAndKeys:
-                    XT_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.75),kRegexHighlightViewTypeText,
+                    XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.75),kRegexHighlightViewTypeText,
                     [UIColor colorWithRed:255.0/255 green:255.0/255 blue:255.0/255 alpha:1],kRegexHighlightViewTypeBackground,
                     [UIColor colorWithRed:0.0/255 green:131.0/255 blue:39.0/255 alpha:1],kRegexHighlightViewTypeComment,
                     [UIColor colorWithRed:0.0/255 green:131.0/255 blue:39.0/255 alpha:1],kRegexHighlightViewTypeDocumentationComment,

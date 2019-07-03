@@ -30,7 +30,7 @@
         }) ;
         
         UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds] ;
-        backgroundView.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        backgroundView.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         self.backgroundView = backgroundView ;
     }
     return self;

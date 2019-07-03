@@ -67,7 +67,7 @@
             circle.alpha = .8 ;
         } completion:^(BOOL finished) {
             
-            [[MDThemeConfiguration sharedInstance] setThemeDarkOrNight:(![MDThemeConfiguration sharedInstance].isDarkMode)] ;
+            [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:(![MDThemeConfiguration sharedInstance].isDarkMode)] ;
             (![MDThemeConfiguration sharedInstance].isDarkMode) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
                         
             [circle removeFromSuperview] ;

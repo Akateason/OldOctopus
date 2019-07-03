@@ -421,7 +421,7 @@ static const int kTag_MathView          = 78089 ;
         }
         else if (model.type == MarkdownSyntaxTaskLists) {
             UIImageView *imgView = [UIImageView new] ;
-            [imgView setImage:[model.taskItemImageState imageWithTintColor:XT_MD_THEME_COLOR_KEY(k_md_themeColor)]] ;
+            [imgView setImage:[model.taskItemImageState imageWithTintColor:XT_GET_MD_THEME_COLOR_KEY(k_md_themeColor)]] ;
             imgView.contentMode = UIViewContentModeScaleAspectFit ;
             imgView.userInteractionEnabled = YES ;
             WEAK_SELF
@@ -500,7 +500,7 @@ static const int kTag_MathView          = 78089 ;
         item.userInteractionEnabled = YES ;
         item.tag = kTag_InlineCodeView ;
         item.xt_borderWidth = .25 ;
-        item.xt_borderColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+        item.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
         item.xt_cornerRadius = 3 ;
         
         WEAK_SELF
@@ -542,7 +542,7 @@ static const int kTag_MathView          = 78089 ;
         label.labelMode = kMTMathUILabelModeDisplay;
         label.textAlignment = kMTTextAlignmentCenter;
         label.fontSize = [MDThemeConfiguration sharedInstance].editorThemeObj.fontSize ;
-        label.textColor = XT_MD_THEME_COLOR_KEY(k_md_textColor) ;
+        label.textColor = XT_GET_MD_THEME_COLOR_KEY(k_md_textColor) ;
         label.frame = rectForMath ;
         [self addSubview:label] ;
     }

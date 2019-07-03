@@ -53,6 +53,7 @@
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @property (strong, nonatomic) HomeEmptyPHView           *phView ;
 @property (strong, nonatomic) UIView                    *sEmptyView ;
+@property (copy, nonatomic) NSString                    *selectedNoteIcloudRecordID ;
 @end
 
 @implementation HomeVC
@@ -82,6 +83,7 @@
     @weakify(self)
     [self.leftVC currentBookChanged:^(NoteBooks *book) {
         @strongify(self)        
+        self.selectedNoteIcloudRecordID = nil ;
         [self.table xt_loadNewInfoInBackGround:YES] ;
         self.btAdd.hidden = book.vType == Notebook_Type_trash ;
         self.btMore.hidden = book.vType == Notebook_Type_trash || book.vType == Notebook_Type_recent || book.vType == Notebook_Type_staging ;
@@ -282,7 +284,7 @@
     
     if (IS_IPAD) {
         UIView *sideLine = [UIView new] ;
-        sideLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .5) ;
+        sideLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
         [self.view addSubview:sideLine] ;
         [sideLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@.5) ;
@@ -290,7 +292,7 @@
         }] ;
         
         UIView *sideLine2 = [UIView new] ;
-        sideLine2.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .5) ;
+        sideLine2.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
         [self.view addSubview:sideLine2] ;
         [sideLine2 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@.5) ;
@@ -331,13 +333,14 @@
         return cell ;
     }
     NoteCell *cell = [NoteCell xt_fetchFromTable:tableView] ;
-    [cell xt_configure:self.listNotes[indexPath.row] indexPath:indexPath] ;
+    Note *aNote = self.listNotes[indexPath.row] ;
+    [cell xt_configure:aNote indexPath:indexPath] ;
     cell.revealPosition = SWCellRevealPositionRightExtended ;
     cell.draggableBorderWidth = 200 ;
     cell.dataSource = self ;
     cell.delegate = self ;
     [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
-    
+    [cell setUserSelected:[aNote.icRecordName isEqualToString:self.selectedNoteIcloudRecordID]] ;
     return cell ;
 }
 
@@ -354,14 +357,17 @@
         return ;
     }
     
+    NoteCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
     if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
-        NoteCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
         [cell setRevealPosition:(SWCellRevealPositionLeft) animated:YES] ;
         return ;
     }
     
     NSInteger row = indexPath.row ;
     Note *aNote = self.listNotes[row] ;
+    self.selectedNoteIcloudRecordID = aNote.icRecordName ;
+    [tableView reloadData] ;
+    
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
         [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
     }
@@ -404,32 +410,6 @@
                 [(SWRevealTableViewCell *)cell setRevealPosition:SWCellRevealPositionCenter animated:YES] ;
         }
     }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(NoteCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) return ;
-
-    cell.lbTitle.alpha = 0. ;
-    [UIView animateWithDuration:0.2
-                     animations:^{
-                         cell.lbTitle.alpha = 1 ;
-                     }
-                     completion:nil] ;
-
-    cell.lbTitle.layer.transform = CATransform3DMakeTranslation(10, 0, 0) ;
-    [UIView animateWithDuration:.25
-                     animations:^{
-                         cell.lbTitle.layer.transform = CATransform3DIdentity ;
-                     }
-                     completion:nil] ;
-
-    cell.lbDate.alpha = 0. ;
-    cell.lbContent.alpha = 0. ;
-    [UIView animateWithDuration:1.
-                     animations:^{
-                         cell.lbDate.alpha = 1. ;
-                         cell.lbContent.alpha = 1. ;
-                     }] ;
 }
 
 #pragma mark - MarkdownVCDelegate <NSObject>

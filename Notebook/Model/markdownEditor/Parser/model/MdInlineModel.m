@@ -82,7 +82,7 @@
             [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 1)] ;
             
-            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75),
+            resultDic = @{NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .75),
                           NSFontAttributeName : paragraphFont ,
                           } ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
@@ -93,7 +93,7 @@
             break ;
         case MarkdownInlineLinks: {
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:self.range] ;
-            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_linkColor),
+            resultDic = @{NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_linkColor),
                           NSFontAttributeName : paragraphFont,
                           NSUnderlineStyleAttributeName : @1
                           };
@@ -173,7 +173,7 @@
             [resultDic setValue:@(configuration.editorThemeObj.inlineCodeSideFlex) forKey:NSKernAttributeName] ;
             [attributedString addAttributes:resultDic range:NSMakeRange(location, 1)] ;
             
-            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ,
+            resultDic = @{NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ,
                           NSFontAttributeName : paragraphFont,
                           };
             [attributedString addAttributes:resultDic range:NSMakeRange(location + 1, length - 2)] ;
@@ -185,7 +185,7 @@
             break ;
         case MarkdownInlineLinks: {
             [attributedString addAttributes:configuration.editorThemeObj.invisibleMarkStyle range:self.range] ;
-            resultDic = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_linkColor),
+            resultDic = @{NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_linkColor),
                           NSFontAttributeName : paragraphFont,
                           NSUnderlineStyleAttributeName : @1
                           };

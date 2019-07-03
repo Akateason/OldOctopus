@@ -31,8 +31,8 @@ static NSString *const k_md_drawerSelectedColor = @"drawerSelectedColor" ;
 #define XT_MAKE_theme_color(_key_,_a_)           [[_key_ stringByAppendingString:@","] stringByAppendingString:@(_a_).stringValue]
 
 
-#define XT_MD_THEME_COLOR_KEY(__key__)           UIColorHex([MDThemeConfiguration sharedInstance].dicForConfig[__key__])
-#define XT_MD_THEME_COLOR_KEY_A(__key__,__a__)   UIColorHexA([MDThemeConfiguration sharedInstance].dicForConfig[__key__], __a__)
+#define XT_GET_MD_THEME_COLOR_KEY(__key__)           UIColorHex([MDThemeConfiguration sharedInstance].dicForConfig[__key__])
+#define XT_GET_MD_THEME_COLOR_KEY_A(__key__,__a__)   UIColorHexA([MDThemeConfiguration sharedInstance].dicForConfig[__key__], __a__)
 
 
 
@@ -57,7 +57,7 @@ XT_SINGLETON_H(MDThemeConfiguration)
 
 - (UIColor *)themeColor:(NSString *)key ;
 
-- (void)setThemeDarkOrNight:(BOOL)dark ;
+- (void)setThemeDayOrNight:(BOOL)dark ;
 - (BOOL)isDarkMode ;
 
 @end

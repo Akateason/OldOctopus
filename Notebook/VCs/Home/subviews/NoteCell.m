@@ -29,16 +29,47 @@
     _img_isTop.hidden = YES ;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
+//- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+//    [super setSelected:selected animated:animated];
+//
+//    [self setUserSelected:selected] ;
+//}
+
+
+- (void)setUserSelected:(BOOL)selected {
     if (IS_IPAD) {
         self.area.xt_theme_backgroundColor =  selected ? XT_MAKE_theme_color(k_md_drawerSelectedColor, 1) : XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) ;
     }
     else {
         self.area.xt_theme_backgroundColor =  selected ? XT_MAKE_theme_color(k_md_textColor, 0.03) : k_md_bgColor ;
     }
+    
+    if (!selected) return ;
+    
+    self.lbTitle.alpha = 0. ;
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         self.lbTitle.alpha = 1 ;
+                     }
+                     completion:nil] ;
+
+    self.lbTitle.layer.transform = CATransform3DMakeScale(1.2, 1.2, 1) ;
+    [UIView animateWithDuration:.07
+                     animations:^{
+                         self.lbTitle.layer.transform = CATransform3DIdentity ;
+                     }
+                     completion:nil] ;
+    
+    self.lbDate.alpha = 0. ;
+    self.lbContent.alpha = 0. ;
+    [UIView animateWithDuration:1.
+                     animations:^{
+                         self.lbDate.alpha = 1. ;
+                         self.lbContent.alpha = 1. ;
+                     }] ;
 }
+
+
 
 static int kLimitCount = 70 ;
 
@@ -78,7 +109,7 @@ static int kLimitCount = 70 ;
         NSArray <NSValue *> *listRange = [self.lbTitle.text xt_searchAllRangesWithText:textForSearching] ;
         [listRange enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSRange range = obj.rangeValue ;
-            NSDictionary * resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_themeColor, .3) ,
+            NSDictionary * resultDic = @{NSBackgroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_themeColor, .3) ,
                                          NSFontAttributeName : self.lbTitle.font
                                          };
             [attr addAttributes:resultDic range:range] ;
@@ -92,7 +123,7 @@ static int kLimitCount = 70 ;
         NSArray <NSValue *> *listRange = [self.lbContent.text xt_searchAllRangesWithText:textForSearching] ;
         [listRange enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSRange range = obj.rangeValue ;
-            NSDictionary * resultDic = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_themeColor, .3) ,
+            NSDictionary * resultDic = @{NSBackgroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_themeColor, .3) ,
                                          NSFontAttributeName : self.lbContent.font
                                          };
             [attr addAttributes:resultDic range:range] ;

@@ -75,7 +75,7 @@
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
             paragraphStyle.lineSpacing = 10 ;
             NSDictionary * object = @{NSFontAttributeName : self.font,
-                                      NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75),
+                                      NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .75),
                                       NSParagraphStyleAttributeName : paragraphStyle
                                       } ;
             object;
@@ -89,7 +89,7 @@
     paragraphStyle.lineSpacing = 10 ;
     paragraphStyle.paragraphSpacing = paraSpacing ;
     NSDictionary *diction = @{NSFontAttributeName : MDThemeConfiguration.sharedInstance.editorThemeObj.font,
-                              NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75),
+                              NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .75),
                               NSParagraphStyleAttributeName : paragraphStyle
                               } ;
     return diction ;
@@ -97,7 +97,7 @@
 
 - (NSDictionary *)quoteStyle {
     if (!_quoteStyle) {
-        _quoteStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ,
+        _quoteStyle = @{NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ,
                         NSFontAttributeName : self.font ,                        
                         };
     }
@@ -107,7 +107,7 @@
 - (NSDictionary *)markStyle {
     if(!_markStyle){
         _markStyle = ({
-            NSDictionary * object = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor)} ;
+            NSDictionary * object = @{NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_markColor)} ;
             object;
         });
     }
@@ -118,7 +118,7 @@
     if (!_invisibleMarkStyle) {
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
         paragraphStyle.lineSpacing = 10 ;
-        _invisibleMarkStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_markColor),
+        _invisibleMarkStyle = @{NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_markColor),
                                 NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                                 NSParagraphStyleAttributeName: paragraphStyle
                                 } ;
@@ -130,7 +130,7 @@
     if (!_listInvisibleMarkStyle) {
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
         paragraphStyle.firstLineHeadIndent = 16 ;
-        _listInvisibleMarkStyle = @{NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ,
+        _listInvisibleMarkStyle = @{NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .75) ,
                                     NSFontAttributeName : [UIFont systemFontOfSize:0.1] ,
                                     NSParagraphStyleAttributeName: paragraphStyle
                                     } ;
@@ -143,9 +143,9 @@
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.lineSpacing = 5 ;
 //        paragraphStyle.lineSpacing = 0 ;
-        _codeBlockStyle = @{NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .03) ,
+        _codeBlockStyle = @{NSBackgroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .03) ,
                             NSFontAttributeName : self.font ,
-                            NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_linkColor) ,
+                            NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_linkColor) ,
                             NSParagraphStyleAttributeName : paragraphStyle
                             };
     }

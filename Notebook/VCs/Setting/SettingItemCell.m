@@ -19,11 +19,11 @@
 //        _swt.right = APP_WIDTH - 20. ; // self.width - 20 ;
 //        _swt.centerY = self.centerY ;
         
-        _swt.thumbOnTintColor = XT_MD_THEME_COLOR_KEY(k_md_themeColor) ;
-        _swt.thumbOffTintColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
-        _swt.trackOnTintColor = XT_MD_THEME_COLOR_KEY(k_md_themeColor) ;
-        _swt.trackOffTintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .4) ;
-        _swt.rippleFillColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        _swt.thumbOnTintColor = XT_GET_MD_THEME_COLOR_KEY(k_md_themeColor) ;
+        _swt.thumbOffTintColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        _swt.trackOnTintColor = XT_GET_MD_THEME_COLOR_KEY(k_md_themeColor) ;
+        _swt.trackOffTintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .4) ;
+        _swt.rippleFillColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         _swt.delegate = (id<JTMaterialSwitchDelegate>)self ;
         [self addSubview:_swt] ;
         [_swt mas_makeConstraints:^(MASConstraintMaker *make) {

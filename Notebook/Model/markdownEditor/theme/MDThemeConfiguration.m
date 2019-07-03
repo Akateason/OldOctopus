@@ -40,7 +40,11 @@ XT_SINGLETON_M(MDThemeConfiguration)
     
     XT_USERDEFAULT_SET_VAL(theme, kUDIdentiferOfTheme) ;
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationForThemeColorDidChanged object:nil] ;    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationForThemeColorDidChanged object:nil] ;
+    
+    if ([theme isEqualToString:@"light"] || [theme isEqualToString:@"sunshine"]) {
+        [self setLastDayTheme:theme] ;
+    }
 }
 
 - (void)setStatusBarBlackOrWhite:(BOOL)isWhite {
@@ -72,20 +76,29 @@ XT_SINGLETON_M(MDThemeConfiguration)
     UIColor *themeColor ;
     if ([key containsString:@","]) {
         NSArray *list = [key componentsSeparatedByString:@","] ;
-        themeColor = XT_MD_THEME_COLOR_KEY_A(list.firstObject, [list.lastObject floatValue]) ;
+        themeColor = XT_GET_MD_THEME_COLOR_KEY_A(list.firstObject, [list.lastObject floatValue]) ;
     }
     else {
-        themeColor = XT_MD_THEME_COLOR_KEY(key) ;
+        themeColor = XT_GET_MD_THEME_COLOR_KEY(key) ;
     }
     return themeColor ;
 }
 
-- (void)setThemeDarkOrNight:(BOOL)dark {
-    (dark) ? [[MDThemeConfiguration sharedInstance] changeTheme:@"dark"] : [[MDThemeConfiguration sharedInstance] changeTheme:@"light"] ;
+- (void)setThemeDayOrNight:(BOOL)dark {
+    (dark) ? [[MDThemeConfiguration sharedInstance] changeTheme:@"dark"] : [[MDThemeConfiguration sharedInstance] changeTheme:[self lastDayTheme]] ;
 }
 
 - (BOOL)isDarkMode {
     return [self.currentThemeKey isEqualToString:@"dark"] ;
+}
+
+static NSString *const k_UD_Last_Day_THEME = @"k_UD_Last_Day_THEME" ;
+- (NSString *)lastDayTheme {
+    return XT_USERDEFAULT_GET_VAL(k_UD_Last_Day_THEME) ?: @"light" ;
+}
+
+- (void)setLastDayTheme:(NSString *)theme {
+    XT_USERDEFAULT_SET_VAL(theme, k_UD_Last_Day_THEME) ;
 }
 
 @end

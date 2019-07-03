@@ -23,9 +23,9 @@
     self.slider.minimumValue = 1.2 ;
     self.slider.maximumValue = 2. ;
     [self.slider addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged] ;
-    self.slider.tintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
-    self.slider.maximumTrackTintColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
-    self.slider.thumbTintColor = XT_MD_THEME_COLOR_KEY(k_md_themeColor) ;
+    self.slider.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+    self.slider.maximumTrackTintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+    self.slider.thumbTintColor = XT_GET_MD_THEME_COLOR_KEY(k_md_themeColor) ;
     
     self.lbSlideVal.top = 0 ;
     self.lbSlideVal.xt_theme_textColor = k_md_themeColor ;

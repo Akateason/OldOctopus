@@ -26,7 +26,7 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = XT_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        self.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         
         
         self.model = model ;
@@ -62,8 +62,8 @@
         self.highlightView = highlightView ;
         
         UIView *bgView = [UIView new] ;
-        bgView.backgroundColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.03) ;
-        bgView.xt_borderColor = XT_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.1) ;
+        bgView.backgroundColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.03) ;
+        bgView.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.1) ;
         bgView.xt_borderWidth = .5 ;
         bgView.xt_cornerRadius = 4. ;
         [self addSubview:bgView] ;
@@ -84,7 +84,7 @@
 - (UIButton *)btCodeType {
     if (!_btCodeType) {
         _btCodeType = [UIButton new] ;
-        [_btCodeType setTitleColor:XT_MD_THEME_COLOR_KEY_A(k_md_linkColor,1) forState:0] ;
+        [_btCodeType setTitleColor:XT_GET_MD_THEME_COLOR_KEY_A(k_md_linkColor,1) forState:0] ;
         _btCodeType.titleLabel.font = [UIFont systemFontOfSize:kDefaultFontSize] ;
         [self addSubview:_btCodeType] ;
         [_btCodeType mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -68,8 +68,8 @@
     paraStyle.headIndent = 18 * level ;
     paraStyle.lineSpacing = 10 ;
     NSDictionary *tmpStyle = @{
-                               NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
-                               NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                               NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                               NSBackgroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ,
                                NSFontAttributeName : [UIFont systemFontOfSize:.1] ,
                                NSParagraphStyleAttributeName : paraStyle,
                                } ;
@@ -80,8 +80,8 @@
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init] ;
     paraStyle.paragraphSpacing = 0 ;
     NSDictionary *tmpStyle = @{
-                                NSForegroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
-                                NSBackgroundColorAttributeName : XT_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                                NSForegroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ,
+                                NSBackgroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ,
                                 NSFontAttributeName : [UIFont systemFontOfSize:.1] ,
                                 NSParagraphStyleAttributeName : paraStyle,
                                } ;
