@@ -78,6 +78,7 @@
     
     self.view.xt_maskToBounds = YES ;
     if (self.aNote) self.editor.aNote = self.aNote ;
+    else [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error){}] ;
     
     
     @weakify(self)

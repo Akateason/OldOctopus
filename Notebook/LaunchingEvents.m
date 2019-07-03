@@ -51,7 +51,6 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupIcloudEvent] ;
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
-    
 }
 
 
@@ -69,6 +68,9 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation" ;
     BOOL isNotNewVersion = [currentVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending ;
     
     if (![XTFileManager isFileExist:pathIndex] || !isNotNewVersion) {
+        NSString *lastFolderPath = XT_DOCUMENTS_PATH_TRAIL_(@"web") ;
+        [XTFileManager deleteFile:lastFolderPath] ;
+        
         NSString *zipPath = [[NSBundle mainBundle] pathForResource:@"web" ofType:@"zip"] ;
         NSString *unzipPath = [XTArchive getDocumentsPath] ;
         [SSZipArchive unzipFileAtPath:zipPath toDestination:unzipPath delegate:(id <SSZipArchiveDelegate>)self];
