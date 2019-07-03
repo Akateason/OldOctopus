@@ -19,8 +19,10 @@
     [self xt_setImagePosition:(XTBtImagePositionTop) spacing:4] ;
     [self setTitleColor:UIColorHexA(@"6b737b",.5) forState:(UIControlStateNormal)] ;
     [self setTitleColor:UIColorHex(@"6b737b") forState:(UIControlStateSelected)] ;
-    UIImage *grayImage = [UIImage imageWithColor:UIColorRGBA(107, 115, 123, .1) size:CGSizeMake(80, 60)] ;
-    [self setBackgroundImage:grayImage forState:UIControlStateSelected] ;
+    
+    [[RACObserve(self, selected) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
+        self.backgroundColor = [x boolValue] ? UIColorRGBA(107, 115, 123, .1) : [UIColor whiteColor] ;
+    }] ;
     
     WEAK_SELF
     [self bk_addEventHandler:^(id sender) {

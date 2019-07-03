@@ -105,15 +105,16 @@
     
     self.backgroundColor = UIColorHex(@"f9f6f6") ;
     
+    self.area1.xt_maskToBounds = self.area2.xt_maskToBounds = self.area3.xt_maskToBounds = self.area4.xt_maskToBounds = self.area5.xt_maskToBounds = self.area6.xt_maskToBounds = self.area7.xt_maskToBounds = self.area8.xt_maskToBounds = YES ;
     
     WEAK_SELF
     [self.btUlist bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectUList] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btOlist bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectOrderlist] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
@@ -128,58 +129,58 @@
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btTaskList bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectTaskList] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btQuote bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectQuoteBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btSepline bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectSepLine] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btCodeBlock bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectCodeBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btMath bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectMathBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btTable bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectTable] ;
         [weakSelf removeFromSuperview] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
 
     [self.btHtml bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectHtml] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [self.btVegaChart bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectVegaChart] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [self.btFlowChart bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectFlowChart] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [self.btSequnceDiag bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectSequnceDiag] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [self.btMermaid bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectMermaid] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
 }

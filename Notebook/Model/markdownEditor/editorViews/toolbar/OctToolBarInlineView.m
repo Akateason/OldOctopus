@@ -115,6 +115,8 @@
     self.area5.xt_cornerRadius = 6 ;
     self.area6.xt_cornerRadius = 6 ;
     
+    self.area1.xt_maskToBounds = self.area2.xt_maskToBounds = self.area3.xt_maskToBounds = self.area4.xt_maskToBounds = self.area5.xt_maskToBounds = self.area6.xt_maskToBounds = YES ;
+    
     self.backgroundColor = UIColorHex(@"f9f6f6") ;
     
     
@@ -122,62 +124,62 @@
     
     WEAK_SELF
     [self.btBold bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectBold] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btItalic bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectItalic] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btDeletion bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectDeletion] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btInlineCode bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectInlineCode] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.bth1 bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH1] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.bth2 bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH2] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.bth3 bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH3] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.bth4 bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH4] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.bth5 bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH5] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.bth6 bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH6] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btParaClean bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectClearToCleanPara] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btUnderline bk_addEventHandler:^(UIButton *sender) {
-        sender.selected = !sender.selected ;
+//        sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectUnderline] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
 }
