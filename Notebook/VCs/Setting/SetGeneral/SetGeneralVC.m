@@ -44,11 +44,20 @@
     [self.table registerClass:SettingCellHeader.class forHeaderFooterViewReuseIdentifier:@"SettingCellHeader"] ;
     self.table.dataSource   = self ;
     self.table.delegate     = self ;
-    self.table.xt_theme_backgroundColor = k_md_bgColor ;
+    self.table.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
     self.table.estimatedRowHeight           = 0;
     self.table.estimatedSectionHeaderHeight = 0;
     self.table.estimatedSectionFooterHeight = 0;
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIView *tableTopLine = [UIView new] ;
+    tableTopLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    [self.view addSubview:tableTopLine] ;
+    [tableTopLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view) ;
+        make.top.equalTo(self.table.mas_top) ;
+        make.height.equalTo(@.5) ;
+    }] ;
 }
 
 
@@ -63,6 +72,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger section = indexPath.section ;
     NSInteger row = indexPath.row ;
     SettingItemCell *cell = [SettingItemCell xt_fetchFromTable:tableView] ;
     cell.delegate = self ;
@@ -74,14 +84,16 @@
     NSString *title = dic[@"t"] ;
     if ([title containsString:@"笔记本"]) {
         cell.lbDesc.text = !sSave.sort_isBookUpdateTime ? @"修改时间" : @"创建时间" ;
+        cell.sepLineMode = SettingCellSeperateLine_Mode_Middel ;
     }
     else if ([title isEqualToString:@"笔记"]) {
         cell.lbDesc.text = !sSave.sort_isNoteUpdateTime ? @"修改时间" : @"创建时间" ;
+        cell.sepLineMode = SettingCellSeperateLine_Mode_Bottom ;
     }
     else if ([title isEqualToString:@"最新优先"]) {
         [cell.swt setOn:sSave.sort_isNewestFirst animated:NO] ;
+        cell.sepLineMode = SettingCellSeperateLine_Mode_Top ;
     }
-    
     return cell ;
 }
 
@@ -97,26 +109,39 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 25 ;
+    return 37. ;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSInteger section = indexPath.section ;
+//    NSInteger section = indexPath.section ;
     NSInteger row = indexPath.row ;
     NSDictionary *dic = self.datasource[row] ;
     NSString *title = dic[@"t"] ;
-    SettingSave *sSave = [SettingSave fetch] ;
-    if ([title containsString:@"笔记本"]) {
-        sSave.sort_isBookUpdateTime = !sSave.sort_isBookUpdateTime  ;
-    }
-    else if ([title isEqualToString:@"笔记"]) {
-        sSave.sort_isNoteUpdateTime = !sSave.sort_isNoteUpdateTime ;
-    }
-    [sSave save] ;
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationNone)] ;
-    
-    
     SettingItemCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
+    
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"修改时间",@"创建时间"] fromWithView:cell CallBackBlock:^(NSInteger btnIndex) {
+    
+        SettingSave *sSave = [SettingSave fetch] ;
+        if ([title containsString:@"笔记本"]) {
+            if (btnIndex == 1) {
+                sSave.sort_isBookUpdateTime = FALSE ;
+            }
+            else if (btnIndex == 2) {
+                sSave.sort_isBookUpdateTime = TRUE ;
+            }
+        }
+        else if ([title isEqualToString:@"笔记"]) {
+            if (btnIndex == 1) {
+                sSave.sort_isNoteUpdateTime = FALSE ;
+            }
+            else if (btnIndex == 2) {
+                sSave.sort_isNoteUpdateTime = TRUE ;
+            }
+        }
+        [sSave save] ;
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationNone)] ;
+    }] ;
+    
     cell.lbDesc.transform = CGAffineTransformScale(cell.lbDesc.transform, 1.1, 1.1) ;
     [UIView animateWithDuration:.35
                      animations:^{

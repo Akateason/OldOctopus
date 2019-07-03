@@ -46,11 +46,20 @@
     [self.table registerClass:SettingCellHeader.class forHeaderFooterViewReuseIdentifier:@"SettingCellHeader"] ;
     self.table.dataSource   = self ;
     self.table.delegate     = self ;
-    self.table.xt_theme_backgroundColor = k_md_bgColor ;
+    self.table.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
     self.table.estimatedRowHeight           = 0;
     self.table.estimatedSectionHeaderHeight = 0;
     self.table.estimatedSectionFooterHeight = 0;
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIView *tableTopLine = [UIView new] ;
+    tableTopLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    [self.view addSubview:tableTopLine] ;
+    [tableTopLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view) ;
+        make.top.equalTo(self.table.mas_top) ;
+        make.height.equalTo(@.5) ;
+    }] ;
 }
 
 
@@ -88,9 +97,11 @@
     }
     else if ([title isEqualToString:@"无序列表符号"]) {
         cell.lbDesc.text = sSave.editor_md_ulistSymbol ;
+        cell.sepLineMode = SettingCellSeperateLine_Mode_Top ;
     }
     else if ([title isEqualToString:@"宽松的列表"]) {
         [cell.swt setOn:sSave.editor_isLooseList animated:NO] ;
+        cell.sepLineMode = SettingCellSeperateLine_Mode_Bottom ;
     }
     
     return cell ;
@@ -115,7 +126,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 25 ;
+    if (section == 1) {
+        return 30 ;
+    }
+    return 37 ;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

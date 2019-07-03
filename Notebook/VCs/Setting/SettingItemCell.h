@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <JTMaterialSwitch/JTMaterialSwitch.h>
+#import "SettingCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,8 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *imgRightCorner;
 @property (weak, nonatomic) IBOutlet UILabel *lbDesc;
 @property (strong, nonatomic) JTMaterialSwitch  *swt ;
+@property (weak, nonatomic) IBOutlet UIView *topLine;
+@property (weak, nonatomic) IBOutlet UIView *bottomLine;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *left_topLine;
+
 
 @property (strong, nonatomic) UIViewController *controller ;
+
+@property (nonatomic) SettingCellSeperateLine_Mode sepLineMode ;
 @end
 
 NS_ASSUME_NONNULL_END

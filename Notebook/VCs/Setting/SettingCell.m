@@ -8,6 +8,11 @@
 
 #import "SettingCell.h"
 #import "MDThemeConfiguration.h"
+#import <BlocksKit+UIKit.h>
+#import "SetGeneralVC.h"
+#import "SetThemeVC.h"
+#import "SetEditorVC.h"
+#import <SafariServices/SafariServices.h>
 
 @implementation SettingCell
 
@@ -16,22 +21,88 @@
     
     self.selectionStyle = 0 ;
     self.xt_theme_backgroundColor = k_md_bgColor ;
-    self.upContainer.xt_theme_backgroundColor = k_md_bgColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.rightTip.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.icon.xt_theme_imageColor = k_md_iconColor ;
+    
+    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    
+    [self bk_whenTapped:^{
+        
+        [UIView animateWithDuration:.3 animations:^{
+            self.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_midDrawerPadColor) ;
+        } completion:^(BOOL finished) {
+            [self cellDidSelect] ;
+        }] ;
+    }] ;
+}
+
+- (void)cellDidSelect {
+    self.xt_theme_backgroundColor = k_md_bgColor ;
+    
+    NSInteger section = self.xt_indexPath.section ;
+    NSInteger row = self.xt_indexPath.row ;
+    NSDictionary *dic = self.xt_model ;
+    NSString *title = dic[@"t"] ;
+    if ([title containsString:@"通用"]) {
+        SetGeneralVC *vc = [SetGeneralVC getMe] ;
+        [self.xt_navigationController pushViewController:vc animated:YES] ;
+    }
+    else if ([title containsString:@"主题"]) {
+        SetThemeVC *vc = [SetThemeVC getMe] ;
+        [self.xt_navigationController pushViewController:vc animated:YES] ;
+    }
+    else if ([title containsString:@"编辑器"]) {
+        SetEditorVC *vc = [SetEditorVC getMe] ;
+        [self.xt_navigationController pushViewController:vc animated:YES] ;
+    }
+    else if ([title containsString:@"反馈"]) {
+        // https://shimo.im/forms/bvVAXVnavgjCjqm7/fill 小章鱼移动端问题反馈
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://shimo.im/forms/bvVAXVnavgjCjqm7/fill"]] ;
+        [self.xt_viewController presentViewController:safariVC animated:YES completion:nil] ;
+    }
 }
 
 + (CGFloat)xt_cellHeight {
-    return 55 ;
+    return 50. ;
 }
 
-- (void)xt_configure:(NSDictionary *)model {
-    [super xt_configure:model] ;
+- (void)xt_configure:(NSDictionary *)model indexPath:(NSIndexPath *)indexPath {
+    [super xt_configure:model indexPath:indexPath] ;
     
     self.icon.image = [UIImage imageNamed:model[@"p"]] ;
     self.lbTitle.text = model[@"t"] ;
     self.rightTip.text = model[@"r"] ;
+}
+
+- (void)setSepLineMode:(SettingCellSeperateLine_Mode)sepLineMode {
+    switch (sepLineMode) {
+        case SettingCellSeperateLine_Mode_ALL_FULL:{
+            self.topLine.hidden = self.bottomLine.hidden = NO ;
+            self.left_topLine.constant = 0 ;
+        }
+            break;
+        case SettingCellSeperateLine_Mode_Top: {
+            self.topLine.hidden = NO ;
+            self.bottomLine.hidden = YES ;
+            self.left_topLine.constant = 0 ;
+        }
+            break;
+        case SettingCellSeperateLine_Mode_Bottom: {
+            self.topLine.hidden = self.bottomLine.hidden = NO ;
+            self.left_topLine.constant = 25 ;
+        }
+            break ;
+        case SettingCellSeperateLine_Mode_Middel: {
+            self.topLine.hidden = NO ;
+            self.bottomLine.hidden = YES ;
+            self.left_topLine.constant = 25 ;
+        }
+            break ;
+        default:
+            break;
+    }
 }
 
 @end

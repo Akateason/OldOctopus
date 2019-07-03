@@ -29,6 +29,24 @@
     
     self.lbSlideVal.top = 0 ;
     self.lbSlideVal.xt_theme_textColor = k_md_themeColor ;
+    
+    UIView *tableTopLine = [UIView new] ;
+    tableTopLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    [self addSubview:tableTopLine] ;
+    [tableTopLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self) ;
+        make.top.equalTo(self.mas_top) ;
+        make.height.equalTo(@.5) ;
+    }] ;
+    
+    UIView *bottomLine = [UIView new] ;
+    bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    [self addSubview:bottomLine] ;
+    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self) ;
+        make.bottom.equalTo(self.mas_bottom) ;
+        make.height.equalTo(@.5) ;
+    }] ;
 }
 
 - (void)sliderChanged:(UISlider *)slider {

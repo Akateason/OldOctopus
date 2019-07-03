@@ -24,13 +24,14 @@
             [self addSubview:lb] ;
             [lb mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(@20) ;
-                make.centerY.equalTo(self) ;
+                make.bottom.equalTo(@-10) ;
+//                make.centerY.equalTo(self) ;
             }] ;
             lb ;
         }) ;
         
         UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds] ;
-        backgroundView.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        backgroundView.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_midDrawerPadColor) ;
         self.backgroundView = backgroundView ;
     }
     return self;

@@ -16,8 +16,6 @@
 - (JTMaterialSwitch *)swt {
     if (!_swt) {
         _swt = [[JTMaterialSwitch alloc] initWithSize:(JTMaterialSwitchSizeSmall) style:(JTMaterialSwitchStyleDefault) state:(JTMaterialSwitchStateOff)] ;
-//        _swt.right = APP_WIDTH - 20. ; // self.width - 20 ;
-//        _swt.centerY = self.centerY ;
         
         _swt.thumbOnTintColor = XT_GET_MD_THEME_COLOR_KEY(k_md_themeColor) ;
         _swt.thumbOffTintColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
@@ -45,12 +43,13 @@
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbDesc.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.imgRightCorner.userInteractionEnabled = NO ;
+    
+    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
 }
 
-
-
 + (CGFloat)xt_cellHeight {
-    return 45 ;
+    return 50. ;
 }
 
 - (void)xt_configure:(NSDictionary *)model {
@@ -64,6 +63,35 @@
     
     self.imgRightCorner.hidden = showSwt ;
     self.lbDesc.hidden = showSwt ;
+}
+
+- (void)setSepLineMode:(SettingCellSeperateLine_Mode)sepLineMode {
+    switch (sepLineMode) {
+        case SettingCellSeperateLine_Mode_ALL_FULL:{
+            self.topLine.hidden = self.bottomLine.hidden = NO ;
+            self.left_topLine.constant = 0 ;
+        }
+            break;
+        case SettingCellSeperateLine_Mode_Top: {
+            self.topLine.hidden = NO ;
+            self.bottomLine.hidden = YES ;
+            self.left_topLine.constant = 0 ;
+        }
+            break;
+        case SettingCellSeperateLine_Mode_Bottom: {
+            self.topLine.hidden = self.bottomLine.hidden = NO ;
+            self.left_topLine.constant = 25 ;
+        }
+            break ;
+        case SettingCellSeperateLine_Mode_Middel: {
+            self.topLine.hidden = NO ;
+            self.bottomLine.hidden = YES ;
+            self.left_topLine.constant = 25 ;
+        }
+            break ;
+        default:
+            break;
+    }
 }
 
 #pragma mark - JTMaterialSwitchDelegate <NSObject>

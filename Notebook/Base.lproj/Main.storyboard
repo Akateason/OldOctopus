@@ -388,7 +388,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rny-Af-KMs">
-                                <rect key="frame" x="0.0" y="220" width="375" height="447"/>
+                                <rect key="frame" x="0.0" y="200" width="375" height="467"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -397,7 +397,7 @@
                             <constraint firstItem="Pd3-3j-ggA" firstAttribute="top" secondItem="pDm-Jk-bp8" secondAttribute="top" constant="35" id="5fi-I6-wg1"/>
                             <constraint firstItem="rny-Af-KMs" firstAttribute="trailing" secondItem="pDm-Jk-bp8" secondAttribute="trailing" id="6qV-K4-0vH"/>
                             <constraint firstItem="gCp-Cd-Hao" firstAttribute="leading" secondItem="7Os-Jl-B2q" secondAttribute="trailing" constant="10" id="HVI-Ql-wxV"/>
-                            <constraint firstItem="rny-Af-KMs" firstAttribute="top" secondItem="7Os-Jl-B2q" secondAttribute="bottom" constant="30" id="Jem-JS-TIR"/>
+                            <constraint firstItem="rny-Af-KMs" firstAttribute="top" secondItem="7Os-Jl-B2q" secondAttribute="bottom" constant="10" id="Jem-JS-TIR"/>
                             <constraint firstItem="rny-Af-KMs" firstAttribute="bottom" secondItem="pDm-Jk-bp8" secondAttribute="bottom" id="Kvn-K7-8vy"/>
                             <constraint firstItem="pDm-Jk-bp8" firstAttribute="trailing" secondItem="xUL-KH-ZkQ" secondAttribute="trailing" constant="20" id="PvW-C0-Vm6"/>
                             <constraint firstItem="7Os-Jl-B2q" firstAttribute="leading" secondItem="pDm-Jk-bp8" secondAttribute="leading" constant="20" id="UY6-91-6y7"/>

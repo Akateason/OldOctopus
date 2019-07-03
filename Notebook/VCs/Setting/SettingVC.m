@@ -67,11 +67,21 @@
     [SettingCell xt_registerNibFromTable:self.table] ;
     self.table.dataSource = self ;
     self.table.delegate = self ;
-    self.table.xt_theme_backgroundColor = k_md_bgColor ;
+    self.table.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
     self.table.estimatedRowHeight           = 0;
     self.table.estimatedSectionHeaderHeight = 0;
     self.table.estimatedSectionFooterHeight = 0;
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIView *tableTopLine = [UIView new] ;
+    tableTopLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    [self.view addSubview:tableTopLine] ;
+    [tableTopLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view) ;
+        make.top.equalTo(self.table.mas_top) ;
+        make.height.equalTo(@.5) ;
+    }] ;
+    
     
     WEAK_SELF
     [self.btClose bk_whenTapped:^{
@@ -80,9 +90,7 @@
     
     XTIcloudUser *user = [XTIcloudUser userInCacheSyncGet] ;
     self.lbIcon.text = [user.givenName substringToIndex:1] ;
-    self.lbName.text = user.givenName ; //user.name ;
-    
-    
+    self.lbName.text = user.givenName ;
 }
 
 #pragma mark - UITableViewDataSource<NSObject>
@@ -99,7 +107,16 @@
     NSInteger section = indexPath.section ;
     NSInteger row = indexPath.row ;
     SettingCell *cell = [SettingCell xt_fetchFromTable:tableView] ;
-    [cell xt_configure:self.datasource[section][row]] ;
+    [cell xt_configure:self.datasource[section][row] indexPath:indexPath] ;
+    
+    if (section == 0) {
+        if (row == 0) cell.sepLineMode = SettingCellSeperateLine_Mode_Top ;
+        else if (row == 1) cell.sepLineMode = SettingCellSeperateLine_Mode_Middel ;
+        else if (row == 2) cell.sepLineMode = SettingCellSeperateLine_Mode_Bottom ;
+    }
+    else if (section == 1) {
+        cell.sepLineMode = SettingCellSeperateLine_Mode_ALL_FULL ;
+    }
     return cell ;
 }
 
@@ -111,37 +128,15 @@
     UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SettingHead"] ;
     if (!header) header = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"SettingHead"] ;
     UIView *backgroundView = [[UIView alloc] initWithFrame:header.bounds] ;
-    backgroundView.xt_theme_backgroundColor = k_md_bgColor ;    
+    backgroundView.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
     header.backgroundView = backgroundView ;
     return header ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 25 ;
+    return 30. ;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSInteger section = indexPath.section ;
-    NSInteger row = indexPath.row ;
-    NSDictionary *dic = self.datasource[section][row] ;
-    NSString *title = dic[@"t"] ;
-    if ([title containsString:@"通用"]) {
-        SetGeneralVC *vc = [SetGeneralVC getMe] ;
-        [self.navigationController pushViewController:vc animated:YES] ;
-    }
-    else if ([title containsString:@"主题"]) {
-        SetThemeVC *vc = [SetThemeVC getMe] ;
-        [self.navigationController pushViewController:vc animated:YES] ;
-    }
-    else if ([title containsString:@"编辑器"]) {
-        SetEditorVC *vc = [SetEditorVC getMe] ;
-        [self.navigationController pushViewController:vc animated:YES] ;
-    }
-    else if ([title containsString:@"反馈"]) {
-        // https://shimo.im/forms/bvVAXVnavgjCjqm7/fill 小章鱼移动端问题反馈
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://shimo.im/forms/bvVAXVnavgjCjqm7/fill"]] ;
-        [self presentViewController:safariVC animated:YES completion:nil] ;
-    }
-}
+
 
 @end

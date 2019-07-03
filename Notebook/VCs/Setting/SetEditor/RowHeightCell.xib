@@ -13,10 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="RowHeightCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="行高" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Peu-zx-nBZ">
@@ -26,7 +26,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="sYn-jB-YGB">
-                        <rect key="frame" x="74.5" y="15" width="192.5" height="31"/>
+                        <rect key="frame" x="88.5" y="15" width="182.5" height="31"/>
                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="thumbTintColor" red="0.99748915429999996" green="0.27575820680000002" blue="0.26328921319999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </slider>
@@ -38,13 +38,13 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="JiR-zB-bPj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-9.75" id="Ca1-8L-c0r"/>
-                    <constraint firstAttribute="trailing" secondItem="JiR-zB-bPj" secondAttribute="trailing" constant="20" id="Hzp-XV-YbI"/>
-                    <constraint firstAttribute="trailing" secondItem="sYn-jB-YGB" secondAttribute="trailing" constant="55" id="L4b-Yy-69T"/>
-                    <constraint firstItem="sYn-jB-YGB" firstAttribute="leading" secondItem="Peu-zx-nBZ" secondAttribute="trailing" constant="20" id="NsX-jg-Vav"/>
-                    <constraint firstItem="Peu-zx-nBZ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-10" id="Wpq-gC-nWX"/>
-                    <constraint firstItem="Peu-zx-nBZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="XcI-kJ-AFm"/>
-                    <constraint firstItem="sYn-jB-YGB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-9.75" id="vQ5-TR-Ewi"/>
+                    <constraint firstItem="sYn-jB-YGB" firstAttribute="leading" secondItem="Peu-zx-nBZ" secondAttribute="trailing" constant="34" id="FFr-uO-ug0"/>
+                    <constraint firstAttribute="trailing" secondItem="JiR-zB-bPj" secondAttribute="trailing" constant="20" id="YUb-aE-eAC"/>
+                    <constraint firstItem="Peu-zx-nBZ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fcq-8A-PJW"/>
+                    <constraint firstAttribute="trailing" secondItem="sYn-jB-YGB" secondAttribute="trailing" constant="51" id="iHb-xO-PyK"/>
+                    <constraint firstItem="sYn-jB-YGB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="vwz-3E-ybC"/>
+                    <constraint firstItem="JiR-zB-bPj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zlL-ME-pQz"/>
+                    <constraint firstItem="Peu-zx-nBZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="zuV-lB-b3G"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
