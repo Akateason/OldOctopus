@@ -54,8 +54,11 @@
     BOOL success = [data writeToFile:photo.localPath atomically:YES];
     if (success) {
         [photo xt_insert] ;
-        [self uploadWebPhoto:photo image:image] ;
+    
+        @weakify(self)
         [self nativeCallJSWithFunc:@"insertImage" json:@{@"src":photo.localPath} completion:^(NSString *val, NSError *error) {
+            @strongify(self)
+            [self uploadWebPhoto:photo image:image] ;
         }] ;
     }        
 }
@@ -63,17 +66,25 @@
 - (void)uploadWebPhoto:(WebPhoto *)photo image:(UIImage *)image {
     @weakify(self)
     [self uploadImage:image complete:^(NSString *url) {
+        NSLog(@"图片上传成功 : %@",url) ;
         if (url.length) {
             photo.url = url ;
             photo.isUploaded = 1 ;
             [photo xt_update] ;
             @strongify(self)
-            [self nativeCallJSWithFunc:@"replaceImage" json:@{@"oldSrc":photo.localPath,@"src":url} completion:^(NSString *val, NSError *error) {
-                if ([val boolValue]) {
-                    [XTFileManager deleteFile:photo.localPath] ;
-                    [photo xt_deleteModel] ; // 上传成功,删除photo
-                }
-            }] ;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self nativeCallJSWithFunc:@"replaceImage" json:@{@"oldSrc":photo.localPath,@"src":url} completion:^(NSString *val, NSError *error) {
+                    NSLog(@"replaceImage : val %@ err%@",val, error) ;
+                    if ([val boolValue]) {
+                        [XTFileManager deleteFile:photo.localPath] ;
+                        [photo xt_deleteModel] ; // 上传成功,删除photo
+                    }
+                    else {
+                        NSLog(@"replaceImage FAIL err") ;
+                    }
+                }] ;
+            }) ;
+            
         }
     }] ;
 }

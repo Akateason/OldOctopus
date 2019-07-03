@@ -162,7 +162,7 @@ XT_SINGLETON_M(OctWebEditor)
         self.typeInlineList = list ;
     }
     else if ([func isEqualToString:@"selectImage"]) {
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             WEAK_SELF

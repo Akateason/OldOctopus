@@ -94,7 +94,7 @@
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
 		8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F579FE0222FB65B00C54929 /* XTCloudHandler.m */; };
 		8F5C7E4422A8FDB40032680D /* WebPhotoHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C7E4322A8FDB40032680D /* WebPhotoHandler.m */; };
-		8F5E27B722CCA8E80012AB22 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E27B622CCA8E70012AB22 /* web.zip */; };
+		8F5E27BB22CCB5320012AB22 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E27BA22CCB5320012AB22 /* web.zip */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
 		8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD2221BECFC0067C321 /* Main.storyboard */; };
 		8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD5221BECFE0067C321 /* Assets.xcassets */; };
@@ -457,7 +457,7 @@
 		8F579FE0222FB65B00C54929 /* XTCloudHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTCloudHandler.m; sourceTree = "<group>"; };
 		8F5C7E4222A8FDB40032680D /* WebPhotoHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebPhotoHandler.h; sourceTree = "<group>"; };
 		8F5C7E4322A8FDB40032680D /* WebPhotoHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebPhotoHandler.m; sourceTree = "<group>"; };
-		8F5E27B622CCA8E70012AB22 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
+		8F5E27BA22CCB5320012AB22 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F65DBC9221BECFC0067C321 /* Notebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F65DBCC221BECFC0067C321 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8F65DBCD221BECFC0067C321 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -986,7 +986,7 @@
 				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8F5E27B622CCA8E70012AB22 /* web.zip */,
+				8F5E27BA22CCB5320012AB22 /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -1686,7 +1686,7 @@
 				8FFAE111229CDAF400CDAC47 /* udo.plist in Resources */,
 				8F7B2ED122C616CA000018DE /* ThemeCollectCell.xib in Resources */,
 				8FD7993722C348E700270C2C /* setting_normal@2x.png in Resources */,
-				8F5E27B722CCA8E80012AB22 /* web.zip in Resources */,
+				8F5E27BB22CCB5320012AB22 /* web.zip in Resources */,
 				8F6863CC2267211000261626 /* ld_bt_staging@2x.png in Resources */,
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
 				8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */,
