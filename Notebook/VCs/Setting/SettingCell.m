@@ -25,8 +25,8 @@
     self.rightTip.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.icon.xt_theme_imageColor = k_md_iconColor ;
     
-    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
-    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
+    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     
     [self bk_whenTapped:^{
         

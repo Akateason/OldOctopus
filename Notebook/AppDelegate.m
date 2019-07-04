@@ -45,7 +45,8 @@
     }
     
     [self test] ;
-    return YES;
+    
+    return YES ;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {

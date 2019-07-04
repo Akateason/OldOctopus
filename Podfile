@@ -16,6 +16,6 @@ target 'Notebook' do
   pod 'MSDynamicsDrawerViewController'
   pod 'SSZipArchive'
   pod 'JTMaterialSwitch'
-
+  pod 'MBProgressHUD', '~> 1.1.0'
   
 end

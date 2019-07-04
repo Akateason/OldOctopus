@@ -181,7 +181,7 @@
 		8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA2295B22646F4D00D736E2 /* info_right@2x.png */; };
 		8FA232D6224E07C400163685 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA232D4224E07C400163685 /* NoteCell.m */; };
 		8FA232D7224E07C400163685 /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232D5224E07C400163685 /* NoteCell.xib */; };
-		8FAFCFE922CDCF9A008B2BA0 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8FAFCFE822CDCF9A008B2BA0 /* web.zip */; };
+		8FAFCFEB22CE070B008B2BA0 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8FAFCFEA22CE070A008B2BA0 /* web.zip */; };
 		8FB72910225EF703003A73C1 /* LaunchingEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7290F225EF703003A73C1 /* LaunchingEvents.m */; };
 		8FBA041E228A98B200EED229 /* HrView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA041D228A98B200EED229 /* HrView.m */; };
 		8FBA0421228BC0E900EED229 /* HomeVC+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA0420228BC0E800EED229 /* HomeVC+Util.m */; };
@@ -583,7 +583,7 @@
 		8FA232D3224E07C400163685 /* NoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
 		8FA232D4224E07C400163685 /* NoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		8FA232D5224E07C400163685 /* NoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
-		8FAFCFE822CDCF9A008B2BA0 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
+		8FAFCFEA22CE070A008B2BA0 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8FB7290E225EF703003A73C1 /* LaunchingEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchingEvents.h; sourceTree = "<group>"; };
 		8FB7290F225EF703003A73C1 /* LaunchingEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchingEvents.m; sourceTree = "<group>"; };
 		8FBA041C228A98B200EED229 /* HrView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HrView.h; sourceTree = "<group>"; };
@@ -998,7 +998,7 @@
 				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8FAFCFE822CDCF9A008B2BA0 /* web.zip */,
+				8FAFCFEA22CE070A008B2BA0 /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -1699,7 +1699,7 @@
 				8FFAE111229CDAF400CDAC47 /* udo.plist in Resources */,
 				8F7B2ED122C616CA000018DE /* ThemeCollectCell.xib in Resources */,
 				8FD7993722C348E700270C2C /* setting_normal@2x.png in Resources */,
-				8FAFCFE922CDCF9A008B2BA0 /* web.zip in Resources */,
+				8FAFCFEB22CE070B008B2BA0 /* web.zip in Resources */,
 				8F6863CC2267211000261626 /* ld_bt_staging@2x.png in Resources */,
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
 				8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */,
@@ -1915,6 +1915,7 @@
 				"${BUILT_PRODUCTS_DIR}/FTPopOverMenu/FTPopOverMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/JTMaterialSwitch/JTMaterialSwitch.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/MSDynamicsDrawerViewController/MSDynamicsDrawerViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
@@ -1950,6 +1951,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FTPopOverMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTMaterialSwitch.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MSDynamicsDrawerViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",

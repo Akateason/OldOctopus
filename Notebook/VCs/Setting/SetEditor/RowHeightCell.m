@@ -31,7 +31,7 @@
     self.lbSlideVal.xt_theme_textColor = k_md_themeColor ;
     
     UIView *tableTopLine = [UIView new] ;
-    tableTopLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    tableTopLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     [self addSubview:tableTopLine] ;
     [tableTopLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self) ;
@@ -40,7 +40,7 @@
     }] ;
     
     UIView *bottomLine = [UIView new] ;
-    bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     [self addSubview:bottomLine] ;
     [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self) ;

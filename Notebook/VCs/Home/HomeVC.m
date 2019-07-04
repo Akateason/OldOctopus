@@ -286,7 +286,7 @@
     
     if (IS_IPAD) {
         UIView *sideLine = [UIView new] ;
-        sideLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+        sideLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
         [self.view addSubview:sideLine] ;
         [sideLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@.5) ;
@@ -294,7 +294,7 @@
         }] ;
         
         UIView *sideLine2 = [UIView new] ;
-        sideLine2.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+        sideLine2.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
         [self.view addSubview:sideLine2] ;
         [sideLine2 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@.5) ;

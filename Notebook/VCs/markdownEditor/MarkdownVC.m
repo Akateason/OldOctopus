@@ -21,6 +21,7 @@
 #import "HomePadVC.h"
 #import "NHSlidingController.h"
 #import "HomeVC.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -40,6 +41,7 @@
 @property (nonatomic)         float             snapDuration ;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityView ;
+@property (nonatomic)         BOOL              isInTrash ;
 @end
 
 @implementation MarkdownVC
@@ -166,6 +168,9 @@
             self.editor.aNote = nil ;
             self.emptyView.hidden = NO ;
         }
+        
+        self.emptyView.area.hidden = (book.vType == Notebook_Type_trash) ;
+        self.isInTrash = (book.vType == Notebook_Type_trash) ;
     }] ;
     
     [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
@@ -221,6 +226,7 @@
 
 - (void)tapped:(UIGestureRecognizer *)recog {
     if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) return ;
+    if (self.isInTrash) return ;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
 }
@@ -244,7 +250,8 @@
     
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
     if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity < 0) return ;
-        
+    if (self.isInTrash && velocity < 0 && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 0) return ;
+    
     switch ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon) {
         // 里层
         case -1: [self.pad_panDelegate pad_panned:recognizer] ; break;
@@ -283,11 +290,24 @@
     [self leaveOut] ;
 }
 
+#define XT_HIDE_HUD        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
+[MBProgressHUD hideHUDForView:self.view.window animated:YES] ;\
+});\
+
+#define XT_HIDE_HUD_RETURN  {dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
+[MBProgressHUD hideHUDForView:self.view.window animated:YES] ;\
+});\
+return;}
+
 - (void)leaveOut {
     if (!self.editor.webViewHasSetMarkdown) {
         [self.editor leavePage] ;
+        XT_HIDE_HUD
         return ;
     }
+    
+    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES] ;
+    hud.mode = MBProgressHUDModeIndeterminate ;
     
     @weakify(self)
     [self.editor getMarkdown:^(NSString *markdown) {
@@ -296,6 +316,7 @@
         
         if (self.editor.articleAreTheSame) {
             [self.editor leavePage] ;
+            XT_HIDE_HUD
             return ;
         }
         
@@ -314,6 +335,9 @@
 
 
 
+
+
+
 #pragma mark - Func
 
 - (void)createNewNote {
@@ -325,13 +349,14 @@
         [Note createNewNote:self.aNote] ;
         [self.delegate addNoteComplete:self.aNote] ;
     }
+    XT_HIDE_HUD
 }
 
 - (void)updateMyNote {
-    if (!self.aNote) return ;
-    if (!self.editor.webViewHasSetMarkdown) return ;
-    if (self.editor.articleAreTheSame) return ;
-    if (![self.editor.aNote.icRecordName isEqualToString:self.aNote.icRecordName]) return ;
+    if (!self.aNote) XT_HIDE_HUD_RETURN
+    if (!self.editor.webViewHasSetMarkdown) XT_HIDE_HUD_RETURN
+    if (self.editor.articleAreTheSame) XT_HIDE_HUD_RETURN
+    if (![self.editor.aNote.icRecordName isEqualToString:self.aNote.icRecordName]) XT_HIDE_HUD_RETURN
     
     NSString *markdown = self.editor.aNote.content ;
     NSString *title = [Note getTitleWithContent:markdown] ;
@@ -340,6 +365,7 @@
     self.aNote.title = title ;
     [Note updateMyNote:self.aNote] ;
     [self.delegate editNoteComplete:self.aNote] ;
+    XT_HIDE_HUD
 }
 
 

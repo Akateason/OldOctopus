@@ -44,8 +44,8 @@
     self.lbDesc.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.imgRightCorner.userInteractionEnabled = NO ;
     
-    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
-    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
+    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
 }
 
 + (CGFloat)xt_cellHeight {

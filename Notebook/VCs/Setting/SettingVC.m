@@ -74,7 +74,7 @@
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     UIView *tableTopLine = [UIView new] ;
-    tableTopLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    tableTopLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     [self.view addSubview:tableTopLine] ;
     [tableTopLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view) ;
