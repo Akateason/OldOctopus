@@ -146,7 +146,7 @@
                             <constraint firstItem="HDa-qy-w00" firstAttribute="top" secondItem="zki-6x-1hp" secondAttribute="top" id="CiG-Y2-APW"/>
                             <constraint firstItem="xVy-1l-hby" firstAttribute="top" secondItem="tuM-IH-oeE" secondAttribute="bottom" id="INU-F8-d9j"/>
                             <constraint firstItem="xVy-1l-hby" firstAttribute="trailing" secondItem="RJ7-Pp-p6Y" secondAttribute="trailing" id="PvF-0i-iZb"/>
-                            <constraint firstItem="tuM-IH-oeE" firstAttribute="top" secondItem="RJ7-Pp-p6Y" secondAttribute="top" id="WXX-nk-11V"/>
+                            <constraint firstItem="tuM-IH-oeE" firstAttribute="top" secondItem="zki-6x-1hp" secondAttribute="top" constant="20" id="WXX-nk-11V"/>
                             <constraint firstItem="tuM-IH-oeE" firstAttribute="top" secondItem="HDa-qy-w00" secondAttribute="bottom" id="mD0-sr-Okn"/>
                             <constraint firstItem="RJ7-Pp-p6Y" firstAttribute="trailing" secondItem="HDa-qy-w00" secondAttribute="trailing" id="mGr-e6-Hp7"/>
                             <constraint firstItem="tuM-IH-oeE" firstAttribute="leading" secondItem="RJ7-Pp-p6Y" secondAttribute="leading" id="x8C-cg-0aT"/>
@@ -164,6 +164,7 @@
                         <outlet property="table" destination="xVy-1l-hby" id="0fk-r4-RBD"/>
                         <outlet property="topArea" destination="tuM-IH-oeE" id="3qp-Aa-UEI"/>
                         <outlet property="topSafeAreaView" destination="HDa-qy-w00" id="GQa-02-1li"/>
+                        <outlet property="top_topbar" destination="WXX-nk-11V" id="QKt-wP-iop"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eL0-40-iBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -313,7 +314,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="p5O-A2-KpC" firstAttribute="top" secondItem="Cul-Jo-u8M" secondAttribute="top" id="0ep-kn-Fln"/>
+                            <constraint firstItem="p5O-A2-KpC" firstAttribute="top" secondItem="UEq-rN-6YO" secondAttribute="top" constant="20" id="0ep-kn-Fln"/>
                             <constraint firstItem="F70-cj-TbX" firstAttribute="top" secondItem="p5O-A2-KpC" secondAttribute="bottom" id="4ZP-PE-eIg"/>
                             <constraint firstItem="F70-cj-TbX" firstAttribute="leading" secondItem="p5O-A2-KpC" secondAttribute="leading" id="J5N-k5-Po7"/>
                             <constraint firstItem="F70-cj-TbX" firstAttribute="bottom" secondItem="Cul-Jo-u8M" secondAttribute="bottom" id="Xg9-IQ-Mi6"/>
@@ -330,6 +331,7 @@
                         <outlet property="imgTrash" destination="p3R-oz-fOe" id="j0u-8k-ltO"/>
                         <outlet property="lbTrash" destination="2V7-Gu-ayp" id="4rY-SA-nEg"/>
                         <outlet property="table" destination="p5O-A2-KpC" id="oZ2-gm-Ydh"/>
+                        <outlet property="top_table" destination="0ep-kn-Fln" id="1sI-Z8-Um2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E36-u5-ZeE" userLabel="First Responder" sceneMemberID="firstResponder"/>

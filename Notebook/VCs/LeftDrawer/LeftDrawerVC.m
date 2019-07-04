@@ -32,6 +32,7 @@ typedef void(^BlkTapBookCell)(void);
 
 @property (weak, nonatomic) IBOutlet UIButton *btSetting;
 @property (nonatomic)       BOOL    isFirstTime ;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *top_table;
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (copy, nonatomic) NSArray *booklist ;
@@ -69,6 +70,8 @@ typedef void(^BlkTapBookCell)(void);
 }
 
 - (void)prepareUI {
+    self.top_table.constant = APP_STATUSBAR_HEIGHT ;
+    
     [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     [self.table registerNib:[UINib nibWithNibName:@"LDHeadView" bundle:[NSBundle bundleForClass:self.class]] forCellReuseIdentifier:@"LDHeadView"] ;
     self.table.separatorStyle = 0 ;

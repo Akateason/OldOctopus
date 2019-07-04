@@ -47,6 +47,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btAdd;
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *top_topbar;
 
 
 @property (strong, nonatomic) LOTAnimationView          *animationSync ;
@@ -217,6 +218,7 @@
 - (void)prepareUI {
     [self.btLeftDraw xt_enlargeButtonsTouchArea] ;
     
+    self.top_topbar.constant = APP_STATUSBAR_HEIGHT ;
     
     [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     [HomeSearchCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
