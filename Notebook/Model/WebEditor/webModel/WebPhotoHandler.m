@@ -19,4 +19,14 @@
     return @{@"localPath":@"UNIQUE"} ;
 }
 
+// ignore Properties
++ (NSArray *)ignoreProperties {
+    return @[@"realPath"];
+}
+
+- (NSString *)realPath {
+    return XT_DOCUMENTS_PATH_TRAIL_(XT_STR_FORMAT(@"%@.jpg",self.localPath)) ;
+}
+
+
 @end

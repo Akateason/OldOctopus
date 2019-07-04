@@ -83,7 +83,7 @@ XT_SINGLETON_M(OctWebEditor)
         WebPhoto *photo = [WebPhoto xt_findWhere:XT_STR_FORMAT(@"fromNoteClientID == '%@'",self.aNote.icRecordName)].firstObject ;
         if (!photo) return ;
         
-        NSData *imageData = [NSData dataWithContentsOfFile:photo.localPath] ;
+        NSData *imageData = [NSData dataWithContentsOfFile:photo.realPath] ;
         UIImage *image = [UIImage imageWithData:imageData] ;
         [self uploadWebPhoto:photo image:image] ;
     }] ;

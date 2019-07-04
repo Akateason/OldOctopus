@@ -49,14 +49,15 @@
 - (void)sendImageLocalPathWithImage:(UIImage *)image {
     WebPhoto *photo = [WebPhoto new] ;
     photo.fromNoteClientID = self.note_clientID ;
-    photo.localPath = XT_DOCUMENTS_PATH_TRAIL_(XT_STR_FORMAT(@"%d_%lld.jpg",self.note_clientID,[NSDate xt_getNowTick])) ;
+    // todo 图片类型
+    photo.localPath = XT_STR_FORMAT(@"%d_%lld.jpg",self.note_clientID,[NSDate xt_getNowTick]) ;
     NSData *data = UIImageJPEGRepresentation(image, 1) ;
-    BOOL success = [data writeToFile:photo.localPath atomically:YES];
+    BOOL success = [data writeToFile:photo.realPath atomically:YES];
     if (success) {
         [photo xt_insert] ;
     
         @weakify(self)
-        [self nativeCallJSWithFunc:@"insertImage" json:@{@"src":photo.localPath} completion:^(NSString *val, NSError *error) {
+        [self nativeCallJSWithFunc:@"insertImage" json:@{@"src":photo.realPath} completion:^(NSString *val, NSError *error) {
             @strongify(self)
             [self uploadWebPhoto:photo image:image] ;
         }] ;
@@ -73,10 +74,10 @@
             [photo xt_update] ;
             @strongify(self)
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self nativeCallJSWithFunc:@"replaceImage" json:@{@"oldSrc":photo.localPath,@"src":url} completion:^(NSString *val, NSError *error) {
+                [self nativeCallJSWithFunc:@"replaceImage" json:@{@"oldSrc":photo.realPath,@"src":url} completion:^(NSString *val, NSError *error) {
                     NSLog(@"replaceImage : val %@ err%@",val, error) ;
                     if ([val boolValue]) {
-                        [XTFileManager deleteFile:photo.localPath] ;
+                        [XTFileManager deleteFile:photo.realPath] ;
                         [photo xt_deleteModel] ; // 上传成功,删除photo
                     }
                     else {

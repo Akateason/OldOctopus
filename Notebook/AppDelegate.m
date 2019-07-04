@@ -89,6 +89,10 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
     else {
         [self setupRootWIndow] ;
     }
+    
+    if (IS_IPAD) {
+        [self.launchingEvents setupAlbumn] ;
+    }
 }
 
 - (void)setupRootWIndow {

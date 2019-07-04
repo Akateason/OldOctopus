@@ -69,7 +69,7 @@
     self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
-    self.editor.aNote = note ;
+    self.editor.aNote = note ?: [Note new] ;
     self.editor.left = -[GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28 ;
     self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
     [self.editor.toolBar reset] ;
@@ -156,6 +156,8 @@
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_book_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
+        
         NoteBooks *book = x.object ;
         
         if (![self.aNote.noteBookId isEqualToString:book.icRecordName]) {
@@ -241,7 +243,8 @@
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
     
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
-    
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity < 0) return ;
+        
     switch ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon) {
         // 里层
         case -1: [self.pad_panDelegate pad_panned:recognizer] ; break;
