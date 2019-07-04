@@ -11,6 +11,8 @@
 #import "Note.h"
 #import <WebKit/WebKit.h>
 #import <XTlib/XTlib.h>
+#import "OctToolbar.h"
+
 
 static NSString *const kNote_Editor_CHANGE          = @"kNote_Editor_CHANGE" ;
 static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Photo" ;
@@ -20,18 +22,19 @@ static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Ph
 @interface OctWebEditor : UIView {
     CGFloat keyboardHeight ;
 }
-@property (strong, nonatomic) WKWebView *webView ;
-@property (strong, nonatomic) WebModel  *webInfo ;
-@property (copy, nonatomic)   NSArray   *typeInlineList ;
-@property (nonatomic)         int       typePara ;
+@property (strong, nonatomic) WKWebView     *webView ;
+@property (strong, nonatomic) WebModel      *webInfo ;
+@property (copy, nonatomic)   NSArray       *typeInlineList ;
+@property (nonatomic)         int           typePara ;
+@property (strong, nonatomic) OctToolbar    *toolBar ;
 
-@property (nonatomic)         int       note_clientID ;
-@property (strong, nonatomic) Note      *aNote ;
-@property (copy, nonatomic)   NSString  *themeStr ;
+@property (nonatomic)         int           note_clientID ;
+@property (strong, nonatomic) Note          *aNote ;
+@property (copy, nonatomic)   NSString      *themeStr ;
 
-@property (nonatomic)         BOOL      articleAreTheSame ;     //如果文章比对一致不能上传      default NO
-@property (nonatomic)         BOOL      webViewHasSetMarkdown ; //如果未setMarkdown则不能上传  default NO
-@property (copy, nonatomic) NSString    *firstTimeArticle ; // 首次文章比对
+@property (nonatomic)         BOOL          articleAreTheSame ;     //如果文章比对一致不能上传      default NO
+@property (nonatomic)         BOOL          webViewHasSetMarkdown ; //如果未setMarkdown则不能上传  default NO
+@property (copy, nonatomic) NSString        *firstTimeArticle ; // 首次文章比对
 /**
  native call js.
  obj是json时,传入ret或list

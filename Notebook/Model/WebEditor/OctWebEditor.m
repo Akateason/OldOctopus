@@ -7,7 +7,6 @@
 //
 
 #import "OctWebEditor.h"
-#import "OctToolbar.h"
 #import <BlocksKit+UIKit.h>
 #import "MDThemeConfiguration.h"
 #import "WebPhotoHandler.h"
@@ -22,8 +21,6 @@
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
 }
-@property (strong, nonatomic) OctToolbar    *toolBar ;
-//@property (nonatomic)         BOOL          swipeOpen ;
 @end
 
 

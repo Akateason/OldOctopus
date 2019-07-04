@@ -55,7 +55,8 @@
     vc.delegate = (id <MarkdownVCDelegate>)ctrller ;
     vc.myBookID = bookID ;
     if (!note && !bookID) vc.canBeEdited = NO ;
-    else vc.canBeEdited = YES ;    
+    else vc.canBeEdited = YES ;
+    [vc.editor.toolBar reset] ;
     [ctrller.navigationController pushViewController:vc animated:YES] ;
     return vc ;
 }
@@ -71,6 +72,7 @@
     self.editor.aNote = note ;
     self.editor.left = -[GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28 ;
     self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
+    [self.editor.toolBar reset] ;
 }
 
 - (void)viewDidLoad {
@@ -80,6 +82,7 @@
     if (self.aNote) self.editor.aNote = self.aNote ;
     else [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error){}] ;
     
+//    self.fd_interactivePopDisabled = YES ;
     
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -221,6 +224,13 @@
     return [self.oct_panDelegate oct_gestureRecognizerShouldBegin:gestureRecognizer] ;
 }
 
+//一句话总结就是此方法返回YES时，手势事件会一直往下传递，不论当前层次是否对该事件进行响应。
+- (BOOL)gestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+
+
 - (void)panned:(UIPanGestureRecognizer *)recognizer {
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
     
@@ -353,20 +363,9 @@
     [self.topBar layoutIfNeeded] ;
     [self.topBar oct_addBlurBg] ;
     
-    [self registGesture] ;
-    
     if (IS_IPAD) {
         [self.btBack setImage:[UIImage imageNamed:@"nav_back_reverse_item@2x"] forState:0] ;
     }
-}
-
-- (void)registGesture {
-    __weak typeof(self)weakSelf = self;
-    [self cw_registerShowIntractiveWithEdgeGesture:NO transitionDirectionAutoBlock:^(CWDrawerTransitionDirection direction) {
-        if (direction == CWDrawerTransitionFromRight) { // 右侧滑出
-            [weakSelf moreAction:nil];
-        }
-    }];
 }
 
 - (IBAction)backAction:(id)sender {
