@@ -73,8 +73,7 @@ XT_SINGLETON_M(OctWebEditor)
         float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
         if (!param) [self.toolBar removeFromSuperview] ;
         
-        [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {
-        }] ;
+        [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {}] ;
     }] ;
     
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
@@ -131,7 +130,9 @@ XT_SINGLETON_M(OctWebEditor)
 }
 
 // WKScriptMessageHandler delegate
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+- (void)userContentController:(WKUserContentController *)userContentController
+      didReceiveScriptMessage:(WKScriptMessage *)message {
+    
 //    NSString *name = message.name ; // 就是上边注入到 JS 的哪个名字，在这里是 nativeMethod
     NSString *body = message.body ;       // 就是 JS 调用 Native 时，传过来的 value
     NSLog(@"%@", body) ;
@@ -155,7 +156,7 @@ XT_SINGLETON_M(OctWebEditor)
     }
     else if ([func isEqualToString:@"typeList"]) {
         NSArray *typelist = [WebModel currentTypeWithList:json] ;
-        self.typePara = [typelist.firstObject intValue] ;
+        self.typePara = [typelist.lastObject intValue] ;
     }
     else if ([func isEqualToString:@"formatList"]) {
         NSArray *list = [WebModel currentTypeWithList:json] ;
@@ -246,6 +247,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 - (void)setANote:(Note *)aNote {
     _aNote = aNote ;
     
+    self.firstTimeArticle = aNote.content ;
     [self setupJSCoreWhenFinishLoad] ;
 }
 
@@ -299,10 +301,7 @@ static const float kOctEditorToolBarHeight = 41. ;
     WEAK_SELF
     [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(NSString *val, NSError *error) {
         if (!error) {
-            if (weakSelf.firstTimeArticle == nil) {
-                weakSelf.firstTimeArticle = weakSelf.aNote.content ;
-                weakSelf.webViewHasSetMarkdown = YES ;
-            }
+            weakSelf.webViewHasSetMarkdown = YES ;
         }
     }] ;
 }
