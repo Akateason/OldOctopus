@@ -81,6 +81,7 @@
     self.view.xt_maskToBounds = YES ;
     if (self.aNote) self.editor.aNote = self.aNote ;
     else {
+        self.editor.aNote = [[Note alloc] initWithBookID:nil content:nil title:nil] ;
         WEAK_SELF
         [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error){
             weakSelf.editor.webViewHasSetMarkdown = YES ;
