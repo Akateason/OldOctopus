@@ -80,7 +80,12 @@
     
     self.view.xt_maskToBounds = YES ;
     if (self.aNote) self.editor.aNote = self.aNote ;
-    else [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error){}] ;
+    else {
+        WEAK_SELF
+        [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error){
+            weakSelf.editor.webViewHasSetMarkdown = YES ;
+        }] ;
+    }
     
 //    self.fd_interactivePopDisabled = YES ;
     
@@ -280,21 +285,27 @@
         return ;
     }
     
-    if (self.editor.articleAreTheSame) {
+    @weakify(self)
+    [self.editor getMarkdown:^(NSString *markdown) {
+        @strongify(self)
+        self.editor.aNote.content = markdown ;
+        
+        if (self.editor.articleAreTheSame) {
+            [self.editor leavePage] ;
+            return ;
+        }
+        
+        if (self.aNote) {
+            // Update Your Note
+            [self updateMyNote] ;
+        }
+        else {
+            // Create New Note
+            [self createNewNote] ;
+        }
+        
         [self.editor leavePage] ;
-        return ;
-    }
-    
-    if (self.aNote) {
-        // Update Your Note
-        [self updateMyNote] ;
-    }
-    else {
-        // Create New Note
-        [self createNewNote] ;
-    }
-    
-    [self.editor leavePage] ;
+    }] ;
 }
 
 
@@ -302,18 +313,14 @@
 #pragma mark - Func
 
 - (void)createNewNote {
-    @weakify(self)
-    [self.editor getMarkdown:^(NSString *markdown) {
-        @strongify(self)
-        NSString *title = [Note getTitleWithContent:markdown] ;
-        
-        if (markdown && markdown.length) {
-            Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:markdown title:title] ;
-            self.aNote = newNote ;
-            [Note createNewNote:self.aNote] ;
-            [self.delegate addNoteComplete:self.aNote] ;
-        }
-    }] ;
+    NSString *markdown = self.editor.aNote.content ;
+    NSString *title = [Note getTitleWithContent:markdown] ;
+    if (markdown && markdown.length) {
+        Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:markdown title:title] ;
+        self.aNote = newNote ;
+        [Note createNewNote:self.aNote] ;
+        [self.delegate addNoteComplete:self.aNote] ;
+    }
 }
 
 - (void)updateMyNote {
@@ -321,16 +328,13 @@
     if (!self.editor.webViewHasSetMarkdown) return ;
     if (self.editor.articleAreTheSame) return ;
     
-    @weakify(self)
-    [self.editor getMarkdown:^(NSString *markdown) {
-        @strongify(self)
-        NSString *title = [Note getTitleWithContent:markdown] ;
-        
-        self.aNote.content = markdown ;
-        self.aNote.title = title ;
-        [Note updateMyNote:self.aNote] ;
-        [self.delegate editNoteComplete:self.aNote] ;
-    }] ;
+    NSString *markdown = self.editor.aNote.content ;
+    NSString *title = [Note getTitleWithContent:markdown] ;
+    
+    self.aNote.content = markdown ;
+    self.aNote.title = title ;
+    [Note updateMyNote:self.aNote] ;
+    [self.delegate editNoteComplete:self.aNote] ;
 }
 
 

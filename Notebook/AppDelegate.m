@@ -38,6 +38,12 @@
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
     [self.launchingEvents setup:application appdelegate:self] ;
     
+    if (![XTIcloudUser userInCacheSyncGet]) {
+        [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+            [self.launchingEvents pullAll] ;
+        }] ;
+    }
+    
     [self test] ;
     return YES;
 }
@@ -67,11 +73,6 @@
 
 static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 - (void)applicationDidBecomeActive:(UIApplication *)application{
-    if (![XTIcloudUser userInCacheSyncGet]) {
-        [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-            [self.launchingEvents pullAll] ;
-        }] ;
-    }
     
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self.window.rootViewController] ;
     
@@ -82,6 +83,8 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
         MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
         self.window.rootViewController = navVC ;
         [self.window makeKeyAndVisible] ;
+        
+        [self.launchingEvents setupAlbumn] ;
     }
     else {
         [self setupRootWIndow] ;

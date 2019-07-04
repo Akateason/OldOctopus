@@ -104,7 +104,7 @@ XT_SINGLETON_M(OctWebEditor)
 
 - (void)leavePage {
     [self hideKeyboard] ;
-    self.articleAreTheSame = NO ;
+
     self.webViewHasSetMarkdown = NO ;
     self.firstTimeArticle = nil ;    
 }
@@ -144,11 +144,11 @@ XT_SINGLETON_M(OctWebEditor)
         self.webInfo = model ;
         if (![model.markdown isEqualToString:@"\n"] && self.webViewHasSetMarkdown && ![model.markdown isEqualToString:self.firstTimeArticle]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
-            self.articleAreTheSame = NO ;
+            self.aNote.content = model.markdown ;
         }
         else {
             // 文章没改过, 不提交
-            self.articleAreTheSame = YES ;
+//            self.articleAreTheSame = YES ;
         }
     }
     else if ([func isEqualToString:@"typeList"]) {
@@ -246,6 +246,10 @@ static const float kOctEditorToolBarHeight = 41. ;
     
     self.firstTimeArticle = aNote.content ;
     [self setupJSCoreWhenFinishLoad] ;
+}
+
+- (BOOL)articleAreTheSame {
+    return [self.firstTimeArticle isEqualToString:self.aNote.content] ;
 }
 
 #pragma mark --

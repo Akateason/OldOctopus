@@ -25,7 +25,7 @@
 #import "HomePadVC.h"
 #import "OctWebEditor.h"
 #import <SSZipArchive/SSZipArchive.h>
-
+#import <Photos/Photos.h>
 
 
 
@@ -53,7 +53,10 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupHudStyle] ;
 }
 
-
+- (void)setupAlbumn {
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+    }] ;
+}
 
 /**
  1. setupWebZipPackage

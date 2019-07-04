@@ -94,7 +94,6 @@
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
 		8F579FE1222FB65B00C54929 /* XTCloudHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F579FE0222FB65B00C54929 /* XTCloudHandler.m */; };
 		8F5C7E4422A8FDB40032680D /* WebPhotoHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C7E4322A8FDB40032680D /* WebPhotoHandler.m */; };
-		8F5E27BB22CCB5320012AB22 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E27BA22CCB5320012AB22 /* web.zip */; };
 		8F5E27C022CDCC360012AB22 /* EmojiChooseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E27BF22CDCC360012AB22 /* EmojiChooseVC.m */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
 		8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD2221BECFC0067C321 /* Main.storyboard */; };
@@ -182,6 +181,7 @@
 		8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA2295B22646F4D00D736E2 /* info_right@2x.png */; };
 		8FA232D6224E07C400163685 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA232D4224E07C400163685 /* NoteCell.m */; };
 		8FA232D7224E07C400163685 /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232D5224E07C400163685 /* NoteCell.xib */; };
+		8FAFCFE922CDCF9A008B2BA0 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8FAFCFE822CDCF9A008B2BA0 /* web.zip */; };
 		8FB72910225EF703003A73C1 /* LaunchingEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7290F225EF703003A73C1 /* LaunchingEvents.m */; };
 		8FBA041E228A98B200EED229 /* HrView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA041D228A98B200EED229 /* HrView.m */; };
 		8FBA0421228BC0E900EED229 /* HomeVC+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA0420228BC0E800EED229 /* HomeVC+Util.m */; };
@@ -458,7 +458,6 @@
 		8F579FE0222FB65B00C54929 /* XTCloudHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTCloudHandler.m; sourceTree = "<group>"; };
 		8F5C7E4222A8FDB40032680D /* WebPhotoHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebPhotoHandler.h; sourceTree = "<group>"; };
 		8F5C7E4322A8FDB40032680D /* WebPhotoHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebPhotoHandler.m; sourceTree = "<group>"; };
-		8F5E27BA22CCB5320012AB22 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F5E27BE22CDCC360012AB22 /* EmojiChooseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmojiChooseVC.h; sourceTree = "<group>"; };
 		8F5E27BF22CDCC360012AB22 /* EmojiChooseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiChooseVC.m; sourceTree = "<group>"; };
 		8F65DBC9221BECFC0067C321 /* Notebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -584,6 +583,7 @@
 		8FA232D3224E07C400163685 /* NoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
 		8FA232D4224E07C400163685 /* NoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		8FA232D5224E07C400163685 /* NoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
+		8FAFCFE822CDCF9A008B2BA0 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8FB7290E225EF703003A73C1 /* LaunchingEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchingEvents.h; sourceTree = "<group>"; };
 		8FB7290F225EF703003A73C1 /* LaunchingEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchingEvents.m; sourceTree = "<group>"; };
 		8FBA041C228A98B200EED229 /* HrView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HrView.h; sourceTree = "<group>"; };
@@ -998,7 +998,7 @@
 				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8F5E27BA22CCB5320012AB22 /* web.zip */,
+				8FAFCFE822CDCF9A008B2BA0 /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -1699,7 +1699,7 @@
 				8FFAE111229CDAF400CDAC47 /* udo.plist in Resources */,
 				8F7B2ED122C616CA000018DE /* ThemeCollectCell.xib in Resources */,
 				8FD7993722C348E700270C2C /* setting_normal@2x.png in Resources */,
-				8F5E27BB22CCB5320012AB22 /* web.zip in Resources */,
+				8FAFCFE922CDCF9A008B2BA0 /* web.zip in Resources */,
 				8F6863CC2267211000261626 /* ld_bt_staging@2x.png in Resources */,
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
 				8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */,

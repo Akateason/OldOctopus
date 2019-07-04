@@ -27,6 +27,8 @@ extern NSString *const kNotificationImportFileIn ;
 - (void)icloudSync:(void(^)(void))completeBlk ;
 - (void)pullAll ;
 
+- (void)setupAlbumn ;
+
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<NSString *,id> *)options ;

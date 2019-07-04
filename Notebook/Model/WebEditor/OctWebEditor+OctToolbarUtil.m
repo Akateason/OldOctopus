@@ -66,8 +66,8 @@
 - (void)uploadWebPhoto:(WebPhoto *)photo image:(UIImage *)image {
     @weakify(self)
     [self uploadImage:image complete:^(NSString *url) {
-        NSLog(@"图片上传成功 : %@",url) ;
         if (url.length) {
+            NSLog(@"图片上传成功 : %@",url) ;
             photo.url = url ;
             photo.isUploaded = 1 ;
             [photo xt_update] ;
@@ -84,34 +84,34 @@
                     }
                 }] ;
             }) ;
-            
+        }
+        else {
+            NSLog(@"图片上传失败") ;
         }
     }] ;
 }
 
 - (void)uploadImage:(UIImage *)image
            complete:(void(^)(NSString *url))completion {
+    
     MDImageManager *imgManager = [MDImageManager new] ;
-
-//    @weakify(self)
     [imgManager uploadImage:image progress:^(float pgs) {
         
     } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
-//        @strongify(self)
 
         dispatch_async(dispatch_get_main_queue(), ^{
             NSString *url = responseObject[@"url"] ;
             if (!url) {
                 // upload failed
+                completion(nil) ;
             }
             else { // success .
                 completion(url) ;
             }
         }) ;
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        
+        completion(nil) ;
     }] ;
-    
 }
 
 - (void)toolbarDidSelectUndo {
