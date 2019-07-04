@@ -331,6 +331,7 @@
     if (!self.aNote) return ;
     if (!self.editor.webViewHasSetMarkdown) return ;
     if (self.editor.articleAreTheSame) return ;
+    if (![self.editor.aNote.icRecordName isEqualToString:self.aNote.icRecordName]) return ;
     
     NSString *markdown = self.editor.aNote.content ;
     NSString *title = [Note getTitleWithContent:markdown] ;

@@ -277,9 +277,9 @@ static const float kOctEditorToolBarHeight = 41. ;
     json = !json ? @"''" : json ;
     
     NSString *js = XT_STR_FORMAT(@"WebViewBridgeCallback({\"method\":\"%@\"}, %@)",func,json) ;
-    NSLog(@"js : %@",js) ;
+//    NSLog(@"js : %@",js) ;
     [_webView evaluateJavaScript:js completionHandler:^(id _Nullable val, NSError * _Nullable error) {
-        NSLog(@"%@", val) ;
+        NSLog(@"js:%@, val:%@",js,val) ;
         if (error) NSLog(@"%@", error) ;
         if (completion) completion(val, error) ;
     }] ;    
@@ -298,7 +298,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 - (void)renderNote {
-    
+    NSLog(@")))setMarkdown : %@",self.aNote.content) ;
     WEAK_SELF
     [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(NSString *val, NSError *error) {
         if (!error) {
