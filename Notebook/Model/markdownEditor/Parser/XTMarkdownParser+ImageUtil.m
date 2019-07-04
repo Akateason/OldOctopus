@@ -168,7 +168,7 @@
     
     NSString *url = @"https://shimo.im/octopus-api/files?uploadType=media" ;
     NSData *data = UIImageJPEGRepresentation(image, 1) ;
-    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName) ;
+    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
     NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
     NSDictionary *header = @{@"Authorization" : code,
                              @"Content-Type":@"image/jpeg"
