@@ -7,7 +7,6 @@
 //
 
 #import "OctToolbar.h"
-#import <XTlib/XTlib.h>
 #import "OctToolBarInlineView.h"
 #import "MDEKeyboardPhotoView.h"
 #import "MarkdownModel.h"
@@ -32,7 +31,7 @@
 @end
 
 @implementation OctToolbar
-
+XT_SINGLETON_M(OctToolbar)
 - (void)renderWithParaType:(int)para inlineList:(NSArray *)inlineList {
     [self clearUI] ;
     
@@ -61,10 +60,9 @@
     [self.blockBoard clearUI] ;
 }
 
-- (void)refresh {
+- (void)reset {
     self.underLineView.centerX = self.btShowKeyboard.centerX + 17 ;
 }
-
 
 - (void)awakeFromNib {
     [super awakeFromNib] ;

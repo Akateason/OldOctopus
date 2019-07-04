@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <XTlib/XTlib.h>
 
 @class MDEKeyboardPhotoView, MarkdownModel, MarkdownEditor ;
 @protocol OctToolbarDelegate <NSObject>
@@ -23,11 +23,11 @@
 
 
 @interface OctToolbar : UIView
+XT_SINGLETON_H(OctToolbar)
 @property (nonatomic, weak) id<OctToolbarDelegate> delegate ;
 - (void)renderWithParaType:(int)para inlineList:(NSArray *)inlineList ;
-
 - (void)renderWithModel:(MarkdownModel *)model ;
-- (void)refresh ;
+- (void)reset ;
 @end
 
 

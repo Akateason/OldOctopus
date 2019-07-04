@@ -296,7 +296,7 @@ static const int kTag_MathView          = 78089 ;
 }
 
 - (BOOL)canBecomeFirstResponder {
-    [self.toolBar refresh] ;
+    [self.toolBar reset] ;
     self.inputAccessoryView = self.toolBar ;
     // Redraw in case enabbled features have changes
     return [super canBecomeFirstResponder] ;
