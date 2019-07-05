@@ -163,27 +163,28 @@ static const float slidingSpeed = 2000 ;
     
     CGFloat translation = offset.x;
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
-    NSLog(@"velocity : %lf\n offset : %@",velocity,NSStringFromCGPoint(offset)) ;
     
     float openedLeft = 0 ;
     float left = _rightContainer.left ;
     left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
+    NSLog(@"velocity : %lf\n offset : %@\nleft : %lf",velocity,NSStringFromCGPoint(offset),left) ;
     
     self->_rightContainer.left = left ;
+    [recognizer setTranslation:CGPointZero inView:self.view] ;
     
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         CGFloat leftForEdge, leftForBounce;
         int finalOpenState ;
-        
+//        NSLog(@"111111111111111111111");
         if (velocity > 0) {
             leftForEdge = kWidth_ListView;
             leftForBounce = leftForEdge + 22.0;
             finalOpenState = 0;
             
-            
             // pad ,里面, 左滑, 安全距离
-            if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && velocity < 200 && left < 200) {
+            if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && velocity < 300 && left < 100) {
                 self->_rightContainer.left = 0 ;
+//                NSLog(@"2222222222222222222222");
                 return ;
             }
         }
@@ -196,6 +197,10 @@ static const float slidingSpeed = 2000 ;
                 [self.slidingController setDrawerOpened:NO animated:YES] ;
                 return ;
             }
+        }
+        
+        if (finalOpenState == 0) { //手势, 更新文章
+            [_editorVC leaveOut] ;
         }
         
         CGFloat distanceToTheEdge = leftForEdge - _rightContainer.left;

@@ -1,20 +1,20 @@
 //
-//  GuidingVC.h
+//  OctGuidingVC.h
 //  Notebook
 //
-//  Created by teason23 on 2019/4/23.
+//  Created by teason23 on 2019/7/6.
 //  Copyright © 2019 teason23. All rights reserved.
 //
 
-#import "BasicVC.h"
+#import <UIKit/UIKit.h>
 static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay" ;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GuidingVC : BasicVC
+@interface OctGuidingVC : UIPageViewController
 
-+ (GuidingVC *)show ;
-    
++ (instancetype)getMe ;
+
 @end
 
 NS_ASSUME_NONNULL_END

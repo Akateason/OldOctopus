@@ -18,7 +18,7 @@
 #import "MDThemeConfiguration.h"
 #import <Bugly/Bugly.h>
 #import "AppDelegate.h"
-#import "GuidingVC.h"
+#import "OctGuidingVC.h"
 #import "HomeVC.h"
 #import "MDNavVC.h"
 #import "WebPhotoHandler.h"

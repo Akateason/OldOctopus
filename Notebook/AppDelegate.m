@@ -14,8 +14,9 @@
 #import "HomePadVC.h"
 #import "HomeVC.h"
 #import "OctWebEditor.h"
-#import "GuidingVC.h"
+#import "OctGuidingVC.h"
 #import "MDNavVC.h"
+
 
 @interface AppDelegate ()
 
@@ -28,6 +29,11 @@
 //    NSArray *list = [self.class convertjsonStringToDict:jsonlist] ;
 //    NSArray *list = [NSArray yy_modelArrayWithClass:[NSString class] json:jsonlist] ;
     
+//    OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
+//    self.window.rootViewController = guidVC ;
+//    [self.window makeKeyAndVisible] ;
+
+    
 }
 
 
@@ -37,7 +43,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
     [self.launchingEvents setup:application appdelegate:self] ;
-    
+
     if (![XTIcloudUser userInCacheSyncGet]) {
         [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
             [self.launchingEvents pullAll] ;
@@ -73,27 +79,24 @@
 }
 
 static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
-- (void)applicationDidBecomeActive:(UIApplication *)application{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
     
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self.window.rootViewController] ;
-    
+
     if ([self.window.rootViewController isKindOfClass:MDNavVC.class]) return ; // guiding
-    
-    GuidingVC *guidVC = [GuidingVC show] ;
+
+    OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
     if (guidVC != nil) {
         MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
         self.window.rootViewController = navVC ;
         [self.window makeKeyAndVisible] ;
-        
+
         [self.launchingEvents setupAlbumn] ;
     }
     else {
         [self setupRootWIndow] ;
     }
-    
-    if (IS_IPAD) {
-        [self.launchingEvents setupAlbumn] ;
-    }
+        
 }
 
 - (void)setupRootWIndow {
