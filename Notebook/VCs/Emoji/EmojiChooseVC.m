@@ -17,6 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+}
+
+- (void)prepareUI {
+    self.xt_theme_backgroundColor = k_md_bgColor ;
+//    self.
 }
 
 
