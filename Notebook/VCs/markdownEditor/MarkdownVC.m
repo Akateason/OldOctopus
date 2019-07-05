@@ -267,12 +267,9 @@
     CGPoint offset = [recognizer translationInView:self.view] ;
     // NSLog(@"offset : %@", NSStringFromCGPoint(offset)) ;
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
-//    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && offset.x < 3) return ; // pad ,里面, 左滑, 安全距离
     
     if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity < 0) return ;
-    if (self.isInTrash && velocity < 0 && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 0) return ;
-    
-    
+    if (self.isInTrash && velocity < 0 && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 0) return ; // 垃圾桶 不能新建        
     
     switch ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon) {
         // 里层

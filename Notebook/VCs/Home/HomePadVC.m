@@ -159,89 +159,101 @@ static const float slidingSpeed = 2000 ;
 
 - (void)pad_panned:(UIPanGestureRecognizer *)recognizer {
     CGPoint offset = [recognizer translationInView:self.view] ;
+    if (fabs(offset.y) > fabs(offset.x)) return ;
+    
     CGFloat translation = offset.x;
-    [recognizer setTranslation:CGPointZero inView:self.view];
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
-
+    NSLog(@"velocity : %lf\n offset : %@",velocity,NSStringFromCGPoint(offset)) ;
+    
     float openedLeft = 0 ;
     float left = _rightContainer.left ;
     left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
     
-//    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && offset.x < 3) return ; // pad ,里面, 左滑, 安全距离
-    
     self->_rightContainer.left = left ;
     
-    if (recognizer.state != UIGestureRecognizerStateEnded) return ;
-    
-    CGFloat leftForEdge, leftForBounce;
-    int finalOpenState ;
-    
-    if (velocity > 0) {
-        leftForEdge = kWidth_ListView;
-        leftForBounce = leftForEdge + 22.0;
-        finalOpenState = 0;
-    }
-    else {
-        leftForEdge = 0;
-        leftForBounce = leftForEdge - 22.0;
-        finalOpenState = -1;
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        CGFloat leftForEdge, leftForBounce;
+        int finalOpenState ;
         
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
-            [self.slidingController setDrawerOpened:NO animated:YES] ;
-            return ;
+        if (velocity > 0) {
+            leftForEdge = kWidth_ListView;
+            leftForBounce = leftForEdge + 22.0;
+            finalOpenState = 0;
+            
+            
+            // pad ,里面, 左滑, 安全距离
+            if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && velocity < 200 && left < 200) {
+                self->_rightContainer.left = 0 ;
+                return ;
+            }
         }
-    }
-
-    CGFloat distanceToTheEdge = leftForEdge - _rightContainer.left;
-    CGFloat timeToEdgeWithCurrentVelocity = fabs(distanceToTheEdge) / fabs(velocity);
-    CGFloat timeToEdgeWithStandardVelocity = fabs(distanceToTheEdge) / slidingSpeed;
-    if (timeToEdgeWithCurrentVelocity < 0.7 * timeToEdgeWithStandardVelocity) {
-        //Bounce and open
-        left = leftForBounce ;
-        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState ;
+        else {
+            leftForEdge = 0;
+            leftForBounce = leftForEdge - 22.0;
+            finalOpenState = -1;
+            
+            if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
+                [self.slidingController setDrawerOpened:NO animated:YES] ;
+                return ;
+            }
+        }
         
-        [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self->_rightContainer.left = left;
-            [self moveEmptyView:finalOpenState == -1] ;
-        } completion:^(BOOL finished) {
-            CGFloat left = self->_rightContainer.left;
+        CGFloat distanceToTheEdge = leftForEdge - _rightContainer.left;
+        CGFloat timeToEdgeWithCurrentVelocity = fabs(distanceToTheEdge) / fabs(velocity);
+        CGFloat timeToEdgeWithStandardVelocity = fabs(distanceToTheEdge) / slidingSpeed;
+        if (timeToEdgeWithCurrentVelocity < 0.7 * timeToEdgeWithStandardVelocity) {
+            //Bounce and open
+            left = leftForBounce ;
+//            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState ;
+            
+            [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self->_rightContainer.left = left;
+                [self moveEmptyView:finalOpenState == -1] ;
+            } completion:^(BOOL finished) {
+                CGFloat left = self->_rightContainer.left;
+                left = leftForEdge;
+                
+                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState ;
+                
+                [UIView animateWithDuration:0.3 animations:^{
+                    self->_rightContainer.left = left;
+                    [self moveEmptyView:finalOpenState == -1] ;
+                    [self setupLeftForRightVC:finalOpenState] ;
+                } completion:^(BOOL finished) {
+                    
+                }];
+            }];
+        }
+        else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
+            //finish the sliding with the current speed
             left = leftForEdge;
-            [UIView animateWithDuration:0.3 animations:^{
+//            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
+            
+            [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_rightContainer.left = left;
                 [self moveEmptyView:finalOpenState == -1] ;
                 [self setupLeftForRightVC:finalOpenState] ;
             } completion:^(BOOL finished) {
-                
+                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
             }];
-        }];
-    }
-    else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
-        //finish the sliding with the current speed
-        left = leftForEdge;
-        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
-        
-        [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self->_rightContainer.left = left;
-            [self moveEmptyView:finalOpenState == -1] ;
-            [self setupLeftForRightVC:finalOpenState] ;
-        } completion:^(BOOL finished) {
+        }
+        else {
+            //finish the sliding wiht minimum speed
+            CGFloat duration = distanceToTheEdge / slidingSpeed;
+            left = leftForEdge;
+//            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
             
-        }];
+            [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self->_rightContainer.left = left;
+                [self moveEmptyView:finalOpenState == -1] ;
+                [self setupLeftForRightVC:finalOpenState] ;
+            } completion:^(BOOL finished) {
+                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
+            }];
+        }
     }
-    else {
-        //finish the sliding wiht minimum speed
-        CGFloat duration = distanceToTheEdge / slidingSpeed;
-        left = leftForEdge;
-        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
-        
-        [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self->_rightContainer.left = left;
-            [self moveEmptyView:finalOpenState == -1] ;
-            [self setupLeftForRightVC:finalOpenState] ;
-        } completion:^(BOOL finished) {
-            
-        }];
-    }
+    
+    
 }
 
 - (void)setupLeftForRightVC:(int)finalOpenState {
