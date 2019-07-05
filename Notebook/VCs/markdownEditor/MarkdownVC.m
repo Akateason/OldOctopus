@@ -238,7 +238,7 @@
     return [self.oct_panDelegate oct_gestureRecognizerShouldBegin:gestureRecognizer] ;
 }
 
-//一句话总结就是此方法返回YES时，手势事件会一直往下传递，不论当前层次是否对该事件进行响应。
+// 一句话总结就是此方法返回YES时，手势事件会一直往下传递，不论当前层次是否对该事件进行响应。
 - (BOOL)gestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
@@ -248,9 +248,15 @@
 - (void)panned:(UIPanGestureRecognizer *)recognizer {
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
     
+    CGPoint offset = [recognizer translationInView:self.view] ;
+    // NSLog(@"offset : %@", NSStringFromCGPoint(offset)) ;
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
+//    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && offset.x < 3) return ; // pad ,里面, 左滑, 安全距离
+    
     if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity < 0) return ;
     if (self.isInTrash && velocity < 0 && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 0) return ;
+    
+    
     
     switch ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon) {
         // 里层

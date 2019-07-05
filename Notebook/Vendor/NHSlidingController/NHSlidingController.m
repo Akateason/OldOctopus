@@ -234,6 +234,11 @@ static const CGFloat slidingSpeed = 1500.0;
 }
 
 - (void)panned:(UIPanGestureRecognizer *)recognizer {
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) return ;
+    
+//    CGPoint offset = [(UIPanGestureRecognizer *)recognizer translationInView:self.view] ;
+    CGFloat velocity = [recognizer velocityInView:self.view].x;
+    
 	CGFloat translation = [recognizer translationInView:self.view].x;
     [recognizer setTranslation:CGPointZero inView:self.view];
     CGFloat openedWidthCenter = CGRectGetMidX(self.view.bounds) + self.slideDistance;
@@ -246,7 +251,6 @@ static const CGFloat slidingSpeed = 1500.0;
     }
     
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        CGFloat velocity = [recognizer velocityInView:self.view].x;
         
         CGFloat centerForEdge, centerForBounce;
         BOOL finalOpenState;

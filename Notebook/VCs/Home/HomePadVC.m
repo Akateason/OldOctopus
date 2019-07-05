@@ -158,21 +158,24 @@ static const float slidingSpeed = 2000 ;
 #pragma mark - MDVC_PadVCPanGestureDelegate <NSObject>
 
 - (void)pad_panned:(UIPanGestureRecognizer *)recognizer {
-    CGFloat translation = [recognizer translationInView:self.view].x;
+    CGPoint offset = [recognizer translationInView:self.view] ;
+    CGFloat translation = offset.x;
     [recognizer setTranslation:CGPointZero inView:self.view];
-    
-//    NSLog(@"pad_panned : %lf",translation) ;
+    CGFloat velocity = [recognizer velocityInView:self.view].x ;
+
     float openedLeft = 0 ;
     float left = _rightContainer.left ;
     left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
+    
+//    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && offset.x < 3) return ; // pad ,里面, 左滑, 安全距离
+    
     self->_rightContainer.left = left ;
-
+    
     if (recognizer.state != UIGestureRecognizerStateEnded) return ;
-
+    
     CGFloat leftForEdge, leftForBounce;
-    int finalOpenState;
-    CGFloat velocity = [recognizer velocityInView:self.view].x;
-
+    int finalOpenState ;
+    
     if (velocity > 0) {
         leftForEdge = kWidth_ListView;
         leftForBounce = leftForEdge + 22.0;
