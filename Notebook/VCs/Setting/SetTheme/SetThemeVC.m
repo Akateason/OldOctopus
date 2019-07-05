@@ -29,12 +29,12 @@
 }
 
 - (void)prepareUI {
-    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     self.fd_prefersNavigationBarHidden = YES ;
     [SettingNavBar addInController:self] ;
     
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
-    self.collectionView.xt_theme_backgroundColor = k_md_bgColor ;
+    self.collectionView.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     
     [ThemeCollectCell xt_registerNibFromCollection:self.collectionView] ;
     self.collectionView.dataSource = self ;

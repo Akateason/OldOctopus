@@ -5,7 +5,7 @@
     "quoteTextColor":"777777",
     "themeColor":"4F73D4",
     "homeTitleTextColor":"FFFFFF",
-    "bgColor":"232628",
+    "bgColor":"1F2123",
     "quoteBarColor":"858281",
     "linkColor":"6FB8E0",
     
@@ -13,7 +13,7 @@
     "navBarColor":"232628",
     "navTextColor":"000000",
     "iconColor":"6b737b",
-    "drawerColor":"1F2123",
-    "midDrawerPadColor":"222426",
-    "drawerSelectedColor":"272B2E",
+    "drawerColor":"222528",
+    "midDrawerPadColor":"24272B",
+    "drawerSelectedColor":"292C2F",
 }

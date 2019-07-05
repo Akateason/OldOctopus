@@ -34,7 +34,7 @@
 }
 
 - (void)prepareUI {
-    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     self.fd_prefersNavigationBarHidden = YES ;
     [SettingNavBar addInController:self] ;
     

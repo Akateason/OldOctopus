@@ -59,7 +59,7 @@
     self.fd_prefersNavigationBarHidden = YES ;
     
     self.btClose.xt_theme_imageColor = k_md_iconColor ;
-    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbAccountTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     self.lbIcon.textColor = [UIColor whiteColor] ;

@@ -20,26 +20,26 @@
     [super awakeFromNib];
     
     self.selectionStyle = 0 ;
-    self.xt_theme_backgroundColor = k_md_bgColor ;
+    self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.rightTip.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.icon.xt_theme_imageColor = k_md_iconColor ;
     
     self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
-    
+    WEAK_SELF
     [self bk_whenTapped:^{
         
         [UIView animateWithDuration:.3 animations:^{
-            self.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_midDrawerPadColor) ;
+            weakSelf.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         } completion:^(BOOL finished) {
-            [self cellDidSelect] ;
+            [weakSelf cellDidSelect] ;
+            weakSelf.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_drawerSelectedColor) ;
         }] ;
     }] ;
 }
 
 - (void)cellDidSelect {
-    self.xt_theme_backgroundColor = k_md_bgColor ;
     
     NSInteger section = self.xt_indexPath.section ;
     NSInteger row = self.xt_indexPath.row ;
