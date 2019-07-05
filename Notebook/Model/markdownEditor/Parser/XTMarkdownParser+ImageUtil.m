@@ -11,6 +11,7 @@
 #import "model/MdInlineModel.h"
 #import "MarkdownEditor.h"
 #import "XTCloudHandler.h"
+#import "OctRequestUtil.h"
 
 
 
@@ -155,32 +156,6 @@
     }] ;
 }
 
-/**
- headers: {
- Authorization: `Basic ${Base64.encode(userRecordName + ':' + '123456')}`
- Content-Type:image/jpeg
- }
- */
-- (void)uploadImage:(UIImage *)image
-           progress:(nullable void (^)(float progress))progressValueBlock
-            success:(void (^)(NSURLResponse *response, id responseObject))success
-            failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail {
-    
-    NSString *url = @"https://shimo.im/octopus-api/files?uploadType=media" ;
-    NSData *data = UIImageJPEGRepresentation(image, 1) ;
-    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
-    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
-    NSDictionary *header = @{@"Authorization" : code,
-                             @"Content-Type":@"image/jpeg"
-                             } ;
-    
-    [XTRequest uploadFileWithData:data urlStr:url header:header progress:^(float flt) {
-        progressValueBlock(flt) ;
-    } success:^(NSURLResponse *response, id responseObject) {
-        success(response, responseObject) ;
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        fail(task, error) ;
-    }] ;
-}
+
 
 @end

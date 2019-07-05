@@ -16,7 +16,7 @@
 
 static NSString *const kNote_Editor_CHANGE          = @"kNote_Editor_CHANGE" ;
 static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Photo" ;
-
+static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_Html" ;
 
 
 @interface OctWebEditor : UIView {
@@ -56,6 +56,9 @@ static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Ph
 // close
 - (void)leavePage ;
 
+
+- (void)getShareHtml ;
+- (void)getShareHtmlWithMd:(NSString *)md ;
 
 
 XT_SINGLETON_H(OctWebEditor)

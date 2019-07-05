@@ -774,13 +774,26 @@
                                                     <action selector="moreAction:" destination="dM8-u1-VBX" eventType="touchUpInside" id="Vd6-Ij-aQR"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="epv-fY-1Ae">
+                                                <rect key="frame" x="298" y="23" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="2Us-vu-90b"/>
+                                                    <constraint firstAttribute="height" constant="20" id="AdM-1E-y3F"/>
+                                                </constraints>
+                                                <state key="normal" image="md_ed_more.png"/>
+                                                <connections>
+                                                    <action selector="shareAction:" destination="dM8-u1-VBX" eventType="touchUpInside" id="j1I-14-0hw"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="epv-fY-1Ae" secondAttribute="bottom" constant="12" id="3Oy-YO-uul"/>
                                             <constraint firstAttribute="height" constant="55" id="4mH-4t-OZz"/>
                                             <constraint firstAttribute="trailing" secondItem="DJU-Up-JQO" secondAttribute="trailing" constant="20" id="PE1-8b-T08"/>
                                             <constraint firstAttribute="bottom" secondItem="DJU-Up-JQO" secondAttribute="bottom" constant="12" id="Vp6-yW-Zic"/>
                                             <constraint firstItem="fsd-N6-3Yx" firstAttribute="leading" secondItem="nv5-sk-sO2" secondAttribute="leading" constant="20" id="gp0-uN-w3s"/>
+                                            <constraint firstItem="DJU-Up-JQO" firstAttribute="leading" secondItem="epv-fY-1Ae" secondAttribute="trailing" constant="17" id="s2T-Qx-AOE"/>
                                             <constraint firstAttribute="bottom" secondItem="fsd-N6-3Yx" secondAttribute="bottom" constant="12" id="snl-8V-lTi"/>
                                         </constraints>
                                     </view>

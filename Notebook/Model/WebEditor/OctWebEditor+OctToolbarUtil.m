@@ -11,7 +11,7 @@
 #import "MDEKeyboardPhotoView.h"
 #import "XTMarkdownParser+ImageUtil.h"
 #import "WebPhotoHandler.h"
-
+#import "OctRequestUtil.h"
 
 @implementation OctWebEditor (OctToolbarUtil)
 
@@ -95,24 +95,7 @@
 - (void)uploadImage:(UIImage *)image
            complete:(void(^)(NSString *url))completion {
     
-    MDImageManager *imgManager = [MDImageManager new] ;
-    [imgManager uploadImage:image progress:^(float pgs) {
-        
-    } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *url = responseObject[@"url"] ;
-            if (!url) {
-                // upload failed
-                completion(nil) ;
-            }
-            else { // success .
-                completion(url) ;
-            }
-        }) ;
-    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        completion(nil) ;
-    }] ;
+    [OctRequestUtil uploadImage:image progress:nil complete:completion] ;
 }
 
 - (void)toolbarDidSelectUndo {

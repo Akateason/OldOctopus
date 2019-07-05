@@ -22,6 +22,8 @@
 #import "NHSlidingController.h"
 #import "HomeVC.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "OctRequestUtil.h"
+
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -171,6 +173,20 @@
         
         self.emptyView.area.hidden = (book.vType == Notebook_Type_trash) ;
         self.isInTrash = (book.vType == Notebook_Type_trash) ;
+    }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Send_Share_Html object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+//        @strongify(self)
+        NSString *html = x.object ;
+        [OctRequestUtil getShareHtmlLink:html complete:^(NSString * _Nonnull urlString) {
+            
+            if (urlString) {
+                NSLog(@"getShareHtmlLink : %@", urlString) ;
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = urlString ;
+                [SVProgressHUD showSuccessWithStatus:@"已经复制到剪贴板"] ;
+            }
+        }] ;
     }] ;
     
     [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
@@ -534,6 +550,12 @@ return;}
         }) ;
     }
 }
+
+- (IBAction)shareAction:(id)sender {
+    [self.editor getShareHtml] ;
+}
+
+
 
 #pragma mark - prop
 

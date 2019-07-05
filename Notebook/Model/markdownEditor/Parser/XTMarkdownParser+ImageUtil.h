@@ -40,10 +40,6 @@ static NSString *const kKey_MDInlineImageModel = @"kKey_MDInlineImageModel" ;
 - (void)imageWithUrlStr:(NSString *)urlStr
                complete:(void(^)(UIImage *image))complete ;
 
-// upload
-- (void)uploadImage:(UIImage *)image
-           progress:(nullable void (^)(float))progressValueBlock
-            success:(void (^)(NSURLResponse *response, id responseObject))success
-            failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail ;
+
 
 @end

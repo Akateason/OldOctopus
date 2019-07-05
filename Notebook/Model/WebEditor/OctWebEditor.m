@@ -177,6 +177,9 @@ XT_SINGLETON_M(OctWebEditor)
     else if ([func isEqualToString:@"tapWebview"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
     }
+    else if ([func isEqualToString:@"sendShareHtml"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Send_Share_Html object:ret[@"params"]] ;
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
 //        [self.toolBar refresh] ;
@@ -399,6 +402,15 @@ static const float kOctEditorToolBarHeight = 41. ;
         }
     }
     return NO;
+}
+
+- (void)getShareHtml {
+    [self getShareHtmlWithMd:nil] ;
+}
+
+- (void)getShareHtmlWithMd:(NSString *)md {
+    [self nativeCallJSWithFunc:@"getShareHtml" json:md completion:^(NSString *val, NSError *error) {
+    }] ;
 }
 
 @end

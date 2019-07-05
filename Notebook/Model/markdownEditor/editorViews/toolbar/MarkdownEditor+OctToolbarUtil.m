@@ -104,40 +104,39 @@
     return photoView ;
 }
 - (void)uploadImage:(UIImage *)image {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        @weakify(self)
-        [self.parser.imgManager uploadImage:image progress:^(float pgs) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD showProgress:pgs status:@"正在上传图片"]  ;
-            }) ;
-        } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
-            @strongify(self)
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss] ;
-                
-                NSString *url = responseObject[@"url"] ;
-                if (!url) {
-                    [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
-                }
-                else { // success .
-                    NSMutableString *tmpString = [self.text mutableCopy] ;
-                    NSString *tickStr = @([[NSDate date] xt_getTick]).stringValue ;
-                    NSString *imgStringWillInsert = XT_STR_FORMAT(@"![%@](%@)\n\n",tickStr,url) ;
-                    [tmpString insertString:imgStringWillInsert atIndex:self.selectedRange.location] ;
-                    [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
-                    self.selectedRange = NSMakeRange(self.selectedRange.location + imgStringWillInsert.length + 3, 0) ;
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
-                }
-            }) ;
-        } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
-            }) ;
-        }] ;
-        
-    }) ;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//
+//        @weakify(self)
+//        [self.parser.imgManager uploadImage:image progress:^(float pgs) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [SVProgressHUD showProgress:pgs status:@"正在上传图片"]  ;
+//            }) ;
+//        } success:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject) {
+//            @strongify(self)
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [SVProgressHUD dismiss] ;
+//
+//                NSString *url = responseObject[@"url"] ;
+//                if (!url) {
+//                    [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
+//                }
+//                else { // success .
+//                    NSMutableString *tmpString = [self.text mutableCopy] ;
+//                    NSString *tickStr = @([[NSDate date] xt_getTick]).stringValue ;
+//                    NSString *imgStringWillInsert = XT_STR_FORMAT(@"![%@](%@)\n\n",tickStr,url) ;
+//                    [tmpString insertString:imgStringWillInsert atIndex:self.selectedRange.location] ;
+//                    [self.parser parseTextAndGetModelsInCurrentCursor:tmpString textView:self] ;
+//                    self.selectedRange = NSMakeRange(self.selectedRange.location + imgStringWillInsert.length + 3, 0) ;
+//
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
+//                }
+//            }) ;
+//        } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [SVProgressHUD showErrorWithStatus:@"图片上传失败, 请检查网络"] ;
+//            }) ;
+//        }] ;
+//    }) ;
 }
 
 - (void)toolbarDidSelectUndo {
