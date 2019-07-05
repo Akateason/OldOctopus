@@ -13,7 +13,12 @@
 @implementation OctRequestUtil
 
 + (NSString *)requestLinkWithNail:(NSString *)urlNail {
-    NSString *head = DEBUG ? @"https://shimodev.com/octopus-api/files?" : @"https://shimo.im/octopus-api/files?" ;
+    NSString *head ;
+#ifdef DEBUG
+    head = @"https://shimodev.com/octopus-api/files?" ;
+#else
+    head = @"https://shimo.im/octopus-api/files?" ;
+#endif
     return [head stringByAppendingString:urlNail] ;
 }
 
@@ -79,7 +84,11 @@
 
 + (NSString *)formalLinkHead {
 //    return @"https://octopus.smcdn.cn/" ;
-    return DEBUG ? @"https://octopus-dev.smcdn.cn/" : @"https://octopus.smcdn.cn/" ;
+#ifdef DEBUG
+    return @"https://octopus-dev.smcdn.cn/" ;
+#else
+    return @"https://octopus.smcdn.cn/" ;
+#endif
 }
 
 
