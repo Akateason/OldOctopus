@@ -70,10 +70,9 @@
                     </userDefinedRuntimeAttributes>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYd-4C-IaF">
-                    <rect key="frame" x="201" y="138" width="150" height="40"/>
+                    <rect key="frame" x="199.5" y="138" width="151.5" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="9Ze-PS-AKs"/>
-                        <constraint firstAttribute="width" constant="150" id="PUi-lX-NO0"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="确定">
@@ -95,9 +94,8 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T55-8Z-Kfa">
-                    <rect key="frame" x="24" y="138" width="150" height="40"/>
+                    <rect key="frame" x="24" y="138" width="151.5" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="150" id="SN3-Tv-MAQ"/>
                         <constraint firstAttribute="height" constant="40" id="dKh-ej-dlk"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -122,6 +120,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="GYd-4C-IaF" firstAttribute="leading" secondItem="T55-8Z-Kfa" secondAttribute="trailing" constant="24" id="6NR-rn-Rhn"/>
                 <constraint firstItem="z7y-CY-99h" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-45" id="8PK-0e-fGc"/>
                 <constraint firstItem="2OP-EH-OLx" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="AtL-rg-Vyb"/>
                 <constraint firstItem="7FG-PU-e3f" firstAttribute="leading" secondItem="6pg-o4-DNB" secondAttribute="trailing" constant="12.5" id="IWW-S7-AuD"/>
@@ -134,6 +133,7 @@
                 <constraint firstItem="6pg-o4-DNB" firstAttribute="top" secondItem="2Ha-HU-38Y" secondAttribute="bottom" constant="32" id="VD6-RH-DK9"/>
                 <constraint firstItem="z7y-CY-99h" firstAttribute="leading" secondItem="2OP-EH-OLx" secondAttribute="trailing" constant="12.5" id="YFp-L5-HcX"/>
                 <constraint firstItem="2Ha-HU-38Y" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="bcC-FS-qMF"/>
+                <constraint firstItem="GYd-4C-IaF" firstAttribute="width" secondItem="T55-8Z-Kfa" secondAttribute="width" id="cLl-cV-6fT"/>
                 <constraint firstAttribute="bottom" secondItem="GYd-4C-IaF" secondAttribute="bottom" constant="22" id="i6c-Pj-6jN"/>
                 <constraint firstItem="z7y-CY-99h" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="qaT-we-JRs"/>
                 <constraint firstAttribute="bottom" secondItem="T55-8Z-Kfa" secondAttribute="bottom" constant="22" id="tbh-bM-aRu"/>

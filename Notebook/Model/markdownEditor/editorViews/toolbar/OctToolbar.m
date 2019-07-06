@@ -88,7 +88,7 @@ XT_SINGLETON_M(OctToolbar)
 - (void)hideAllBoards {
     [self.inlineBoard removeFromSuperview] ;
     [self.photoView removeFromSuperview] ;
-    [self.blockBoard removeFromSuperview] ;
+    [self.blockBoard.scrollView removeFromSuperview] ;
 }
 
 - (IBAction)inlinestyleAc:(UIButton *)sender {

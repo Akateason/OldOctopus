@@ -72,6 +72,7 @@
 		8F2C76102282D3B700A6DC89 /* OutputPreviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2C760F2282D3B700A6DC89 /* OutputPreviewVC.m */; };
 		8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F303997225217A300DEB656 /* HomeEmptyPHView.m */; };
 		8F30399A225217AB00DEB656 /* HomeEmptyPHView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */; };
+		8F30EF6322D05DCE003B0C89 /* md_tb_bt_vega@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30EF6222D05DCE003B0C89 /* md_tb_bt_vega@2x.png */; };
 		8F33884822A5168A006A7069 /* CWInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F33883E22A5168A006A7069 /* CWInteractiveTransition.m */; };
 		8F33884922A5168A006A7069 /* UIViewController+CWLateralSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F33884122A5168A006A7069 /* UIViewController+CWLateralSlide.m */; };
 		8F33884A22A5168A006A7069 /* CWLateralSlideAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F33884422A5168A006A7069 /* CWLateralSlideAnimator.m */; };
@@ -423,6 +424,7 @@
 		8F303996225217A300DEB656 /* HomeEmptyPHView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeEmptyPHView.h; sourceTree = "<group>"; };
 		8F303997225217A300DEB656 /* HomeEmptyPHView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeEmptyPHView.m; sourceTree = "<group>"; };
 		8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEmptyPHView.xib; sourceTree = "<group>"; };
+		8F30EF6222D05DCE003B0C89 /* md_tb_bt_vega@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_vega@2x.png"; sourceTree = "<group>"; };
 		8F33883E22A5168A006A7069 /* CWInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWInteractiveTransition.m; sourceTree = "<group>"; };
 		8F33883F22A5168A006A7069 /* CWDrawerTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWDrawerTransition.h; sourceTree = "<group>"; };
 		8F33884022A5168A006A7069 /* CWLateralSlideAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWLateralSlideAnimator.h; sourceTree = "<group>"; };
@@ -1122,6 +1124,7 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F30EF6222D05DCE003B0C89 /* md_tb_bt_vega@2x.png */,
 				8F12970922C9FEB900939DD6 /* home_top_icon@2x.png */,
 				8F1296FA22C9ABA200939DD6 /* theme_dark@2x.png */,
 				8F1296F722C9ABA200939DD6 /* theme_light@2x.png */,
@@ -1800,6 +1803,7 @@
 				8FFAE0F4229CDAF400CDAC47 /* metapost.plist in Resources */,
 				8FFBBB3F224A4CD900A304C7 /* MDEKeyboardPhotoView.xib in Resources */,
 				8F6863CE2267219D00261626 /* ld_bt_addbook@2x.png in Resources */,
+				8F30EF6322D05DCE003B0C89 /* md_tb_bt_vega@2x.png in Resources */,
 				8FFAE10B229CDAF400CDAC47 /* coldfusion.plist in Resources */,
 				8FEA9E4E225B35A8002A756B /* home_empty@2x.png in Resources */,
 				8FFAE127229CDAF400CDAC47 /* nrnhoc.plist in Resources */,

@@ -34,6 +34,7 @@
 
 
 @interface OctToolbarBlockView : UIView
+@property (strong, nonatomic) UIScrollView *scrollView ;
 @property (weak, nonatomic) id<OctToolbarBlockViewDelegate> blkBoard_Delegate ;
 
 @property (weak, nonatomic) IBOutlet UIView *area1;

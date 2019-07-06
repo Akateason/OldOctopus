@@ -156,7 +156,7 @@
     [self.btTable bk_addEventHandler:^(UIButton *sender) {
 //        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectTable] ;
-        [weakSelf removeFromSuperview] ;
+        [weakSelf.scrollView removeFromSuperview] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
 
     [self.btHtml bk_addEventHandler:^(UIButton *sender) {
@@ -186,15 +186,46 @@
 }
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight {
+    [self scrollView] ;
+    UIView *backView = [UIView new] ;
+    
     for (UIView *window in [UIApplication sharedApplication].windows) {
         if ([window isKindOfClass:NSClassFromString(@"UIRemoteKeyboardWindow")]) {
-            [window addSubview:self] ;
-            [self mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            [window addSubview:self.scrollView] ;
+            [self.scrollView addSubview:backView] ;
+            [backView addSubview:self] ;
+            
+            [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.left.right.equalTo(window) ;
                 make.height.equalTo(@(keyboardHeight - 40)) ;
             }] ;
+            
+            [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.scrollView) ;
+            }] ;
+            
+            [self mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.right.equalTo(backView);
+                make.width.equalTo(@(APP_WIDTH));
+                make.height.equalTo(@325) ;
+            }] ;
+            
+            [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.mas_bottom) ;
+            }] ;
+
         }
     }
+}
+
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        UIScrollView *scrollView = [[UIScrollView alloc] init] ;
+        scrollView.backgroundColor = [UIColor whiteColor] ;
+        _scrollView = scrollView ;
+    }
+    return _scrollView ;
 }
 
 @end

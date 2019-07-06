@@ -184,7 +184,7 @@
                 NSLog(@"getShareHtmlLink : %@", urlString) ;
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
                 pasteboard.string = urlString ;
-                [SVProgressHUD showSuccessWithStatus:@"已经复制到剪贴板"] ;
+                [SVProgressHUD showSuccessWithStatus:@"分享链接已经复制到剪贴板"] ;
             }
         }] ;
     }] ;
