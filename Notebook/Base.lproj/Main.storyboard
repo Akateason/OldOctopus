@@ -780,7 +780,7 @@
                                                     <constraint firstAttribute="width" constant="20" id="2Us-vu-90b"/>
                                                     <constraint firstAttribute="height" constant="20" id="AdM-1E-y3F"/>
                                                 </constraints>
-                                                <state key="normal" image="md_ed_more.png"/>
+                                                <state key="normal" image="editor_share.png"/>
                                                 <connections>
                                                     <action selector="shareAction:" destination="dM8-u1-VBX" eventType="touchUpInside" id="j1I-14-0hw"/>
                                                 </connections>
@@ -822,6 +822,7 @@
                     <connections>
                         <outlet property="btBack" destination="fsd-N6-3Yx" id="zoC-vd-pqw"/>
                         <outlet property="btMore" destination="DJU-Up-JQO" id="JuU-Ei-RGq"/>
+                        <outlet property="btShare" destination="epv-fY-1Ae" id="Wip-Tw-jT4"/>
                         <outlet property="heightForBar" destination="OFI-kt-ihc" id="i7d-NL-WTo"/>
                         <outlet property="navArea" destination="nv5-sk-sO2" id="ra0-oy-ONe"/>
                         <outlet property="topBar" destination="3zE-EL-0W3" id="HW4-B2-YcZ"/>
@@ -958,6 +959,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="editor_share.png" width="46" height="46"/>
         <image name="home_bar_add.png" width="40" height="40"/>
         <image name="home_top_icon.png" width="48" height="48"/>
         <image name="ld_bt_trash.png" width="48" height="48"/>

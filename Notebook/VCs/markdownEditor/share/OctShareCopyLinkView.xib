@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="OctShareCopyLinkView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vKc-iF-gcn">
+                    <rect key="frame" x="31.5" y="216" width="312.5" height="235"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="复制链接，分享给他人查看" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="We9-Nn-LeC">
+                            <rect key="frame" x="36" y="26" width="240" height="28"/>
+                            <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PUb-rn-oYP">
+                            <rect key="frame" x="25" y="84" width="262.5" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z8f-uZ-q1N">
+                            <rect key="frame" x="166" y="155" width="121.5" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="YRp-W8-mWe"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="确定">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="xt_cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="xt_borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="xt_borderColor">
+                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="confirmAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="j5o-4L-Kjg"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQ2-aS-C8B">
+                            <rect key="frame" x="25" y="155" width="121" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="EL8-i4-Bkh"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="取消">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="xt_cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="xt_borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="xt_borderColor">
+                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="cancelAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="JNI-1p-LNc"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="235" id="8Sq-s7-Kvi"/>
+                        <constraint firstItem="Z8f-uZ-q1N" firstAttribute="leading" secondItem="OQ2-aS-C8B" secondAttribute="trailing" constant="20" id="CTF-Mi-iD3"/>
+                        <constraint firstItem="PUb-rn-oYP" firstAttribute="top" secondItem="We9-Nn-LeC" secondAttribute="bottom" constant="30" id="Gbr-M5-u5M"/>
+                        <constraint firstAttribute="trailing" secondItem="PUb-rn-oYP" secondAttribute="trailing" constant="25" id="Nvv-3Q-37v"/>
+                        <constraint firstItem="Z8f-uZ-q1N" firstAttribute="width" secondItem="OQ2-aS-C8B" secondAttribute="width" id="ZRr-WY-cfI"/>
+                        <constraint firstAttribute="trailing" secondItem="Z8f-uZ-q1N" secondAttribute="trailing" constant="25" id="cco-Du-mqk"/>
+                        <constraint firstItem="Z8f-uZ-q1N" firstAttribute="centerY" secondItem="OQ2-aS-C8B" secondAttribute="centerY" id="hhX-Uo-1ac"/>
+                        <constraint firstItem="We9-Nn-LeC" firstAttribute="centerX" secondItem="vKc-iF-gcn" secondAttribute="centerX" id="kKQ-90-ft7"/>
+                        <constraint firstItem="OQ2-aS-C8B" firstAttribute="leading" secondItem="vKc-iF-gcn" secondAttribute="leading" constant="25" id="prw-AJ-I9e"/>
+                        <constraint firstAttribute="bottom" secondItem="Z8f-uZ-q1N" secondAttribute="bottom" constant="40" id="sdi-6H-6ak"/>
+                        <constraint firstItem="We9-Nn-LeC" firstAttribute="top" secondItem="vKc-iF-gcn" secondAttribute="top" constant="26" id="x6l-4Q-iPm"/>
+                        <constraint firstItem="PUb-rn-oYP" firstAttribute="leading" secondItem="vKc-iF-gcn" secondAttribute="leading" constant="25" id="zpW-fn-HEa"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vKc-iF-gcn" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="1:1.2" id="G6E-Bq-rSe"/>
+                <constraint firstItem="vKc-iF-gcn" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Yxl-E5-bhJ"/>
+                <constraint firstItem="vKc-iF-gcn" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="bMk-wY-UEd"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="btCancel" destination="OQ2-aS-C8B" id="A3t-zL-a7b"/>
+                <outlet property="btConfirm" destination="Z8f-uZ-q1N" id="TJx-mK-9rc"/>
+                <outlet property="hud" destination="vKc-iF-gcn" id="lDb-Du-0jz"/>
+                <outlet property="lbTitle" destination="We9-Nn-LeC" id="UkX-uZ-OHY"/>
+                <outlet property="tf" destination="PUb-rn-oYP" id="RnL-hC-fkD"/>
+            </connections>
+            <point key="canvasLocation" x="136.80000000000001" y="404.34782608695656"/>
+        </view>
+    </objects>
+</document>

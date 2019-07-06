@@ -106,7 +106,11 @@ XT_SINGLETON_M(OctWebEditor)
     [self hideKeyboard] ;
 
     self.webViewHasSetMarkdown = NO ;
-    self.firstTimeArticle = nil ;    
+    self.firstTimeArticle = nil ;
+    
+    // 清空undo redo
+    [self nativeCallJSWithFunc:@"clearUndoRedoHistory" json:nil completion:^(NSString *val, NSError *error) {
+    }] ;
 }
 
 - (void)createWebView {

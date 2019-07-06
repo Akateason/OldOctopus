@@ -23,6 +23,7 @@
 #import "HomeVC.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "OctRequestUtil.h"
+#import "OctShareCopyLinkView.h"
 
 
 @interface MarkdownVC () <WKScriptMessageHandler>
@@ -31,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIView *navArea;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
+@property (weak, nonatomic) IBOutlet UIButton *btShare;
 
 
 @property (strong, nonatomic) XTCameraHandler   *handler;
@@ -176,15 +178,28 @@
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Send_Share_Html object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-//        @strongify(self)
+        @strongify(self)
+        [MBProgressHUD hideHUDForView:self.view animated:YES] ;
+        
+        @weakify(self)
         NSString *html = x.object ;
         [OctRequestUtil getShareHtmlLink:html complete:^(NSString * _Nonnull urlString) {
-            
+            @strongify(self)
             if (urlString) {
                 NSLog(@"getShareHtmlLink : %@", urlString) ;
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = urlString ;
-                [SVProgressHUD showSuccessWithStatus:@"分享链接已经复制到剪贴板"] ;
+                [self.editor hideKeyboard] ;
+                
+//                @weakify(self)
+                [OctShareCopyLinkView showOnView:self.view
+                                            link:urlString
+                                        complete:^(BOOL ok) {
+//                    @strongify(self)
+                    if (ok) {
+                        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                        pasteboard.string = urlString ;
+                        [SVProgressHUD showSuccessWithStatus:@"分享链接已经复制到剪贴板"] ;
+                    }
+                }] ;
             }
         }] ;
     }] ;
@@ -407,8 +422,10 @@ return;}
     
     self.btBack.xt_theme_imageColor = k_md_iconColor ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
+    self.btShare.xt_theme_imageColor = k_md_iconColor ;
     [self.btBack xt_enlargeButtonsTouchArea] ;
     [self.btMore xt_enlargeButtonsTouchArea] ;
+    [self.btShare xt_enlargeButtonsTouchArea] ;
     
     self.navArea.backgroundColor = nil ;
     self.topBar.backgroundColor = nil ;
@@ -549,6 +566,7 @@ return;}
 }
 
 - (IBAction)shareAction:(id)sender {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES] ;
     [self.editor getShareHtml] ;
 }
 
