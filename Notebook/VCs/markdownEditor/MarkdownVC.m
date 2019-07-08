@@ -92,6 +92,7 @@
         [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error){
             weakSelf.editor.webViewHasSetMarkdown = YES ;
         }] ;
+        [self.editor openKeyboard] ;
     }
     
 //    self.fd_interactivePopDisabled = YES ;
