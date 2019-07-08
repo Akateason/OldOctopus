@@ -388,11 +388,9 @@ static const float kOctEditorToolBarHeight = 41. ;
     if (method) {
         IMP original = method_getImplementation(method);
         IMP override = imp_implementationWithBlock(^BOOL(id me, SEL action, id sender) {
-            if (action == @selector(selectAll:)) {
-                return NO;      // 本来是yes, 现在屏蔽选择,让web做.
-            }
-            else if (action == @selector(select:)) {
-                return NO;      // 本来是yes, 现在屏蔽选择,让web做.
+            if (action == @selector(selectAll:)
+                || action == @selector(select:)) {
+                return NO; // 本来是yes, 现在屏蔽选择,调用web接口实现选择.
             }
             else if ([self isDisabledAction:action]) {
                 return NO;
