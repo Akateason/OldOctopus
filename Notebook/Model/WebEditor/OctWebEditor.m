@@ -48,7 +48,7 @@ XT_SINGLETON_M(OctWebEditor)
     
     // keyboard showing
     @weakify(self)
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.02] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
         NSDictionary *info = [x userInfo] ;
         // CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];

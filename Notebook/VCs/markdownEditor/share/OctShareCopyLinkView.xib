@@ -37,7 +37,7 @@
                                 <constraint firstAttribute="height" constant="40" id="YRp-W8-mWe"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <state key="normal" title="确定">
+                            <state key="normal" title="复制链接">
                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                             </state>
                             <userDefinedRuntimeAttributes>

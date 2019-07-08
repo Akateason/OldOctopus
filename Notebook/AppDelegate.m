@@ -90,7 +90,7 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
         MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
         self.window.rootViewController = navVC ;
         [self.window makeKeyAndVisible] ;
-
+        
         [self.launchingEvents setupAlbumn] ;
     }
     else {

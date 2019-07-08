@@ -179,6 +179,7 @@
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Send_Share_Html object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
+        
         [MBProgressHUD hideHUDForView:self.view animated:YES] ;
         
         @weakify(self)
@@ -340,8 +341,7 @@ return;}
         return ;
     }
     
-    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES] ;
-    hud.mode = MBProgressHUDModeIndeterminate ;
+    [MBProgressHUD showHUDAddedTo:self.view.window animated:YES] ;
     
     @weakify(self)
     [self.editor getMarkdown:^(NSString *markdown) {

@@ -37,7 +37,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 #pragma mark - did finish launching
 
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate {
-    //    if (!DEBUG)
+    
     [Bugly startWithAppId:@"8abe605307"] ;
 
     self.appDelegate = appDelegate ;
@@ -164,7 +164,6 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation" ;
     [[XTFMDBBase sharedInstance] configureDBWithPath:OCTUPUS_DB_Location];
 #endif
     
-    
     [Note       xt_createTable] ;
     [NoteBooks  xt_createTable] ;
     [WebPhoto   xt_createTable] ;
@@ -182,7 +181,7 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation" ;
 - (void)setupNaviStyle {
     [[UIApplication sharedApplication] keyWindow].tintColor = [UIColor whiteColor] ;
     
-    //todo 黑色主题有问题呢
+    // todo 黑色主题有问题呢
 //    [UIView appearance].tintColor = [[MDThemeConfiguration sharedInstance] themeColor:k_md_textColor] ; // change alert contrller tint color ;
     
 }
@@ -372,6 +371,7 @@ NSString *const kNotificationImportFileIn = @"kNotificationImportFileIn" ;
 
 - (void)setupHudStyle {
     [SVProgressHUD setDefaultStyle:(SVProgressHUDStyleDark)];
+    [SVProgressHUD setAnimationDuration:1] ;
 }
 
 @end
