@@ -102,8 +102,11 @@
 - (void)render {
     NSString *searchForText = self.tf.text ;
     if (searchForText.length) {
-        NSString *sql = self.isTrash ? XT_STR_FORMAT(@"searchContent like '%%%@%%' and isDeleted == 1",searchForText)
-        : XT_STR_FORMAT(@"searchContent like '%%%@%%'",searchForText) ;
+        NSString *sql =
+        self.isTrash ?
+        XT_STR_FORMAT(@"searchContent like '%%%@%%' and isDeleted == 1",searchForText)
+        :
+        XT_STR_FORMAT(@"searchContent like '%%%@%%' and isDeleted == 0",searchForText) ;
         NSArray *list = [Note xt_findWhere:sql] ;
         self.listResult = list ;
     }
