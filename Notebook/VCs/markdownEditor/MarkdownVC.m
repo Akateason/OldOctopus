@@ -220,12 +220,12 @@
              else self.btBack.transform = CGAffineTransformIdentity ;
          }] ;
          
-         if (self.aNote == nil) {
+         if (self.aNote == nil || self.editor.aNote == nil || self.editor.aNote.content.length < 1) {
              if (num == -1) {
                  self.emptyView.hidden = YES ;
-                 [self.editor openKeyboard] ;
                  self.myBookID = self.delegate.currentBookID ;
                  self.editor.webViewHasSetMarkdown = YES ;
+                 [self.editor openKeyboard] ;
              }
              else {
                  self.emptyView.hidden = NO ;
@@ -235,6 +235,7 @@
          if (num != -1) {
              [self.editor hideKeyboard] ;
          }
+        
      }] ;
     
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {

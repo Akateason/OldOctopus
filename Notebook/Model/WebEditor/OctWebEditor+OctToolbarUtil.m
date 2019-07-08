@@ -106,13 +106,12 @@
 
 - (void)toolbarDidSelectRedo {
     [self nativeCallJSWithFunc:@"redo" json:nil completion:^(NSString *val, NSError *error) {
-
+        
     }] ;
 }
 
 - (UIView *)fromEditor {
     return self ;
 }
-
 
 @end

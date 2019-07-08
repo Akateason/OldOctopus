@@ -294,6 +294,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 - (void)getMarkdown:(void(^)(NSString *markdown))complete {
     [self nativeCallJSWithFunc:@"getMarkdown" json:nil completion:^(NSString *val, NSError *error) {
+        if ([val isEqualToString:@"\n"]) val = nil ;
         complete(val) ;
     }] ;
 }
@@ -388,8 +389,7 @@ static const float kOctEditorToolBarHeight = 41. ;
     if (method) {
         IMP original = method_getImplementation(method);
         IMP override = imp_implementationWithBlock(^BOOL(id me, SEL action, id sender) {
-            if (action == @selector(selectAll:)
-                || action == @selector(select:)) {
+            if (action == @selector(selectAll:)) {
                 return NO; // 本来是yes, 现在屏蔽选择,调用web接口实现选择.
             }
             else if ([self isDisabledAction:action]) {
@@ -425,24 +425,26 @@ static const float kOctEditorToolBarHeight = 41. ;
 #pragma mark - MENU controller
 
 //监听事情需要对应的方法 冒号之后传入的是UIMenuController
-- (void)cut:(UIMenuController *)menu {
-    NSLog(@"%s %@", __func__, menu);
-}
-
-- (void)copy:(UIMenuController *)menu {
-    NSLog(@"%s %@", __func__, menu);
-}
-
-- (void)paste:(UIMenuController *)menu {
-    NSLog(@"%s %@", __func__, menu);
-}
-
-- (void)select:(UIMenuController *)menu {
-    NSLog(@"%s %@", __func__, menu);
-}
+//- (void)cut:(UIMenuController *)menu {
+//    NSLog(@"%s %@", __func__, menu);
+//}
+//
+//- (void)copy:(UIMenuController *)menu {
+//    NSLog(@"%s %@", __func__, menu);
+//}
+//
+//- (void)paste:(UIMenuController *)menu {
+//    NSLog(@"%s %@", __func__, menu);
+//}
+//
+//- (void)select:(UIMenuController *)menu {
+//    NSLog(@"%s %@", __func__, menu);
+//}
 
 - (void)selectAll:(UIMenuController *)menu {
     NSLog(@"%s %@", __func__, menu);
+    [self nativeCallJSWithFunc:@"selectAll" json:nil completion:^(NSString *val, NSError *error) {
+    }] ;
 }
 
 @end
