@@ -43,7 +43,7 @@ XT_SINGLETON_M(OctWebEditor)
                          [@[@"_", @"d", @"e", @"fine", @":"] componentsJoinedByString:@""], // _define:Define
                          [@[@"_", @"ad", @"dS", @"hor", @"tcu", @"t:"] componentsJoinedByString:@""], // _addShortcut:学习...
                          [@[@"_", @"tr", @"ans", @"lit", @"era", @"te", @"Ch", @"ine", @"se", @":"] componentsJoinedByString:@""], // _transliterateChinese:简<=>繁
-                         [@[@"_", @"re", @"ana", @"ly", @"ze", @":"] componentsJoinedByString:@""] // _reanalyze:分享按钮
+                         [@[@"_", @"re", @"ana", @"ly", @"ze", @":"] componentsJoinedByString:@""], // _reanalyze:分享按钮
                          ] ;
     
     // keyboard showing
@@ -328,7 +328,7 @@ static const float kOctEditorToolBarHeight = 41. ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self removeInputAccessoryViewFromWKWebView:webView] ;
-        [self enableSelectAll] ;
+        [self hookWKContentViewFuncCanPerformAction] ;
         
         [self.toolBar setNeedsLayout] ;
         [self.toolBar layoutIfNeeded] ;
@@ -374,7 +374,8 @@ static const float kOctEditorToolBarHeight = 41. ;
     object_setClass(targetView, newClass);
 }
 
-- (void)enableSelectAll {
+
+- (void)hookWKContentViewFuncCanPerformAction {
     Class class = NSClassFromString(@"WKContentView");
     SEL selector = sel_getUid("canPerformActionForWebView:withSender:");
     Method method = class_getInstanceMethod(class, selector);
@@ -388,10 +389,15 @@ static const float kOctEditorToolBarHeight = 41. ;
         IMP original = method_getImplementation(method);
         IMP override = imp_implementationWithBlock(^BOOL(id me, SEL action, id sender) {
             if (action == @selector(selectAll:)) {
-                return YES;
-            } else if ([self isDisabledAction:action]) {
+                return NO;      // 本来是yes, 现在屏蔽选择,让web做.
+            }
+            else if (action == @selector(select:)) {
+                return NO;      // 本来是yes, 现在屏蔽选择,让web做.
+            }
+            else if ([self isDisabledAction:action]) {
                 return NO;
-            } else {
+            }
+            else {
                 return ((BOOL (*)(id, SEL, SEL, id))original)(me, selector, action, sender);
             }
         });
@@ -415,6 +421,30 @@ static const float kOctEditorToolBarHeight = 41. ;
 - (void)getShareHtmlWithMd:(NSString *)md {
     [self nativeCallJSWithFunc:@"getShareHtml" json:md completion:^(NSString *val, NSError *error) {
     }] ;
+}
+
+
+#pragma mark - MENU controller
+
+//监听事情需要对应的方法 冒号之后传入的是UIMenuController
+- (void)cut:(UIMenuController *)menu {
+    NSLog(@"%s %@", __func__, menu);
+}
+
+- (void)copy:(UIMenuController *)menu {
+    NSLog(@"%s %@", __func__, menu);
+}
+
+- (void)paste:(UIMenuController *)menu {
+    NSLog(@"%s %@", __func__, menu);
+}
+
+- (void)select:(UIMenuController *)menu {
+    NSLog(@"%s %@", __func__, menu);
+}
+
+- (void)selectAll:(UIMenuController *)menu {
+    NSLog(@"%s %@", __func__, menu);
 }
 
 @end
