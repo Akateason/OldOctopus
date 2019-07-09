@@ -33,7 +33,7 @@
     
 //    [EmojiJson logAlltype] ;
     
-    
+//    [EmojiJson allList] ;
 
 }
 

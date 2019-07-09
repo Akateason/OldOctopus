@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)randomADistinctEmojiWithBooklist:(NSArray *)booklist ;
 
 
-+ (void)logAlltype ;
+//+ (void)logAlltype ;
 
 @end
 

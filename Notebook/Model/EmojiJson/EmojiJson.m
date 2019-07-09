@@ -19,10 +19,12 @@
 
 
 
+
 + (NSArray *)allList {
     NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"emojisJson" ofType:@"json"] ;
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSArray *list  = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] ;
+    NSArray *list = [NSArray yy_modelArrayWithClass:EmojiJson.class json:jsonString] ;
     return list ;
 }
 
@@ -45,7 +47,7 @@
 }
 
 + (EmojiJson *)list:(NSArray *)list random:(int)random {
-    return [EmojiJson yy_modelWithJSON:list[random]] ;
+    return list[random] ;
 }
 
 + (BOOL)distinctWithBooklist:(NSArray *)booklist emoji:(NSString *)emoji {
@@ -59,21 +61,6 @@
 }
 
 #pragma mark --
-
-//+ (void)logAlltype {
-//    NSArray *alllist = [self allList] ;
-//
-//    NSMutableArray *tmplist = [@[] mutableCopy] ;
-//
-//    [alllist enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if (![tmplist containsObject:obj[@"category"]]) {
-//            [tmplist addObject:obj[@"category"]] ;
-//        }
-//    }] ;
-//
-//    NSLog(@"cate : %@",tmplist) ;
-//}
-
 //People,
 //Nature,
 //Foods,
@@ -83,8 +70,18 @@
 //Symbols,
 //Flags
 
-
-
++ (NSArray *)arrayCategory {
+    return @[
+             @"People",
+             @"Nature",
+             @"Foods",
+             @"Activity",
+             @"Places",
+             @"Objects",
+             @"Symbols",
+             @"Flags"
+             ] ;
+}
 
 
 
