@@ -20,6 +20,7 @@
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
+    CGPoint _contentOffsetBeforeScroll ;
 }
 @end
 
@@ -30,6 +31,7 @@ XT_SINGLETON_M(OctWebEditor)
 
 #pragma mark --
 #pragma mark - life
+
 - (void)setup {
     self.xt_theme_backgroundColor = k_md_bgColor ;
     self.webView.xt_theme_backgroundColor = k_md_bgColor ;
@@ -328,6 +330,9 @@ static const float kOctEditorToolBarHeight = 41. ;
     [self setupJSCoreWhenFinishLoad] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self enableKeyboardDisplayAutomatically] ;
+        [self disableAdjustScrollViewWithKeyboardChange] ;
+        
         [self removeInputAccessoryViewFromWKWebView:webView] ;
         [self hookWKContentViewFuncCanPerformAction] ;
         
@@ -343,6 +348,13 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
     NSLog(@"error: %@",error) ;
+}
+
+#pragma mark --
+#pragma mark - scrollview delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    scrollView.contentOffset = _contentOffsetBeforeScroll;
+    scrollView.delegate = nil;
 }
 
 #pragma mark --
@@ -376,6 +388,89 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 
+/**
+ 类似于 UIWebView 的 keyboardDisplayRequiresUserAction 属性
+ */
+- (void)enableKeyboardDisplayAutomatically {
+    Class class = NSClassFromString(@"WKContentView");
+    NSOperatingSystemVersion iOS_11_3_0 = (NSOperatingSystemVersion){11, 3, 0};
+    NSOperatingSystemVersion iOS_12_2_0 = (NSOperatingSystemVersion){12, 2, 0};
+    NSOperatingSystemVersion iOS_13_0_0 = (NSOperatingSystemVersion){13, 0, 0};
+    
+    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:iOS_11_3_0]) {
+        SEL selector;
+        if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion: iOS_13_0_0]) {
+            selector =
+            sel_getUid("_elementDidFocus:userIsInteracting:blurPreviousNode:activityStateChanges:userObject:");
+        } else if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion: iOS_12_2_0]) {
+            selector = sel_getUid("_elementDidFocus:userIsInteracting:blurPreviousNode:changingActivityState:userObject:");
+            
+        } else {
+            selector = sel_getUid("_startAssistingNode:userIsInteracting:blurPreviousNode:changingActivityState:userObject:");
+        }
+        
+        Method method = class_getInstanceMethod(class, selector);
+        if (method) {
+            IMP original = method_getImplementation(method);
+            IMP override = imp_implementationWithBlock(^void(id me, void *arg0, BOOL arg1, BOOL arg2, BOOL arg3, id arg4) {
+                WKWebView *webView = [me valueForKey:@"_webView"];
+                if ([webView.superview isKindOfClass:[OctWebEditor class]]) {
+                    [self disableAdjustScrollViewWithUserInteracting:me];
+                    ((void (*)(id, SEL, void *, BOOL, BOOL, BOOL, id))original)(me, selector, arg0, TRUE, arg2, arg3, arg4);
+                } else {
+                    ((void (*)(id, SEL, void *, BOOL, BOOL, BOOL, id))original)(me, selector, arg0, arg1, arg2, arg3, arg4);
+                }
+            });
+            method_setImplementation(method, override);
+        }
+    } else {
+        SEL selector = sel_getUid("_startAssistingNode:userIsInteracting:blurPreviousNode:userObject:");
+        Method method = class_getInstanceMethod(class, selector);
+        if (method) {
+            IMP original = method_getImplementation(method);
+            IMP override = imp_implementationWithBlock(^void(id me, void *arg0, BOOL arg1, BOOL arg2, id arg3) {
+                WKWebView *webView = [me valueForKey:@"_webView"];
+                if ([webView.superview isKindOfClass:[OctWebEditor class]]) {
+                    [self disableAdjustScrollViewWithUserInteracting:me];
+                    ((void (*)(id, SEL, void *, BOOL, BOOL, id))original)(me, selector, arg0, TRUE, arg2, arg3);
+                } else {
+                    ((void (*)(id, SEL, void *, BOOL, BOOL, id))original)(me, selector, arg0, arg1, arg2, arg3);
+                }
+            });
+            method_setImplementation(method, override);
+        }
+    }
+}
+
+// 禁止键盘弹起时滚动 webView
+- (void)disableAdjustScrollViewWithUserInteracting:(id)contentView
+{
+    WKWebView *webView = [contentView valueForKey:@"_webView"];
+    _contentOffsetBeforeScroll = webView.scrollView.contentOffset;
+    webView.scrollView.delegate = self;
+}
+
+/**
+ 禁止 WebView 跟随键盘调整 ScrollView 的尺寸
+ */
+- (void)disableAdjustScrollViewWithKeyboardChange {
+    Class class = NSClassFromString(@"WKWebView");
+    SEL selector = sel_getUid("_keyboardChangedWithInfo:adjustScrollView:");
+    Method method = class_getInstanceMethod(class, selector);
+    IMP original = method_getImplementation(method);
+    IMP override = imp_implementationWithBlock(^void(id me, id arg0, BOOL arg1) {
+        WKWebView *webView = me;
+        if ([webView.superview isKindOfClass:[OctWebEditor class]]) {
+            ((void (*)(id, SEL, id, BOOL))original)(me, selector, arg0, NO);
+        } else {
+            ((void (*)(id, SEL, id, BOOL))original)(me, selector, arg0, arg1);
+        }
+    });
+    method_setImplementation(method, override);
+}
+
+
+// hook canPerformAction:withSender
 - (void)hookWKContentViewFuncCanPerformAction {
     Class class = NSClassFromString(@"WKContentView");
     SEL selector = sel_getUid("canPerformActionForWebView:withSender:");
