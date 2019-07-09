@@ -28,7 +28,7 @@ static NSString *const kUD_SettingSave_KEY = @"kUD_SettingSave_KEY" ;
         save.sort_isNewestFirst = TRUE ;
         
         save.editor_autoAddBracket = TRUE ;
-        save.editor_lightHeightRate = 1.6 ;
+        save.editor_lightHeightRate = 1.7 ;
         save.editor_md_ulistSymbol = @"-" ;
         save.editor_isLooseList = TRUE ;
         

@@ -17,7 +17,7 @@
 #import "GuidingVC.h"
 #import "MDNavVC.h"
 
-#import "EmojiJson.h"
+//#import "EmojiJson.h"
 
 @interface AppDelegate ()
 
@@ -33,7 +33,7 @@
     
 //    [EmojiJson logAlltype] ;
     
-//    [EmojiJson allList] ;
+//    [EmojiJson getWholeDatasource] ;
 
 }
 

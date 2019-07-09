@@ -36,6 +36,7 @@
 #import "SettingSave.h"
 #import "SearchEmptyVC.h"
 
+#import "EmojiChooseVC.h"
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -310,6 +311,15 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated] ;
+    
+    EmojiChooseVC *vc = [EmojiChooseVC getMe] ;
+    [self presentViewController:vc animated:YES completion:^{
+        
+    }] ;
 }
 
 #pragma mark - table

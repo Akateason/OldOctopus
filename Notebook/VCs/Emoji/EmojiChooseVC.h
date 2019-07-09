@@ -7,10 +7,16 @@
 //
 
 #import "BasicVC.h"
+#import "EmojiJson.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol EmojiChooseVCDelegate <NSObject>
+- (void)selectedEmoji:(EmojiJson *)emoji ;
+@end
+
 @interface EmojiChooseVC : BasicVC
+@property (weak, nonatomic) id <EmojiChooseVCDelegate> delegate ;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btClose;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
@@ -18,8 +24,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tfSearch;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (weak, nonatomic) IBOutlet UILabel *lbHistory;
+@property (weak, nonatomic) IBOutlet UILabel *lbPeople;
+@property (weak, nonatomic) IBOutlet UILabel *lbAnimal;
+@property (weak, nonatomic) IBOutlet UILabel *lbFood;
+@property (weak, nonatomic) IBOutlet UILabel *lbActive;
+@property (weak, nonatomic) IBOutlet UILabel *lbPlace;
+@property (weak, nonatomic) IBOutlet UILabel *lbObject;
+@property (weak, nonatomic) IBOutlet UILabel *lbSymbol;
+@property (weak, nonatomic) IBOutlet UILabel *lbFlag;
 
 
+
+
++ (instancetype)getMe ;
 
 @end
 

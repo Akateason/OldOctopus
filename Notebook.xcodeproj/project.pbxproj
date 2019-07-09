@@ -26,6 +26,10 @@
 		8F08FB7322A8DA2C008AB6A6 /* md_l_mermaid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F08FB7222A8DA2C008AB6A6 /* md_l_mermaid@2x.png */; };
 		8F08FB7922A8E819008AB6A6 /* TableCreatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F08FB7822A8E819008AB6A6 /* TableCreatorView.m */; };
 		8F08FB7B22A8E82B008AB6A6 /* TableCreatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F08FB7A22A8E82B008AB6A6 /* TableCreatorView.xib */; };
+		8F0BC9EA22D496C6002064CC /* EmojiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BC9E822D496C6002064CC /* EmojiCell.m */; };
+		8F0BC9EB22D496C6002064CC /* EmojiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0BC9E922D496C6002064CC /* EmojiCell.xib */; };
+		8F0BC9EF22D49ADB002064CC /* EmojiCollectHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BC9ED22D49ADB002064CC /* EmojiCollectHeader.m */; };
+		8F0BC9F022D49ADB002064CC /* EmojiCollectHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0BC9EE22D49ADB002064CC /* EmojiCollectHeader.xib */; };
 		8F0C15DC2296833200E8837D /* GuidingICloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C15DB2296833200E8837D /* GuidingICloud.m */; };
 		8F0C15DE2296834600E8837D /* GuidingICloud.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C15DD2296834600E8837D /* GuidingICloud.xib */; };
 		8F0C15E1229684B200E8837D /* guid_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C15DF229684B200E8837D /* guid_close@2x.png */; };
@@ -357,6 +361,12 @@
 		8F08FB7722A8E819008AB6A6 /* TableCreatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableCreatorView.h; sourceTree = "<group>"; };
 		8F08FB7822A8E819008AB6A6 /* TableCreatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableCreatorView.m; sourceTree = "<group>"; };
 		8F08FB7A22A8E82B008AB6A6 /* TableCreatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableCreatorView.xib; sourceTree = "<group>"; };
+		8F0BC9E722D496C6002064CC /* EmojiCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmojiCell.h; sourceTree = "<group>"; };
+		8F0BC9E822D496C6002064CC /* EmojiCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiCell.m; sourceTree = "<group>"; };
+		8F0BC9E922D496C6002064CC /* EmojiCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmojiCell.xib; sourceTree = "<group>"; };
+		8F0BC9EC22D49ADB002064CC /* EmojiCollectHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmojiCollectHeader.h; sourceTree = "<group>"; };
+		8F0BC9ED22D49ADB002064CC /* EmojiCollectHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiCollectHeader.m; sourceTree = "<group>"; };
+		8F0BC9EE22D49ADB002064CC /* EmojiCollectHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmojiCollectHeader.xib; sourceTree = "<group>"; };
 		8F0C15DA2296833200E8837D /* GuidingICloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuidingICloud.h; sourceTree = "<group>"; };
 		8F0C15DB2296833200E8837D /* GuidingICloud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuidingICloud.m; sourceTree = "<group>"; };
 		8F0C15DD2296834600E8837D /* GuidingICloud.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuidingICloud.xib; sourceTree = "<group>"; };
@@ -955,6 +965,12 @@
 			children = (
 				8F5E27BE22CDCC360012AB22 /* EmojiChooseVC.h */,
 				8F5E27BF22CDCC360012AB22 /* EmojiChooseVC.m */,
+				8F0BC9EC22D49ADB002064CC /* EmojiCollectHeader.h */,
+				8F0BC9ED22D49ADB002064CC /* EmojiCollectHeader.m */,
+				8F0BC9EE22D49ADB002064CC /* EmojiCollectHeader.xib */,
+				8F0BC9E722D496C6002064CC /* EmojiCell.h */,
+				8F0BC9E822D496C6002064CC /* EmojiCell.m */,
+				8F0BC9E922D496C6002064CC /* EmojiCell.xib */,
 			);
 			path = Emoji;
 			sourceTree = "<group>";
@@ -1735,6 +1751,7 @@
 				8F7A84762244E1EB0099E905 /* md_tb_bt_code@2x.png in Resources */,
 				8FFAE125229CDAF400CDAC47 /* awk.plist in Resources */,
 				8FEA9E3D2254D266002A756B /* md_home_top_icon@2x.png in Resources */,
+				8F0BC9EB22D496C6002064CC /* EmojiCell.xib in Resources */,
 				8F41EEC9225B3E3900D9CD35 /* home_del_note@2x.png in Resources */,
 				8F41EECB225B404200D9CD35 /* home_move_note@2x.png in Resources */,
 				8FFAE112229CDAF400CDAC47 /* verilog.plist in Resources */,
@@ -1835,6 +1852,7 @@
 				8FFAE114229CDAF400CDAC47 /* perl.plist in Resources */,
 				8FFAE0FB229CDAF400CDAC47 /* gedcom.plist in Resources */,
 				8F0C15E1229684B200E8837D /* guid_close@2x.png in Resources */,
+				8F0BC9F022D49ADB002064CC /* EmojiCollectHeader.xib in Resources */,
 				8F7A849F2248A6050099E905 /* MDEditUrlView.xib in Resources */,
 				8FFAE0EB229CDAF400CDAC47 /* shell.plist in Resources */,
 				8F08FB6F22A8D96A008AB6A6 /* md_l_flow@2x.png in Resources */,
@@ -2025,6 +2043,7 @@
 				8F05C57F22754F150047CC04 /* XTMarkdownParser+ImageUtil.m in Sources */,
 				8F6863C22266FA7A00261626 /* SearchEmptyVC.m in Sources */,
 				8F5C7E4422A8FDB40032680D /* WebPhotoHandler.m in Sources */,
+				8F0BC9EA22D496C6002064CC /* EmojiCell.m in Sources */,
 				8F08FB7922A8E819008AB6A6 /* TableCreatorView.m in Sources */,
 				8FE5A3EA224CA77400947D14 /* LDHeadView.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
@@ -2097,6 +2116,7 @@
 				8FE5A3F0224CA86A00947D14 /* LDNotebookCell.m in Sources */,
 				8F679DFC2232436B008DE1BC /* MarkdownVC.m in Sources */,
 				8F679E00223243B2008DE1BC /* MarkdownEditor.m in Sources */,
+				8F0BC9EF22D49ADB002064CC /* EmojiCollectHeader.m in Sources */,
 				8F33884822A5168A006A7069 /* CWInteractiveTransition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
