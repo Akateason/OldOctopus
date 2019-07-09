@@ -58,4 +58,35 @@
     return NO ;
 }
 
+#pragma mark --
+
+//+ (void)logAlltype {
+//    NSArray *alllist = [self allList] ;
+//
+//    NSMutableArray *tmplist = [@[] mutableCopy] ;
+//
+//    [alllist enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if (![tmplist containsObject:obj[@"category"]]) {
+//            [tmplist addObject:obj[@"category"]] ;
+//        }
+//    }] ;
+//
+//    NSLog(@"cate : %@",tmplist) ;
+//}
+
+//People,
+//Nature,
+//Foods,
+//Activity,
+//Places,
+//Objects,
+//Symbols,
+//Flags
+
+
+
+
+
+
+
 @end

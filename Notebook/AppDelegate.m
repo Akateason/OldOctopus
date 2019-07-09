@@ -17,6 +17,8 @@
 #import "GuidingVC.h"
 #import "MDNavVC.h"
 
+#import "EmojiJson.h"
+
 @interface AppDelegate ()
 
 @end
@@ -27,7 +29,12 @@
 //    NSString *jsonlist = @"[\"h3\"]" ;
 //    NSArray *list = [self.class convertjsonStringToDict:jsonlist] ;
 //    NSArray *list = [NSArray yy_modelArrayWithClass:[NSString class] json:jsonlist] ;
+
     
+//    [EmojiJson logAlltype] ;
+    
+    
+
 }
 
 

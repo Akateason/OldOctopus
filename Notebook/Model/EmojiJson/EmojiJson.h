@@ -19,8 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (NSArray *)allList ;
-
 + (NSString *)randomADistinctEmojiWithBooklist:(NSArray *)booklist ;
+
+
++ (void)logAlltype ;
 
 @end
 
