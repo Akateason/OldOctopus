@@ -189,12 +189,17 @@
 
 
 + (NSString *)filterMarkdownString:(NSString *)markdownStr {
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\n" withString:@""] ;
+    if ([markdownStr hasPrefix:@"#"]) {
+        NSString *firstMarkStr = [[markdownStr componentsSeparatedByString:@" "] firstObject] ;
+        markdownStr = [markdownStr substringFromIndex:firstMarkStr.length + 1] ;
+    }
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"#" withString:@""] ;
+    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\n" withString:@""] ;
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"*" withString:@""] ;
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"_" withString:@""] ;
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"~" withString:@""] ;
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"`" withString:@""] ;
+
     return markdownStr ;
 }
 
