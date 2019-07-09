@@ -30,7 +30,7 @@
     
     self.lb1.textColor = [[MDThemeConfiguration sharedInstance] themeColor:k_md_themeColor] ;
     self.lb2.textColor = [[MDThemeConfiguration sharedInstance] themeColor:XT_MAKE_theme_color(k_md_textColor, .5)] ;
-    self.view.backgroundColor = [UIColor whiteColor] ;
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
     
     
     if (self.viewType == 1) {

@@ -186,6 +186,14 @@
 }
 
 - (void)dealTopNoteLists:(NSArray *)list {
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    [list enumerateObjectsUsingBlock:^(Note *aNote, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![aNote.icRecordName containsString:@"mac-"]) {
+            [tmplist addObject:aNote] ;
+        }
+    }] ;
+    list = tmplist ; // 屏蔽桌面端的文章
+    
     NSMutableArray *topList = [@[] mutableCopy] ;
     NSMutableArray *normalList = [@[] mutableCopy] ;
     [list enumerateObjectsUsingBlock:^(Note *aNote, NSUInteger idx, BOOL * _Nonnull stop) {

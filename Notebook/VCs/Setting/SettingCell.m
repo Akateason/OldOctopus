@@ -59,7 +59,7 @@
     }
     else if ([title containsString:@"反馈"]) {
         // https://shimo.im/forms/bvVAXVnavgjCjqm7/fill 小章鱼移动端问题反馈
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://shimo.im/forms/bvVAXVnavgjCjqm7/fill"]] ;
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://fankui.shimo.im/?type=create&tags[]=5cd3dc0c27f63b001104c052"]] ;
         [self.xt_viewController presentViewController:safariVC animated:YES completion:nil] ;
     }
 }
