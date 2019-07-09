@@ -21,6 +21,7 @@
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
     CGPoint _contentOffsetBeforeScroll ;
+    BOOL editorCrash ;
 }
 @end
 
@@ -136,6 +137,8 @@ XT_SINGLETON_M(OctWebEditor)
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message {
     
+    if (editorCrash) return ;
+    
 //    NSString *name = message.name ; // 就是上边注入到 JS 的哪个名字，在这里是 nativeMethod
     NSString *body = message.body ;       // 就是 JS 调用 Native 时，传过来的 value
     NSLog(@"%@", body) ;
@@ -186,6 +189,11 @@ XT_SINGLETON_M(OctWebEditor)
     else if ([func isEqualToString:@"sendShareHtml"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Send_Share_Html object:ret[@"params"]] ;
     }
+    else if ([func isEqualToString:@"editorCrash"]) {
+        editorCrash = YES ;
+        [self reloadWKWebview] ;
+    }
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
 //        [self.toolBar refresh] ;
@@ -516,6 +524,19 @@ static const float kOctEditorToolBarHeight = 41. ;
     }] ;
 }
 
+
+- (void)reloadWKWebview {
+    [self.toolBar removeFromSuperview] ;
+    _toolBar = nil ;
+    
+    [_webView removeFromSuperview] ;
+    _webView = nil ;
+    
+    [self setup] ;
+    editorCrash = NO ;
+    
+    [self renderNote] ;
+}
 
 #pragma mark - MENU controller
 
