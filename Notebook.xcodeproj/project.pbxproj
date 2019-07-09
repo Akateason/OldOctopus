@@ -26,7 +26,7 @@
 		8F08FB7322A8DA2C008AB6A6 /* md_l_mermaid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F08FB7222A8DA2C008AB6A6 /* md_l_mermaid@2x.png */; };
 		8F08FB7922A8E819008AB6A6 /* TableCreatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F08FB7822A8E819008AB6A6 /* TableCreatorView.m */; };
 		8F08FB7B22A8E82B008AB6A6 /* TableCreatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F08FB7A22A8E82B008AB6A6 /* TableCreatorView.xib */; };
-		8F0BC9AE22D34F9A002064CC /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F0BC9AD22D34F9A002064CC /* web.zip */; };
+		8F0BC9DD22D44234002064CC /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F0BC9DC22D44233002064CC /* web.zip */; };
 		8F0C15DC2296833200E8837D /* GuidingICloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C15DB2296833200E8837D /* GuidingICloud.m */; };
 		8F0C15DE2296834600E8837D /* GuidingICloud.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C15DD2296834600E8837D /* GuidingICloud.xib */; };
 		8F0C15E1229684B200E8837D /* guid_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C15DF229684B200E8837D /* guid_close@2x.png */; };
@@ -362,7 +362,7 @@
 		8F08FB7722A8E819008AB6A6 /* TableCreatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableCreatorView.h; sourceTree = "<group>"; };
 		8F08FB7822A8E819008AB6A6 /* TableCreatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableCreatorView.m; sourceTree = "<group>"; };
 		8F08FB7A22A8E82B008AB6A6 /* TableCreatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableCreatorView.xib; sourceTree = "<group>"; };
-		8F0BC9AD22D34F9A002064CC /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
+		8F0BC9DC22D44233002064CC /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F0C15DA2296833200E8837D /* GuidingICloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuidingICloud.h; sourceTree = "<group>"; };
 		8F0C15DB2296833200E8837D /* GuidingICloud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuidingICloud.m; sourceTree = "<group>"; };
 		8F0C15DD2296834600E8837D /* GuidingICloud.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuidingICloud.xib; sourceTree = "<group>"; };
@@ -1010,7 +1010,7 @@
 				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8F0BC9AD22D34F9A002064CC /* web.zip */,
+				8F0BC9DC22D44233002064CC /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -1852,7 +1852,7 @@
 				8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */,
 				8F7B2ED522C61D0B000018DE /* sunshine.json in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
-				8F0BC9AE22D34F9A002064CC /* web.zip in Resources */,
+				8F0BC9DD22D44234002064CC /* web.zip in Resources */,
 				8FFAE137229D16A100CDAC47 /* ld_reply@2x.png in Resources */,
 				8F2A2673226EE98D0076EBA4 /* guiding_img_1@2x.png in Resources */,
 				8FFAE0F8229CDAF400CDAC47 /* prolog.plist in Resources */,
