@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HiddenUtil : NSObject
 + (void)showAlert ;
+
+
++ (void)switchEditorLoadWay:(BOOL)isOnline ;
++ (BOOL)getEditorLoadWay ;
+
 @end
 
 NS_ASSUME_NONNULL_END

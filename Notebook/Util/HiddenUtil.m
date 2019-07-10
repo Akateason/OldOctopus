@@ -19,8 +19,17 @@
 + (void)showAlert {
     NSString *versionNum = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ;
     NSString *buildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] ;
+
+    NSString *inviroment ;
+#ifdef DEBUG
+    inviroment = @"dev环境" ;
+#else
+    inviroment = @"product环境" ;
+#endif
     
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@)",versionNum,buildNum) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅"] callBackBlock:^(NSInteger btnIndex) {
+    
+    
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@) - %@",versionNum,buildNum,inviroment) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅",@"编辑器加载本地or线上"] callBackBlock:^(NSInteger btnIndex) {
         
         if (btnIndex == 1) {
             [self clearLocal] ;
@@ -30,6 +39,9 @@
         }
         else if (btnIndex == 3) {
             [self clearSubscribtion] ;
+        }
+        else if (btnIndex == 4) {
+            [self editorLoadFromLocalOrOnline] ;
         }
         
     }] ;
@@ -77,8 +89,28 @@
     }] ;
 }
 
++ (void)editorLoadFromLocalOrOnline {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"切换editor加载" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"本地",@"线上"] fromWithView:nil CallBackBlock:^(NSInteger btnIndex) {
+        
+        if (btnIndex == 1) {
+            [self switchEditorLoadWay:0] ;
+        }
+        else if (btnIndex == 2) {
+            [self switchEditorLoadWay:1] ;
+        }
+        
+    }] ;
+}
 
+//0本地 1线上
+static NSString *const k_UD_isLoadWebViewOnline = @"k_UD_isLoadWebViewOnline" ;
++ (void)switchEditorLoadWay:(BOOL)isOnline {
+    XT_USERDEFAULT_SET_VAL(@(isOnline), k_UD_isLoadWebViewOnline) ;
+}
 
++ (BOOL)getEditorLoadWay {
+    return [XT_USERDEFAULT_GET_VAL(k_UD_isLoadWebViewOnline) boolValue] ;
+}
 
 
 @end

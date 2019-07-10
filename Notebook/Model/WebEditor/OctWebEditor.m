@@ -17,6 +17,7 @@
 #import "GlobalDisplaySt.h"
 #import "SettingSave.h"
 #import "MarkdownVC.h"
+#import "HiddenUtil.h"
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -205,7 +206,7 @@ XT_SINGLETON_M(OctWebEditor)
 }
 
 - (void)setupHTMLEditor {
-    if (!g_isLoadWebViewOnline) {
+    if (![HiddenUtil getEditorLoadWay]) {
         //group
         NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
         NSURL *fileURL = [NSURL fileURLWithPath:path] ;

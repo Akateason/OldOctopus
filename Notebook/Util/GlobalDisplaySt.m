@@ -27,7 +27,6 @@ XT_SINGLETON_M(GlobalDisplaySt)
     }
 }
 
-
 - (void)setGdst_level_for_horizon:(int)gdst_level_for_horizon {
     _gdst_level_for_horizon = gdst_level_for_horizon ;
     
