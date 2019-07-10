@@ -18,6 +18,7 @@
 #import "SettingSave.h"
 #import "MarkdownVC.h"
 #import "HiddenUtil.h"
+#import <SafariServices/SafariServices.h>
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -199,7 +200,10 @@ XT_SINGLETON_M(OctWebEditor)
     else if ([func isEqualToString:@"editorCrash"]) {
         [self.editorCrashSignal sendNext:@1] ;
     }
-    
+    else if ([func isEqualToString:@"editorLink"]) {
+        NSString *linkUrl = ret[@"params"] ;
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkUrl]] ;
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
 //        [self.toolBar refresh] ;
