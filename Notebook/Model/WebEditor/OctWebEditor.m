@@ -21,8 +21,9 @@
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
     CGPoint _contentOffsetBeforeScroll ;
-    BOOL editorCrash ;
 }
+@property (strong, nonatomic) RACSubject *editorCrashSignal ;
+
 @end
 
 
@@ -90,6 +91,11 @@ XT_SINGLETON_M(OctWebEditor)
         UIImage *image = [UIImage imageWithData:imageData] ;
         [self uploadWebPhoto:photo image:image] ;
     }] ;
+    
+    [[self.editorCrashSignal throttle:.6] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        [self reloadWKWebview] ;
+    }] ;
 }
 
 - (void)setSideFlex {
@@ -136,8 +142,6 @@ XT_SINGLETON_M(OctWebEditor)
 // WKScriptMessageHandler delegate
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message {
-    
-    if (editorCrash) return ;
     
 //    NSString *name = message.name ; // 就是上边注入到 JS 的哪个名字，在这里是 nativeMethod
     NSString *body = message.body ;       // 就是 JS 调用 Native 时，传过来的 value
@@ -190,8 +194,7 @@ XT_SINGLETON_M(OctWebEditor)
         [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Send_Share_Html object:ret[@"params"]] ;
     }
     else if ([func isEqualToString:@"editorCrash"]) {
-        editorCrash = YES ;
-        [self reloadWKWebview] ;
+        [self.editorCrashSignal sendNext:@1] ;
     }
     
     
@@ -536,7 +539,6 @@ static const float kOctEditorToolBarHeight = 41. ;
     _webView = nil ;
     
     [self setup] ;
-    editorCrash = NO ;
     
     [self renderNote] ;
 }
@@ -566,4 +568,14 @@ static const float kOctEditorToolBarHeight = 41. ;
     }] ;
 }
 
+
+- (RACSubject *)editorCrashSignal {
+    if(!_editorCrashSignal){
+        _editorCrashSignal = ({
+            RACSubject * object = [RACSubject subject] ;
+            object;
+       });
+    }
+    return _editorCrashSignal;
+}
 @end
