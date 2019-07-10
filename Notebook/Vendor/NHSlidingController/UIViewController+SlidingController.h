@@ -12,7 +12,6 @@
 
 @interface UIViewController (SlidingController)
 
-
 @property (nonatomic, weak) NHSlidingController *slidingController;
 
 @end

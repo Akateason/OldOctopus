@@ -10,7 +10,9 @@
 #import "AppDelegate.h"
 #import "EmojiJson.h"
 #import "NoteBooks.h"
-
+#import "EmojiChooseVC.h"
+#import "UIViewController+SlidingController.h"
+#import "NHSlidingController.h"
 
 @interface NewBookVC ()
 @property (strong, nonatomic) NoteBooks *aBook ;
@@ -31,11 +33,20 @@
     
     NewBookVC *vc = [NewBookVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"NewBookVC"] ;
     if (book != nil) vc.aBook = book ;
+    vc.slidingController = ctrller.slidingController ;
+    
+//    [ctrller.slidingController presentViewController:vc animated:YES completion:nil] ;
+//    vc.modalPresentationStyle = UIModalPresentationPopover ;
+//    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
+//    popVC.sourceView = ctrller.slidingController.view ;
+//    popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
     
     [[UIApplication sharedApplication].delegate.window addSubview:vc.view] ;
+    [ctrller.slidingController.view addSubview:vc.view] ;
     [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo([UIApplication sharedApplication].delegate.window) ;
     }] ;
+    
     @weakify(vc)
     [vc.btCreate bk_addEventHandler:^(id sender) {
         @strongify(vc)
@@ -51,7 +62,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    self.view.backgroundColor = nil ; //    
+    self.view.backgroundColor = nil ;
     [self.view oct_addBlurBg] ;
     
     [self.tfName becomeFirstResponder] ;
@@ -82,7 +93,8 @@
 
     WEAK_SELF
     [self.lbEmoji bk_whenTapped:^{
-        weakSelf.lbEmoji.text = [EmojiJson randomADistinctEmojiWithBooklist:booklist] ;
+        if (!IS_IPAD) self.view.hidden = YES ;
+        [EmojiChooseVC showMeFrom:weakSelf.slidingController fromView:weakSelf.lbEmoji] ;
     }] ;
     
     if (self.aBook) {
@@ -99,6 +111,15 @@
 
 - (IBAction)create:(id)sender {
    [self.view removeFromSuperview] ;
+}
+
+#pragma mark - EmojiChooseVCDelegate <NSObject>
+- (void)selectedEmoji:(EmojiJson *)emoji {
+    self.lbEmoji.text = emoji.emoji ;
+}
+
+- (void)viewDismiss {
+    self.view.hidden = NO ;
 }
 
 @end

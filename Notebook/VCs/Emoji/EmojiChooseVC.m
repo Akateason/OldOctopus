@@ -9,6 +9,8 @@
 #import "EmojiChooseVC.h"
 #import "EmojiCell.h"
 #import "EmojiCollectHeader.h"
+#import "UIViewController+SlidingController.h"
+#import "NHSlidingController.h"
 
 @interface EmojiChooseVC ()
 @property (copy, nonatomic) NSDictionary *datasource ;
@@ -29,6 +31,19 @@
     return vc ;
 }
 
++ (void)showMeFrom:(UIViewController *)contentController
+          fromView:(UIView *)fromView {
+    
+    EmojiChooseVC *vc = [EmojiChooseVC getCtrllerFromStory:@"Main" controllerIdentifier:@"EmojiChooseVC"] ;
+    vc.delegate = fromView.xt_viewController ;
+    vc.modalPresentationStyle = UIModalPresentationPopover ;
+    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
+    popVC.sourceView = fromView ;
+    popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
+    [contentController presentViewController:vc animated:YES completion:^{}] ;
+//    [contentController presentViewController:vc animated:YES completion:^{}] ;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
@@ -41,6 +56,14 @@
     self.searchData = [EmojiJsonManager sharedInstance].allList ;
     
     WEAK_SELF
+    [self.btClose bk_addEventHandler:^(id sender) {
+        [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
+        [weakSelf.delegate viewDismiss] ;
+    } forControlEvents:(UIControlEventTouchUpInside)] ;
+    
+    
+    
+    
     [self.lbHistory bk_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
@@ -209,11 +232,14 @@
         }
     }
     
+    [self.delegate viewDismiss] ;
     [self.delegate selectedEmoji:resultEmoji] ;
     
     [[EmojiJsonManager sharedInstance] iUseEmoji:resultEmoji] ;
     self.history = [EmojiJsonManager sharedInstance].history ;
     [collectionView reloadData] ;
+    
+    [self dismissViewControllerAnimated:YES completion:nil] ;
 }
 
 #pragma mark - acitons

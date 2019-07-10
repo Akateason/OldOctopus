@@ -36,7 +36,7 @@
 #import "SettingSave.h"
 #import "SearchEmptyVC.h"
 
-#import "EmojiChooseVC.h"
+
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -66,9 +66,11 @@
     HomeVC *topVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
     MDNavVC *navVC = [[MDNavVC alloc]initWithRootViewController:topVC] ;
     LeftDrawerVC *bottomVC = [LeftDrawerVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"LeftDrawerVC"];
-    
     topVC.leftVC = bottomVC ;
     NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:navVC bottomViewController:bottomVC slideDistance:self.movingDistance] ;
+    bottomVC.slidingController = slidingController ;
+    topVC.slidingController = slidingController ;
+    navVC.slidingController = slidingController ;
     return slidingController ;
 }
 
@@ -313,14 +315,9 @@
     [super viewWillDisappear:animated] ;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated] ;
-    
-    EmojiChooseVC *vc = [EmojiChooseVC getMe] ;
-    [self presentViewController:vc animated:YES completion:^{
-        
-    }] ;
-}
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated] ;
+//}
 
 #pragma mark - table
 
