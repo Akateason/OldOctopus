@@ -526,6 +526,9 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 
 - (void)reloadWKWebview {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"系统出现异常,自动刷新页面" message:nil cancelButtonTitle:nil destructiveButtonTitle:@"ok" otherButtonTitles:nil fromWithView:nil CallBackBlock:^(NSInteger btnIndex) {
+    }] ;
+    
     [self.toolBar removeFromSuperview] ;
     _toolBar = nil ;
     
