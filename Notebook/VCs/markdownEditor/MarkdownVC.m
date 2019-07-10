@@ -92,7 +92,7 @@
         [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error){
             weakSelf.editor.webViewHasSetMarkdown = YES ;
         }] ;
-        [self.editor openKeyboard] ;
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) [self.editor openKeyboard] ;
     }
     
 //    self.fd_interactivePopDisabled = YES ;

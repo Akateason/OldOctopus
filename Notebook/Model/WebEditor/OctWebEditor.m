@@ -232,7 +232,7 @@ XT_SINGLETON_M(OctWebEditor)
     [self nativeCallJSWithFunc:@"setEditorScrollOffset" json:@"0" completion:^(NSString *val, NSError *error) {}] ;
     
     if (!self.aNote) {
-        [self openKeyboard] ;
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) [self openKeyboard] ;
     }
 }
 
