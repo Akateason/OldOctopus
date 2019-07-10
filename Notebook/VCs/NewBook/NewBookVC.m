@@ -10,6 +10,10 @@
 #import "AppDelegate.h"
 #import "EmojiJson.h"
 #import "NoteBooks.h"
+#import "EmojiChooseVC.h"
+#import "UIViewController+SlidingController.h"
+#import "NHSlidingController.h"
+#import "GlobalDisplaySt.h"
 
 
 @interface NewBookVC ()
@@ -31,11 +35,20 @@
     
     NewBookVC *vc = [NewBookVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"NewBookVC"] ;
     if (book != nil) vc.aBook = book ;
+    vc.slidingController = ctrller.slidingController ;
     
-    [[UIApplication sharedApplication].delegate.window addSubview:vc.view] ;
-    [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo([UIApplication sharedApplication].delegate.window) ;
-    }] ;
+    [ctrller.slidingController presentViewController:vc animated:YES completion:nil] ;
+    
+//    vc.modalPresentationStyle = UIModalPresentationPopover ;
+//    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
+//    popVC.sourceView = ctrller.slidingController.view ;
+//    popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
+    
+//    [[UIApplication sharedApplication].delegate.window addSubview:vc.view] ;
+//    [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo([UIApplication sharedApplication].delegate.window) ;
+//    }] ;
+    
     @weakify(vc)
     [vc.btCreate bk_addEventHandler:^(id sender) {
         @strongify(vc)
@@ -51,8 +64,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    self.view.backgroundColor = nil ; //    
-    [self.view oct_addBlurBg] ;
+    [GlobalDisplaySt sharedInstance].isInNewBookVC = YES ;
+    
+//    self.view.backgroundColor = nil ;
+//    [self.view oct_addBlurBg] ;
     
     [self.tfName becomeFirstResponder] ;
     
@@ -82,7 +97,7 @@
 
     WEAK_SELF
     [self.lbEmoji bk_whenTapped:^{
-        weakSelf.lbEmoji.text = [EmojiJson randomADistinctEmojiWithBooklist:booklist] ;
+        [EmojiChooseVC showMeFrom:weakSelf fromView:weakSelf.lbEmoji] ;
     }] ;
     
     if (self.aBook) {
@@ -93,12 +108,25 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated] ;
+    
+    [GlobalDisplaySt sharedInstance].isInNewBookVC = NO ;
+}
+
 - (IBAction)cancel:(id)sender {
-    [self.view removeFromSuperview] ;
+    [self dismissViewControllerAnimated:YES completion:nil] ;
 }
 
 - (IBAction)create:(id)sender {
-   [self.view removeFromSuperview] ;
+    [self dismissViewControllerAnimated:YES completion:nil] ;
 }
+
+#pragma mark - EmojiChooseVCDelegate <NSObject>
+- (void)selectedEmoji:(EmojiJson *)emoji {
+    self.lbEmoji.text = emoji.emoji ;
+}
+
+
 
 @end

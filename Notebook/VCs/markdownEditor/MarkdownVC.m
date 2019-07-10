@@ -337,6 +337,10 @@
 return;}
 
 - (void)leaveOut {
+    if ([GlobalDisplaySt sharedInstance].isInNewBookVC) {
+        return ;
+    }
+    
     if (!self.editor.webViewHasSetMarkdown) {
         [self.editor leavePage] ;
         XT_HIDE_HUD

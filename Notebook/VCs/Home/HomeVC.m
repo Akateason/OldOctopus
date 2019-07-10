@@ -37,6 +37,7 @@
 #import "SearchEmptyVC.h"
 
 
+
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -65,9 +66,11 @@
     HomeVC *topVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
     MDNavVC *navVC = [[MDNavVC alloc]initWithRootViewController:topVC] ;
     LeftDrawerVC *bottomVC = [LeftDrawerVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"LeftDrawerVC"];
-    
     topVC.leftVC = bottomVC ;
     NHSlidingController *slidingController = [[NHSlidingController alloc] initWithTopViewController:navVC bottomViewController:bottomVC slideDistance:self.movingDistance] ;
+    bottomVC.slidingController = slidingController ;
+    topVC.slidingController = slidingController ;
+    navVC.slidingController = slidingController ;
     return slidingController ;
 }
 
@@ -319,6 +322,10 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
 }
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated] ;
+//}
 
 #pragma mark - table
 

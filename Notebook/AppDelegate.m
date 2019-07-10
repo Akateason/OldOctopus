@@ -28,12 +28,6 @@
 //    NSString *jsonlist = @"[\"h3\"]" ;
 //    NSArray *list = [self.class convertjsonStringToDict:jsonlist] ;
 //    NSArray *list = [NSArray yy_modelArrayWithClass:[NSString class] json:jsonlist] ;
-    
-//    OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
-//    self.window.rootViewController = guidVC ;
-//    [self.window makeKeyAndVisible] ;
-
-    
 }
 
 
