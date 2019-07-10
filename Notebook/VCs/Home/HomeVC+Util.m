@@ -34,7 +34,9 @@
         }
         else if (btnIndex == 2) { // new book
             self.nBookVC =
-            [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+            [NewBookVC showMeFromCtrller:self
+                                fromView:sender
+                                 changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
                 // create new book
                 NoteBooks *aBook = [[NoteBooks alloc] initWithName:bookName emoji:emoji] ;
                 [NoteBooks createNewBook:aBook] ;
@@ -63,7 +65,9 @@
             __block NoteBooks *aBook = self.leftVC.currentBook ;
             @weakify(self)
             self.nBookVC =
-            [NewBookVC showMeFromCtrller:self editBook:aBook changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+            [NewBookVC showMeFromCtrller:self
+                                fromView:sender
+                                editBook:aBook changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
                 @strongify(self)
                 aBook.name = bookName ;
                 aBook.emoji = [@{@"native":emoji} yy_modelToJSONString] ;

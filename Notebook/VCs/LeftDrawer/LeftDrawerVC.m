@@ -229,7 +229,9 @@ typedef void(^BlkTapBookCell)(void);
 - (void)addbook {
     @weakify(self)
     self.nBookVC =
-    [NewBookVC showMeFromCtrller:self changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+    [NewBookVC showMeFromCtrller:self
+                        fromView:self.table
+                         changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
         @strongify(self)
         // create new book
         NoteBooks *aBook = [[NoteBooks alloc] initWithName:bookName emoji:emoji] ;
@@ -353,7 +355,10 @@ typedef void(^BlkTapBookCell)(void);
     __block NoteBooks *aBook = book ;
     @weakify(self)
     self.nBookVC =
-    [NewBookVC showMeFromCtrller:self editBook:aBook changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+    [NewBookVC showMeFromCtrller:self
+                        fromView:self.table
+                        editBook:aBook
+                         changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
         @strongify(self)
         aBook.name = bookName ;
         aBook.emoji = [@{@"native":emoji} yy_modelToJSONString] ;

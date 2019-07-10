@@ -23,12 +23,14 @@
 @implementation NewBookVC
 
 + (instancetype)showMeFromCtrller:(UIViewController *)ctrller
+                         fromView:(UIView *)fromView
                           changed:(void(^)(NSString *emoji, NSString *bookName))blkChanged
                            cancel:(void(^)(void))blkCancel {
-    return [self showMeFromCtrller:ctrller editBook:nil changed:blkChanged cancel:blkCancel] ;
+    return [self showMeFromCtrller:ctrller fromView:fromView editBook:nil changed:blkChanged cancel:blkCancel] ;
 }
 
 + (instancetype)showMeFromCtrller:(UIViewController *)ctrller
+                         fromView:(UIView *)fromView
                          editBook:(NoteBooks *)book
                           changed:(void(^)(NSString *emoji, NSString *bookName))blkChanged
                            cancel:(void(^)(void))blkCancel {
@@ -37,17 +39,12 @@
     if (book != nil) vc.aBook = book ;
     vc.slidingController = ctrller.slidingController ;
     
+    vc.modalPresentationStyle = UIModalPresentationPopover ;
     [ctrller.slidingController presentViewController:vc animated:YES completion:nil] ;
-    
-//    vc.modalPresentationStyle = UIModalPresentationPopover ;
-//    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
-//    popVC.sourceView = ctrller.slidingController.view ;
-//    popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
-    
-//    [[UIApplication sharedApplication].delegate.window addSubview:vc.view] ;
-//    [vc.view mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo([UIApplication sharedApplication].delegate.window) ;
-//    }] ;
+    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
+    popVC.sourceView = fromView ;
+    popVC.permittedArrowDirections = 0 ;
+    popVC.xt_theme_backgroundColor = k_md_bgColor ;
     
     @weakify(vc)
     [vc.btCreate bk_addEventHandler:^(id sender) {

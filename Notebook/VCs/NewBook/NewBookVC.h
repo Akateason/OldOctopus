@@ -21,10 +21,12 @@
 
 // create
 + (instancetype)showMeFromCtrller:(UIViewController *)ctrller
+                         fromView:(UIView *)fromView
                           changed:(void(^)(NSString *emoji, NSString *bookName))blkChanged
                            cancel:(void(^)(void))blkCancel ;
 // edit
 + (instancetype)showMeFromCtrller:(UIViewController *)ctrller
+                         fromView:(UIView *)fromView
                          editBook:(NoteBooks *)book
                           changed:(void(^)(NSString *emoji, NSString *bookName))blkChanged
                            cancel:(void(^)(void))blkCancel ;

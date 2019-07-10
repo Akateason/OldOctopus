@@ -30,11 +30,13 @@
     EmojiChooseVC *vc = [EmojiChooseVC getCtrllerFromStory:@"Main" controllerIdentifier:@"EmojiChooseVC"] ;
     vc.delegate = fromView.xt_viewController ;
     
-    [contentController presentViewController:vc animated:YES completion:nil] ;
     vc.modalPresentationStyle = UIModalPresentationPopover ;
+    [contentController presentViewController:vc animated:YES completion:nil] ;
     UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
     popVC.sourceView = fromView ;
     popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
+    popVC.xt_theme_backgroundColor = k_md_bgColor ;
+
 }
 
 - (void)viewDidLoad {
@@ -251,6 +253,12 @@
        });
     }
     return _sectionSelectedUnderLine;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews] ;
+    
+    self.sectionSelectedUnderLine.width = self.view.width / 9 - 20 ;
 }
 
 @end
