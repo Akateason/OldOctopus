@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lb1;
 @property (weak, nonatomic) IBOutlet UILabel *lb2;
 @property (weak, nonatomic) IBOutlet UILabel *btStart;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightRate;
 
 @property (nonatomic) int viewType ;
 + (instancetype)getMeWithType:(int)type ;

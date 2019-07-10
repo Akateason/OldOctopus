@@ -16,7 +16,7 @@
 #import "OctWebEditor.h"
 #import "OctGuidingVC.h"
 #import "MDNavVC.h"
-
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface AppDelegate ()
 
@@ -74,6 +74,7 @@
 
 static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [MBProgressHUD hideHUDForView:self.window.rootViewController.view animated:YES] ;
     
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self.window.rootViewController] ;
 
@@ -90,7 +91,8 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
     else {
         [self setupRootWIndow] ;
     }
-        
+    
+    
 }
 
 - (void)setupRootWIndow {

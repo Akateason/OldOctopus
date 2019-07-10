@@ -374,7 +374,7 @@ NSString *const kNotificationImportFileIn = @"kNotificationImportFileIn" ;
 
 - (void)setupHudStyle {
     [SVProgressHUD setDefaultStyle:(SVProgressHUDStyleDark)];
-    [SVProgressHUD setAnimationDuration:1] ;
+    [SVProgressHUD setAnimationDuration:1] ;    
 }
 
 @end

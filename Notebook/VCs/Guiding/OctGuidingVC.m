@@ -32,8 +32,9 @@
     if ([currentVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending) return nil ;
     
     XT_USERDEFAULT_SET_VAL(currentVersion, kKey_markForGuidingDisplay) ;
-    NSDictionary *option = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:10] forKey:UIPageViewControllerOptionInterPageSpacingKey] ;
+    NSDictionary *option = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:0] forKey:UIPageViewControllerOptionInterPageSpacingKey] ;
     OctGuidingVC *pageVC = [[OctGuidingVC alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:option] ;
+    pageVC.view.xt_theme_backgroundColor = k_md_bgColor ;
     return pageVC ;
 }
 
@@ -64,7 +65,6 @@
         make.bottom.equalTo(self.view).offset(-10) ;
         make.centerX.equalTo(self.view) ;
     }] ;
-
 }
 
 - (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {

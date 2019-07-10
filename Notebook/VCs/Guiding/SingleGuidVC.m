@@ -32,6 +32,9 @@
     self.lb2.textColor = [[MDThemeConfiguration sharedInstance] themeColor:XT_MAKE_theme_color(k_md_textColor, .5)] ;
     self.view.xt_theme_backgroundColor = k_md_bgColor ;
     
+//    if (!IS_IPAD) {
+//        self.heightRate.constant = 1. / 2. ;
+//    }
     
     if (self.viewType == 1) {
         _img.image = [UIImage imageNamed:@"guiding_img_1"] ;
@@ -68,18 +71,7 @@
         }] ;
 
     }
-    
-    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
