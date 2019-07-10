@@ -18,11 +18,13 @@
 #import "SettingSave.h"
 #import "MarkdownVC.h"
 #import "HiddenUtil.h"
-#import <SafariServices/SafariServices.h>
+#import "OctShareCopyLinkView.h"
+
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
     CGPoint _contentOffsetBeforeScroll ;
+    NSString *_currentLinkUrl ;
 }
 @property (strong, nonatomic) RACSubject *editorCrashSignal ;
 
@@ -56,7 +58,7 @@ XT_SINGLETON_M(OctWebEditor)
     @weakify(self)
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.02] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon || [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
         
         NSDictionary *info = [x userInfo] ;
         // CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
@@ -202,7 +204,13 @@ XT_SINGLETON_M(OctWebEditor)
     }
     else if ([func isEqualToString:@"editorLink"]) {
         NSString *linkUrl = ret[@"params"] ;
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkUrl]] ;
+        _currentLinkUrl = linkUrl ;
+        if (linkUrl.length) {
+            [self addMenu] ;
+        }
+        else {
+            [self removeMenu] ;
+        }
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -353,6 +361,7 @@ static const float kOctEditorToolBarHeight = 41. ;
         
         [self removeInputAccessoryViewFromWKWebView:webView] ;
         [self hookWKContentViewFuncCanPerformAction] ;
+        
         
         [self.toolBar setNeedsLayout] ;
         [self.toolBar layoutIfNeeded] ;
@@ -551,6 +560,21 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 #pragma mark - MENU controller
+
+- (void)addMenu {
+    UIMenuController *menu = [UIMenuController sharedMenuController];
+    menu.menuItems = @[[[UIMenuItem alloc] initWithTitle:@"跳转" action:@selector(jumpLink:)]] ;
+}
+
+- (void)removeMenu {
+    UIMenuController *menu = [UIMenuController sharedMenuController];
+    menu.menuItems = nil ;
+    [self hookWKContentViewFuncCanPerformAction] ;
+}
+
+- (void)jumpLink:(UIMenuController *)menu {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_currentLinkUrl]];
+}
 
 //监听事情需要对应的方法 冒号之后传入的是UIMenuController
 //- (void)cut:(UIMenuController *)menu {

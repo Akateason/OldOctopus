@@ -24,6 +24,7 @@ typedef void(^OctCompletion)(BOOL ok);
 + (void)showOnView:(UIView *)onView
               link:(NSString *)link
           complete:(OctCompletion)completeBlk  ;
+
 @end
 
 NS_ASSUME_NONNULL_END

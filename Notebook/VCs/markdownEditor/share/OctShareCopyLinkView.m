@@ -27,6 +27,7 @@
     share.completion = completeBlk ;
 }
 
+
 - (IBAction)cancelAction:(id)sender {
     self.completion(NO) ;
     [self removeFromSuperview] ;
@@ -50,20 +51,11 @@
     
     self.btConfirm.xt_cornerRadius = self.btCancel.xt_cornerRadius = 8 ;
     self.btConfirm.xt_borderColor = self.btCancel.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .2) ;
-    self.btConfirm.xt_borderWidth = self.btCancel.xt_borderWidth = 1 ;
-    
-//    self.btConfirm.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.12].CGColor;
-//    self.btConfirm.layer.shadowOffset = CGSizeMake(0,4) ;
-//    self.btConfirm.layer.shadowOpacity = 8 ;
-//    self.btConfirm.layer.shadowRadius = 0 ;
+    self.btConfirm.xt_borderWidth = self.btCancel.xt_borderWidth = 1 ;            
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
+
+
 
 @end

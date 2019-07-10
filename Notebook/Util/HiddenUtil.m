@@ -27,9 +27,9 @@
     inviroment = @"product环境" ;
 #endif
     
+    NSString *editorState = XT_STR_FORMAT(@"编辑器 : %@", [self getEditorLoadWay]?@"线上":@"本地") ;
     
-    
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@) - %@",versionNum,buildNum,inviroment) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅",@"编辑器加载本地or线上"] callBackBlock:^(NSInteger btnIndex) {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@) - %@ - %@",versionNum,buildNum,inviroment,editorState) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅",@"编辑器加载本地or线上"] callBackBlock:^(NSInteger btnIndex) {
         
         if (btnIndex == 1) {
             [self clearLocal] ;
