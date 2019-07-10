@@ -23,8 +23,9 @@
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
-    CGPoint _contentOffsetBeforeScroll ;
-    NSString *_currentLinkUrl ;
+    CGPoint             _contentOffsetBeforeScroll ;
+    NSString            *_currentLinkUrl ;
+    BOOL                _isFirstTimeLoad ;
 }
 @property (strong, nonatomic) RACSubject *editorCrashSignal ;
 
@@ -39,6 +40,8 @@ XT_SINGLETON_M(OctWebEditor)
 #pragma mark - life
 
 - (void)setup {
+    _isFirstTimeLoad = YES ;
+    
     self.xt_theme_backgroundColor = k_md_bgColor ;
     self.webView.xt_theme_backgroundColor = k_md_bgColor ;
     
@@ -249,8 +252,13 @@ XT_SINGLETON_M(OctWebEditor)
     
     [self nativeCallJSWithFunc:@"setEditorScrollOffset" json:@"0" completion:^(NSString *val, NSError *error) {}] ;
     
-    if (!self.aNote) {
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) [self openKeyboard] ;
+    if (_isFirstTimeLoad) {
+        _isFirstTimeLoad = NO ;
+    }
+    else {
+        if (!self.aNote) {
+            [self openKeyboard] ;
+        }
     }
 }
 
