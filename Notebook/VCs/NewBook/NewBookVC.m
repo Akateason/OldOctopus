@@ -94,6 +94,7 @@
 
     WEAK_SELF
     [self.lbEmoji bk_whenTapped:^{
+        [weakSelf.tfName resignFirstResponder] ;
         [EmojiChooseVC showMeFrom:weakSelf fromView:weakSelf.lbEmoji] ;
     }] ;
     
