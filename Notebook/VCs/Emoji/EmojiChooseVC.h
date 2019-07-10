@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol EmojiChooseVCDelegate <NSObject>
 - (void)selectedEmoji:(EmojiJson *)emoji ;
-- (void)viewDismiss ;
 @end
 
 @interface EmojiChooseVC : BasicVC

@@ -24,24 +24,17 @@
 
 @implementation EmojiChooseVC
 
-//static int kTag_Emoji_Section = 788730 ;
-
-+ (instancetype)getMe {
-    EmojiChooseVC *vc = [EmojiChooseVC getCtrllerFromStory:@"Main" controllerIdentifier:@"EmojiChooseVC"] ;
-    return vc ;
-}
-
 + (void)showMeFrom:(UIViewController *)contentController
           fromView:(UIView *)fromView {
     
     EmojiChooseVC *vc = [EmojiChooseVC getCtrllerFromStory:@"Main" controllerIdentifier:@"EmojiChooseVC"] ;
     vc.delegate = fromView.xt_viewController ;
+    
+    [contentController presentViewController:vc animated:YES completion:nil] ;
     vc.modalPresentationStyle = UIModalPresentationPopover ;
     UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
     popVC.sourceView = fromView ;
     popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
-    [contentController presentViewController:vc animated:YES completion:^{}] ;
-//    [contentController presentViewController:vc animated:YES completion:^{}] ;
 }
 
 - (void)viewDidLoad {
@@ -58,7 +51,6 @@
     WEAK_SELF
     [self.btClose bk_addEventHandler:^(id sender) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
-        [weakSelf.delegate viewDismiss] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     
@@ -232,7 +224,6 @@
         }
     }
     
-    [self.delegate viewDismiss] ;
     [self.delegate selectedEmoji:resultEmoji] ;
     
     [[EmojiJsonManager sharedInstance] iUseEmoji:resultEmoji] ;

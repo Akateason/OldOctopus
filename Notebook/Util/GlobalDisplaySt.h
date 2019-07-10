@@ -22,6 +22,8 @@ XT_SINGLETON_H(GlobalDisplaySt)
 @property (nonatomic) int gdst_level_for_horizon ; // 三排下的抽屉级数, -1最外(编辑器),0(列表和编辑器),1(书本,列表,编辑器)
 @property (nonatomic) CGSize containerSize ;
 - (void)correctCurrentCondition:(UIViewController *)ctrller ;
+
+@property (nonatomic) BOOL isInNewBookVC ;
 @end
 
 NS_ASSUME_NONNULL_END
