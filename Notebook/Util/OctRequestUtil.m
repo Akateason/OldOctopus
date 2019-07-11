@@ -15,9 +15,9 @@
 + (NSString *)requestLinkWithNail:(NSString *)urlNail {
     NSString *head ;
 #ifdef DEBUG
-    head = @"https://shimodev.com/octopus-api/files?" ;
+    head = @"https://shimodev.com/octopus-api/" ;
 #else
-    head = @"https://shimo.im/octopus-api/files?" ;
+    head = @"https://shimo.im/octopus-api/" ;
 #endif
     return [head stringByAppendingString:urlNail] ;
 }
@@ -26,7 +26,7 @@
                 complete:(void (^)(NSString *urlString))completion {
     
     NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding] ;
-    NSString *url = [self requestLinkWithNail:@"uploadType=html"] ;
+    NSString *url = [self requestLinkWithNail:@"files?uploadType=html"] ;
 //    @"https://shimo.im/octopus-api/files?uploadType=html" ;
 
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
@@ -49,14 +49,12 @@
     }] ;
 }
 
-
-
 + (void)uploadImage:(UIImage *)image
            progress:(nullable void (^)(float progress))progressValueBlock
            complete:(void (^)(NSString *urlString))completion {
     
 //    NSString *url = @"https://shimo.im/octopus-api/files?uploadType=media" ;
-    NSString *url = [self requestLinkWithNail:@"uploadType=media"] ;
+    NSString *url = [self requestLinkWithNail:@"files?uploadType=media"] ;
     NSData *data = UIImageJPEGRepresentation(image, 1) ;
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
     NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
@@ -90,6 +88,28 @@
     return @"https://octopus.smcdn.cn/" ;
 #endif
 }
+
+
+/**
+ 验证码 校验
+
+ @param code          测试码  octopus_test_code
+ @param completion
+ return {count = 0;}
+ */
++ (void)verifyCode:(NSString *)code
+        completion:(void(^)(bool success))completion {
+    
+    NSString *device = IS_IPAD ? @"ipados" : @"ios" ;
+    NSString *url = [self requestLinkWithNail:XT_STR_FORMAT(@"codes/verify/%@?device=%@",code,device)] ;
+    
+    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:nil parameters:nil rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
+        completion(YES) ;
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completion(NO) ;
+    }] ;
+}
+
 
 
 @end

@@ -35,6 +35,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    if (IS_IPAD) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES] ;
+    }
+    
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
     [self.launchingEvents setup:application appdelegate:self] ;
 
@@ -91,8 +95,6 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
     else {
         [self setupRootWIndow] ;
     }
-    
-    
 }
 
 - (void)setupRootWIndow {

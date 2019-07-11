@@ -32,7 +32,7 @@ XT_SINGLETON_M(GlobalDisplaySt)
     
     NSLog(@"gdst_level_for_horizon %d",gdst_level_for_horizon) ;
     
-    [[UIApplication sharedApplication] setStatusBarHidden:gdst_level_for_horizon == 1] ;
+//    [[UIApplication sharedApplication] setStatusBarHidden:gdst_level_for_horizon == 1] ;
 }
 
 @end

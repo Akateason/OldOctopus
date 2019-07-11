@@ -143,14 +143,6 @@ XT_SINGLETON_M(XTCloudHandler)
         
         GuidingICloud *guid = [GuidingICloud show] ;
         
-        
-//        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"请打开iCloud权限" message:@"1.请登录iPhone的账户,请前往设置-用户-登录账户\n2.打开iCloud权限, 请前往设置-用户-iCloud-iCloud云盘" cancelButtonTitle:nil destructiveButtonTitle:@"好" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
-//
-//            NSURL *url = [NSURL URLWithString:@"App-Prefs:root=CASTLE"];
-//            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-//
-//            // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:nil completionHandler:nil] ;
-//        }] ;
     }) ;
 }
 

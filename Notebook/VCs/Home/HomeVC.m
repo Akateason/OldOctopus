@@ -35,7 +35,7 @@
 #import "GlobalDisplaySt.h"
 #import "SettingSave.h"
 #import "SearchEmptyVC.h"
-
+#import "UserTestCodeVC.h"
 
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
@@ -150,6 +150,9 @@
              [events icloudSync:^{}] ;
          }
      }] ;
+    
+    // 内测验证码
+    [UserTestCodeVC getMeFrom:self.slidingController] ;
 }
 
 - (void)renderTable:(void(^)(void))completion {
