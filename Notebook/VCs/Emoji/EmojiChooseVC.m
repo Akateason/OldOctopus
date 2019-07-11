@@ -42,6 +42,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
+    
+    
+    
     NSMutableArray *tmpCate = [@[@"最近使用"] mutableCopy] ;
     [tmpCate addObjectsFromArray:[EmojiJsonManager sharedInstance].arrayCategory] ;
     self.dataCate = tmpCate ;
@@ -54,9 +57,6 @@
     [self.btClose bk_addEventHandler:^(id sender) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
-    
-    
-    
     
     [self.lbHistory bk_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0] ;
@@ -136,9 +136,16 @@
 - (void)prepareUI {
     self.view.xt_theme_backgroundColor = k_md_bgColor ;
     self.topBar.xt_theme_backgroundColor = k_md_bgColor ;
-    self.searchBarBg.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .06) ;
-    self.collectionView.xt_theme_backgroundColor = k_md_bgColor ;
+    self.searchBarBg.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
+    self.lbTitle.xt_theme_textColor = k_md_textColor ;
+    self.tfSearch.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
+    self.tfSearch.xt_theme_textColor = k_md_textColor ;
+    UIColor *color = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .5) ;
+    [self.tfSearch setValue:color forKeyPath:@"_placeholderLabel.textColor"] ;
     
+    [self.btClose xt_enlargeButtonsTouchArea] ;
+    
+    self.collectionView.xt_theme_backgroundColor = k_md_bgColor ;
     [self.collectionView registerNib:[UINib nibWithNibName:@"EmojiCollectHeader" bundle:[NSBundle mainBundle]] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"EmojiCollectHeader"] ;
     [EmojiCell xt_registerNibFromCollection:self.collectionView] ;
     self.collectionView.dataSource = (id<UICollectionViewDataSource> )self ;
@@ -163,7 +170,7 @@
         }
         return [self.datasource[self.dataCate[section]] count] ;
     }
-    return 0;
+    return 0 ;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -185,6 +192,7 @@
 }
 
 // UICollectionViewFlowLayout
+
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
            viewForSupplementaryElementOfKind:(NSString *)kind
                                  atIndexPath:(NSIndexPath *)indexPath {

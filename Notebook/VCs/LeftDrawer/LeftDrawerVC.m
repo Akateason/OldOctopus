@@ -88,14 +88,14 @@ typedef void(^BlkTapBookCell)(void);
     self.lbTrash.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.imgTrash.xt_theme_imageColor = k_md_iconColor ;
     
-    self.bottomArea.userInteractionEnabled = YES ;
-    @weakify(self)
-    [self.bottomArea bk_whenTapped:^{
-        @strongify(self)
-        [self setCurrentBook:self.bookTrash] ;
-        self.blkBookChanged(self.bookTrash) ;
-        self.blkTapped() ;
-    }] ;
+//    self.bottomArea.userInteractionEnabled = YES ;
+//    @weakify(self)
+//    [self.bottomArea bk_whenTapped:^{
+//        @strongify(self)
+////        [self setCurrentBook:self.bookTrash] ;
+////        self.blkBookChanged(self.bookTrash) ;
+////        self.blkTapped() ;
+//    }] ;
     
     // 清数据 暗开关
     [self.bottomArea bk_whenTouches:2 tapped:7 handler:^{
@@ -285,7 +285,7 @@ typedef void(^BlkTapBookCell)(void);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 239. ;
+    return 287. ;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -349,7 +349,6 @@ typedef void(^BlkTapBookCell)(void);
         }
     }
 }
-
 
 - (void)editBook:(NoteBooks *)book {
     __block NoteBooks *aBook = book ;

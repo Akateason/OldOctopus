@@ -274,19 +274,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F70-cj-TbX">
                                 <rect key="frame" x="0.0" y="605" width="375" height="62"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ld_bt_trash.png" translatesAutoresizingMaskIntoConstraints="NO" id="p3R-oz-fOe">
-                                        <rect key="frame" x="24" y="19" width="24" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="HXu-yt-05k"/>
-                                            <constraint firstAttribute="width" constant="24" id="bt9-G3-Xgw"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="垃圾桶 (0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2V7-Gu-ayp">
-                                        <rect key="frame" x="69" y="20.5" width="83.5" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9O-94-jlJ">
                                         <rect key="frame" x="330" y="19" width="24" height="24"/>
                                         <constraints>
@@ -298,13 +285,9 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="p3R-oz-fOe" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="DOK-X6-MxJ"/>
                                     <constraint firstAttribute="height" constant="62" id="HnF-9s-Lyy"/>
-                                    <constraint firstItem="p3R-oz-fOe" firstAttribute="leading" secondItem="F70-cj-TbX" secondAttribute="leading" constant="24" id="Ita-QY-2mR"/>
-                                    <constraint firstItem="2V7-Gu-ayp" firstAttribute="leading" secondItem="p3R-oz-fOe" secondAttribute="trailing" constant="21" id="Vf8-zY-0Ak"/>
                                     <constraint firstAttribute="trailing" secondItem="s9O-94-jlJ" secondAttribute="trailing" constant="21" id="bUr-ez-oTK"/>
                                     <constraint firstItem="s9O-94-jlJ" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="jmE-N5-CHx"/>
-                                    <constraint firstItem="2V7-Gu-ayp" firstAttribute="centerY" secondItem="F70-cj-TbX" secondAttribute="centerY" id="ufT-Ly-pIr"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p5O-A2-KpC">
@@ -328,8 +311,6 @@
                     <connections>
                         <outlet property="bottomArea" destination="F70-cj-TbX" id="f5e-kl-ti7"/>
                         <outlet property="btSetting" destination="s9O-94-jlJ" id="F69-9E-aLA"/>
-                        <outlet property="imgTrash" destination="p3R-oz-fOe" id="j0u-8k-ltO"/>
-                        <outlet property="lbTrash" destination="2V7-Gu-ayp" id="4rY-SA-nEg"/>
                         <outlet property="table" destination="p5O-A2-KpC" id="oZ2-gm-Ydh"/>
                         <outlet property="top_table" destination="0ep-kn-Fln" id="1sI-Z8-Um2"/>
                     </connections>
@@ -1372,7 +1353,6 @@
         <image name="editor_share.png" width="46" height="46"/>
         <image name="home_bar_add.png" width="40" height="40"/>
         <image name="home_top_icon.png" width="48" height="48"/>
-        <image name="ld_bt_trash.png" width="48" height="48"/>
         <image name="m_note_close.png" width="40" height="40"/>
         <image name="m_note_right_paint.png" width="88" height="158"/>
         <image name="md_ed_more.png" width="40" height="40"/>

@@ -79,11 +79,11 @@
 - (void)setupUser {
     XTIcloudUser *user = [XTIcloudUser userInCacheSyncGet] ;
     self.lbHead.text = [user.givenName substringToIndex:1] ;
-    self.lbName.text = user.givenName ; //user.name ;
+    self.lbName.text = user.givenName ; // user.name ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4 ;
+    return 5 ;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

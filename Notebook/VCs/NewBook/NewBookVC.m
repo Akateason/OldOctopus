@@ -65,6 +65,7 @@
     
 //    self.view.backgroundColor = nil ;
 //    [self.view oct_addBlurBg] ;
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
     
     [self.tfName becomeFirstResponder] ;
     
