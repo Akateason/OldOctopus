@@ -89,7 +89,7 @@ typedef void(^BlkTapBookCell)(void);
     self.imgTrash.xt_theme_imageColor = k_md_iconColor ;
     
 //    self.bottomArea.userInteractionEnabled = YES ;
-//    @weakify(self)
+    @weakify(self)
 //    [self.bottomArea bk_whenTapped:^{
 //        @strongify(self)
 ////        [self setCurrentBook:self.bookTrash] ;
