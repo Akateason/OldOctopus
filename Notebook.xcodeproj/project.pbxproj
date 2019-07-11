@@ -30,7 +30,6 @@
 		8F0BC9EB22D496C6002064CC /* EmojiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0BC9E922D496C6002064CC /* EmojiCell.xib */; };
 		8F0BC9EF22D49ADB002064CC /* EmojiCollectHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0BC9ED22D49ADB002064CC /* EmojiCollectHeader.m */; };
 		8F0BC9F022D49ADB002064CC /* EmojiCollectHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0BC9EE22D49ADB002064CC /* EmojiCollectHeader.xib */; };
-		8F0BC9F222D5B071002064CC /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F0BC9F122D5B071002064CC /* web.zip */; };
 		8F0C15DC2296833200E8837D /* GuidingICloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C15DB2296833200E8837D /* GuidingICloud.m */; };
 		8F0C15DE2296834600E8837D /* GuidingICloud.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C15DD2296834600E8837D /* GuidingICloud.xib */; };
 		8F0C15E1229684B200E8837D /* guid_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C15DF229684B200E8837D /* guid_close@2x.png */; };
@@ -99,6 +98,7 @@
 		8F5C7E4422A8FDB40032680D /* WebPhotoHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C7E4322A8FDB40032680D /* WebPhotoHandler.m */; };
 		8F5E27C022CDCC360012AB22 /* EmojiChooseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E27BF22CDCC360012AB22 /* EmojiChooseVC.m */; };
 		8F64AF1022D6E166003A5508 /* UserTestCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F64AF0F22D6E166003A5508 /* UserTestCodeVC.m */; };
+		8F64AF1222D73E66003A5508 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F64AF1122D73E63003A5508 /* web.zip */; };
 		8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F65DBCD221BECFC0067C321 /* AppDelegate.m */; };
 		8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD2221BECFC0067C321 /* Main.storyboard */; };
 		8F65DBD6221BECFE0067C321 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F65DBD5221BECFE0067C321 /* Assets.xcassets */; };
@@ -373,7 +373,6 @@
 		8F0BC9EC22D49ADB002064CC /* EmojiCollectHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmojiCollectHeader.h; sourceTree = "<group>"; };
 		8F0BC9ED22D49ADB002064CC /* EmojiCollectHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiCollectHeader.m; sourceTree = "<group>"; };
 		8F0BC9EE22D49ADB002064CC /* EmojiCollectHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmojiCollectHeader.xib; sourceTree = "<group>"; };
-		8F0BC9F122D5B071002064CC /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F0C15DA2296833200E8837D /* GuidingICloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuidingICloud.h; sourceTree = "<group>"; };
 		8F0C15DB2296833200E8837D /* GuidingICloud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuidingICloud.m; sourceTree = "<group>"; };
 		8F0C15DD2296834600E8837D /* GuidingICloud.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuidingICloud.xib; sourceTree = "<group>"; };
@@ -475,6 +474,7 @@
 		8F5E27BF22CDCC360012AB22 /* EmojiChooseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmojiChooseVC.m; sourceTree = "<group>"; };
 		8F64AF0E22D6E166003A5508 /* UserTestCodeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserTestCodeVC.h; sourceTree = "<group>"; };
 		8F64AF0F22D6E166003A5508 /* UserTestCodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserTestCodeVC.m; sourceTree = "<group>"; };
+		8F64AF1122D73E63003A5508 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F65DBC9221BECFC0067C321 /* Notebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F65DBCC221BECFC0067C321 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8F65DBCD221BECFC0067C321 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1038,7 +1038,7 @@
 				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8F0BC9F122D5B071002064CC /* web.zip */,
+				8F64AF1122D73E63003A5508 /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -1882,7 +1882,6 @@
 				8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */,
 				8F7B2ED522C61D0B000018DE /* sunshine.json in Resources */,
 				8F7A846B2244E1EB0099E905 /* md_tb_bt_h2@2x.png in Resources */,
-				8F0BC9F222D5B071002064CC /* web.zip in Resources */,
 				8FFAE137229D16A100CDAC47 /* ld_reply@2x.png in Resources */,
 				8F2A2673226EE98D0076EBA4 /* guiding_img_1@2x.png in Resources */,
 				8FFAE0F8229CDAF400CDAC47 /* prolog.plist in Resources */,
@@ -1916,6 +1915,7 @@
 				8FEA80DA22D0738500703272 /* OctShareCopyLinkView.xib in Resources */,
 				8F7A846F2244E1EB0099E905 /* md_tb_bt_sepline@2x.png in Resources */,
 				8FFAE0E8229CDAF400CDAC47 /* sql.plist in Resources */,
+				8F64AF1222D73E66003A5508 /* web.zip in Resources */,
 				8FFAE0F2229CDAF400CDAC47 /* logtalk.plist in Resources */,
 				8FD7993F22C362A100270C2C /* setting_skin@2x.png in Resources */,
 				8F6863C52266FB2700261626 /* search_empty@2x.png in Resources */,
