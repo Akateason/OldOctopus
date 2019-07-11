@@ -256,7 +256,12 @@ XT_SINGLETON_M(OctWebEditor)
         _isFirstTimeLoad = NO ;
     }
     else {
-        if (!self.aNote) {
+        if (!self.aNote &&
+            ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default ||
+             (
+              [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 &&
+              [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon
+              ) ) ) {
             [self openKeyboard] ;
         }
     }

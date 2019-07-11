@@ -24,6 +24,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "OctRequestUtil.h"
 #import "OctShareCopyLinkView.h"
+#import "OctMBPHud.h"
 
 
 @interface MarkdownVC () <WKScriptMessageHandler>
@@ -181,7 +182,7 @@
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Send_Share_Html object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         
-        [MBProgressHUD hideHUDForView:self.view animated:YES] ;
+        [[OctMBPHud sharedInstance] hide] ;
         
         @weakify(self)
         NSString *html = x.object ;
@@ -328,11 +329,11 @@
 }
 
 #define XT_HIDE_HUD        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
-[MBProgressHUD hideHUDForView:self.view.window animated:YES] ;\
+[[OctMBPHud sharedInstance] hide] ;\
 });\
 
 #define XT_HIDE_HUD_RETURN  {dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
-[MBProgressHUD hideHUDForView:self.view.window animated:YES] ;\
+[[OctMBPHud sharedInstance] hide] ;\
 });\
 return;}
 
@@ -347,7 +348,7 @@ return;}
         return ;
     }
     
-    [MBProgressHUD showHUDAddedTo:self.view.window animated:YES] ;
+    [[OctMBPHud sharedInstance] show] ;
     
     @weakify(self)
     [self.editor getMarkdown:^(NSString *markdown) {
@@ -572,7 +573,7 @@ return;}
 }
 
 - (IBAction)shareAction:(id)sender {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES] ;
+    [[OctMBPHud sharedInstance] show] ;
     [self.editor getShareHtml] ;
 }
 
