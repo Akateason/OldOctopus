@@ -58,6 +58,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib] ;
+    _tfLineCount.placeholder = @"2" ;
+    _tfColumnCount.placeholder = @"3" ;
 }
 
 

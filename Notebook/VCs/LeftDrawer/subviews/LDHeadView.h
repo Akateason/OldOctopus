@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setupUser ;
 @property (strong, nonatomic) NoteBooks *bookRecent ;
 @property (strong, nonatomic) NoteBooks *bookStaging ;
+@property (strong, nonatomic) NoteBooks *bookTrash ;
 @property (strong, nonatomic) NoteBooks *addBook ;
 @end
 

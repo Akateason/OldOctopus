@@ -95,9 +95,12 @@
         [cell xt_configure:self.bookStaging indexPath:indexPath] ;
     }
     else if (indexPath.row == 2) {
-        return [LDSepLineCell xt_fetchFromTable:tableView] ;
+        [cell xt_configure:self.bookTrash indexPath:indexPath] ;
     }
     else if (indexPath.row == 3) {
+        return [LDSepLineCell xt_fetchFromTable:tableView] ;
+    }
+    else if (indexPath.row == 4) {
         [cell xt_configure:self.addBook indexPath:indexPath] ;
     }
     return cell ;
@@ -115,7 +118,10 @@
     else if (indexPath.row == 1) {
         [self.ld_delegate LDHeadDidSelectedOneBook:self.bookStaging] ;
     }
-    else if (indexPath.row == 3) {
+    else if (indexPath.row == 2) {
+        [self.ld_delegate LDHeadDidSelectedOneBook:self.bookTrash] ;
+    }
+    else if (indexPath.row == 4) {
         [self.ld_delegate LDHeadDidSelectedOneBook:self.addBook] ;
     }
     
