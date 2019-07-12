@@ -101,7 +101,7 @@
         completion:(void(^)(bool success))completion {
     
     NSString *device = IS_IPAD ? @"ipados" : @"ios" ;
-    NSString *url = [self requestLinkWithNail:XT_STR_FORMAT(@"codes/verify/%@?device=%@",code,device)] ;
+    NSString *url = [self requestLinkWithNail:XT_STR_FORMAT(@"codes/verify/%@?system=%@",code,device)] ;
     
     [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:nil parameters:nil rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
         completion(YES) ;

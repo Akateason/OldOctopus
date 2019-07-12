@@ -151,8 +151,11 @@
          }
      }] ;
     
-    // 内测验证码
-    [UserTestCodeVC getMeFrom:self.slidingController] ;
+    [[[self rac_signalForSelector:@selector(viewDidAppear:)] throttle:1] subscribeNext:^(RACTuple * _Nullable x) {
+        @strongify(self)
+        // 内测验证码
+        [UserTestCodeVC getMeFrom:self.slidingController] ;
+    }] ;
 }
 
 - (void)renderTable:(void(^)(void))completion {
@@ -325,10 +328,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
 }
-
-//- (void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear:animated] ;
-//}
 
 #pragma mark - table
 

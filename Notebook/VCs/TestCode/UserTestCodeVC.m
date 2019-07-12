@@ -36,17 +36,20 @@ static NSString *k_UD_Inner_Test_Done = @"k_UD_Inner_Test_Done" ;
     WEAK_SELF
     [self.btGoNow bk_addEventHandler:^(id sender) {
         
-        NSString *testCode ;
-#ifdef DEBUG
-        testCode = @"octopus_test_code" ;
-#else
-        testCode = self.tfCode.text ;
-#endif
+        NSString *testCode = self.tfCode.text ;
+//#ifdef DEBUG
+//        testCode = @"octopus_test_code" ;
+//#else
+//        testCode = self.tfCode.text ;
+//#endif
         
         [OctRequestUtil verifyCode:testCode completion:^(bool success) {
             if (success) {
                 XT_USERDEFAULT_SET_VAL(@1, k_UD_Inner_Test_Done) ;
                 [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:@"验证码错误~~"] ;
             }
         }] ;
         

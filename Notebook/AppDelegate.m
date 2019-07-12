@@ -17,6 +17,7 @@
 #import "OctGuidingVC.h"
 #import "MDNavVC.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "OctMBPHud.h"
 
 @interface AppDelegate ()
 
@@ -78,7 +79,8 @@
 
 static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [MBProgressHUD hideHUDForView:self.window.rootViewController.view animated:YES] ;
+    [[OctMBPHud sharedInstance] hide] ;
+    
     
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self.window.rootViewController] ;
 
