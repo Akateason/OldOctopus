@@ -34,7 +34,7 @@
         make.height.equalTo(@200) ;
         make.bottom.equalTo(window.mas_bottom).offset(- keyboardHeight) ;
     }] ;
-
+    
     [creator.tfLineCount becomeFirstResponder] ;
     
     @weakify(creator)
@@ -44,7 +44,6 @@
         [hud removeFromSuperview] ;
         blk(isConfirm,line,column) ;
     } ;
-
 }
 
 - (IBAction)okAction:(id)sender {
@@ -55,12 +54,11 @@
     self.blk(NO, nil, nil) ;
 }
 
-
 - (void)awakeFromNib {
     [super awakeFromNib] ;
+    
     _tfLineCount.placeholder = @"2" ;
     _tfColumnCount.placeholder = @"3" ;
 }
-
 
 @end

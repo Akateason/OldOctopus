@@ -214,6 +214,7 @@ typedef void(^BlkTapBookCell)(void);
     self.addBook.isOnSelect = NO ; // abook.vType == Notebook_Type_add ;
     self.bookRecent.isOnSelect = abook.vType == Notebook_Type_recent ;
     self.bookStaging.isOnSelect = abook.vType == Notebook_Type_staging ;
+    self.bookTrash.isOnSelect = abook.vType == Notebook_Type_trash ;
     
     if (abook.vType == Notebook_Type_add) {
         [self addbook] ;
@@ -280,12 +281,13 @@ typedef void(^BlkTapBookCell)(void);
     headView.bookRecent = self.bookRecent ;
     headView.bookStaging = self.bookStaging ;
     headView.addBook = self.addBook ;
+    headView.bookTrash = self.bookTrash ;
     
     return headView ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 307. ;
+    return 297. ;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

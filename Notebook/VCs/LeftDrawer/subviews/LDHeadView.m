@@ -33,7 +33,7 @@
     self.table.estimatedRowHeight           = 0 ;
     self.table.estimatedSectionHeaderHeight = 0 ;
     self.table.estimatedSectionFooterHeight = 0 ;
-    self.table.xt_theme_backgroundColor = k_md_bgColor ;
+    self.table.xt_theme_backgroundColor = k_md_drawerColor ;
     [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     [LDSepLineCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     
@@ -107,7 +107,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 2) return 13. ;
+    if (indexPath.row == 3) return 13. ;
     return [LDNotebookCell xt_cellHeight] ;
 }
 

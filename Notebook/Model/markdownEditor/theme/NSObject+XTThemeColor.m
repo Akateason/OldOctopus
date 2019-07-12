@@ -93,6 +93,8 @@
 }
 
 - (void)registerXTThemeNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self] ;
+    
     @weakify(self)
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
        takeUntil:self.rac_willDeallocSignal]
