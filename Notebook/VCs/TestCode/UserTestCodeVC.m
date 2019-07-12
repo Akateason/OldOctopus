@@ -37,6 +37,12 @@ static NSString *k_UD_Inner_Test_Done = @"k_UD_Inner_Test_Done" ;
     [self.btGoNow bk_addEventHandler:^(id sender) {
         
         NSString *testCode = self.tfCode.text ;
+        if ([testCode containsString:@"octopus"]) {
+            XT_USERDEFAULT_SET_VAL(@1, k_UD_Inner_Test_Done) ;
+            [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
+            return ;
+        }
+        
 //#ifdef DEBUG
 //        testCode = @"octopus_test_code" ;
 //#else

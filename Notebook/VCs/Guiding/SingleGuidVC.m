@@ -28,13 +28,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    self.lb1.textColor = [[MDThemeConfiguration sharedInstance] themeColor:k_md_themeColor] ;
-    self.lb2.textColor = [[MDThemeConfiguration sharedInstance] themeColor:XT_MAKE_theme_color(k_md_textColor, .5)] ;
-    self.view.xt_theme_backgroundColor = k_md_bgColor ;
-    
-//    if (!IS_IPAD) {
-//        self.heightRate.constant = 1. / 2. ;
-//    }
+    self.lb1.textColor = UIColorHex(@"F55333") ;
+    self.lb2.textColor = UIColorHexA(@"181211", .5) ;
+    self.view.backgroundColor = [UIColor whiteColor] ;
     
     if (self.viewType == 1) {
         _img.image = [UIImage imageNamed:@"guiding_img_1"] ;

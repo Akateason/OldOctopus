@@ -40,6 +40,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
+    
+    self.fd_prefersNavigationBarHidden = YES ;
 
     SingleGuidVC *guid1 = [SingleGuidVC getMeWithType:1] ;
     SingleGuidVC *guid2 = [SingleGuidVC getMeWithType:2] ;
@@ -55,8 +57,8 @@
     _pageCtrl.frame = CGRectMake(0, APP_HEIGHT - 30 - 50, APP_WIDTH, 30);
     _pageCtrl.numberOfPages = 3 ;
     _pageCtrl.delegate = self ;
-    _pageCtrl.currentColor = [[MDThemeConfiguration sharedInstance] themeColor:k_md_themeColor] ;
-    _pageCtrl.otherColor = [[MDThemeConfiguration sharedInstance] themeColor:XT_MAKE_theme_color(k_md_textColor, .5)] ;
+    _pageCtrl.currentColor = UIColorHex(@"F55333") ;
+    _pageCtrl.otherColor = UIColorHexA(@"181211", .5) ;
     _pageCtrl.controlSize = 8 ;
     _pageCtrl.controlSpacing = 15 ;
     [self.view addSubview:_pageCtrl] ;

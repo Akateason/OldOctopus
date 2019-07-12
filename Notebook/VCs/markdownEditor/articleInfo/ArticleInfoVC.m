@@ -22,7 +22,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad] ;
     
 //    self.imgRight.hidden = YES ;
 //    self.btOutput.hidden = YES ;
@@ -52,6 +52,11 @@
     [self.view addGestureRecognizer:recognizer] ;
     
     [self bind] ;
+    
+    WEAK_SELF
+    [self.view bk_whenTapped:^{
+        [weakSelf close] ;
+    }] ;
 }
 
 - (void)setWebInfo:(WebModel *)webInfo {
@@ -72,7 +77,10 @@
 }
 
 - (void)handleSwipeFrom:(id)gesture {
-    
+    [self close] ;
+}
+
+- (void)close {
     [UIView animateWithDuration:.4 animations:^{
         self.bgView.left = APP_WIDTH ;
         self.view.alpha = 0.1 ;
