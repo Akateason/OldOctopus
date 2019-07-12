@@ -8,7 +8,6 @@
 
 #import "ArticleInfoVC.h"
 #import "XTMarkdownParser.h"
-#import "UIViewController+CWLateralSlide.h"
 #import "WebModel.h"
 
 @interface ArticleInfoVC ()

@@ -146,13 +146,15 @@ static const CGFloat slidingSpeed = 1500.0;
         [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = drawerOpened ? 1 : 0 ;
     }
     
+    
+    
     if (drawerOpened) {
-//        _topViewContainer.userInteractionEnabled = NO;
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) _topViewContainer.userInteractionEnabled = NO;
         tapGestureRecognizer.enabled = YES;
         [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidOpenNotification object:self];
     }
     else {
-//        _topViewContainer.userInteractionEnabled = YES;
+        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) _topViewContainer.userInteractionEnabled = YES;
         tapGestureRecognizer.enabled = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidCloseNotification object:self];
     }
@@ -224,7 +226,9 @@ static const CGFloat slidingSpeed = 1500.0;
         CGPoint translation = [panGestureRecognizer translationInView:self.view];
         BOOL directionIsHorizontal = (fabs(translation.x) > fabs(translation.y));
         BOOL directionIsToRight = translation.x > 0;
-        return directionIsHorizontal && (directionIsToRight || self.drawerOpened);
+        bool result = directionIsHorizontal && (directionIsToRight || self.drawerOpened) ;
+        NSLog(@"result : %d",result) ;
+        return result ;
     }
     else if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
         UITapGestureRecognizer *tapRecognizer = (UITapGestureRecognizer *)gestureRecognizer;
@@ -236,8 +240,9 @@ static const CGFloat slidingSpeed = 1500.0;
 - (void)panned:(UIPanGestureRecognizer *)recognizer {
     CGPoint offset = [recognizer translationInView:self.view] ;
     if (fabs(offset.y) > fabs(offset.x)) return ;
-    
+//    NSLog(@"fabs(offset") ;
     if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) return ;
+//    NSLog(@"gdst_level_for_horizon") ;
     
 //    CGPoint offset = [(UIPanGestureRecognizer *)recognizer translationInView:self.view] ;
     CGFloat velocity = [recognizer velocityInView:self.view].x;
@@ -252,8 +257,11 @@ static const CGFloat slidingSpeed = 1500.0;
         _topViewContainer.center = center;
     }
     
+    
+    NSLog(@"UIGesture state : %ld", (long)recognizer.state) ;
+    
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        
+
         CGFloat centerForEdge, centerForBounce;
         BOOL finalOpenState;
         if (velocity > 0) {

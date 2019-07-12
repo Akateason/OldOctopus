@@ -40,10 +40,6 @@ typedef void(^BlkTapBookCell)(void);
 @property (copy, nonatomic) BlkTapBookCell blkTapped ;
 @property (strong, nonatomic) UIView *btAdd ;
 
-@property (weak, nonatomic) IBOutlet UIView *bottomArea;
-@property (weak, nonatomic) IBOutlet UILabel *lbTrash;
-@property (weak, nonatomic) IBOutlet UIImageView *imgTrash;
-
 @property (strong, nonatomic) NoteBooks *bookTrash ;
 @property (strong, nonatomic) NoteBooks *bookRecent ;
 @property (strong, nonatomic) NoteBooks *bookStaging ;
@@ -83,22 +79,12 @@ typedef void(^BlkTapBookCell)(void);
     
     self.view.xt_theme_backgroundColor = k_md_drawerColor ;
     self.table.xt_theme_backgroundColor = k_md_drawerColor ;
-    self.bottomArea.xt_theme_backgroundColor = k_md_drawerColor ;
     
-    self.lbTrash.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
-    self.imgTrash.xt_theme_imageColor = k_md_iconColor ;
-    
-//    self.bottomArea.userInteractionEnabled = YES ;
+
+        
     @weakify(self)
-//    [self.bottomArea bk_whenTapped:^{
-//        @strongify(self)
-////        [self setCurrentBook:self.bookTrash] ;
-////        self.blkBookChanged(self.bookTrash) ;
-////        self.blkTapped() ;
-//    }] ;
-    
     // 清数据 暗开关
-    [self.bottomArea bk_whenTouches:2 tapped:7 handler:^{
+    [self.table bk_whenTouches:2 tapped:7 handler:^{
         [HiddenUtil showAlert] ;
     }] ;
     
@@ -112,14 +98,13 @@ typedef void(^BlkTapBookCell)(void);
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated] ;
     
-    self.lbTrash.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
+    [self.table reloadData] ;
 }
 
 #pragma mark -
 
 - (void)render {
-    self.bookTrash = [NoteBooks createOtherBookWithType:(Notebook_Type_trash)] ;
-    self.lbTrash.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
+    self.bookTrash = [NoteBooks createOtherBookWithType:(Notebook_Type_trash)] ;    
     
     bool lastRecentOnSelect = self.bookRecent.isOnSelect ;
     self.bookRecent = [NoteBooks createOtherBookWithType:Notebook_Type_recent] ;

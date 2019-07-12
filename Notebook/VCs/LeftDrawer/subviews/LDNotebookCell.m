@@ -10,6 +10,7 @@
 #import <XTlib/XTlib.h>
 #import "NoteBooks.h"
 #import "MDThemeConfiguration.h"
+#import "Note.h"
 
 @implementation LDNotebookCell
 
@@ -35,6 +36,10 @@
     [super xt_configure:book indexPath:indexPath] ;
     
     _lbName.text = book.name ;
+    if (book.vType == Notebook_Type_trash) {
+        _lbName.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
+    }
+    
     
     NBEmoji *emjObj = [NBEmoji yy_modelWithJSON:book.emoji] ;
     _lbEmoji.text = emjObj.native ;

@@ -73,7 +73,7 @@
     self.topBar.xt_theme_backgroundColor = k_md_bgColor ;
     self.btCancel.xt_theme_textColor = k_md_textColor ;
     self.btSave.xt_theme_textColor = k_md_themeColor ;
-    
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
 
 }
 

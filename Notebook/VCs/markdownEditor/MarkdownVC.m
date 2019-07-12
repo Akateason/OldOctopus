@@ -44,9 +44,7 @@
 @property (strong, nonatomic) OutputPreviewsNailView *nail ;
 @property (nonatomic)         float             snapDuration ;
 
-//@property (strong, nonatomic) UIActivityIndicatorView *activityView ;
 @property (nonatomic)         BOOL              isInTrash ;
-@property (nonatomic)         BOOL              isInMore ;
 @end
 
 @implementation MarkdownVC
@@ -321,7 +319,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated] ;
     
-    self.isInMore = NO ;
+//    self.isInMore = NO ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -340,7 +338,7 @@
 return;}
 
 - (void)leaveOut {
-    if (self.isInMore) return ;
+//    if (self.isInMore) return ;
     
     if ([GlobalDisplaySt sharedInstance].isInNewBookVC) {
         return ;
@@ -468,7 +466,7 @@ return;}
 - (IBAction)moreAction:(id)sender {
     if (!self.canBeEdited) return ;
     
-    self.isInMore = YES ;
+//    self.isInMore = YES ;
     
     [self.editor nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(NSString *val, NSError *error) {
     }] ;
@@ -499,12 +497,6 @@ return;}
     [self dismissViewControllerAnimated:YES completion:nil] ;
     
     [[OctMBPHud sharedInstance] show] ;
-    
-//    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] ;
-//    self.activityView.center = self.view.window.center ;
-//    [self.view.window addSubview:self.activityView] ;
-//    self.activityView.color = [UIColor darkGrayColor] ;
-//    [self.activityView startAnimating] ;
     
     self.editor.hidden = YES ;
     
@@ -575,7 +567,7 @@ return;}
                 imageView = nil ;
 
                 self.editor.hidden = NO ;
-//                [self.activityView stopAnimating] ;
+
                 [[OctMBPHud sharedInstance] hide] ;
                 
 

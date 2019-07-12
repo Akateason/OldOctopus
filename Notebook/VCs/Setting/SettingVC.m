@@ -63,6 +63,7 @@
     self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbAccountTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    self.lbIcon.xt_theme_backgroundColor = k_md_themeColor ;
     self.lbIcon.textColor = [UIColor whiteColor] ;
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     [SettingCell xt_registerNibFromTable:self.table] ;
