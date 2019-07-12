@@ -13,7 +13,6 @@
 #import "ArticleInfoVC.h"
 #import "OutputPreviewVC.h"
 #import "OutputPreviewsNailView.h"
-#import "UIViewController+CWLateralSlide.h"
 #import "OctWebEditor+OctToolbarUtil.h"
 #import <WebKit/WebKit.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
@@ -45,8 +44,9 @@
 @property (strong, nonatomic) OutputPreviewsNailView *nail ;
 @property (nonatomic)         float             snapDuration ;
 
-@property (strong, nonatomic) UIActivityIndicatorView *activityView ;
+//@property (strong, nonatomic) UIActivityIndicatorView *activityView ;
 @property (nonatomic)         BOOL              isInTrash ;
+@property (nonatomic)         BOOL              isInMore ;
 @end
 
 @implementation MarkdownVC
@@ -320,6 +320,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated] ;
+    
+    self.isInMore = NO ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -338,6 +340,8 @@
 return;}
 
 - (void)leaveOut {
+    if (self.isInMore) return ;
+    
     if ([GlobalDisplaySt sharedInstance].isInNewBookVC) {
         return ;
     }
@@ -464,35 +468,43 @@ return;}
 - (IBAction)moreAction:(id)sender {
     if (!self.canBeEdited) return ;
     
+    self.isInMore = YES ;
+    
     [self.editor nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(NSString *val, NSError *error) {
     }] ;
 
-    [self infoVC] ;
+    self.infoVC.view.alpha = 1 ;
+    [self.view.window addSubview:self.infoVC.view] ;
+    [self.infoVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view) ;
+    }] ;
+    
     self.infoVC.aNote = self.aNote ;
     self.infoVC.webInfo = self.editor.webInfo ;
     WEAK_SELF
     self.infoVC.blkDelete = ^{
-        [weakSelf.navigationController popViewControllerAnimated:YES] ;
+        [weakSelf.infoVC.view removeFromSuperview] ;
     } ;
     
     // 导出预览
     self.infoVC.blkOutput = ^{
         [weakSelf.editor hideKeyboard] ;
+        [weakSelf.infoVC.view removeFromSuperview] ;
+        
         [weakSelf.editor nativeCallJSWithFunc:@"getPureHtml" json:nil completion:^(NSString *val, NSError *error) {}] ;
     } ;
-    
-    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:[ArticleInfoVC movingDistance] maskAlpha:0.4 scaleY:1 direction:CWDrawerTransitionFromRight backImage:nil] ;
-    [self cw_showDrawerViewController:self.infoVC animationType:0 configuration:conf] ;
 }
 
 - (void)snapShotFullScreen:(NSString *)htmlString {
     [self dismissViewControllerAnimated:YES completion:nil] ;
     
-    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] ;
-    self.activityView.center = self.view.window.center ;
-    [self.view.window addSubview:self.activityView] ;
-    self.activityView.color = [UIColor darkGrayColor] ;
-    [self.activityView startAnimating] ;
+    [[OctMBPHud sharedInstance] show] ;
+    
+//    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] ;
+//    self.activityView.center = self.view.window.center ;
+//    [self.view.window addSubview:self.activityView] ;
+//    self.activityView.color = [UIColor darkGrayColor] ;
+//    [self.activityView startAnimating] ;
     
     self.editor.hidden = YES ;
     
@@ -528,43 +540,45 @@ return;}
         float textHeight = [ret[@"params"] floatValue] ;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.snapDuration = .2 + (float)textHeight / (float)APP_HEIGHT * .2 ;
+            self.snapDuration = .4 + (float)textHeight / (float)APP_HEIGHT * .35 ;
             self.webView.height = textHeight ;
             
             self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight) ;
-            [self.view setNeedsLayout] ;
-            [self.view layoutIfNeeded] ;
+            [self.webView setNeedsLayout] ;
+            [self.webView layoutIfNeeded] ;
             CGSize size = self.view.frame.size ;
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
+
                 UIGraphicsBeginImageContextWithOptions(size, true,  [UIScreen mainScreen].scale) ;
                 [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
                 UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
                 UIGraphicsEndImageContext() ;
-                
+            
                 [self.webView removeFromSuperview] ;
                 self.webView = nil ;
                 
                 UIImageView *imageView = [[UIImageView alloc] initWithImage:image] ;
                 [self.view addSubview:imageView] ;
                 imageView.height = textHeight ;
-                
+
                 self.nail = [OutputPreviewsNailView makeANail] ;
                 self.nail.top = textHeight ;
                 [self.view addSubview:self.nail] ;
                 self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
                 image = [UIImage getImageFromView:self.view] ;
-                
-                
+
+
                 [self.nail removeFromSuperview] ;
                 self.nail = nil ;
                 [imageView removeFromSuperview] ;
                 imageView = nil ;
-                
+
                 self.editor.hidden = NO ;
-                [self.activityView stopAnimating] ;
+//                [self.activityView stopAnimating] ;
+                [[OctMBPHud sharedInstance] hide] ;
                 
+
                 if (!image) return ;
                 [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
             }) ;

@@ -25,6 +25,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    self.imgRight.hidden = YES ;
+//    self.btOutput.hidden = YES ;
+    
+    
+    self.wid_rightPart.constant = [self.class movingDistance] ;
+    
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.3] ;
+    self.bgView.xt_theme_backgroundColor = k_md_bgColor ;
+    
     self.topHeight.constant = 55 + APP_STATUSBAR_HEIGHT ;
     
     for (UILabel *lb in self.lbCollectForKeys) {
@@ -38,13 +47,10 @@
     self.btDelete.xt_theme_textColor = k_md_themeColor ;
     
     self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
-    self.view.xt_theme_backgroundColor = k_md_bgColor ;
     
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)] ;
     [self.view addGestureRecognizer:recognizer] ;
-    
-    self.rightForRightCorner.constant = 0 ;
     
     [self bind] ;
 }
@@ -67,7 +73,14 @@
 }
 
 - (void)handleSwipeFrom:(id)gesture {
-    [self dismissViewControllerAnimated:YES completion:nil] ;
+    
+    [UIView animateWithDuration:.4 animations:^{
+        self.bgView.left = APP_WIDTH ;
+        self.view.alpha = 0.1 ;
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview] ;
+        self.bgView.left = APP_WIDTH - self.wid_rightPart.constant ;
+    }] ;
 }
 
 - (IBAction)btOutputAction:(id)sender {
@@ -88,6 +101,5 @@
         }
     }] ;
 }
-
 
 @end

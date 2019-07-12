@@ -27,10 +27,12 @@ typedef void(^BlkOutputOnClick)(void) ;
 
 @property (strong, nonatomic) WebModel *webInfo ;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wid_rightPart;
 
 @property (weak, nonatomic) IBOutlet UIView *topArea;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightForRightCorner;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *lbCollectForKeys;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *lvCollectionForVals;
