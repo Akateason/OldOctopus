@@ -222,7 +222,7 @@
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc] init] ;
-        scrollView.backgroundColor = [UIColor whiteColor] ;
+        scrollView.backgroundColor = UIColorHex(@"f9f6f6") ;
         _scrollView = scrollView ;
     }
     return _scrollView ;

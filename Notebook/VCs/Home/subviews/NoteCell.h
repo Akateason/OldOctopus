@@ -21,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy, nonatomic) NSString *textForSearching ;
 - (void)trashMode:(BOOL)isTrashmode ;
-- (void)setUserSelected:(BOOL)selected ;
+
+@property (nonatomic) BOOL userSelected ;
+//- (void)setUserSelected:(BOOL)selected ;
 @end
 
 NS_ASSUME_NONNULL_END

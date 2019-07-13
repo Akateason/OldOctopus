@@ -112,11 +112,25 @@ XT_SINGLETON_M(XTCloudHandler)
                     return ;
                 }
                 
-                if (!userInfo) {
-                    [self alertCallUserToIcloud] ;
+                if (!userInfo && !error) {
+//                    [self alertCallUserToIcloud] ;
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        blkUser(nil) ;
+//                    }) ;
+                    // 获取不到用户信息, 但不报错 !
+                    XTIcloudUser *user = [XTIcloudUser new] ;
+                    user.userRecordName = @"userNotLoginedICloud" ;
+                    user.familyName = @"" ;
+                    user.givenName = @"小章鱼用户" ;
+                    user.name = XT_STR_FORMAT(@"%@ %@",user.givenName,user.familyName) ;
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        blkUser(nil) ;
+                        blkUser(user) ;
                     }) ;
+                    
+                    if (user.name.length > 0 && user != nil) {
+                        [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
+                    }
+                    
                     return ;
                 }
                 

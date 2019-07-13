@@ -43,9 +43,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    
-    
-    
     NSMutableArray *tmpCate = [@[@"最近使用"] mutableCopy] ;
     [tmpCate addObjectsFromArray:[EmojiJsonManager sharedInstance].arrayCategory] ;
     self.dataCate = tmpCate ;

@@ -29,22 +29,19 @@
     _img_isTop.hidden = YES ;
 }
 
-//- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-//    [super setSelected:selected animated:animated];
-//
-//    [self setUserSelected:selected] ;
-//}
+- (void)setUserSelected:(BOOL)userSelected {
+    if (_userSelected == YES && userSelected == YES) return ; // 修复一直闪烁的问题
 
-
-- (void)setUserSelected:(BOOL)selected {
+    _userSelected = userSelected ;
+    
     if (IS_IPAD) {
-        self.area.xt_theme_backgroundColor =  selected ? XT_MAKE_theme_color(k_md_drawerSelectedColor, 1) : XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) ;
+        self.area.xt_theme_backgroundColor =  userSelected ? XT_MAKE_theme_color(k_md_drawerSelectedColor, 1) : XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) ;
     }
     else {
-        self.area.xt_theme_backgroundColor =  selected ? XT_MAKE_theme_color(k_md_textColor, 0.03) : k_md_bgColor ;
+        self.area.xt_theme_backgroundColor =  userSelected ? XT_MAKE_theme_color(k_md_textColor, 0.03) : k_md_bgColor ;
     }
     
-    if (!selected) return ;
+    if (!userSelected) return ;
     
     self.lbTitle.alpha = 0. ;
     [UIView animateWithDuration:0.2

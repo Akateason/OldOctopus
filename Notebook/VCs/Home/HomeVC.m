@@ -87,7 +87,7 @@
     @weakify(self)
     [self.leftVC currentBookChanged:^(NoteBooks *book) {
         @strongify(self)        
-        self.selectedNoteIcloudRecordID = nil ;
+        
         [self.table xt_loadNewInfoInBackGround:YES] ;
         self.btAdd.hidden = book.vType == Notebook_Type_trash ;
         self.btMore.hidden = book.vType == Notebook_Type_trash || book.vType == Notebook_Type_recent || book.vType == Notebook_Type_staging ;
@@ -110,6 +110,7 @@
       throttle:1.]
      subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
+         NSLog(@"go sync list") ;
         [self.leftVC render] ;
         [self.table xt_loadNewInfoInBackGround:YES] ;
          
