@@ -21,9 +21,14 @@
 
 - (void)hideKeyboard {
     [self nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(NSString *val, NSError *error) {
-        
+//        complete() ;
     }] ;
 }
+
+- (void)openKeyboard {
+    [self nativeCallJSWithFunc:@"openKeyboard" json:nil completion:^(NSString *val, NSError *error) {}] ;
+}
+
 
 - (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView  {
     @weakify(self)

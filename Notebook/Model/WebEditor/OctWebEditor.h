@@ -49,7 +49,6 @@ static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_
 - (void)changeTheme ;
 - (void)renderNote ;
 - (void)setSideFlex ;
-- (void)openKeyboard ;
 
 // initial
 - (void)setup ;

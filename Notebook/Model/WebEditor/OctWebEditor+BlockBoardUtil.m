@@ -9,6 +9,7 @@
 #import "OctWebEditor+BlockBoardUtil.h"
 #import "TableCreatorView.h"
 #import <XTlib/XTlib.h>
+#import "OctWebEditor+OctToolbarUtil.h"
 
 @implementation OctWebEditor (BlockBoardUtil)
 
@@ -71,7 +72,7 @@
     [TableCreatorView showOnView:self window:self.window keyboardHeight:self->keyboardHeight callback:^(BOOL isConfirm, NSString * _Nonnull line, NSString * _Nonnull column) {
         @strongify(self)
         if (!isConfirm) {
-            [self becomeFirstResponder] ;
+            [self openKeyboard] ;
             return ;
         }
         

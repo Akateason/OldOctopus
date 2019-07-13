@@ -116,19 +116,16 @@ XT_SINGLETON_M(OctWebEditor)
     }
 }
 
-- (void)openKeyboard {
-    [self nativeCallJSWithFunc:@"openKeyboard" json:nil completion:^(NSString *val, NSError *error) {}] ;
-}
 
 - (void)leavePage {
-    [self hideKeyboard] ;
-
     self.webViewHasSetMarkdown = NO ;
     self.firstTimeArticle = nil ;
     
     // 清空undo redo
     [self nativeCallJSWithFunc:@"clearUndoRedoHistory" json:nil completion:^(NSString *val, NSError *error) {
     }] ;
+    
+    [self hideKeyboard] ;
 }
 
 - (void)createWebView {

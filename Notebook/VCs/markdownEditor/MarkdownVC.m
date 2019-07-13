@@ -468,8 +468,7 @@ return;}
     
 //    self.isInMore = YES ;
     
-    [self.editor nativeCallJSWithFunc:@"hideKeyboard" json:nil completion:^(NSString *val, NSError *error) {
-    }] ;
+    [self.editor hideKeyboard] ;
 
     self.infoVC.view.alpha = 1 ;
     [self.view.window addSubview:self.infoVC.view] ;
@@ -579,6 +578,7 @@ return;}
 }
 
 - (IBAction)shareAction:(id)sender {
+    [self.editor hideKeyboard] ;
     [[OctMBPHud sharedInstance] show] ;
     [self.editor getShareHtml] ;
 }
