@@ -46,6 +46,8 @@ static NSString *const kNote_pad_Editor_PullBack = @"kNote_pad_Editor_PullBack" 
 
 - (void)leaveOut ;
 
++ (CGFloat)getEditorLeftIpad ;
+
 @end
 
 

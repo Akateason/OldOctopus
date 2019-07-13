@@ -257,7 +257,6 @@ static const CGFloat slidingSpeed = 1500.0;
         _topViewContainer.center = center;
     }
     
-    
     NSLog(@"UIGesture state : %ld", (long)recognizer.state) ;
     
     if (recognizer.state == UIGestureRecognizerStateEnded) {
@@ -284,30 +283,36 @@ static const CGFloat slidingSpeed = 1500.0;
             
             [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_topViewContainer.center = center;
+                [self moveIpadEditorSubViews:finalOpenState] ;
             } completion:^(BOOL finished) {
                 CGPoint center = self->_topViewContainer.center;
                 center.x = centerForEdge;
                 [UIView animateWithDuration:0.3 animations:^{
                     self->_topViewContainer.center = center;
+                    [self moveIpadEditorSubViews:finalOpenState] ;
                 } completion:^(BOOL finished) {
                     self.drawerOpened = finalOpenState;
                 }];
             }];
-        } else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
+        }
+        else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
             //finish the sliding with the current speed
             center.x = centerForEdge;
             
             [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_topViewContainer.center = center;
+                [self moveIpadEditorSubViews:finalOpenState] ;
             } completion:^(BOOL finished) {
                 self.drawerOpened = finalOpenState;
             }];
-        } else {
+        }
+        else {
             //finish the sliding wiht minimum speed
             CGFloat duration = distanceToTheEdge / slidingSpeed;
             center.x = centerForEdge;
             [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_topViewContainer.center = center;
+                [self moveIpadEditorSubViews:finalOpenState] ;
             } completion:^(BOOL finished) {
                 self.drawerOpened = finalOpenState;
             }];
@@ -316,10 +321,14 @@ static const CGFloat slidingSpeed = 1500.0;
 }
 
 - (void)tapped:(UITapGestureRecognizer *)tapGestureRecognizer {
-    [self toggleDrawer];
+    [self toggleDrawer] ;
 }
 
-
+- (void)moveIpadEditorSubViews:(BOOL)openState {
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) { // ipad
+        if (self.animateDelegate) [self.animateDelegate animateMoveState:openState] ;
+    }
+}
 
 
 

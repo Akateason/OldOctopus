@@ -49,6 +49,10 @@
 
 @implementation MarkdownVC
 
++ (CGFloat)getEditorLeftIpad {
+    return - [GlobalDisplaySt sharedInstance].containerSize.width / 4. + 65. ;
+}
+
 #pragma mark - Life
 
 + (instancetype)newWithNote:(Note *)note
@@ -75,7 +79,7 @@
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
     self.editor.aNote = note ?: [Note new] ;
-    self.editor.left = -[GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28 ;
+    self.editor.left = [self.class getEditorLeftIpad] ;
     self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
     [self.editor.toolBar reset] ;
 }
@@ -94,7 +98,6 @@
         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) [self.editor openKeyboard] ;
     }
     
-//    self.fd_interactivePopDisabled = YES ;
     
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -156,7 +159,7 @@
             self.editor.left = 0. ;
         }
         else {
-            self.editor.left = -[GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28 ;
+            self.editor.left = [self.class getEditorLeftIpad] ;
         }
     }] ;
     
@@ -319,7 +322,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated] ;
     
-//    self.isInMore = NO ;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -338,7 +340,6 @@
 return;}
 
 - (void)leaveOut {
-//    if (self.isInMore) return ;
     
     if ([GlobalDisplaySt sharedInstance].isInNewBookVC) {
         return ;
@@ -466,8 +467,6 @@ return;}
 - (IBAction)moreAction:(id)sender {
     if (!self.canBeEdited) return ;
     
-//    self.isInMore = YES ;
-    
     [self.editor hideKeyboard] ;
 
     self.infoVC.view.alpha = 1 ;
@@ -581,6 +580,20 @@ return;}
     [self.editor hideKeyboard] ;
     [[OctMBPHud sharedInstance] show] ;
     [self.editor getShareHtml] ;
+}
+
+
+#pragma mark - NHSlidingControllerAnimateDelegate <NSObject>
+
+- (void)animateMoveState:(BOOL)drawerOpened {
+    if (drawerOpened) {
+        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
+        self.emptyView.centerX = newWid ;
+    }
+    else {
+        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
+        self.emptyView.centerX = newWid ;
+    }
 }
 
 

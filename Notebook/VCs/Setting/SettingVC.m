@@ -43,6 +43,7 @@
     
     UIPopoverPresentationController *popVC = navVC.popoverPresentationController ;
     popVC.sourceView = fromView ;
+    popVC.sourceRect = fromView.bounds ;
     popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
     popVC.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
     [contentController presentViewController:navVC animated:YES completion:^{}] ;

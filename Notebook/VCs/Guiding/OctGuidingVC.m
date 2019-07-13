@@ -121,6 +121,7 @@
 }
 
 #pragma mark - SingleGuidVCDelegate <NSObject>
+
 - (void)startOnClick {
     
     AppDelegate *appDelegaete = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
@@ -137,7 +138,5 @@
     }
 
 }
-
-
 
 @end

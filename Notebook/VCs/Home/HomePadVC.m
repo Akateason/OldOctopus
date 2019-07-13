@@ -37,6 +37,7 @@ static const float slidingSpeed = 2000 ;
     hPadVC.homeVC.slidingController = slidingController ;
     hPadVC.slidingController = slidingController ;
     leftVC.slidingController = slidingController ;
+    slidingController.animateDelegate = hPadVC.editorVC ;
     return slidingController ;
 }
 
@@ -257,12 +258,10 @@ static const float slidingSpeed = 2000 ;
             }];
         }
     }
-    
-    
 }
 
 - (void)setupLeftForRightVC:(int)finalOpenState {
-    float left = finalOpenState != -1 ? (- [GlobalDisplaySt sharedInstance].containerSize.width / 4. + 28.) : 0 ;
+    float left = finalOpenState != -1 ? ([MarkdownVC getEditorLeftIpad]) : 0 ;
     _editorVC.editor.left = left ;
 }
 
@@ -271,7 +270,9 @@ static const float slidingSpeed = 2000 ;
         self.editorVC.emptyView.center = self.editorVC.view.center ;
     }
     else {
-        self.editorVC.emptyView.left = self.editorVC.view.left ;
+//        [GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance ;
+        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
+        self.editorVC.emptyView.centerX = newWid ;
     }
 }
 

@@ -12,8 +12,12 @@
 #define kSlidingControllerDidCloseNotification  @"kSlidingControllerDidCloseNotification"
 #define kNoteSlidingSizeChanging                @"kNoteSlidingSizeChanging"
 
-@interface NHSlidingController : UIViewController <UIGestureRecognizerDelegate>
+@protocol NHSlidingControllerAnimateDelegate <NSObject>
+- (void)animateMoveState:(BOOL)drawerOpened ;
+@end
 
+@interface NHSlidingController : UIViewController <UIGestureRecognizerDelegate>
+@property (weak, nonatomic) id <NHSlidingControllerAnimateDelegate> animateDelegate ;
 @property (nonatomic, strong) UIViewController *topViewController;
 @property (nonatomic, strong) UIViewController *bottomViewController;
 /// This how far the drawer opens. Defaults to 200.0

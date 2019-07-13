@@ -34,6 +34,7 @@
     [contentController presentViewController:vc animated:YES completion:nil] ;
     UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
     popVC.sourceView = fromView ;
+    popVC.sourceRect = fromView.bounds ;
     popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
     popVC.xt_theme_backgroundColor = k_md_bgColor ;
 
