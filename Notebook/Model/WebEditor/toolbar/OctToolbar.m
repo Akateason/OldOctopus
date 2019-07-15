@@ -31,7 +31,9 @@
 @end
 
 @implementation OctToolbar
+
 XT_SINGLETON_M(OctToolbar)
+
 - (void)renderWithParaType:(int)para inlineList:(NSArray *)inlineList {
     [self clearUI] ;
     
@@ -61,7 +63,30 @@ XT_SINGLETON_M(OctToolbar)
 }
 
 - (void)reset {
+    self.selectedPosition = 0 ;
     self.underLineView.centerX = self.btShowKeyboard.centerX + 17 ;
+}
+
+- (void)refresh {
+    switch (self.selectedPosition) {
+        case 0: {
+            [self showKeyboardAc:self.btShowKeyboard] ;
+        }
+            break;
+        case 1: {
+            [self inlinestyleAc:self.btInlineStyle] ;
+        }
+            break;
+        case 2: {
+            [self listAc:self.btList] ;
+        }
+            break;
+        case 3: {
+            [self photoAc:self.btPhoto] ;
+        }
+            break;
+        default: break ;
+    }
 }
 
 - (void)awakeFromNib {
@@ -81,17 +106,22 @@ XT_SINGLETON_M(OctToolbar)
 
 
 - (IBAction)showKeyboardAc:(UIButton *)sender {
+    self.selectedPosition = 0 ;
     [self moveUnderLineFromView:sender] ;
     [self hideAllBoards] ;
 }
 
 - (void)hideAllBoards {
     [self.inlineBoard removeFromSuperview] ;
+    _inlineBoard = nil ;
     [self.photoView removeFromSuperview] ;
+    _photoView = nil ;
     [self.blockBoard.scrollView removeFromSuperview] ;
+    _blockBoard = nil ;
 }
 
 - (IBAction)inlinestyleAc:(UIButton *)sender {
+    self.selectedPosition = 1 ;
     [self hideAllBoards] ;
     [self moveUnderLineFromView:sender] ;
     // add inline board .
@@ -99,6 +129,7 @@ XT_SINGLETON_M(OctToolbar)
 }
 
 - (IBAction)listAc:(UIButton *)sender {
+    self.selectedPosition = 2 ;
     [self hideAllBoards] ;
     [self moveUnderLineFromView:sender] ;
     // add block board .
@@ -106,6 +137,8 @@ XT_SINGLETON_M(OctToolbar)
 }
 
 - (IBAction)photoAc:(UIButton *)sender {
+    self.selectedPosition = 3 ;
+    [self hideAllBoards] ;
     [self moveUnderLineFromView:sender] ;
     // add photo board .
     self.photoView = [self.delegate toolbarDidSelectPhotoView] ;
@@ -113,14 +146,10 @@ XT_SINGLETON_M(OctToolbar)
 
 - (IBAction)undoAc:(UIButton *)sender {
     [self.delegate toolbarDidSelectUndo] ;
-//    MarkdownModel *model = [self.delegate.fromEditor.parser modelForModelListInlineFirst] ;
-//    [self renderWithModel:model] ;
 }
 
 - (IBAction)redoAc:(UIButton *)sender {
     [self.delegate toolbarDidSelectRedo] ;
-//    MarkdownModel *model = [self.delegate.fromEditor.parser modelForModelListInlineFirst] ;
-//    [self renderWithModel:model] ;
 }
 
 - (IBAction)hideKeyboardAc:(UIButton *)sender {
@@ -145,7 +174,7 @@ XT_SINGLETON_M(OctToolbar)
 - (OctToolbarBlockView *)blockBoard {
     if (!_blockBoard) {
         _blockBoard = [OctToolbarBlockView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-        _blockBoard.blkBoard_Delegate = self.delegate ;
+        _blockBoard.blkBoard_Delegate = (id<OctToolbarBlockViewDelegate>)self.delegate ;
     }
     return _blockBoard ;
 }
@@ -153,7 +182,7 @@ XT_SINGLETON_M(OctToolbar)
 - (OctToolBarInlineView *)inlineBoard {
     if (!_inlineBoard) {
         _inlineBoard = [OctToolBarInlineView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-        _inlineBoard.inlineBoard_Delegate = self.delegate ;
+        _inlineBoard.inlineBoard_Delegate = (id<OctToolBarInlineViewDelegate>)self.delegate ;
     }
     return _inlineBoard ;
 }

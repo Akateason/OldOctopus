@@ -64,7 +64,6 @@ XT_SINGLETON_M(OctWebEditor)
         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
         
         NSDictionary *info = [x userInfo] ;
-        // CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
         CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
         // 工具条的Y值 == 键盘的Y值 - 工具条的高度
         if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
@@ -81,14 +80,23 @@ XT_SINGLETON_M(OctWebEditor)
         // get keyboard height
         self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
         float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
-        if (!param) [self.toolBar removeFromSuperview] ;
+        if (!param) {
+            [self.toolBar hideAllBoards] ;
+            [self.toolBar removeFromSuperview] ;
+        }
         
+        if (self.toolBar.hidden == NO) {
+            [self.toolBar refresh] ;
+        }
+         
         [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {}] ;
     }] ;
     
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
         self.toolBar.hidden = YES ;
+        [self.toolBar hideAllBoards] ;
+        [self.toolBar removeFromSuperview] ;
     }] ;
     
     [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {
