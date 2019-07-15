@@ -36,6 +36,7 @@
     [_record setObject:_title forKey:@"title"] ;
     [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
     [_record setObject:@(_isTop) forKey:@"isTop"] ;
+    [_record setObject:_comeFrom forKey:@"comeFrom"] ;
     
     return _record ;
 }
@@ -50,6 +51,7 @@
     note.noteBookId = record[@"noteBookId"] ;
     note.title = record[@"title"] ;
     note.isTop = [record[@"isTop"] intValue] ;
+    note.comeFrom = record[@"comeFrom"] ;
     return note ;
 }
 
@@ -66,6 +68,8 @@
         _baseContent = [content base64EncodedString] ;
         _createDateOnServer = [[NSDate date] xt_getTick] ;
         _modifyDateOnServer = _createDateOnServer ;
+        _isTop = NO ;
+        _comeFrom = IS_IPAD ? @"iPad" : @"iPhone" ;
     }
     return self;
 }

@@ -20,6 +20,8 @@
     [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
     [_record setObject:_emoji forKey:@"emoji"] ;
     [_record setObject:_name forKey:@"name"] ;
+    [_record setObject:@(_isTop) forKey:@"isTop"] ;
+    [_record setObject:_comeFrom forKey:@"comeFrom"] ;
     
     return _record ;
 }
@@ -30,6 +32,8 @@
     book.emoji = record[@"emoji"] ;
     book.isDeleted = [record[@"isDeleted"] intValue] ;
     book.name = record[@"name"] ;
+    book.isTop = [record[@"isTop"] intValue] ;
+    book.comeFrom = record[@"comeFrom"] ;
     return book ;
 }
 
@@ -44,6 +48,8 @@
         _name = name ;
         _createDateOnServer = [[NSDate date] xt_getTick] ;
         _modifyDateOnServer = _createDateOnServer ;
+        _isTop = NO ;
+        _comeFrom = IS_IPAD ? @"iPad" : @"iPhone" ;
     }
     return self;
 }
@@ -107,18 +113,20 @@
     
     NSDictionary *dic = @{@"emoji" : book.emoji,
                           @"isDeleted" : @(book.isDeleted),
-                          @"name" : book.name
+                          @"name" : book.name,
+                          @"isTop" : @(book.isTop)
                           } ;
+    
     [[XTCloudHandler sharedInstance] updateWithRecId:book.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
         
         if (!error) {
             // succcess
             book.isSendOnICloud = YES ;
+            book.modifyDateOnServer = [record.modificationDate xt_getTick] ;
             [book xt_update] ;
         }
         else {
             // false
-            
         }
     }] ;        
 }
