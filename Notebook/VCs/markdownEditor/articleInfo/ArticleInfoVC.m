@@ -96,14 +96,12 @@
 
 - (IBAction)btDeleteAction:(id)sender {
     // Delete Note
+    [self close] ;
+    
     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要将此文章放入垃圾桶?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
         if (btnIndex == 1) {
             self.aNote.isDeleted = YES ;
             [Note updateMyNote:self.aNote] ;
-            [self dismissViewControllerAnimated:YES completion:^{
-                
-            }] ;
-            
             self.blkDelete() ;
         }
     }] ;

@@ -170,10 +170,7 @@
         NoteBooks *book = x.object ;
         
         if (![self.aNote.noteBookId isEqualToString:book.icRecordName]) {
-            [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error) {}];
-            [self.editor leavePage] ;
-            self.editor.aNote = nil ;
-            self.emptyView.hidden = NO ;
+            [self clearArticleInIpad] ;
         }
         
         self.emptyView.area.hidden = (book.vType == Notebook_Type_trash) ;
@@ -412,7 +409,12 @@ return;}
     XT_HIDE_HUD
 }
 
-
+- (void)clearArticleInIpad {
+    [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error) {}];
+    [self.editor leavePage] ;
+    self.editor.aNote = nil ;
+    self.emptyView.hidden = NO ;
+}
 
 
 #pragma mark - UI
@@ -479,7 +481,15 @@ return;}
     self.infoVC.webInfo = self.editor.webInfo ;
     WEAK_SELF
     self.infoVC.blkDelete = ^{
-        [weakSelf.infoVC.view removeFromSuperview] ;
+        if (IS_IPAD) {
+            [weakSelf clearArticleInIpad] ;
+            [weakSelf backAction:nil] ;
+        }
+        else {
+            [weakSelf.navigationController popViewControllerAnimated:YES] ;
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
     } ;
     
     // 导出预览

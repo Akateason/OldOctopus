@@ -170,6 +170,7 @@
     else if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
         self.nameOfNoteBook.text = @"垃圾桶" ;
         NSArray *list = [Note xt_findWhere:@"isDeleted == 1"] ;
+        list = [self sortThisList:list] ;
         [self dealTopNoteLists:list] ;
         completion() ;
         return ;
@@ -195,6 +196,13 @@
     }] ;
 }
 
+- (NSArray *)sortThisList:(NSArray *)list {
+    SettingSave *sSave = [SettingSave fetch] ;
+    NSString *orderBy = sSave.sort_isNoteUpdateTime ? @"createDateOnServer" : @"modifyDateOnServer" ;
+    list = [list xt_orderby:orderBy descOrAsc:sSave.sort_isNewestFirst] ;
+    return list ;
+}
+
 - (void)dealTopNoteLists:(NSArray *)list {
     NSMutableArray *tmplist = [@[] mutableCopy] ;
     [list enumerateObjectsUsingBlock:^(Note *aNote, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -215,10 +223,7 @@
         }
     }] ;
     
-    SettingSave *sSave = [SettingSave fetch] ;
-    NSString *orderBy = sSave.sort_isNoteUpdateTime ? @"createDateOnServer" : @"modifyDateOnServer" ;
-    
-    topList = [[topList xt_orderby:orderBy descOrAsc:sSave.sort_isNewestFirst] mutableCopy] ;
+    topList = [[self sortThisList:topList] mutableCopy] ;
     [topList addObjectsFromArray:normalList] ;
     self.listNotes = topList ;
 }
@@ -360,7 +365,9 @@
     cell.dataSource = self ;
     cell.delegate = self ;
     [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
-    [cell setUserSelected:[aNote.icRecordName isEqualToString:self.selectedNoteIcloudRecordID]] ;
+    if (self.leftVC.currentBook.vType != Notebook_Type_trash) {
+        [cell setUserSelected:[aNote.icRecordName isEqualToString:self.selectedNoteIcloudRecordID]] ;
+    }
     return cell ;
 }
 
