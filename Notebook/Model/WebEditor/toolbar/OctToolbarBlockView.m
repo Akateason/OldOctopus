@@ -22,12 +22,26 @@
         case MarkdownSyntaxTaskLists: self.btTaskList.selected = YES; break ;
         case MarkdownSyntaxBlockquotes: self.btQuote.selected = YES; break ;
         case MarkdownSyntaxHr: self.btSepline.selected = YES; break ;
-        case MarkdownSyntaxMultipleMath: self.btMath.selected = YES; break ;
-        case MarkdownSyntaxCodeBlock: self.btCodeBlock.selected = YES; break ;
-        case MarkdownSyntaxTable:self.btTable.selected = YES; break ;
         default:
             break;
     }
+    
+    self.btCodeBlock.enabled =
+    self.btMath.enabled =
+    self.btQuote.enabled =
+    self.btTable.enabled =
+    self.btHtml.enabled =
+    self.btVegaChart.enabled =
+    self.btFlowChart.enabled =
+    self.btSequnceDiag.enabled =
+    self.btMermaid.enabled =
+    self.btUlist.enabled =
+    self.btOlist.enabled =
+    self.btTaskList.enabled =
+    self.btLeftTab.enabled =
+    self.btRightTabg.enabled =
+    type != MarkdownSyntaxCodeBlock ;
+    
 }
 
 
@@ -109,78 +123,78 @@
     
     WEAK_SELF
     [self.btUlist bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectUList] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btOlist bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectOrderlist] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btLeftTab bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectLeftTab] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btRightTabg bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectRightTab] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btTaskList bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectTaskList] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btQuote bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectQuoteBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btSepline bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectSepLine] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btCodeBlock bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectCodeBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btMath bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectMathBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btTable bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectTable] ;
         [weakSelf.scrollView removeFromSuperview] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
 
     [self.btHtml bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectHtml] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [self.btVegaChart bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectVegaChart] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [self.btFlowChart bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectFlowChart] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [self.btSequnceDiag bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectSequnceDiag] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [self.btMermaid bk_addEventHandler:^(UIButton *sender) {
-//        sender.selected = !sender.selected ;
+
         [weakSelf.blkBoard_Delegate toolbarDidSelectMermaid] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
 }

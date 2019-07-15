@@ -222,7 +222,6 @@ XT_SINGLETON_M(OctWebEditor)
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.toolBar refresh] ;
         [self.toolBar renderWithParaType:self.typePara inlineList:self.typeInlineList] ;
     }) ;
 }

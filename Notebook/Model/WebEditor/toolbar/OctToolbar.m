@@ -13,6 +13,7 @@
 #import "OctToolbarBlockView.h"
 #import "MarkdownEditor.h"
 #import "XTMarkdownParser+Fetcher.h"
+#import "OctWebEditor.h"
 
 @interface OctToolbar ()
 @property (weak, nonatomic)IBOutlet UIButton *btShowKeyboard ;
@@ -100,7 +101,6 @@ XT_SINGLETON_M(OctToolbar)
     self.underLineView.width = self.btInlineStyle.width - 4 ;
     self.underLineView.centerX = self.btShowKeyboard.centerX + 17;
     self.underLineView.bottom = self.bottom ;
-    [self addSubview:self.underLineView] ;
     
 }
 
@@ -126,6 +126,8 @@ XT_SINGLETON_M(OctToolbar)
     [self moveUnderLineFromView:sender] ;
     // add inline board .
     [self.inlineBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight] ;
+    
+    [self renderWithParaType:[OctWebEditor sharedInstance].typePara inlineList:[OctWebEditor sharedInstance].typeInlineList] ;
 }
 
 - (IBAction)listAc:(UIButton *)sender {
@@ -134,6 +136,8 @@ XT_SINGLETON_M(OctToolbar)
     [self moveUnderLineFromView:sender] ;
     // add block board .
     [self.blockBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight] ;
+    
+    [self renderWithParaType:[OctWebEditor sharedInstance].typePara inlineList:[OctWebEditor sharedInstance].typeInlineList] ;
 }
 
 - (IBAction)photoAc:(UIButton *)sender {
@@ -193,6 +197,9 @@ XT_SINGLETON_M(OctToolbar)
         _underLineView.size = CGSizeMake(100, 2) ;
         _underLineView.backgroundColor = UIColorHex(@"6b737b") ;
         [_underLineView xt_completeRound] ;
+        if (!_underLineView.superview) {
+            [self addSubview:_underLineView] ;
+        }
     }
     return _underLineView ;
 }

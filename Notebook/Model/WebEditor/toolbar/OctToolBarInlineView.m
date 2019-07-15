@@ -31,10 +31,24 @@
             case MarkdownInlineDeletions: self.btDeletion.selected = YES ; break ;
             case MarkdownInlineInlineCode: self.btInlineCode.selected = YES ; break ;
             case MarkdownInlineLinks: self.btUnderline.selected = YES ; break ;
-            
             default:
                 break;
         }
+        
+        self.bth1.enabled =
+        self.bth2.enabled =
+        self.bth3.enabled =
+        self.bth4.enabled =
+        self.bth5.enabled =
+        self.bth6.enabled =
+        self.btParaClean.enabled =
+        self.btBold.enabled =
+        self.btItalic.enabled =
+        self.btDeletion.enabled =
+        self.btInlineCode.enabled =
+        self.btUnderline.enabled =
+        type != MarkdownSyntaxCodeBlock ;
+        
     }
 }
 

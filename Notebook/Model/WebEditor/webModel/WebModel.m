@@ -56,7 +56,7 @@
         return MarkdownSyntaxH6 ;
     }
     else if ([resultStr isEqualToString:@"figure"]) {
-        return MarkdownSyntaxTable ;
+        return MarkdownSyntaxCodeBlock ;
     }
     else if ([resultStr isEqualToString:@"pre"]) {
         return MarkdownSyntaxCodeBlock ;
