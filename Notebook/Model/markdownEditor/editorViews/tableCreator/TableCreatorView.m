@@ -47,6 +47,13 @@
 }
 
 - (IBAction)okAction:(id)sender {
+    int line = [self.tfLineCount.text intValue] ;
+    int column = [self.tfColumnCount.text intValue] ;
+    if (line > 30 || column > 20) {
+        [SVProgressHUD showErrorWithStatus:@"列表行或列超过限制"] ;
+        return ;
+    }
+    
     self.blk(YES, self.tfLineCount.text, self.tfColumnCount.text) ;
 }
 
@@ -59,6 +66,10 @@
     
     _tfLineCount.placeholder = @"2" ;
     _tfColumnCount.placeholder = @"3" ;
+    
+    _tfLineCount.keyboardType = UIKeyboardTypeNumberPad ;
+    _tfColumnCount.keyboardType = UIKeyboardTypeNumberPad ;
+    
 }
 
 @end
