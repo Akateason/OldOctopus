@@ -337,6 +337,8 @@
 return;}
 
 - (void)leaveOut {
+    [self.editor.toolBar reset] ;
+    self.editor.toolBar = nil ;
     
     if ([GlobalDisplaySt sharedInstance].isInNewBookVC) {
         return ;
