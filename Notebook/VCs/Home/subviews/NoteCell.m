@@ -73,11 +73,14 @@ static int kLimitCount = 70 ;
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {
     [super xt_configure:note indexPath:indexPath] ;
     
-    _lbTitle.attributedText = [[NSAttributedString alloc] initWithString:[Note filterMarkdownString:note.title]] ;
-    
-    NSString *content = [Note filterMarkdownString:note.content] ;
+    NSString *title = [Note filterMD:note.title] ;
+    if (!title || !title.length) title = @"未命名的笔记" ;
+    _lbTitle.text = title ;
+    NSString *content = [Note filterMD:note.content] ;
+    if (!content || !content.length) content = @"美好的故事，从小章鱼开始..." ;
     if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
     _lbContent.attributedText = [[NSAttributedString alloc] initWithString:content] ;
+    
     _lbDate.text = [[NSDate xt_getDateWithTick:note.modifyDateOnServer] xt_timeInfo] ;
     _img_isTop.hidden = !note.isTop ;
 }

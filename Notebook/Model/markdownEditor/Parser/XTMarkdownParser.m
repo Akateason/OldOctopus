@@ -453,7 +453,7 @@
 #pragma mark - article infos
 
 - (NSInteger)countForWord {
-    return [Note filterMarkdownString:self.editAttrStr.string].length ;
+    return [Note filterMD:self.editAttrStr.string].length ;
 }
 
 - (NSInteger)countForCharactor {

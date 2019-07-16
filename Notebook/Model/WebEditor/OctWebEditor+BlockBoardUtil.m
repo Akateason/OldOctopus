@@ -68,6 +68,8 @@
 }
 
 - (void)toolbarDidSelectTable {
+    [self.toolBar reset] ;
+    
     @weakify(self)
     [TableCreatorView showOnView:self window:self.window keyboardHeight:self->keyboardHeight callback:^(BOOL isConfirm, NSString * _Nonnull line, NSString * _Nonnull column) {
         @strongify(self)
@@ -78,7 +80,7 @@
         
         int lineCount = [line intValue] ?: 2 ;
         int columnCount = [column intValue] ?: 3 ;
-        
+    
         NSDictionary *dic = @{@"rows":@(lineCount),@"columns":@(columnCount)} ;
         [self nativeCallJSWithFunc:@"table" json:dic completion:^(NSString *val, NSError *error) {
             

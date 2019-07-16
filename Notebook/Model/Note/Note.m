@@ -191,20 +191,23 @@
     }] ;
 }
 
-
-+ (NSString *)filterMarkdownString:(NSString *)markdownStr {
-    if ([markdownStr hasPrefix:@"#"]) {
-        NSString *firstMarkStr = [[markdownStr componentsSeparatedByString:@" "] firstObject] ;
-        markdownStr = [markdownStr substringFromIndex:firstMarkStr.length + 1] ;
++ (NSString *)filterMD:(NSString *)originString {
+    NSString *MARKER_REG = @"[\\*\\_$`~]+" ;
+    NSString *HEADER_REG = @"^ {0,3}#{1,6} *" ;
+    NSString *BULLET_LIST_REG = @"^([*+-]\\s+)" ;
+    NSString *TASK_LIST_REG = @"^(\[[x\\s]{1}\\]\\s+)" ;
+    NSString *IMAGE_REG = @"(\\!\\[)(.*?)(\\\\*)\\]\\((.*?)(\\\\*)\\)" ;
+    NSString *LINK_REG = @"(\\[)((?:\\[[^\\]]*\\]|[^\\[\\]]|\\](?=[^\\[]*\\]))*?)(\\\\*)\\]\\((.*?)(\\\\*)\\)" ;
+    NSString *CHECK_BOX = @"^\\[([ x])\\] +" ;
+    
+    NSArray *list = @[MARKER_REG,HEADER_REG,BULLET_LIST_REG,TASK_LIST_REG,IMAGE_REG,LINK_REG,CHECK_BOX] ;
+    NSMutableString *tmpString = [originString mutableCopy] ;
+    for (int i = 0; i < list.count; i++) {
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:list[i] options:0 error:nil] ;
+        [regex replaceMatchesInString:tmpString options:0 range:NSMakeRange(0, [tmpString length]) withTemplate:@""] ;
     }
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"#" withString:@""] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\n" withString:@""] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"*" withString:@""] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"_" withString:@""] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"~" withString:@""] ;
-    markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"`" withString:@""] ;
-
-    return markdownStr ;
+    
+    return tmpString ;
 }
 
 + (NSString *)filterSqliteString:(NSString *)markdownStr {

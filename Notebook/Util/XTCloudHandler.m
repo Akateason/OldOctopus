@@ -81,7 +81,7 @@ XT_SINGLETON_M(XTCloudHandler)
         // 这里要 提醒用户开 icloud drive
         @strongify(self)
         if (error || applicationPermissionStatus == CKApplicationPermissionStatusDenied) {
-            
+
             [self alertCallUserToIcloud] ;
 
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -89,7 +89,7 @@ XT_SINGLETON_M(XTCloudHandler)
             }) ;
             return ;
         }
-        
+    
         @weakify(self)
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
             @strongify(self)
@@ -113,23 +113,23 @@ XT_SINGLETON_M(XTCloudHandler)
                 }
                 
                 if (!userInfo && !error) {
-//                    [self alertCallUserToIcloud] ;
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        blkUser(nil) ;
-//                    }) ;
-                    // 获取不到用户信息, 但不报错 !
-                    XTIcloudUser *user = [XTIcloudUser new] ;
-                    user.userRecordName = @"userNotLoginedICloud" ;
-                    user.familyName = @"" ;
-                    user.givenName = @"小章鱼用户" ;
-                    user.name = XT_STR_FORMAT(@"%@ %@",user.givenName,user.familyName) ;
+                    [self alertCallUserToIcloud] ;
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        blkUser(user) ;
+                        blkUser(nil) ;
                     }) ;
-                    
-                    if (user.name.length > 0 && user != nil) {
-                        [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
-                    }
+                    // 获取不到用户信息, 但不报错 !
+//                    XTIcloudUser *user = [XTIcloudUser new] ;
+//                    user.userRecordName = @"userNotLoginedICloud" ;
+//                    user.familyName = @"" ;
+//                    user.givenName = @"小章鱼用户" ;
+//                    user.name = XT_STR_FORMAT(@"%@ %@",user.givenName,user.familyName) ;
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        blkUser(user) ;
+//                    }) ;
+//
+//                    if (user.name.length > 0 && user != nil) {
+//                        [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
+//                    }
                     
                     return ;
                 }
