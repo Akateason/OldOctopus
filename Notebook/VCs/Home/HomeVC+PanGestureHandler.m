@@ -28,7 +28,7 @@
             [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要彻底删除此文章吗?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
                 
                 if (btnIndex == 1) {
-                    
+                    cell.userInteractionEnabled = NO ;
                     [Note deleteThisNoteFromICloud:aNote complete:^(bool success) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.table xt_loadNewInfoInBackGround:YES] ;

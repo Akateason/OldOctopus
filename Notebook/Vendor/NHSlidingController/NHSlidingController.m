@@ -227,7 +227,7 @@ static const CGFloat slidingSpeed = 1500.0;
         BOOL directionIsHorizontal = (fabs(translation.x) > fabs(translation.y));
         BOOL directionIsToRight = translation.x > 0;
         bool result = directionIsHorizontal && (directionIsToRight || self.drawerOpened) ;
-        NSLog(@"result : %d",result) ;
+//        NSLog(@"result : %d",result) ;
         return result ;
     }
     else if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
@@ -238,11 +238,14 @@ static const CGFloat slidingSpeed = 1500.0;
 }
 
 - (void)panned:(UIPanGestureRecognizer *)recognizer {
+//    NSLog(@"UIGesture state : %ld", (long)recognizer.state) ;
+    
     CGPoint offset = [recognizer translationInView:self.view] ;
-    if (fabs(offset.y) > fabs(offset.x)) return ;
-//    NSLog(@"fabs(offset") ;
-    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) return ;
-//    NSLog(@"gdst_level_for_horizon") ;
+    // DEBUG解决手势滑动, 有时(当横滑再竖滑), 卡在中间的问题.
+    if (fabs(offset.y) > fabs(offset.x) && recognizer.state == UIGestureRecognizerStateBegan) return ;
+//    NSLog(@"11111 ") ;
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) return ;
+//    NSLog(@"22222 ") ;
     
 //    CGPoint offset = [(UIPanGestureRecognizer *)recognizer translationInView:self.view] ;
     CGFloat velocity = [recognizer velocityInView:self.view].x;
@@ -257,9 +260,9 @@ static const CGFloat slidingSpeed = 1500.0;
         _topViewContainer.center = center;
     }
     
-    NSLog(@"UIGesture state : %ld", (long)recognizer.state) ;
-    
+
     if (recognizer.state == UIGestureRecognizerStateEnded) {
+//        NSLog(@"33333 ") ;
 
         CGFloat centerForEdge, centerForBounce;
         BOOL finalOpenState;
