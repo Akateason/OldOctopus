@@ -62,8 +62,11 @@ XT_SINGLETON_M(GuidingICloud)
     
     WEAK_SELF
     [self.btOpen bk_whenTapped:^{
-        NSURL *url = [NSURL URLWithString:@"App-Prefs:root=CASTLE"];
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        //Specifically, your app uses the following non-public URL scheme:
+        //- app-prefs:root=castle
+        //To resolve this issue, please revise your app to provide the associated functionality using public APIs or remove the functionality using the "prefs:root" or "App-Prefs:root" URL scheme.
+        NSURL *url = [NSURL URLWithString:@"prefs:root"] ;
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil] ;
     }] ;
     
     [self.lbHowToOpen bk_whenTapped:^{
