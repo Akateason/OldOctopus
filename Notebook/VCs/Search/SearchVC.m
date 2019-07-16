@@ -16,6 +16,8 @@
 #import "SchBarPositiveTransition.h"
 #import "GlobalDisplaySt.h"
 #import "HomeVC.h"
+#import "NHSlidingController.h"
+#import "UIViewController+SlidingController.h"
 
 @interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
@@ -95,6 +97,12 @@
     self.table.delegate = self ;
     self.table.backgroundColor = nil ;
     self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated] ;
+        
+    self.table.scrollEnabled = YES ;
 }
 
 #pragma mark - table
