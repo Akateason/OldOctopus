@@ -29,10 +29,20 @@
     [[XTCloudHandler sharedInstance] alertCallUserToIcloud] ;
 }
 
++ (NSString *)displayUserName {
+    if (self.userInCacheSyncGet) {
+        return ((XTIcloudUser *)[self userInCacheSyncGet]).givenName ;
+    }
+    else {
+        return @"小章鱼用户" ;
+    }
+}
+
 XT_encodeWithCoderRuntimeCls(XTIcloudUser)
 XT_initWithCoderRuntimeCls(XTIcloudUser)
 
 @end
+
 
 
 
@@ -48,6 +58,7 @@ static NSString *const kIdContainer = @"iCloud.container.id.octupus" ;
 @end
 
 @implementation XTCloudHandler
+
 XT_SINGLETON_M(XTCloudHandler)
 
 - (NSString *)createUniqueIdentifier {
@@ -66,8 +77,6 @@ XT_SINGLETON_M(XTCloudHandler)
 }
 
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser {
-//    blkUser(nil) ;
-//    return ;
     
     XTIcloudUser *user = [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
     if (user != nil) {
@@ -113,24 +122,11 @@ XT_SINGLETON_M(XTCloudHandler)
                 }
                 
                 if (!userInfo && !error) {
+                    // 获取不到用户信息, 但不报错 !. 说明没有打开找到我
                     [self alertCallUserToIcloud] ;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         blkUser(nil) ;
                     }) ;
-                    // 获取不到用户信息, 但不报错 !
-//                    XTIcloudUser *user = [XTIcloudUser new] ;
-//                    user.userRecordName = @"userNotLoginedICloud" ;
-//                    user.familyName = @"" ;
-//                    user.givenName = @"小章鱼用户" ;
-//                    user.name = XT_STR_FORMAT(@"%@ %@",user.givenName,user.familyName) ;
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        blkUser(user) ;
-//                    }) ;
-//
-//                    if (user.name.length > 0 && user != nil) {
-//                        [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
-//                    }
-                    
                     return ;
                 }
                 
@@ -196,6 +192,12 @@ XT_SINGLETON_M(XTCloudHandler)
 - (void)saveList:(NSArray<CKRecord *> *)recInsertOrUpdateList
       deleteList:(NSArray<CKRecordID *> *)recDeleteList
         complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock {
+    
+    if (![XTIcloudUser hasLogin]) {
+        NSLog(@"未登录") ;
+        return ;
+    }
+    
     self.isSyncingOnICloud = YES ;
     CKModifyRecordsOperation *modifyRecordsOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recInsertOrUpdateList recordIDsToDelete:recDeleteList];
     modifyRecordsOperation.savePolicy = CKRecordSaveAllKeys;
@@ -210,6 +212,12 @@ XT_SINGLETON_M(XTCloudHandler)
 
 - (void)fetchWithId:(NSString *)recordID
   completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
+    
+    if (![XTIcloudUser hasLogin]) {
+        NSLog(@"未登录") ;
+        return ;
+    }
+    
     
     self.isSyncingOnICloud = YES ;
     CKRecordID *recId = [[CKRecordID alloc] initWithRecordName:recordID zoneID:self.zoneID] ;
@@ -244,6 +252,11 @@ XT_SINGLETON_M(XTCloudHandler)
                     predicate:(NSPredicate *)predicate
                          sort:(NSArray<NSSortDescriptor *> *)sortlist
             completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
+    
+    if (![XTIcloudUser hasLogin]) {
+        NSLog(@"未登录") ;
+        return ;
+    }
     
     self.isSyncingOnICloud = YES ;
     
@@ -291,21 +304,28 @@ XT_SINGLETON_M(XTCloudHandler)
 }
 
 - (void)deleteAllSubscriptionCompletion:(void(^)(BOOL success))completion {
-    CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
+    if (![XTIcloudUser hasLogin]) {
+        NSLog(@"未登录") ;
+        return ;
+    }
+    
+    self.isSyncingOnICloud = YES ;
+    
+    CKDatabase *database = self.container.privateCloudDatabase ;
     
     [database fetchAllSubscriptionsWithCompletionHandler:^(NSArray<CKSubscription *> * _Nullable subscriptions, NSError * _Nullable error) {
         NSMutableArray *tmplist = [@[] mutableCopy] ;
         [subscriptions enumerateObjectsUsingBlock:^(CKSubscription * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [tmplist addObject:obj.subscriptionID] ;
         }] ;
-    
         
         CKModifySubscriptionsOperation *opt = [[CKModifySubscriptionsOperation alloc] initWithSubscriptionsToSave:nil subscriptionIDsToDelete:tmplist] ;
         [database addOperation:opt] ;
         opt.modifySubscriptionsCompletionBlock = ^(NSArray<CKSubscription *> * _Nullable savedSubscriptions, NSArray<CKSubscriptionID> * _Nullable deletedSubscriptionIDs, NSError * _Nullable operationError) {
+            
+            self.isSyncingOnICloud = NO ;
             completion(!operationError) ;
         } ;
-        
     }] ;
 }
 
@@ -315,7 +335,10 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
                           delete:(void (^)(CKRecordID *recordID, CKRecordType recordType))recordWithIDWasDeletedBlock
                      allComplete:(void (^)(NSError *operationError))fetchRecordZoneChangesCompletionBlock
 {
-    
+    if (![XTIcloudUser hasLogin]) {
+        NSLog(@"未登录") ;
+        return ;
+    }
     
     CKFetchRecordZoneChangesOperation *operation ;
     CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
@@ -369,71 +392,6 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
     
     [self.container.privateCloudDatabase addOperation:operation] ;
 }
-
-/**
- add ref
-
- @param key            refKey
- @param sourceRecordID 主
- @param targetRecordID 从
-- (void)setReferenceWithReferenceKey:(NSString *)key
-                   andSourceRecordID:(NSString *)sourceRecordID
-                   andTargetRecordID:(NSString *)targetRecordID
-{
-    CKRecordID *noteID = [[CKRecordID alloc] initWithRecordName:targetRecordID];
-    CKReference *ref = [[CKReference alloc] initWithRecordID:noteID action:CKReferenceActionDeleteSelf];
-    CKDatabase *database = self.container.privateCloudDatabase ; //私有数据库
-    
-    CKRecordID *sourceRecordId = [[CKRecordID alloc] initWithRecordName:sourceRecordID];
-    
-    [database fetchRecordWithID:sourceRecordId completionHandler:^(CKRecord *_Nullable record,NSError *_Nullable error) {
-        
-        if (!error) {
-            [record setObject:ref forKey:key];
-            
-            [database saveRecord:record completionHandler:^(CKRecord *_Nullable record,NSError *_Nullable error) {
-                
-                if (!error) {
-                    NSLog(@"保存ref成功");
-                }
-                else {
-                    NSLog(@"保存ref失败: %@",error);
-                }
-            }];
-        }
-    }];
-}
-
-- (void)searchRefWithRefRecId:(CKRecordID *)refrecID {
-    
-    [self.container.privateCloudDatabase fetchRecordWithID:refrecID completionHandler:^(CKRecord *rec, NSError *error) {
-        if (!error) {
-            NSLog(@"成功 %@", rec);
-
-        }
-        else {
-            NSLog(@"搜索ref失败");
-        }
-    }];
-}
-
-- (void)searchReferWithRefID:(CKRecordID *)refrecID
-                  sourceType:(NSString *)sourceType {
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"book = %@", refrecID];
-    CKQuery *query = [[CKQuery alloc] initWithRecordType:sourceType predicate:predicate] ; // "Test"
-    
-    CKDatabase *db = self.container.privateCloudDatabase ;
-    [db performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
-        if (!error) {
-            NSLog(@"搜索ref下的list成功 %@", results);
-        }
-        else {
-            NSLog(@"搜索ref失败");
-        }
-    }];
-}
-*/
 
 #pragma mark - prop
 

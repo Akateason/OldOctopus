@@ -229,10 +229,10 @@
 }
 
 - (void)openDrawer {    
-    if (![XTIcloudUser hasLogin]) {
-        [XTIcloudUser alertUserToLoginICloud] ;
-        return ;
-    }
+//    if (![XTIcloudUser hasLogin]) {
+//        [XTIcloudUser alertUserToLoginICloud] ;
+//        return ;
+//    }
     
     [self.leftVC render] ;
     [self.slidingController toggleDrawer] ;

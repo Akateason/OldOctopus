@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view from its nib.
     
     self.view.xt_theme_backgroundColor = nil ;
-    self.lbWord.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .1) ;
+    self.lbWord.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .2) ;
 }
 
 /*

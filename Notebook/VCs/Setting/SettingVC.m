@@ -91,9 +91,9 @@
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
-    XTIcloudUser *user = [XTIcloudUser userInCacheSyncGet] ;
-    self.lbIcon.text = [user.givenName substringToIndex:1] ;
-    self.lbName.text = user.givenName ;
+    NSString *givenName = [XTIcloudUser displayUserName] ;
+    self.lbIcon.text = [givenName substringToIndex:1] ;
+    self.lbName.text = givenName ;
 }
 
 #pragma mark - UITableViewDataSource<NSObject>

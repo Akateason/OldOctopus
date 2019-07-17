@@ -19,7 +19,7 @@
     view.frame = CGRectMake(0, 0, APP_WIDTH, 120) ;
     
     UILabel *lbName = [UILabel new] ;
-    lbName.text = [XTIcloudUser userInCacheSyncGet].name ;
+    lbName.text = [XTIcloudUser displayUserName] ;
     lbName.font = [UIFont systemFontOfSize:21] ;
     lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     lbName.textAlignment = NSTextAlignmentRight ;

@@ -16,10 +16,10 @@
 @implementation HomeVC (Util)
 
 - (void)addBtOnClick:(id)sender {
-    if (![XTIcloudUser hasLogin]) {
-        [XTIcloudUser alertUserToLoginICloud] ;
-        return ;
-    }
+//    if (![XTIcloudUser hasLogin]) {
+//        [XTIcloudUser alertUserToLoginICloud] ;
+//        return ;
+//    }
     
     @weakify(self)
     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"🖋 新建笔记",@"📒 新建笔记本"] fromWithView:sender CallBackBlock:^(NSInteger btnIndex) {
@@ -49,15 +49,14 @@
             }] ;
         }
     }] ;
-    
-
 }
 
 - (void)moreBtOnClick:(id)sender {
-    if (![XTIcloudUser hasLogin]) {
-        [XTIcloudUser alertUserToLoginICloud] ;
-        return ;
-    }
+//    if (![XTIcloudUser hasLogin]) {
+//        [XTIcloudUser alertUserToLoginICloud] ;
+//        return ;
+//    }
+    
     @weakify(self)
     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除笔记本" otherButtonTitles:@[@"重命名笔记本"] fromWithView:sender CallBackBlock:^(NSInteger btnIndex) {
         @strongify(self)
@@ -96,7 +95,6 @@
             
         }
     }] ;
-
 }
 
 @end

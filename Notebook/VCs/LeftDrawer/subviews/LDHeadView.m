@@ -77,9 +77,9 @@
 }
 
 - (void)setupUser {
-    XTIcloudUser *user = [XTIcloudUser userInCacheSyncGet] ;
-    self.lbHead.text = [user.givenName substringToIndex:1] ;
-    self.lbName.text = user.givenName ; // user.name ;
+    NSString *givenName = [XTIcloudUser displayUserName] ;
+    self.lbHead.text = [givenName substringToIndex:1] ;
+    self.lbName.text = givenName ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

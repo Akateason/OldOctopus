@@ -49,7 +49,7 @@ XT_SINGLETON_M(GuidingICloud)
     self.lbHowToOpen.userInteractionEnabled = YES ;
     
     UIView *bg = [UIView new] ;
-    bg.xt_cornerRadius = 20 ;
+    bg.xt_cornerRadius = 17.5 ;
     bg.xt_gradientPt0 = CGPointMake(0, .5) ;
     bg.xt_gradientPt1 = CGPointMake(1, .5) ;
     bg.xt_gradientColor0 = UIColorHex(@"fe4241") ;
@@ -65,7 +65,7 @@ XT_SINGLETON_M(GuidingICloud)
         //Specifically, your app uses the following non-public URL scheme:
         //- app-prefs:root=castle
         //To resolve this issue, please revise your app to provide the associated functionality using public APIs or remove the functionality using the "prefs:root" or "App-Prefs:root" URL scheme.
-        NSURL *url = [NSURL URLWithString:@"prefs:root"] ;
+        NSURL *url = [NSURL URLWithString:@"App-Prefs:root"] ;
         [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil] ;
     }] ;
     

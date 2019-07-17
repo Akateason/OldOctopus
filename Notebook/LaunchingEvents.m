@@ -99,60 +99,14 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
 }
 
 
-/*
- - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
- 
- completionHandler(UNNotificationPresentationOptionBadge) ;
- }
- 
- // 通知的点击事件
- - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler{
- 
- NSDictionary * userInfo = response.notification.request.content.userInfo;
- UNNotificationRequest *request = response.notification.request; // 收到推送的请求
- UNNotificationContent *content = request.content; // 收到推送的消息内容
- NSNumber *badge = content.badge; // 推送消息的角标
- NSString *body = content.body; // 推送消息体
- UNNotificationSound *sound = content.sound; // 推送消息的声音
- NSString *subtitle = content.subtitle; // 推送消息的副标题
- NSString *title = content.title; // 推送消息的标题
- if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
- NSLog(@"iOS10 收到远程通知:%@", userInfo);
- }
- else {
- // 判断为本地通知
- NSLog(@"iOS10 收到本地通知:{\\\\nbody:%@，\\\\ntitle:%@,\\\\nsubtitle:%@,\\\\nbadge：%@，\\\\nsound：%@，\\\\nuserInfo：%@\\\\n}",body,title,subtitle,badge,sound,userInfo);
- }
- 
- // Warning: UNUserNotificationCenter delegate received call to -userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler: but the completion handler was never called.
- completionHandler(); // 系统要求执行这个方法
- }
- 
- - (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(nullable UNNotification *)notification {
- 
- }
- */
+
 
 - (void)setupRemoteNotification:(UIApplication *)application {
-    // 官方文档(无视警告)
+    // 官方文档一致(无视这条警告)
     //    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
     UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone | UIUserNotificationTypeSound categories:nil];
     [application registerUserNotificationSettings:notificationSettings];
     [application registerForRemoteNotifications] ;
-    
-    //
-    //    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    //    center.delegate = self;
-    //    [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-    //        if (granted) {
-    //            NSLog(@"注册成功");
-    //            [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-    //                NSLog(@"%@", settings);
-    //            }];
-    //        } else {
-    //            NSLog(@"注册失败");
-    //        }
-    //    }];
 }
 
 
@@ -183,10 +137,8 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
 
 - (void)setupNaviStyle {
     [[UIApplication sharedApplication] keyWindow].tintColor = [UIColor whiteColor] ;
-    
     // todo 黑色主题有问题呢
 //    [UIView appearance].tintColor = [[MDThemeConfiguration sharedInstance] themeColor:k_md_textColor] ; // change alert contrller tint color ;
-    
 }
 
 - (void)setupIqKeyboard {
@@ -214,8 +166,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             [self pullOrSync] ;
         }
         else {
-//            self.appDelegate.window.rootViewController = [HomeVC getMe];
-//            [self.appDelegate.window makeKeyAndVisible];
+            
         }
     }] ;
 }
@@ -329,13 +280,14 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 
 - (void)uploadAllLocalDataIfNotUploaded {
     
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring] ;
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
         NSLog(@"status %ld",(long)status) ;
         
         if (status > AFNetworkReachabilityStatusNotReachable) {
             // upload all local data if not Uploaded
+            
             NSArray *localNotelist = [Note xt_findWhere:@"isSendOnICloud == 0"] ;
             NSArray *localBooklist = [NoteBooks xt_findWhere:@"isSendOnICloud == 0"] ;
             
@@ -353,7 +305,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             
             [[XTCloudHandler sharedInstance] saveList:tmplist deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
                 
-                if (!error) {
+                if (!error && savedRecords.count > 0 && savedRecords != nil) {
                     [Note xt_updateListByPkid:localNotelist] ;
                     [NoteBooks xt_updateListByPkid:localBooklist] ;
                 }
@@ -363,6 +315,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 }
 
 #pragma mark - open url
+
 NSString *const kNotificationImportFileIn = @"kNotificationImportFileIn" ;
 //导入文件,默认导入到当前的笔记本,如果是最近或者垃圾桶,进入暂存区. 导入之后打开此笔记.
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {

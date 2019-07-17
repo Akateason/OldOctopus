@@ -20,8 +20,11 @@
 
 + (NSString *)pathForUserSave ;
 + (instancetype)userInCacheSyncGet ;
-+ (BOOL)hasLogin ;
++ (BOOL)hasLogin ; // 未登录时, 只能纯本地使用.
 + (void)alertUserToLoginICloud ;
+
++ (NSString *)displayUserName ; // 未登录返回 默认名字.
+
 
 @end
 
@@ -36,6 +39,7 @@ XT_SINGLETON_H(XTCloudHandler)
 @property (strong, nonatomic) CKContainer *container ;
 @property (strong, nonatomic) CKRecordZoneID *zoneID ;
 @property (readonly, nonatomic) BOOL isSyncingOnICloud ;
+
 
 - (NSString *)createUniqueIdentifier ;
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser ;
