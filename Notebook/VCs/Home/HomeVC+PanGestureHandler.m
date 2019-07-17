@@ -31,6 +31,7 @@
                     cell.userInteractionEnabled = NO ;
                     [Note deleteThisNoteFromICloud:aNote complete:^(bool success) {
                         dispatch_async(dispatch_get_main_queue(), ^{
+                            cell.userInteractionEnabled = YES ;
                             [self.table xt_loadNewInfoInBackGround:YES] ;
                         }) ;
                     }] ;

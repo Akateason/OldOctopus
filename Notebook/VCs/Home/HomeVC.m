@@ -406,10 +406,12 @@
 - (UIView *)makePlaceHolderView {
     if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
 //        return [TrashEmptyView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+        self.sEmptyVC.lbWord.text = @"" ;
         return self.sEmptyVC.view ;
     }
     else {
         if (IS_IPAD && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon ) {
+            self.sEmptyVC.lbWord.text = @"点击开始记录你的新故事..." ;
             return self.sEmptyVC.view ;
         }
         self.phView.book = self.leftVC.currentBook ;
