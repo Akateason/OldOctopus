@@ -93,7 +93,7 @@
     [book xt_insert] ;
     
     [[XTCloudHandler sharedInstance] insert:book.record completionHandler:^(CKRecord *record, NSError *error) {
-        if (!error) {
+        if (!error && record != nil) {
             // succcess
             book.isSendOnICloud = YES ;
             book.createDateOnServer = [record.creationDate xt_getTick] ;
@@ -119,7 +119,7 @@
     
     [[XTCloudHandler sharedInstance] updateWithRecId:book.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
         
-        if (!error) {
+        if (!error && record != nil) {
             // succcess
             book.isSendOnICloud = YES ;
             book.modifyDateOnServer = [record.modificationDate xt_getTick] ;

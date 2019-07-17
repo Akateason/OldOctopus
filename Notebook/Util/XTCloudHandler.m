@@ -89,7 +89,7 @@ XT_SINGLETON_M(XTCloudHandler)
             }) ;
             return ;
         }
-    
+        
         @weakify(self)
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
             @strongify(self)
