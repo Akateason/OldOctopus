@@ -54,7 +54,7 @@
 @property (strong, nonatomic) LOTAnimationView          *animationSync ;
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @property (strong, nonatomic) HomeEmptyPHView           *phView ;
-@property (strong, nonatomic) UIView                    *sEmptyView ;
+@property (strong, nonatomic) SearchEmptyVC             *sEmptyVC ;
 @property (copy, nonatomic) NSString                    *selectedNoteIcloudRecordID ;
 @end
 
@@ -405,11 +405,12 @@
 
 - (UIView *)makePlaceHolderView {
     if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
-        return [TrashEmptyView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+//        return [TrashEmptyView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+        return self.sEmptyVC.view ;
     }
     else {
         if (IS_IPAD && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon ) {
-            return self.sEmptyView ;
+            return self.sEmptyVC.view ;
         }
         self.phView.book = self.leftVC.currentBook ;
         return self.phView ;
@@ -479,17 +480,17 @@
     return _phView ;
 }
 
-- (UIView *)sEmptyView {
-    if (!_sEmptyView) {
+- (SearchEmptyVC *)sEmptyVC {
+    if (!_sEmptyVC) {
         SearchEmptyVC *vc = [SearchEmptyVC getCtrllerFromNIB] ;
         [vc viewDidLoad] ;
         vc.lbWord.text = @"点击开始记录你的新故事..." ;
-        _sEmptyView = vc.view ;
-        [_sEmptyView bk_whenTapped:^{
+        _sEmptyVC = vc ;
+        [_sEmptyVC.view bk_whenTapped:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
         }] ;
     }
-    return _sEmptyView ;
+    return _sEmptyVC ;
 }
 
 + (CGFloat)movingDistance {

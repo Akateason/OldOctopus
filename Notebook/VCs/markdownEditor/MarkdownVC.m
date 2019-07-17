@@ -54,16 +54,17 @@
 }
 
 #pragma mark - Life
-
+// 当 bookID == nil 时, 笔记在暂存区创建
+//
 + (instancetype)newWithNote:(Note *)note
                      bookID:(NSString *)bookID
                 fromCtrller:(UIViewController *)ctrller {
     
-    MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarddownVC"] ;
+    MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarkdownVC"] ;
     vc.aNote = note ;
     vc.delegate = (id <MarkdownVCDelegate>)ctrller ;
     vc.myBookID = bookID ;
-    if (!note && !bookID) vc.canBeEdited = NO ;
+    if (!note && !bookID && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) vc.canBeEdited = NO ;
     else vc.canBeEdited = YES ;
     [vc.editor.toolBar reset] ;
     [ctrller.navigationController pushViewController:vc animated:YES] ;
