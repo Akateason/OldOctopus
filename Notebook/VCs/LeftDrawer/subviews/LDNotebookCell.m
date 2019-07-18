@@ -14,9 +14,6 @@
 
 @implementation LDNotebookCell
 
-
-
-
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     
@@ -40,7 +37,6 @@
         _lbName.text = XT_STR_FORMAT(@"垃圾桶 (%d)",[Note xt_countWhere:@"isDeleted == 1"]) ;
     }
     
-    
     NBEmoji *emjObj = [NBEmoji yy_modelWithJSON:book.emoji] ;
     _lbEmoji.text = emjObj.native ;
     
@@ -55,12 +51,12 @@
     }
     
     self.bgViewOnChoose.xt_theme_backgroundColor = book.isOnSelect ? XT_MAKE_theme_color(k_md_themeColor, .05) : nil ;
-    self.lbName.xt_theme_textColor = book.isOnSelect ? XT_MAKE_theme_color(k_md_themeColor, 1)
-    :  XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.leftRedView.hidden = !book.isOnSelect ;
     
+    self.lbName.xt_theme_textColor = book.isOnSelect ? XT_MAKE_theme_color(k_md_textColor, .8)
+    :  XT_MAKE_theme_color(k_md_textColor, .6) ;
+    if (book.vType == Notebook_Type_add) self.lbName.xt_theme_textColor = k_md_themeColor ;
     self.imgView.xt_theme_imageColor = (book.vType == Notebook_Type_add) ? k_md_themeColor : k_md_iconColor ;
-    self.lbName.xt_theme_textColor = (book.vType == Notebook_Type_add) ? k_md_themeColor : k_md_iconColor ;
 }
 
 - (UIImageView *)imgView {
