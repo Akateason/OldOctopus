@@ -237,8 +237,7 @@ XT_SINGLETON_M(OctWebEditor)
     }
     else {
         //link
-        NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:3000/"] ;
-//      NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.172:8887/mycode/pic.html"] ;
+        NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.97:3000/"] ;
         [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
     }
 }

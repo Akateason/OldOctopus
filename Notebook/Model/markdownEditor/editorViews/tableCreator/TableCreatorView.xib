@@ -142,6 +142,8 @@
             <connections>
                 <outlet property="btCancel" destination="T55-8Z-Kfa" id="6M2-mt-NLd"/>
                 <outlet property="btOk" destination="GYd-4C-IaF" id="YmT-eX-0We"/>
+                <outlet property="lbColumn" destination="6pg-o4-DNB" id="mB1-1k-Nes"/>
+                <outlet property="lbLine" destination="2OP-EH-OLx" id="kcW-KF-4Oq"/>
                 <outlet property="lbTitle" destination="2Ha-HU-38Y" id="7K4-cO-JsZ"/>
                 <outlet property="tfColumnCount" destination="7FG-PU-e3f" id="At2-eU-qNj"/>
                 <outlet property="tfLineCount" destination="z7y-CY-99h" id="uVX-0k-57Q"/>

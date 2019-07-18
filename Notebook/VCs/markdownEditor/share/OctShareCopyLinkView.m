@@ -51,7 +51,10 @@
     
     self.btConfirm.xt_cornerRadius = self.btCancel.xt_cornerRadius = 8 ;
     self.btConfirm.xt_borderColor = self.btCancel.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .2) ;
-    self.btConfirm.xt_borderWidth = self.btCancel.xt_borderWidth = 1 ;            
+    self.btConfirm.xt_borderWidth = self.btCancel.xt_borderWidth = 1 ;
+    
+    self.btConfirm.xt_theme_textColor = k_md_textColor ;
+    self.btCancel.xt_theme_textColor = k_md_textColor ;
 }
 
 

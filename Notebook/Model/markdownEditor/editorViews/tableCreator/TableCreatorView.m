@@ -9,6 +9,7 @@
 #import "TableCreatorView.h"
 #import <XTlib/XTlib.h>
 #import <BlocksKit+UIKit.h>
+#import "MDThemeConfiguration.h"
 
 @implementation TableCreatorView
 
@@ -29,8 +30,8 @@
     
     [hud addSubview:creator] ;
     [creator mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(hud).offset(20) ;
-        make.right.equalTo(hud).offset(-20) ;
+        make.centerX.equalTo(window.mas_centerX) ;
+        make.width.equalTo(@300) ;
         make.height.equalTo(@200) ;
         make.bottom.equalTo(window.mas_bottom).offset(- keyboardHeight) ;
     }] ;
@@ -70,6 +71,25 @@
     _tfLineCount.keyboardType = UIKeyboardTypeNumberPad ;
     _tfColumnCount.keyboardType = UIKeyboardTypeNumberPad ;
     
+    self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    self.btOk.xt_theme_textColor = k_md_textColor ;
+    self.btCancel.xt_theme_textColor = k_md_textColor ;
+    
+    self.lbLine.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    self.lbColumn.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    
+    self.btOk.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
+    self.btCancel.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
+    
+    self.tfLineCount.xt_theme_textColor = k_md_textColor ;
+    self.tfColumnCount.xt_theme_textColor = k_md_textColor ;
+    self.tfLineCount.xt_theme_backgroundColor = k_md_drawerColor ;
+    self.tfColumnCount.xt_theme_backgroundColor = k_md_drawerColor ;
+    
+    UIColor *color = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .5) ;
+    [self.tfLineCount setValue:color forKeyPath:@"_placeholderLabel.textColor"] ;
+    [self.tfColumnCount setValue:color forKeyPath:@"_placeholderLabel.textColor"] ;
 }
 
 @end

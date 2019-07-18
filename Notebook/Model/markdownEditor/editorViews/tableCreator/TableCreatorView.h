@@ -20,6 +20,10 @@ typedef void(^CallbackBlk)(BOOL isConfirm, NSString *line, NSString *column) ;
 @property (weak, nonatomic) IBOutlet UIButton *btOk;
 @property (copy, nonatomic) CallbackBlk blk ;
 
+@property (weak, nonatomic) IBOutlet UILabel *lbLine;
+@property (weak, nonatomic) IBOutlet UILabel *lbColumn;
+
+
 + (void)showOnView:(UIView *)onView
             window:(UIWindow *)window
     keyboardHeight:(CGFloat)keyboardHeight
