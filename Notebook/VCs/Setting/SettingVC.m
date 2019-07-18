@@ -26,7 +26,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btClose;
 @property (weak, nonatomic) IBOutlet UILabel *lbAccountTitle;
-@property (weak, nonatomic) IBOutlet UILabel *lbIcon;
+
+@property (weak, nonatomic) IBOutlet UIImageView *userHead;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
@@ -68,8 +70,9 @@
     self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbAccountTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
-    self.lbIcon.xt_theme_backgroundColor = k_md_themeColor ;
-    self.lbIcon.textColor = [UIColor whiteColor] ;
+//    self.lbIcon.xt_theme_backgroundColor = k_md_themeColor ;
+//    self.lbIcon.textColor = [UIColor whiteColor] ;
+    self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     [SettingCell xt_registerNibFromTable:self.table] ;
     self.table.dataSource = self ;
@@ -95,8 +98,7 @@
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
-    NSString *givenName = [XTIcloudUser displayUserName] ;
-    self.lbIcon.text = [givenName substringToIndex:1] ;
+    NSString *givenName = [XTIcloudUser displayUserName] ;    
     self.lbName.text = givenName ;
 }
 

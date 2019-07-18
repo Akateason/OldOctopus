@@ -22,10 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LDHeadView : UIView <UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) id <LDHeadViewDelegate> ld_delegate ;
-@property (weak, nonatomic) IBOutlet UILabel *lbHead;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIButton *btTheme;
+@property (weak, nonatomic) IBOutlet UIImageView *userHead;
 
 - (void)setupUser ;
 @property (strong, nonatomic) NoteBooks *bookRecent ;
