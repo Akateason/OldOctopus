@@ -67,11 +67,11 @@
     self.fd_prefersNavigationBarHidden = YES ;
     
     self.btClose.xt_theme_imageColor = k_md_iconColor ;
+    [self.btClose xt_enlargeButtonsTouchArea] ;
+    
     self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbAccountTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
-//    self.lbIcon.xt_theme_backgroundColor = k_md_themeColor ;
-//    self.lbIcon.textColor = [UIColor whiteColor] ;
     self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     [SettingCell xt_registerNibFromTable:self.table] ;

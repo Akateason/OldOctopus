@@ -80,8 +80,6 @@ typedef void(^BlkTapBookCell)(void);
     self.view.xt_theme_backgroundColor = k_md_drawerColor ;
     self.table.xt_theme_backgroundColor = k_md_drawerColor ;
     
-
-        
     @weakify(self)
     // 清数据 暗开关
     [self.table bk_whenTouches:2 tapped:7 handler:^{
@@ -166,7 +164,7 @@ typedef void(^BlkTapBookCell)(void);
     }
     if (currentBook.name) XT_USERDEFAULT_SET_VAL(cachedValue, kUDCached_lastBook_RecID) ;
     
-    [self.booklist enumerateObjectsUsingBlock:^(NoteBooks  *book, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.booklist enumerateObjectsUsingBlock:^(NoteBooks *book, NSUInteger idx, BOOL * _Nonnull stop) {
         book.isOnSelect = NO ;
         if ([book.icRecordName isEqualToString:currentBook.icRecordName]) {
             book.isOnSelect = YES ;
@@ -174,6 +172,8 @@ typedef void(^BlkTapBookCell)(void);
     }] ;
     
     self.bookTrash.isOnSelect = currentBook.vType == Notebook_Type_trash ;
+    self.bookRecent.isOnSelect = currentBook.vType == Notebook_Type_recent ;
+    self.bookStaging.isOnSelect = currentBook.vType == Notebook_Type_staging ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.table reloadData] ;
