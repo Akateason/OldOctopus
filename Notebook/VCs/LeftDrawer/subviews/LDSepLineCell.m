@@ -16,6 +16,7 @@
     
     self.sep.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     self.xt_theme_backgroundColor = k_md_drawerColor ;
+    self.selectionStyle = 0 ;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

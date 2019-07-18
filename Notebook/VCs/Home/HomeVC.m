@@ -370,7 +370,7 @@
     Note *aNote = self.listNotes[indexPath.row] ;
     [cell xt_configure:aNote indexPath:indexPath] ;
     cell.revealPosition = SWCellRevealPositionRightExtended ;
-    cell.draggableBorderWidth = 200 ;
+    cell.draggableBorderWidth = IS_IPAD ? 0. : 200. ;
     cell.dataSource = self ;
     cell.delegate = self ;
     [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
@@ -390,7 +390,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         [SearchVC showSearchVCFrom:self inTrash:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
-        
         return ;
     }
     
@@ -431,6 +430,10 @@
 - (NSArray *)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)cell1 {
     return [self setupPanList:cell1] ;
 }
+
+//- (NSArray *)leftButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell {
+//    return nil ;
+//}
 
 - (void)revealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell willMoveToPosition:(SWCellRevealPosition)position {
     if (position == SWCellRevealPositionLeft) {
