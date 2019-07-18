@@ -262,7 +262,12 @@
     if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) return ;
     if (self.isInTrash) return ;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
+    if (!self.emptyView.hidden) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
+    }
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -665,9 +670,9 @@ return;}
         [self.view addSubview:_emptyView] ;
         _emptyView.hidden = YES ;
         
-        [_emptyView.area bk_whenTapped:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
-        }] ;
+//        [_emptyView.area bk_whenTapped:^{
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
+//        }] ;
     }
     return _emptyView ;
 }

@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7E-Ac-LyT">
-                                <rect key="frame" x="20" y="20" width="252" height="25.5"/>
+                                <rect key="frame" x="20" y="20" width="225" height="25.5"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -38,7 +38,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1d" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lz-1p-FH9">
-                                <rect key="frame" x="288" y="20" width="12" height="17"/>
+                                <rect key="frame" x="250" y="20" width="50" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="UuW-3m-ssw"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -54,11 +57,11 @@
                         <color key="backgroundColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="7lz-1p-FH9" secondAttribute="trailing" constant="20" id="7oJ-FT-UPi"/>
+                            <constraint firstItem="7lz-1p-FH9" firstAttribute="leading" secondItem="m7E-Ac-LyT" secondAttribute="trailing" constant="5" id="85p-Kt-3uc"/>
                             <constraint firstItem="1c7-tb-3hL" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="20" id="LbE-MK-PQe"/>
                             <constraint firstAttribute="trailing" secondItem="BmT-RM-iF6" secondAttribute="trailing" id="MaQ-X4-4uY"/>
                             <constraint firstAttribute="trailing" secondItem="1c7-tb-3hL" secondAttribute="trailing" constant="20" id="O96-UM-iPC"/>
                             <constraint firstItem="7lz-1p-FH9" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="20" id="Oef-f0-161"/>
-                            <constraint firstItem="m7E-Ac-LyT" firstAttribute="width" secondItem="Zzt-FU-u9Q" secondAttribute="width" multiplier="160:320" constant="92" id="mGL-hf-4LA"/>
                             <constraint firstItem="m7E-Ac-LyT" firstAttribute="leading" secondItem="Zzt-FU-u9Q" secondAttribute="leading" constant="20" id="uQf-k3-9Pr"/>
                             <constraint firstItem="1c7-tb-3hL" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" constant="50" id="vJ0-C9-WNh"/>
                             <constraint firstItem="BmT-RM-iF6" firstAttribute="top" secondItem="Zzt-FU-u9Q" secondAttribute="top" id="wr3-8l-yjB"/>

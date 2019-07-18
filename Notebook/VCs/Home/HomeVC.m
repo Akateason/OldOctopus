@@ -138,7 +138,7 @@
          @weakify(self)
          [self renderTable:^{
              @strongify(self)
-             [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+             [self newNoteCombineFunc:aNote] ;
          }] ;
      }] ;
     
@@ -236,6 +236,15 @@
     
     [self.leftVC render] ;
     [self.slidingController toggleDrawer] ;
+}
+
+- (void)newNoteCombineFunc:(Note *)aNote {
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+        [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
+    }
 }
 
 - (void)prepareUI {
@@ -381,6 +390,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         [SearchVC showSearchVCFrom:self inTrash:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
+        
         return ;
     }
     
@@ -395,12 +405,7 @@
     self.selectedNoteIcloudRecordID = aNote.icRecordName ;
     [tableView reloadData] ;
     
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
-        [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
-    }
-    else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
-    }
+    [self newNoteCombineFunc:aNote] ;
 }
 
 - (UIView *)makePlaceHolderView {
@@ -476,7 +481,8 @@
         _phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         WEAK_SELF
         [_phView.area bk_whenTapped:^{
-            [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
+            Note *aNote = [[Note alloc] initWithBookID:self.leftVC.currentBook.icRecordName content:@"" title:@""] ;            
+            [weakSelf newNoteCombineFunc:aNote] ;
         }] ;
     }
     return _phView ;
@@ -486,7 +492,6 @@
     if (!_sEmptyVC) {
         SearchEmptyVC *vc = [SearchEmptyVC getCtrllerFromNIB] ;
         [vc viewDidLoad] ;
-        vc.lbWord.text = @"点击开始记录你的新故事..." ;
         _sEmptyVC = vc ;
         [_sEmptyVC.view bk_whenTapped:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
