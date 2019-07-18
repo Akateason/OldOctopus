@@ -669,10 +669,6 @@ return;}
         _emptyView.lbPh.textAlignment = NSTextAlignmentCenter ;
         [self.view addSubview:_emptyView] ;
         _emptyView.hidden = YES ;
-        
-//        [_emptyView.area bk_whenTapped:^{
-//            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
-//        }] ;
     }
     return _emptyView ;
 }

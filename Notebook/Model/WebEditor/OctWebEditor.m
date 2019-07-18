@@ -66,16 +66,20 @@ XT_SINGLETON_M(OctWebEditor)
         NSDictionary *info = [x userInfo] ;
         CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
         // 工具条的Y值 == 键盘的Y值 - 工具条的高度
-        if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
-            self.toolBar.top = self.height - kOctEditorToolBarHeight;
-        }
-        else {
-            self.toolBar.top = endKeyboardRect.origin.y - kOctEditorToolBarHeight;
-        }
-        
+        self.toolBar.top = 2000 ;
         self.toolBar.width = APP_WIDTH ;
-        if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
-        self.toolBar.hidden = NO ;
+        
+        [UIView animateWithDuration:.3 animations:^{
+            if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
+                self.toolBar.top = self.height - kOctEditorToolBarHeight;
+            }
+            else {
+                self.toolBar.top = endKeyboardRect.origin.y - kOctEditorToolBarHeight;
+            }
+            
+            if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
+            self.toolBar.hidden = NO ;
+        }] ;
         
         // get keyboard height
         self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
@@ -88,7 +92,7 @@ XT_SINGLETON_M(OctWebEditor)
         if (self.toolBar.hidden == NO) {
             [self.toolBar refresh] ;
         }
-         
+        
         [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {}] ;
     }] ;
     
@@ -96,6 +100,7 @@ XT_SINGLETON_M(OctWebEditor)
         @strongify(self)
         self.toolBar.hidden = YES ;
         [self.toolBar hideAllBoards] ;
+        self.toolBar.top = 2000 ;
         [self.toolBar removeFromSuperview] ;
     }] ;
     
@@ -301,6 +306,16 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 - (BOOL)articleAreTheSame {
     return [self.firstTimeArticle isEqualToString:self.aNote.content] ;
+}
+
+- (RACSubject *)editorCrashSignal {
+    if(!_editorCrashSignal){
+        _editorCrashSignal = ({
+            RACSubject * object = [RACSubject subject] ;
+            object;
+        });
+    }
+    return _editorCrashSignal;
 }
 
 #pragma mark --
@@ -615,13 +630,6 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 
-- (RACSubject *)editorCrashSignal {
-    if(!_editorCrashSignal){
-        _editorCrashSignal = ({
-            RACSubject * object = [RACSubject subject] ;
-            object;
-       });
-    }
-    return _editorCrashSignal;
-}
+
+
 @end

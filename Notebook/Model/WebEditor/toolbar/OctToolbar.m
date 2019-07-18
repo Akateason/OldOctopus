@@ -66,6 +66,7 @@ XT_SINGLETON_M(OctToolbar)
 - (void)reset {
     self.selectedPosition = 0 ;
     self.underLineView.centerX = self.btShowKeyboard.centerX + 17 ;
+    self.underLineView.top = 38. ;
 }
 
 - (void)refresh {
@@ -100,8 +101,7 @@ XT_SINGLETON_M(OctToolbar)
     
     self.underLineView.width = self.btInlineStyle.width - 4 ;
     self.underLineView.centerX = self.btShowKeyboard.centerX + 17;
-    self.underLineView.bottom = self.bottom ;
-    
+    self.underLineView.top = 38. ;
 }
 
 
@@ -196,6 +196,7 @@ XT_SINGLETON_M(OctToolbar)
         _underLineView = [UIView new] ;
         _underLineView.size = CGSizeMake(100, 2) ;
         _underLineView.backgroundColor = UIColorHex(@"6b737b") ;
+        _underLineView.top = 38. ;
         [_underLineView xt_completeRound] ;
         if (!_underLineView.superview) {
             [self addSubview:_underLineView] ;
