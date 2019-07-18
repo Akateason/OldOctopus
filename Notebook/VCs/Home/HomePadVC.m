@@ -163,22 +163,16 @@ static const float slidingSpeed = 2000 ;
     
     CGPoint offset = [recognizer translationInView:self.view] ;
     if (fabs(offset.y) > fabs(offset.x) && recognizer.state == UIGestureRecognizerStateBegan) return ;
-    NSLog(@"11111 ") ;
+//    NSLog(@"11111 ") ;
     
     CGFloat translation = offset.x;
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
-//    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 &&
-//        velocity < 0
-//         && (recognizer.state != UIGestureRecognizerStateChanged )
-//        ) {
-//        return ;
-//    }
     
     float openedLeft = 0 ;
     float left = _rightContainer.left ;
     left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
 //    left = left < 0 ? 0 : left ;
-    NSLog(@"velocity : %lf\n offset : %@\nleft : %lf",velocity,NSStringFromCGPoint(offset),left) ;
+//    NSLog(@"velocity : %lf\n offset : %@\nleft : %lf",velocity,NSStringFromCGPoint(offset),left) ;
     if (left < 0) return ;
     
     self->_rightContainer.left = left ;
@@ -187,7 +181,7 @@ static const float slidingSpeed = 2000 ;
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         CGFloat leftForEdge, leftForBounce;
         int finalOpenState ;
-        NSLog(@"2222222") ;
+//        NSLog(@"2222222") ;
         if (velocity > 0) {
             leftForEdge = kWidth_ListView;
             leftForBounce = leftForEdge + 22.0;
@@ -196,7 +190,7 @@ static const float slidingSpeed = 2000 ;
             // pad ,里面, 左滑, 安全距离
             if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && velocity < 300 && left < 100) {
                 self->_rightContainer.left = 0 ;
-                NSLog(@"33333333");
+//                NSLog(@"33333333");
                 return ;
             }
         }
@@ -207,12 +201,12 @@ static const float slidingSpeed = 2000 ;
 
             if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
                 [self.slidingController setDrawerOpened:NO animated:YES] ;
-                NSLog(@"4444444");
+//                NSLog(@"4444444");
                 return ;
             }
         }
         
-        NSLog(@"555555") ;
+//        NSLog(@"555555") ;
         
         if (finalOpenState == 0) { //手势, 更新文章
             [_editorVC leaveOut] ;

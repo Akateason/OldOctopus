@@ -603,17 +603,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nb_right_fish.png" translatesAutoresizingMaskIntoConstraints="NO" id="8sq-Y7-sEe">
-                                <rect key="frame" x="343" y="60" width="32" height="112"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="Cgb-vE-5oe"/>
-                                    <constraint firstAttribute="height" constant="112" id="HRA-UA-gex"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="8sq-Y7-sEe" firstAttribute="top" secondItem="SE4-Vb-AiY" secondAttribute="top" id="2Lw-Fe-ETZ"/>
                             <constraint firstItem="vrA-Uw-4Zg" firstAttribute="leading" secondItem="7BF-t7-Y94" secondAttribute="leading" constant="20" id="9F7-kr-4yz"/>
                             <constraint firstItem="7wh-cr-s3D" firstAttribute="leading" secondItem="Iil-GY-a6D" secondAttribute="trailing" constant="43" id="GT0-7E-P7T"/>
                             <constraint firstItem="jLt-7e-Djn" firstAttribute="top" secondItem="y7d-D2-HGE" secondAttribute="bottom" constant="5" id="KKy-xQ-BHG"/>
@@ -622,7 +614,6 @@
                             <constraint firstItem="SE4-Vb-AiY" firstAttribute="leading" secondItem="7BF-t7-Y94" secondAttribute="leading" constant="20" id="cul-Ry-6d1"/>
                             <constraint firstItem="7wh-cr-s3D" firstAttribute="trailing" secondItem="jLt-7e-Djn" secondAttribute="trailing" id="e3r-ru-39G"/>
                             <constraint firstItem="7BF-t7-Y94" firstAttribute="trailing" secondItem="jLt-7e-Djn" secondAttribute="trailing" constant="85" id="kgQ-Xr-ldi"/>
-                            <constraint firstItem="8sq-Y7-sEe" firstAttribute="trailing" secondItem="7BF-t7-Y94" secondAttribute="trailing" id="pgC-E4-LMn"/>
                             <constraint firstItem="y7d-D2-HGE" firstAttribute="leading" secondItem="vrA-Uw-4Zg" secondAttribute="trailing" constant="1" id="qNx-id-VnD"/>
                             <constraint firstItem="7wh-cr-s3D" firstAttribute="centerY" secondItem="Iil-GY-a6D" secondAttribute="centerY" id="sha-41-d3b"/>
                             <constraint firstItem="jLt-7e-Djn" firstAttribute="top" secondItem="vrA-Uw-4Zg" secondAttribute="bottom" id="w5A-ZO-GTd"/>
@@ -635,7 +626,6 @@
                     <connections>
                         <outlet property="btCancel" destination="Iil-GY-a6D" id="A0Y-xy-j0H"/>
                         <outlet property="btCreate" destination="7wh-cr-s3D" id="BHZ-9G-o4m"/>
-                        <outlet property="imgRightCornerFish" destination="8sq-Y7-sEe" id="yJN-yg-dhX"/>
                         <outlet property="lbEmoji" destination="vrA-Uw-4Zg" id="CXI-YX-lDv"/>
                         <outlet property="lbTitle" destination="SE4-Vb-AiY" id="hO0-k7-4PR"/>
                         <outlet property="tfName" destination="y7d-D2-HGE" id="fkF-sp-6i8"/>
@@ -1345,7 +1335,6 @@
         <image name="md_ed_more.png" width="40" height="40"/>
         <image name="md_home_search.png" width="32" height="32"/>
         <image name="nav_back_item.png" width="40" height="40"/>
-        <image name="nb_right_fish.png" width="64" height="185"/>
         <image name="setting_icon.png" width="49" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>

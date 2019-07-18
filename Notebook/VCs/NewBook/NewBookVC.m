@@ -46,6 +46,9 @@
     popVC.permittedArrowDirections = 0 ;
     popVC.xt_theme_backgroundColor = k_md_bgColor ;
     
+    vc.view.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, .2) ;
+    vc.view.xt_borderWidth = 1 ;
+    
     @weakify(vc)
     [vc.btCreate bk_addEventHandler:^(id sender) {
         @strongify(vc)

@@ -12,7 +12,6 @@
 
 @interface NewBookVC : BasicVC
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
-@property (weak, nonatomic) IBOutlet UIImageView *imgRightCornerFish;
 @property (weak, nonatomic) IBOutlet UILabel *lbEmoji;
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
 @property (weak, nonatomic) IBOutlet UIView *underline;

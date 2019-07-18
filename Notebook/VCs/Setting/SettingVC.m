@@ -37,7 +37,11 @@
 
 + (MDNavVC *)getMeFromCtrller:(UIViewController *)contentController fromView:(UIView *)fromView {
     SettingVC *settignVC = [SettingVC getCtrllerFromStory:@"Main" controllerIdentifier:@"SettingVC"] ;
+    
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:settignVC] ;
+    
+    navVC.view.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, .2) ;
+    navVC.view.xt_borderWidth = 1 ;
     
     navVC.modalPresentationStyle = UIModalPresentationPopover ;
     

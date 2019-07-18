@@ -244,13 +244,13 @@ static const CGFloat slidingSpeed = 1500.0;
     CGPoint offset = [recognizer translationInView:self.view] ;
     // DEBUG解决手势滑动, 有时(当横滑再竖滑), 卡在中间的问题.
     if (fabs(offset.y) > fabs(offset.x) && recognizer.state == UIGestureRecognizerStateBegan) return ;
-    NSLog(@"aaa11111 ") ;
+//    NSLog(@"aaa11111 ") ;
     
     if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-        NSLog(@"bbb11 ") ;
+//        NSLog(@"bbb11 ") ;
         return ;
     }
-    NSLog(@"aaa22222 ") ;
+//    NSLog(@"aaa22222 ") ;
     
     CGFloat velocity = [recognizer velocityInView:self.view].x;
 	CGFloat translation = offset.x;
@@ -265,7 +265,7 @@ static const CGFloat slidingSpeed = 1500.0;
     }
     
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        NSLog(@"aaa33333 ") ;
+//        NSLog(@"aaa33333 ") ;
 
         CGFloat centerForEdge, centerForBounce;
         BOOL finalOpenState;
