@@ -227,7 +227,10 @@ static const CGFloat slidingSpeed = 1500.0;
         BOOL directionIsHorizontal = (fabs(translation.x) > fabs(translation.y));
         BOOL directionIsToRight = translation.x > 0;
         bool result = directionIsHorizontal && (directionIsToRight || self.drawerOpened) ;
-//        NSLog(@"result : %d",result) ;
+        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+            NSLog(@"不走") ;
+            return NO ;
+        }
         return result ;
     }
     else if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
@@ -238,16 +241,17 @@ static const CGFloat slidingSpeed = 1500.0;
 }
 
 - (void)panned:(UIPanGestureRecognizer *)recognizer {
-//    NSLog(@"UIGesture state : %ld", (long)recognizer.state) ;
-    
     CGPoint offset = [recognizer translationInView:self.view] ;
     // DEBUG解决手势滑动, 有时(当横滑再竖滑), 卡在中间的问题.
     if (fabs(offset.y) > fabs(offset.x) && recognizer.state == UIGestureRecognizerStateBegan) return ;
-//    NSLog(@"11111 ") ;
-    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) return ;
-//    NSLog(@"22222 ") ;
+    NSLog(@"aaa11111 ") ;
     
-//    CGPoint offset = [(UIPanGestureRecognizer *)recognizer translationInView:self.view] ;
+    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+        NSLog(@"bbb11 ") ;
+        return ;
+    }
+    NSLog(@"aaa22222 ") ;
+    
     CGFloat velocity = [recognizer velocityInView:self.view].x;
 	CGFloat translation = offset.x;
     [recognizer setTranslation:CGPointZero inView:self.view];
@@ -260,9 +264,8 @@ static const CGFloat slidingSpeed = 1500.0;
         _topViewContainer.center = center;
     }
     
-
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-//        NSLog(@"33333 ") ;
+        NSLog(@"aaa33333 ") ;
 
         CGFloat centerForEdge, centerForBounce;
         BOOL finalOpenState;

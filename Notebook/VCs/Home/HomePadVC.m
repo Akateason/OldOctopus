@@ -159,16 +159,27 @@ static const float slidingSpeed = 2000 ;
 #pragma mark - MDVC_PadVCPanGestureDelegate <NSObject>
 
 - (void)pad_panned:(UIPanGestureRecognizer *)recognizer {
+    
+    
     CGPoint offset = [recognizer translationInView:self.view] ;
-    if (fabs(offset.y) > fabs(offset.x)) return ;
+    if (fabs(offset.y) > fabs(offset.x) && recognizer.state == UIGestureRecognizerStateBegan) return ;
+    NSLog(@"11111 ") ;
     
     CGFloat translation = offset.x;
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
+//    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 &&
+//        velocity < 0
+//         && (recognizer.state != UIGestureRecognizerStateChanged )
+//        ) {
+//        return ;
+//    }
     
     float openedLeft = 0 ;
     float left = _rightContainer.left ;
     left = left < openedLeft ? left + translation : left + translation / (1. + left - openedLeft) ;
+//    left = left < 0 ? 0 : left ;
     NSLog(@"velocity : %lf\n offset : %@\nleft : %lf",velocity,NSStringFromCGPoint(offset),left) ;
+    if (left < 0) return ;
     
     self->_rightContainer.left = left ;
     [recognizer setTranslation:CGPointZero inView:self.view] ;
@@ -176,16 +187,16 @@ static const float slidingSpeed = 2000 ;
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         CGFloat leftForEdge, leftForBounce;
         int finalOpenState ;
-//        NSLog(@"111111111111111111111");
+        NSLog(@"2222222") ;
         if (velocity > 0) {
             leftForEdge = kWidth_ListView;
             leftForBounce = leftForEdge + 22.0;
             finalOpenState = 0;
-            
+
             // pad ,里面, 左滑, 安全距离
             if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && velocity < 300 && left < 100) {
                 self->_rightContainer.left = 0 ;
-//                NSLog(@"2222222222222222222222");
+                NSLog(@"33333333");
                 return ;
             }
         }
@@ -193,12 +204,15 @@ static const float slidingSpeed = 2000 ;
             leftForEdge = 0;
             leftForBounce = leftForEdge - 22.0;
             finalOpenState = -1;
-            
+
             if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
                 [self.slidingController setDrawerOpened:NO animated:YES] ;
+                NSLog(@"4444444");
                 return ;
             }
         }
+        
+        NSLog(@"555555") ;
         
         if (finalOpenState == 0) { //手势, 更新文章
             [_editorVC leaveOut] ;
@@ -210,7 +224,6 @@ static const float slidingSpeed = 2000 ;
         if (timeToEdgeWithCurrentVelocity < 0.7 * timeToEdgeWithStandardVelocity) {
             //Bounce and open
             left = leftForBounce ;
-//            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState ;
             
             [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_rightContainer.left = left;
@@ -233,7 +246,6 @@ static const float slidingSpeed = 2000 ;
         else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
             //finish the sliding with the current speed
             left = leftForEdge;
-//            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
             
             [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_rightContainer.left = left;
@@ -247,7 +259,6 @@ static const float slidingSpeed = 2000 ;
             //finish the sliding wiht minimum speed
             CGFloat duration = distanceToTheEdge / slidingSpeed;
             left = leftForEdge;
-//            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
             
             [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_rightContainer.left = left;

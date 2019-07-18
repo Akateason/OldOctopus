@@ -291,19 +291,19 @@
     // NSLog(@"offset : %@", NSStringFromCGPoint(offset)) ;
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
     
-    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity < 0) return ;
-    if (self.isInTrash && velocity < 0 && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 0) return ; // 垃圾桶 不能新建        
+    if (self.isInTrash && velocity < 0 && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 0) return ; // 垃圾桶 不能新建
+    NSLog(@"dddd : %d",[GlobalDisplaySt sharedInstance].gdst_level_for_horizon) ;
     
     switch ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon) {
         // 里层
         case -1: [self.pad_panDelegate pad_panned:recognizer] ; break;
         case 0: { // 中层
             if (velocity > 0) { //
-//                NSLog(@"👉") ;
+                NSLog(@"👉") ;
                 [self.oct_panDelegate oct_panned:recognizer] ; // 外层
             }
             else { //
-//                NSLog(@"👈") ;
+                NSLog(@"👈") ;
                 [self.pad_panDelegate pad_panned:recognizer] ; // 里层
             }
         } break;
