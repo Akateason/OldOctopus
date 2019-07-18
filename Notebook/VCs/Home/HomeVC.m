@@ -37,6 +37,8 @@
 #import "SearchEmptyVC.h"
 #import "UserTestCodeVC.h"
 
+static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
+
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
@@ -375,7 +377,11 @@
     cell.delegate = self ;
     [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
     if (self.leftVC.currentBook.vType != Notebook_Type_trash) {
-        [cell setUserSelected:[aNote.icRecordName isEqualToString:self.selectedNoteIcloudRecordID]] ;
+        [cell setUserSelected:
+         [aNote.icRecordName isEqualToString:self.selectedNoteIcloudRecordID]
+         ||
+         [aNote.icRecordName isEqualToString:XT_USERDEFAULT_GET_VAL(kUDCached_lastNote_RecID)]
+         ] ;
     }
     return cell ;
 }
@@ -405,6 +411,7 @@
     [tableView reloadData] ;
     
     [self newNoteCombineFunc:aNote] ;
+    XT_USERDEFAULT_SET_VAL(aNote.icRecordName, kUDCached_lastNote_RecID) ;
 }
 
 - (UIView *)makePlaceHolderView {
