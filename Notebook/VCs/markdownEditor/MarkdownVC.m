@@ -447,15 +447,15 @@ return;}
     [self.btMore xt_enlargeButtonsTouchArea] ;
     [self.btShare xt_enlargeButtonsTouchArea] ;
     
-    self.navArea.backgroundColor = nil ;
-    self.topBar.backgroundColor = nil ;
+    self.navArea.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;
+    self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;
 
-    [self.topBar setNeedsDisplay] ;
-    [self.topBar layoutIfNeeded] ;
-    [self.topBar oct_addBlurBg] ;
+//    [self.topBar setNeedsDisplay] ;
+//    [self.topBar layoutIfNeeded] ;
+//    [self.topBar oct_addBlurBg] ;
     
     if (IS_IPAD) {
-        [self.btBack setImage:[UIImage imageNamed:@"nav_back_reverse_item@2x"] forState:0] ;
+        [self.btBack setImage:[UIImage imageNamed:@"nav_back_reverse_item"] forState:0] ;
     }
 }
 
