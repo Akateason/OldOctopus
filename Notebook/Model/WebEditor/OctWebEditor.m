@@ -194,6 +194,10 @@ XT_SINGLETON_M(OctWebEditor)
     else if ([func isEqualToString:@"selectImage"]) {
         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
         
+        [self.toolBar hideAllBoards] ;
+        [self.toolBar removeFromSuperview] ;
+        [self hideKeyboard] ;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             WEAK_SELF
             [ArticlePhotoPreviewVC showFromView:self.window json:json deleteOnClick:^(ArticlePhotoPreviewVC * _Nonnull vc) {
