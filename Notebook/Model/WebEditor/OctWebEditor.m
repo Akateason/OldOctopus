@@ -42,7 +42,7 @@ XT_SINGLETON_M(OctWebEditor)
 - (void)setup {
     _isFirstTimeLoad = YES ;
     
-    self.xt_theme_backgroundColor = k_md_bgColor ;
+    self.xt_theme_backgroundColor         = k_md_bgColor ;
     self.webView.xt_theme_backgroundColor = k_md_bgColor ;
     
     [self createWebView] ;
