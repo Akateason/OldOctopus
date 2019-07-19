@@ -516,7 +516,7 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
 
 + (CGFloat)movingDistance {
     if (IS_IPAD) {
-        return 240. ;
+        return 200. ;
     }
     return  62. / 75. * APP_WIDTH ;
 }

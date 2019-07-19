@@ -55,6 +55,8 @@
     
     self.btConfirm.xt_theme_textColor = k_md_textColor ;
     self.btCancel.xt_theme_textColor = k_md_textColor ;
+    
+    
 }
 
 

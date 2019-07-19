@@ -29,6 +29,7 @@
     if (!_trashEmptyView) {
         _trashEmptyView = [HomeTrashEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         [self addSubview:_trashEmptyView] ;
+//        _trashEmptyView.backgroundColor = [UIColor redColor] ;
         [_trashEmptyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self) ;
         }] ;

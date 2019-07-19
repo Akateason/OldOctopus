@@ -46,8 +46,7 @@
 @property (nonatomic)         float             snapDuration ;
 
 @property (nonatomic)         BOOL              isInTrash ;
-
-
+@property (nonatomic)         BOOL              isInShare ;
 @end
 
 @implementation MarkdownVC
@@ -186,6 +185,7 @@
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Send_Share_Html object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         
+        self.isInShare = YES ;
         [[OctMBPHud sharedInstance] hide] ;
         
         @weakify(self)
@@ -196,11 +196,12 @@
                 NSLog(@"getShareHtmlLink : %@", urlString) ;
                 [self.editor hideKeyboard] ;
                 
-//                @weakify(self)
+                @weakify(self)
                 [OctShareCopyLinkView showOnView:self.view
                                             link:urlString
                                         complete:^(BOOL ok) {
-//                    @strongify(self)
+                    @strongify(self)
+                    self.isInShare = NO ;
                     if (ok) {
                         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
                         pasteboard.string = urlString ;
@@ -291,6 +292,7 @@
 
 - (void)panned:(UIPanGestureRecognizer *)recognizer {
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
+    if (self.isInShare) return ;
     
     CGPoint offset = [recognizer translationInView:self.view] ;
     // NSLog(@"offset : %@", NSStringFromCGPoint(offset)) ;
@@ -678,7 +680,7 @@ return;}
 - (HomeEmptyPHView *)emptyView {
     if (!_emptyView) {
         _emptyView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-        _emptyView.bottom = self.view.bottom ;
+        _emptyView.height = APP_HEIGHT - self.topBar.bottom ;
         _emptyView.left = self.view.left ;
         _emptyView.top = self.topBar.bottom ;
         _emptyView.width = [GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView ;
@@ -686,6 +688,10 @@ return;}
         [self.view addSubview:_emptyView] ;
         _emptyView.hidden = YES ;
     }
+    _emptyView.height = APP_HEIGHT - self.topBar.bottom ;
+    _emptyView.left = self.view.left ;
+    _emptyView.top = self.topBar.bottom ;
+    _emptyView.width = [GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView ;
     return _emptyView ;
 }
 
