@@ -78,7 +78,6 @@
     self.fd_prefersNavigationBarHidden = YES ;
     
     self.view.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : XT_MAKE_theme_color(k_md_bgColor,1) ;
-//    [self.view oct_addBlurBg] ;
     
     self.topArea.xt_theme_backgroundColor = nil ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
@@ -106,6 +105,13 @@
     [super viewDidAppear:animated] ;
     
     self.table.scrollEnabled = YES ;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_SearchVC_On_Window object:@1] ;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated] ;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_SearchVC_On_Window object:@0] ;
 }
 
 #pragma mark - table

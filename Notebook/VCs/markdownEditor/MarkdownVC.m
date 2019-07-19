@@ -25,7 +25,7 @@
 #import "OctShareCopyLinkView.h"
 #import "OctMBPHud.h"
 #import "HomeTrashEmptyPHView.h"
-
+#import "SearchVC.h"
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -180,6 +180,15 @@
         self.emptyView.isTrash = (book.vType == Notebook_Type_trash) ;
         self.isInTrash = (book.vType == Notebook_Type_trash) ;
         self.btBack.hidden = (book.vType == Notebook_Type_trash) ;
+    }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SearchVC_On_Window object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        // 搜索开启时, 右边和垃圾桶一样处理 .        
+        bool isOn = [x.object boolValue] ;
+        self.emptyView.isTrash = isOn ;
+        self.isInTrash = isOn ;
+        self.btBack.hidden = isOn ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Send_Share_Html object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
