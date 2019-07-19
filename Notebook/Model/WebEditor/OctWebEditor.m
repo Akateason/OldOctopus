@@ -184,11 +184,14 @@ XT_SINGLETON_M(OctWebEditor)
         }
     }
     else if ([func isEqualToString:@"typeList"]) {
-        NSArray *typelist = [WebModel currentTypeWithList:json] ;
-        self.typePara = [typelist.lastObject intValue] ;
+        NSArray *typelist = [WebModel currentTypeWithList:jsonDic[@"typeList"]] ;
+        NSArray *listTypes = [WebModel currentTypeWithList:jsonDic[@"listTypes"]] ;
+        NSMutableArray *tmpList = [typelist mutableCopy] ;
+        [tmpList addObjectsFromArray:listTypes] ;
+        self.typeBlkList = tmpList ;
     }
     else if ([func isEqualToString:@"formatList"]) {
-        NSArray *list = [WebModel currentTypeWithList:json] ;
+        NSArray *list = [WebModel currentTypeWithList:jsonDic[@"formatList"]] ;
         self.typeInlineList = list ;
     }
     else if ([func isEqualToString:@"selectImage"]) {
@@ -231,7 +234,7 @@ XT_SINGLETON_M(OctWebEditor)
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.toolBar renderWithParaType:self.typePara inlineList:self.typeInlineList] ;
+        [self.toolBar renderWithParaType:self.typeBlkList inlineList:self.typeInlineList] ;
     }) ;
 }
 
@@ -421,6 +424,15 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 #pragma mark --
 #pragma mark - util
+
+- (BOOL)typeBlkListHasThisType:(int)type {
+    bool hasType = NO ;
+    for (NSNumber *num in self.typeBlkList) {
+        if ([num intValue] == type) hasType = YES ;
+    }
+    return hasType ;
+}
+
 
 /**
  隐藏 webview 的 inputAccessoryView

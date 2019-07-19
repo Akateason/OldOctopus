@@ -49,6 +49,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupIqKeyboard] ;
     [self setupLoadingHomePage] ;
     [self setupIcloudEvent] ;
+    [self pullOrSync] ;
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
 }
@@ -232,7 +233,6 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     }] ;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
-    XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
 }
 
 - (void)icloudSync:(void(^)(void))completeBlk {

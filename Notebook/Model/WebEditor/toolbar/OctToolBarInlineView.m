@@ -16,6 +16,7 @@
 @implementation OctToolBarInlineView
 
 - (void)renderWithlist:(NSArray *)list {
+    BOOL isCodeBlkSerous = NO ;
     for (NSNumber *num in list) {
         int type = [num intValue] ;
         switch (type) {
@@ -35,21 +36,22 @@
                 break;
         }
         
-        self.bth1.enabled =
-        self.bth2.enabled =
-        self.bth3.enabled =
-        self.bth4.enabled =
-        self.bth5.enabled =
-        self.bth6.enabled =
-        self.btParaClean.enabled =
-        self.btBold.enabled =
-        self.btItalic.enabled =
-        self.btDeletion.enabled =
-        self.btInlineCode.enabled =
-        self.btUnderline.enabled =
-        type != MarkdownSyntaxCodeBlock ;
-        
+        if (type == MarkdownSyntaxCodeBlock) isCodeBlkSerous = YES ;
     }
+    
+    self.bth1.enabled =
+    self.bth2.enabled =
+    self.bth3.enabled =
+    self.bth4.enabled =
+    self.bth5.enabled =
+    self.bth6.enabled =
+    self.btParaClean.enabled =
+    self.btBold.enabled =
+    self.btItalic.enabled =
+    self.btDeletion.enabled =
+    self.btInlineCode.enabled =
+    self.btUnderline.enabled =
+    !isCodeBlkSerous ;
 }
 
 - (void)renderWithModel:(MarkdownModel *)model {

@@ -35,13 +35,13 @@
 
 XT_SINGLETON_M(OctToolbar)
 
-- (void)renderWithParaType:(int)para inlineList:(NSArray *)inlineList {
+- (void)renderWithParaType:(NSArray *)paraList inlineList:(NSArray *)inlineList {
     [self clearUI] ;
     
     NSMutableArray *tmplist = [inlineList mutableCopy] ;
-    [tmplist addObject:@(para)] ;
+    [tmplist addObjectsFromArray:paraList] ;
     [self.inlineBoard renderWithlist:tmplist] ;
-    [self.blockBoard renderWithType:para] ;
+    [self.blockBoard renderWithTypeList:paraList] ;
 }
 
 - (void)renderWithModel:(MarkdownModel *)model {
@@ -127,7 +127,7 @@ XT_SINGLETON_M(OctToolbar)
     // add inline board .
     [self.inlineBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight] ;
     
-    [self renderWithParaType:[OctWebEditor sharedInstance].typePara inlineList:[OctWebEditor sharedInstance].typeInlineList] ;
+    [self renderWithParaType:[OctWebEditor sharedInstance].typeBlkList inlineList:[OctWebEditor sharedInstance].typeInlineList] ;
 }
 
 - (IBAction)listAc:(UIButton *)sender {
@@ -137,7 +137,7 @@ XT_SINGLETON_M(OctToolbar)
     // add block board .
     [self.blockBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight] ;
     
-    [self renderWithParaType:[OctWebEditor sharedInstance].typePara inlineList:[OctWebEditor sharedInstance].typeInlineList] ;
+    [self renderWithParaType:[OctWebEditor sharedInstance].typeBlkList inlineList:[OctWebEditor sharedInstance].typeInlineList] ;
 }
 
 - (IBAction)photoAc:(UIButton *)sender {

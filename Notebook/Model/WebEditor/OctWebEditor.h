@@ -25,7 +25,7 @@ static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_
 @property (strong, nonatomic) WKWebView     *webView ;
 @property (strong, nonatomic) WebModel      *webInfo ;
 @property (copy, nonatomic)   NSArray       *typeInlineList ;
-@property (nonatomic)         int           typePara ;
+@property (copy, nonatomic)   NSArray       *typeBlkList ;
 @property (strong, nonatomic) OctToolbar    *toolBar ;
 
 @property (nonatomic)         int           note_clientID ;
@@ -59,6 +59,7 @@ static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_
 - (void)getShareHtml ;
 - (void)getShareHtmlWithMd:(NSString *)md ;
 
+- (BOOL)typeBlkListHasThisType:(int)type ;
 
 XT_SINGLETON_H(OctWebEditor)
 

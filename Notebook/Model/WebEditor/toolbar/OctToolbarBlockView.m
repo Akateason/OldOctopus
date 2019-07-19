@@ -15,15 +15,20 @@
 
 @implementation OctToolbarBlockView
 
-- (void)renderWithType:(int)type {
-    switch (type) {
-        case MarkdownSyntaxULLists: self.btUlist.selected = YES; break ;
-        case MarkdownSyntaxOLLists: self.btOlist.selected = YES; break ;
-        case MarkdownSyntaxTaskLists: self.btTaskList.selected = YES; break ;
-        case MarkdownSyntaxBlockquotes: self.btQuote.selected = YES; break ;
-        case MarkdownSyntaxHr: self.btSepline.selected = YES; break ;
-        default:
-            break;
+- (void)renderWithTypeList:(NSArray *)typeList {
+    BOOL hasCodeBlkSerious = NO ;
+    for (NSNumber *num in typeList) {
+        switch ([num intValue]) {
+            case MarkdownSyntaxULLists: self.btUlist.selected = YES; break ;
+            case MarkdownSyntaxOLLists: self.btOlist.selected = YES; break ;
+            case MarkdownSyntaxTaskLists: self.btTaskList.selected = YES; break ;
+            case MarkdownSyntaxBlockquotes: self.btQuote.selected = YES; break ;
+            case MarkdownSyntaxHr: self.btSepline.selected = YES; break ;
+            default:
+                break;
+        }
+        
+        if ([num intValue] == MarkdownSyntaxCodeBlock) hasCodeBlkSerious = YES ;
     }
     
     self.btCodeBlock.enabled =
@@ -40,8 +45,7 @@
     self.btTaskList.enabled =
     self.btLeftTab.enabled =
     self.btRightTabg.enabled =
-    type != MarkdownSyntaxCodeBlock ;
-    
+    !hasCodeBlkSerious ;
 }
 
 

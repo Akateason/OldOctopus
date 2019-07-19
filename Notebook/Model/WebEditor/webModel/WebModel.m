@@ -25,8 +25,14 @@
     }
 }
 
+//+ (NSArray *)currentTypeWithJson:(NSString *)json {
+//
+//}
+
+
+
 + (NSArray *)currentTypeWithList:(NSString *)jsonlist  {    
-    NSArray *list = [self convertjsonStringToJsonObj:jsonlist] ;
+    NSArray *list = jsonlist ;//[self convertjsonStringToJsonObj:jsonlist] ;
     NSMutableArray *tmplist = [@[] mutableCopy] ;
     for (NSString *str in list) {
         int val = [self getTypeFromStr:str] ;
@@ -67,7 +73,7 @@
     else if ([resultStr isEqualToString:@"ol"]) {
         return MarkdownSyntaxOLLists ;
     }
-    else if ([resultStr isEqualToString:@"ul"]) {
+    else if ([resultStr isEqualToString:@"bullet"]) {
         return MarkdownSyntaxULLists ;
     }
     else if ([resultStr isEqualToString:@"p"]) {
@@ -97,6 +103,9 @@
     else if ([resultStr isEqualToString:@"inline_math"]) {
         return MarkdownSyntaxMultipleMath ;
     }
+    else if ([resultStr isEqualToString:@"task"]) {
+        return MarkdownSyntaxTaskLists ;
+    }
     
     return MarkdownSyntaxUnknown ;
 }
@@ -105,5 +114,15 @@
 
 
 @implementation WordCount
+
+@end
+
+
+@implementation TypeSelectedItem
+
+@end
+
+
+@implementation Affiliation
 
 @end

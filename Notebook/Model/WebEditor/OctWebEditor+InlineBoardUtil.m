@@ -18,7 +18,7 @@
 }
 
 - (void)toolbarDidSelectH1 {
-    if (self.typePara == MarkdownSyntaxH1) {
+    if ([self typeBlkListHasThisType:MarkdownSyntaxH1]) {
         [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
@@ -30,7 +30,7 @@
 }
 
 - (void)toolbarDidSelectH2 {
-    if (self.typePara == MarkdownSyntaxH2) {
+    if ([self typeBlkListHasThisType:MarkdownSyntaxH2]) {
         [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
@@ -42,7 +42,7 @@
 }
 
 - (void)toolbarDidSelectH3 {
-    if (self.typePara == MarkdownSyntaxH3) {
+    if ([self typeBlkListHasThisType:MarkdownSyntaxH3]) {
         [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
@@ -54,7 +54,7 @@
 }
 
 - (void)toolbarDidSelectH4 {
-    if (self.typePara == MarkdownSyntaxH4) {
+    if ([self typeBlkListHasThisType:MarkdownSyntaxH4]) {
         [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
         }] ;
     }
@@ -65,7 +65,7 @@
 }
 
 - (void)toolbarDidSelectH5 {
-    if (self.typePara == MarkdownSyntaxH5) {
+    if ([self typeBlkListHasThisType:MarkdownSyntaxH5]) {
         [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
         }] ;
     }
@@ -76,7 +76,7 @@
 }
 
 - (void)toolbarDidSelectH6 {
-    if (self.typePara == MarkdownSyntaxH6) {
+    if ([self typeBlkListHasThisType:MarkdownSyntaxH6]) {
         [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
         }] ;
     }

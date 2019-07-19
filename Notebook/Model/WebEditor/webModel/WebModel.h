@@ -29,7 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+@interface TypeSelectedItem : NSObject
+@property (nonatomic, strong) NSArray *affiliation ;
+@end
 
+@interface Affiliation : NSObject
+@property (nonatomic, copy) NSString *type ;
+@property (nonatomic, copy) NSString *listType ;
+@property (nonatomic, copy) NSString *listItemType ;
+@end
 
 
 
