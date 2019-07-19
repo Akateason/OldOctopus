@@ -72,4 +72,28 @@
     return _imgView ;
 }
 
+- (void)shineOnce:(void(^)(void))completion {
+    [self changeOnSelected:NO] ;
+    
+    [UIView animateWithDuration:.4 animations:^{
+        [self changeOnSelected:YES] ;
+        
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:.4 animations:^{
+            [self changeOnSelected:NO] ;
+        } completion:^(BOOL finished) {
+            completion() ;
+        }] ;
+        
+    }] ;
+}
+
+- (void)changeOnSelected:(BOOL)isOnSelect {
+    self.bgViewOnChoose.xt_theme_backgroundColor = isOnSelect ? XT_MAKE_theme_color(k_md_themeColor, .05) : nil ;
+    self.leftRedView.hidden = !isOnSelect ;
+    self.lbName.xt_theme_textColor = isOnSelect ? XT_MAKE_theme_color(k_md_textColor, .8)
+    :  XT_MAKE_theme_color(k_md_textColor, .6) ;
+}
+
 @end

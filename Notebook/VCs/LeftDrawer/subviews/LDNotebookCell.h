@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIView *leftRedView;
 
+- (void)shineOnce:(void(^)(void))completion ;
+
 @end
 
 NS_ASSUME_NONNULL_END

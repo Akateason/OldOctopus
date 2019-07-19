@@ -71,7 +71,7 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     LDNotebookCell *cell = [LDNotebookCell xt_fetchFromTable:tableView indexPath:indexPath] ;
     [cell xt_configure:self.booklist[indexPath.row] indexPath:indexPath] ;
     cell.backgroundColor = nil ;
-
+    
     
     return cell ;
 }
@@ -83,18 +83,24 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     __block NoteBooks *aBook ;
     [self.booklist enumerateObjectsUsingBlock:^(NoteBooks *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        obj.isOnSelect = (indexPath.row == idx) ;
         if (indexPath.row == idx) aBook = obj ;
     }] ;
-    [self.table reloadData] ;
     
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"移动笔记" message:XT_STR_FORMAT(@"移动笔记到《%@》?",aBook.name) cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+    LDNotebookCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
+    [cell shineOnce:^{
         
-        if (btnIndex == 1) {
-            self.blkMove(aBook) ;
-            [self dismissViewControllerAnimated:YES completion:^{}] ;
-        }
+        @weakify(self)
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"移动笔记" message:XT_STR_FORMAT(@"移动笔记到《%@》?",aBook.name) cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+            @strongify(self)
+            if (btnIndex == 1) {
+                self.blkMove(aBook) ;
+                [self dismissViewControllerAnimated:YES completion:^{}] ;
+            }
+        }] ;
+        
     }] ;
+    
+    
 }
 
 @end
