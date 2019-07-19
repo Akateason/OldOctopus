@@ -247,7 +247,7 @@
                             <constraint firstItem="Mx3-NJ-kCx" firstAttribute="leading" secondItem="OZY-4F-Bc1" secondAttribute="leading" id="YS4-Df-Ag1"/>
                             <constraint firstItem="OZY-4F-Bc1" firstAttribute="bottom" secondItem="Mx3-NJ-kCx" secondAttribute="bottom" id="cha-Og-APw"/>
                             <constraint firstItem="Mx3-NJ-kCx" firstAttribute="top" secondItem="i58-py-mD5" secondAttribute="bottom" id="ddL-0Q-IoK"/>
-                            <constraint firstItem="i58-py-mD5" firstAttribute="top" secondItem="OZY-4F-Bc1" secondAttribute="top" id="ypc-Fv-n7H"/>
+                            <constraint firstItem="i58-py-mD5" firstAttribute="top" secondItem="b0y-Gt-7PU" secondAttribute="top" constant="20" id="ypc-Fv-n7H"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OZY-4F-Bc1"/>
                     </view>
@@ -257,6 +257,7 @@
                         <outlet property="table" destination="Mx3-NJ-kCx" id="veo-Pz-hXL"/>
                         <outlet property="tf" destination="M00-Ep-IXe" id="yzF-VV-NIf"/>
                         <outlet property="topArea" destination="i58-py-mD5" id="xa8-NY-hEr"/>
+                        <outlet property="topFlex" destination="ypc-Fv-n7H" id="hC3-yi-nic"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wop-dc-9fR" userLabel="First Responder" sceneMemberID="firstResponder"/>

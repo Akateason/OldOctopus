@@ -46,6 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
+    self.topFlex.constant = APP_STATUSBAR_HEIGHT ;
     [self.tf becomeFirstResponder] ;
     
     @weakify(self)
@@ -76,8 +77,8 @@
 - (void)prepareUI {
     self.fd_prefersNavigationBarHidden = YES ;
     
-    self.view.backgroundColor = nil ;
-    [self.view oct_addBlurBg] ;
+    self.view.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : XT_MAKE_theme_color(k_md_bgColor,1) ;
+//    [self.view oct_addBlurBg] ;
     
     self.topArea.xt_theme_backgroundColor = nil ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;

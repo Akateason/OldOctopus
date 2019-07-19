@@ -9,7 +9,7 @@
 #import "SchBarPositiveTransition.h"
 #import "HomeVC.h"
 #import "HomeSearchCell.h"
-
+#import "HomePadVC.h"
 
 
 @implementation SchBarPositiveTransition
@@ -37,6 +37,10 @@
     }
 }
 
+- (CGFloat)myWidth {
+    return IS_IPAD ? kWidth_ListView : APP_WIDTH ;
+}
+
 
 - (void)positiveTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     
@@ -58,9 +62,11 @@
     lCell.scBar.hidden = YES ;
     ssBar.frame = self.originRect_bar = [containerView convertRect:lCell.scBar.frame fromView:lCell.scBar.superview] ;
     
-    BOOL isDarkMode = [[MDThemeConfiguration sharedInstance].currentThemeKey containsString:@"Dark"] ;
-    UIBlurEffect *blurEffrct = [UIBlurEffect effectWithStyle:isDarkMode ? UIBlurEffectStyleDark : UIBlurEffectStyleLight] ;
-    UIVisualEffectView *backView = [[UIVisualEffectView alloc] initWithEffect:blurEffrct] ;
+//    BOOL isDarkMode = [[MDThemeConfiguration sharedInstance].currentThemeKey containsString:@"Dark"] ;
+//    UIBlurEffect *blurEffrct = [UIBlurEffect effectWithStyle:isDarkMode ? UIBlurEffectStyleDark : UIBlurEffectStyleLight] ;
+//    UIVisualEffectView *backView = [[UIVisualEffectView alloc] initWithEffect:blurEffrct] ;
+    UIView *backView = [UIView new] ;
+    backView.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : XT_MAKE_theme_color(k_md_bgColor,1) ;
     backView.frame = self.originRect_cell = [containerView convertRect:lCell.frame fromView:lCell.superview] ;
     
     lCell.hidden = YES ;
@@ -101,7 +107,7 @@
                          
                          [UIView animateWithDuration:.4 animations:^{
                              
-                             ssBar.frame = CGRectMake(15, 10 + APP_STATUSBAR_HEIGHT, APP_WIDTH - 15 - 74, 38) ;
+                             ssBar.frame = CGRectMake(15, 10 + APP_STATUSBAR_HEIGHT, self.myWidth - 15 - 74, 38) ;
                              ssImage.frame = CGRectMake(15+10, 10 + APP_STATUSBAR_HEIGHT + 11, 16, 16) ;
                              ssLabelText.frame = CGRectMake(15+10+26, 10 + APP_STATUSBAR_HEIGHT + 9, ssLabelText.frame.size.width, ssLabelText.frame.size.height) ;
                              
@@ -139,11 +145,13 @@
     
     UIView *ssBar = [lCell.scBar snapshotViewAfterScreenUpdates:YES] ;
     lCell.scBar.hidden = YES ;
-    ssBar.frame = CGRectMake(15, 10 + APP_STATUSBAR_HEIGHT, APP_WIDTH - 15 - 74, 38) ;
+    ssBar.frame = CGRectMake(15, 10 + APP_STATUSBAR_HEIGHT, self.myWidth - 15 - 74, 38) ;
     
-    BOOL isDarkMode = [[MDThemeConfiguration sharedInstance].currentThemeKey containsString:@"Dark"] ;
-    UIBlurEffect *blurEffrct = [UIBlurEffect effectWithStyle:isDarkMode ? UIBlurEffectStyleDark : UIBlurEffectStyleLight] ;
-    UIVisualEffectView *backView = [[UIVisualEffectView alloc] initWithEffect:blurEffrct] ;
+//    BOOL isDarkMode = [[MDThemeConfiguration sharedInstance].currentThemeKey containsString:@"Dark"] ;
+//    UIBlurEffect *blurEffrct = [UIBlurEffect effectWithStyle:isDarkMode ? UIBlurEffectStyleDark : UIBlurEffectStyleLight] ;
+//    UIVisualEffectView *backView = [[UIVisualEffectView alloc] initWithEffect:blurEffrct] ;
+    UIView *backView = [UIView new] ;
+    backView.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : XT_MAKE_theme_color(k_md_bgColor,1) ;
     backView.frame = APPFRAME ;
     
     toVC.view.frame = [transitionContext finalFrameForViewController:toVC] ;

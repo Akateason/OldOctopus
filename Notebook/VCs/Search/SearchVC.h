@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *btCancel;
 @property (weak, nonatomic) IBOutlet UITextField *tf;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topFlex;
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
