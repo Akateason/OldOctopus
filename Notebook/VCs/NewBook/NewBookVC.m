@@ -46,9 +46,6 @@
     popVC.permittedArrowDirections = 0 ;
     popVC.xt_theme_backgroundColor = k_md_bgColor ;
     
-    vc.view.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, .2) ;
-    vc.view.xt_borderWidth = 1 ;
-    
     @weakify(vc)
     [vc.btCreate bk_addEventHandler:^(id sender) {
         @strongify(vc)
@@ -68,11 +65,12 @@
     
 //    self.view.backgroundColor = nil ;
 //    [self.view oct_addBlurBg] ;
-    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     
     [self.tfName becomeFirstResponder] ;
     
-    self.lbTitle.xt_theme_textColor = k_md_textColor ;
+    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    
     self.underline.xt_theme_backgroundColor = k_md_themeColor ;
     self.btCreate.xt_theme_textColor = XT_MAKE_theme_color(k_md_themeColor, 1) ;
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;

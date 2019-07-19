@@ -42,8 +42,8 @@
     
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:settignVC] ;
     
-    navVC.view.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, .2) ;
-    navVC.view.xt_borderWidth = 1 ;
+//    navVC.view.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, .2) ;
+//    navVC.view.xt_borderWidth = 1 ;
     
     navVC.modalPresentationStyle = UIModalPresentationPopover ;
     
@@ -52,6 +52,10 @@
     popVC.sourceRect = fromView.bounds ;
     popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
     popVC.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
+    
+//    popVC.presentedViewController.view.xt_borderColor = [UIColor redColor] ;
+//    popVC.presentedViewController.view.xt_borderWidth = 10 ;
+    
     [contentController presentViewController:navVC animated:YES completion:^{}] ;
     return navVC ;
 }
@@ -91,7 +95,6 @@
         make.top.equalTo(self.table.mas_top) ;
         make.height.equalTo(@.5) ;
     }] ;
-    
     
     WEAK_SELF
     [self.btClose bk_whenTapped:^{

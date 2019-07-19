@@ -176,6 +176,7 @@
         
         self.emptyView.area.hidden = (book.vType == Notebook_Type_trash) ;
         self.isInTrash = (book.vType == Notebook_Type_trash) ;
+        self.btBack.hidden = (book.vType == Notebook_Type_trash) ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Send_Share_Html object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
