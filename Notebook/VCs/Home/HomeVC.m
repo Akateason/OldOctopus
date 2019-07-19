@@ -38,7 +38,7 @@
 
 #import "SWRevealTableViewCell.h"
 
-static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
+
 
 
 @interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
@@ -58,7 +58,6 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @property (strong, nonatomic) HomeEmptyPHView           *phView ;
 @property (strong, nonatomic) SearchEmptyVC             *sEmptyVC ;
-@property (copy, nonatomic) NSString                    *selectedNoteIcloudRecordID ;
 @end
 
 @implementation HomeVC
@@ -373,18 +372,12 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
     Note *aNote = self.listNotes[indexPath.row] ;
     [cell xt_configure:aNote indexPath:indexPath] ;
     
-//    cell.revealPosition = SWCellRevealPositionRightExtended ;
-//    cell.draggableBorderWidth = IS_IPAD ? 0. : 200. ;
-//    cell.dataSource = self ;
     cell.rightButtons = [self setupPanList:cell] ;
     cell.rightSwipeSettings.transition = MGSwipeStateSwippingLeftToRight;
-    
     
     [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
     if (self.leftVC.currentBook.vType != Notebook_Type_trash) {
         [cell setUserSelected:
-         [aNote.icRecordName isEqualToString:self.selectedNoteIcloudRecordID]
-         ||
          [aNote.icRecordName isEqualToString:XT_USERDEFAULT_GET_VAL(kUDCached_lastNote_RecID)]
          ] ;
     }
@@ -406,17 +399,16 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
     
     NoteCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
     if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
-//        [cell setRevealPosition:(SWCellRevealPositionLeft) animated:YES] ;
+        [cell showSwipe:(MGSwipeDirectionRightToLeft) animated:YES] ;
         return ;
     }
     
     NSInteger row = indexPath.row ;
     Note *aNote = self.listNotes[row] ;
-    self.selectedNoteIcloudRecordID = aNote.icRecordName ;
+    XT_USERDEFAULT_SET_VAL(aNote.icRecordName, kUDCached_lastNote_RecID) ;
     [tableView reloadData] ;
     
     [self newNoteCombineFunc:aNote] ;
-    XT_USERDEFAULT_SET_VAL(aNote.icRecordName, kUDCached_lastNote_RecID) ;
 }
 
 - (UIView *)makePlaceHolderView {

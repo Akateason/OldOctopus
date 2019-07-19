@@ -620,27 +620,33 @@ return;}
 #pragma mark - NHSlidingControllerAnimateDelegate <NSObject>
 
 - (void)animateMoveState:(BOOL)drawerOpened {
-    if (drawerOpened) {
-        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
-        self.emptyView.centerX = newWid ;
-    }
-    else {
-        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
-        self.emptyView.centerX = newWid ;
-    }
+    [UIView animateWithDuration:.3 animations:^{
+        if (drawerOpened) {
+            float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
+            self.emptyView.centerX = newWid ;
+        }
+        else {
+            float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
+            self.emptyView.centerX = newWid ;
+        }
+    }] ;
 }
 
 #pragma mark - HomePadVCDelegate <NSObject>
 
 - (void)moveRelativeViewsOnState:(bool)stateOn {
-    // normal
-    if (stateOn) {
-        self.emptyView.center = self.view.center ;
-    }
-    else {
-        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
-        self.emptyView.centerX = newWid ;
-    }
+    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        // normal
+        if (stateOn) {
+            self.emptyView.center = self.view.center ;
+        }
+        else {
+            float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
+            self.emptyView.centerX = newWid ;
+        }
+        
+    } completion:^(BOOL finished) {
+    }];
 }
 
 #pragma mark - prop

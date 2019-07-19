@@ -278,6 +278,10 @@ typedef void(^BlkTapBookCell)(void);
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row ;
 //    NSInteger section = indexPath.section ;
+    
+    XT_USERDEFAULT_SET_VAL(@"", kUDCached_lastNote_RecID) ;
+        
+    
     self.bookTrash.isOnSelect = NO ;
     self.bookRecent.isOnSelect = NO ;
     self.addBook.isOnSelect = NO ;

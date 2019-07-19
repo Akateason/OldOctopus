@@ -14,7 +14,7 @@
 #import "Note.h"
 #import "NoteBooks.h"
 #import "LDSepLineCell.h"
-
+#import "HomeVC.h"
 
 @interface LDHeadView ()
 
@@ -114,12 +114,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
+        XT_USERDEFAULT_SET_VAL(@"", kUDCached_lastNote_RecID) ;
         [self.ld_delegate LDHeadDidSelectedOneBook:self.bookRecent] ;
     }
     else if (indexPath.row == 1) {
+        XT_USERDEFAULT_SET_VAL(@"", kUDCached_lastNote_RecID) ;
         [self.ld_delegate LDHeadDidSelectedOneBook:self.bookStaging] ;
     }
     else if (indexPath.row == 2) {
+        XT_USERDEFAULT_SET_VAL(@"", kUDCached_lastNote_RecID) ;
         [self.ld_delegate LDHeadDidSelectedOneBook:self.bookTrash] ;
     }
     else if (indexPath.row == 4) {
