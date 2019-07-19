@@ -171,7 +171,7 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
     }
     else if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
         self.nameOfNoteBook.text = @"垃圾桶" ;
-        NSArray *list = [Note xt_findWhere:@"isDeleted == 1"] ;
+        NSArray *list = [Note xt_findWhere:@"isDeleted == 1 AND icRecordName NOT LIKE 'mac-note%%'"] ;
         list = [self sortThisList:list] ;
         [self dealTopNoteLists:list] ;
         completion() ;
