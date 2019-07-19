@@ -17,12 +17,13 @@
 
 @implementation HomeVC (PanGestureHandler)
 
-- (NSArray *)setupPanList:(SWRevealTableViewCell *)cell {
+- (NSArray *)setupPanList:(MGSwipeButton *)cell {
     
     UIColor *itemBgColor = UIColorRGBA(24, 18, 17, .03) ;
     
     if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
-        SWCellButtonItem *item1 = [SWCellButtonItem itemWithTitle:@"彻底删除" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
+        MGSwipeButton *bt1 = [MGSwipeButton buttonWithTitle:@"彻底删除" icon:[UIImage imageNamed:@"home_del_note"] backgroundColor:itemBgColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            
             Note *aNote = ((NoteCell *)cell).xt_model ;
             // Delete Note
             [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要彻底删除此文章吗?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
@@ -35,19 +36,19 @@
                             [self.table xt_loadNewInfoInBackGround:YES] ;
                         }) ;
                     }] ;
-                    
                 }
             }] ;
+            
             return YES ;
         }] ;
-        item1.backgroundColor = itemBgColor ;
-        item1.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
-        item1.width = 70 ;
-        item1.image = [UIImage imageNamed:@"home_del_note"] ;
+        bt1.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+        bt1.xt_theme_imageColor = k_md_iconColor ;
+        [bt1 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
         
-        
-        SWCellButtonItem *item2 = [SWCellButtonItem itemWithTitle:@"恢复" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
-            __block Note *aNote = ((NoteCell *)cell).xt_model ;
+        MGSwipeButton *bt2 = [MGSwipeButton buttonWithTitle:@"恢复" icon:[UIImage imageNamed:@"home_huifu"] backgroundColor:itemBgColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            
+            Note *aNote = ((NoteCell *)cell).xt_model ;
+
             // Move Note
             [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要恢复此文章吗?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
                 
@@ -66,19 +67,19 @@
                     }) ;
                 }
             }] ;
-            
-            return YES ;
+
+           return YES ;
         }] ;
-        item2.backgroundColor = itemBgColor ;
-        item2.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
-        item2.width = 70 ;
-        item2.image = [UIImage imageNamed:@"home_huifu"] ;
+        bt2.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+        bt2.xt_theme_imageColor = k_md_iconColor ;
+        [bt2 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
         
-        return @[item1,item2] ;
+        return @[bt1,bt2] ;
         
     }
     else {
-         SWCellButtonItem *item1 = [SWCellButtonItem itemWithTitle:@"删除" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
+        MGSwipeButton *bt1 = [MGSwipeButton buttonWithTitle:@"删除" icon:[UIImage imageNamed:@"home_del_note"] backgroundColor:itemBgColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            
             Note *aNote = ((NoteCell *)cell).xt_model ;
             // Delete Note
             [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要将此文章放入垃圾桶?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
@@ -93,12 +94,15 @@
             }] ;
             return YES ;
         }] ;
-        item1.backgroundColor = itemBgColor ;
-        item1.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
-        item1.width = 70 ;
-        item1.image = [UIImage imageNamed:@"home_del_note"] ;
+
+        bt1.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+        bt1.xt_theme_imageColor = k_md_iconColor ;
+        [bt1 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
+        bt1.buttonWidth = 70 ;
+
         
-        SWCellButtonItem *item2 = [SWCellButtonItem itemWithTitle:@"移动" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
+        MGSwipeButton *bt2 = [MGSwipeButton buttonWithTitle:@"移动" icon:[UIImage imageNamed:@"home_move_note"] backgroundColor:itemBgColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            
             __block Note *aNote = ((NoteCell *)cell).xt_model ;
             // Move Note
             @weakify(self)
@@ -111,13 +115,14 @@
                                    }] ;
             return YES ;
         }] ;
-        item2.backgroundColor = itemBgColor ;
-        item2.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
-        item2.width = 70 ;
-        item2.image = [UIImage imageNamed:@"home_move_note"] ;
+        bt2.xt_theme_imageColor = k_md_iconColor ;
+        bt2.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+        [bt2 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
+        bt2.buttonWidth = 70 ;
+        
         
         __block Note *aNote = ((NoteCell *)cell).xt_model ;
-        SWCellButtonItem *item3 = [SWCellButtonItem itemWithTitle:aNote.isTop ? @"取消置顶" : @"置顶" handler:^BOOL(SWCellButtonItem *item, SWRevealTableViewCell *cell) {
+        MGSwipeButton *bt3 = [MGSwipeButton buttonWithTitle:aNote.isTop ? @"取消置顶" : @"置顶" icon:[UIImage imageNamed:@"home_top_note"] backgroundColor:itemBgColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
             // 置顶
             aNote.isTop = !aNote.isTop ;
             aNote.modifyDateOnServer = [[NSDate date] xt_getTick] ;
@@ -135,12 +140,13 @@
             
             return YES ;
         }] ;
-        item3.backgroundColor = itemBgColor ;
-        item3.tintColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
-        item3.width = 70 ;
-        item3.image = [UIImage imageNamed:@"home_top_note"] ;
         
-        return @[item1,item2,item3] ;
+        bt3.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+        bt3.xt_theme_imageColor = k_md_iconColor ;
+        [bt3 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
+        bt3.buttonWidth = aNote.isTop ? 100 : 70 ;
+        
+        return @[bt1,bt2,bt3] ;
     }
 }
 

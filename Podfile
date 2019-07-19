@@ -17,5 +17,6 @@ target 'Notebook' do
   pod 'SSZipArchive'
   pod 'JTMaterialSwitch'
   pod 'MBProgressHUD', '~> 1.1.0'
-  
+  pod 'MGSwipeTableCell'
+
 end

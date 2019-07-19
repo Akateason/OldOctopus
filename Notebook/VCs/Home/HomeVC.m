@@ -36,6 +36,8 @@
 #import "SearchEmptyVC.h"
 #import "UserTestCodeVC.h"
 
+#import "SWRevealTableViewCell.h"
+
 static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
 
 
@@ -370,10 +372,14 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
     NoteCell *cell = [NoteCell xt_fetchFromTable:tableView] ;
     Note *aNote = self.listNotes[indexPath.row] ;
     [cell xt_configure:aNote indexPath:indexPath] ;
-    cell.revealPosition = SWCellRevealPositionRightExtended ;
-    cell.draggableBorderWidth = IS_IPAD ? 0. : 200. ;
-    cell.dataSource = self ;
-    cell.delegate = self ;
+    
+//    cell.revealPosition = SWCellRevealPositionRightExtended ;
+//    cell.draggableBorderWidth = IS_IPAD ? 0. : 200. ;
+//    cell.dataSource = self ;
+    cell.rightButtons = [self setupPanList:cell] ;
+    cell.rightSwipeSettings.transition = MGSwipeStateSwippingLeftToRight;
+    
+    
     [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
     if (self.leftVC.currentBook.vType != Notebook_Type_trash) {
         [cell setUserSelected:
@@ -400,7 +406,7 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
     
     NoteCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
     if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
-        [cell setRevealPosition:(SWCellRevealPositionLeft) animated:YES] ;
+//        [cell setRevealPosition:(SWCellRevealPositionLeft) animated:YES] ;
         return ;
     }
     
@@ -432,28 +438,24 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
     return YES ;
 }
 
-- (NSArray *)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)cell1 {
-    return [self setupPanList:cell1] ;
-}
-
-//- (NSArray *)leftButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell {
-//    return nil ;
+//- (NSArray *)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)cell1 {
+//    return [self setupPanList:cell1] ;
 //}
-
-- (void)revealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell willMoveToPosition:(SWCellRevealPosition)position {
-    if (position == SWCellRevealPositionLeft) {
-        NoteCell *aCell = (NoteCell *)revealTableViewCell ;
-        NSArray *visibleCells = [self.table visibleCells] ;
-        for (UITableViewCell *cell in visibleCells) {
-            
-            if ( [cell isKindOfClass:[SWRevealTableViewCell class]] &&
-                 ((SWRevealTableViewCell *)cell).revealPosition != SWCellRevealPositionCenter &&
-                 cell.xt_indexPath.row != aCell.xt_indexPath.row )
-                
-                [(SWRevealTableViewCell *)cell setRevealPosition:SWCellRevealPositionCenter animated:YES] ;
-        }
-    }
-}
+//
+//- (void)revealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell willMoveToPosition:(SWCellRevealPosition)position {
+//    if (position == SWCellRevealPositionLeft) {
+//        NoteCell *aCell = (NoteCell *)revealTableViewCell ;
+//        NSArray *visibleCells = [self.table visibleCells] ;
+//        for (UITableViewCell *cell in visibleCells) {
+//
+//            if ( [cell isKindOfClass:[SWRevealTableViewCell class]] &&
+//                 ((SWRevealTableViewCell *)cell).revealPosition != SWCellRevealPositionCenter &&
+//                 cell.xt_indexPath.row != aCell.xt_indexPath.row )
+//
+//                [(SWRevealTableViewCell *)cell setRevealPosition:SWCellRevealPositionCenter animated:YES] ;
+//        }
+//    }
+//}
 
 #pragma mark - MarkdownVCDelegate <NSObject>
 

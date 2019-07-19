@@ -46,6 +46,7 @@ PODS:
   - lottie-ios (2.5.3)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
+  - MGSwipeTableCell (1.6.8)
   - MJRefresh (3.2.0)
   - MSDynamicsDrawerViewController (1.5.1)
   - ReactiveObjC (3.1.1)
@@ -107,6 +108,7 @@ DEPENDENCIES:
   - JTMaterialSwitch
   - lottie-ios (= 2.5.3)
   - MBProgressHUD (~> 1.1.0)
+  - MGSwipeTableCell
   - MSDynamicsDrawerViewController
   - SDWebImage (<= 4.4.6)
   - SSZipArchive
@@ -131,6 +133,7 @@ SPEC REPOS:
     - lottie-ios
     - Masonry
     - MBProgressHUD
+    - MGSwipeTableCell
     - MJRefresh
     - MSDynamicsDrawerViewController
     - ReactiveObjC
@@ -165,6 +168,7 @@ SPEC CHECKSUMS:
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  MGSwipeTableCell: dc4eca3212ed38a563b27d6aa7b3c01ce656c1e2
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   MSDynamicsDrawerViewController: 2874df90f5e9453dc7d4e32f8038b50615d4baa7
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
@@ -183,6 +187,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 80fddc06e2f50841d8179e568dd1700015282f02
+PODFILE CHECKSUM: a6cbfe5093dd3c26e415250bab817dd659c2d139
 
 COCOAPODS: 1.6.1

@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SWRevealTableViewCell.h"
-//#import "Note.h"
+#import <MGSwipeTableCell/MGSwipeTableCell.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NoteCell : SWRevealTableViewCell
+@interface NoteCell : MGSwipeTableCell //SWRevealTableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *img_isTop;
 @property (weak, nonatomic) IBOutlet UIView *area;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;

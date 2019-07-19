@@ -8,12 +8,12 @@
 
 #import "HomeVC.h"
 
-@class SWRevealTableViewCell ;
+@class MGSwipeButton ;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeVC (PanGestureHandler)
 
-- (NSArray *)setupPanList:(SWRevealTableViewCell *)cell ;
+- (NSArray *)setupPanList:(MGSwipeButton *)cell ;
 
 @end
 
