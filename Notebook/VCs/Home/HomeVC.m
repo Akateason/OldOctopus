@@ -25,7 +25,6 @@
 #import "NewBookVC.h"
 #import <Lottie/Lottie.h>
 #import "SchBarPositiveTransition.h"
-#import "TrashEmptyView.h"
 #import "HomeVC+Util.h"
 #import <SafariServices/SafariServices.h>
 #import "MDNavVC.h"
@@ -416,7 +415,6 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
 
 - (UIView *)makePlaceHolderView {
     if (self.leftVC.currentBook.vType == Notebook_Type_trash) {
-//        return [TrashEmptyView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         self.sEmptyVC.lbWord.text = @"" ;
         return self.sEmptyVC.view ;
     }
@@ -482,6 +480,10 @@ static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
 
 - (NSString *)currentBookID {
     return self.leftVC.currentBook.icRecordName ;
+}
+
+- (int)currentBookType {
+    return self.leftVC.currentBook.vType ;
 }
 
 #pragma mark - prop

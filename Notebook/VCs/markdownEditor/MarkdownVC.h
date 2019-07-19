@@ -17,6 +17,7 @@ static NSString *const kNote_pad_Editor_PullBack = @"kNote_pad_Editor_PullBack" 
 - (void)addNoteComplete:(Note *)aNote ;
 - (void)editNoteComplete:(Note *)aNote ;
 - (NSString *)currentBookID ;
+- (int)currentBookType ;
 @end
 
 @protocol MarkdownVCPanGestureDelegate <NSObject>

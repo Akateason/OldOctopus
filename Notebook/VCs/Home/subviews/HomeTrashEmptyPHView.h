@@ -1,8 +1,8 @@
 //
-//  TrashEmptyView.h
+//  HomeTrashEmptyPHView.h
 //  Notebook
 //
-//  Created by teason23 on 2019/4/25.
+//  Created by teason23 on 2019/7/19.
 //  Copyright © 2019 teason23. All rights reserved.
 //
 
@@ -10,8 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TrashEmptyView : UIView
-@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
+@interface HomeTrashEmptyPHView : UIView
 
 @end
 

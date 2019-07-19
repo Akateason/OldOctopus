@@ -37,7 +37,8 @@ static const float slidingSpeed = 2000 ;
     hPadVC.homeVC.slidingController = slidingController ;
     hPadVC.slidingController = slidingController ;
     leftVC.slidingController = slidingController ;
-    slidingController.animateDelegate = hPadVC.editorVC ;
+    hPadVC.delegate = (id<HomePadVCDelegate>)hPadVC.editorVC ;
+    slidingController.animateDelegate = (id<NHSlidingControllerAnimateDelegate>)hPadVC.editorVC ;
     return slidingController ;
 }
 
@@ -271,14 +272,7 @@ static const float slidingSpeed = 2000 ;
 }
 
 - (void)moveEmptyView:(BOOL)stateOn {
-    if (stateOn) {
-        self.editorVC.emptyView.center = self.editorVC.view.center ;
-    }
-    else {
-//        [GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance ;
-        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
-        self.editorVC.emptyView.centerX = newWid ;
-    }
+    [self.delegate moveRelativeViewsOnState:stateOn] ;        
 }
 
 @end

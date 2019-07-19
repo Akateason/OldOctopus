@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeTrashEmptyPHView.h"
 @class NoteBooks ;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -21,8 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NoteBooks *book ;
 @property (nonatomic) BOOL isMark ;
-
-
+@property (nonatomic) BOOL isTrash ;
+@property (strong, nonatomic)HomeTrashEmptyPHView *trashEmptyView ;
 @end
 
 NS_ASSUME_NONNULL_END

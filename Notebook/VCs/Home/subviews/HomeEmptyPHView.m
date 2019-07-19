@@ -11,11 +11,31 @@
 #import "NoteBooks.h"
 #import "XTCloudHandler.h"
 #import <ReactiveObjC/ReactiveObjC.h>
+#import <XTlib/XTlib.h>
 
 #define HE_oceanList    @[@"🐙",@"🐢",@"🦂",@"🦀",@"🦑",@"🦐",@"🐠",@"🐟",@"🐬",@"🐡",@"🦈",@"🐳",@"🐋",@"🐊"]
 
 @implementation HomeEmptyPHView
 
+- (void)setIsTrash:(BOOL)isTrash {
+    _isTrash = isTrash ;
+    
+    self.trashEmptyView.hidden = !isTrash ;
+    
+    self.area.hidden = self.lbEmoji.hidden = self.lbTitle.hidden = self.lbPh.hidden = self.imgIcon.hidden = isTrash ;
+}
+
+- (HomeTrashEmptyPHView *)trashEmptyView {
+    if (!_trashEmptyView) {
+        _trashEmptyView = [HomeTrashEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+        [self addSubview:_trashEmptyView] ;
+        [_trashEmptyView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self) ;
+        }] ;
+        _trashEmptyView.hidden = YES ;
+    }
+    return _trashEmptyView ;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib] ;

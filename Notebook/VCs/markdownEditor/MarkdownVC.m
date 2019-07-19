@@ -24,6 +24,7 @@
 #import "OctRequestUtil.h"
 #import "OctShareCopyLinkView.h"
 #import "OctMBPHud.h"
+#import "HomeTrashEmptyPHView.h"
 
 
 @interface MarkdownVC () <WKScriptMessageHandler>
@@ -45,6 +46,8 @@
 @property (nonatomic)         float             snapDuration ;
 
 @property (nonatomic)         BOOL              isInTrash ;
+
+
 @end
 
 @implementation MarkdownVC
@@ -174,7 +177,8 @@
             [self clearArticleInIpad] ;
         }
         
-        self.emptyView.area.hidden = (book.vType == Notebook_Type_trash) ;
+        
+        self.emptyView.isTrash = (book.vType == Notebook_Type_trash) ;
         self.isInTrash = (book.vType == Notebook_Type_trash) ;
         self.btBack.hidden = (book.vType == Notebook_Type_trash) ;
     }] ;
@@ -615,7 +619,18 @@ return;}
     }
 }
 
+#pragma mark - HomePadVCDelegate <NSObject>
 
+- (void)moveRelativeViewsOnState:(bool)stateOn {
+    // normal
+    if (stateOn) {
+        self.emptyView.center = self.view.center ;
+    }
+    else {
+        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
+        self.emptyView.centerX = newWid ;
+    }
+}
 
 #pragma mark - prop
 
@@ -673,5 +688,6 @@ return;}
     }
     return _emptyView ;
 }
+
 
 @end

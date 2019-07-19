@@ -13,8 +13,14 @@ extern const float kWidth_ListView ;
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol HomePadVCDelegate <NSObject>
+- (void)moveRelativeViewsOnState:(bool)stateOn ;
+@end
+
+
 @interface HomePadVC : BasicVC
-@property (strong, nonatomic) MarkdownVC    *editorVC ;
+@property (weak, nonatomic) id <HomePadVCDelegate>  delegate ;
+@property (strong, nonatomic)   MarkdownVC          *editorVC ;
 + (UIViewController *)getMe ;
 
 @end
