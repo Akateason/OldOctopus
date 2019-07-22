@@ -222,7 +222,7 @@
     [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
        deliverOnMainThread]
        takeUntil:self.rac_willDeallocSignal]
-      throttle:.2]
+      throttle:.3]
      subscribeNext:^(id  _Nullable x) {
          @strongify(self)
          int num = [x intValue] ;
@@ -432,11 +432,12 @@ return;}
 }
 
 - (void)clearArticleInIpad {
+    self.emptyView.hidden = NO ;
+    
     NSDictionary *dic = @{@"markdown":@"", @"isRenderCursor": @0 } ;
-    [self.editor nativeCallJSWithFunc:@"setMarkdown" json:dic completion:^(NSString *val, NSError *error) {}];
+    [self.editor nativeCallJSWithFunc:@"setMarkdown" json:dic completion:^(NSString *val, NSError *error) {}] ;
     [self.editor leavePage] ;
     self.editor.aNote = nil ;
-    self.emptyView.hidden = NO ;
 }
 
 
