@@ -295,10 +295,11 @@ static const CGFloat slidingSpeed = 1500.0;
                 center.x = centerForEdge;
                 [UIView animateWithDuration:0.3 animations:^{
                     self->_topViewContainer.center = center;
-                    [self moveIpadEditorSubViews:finalOpenState] ;
+//                    [self moveIpadEditorSubViews:finalOpenState] ;
                 } completion:^(BOOL finished) {
                     self.drawerOpened = finalOpenState;
                 }];
+//                [self moveIpadEditorSubViews:finalOpenState] ;
             }];
         }
         else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {
@@ -311,6 +312,7 @@ static const CGFloat slidingSpeed = 1500.0;
             } completion:^(BOOL finished) {
                 self.drawerOpened = finalOpenState;
             }];
+//            [self moveIpadEditorSubViews:finalOpenState] ;
         }
         else {
             //finish the sliding wiht minimum speed
@@ -322,6 +324,7 @@ static const CGFloat slidingSpeed = 1500.0;
             } completion:^(BOOL finished) {
                 self.drawerOpened = finalOpenState;
             }];
+//            [self moveIpadEditorSubViews:finalOpenState] ;
         }
     }
 }

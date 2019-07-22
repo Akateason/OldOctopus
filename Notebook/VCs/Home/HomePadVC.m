@@ -119,7 +119,7 @@ static const float slidingSpeed = 2000 ;
         [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = 0 ;
-            [self moveEmptyView:YES] ;
+            [self.delegate moveRelativeViewsOnState:YES] ;
             [self setupLeftForRightVC:-1] ;
         } completion:^(BOOL finished) {
             
@@ -132,7 +132,7 @@ static const float slidingSpeed = 2000 ;
         
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = kWidth_ListView ;
-            [self moveEmptyView:NO] ;
+            [self.delegate moveRelativeViewsOnState:NO] ;
             [self setupLeftForRightVC:0] ;
         } completion:^(BOOL finished) {
             
@@ -147,7 +147,7 @@ static const float slidingSpeed = 2000 ;
         
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = 0 ;
-            [self moveEmptyView:YES] ;
+            [self.delegate moveRelativeViewsOnState:YES] ;
             [self.editorVC setupWithNote:nil bookID:nil fromCtrller:self.homeVC] ;
             self.editorVC.editor.left = 0 ;
         } completion:^(BOOL finished) {
@@ -223,7 +223,7 @@ static const float slidingSpeed = 2000 ;
             
             [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_rightContainer.left = left;
-                [self moveEmptyView:finalOpenState == -1] ;
+                [self.delegate moveRelativeViewsOnState:finalOpenState == -1] ;
             } completion:^(BOOL finished) {
                 CGFloat left = self->_rightContainer.left;
                 left = leftForEdge;
@@ -232,7 +232,7 @@ static const float slidingSpeed = 2000 ;
                 
                 [UIView animateWithDuration:0.3 animations:^{
                     self->_rightContainer.left = left;
-                    [self moveEmptyView:finalOpenState == -1] ;
+                    [self.delegate moveRelativeViewsOnState:finalOpenState == -1] ;
                     [self setupLeftForRightVC:finalOpenState] ;
                 } completion:^(BOOL finished) {
                     
@@ -245,7 +245,7 @@ static const float slidingSpeed = 2000 ;
             
             [UIView animateWithDuration:timeToEdgeWithCurrentVelocity delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_rightContainer.left = left;
-                [self moveEmptyView:finalOpenState == -1] ;
+                [self.delegate moveRelativeViewsOnState:finalOpenState == -1] ;
                 [self setupLeftForRightVC:finalOpenState] ;
             } completion:^(BOOL finished) {
                 [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
@@ -258,7 +258,7 @@ static const float slidingSpeed = 2000 ;
             
             [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self->_rightContainer.left = left;
-                [self moveEmptyView:finalOpenState == -1] ;
+                [self.delegate moveRelativeViewsOnState:finalOpenState == -1] ;
                 [self setupLeftForRightVC:finalOpenState] ;
             } completion:^(BOOL finished) {
                 [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
@@ -270,10 +270,6 @@ static const float slidingSpeed = 2000 ;
 - (void)setupLeftForRightVC:(int)finalOpenState {
     float left = finalOpenState != -1 ? ([MarkdownVC getEditorLeftIpad]) : 0 ;
     _editorVC.editor.left = left ;
-}
-
-- (void)moveEmptyView:(BOOL)stateOn {
-    [self.delegate moveRelativeViewsOnState:stateOn] ;        
 }
 
 @end

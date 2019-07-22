@@ -620,16 +620,14 @@ return;}
 #pragma mark - NHSlidingControllerAnimateDelegate <NSObject>
 
 - (void)animateMoveState:(BOOL)drawerOpened {
-    [UIView animateWithDuration:.3 animations:^{
-        if (drawerOpened) {
-            float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
-            self.emptyView.centerX = newWid ;
-        }
-        else {
-            float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
-            self.emptyView.centerX = newWid ;
-        }
-    }] ;
+    if (drawerOpened) {
+        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
+        self.emptyView.centerX = newWid ;
+    }
+    else {
+        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
+        self.emptyView.centerX = newWid ;
+    }
 }
 
 #pragma mark - HomePadVCDelegate <NSObject>
@@ -638,7 +636,7 @@ return;}
     [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         // normal
         if (stateOn) {
-            self.emptyView.center = self.view.center ;
+            self.emptyView.centerX = self.view.centerX ;            
         }
         else {
             float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
@@ -704,7 +702,7 @@ return;}
         _emptyView.hidden = YES ;
     }
     _emptyView.height = APP_HEIGHT - self.topBar.bottom ;
-    _emptyView.left = self.view.left ;
+    // _emptyView.left = self.view.left ;
     _emptyView.top = self.topBar.bottom ;
     _emptyView.width = [GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView ;
     return _emptyView ;
