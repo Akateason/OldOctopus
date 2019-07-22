@@ -239,7 +239,7 @@
                  self.emptyView.hidden = YES ;
                  self.myBookID = self.delegate.currentBookID ;
                  self.editor.webViewHasSetMarkdown = YES ;
-//                 [self.editor openKeyboard] ;
+                 [self.editor openKeyboard] ;
              }
              else {
                  self.emptyView.hidden = NO ;

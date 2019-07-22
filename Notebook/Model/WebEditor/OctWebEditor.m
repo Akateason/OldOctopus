@@ -271,14 +271,17 @@ XT_SINGLETON_M(OctWebEditor)
         _isFirstTimeLoad = NO ;
     }
     else {
-        if (!self.aNote &&
+        if ( !self.aNote.content.length &&
             (
-             // [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default ||
+              [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default ||
              (
               [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 &&
               [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon
               ) ) ) {
-//            [self openKeyboard] ;
+                 
+             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                 [self openKeyboard] ;
+             }) ;
         }
     }
 }
@@ -375,8 +378,8 @@ static const float kOctEditorToolBarHeight = 41. ;
 - (void)renderNote {
     NSLog(@"renderNote setMarkdown : %@",self.aNote.content) ;
     WEAK_SELF
-    NSDictionary *dic = @{@"markdown":weakSelf.aNote.content ?: @"", @"isRenderCursor": @(self.isCreateNew) } ;
-    
+//    NSDictionary *dic = @{@"markdown":weakSelf.aNote.content ?: @"", @"isRenderCursor": @(self.isCreateNew) } ;
+    NSDictionary *dic = @{@"markdown":weakSelf.aNote.content ?: @"", @"isRenderCursor": @0 } ;
     [self nativeCallJSWithFunc:@"setMarkdown" json:dic completion:^(NSString *val, NSError *error) {
         if (!error) {
             weakSelf.webViewHasSetMarkdown = YES ;
