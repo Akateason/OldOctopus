@@ -74,7 +74,7 @@
     [TableCreatorView showOnView:self window:self.window keyboardHeight:self->keyboardHeight callback:^(BOOL isConfirm, NSString * _Nonnull line, NSString * _Nonnull column) {
         @strongify(self)
         if (!isConfirm) {
-            [self openKeyboard] ;
+//            [self openKeyboard] ;
             return ;
         }
         

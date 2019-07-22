@@ -22,6 +22,8 @@ static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_
 @interface OctWebEditor : UIView {
     CGFloat keyboardHeight ;
 }
+
+@property (nonatomic)         int           isCreateNew ;
 @property (strong, nonatomic) WKWebView     *webView ;
 @property (strong, nonatomic) WebModel      *webInfo ;
 @property (copy, nonatomic)   NSArray       *typeInlineList ;

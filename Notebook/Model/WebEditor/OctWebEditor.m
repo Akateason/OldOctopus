@@ -272,12 +272,13 @@ XT_SINGLETON_M(OctWebEditor)
     }
     else {
         if (!self.aNote &&
-            ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default ||
+            (
+             // [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default ||
              (
               [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 &&
               [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon
               ) ) ) {
-            [self openKeyboard] ;
+//            [self openKeyboard] ;
         }
     }
 }
@@ -322,7 +323,7 @@ static const float kOctEditorToolBarHeight = 41. ;
             object;
         });
     }
-    return _editorCrashSignal;
+    return _editorCrashSignal ;
 }
 
 #pragma mark --
@@ -372,9 +373,11 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 - (void)renderNote {
-    NSLog(@")))setMarkdown : %@",self.aNote.content) ;
+    NSLog(@"renderNote setMarkdown : %@",self.aNote.content) ;
     WEAK_SELF
-    [self nativeCallJSWithFunc:@"setMarkdown" json:self.aNote.content completion:^(NSString *val, NSError *error) {
+    NSDictionary *dic = @{@"markdown":weakSelf.aNote.content ?: @"", @"isRenderCursor": @(self.isCreateNew) } ;
+    
+    [self nativeCallJSWithFunc:@"setMarkdown" json:dic completion:^(NSString *val, NSError *error) {
         if (!error) {
             weakSelf.webViewHasSetMarkdown = YES ;
         }
@@ -383,7 +386,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 - (void)changeTheme {
     [self nativeCallJSWithFunc:@"setTheme" json:self.themeStr ?: @"light" completion:^(NSString *val, NSError *error) {
-    
+        
     }] ;
 }
 
@@ -417,6 +420,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 #pragma mark --
 #pragma mark - scrollview delegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     scrollView.contentOffset = _contentOffsetBeforeScroll;
     scrollView.delegate = nil;

@@ -64,6 +64,14 @@
     
     MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarkdownVC"] ;
     vc.aNote = note ;
+    if (note) {
+        vc.editor.isCreateNew = 0 ;
+        vc.editor.aNote = note ;
+    }
+    else {
+        vc.editor.isCreateNew = 1 ;
+        vc.editor.aNote = [[Note alloc] initWithBookID:nil content:nil title:nil] ;
+    }
     vc.delegate = (id <MarkdownVCDelegate>)ctrller ;
     vc.myBookID = bookID ;
     if (!note && !bookID && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) vc.canBeEdited = NO ;
@@ -81,6 +89,7 @@
     self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
+    self.editor.isCreateNew = (note == nil) ? 1 : 0 ;
     self.editor.aNote = note ?: [Note new] ;
     self.editor.left = [self.class getEditorLeftIpad] ;
     self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
@@ -91,16 +100,6 @@
     [super viewDidLoad] ;
     
     self.view.xt_maskToBounds = YES ;
-    if (self.aNote) self.editor.aNote = self.aNote ;
-    else {
-        self.editor.aNote = [[Note alloc] initWithBookID:nil content:nil title:nil] ;
-        WEAK_SELF
-        [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error){
-            weakSelf.editor.webViewHasSetMarkdown = YES ;
-        }] ;
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) [self.editor openKeyboard] ;
-    }
-    
     
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -176,7 +175,6 @@
             [self clearArticleInIpad] ;
         }
         
-        
         self.emptyView.isTrash = (book.vType == Notebook_Type_trash) ;
         self.isInTrash = (book.vType == Notebook_Type_trash) ;
         self.btBack.hidden = (book.vType == Notebook_Type_trash) ;
@@ -241,7 +239,7 @@
                  self.emptyView.hidden = YES ;
                  self.myBookID = self.delegate.currentBookID ;
                  self.editor.webViewHasSetMarkdown = YES ;
-                 [self.editor openKeyboard] ;
+//                 [self.editor openKeyboard] ;
              }
              else {
                  self.emptyView.hidden = NO ;
@@ -434,7 +432,8 @@ return;}
 }
 
 - (void)clearArticleInIpad {
-    [self.editor nativeCallJSWithFunc:@"setMarkdown" json:@"" completion:^(NSString *val, NSError *error) {}];
+    NSDictionary *dic = @{@"markdown":@"", @"isRenderCursor": @0 } ;
+    [self.editor nativeCallJSWithFunc:@"setMarkdown" json:dic completion:^(NSString *val, NSError *error) {}];
     [self.editor leavePage] ;
     self.editor.aNote = nil ;
     self.emptyView.hidden = NO ;
