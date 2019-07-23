@@ -58,7 +58,7 @@
     WebPhoto *photo = [WebPhoto new] ;
     photo.fromNoteClientID = self.note_clientID ;
     // todo 图片类型
-    photo.localPath = XT_STR_FORMAT(@"%d_%lld.jpg",self.note_clientID,[NSDate xt_getNowTick]) ;
+    photo.localPath = XT_STR_FORMAT(@"%d_%lld",self.note_clientID,[NSDate xt_getNowTick]) ;
     NSData *data = UIImageJPEGRepresentation(image, 1) ;
     BOOL success = [data writeToFile:photo.realPath atomically:YES];
     if (success) {

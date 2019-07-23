@@ -19,6 +19,8 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 @property (strong, nonatomic) UIViewController *ctrller ;
 @property (strong, nonatomic) XTCameraHandler *handler;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *h_collection;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *top_collection;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom_collection;
 
 @property (copy, nonatomic) BlkCollectionFlowPressed blkFlowPressed ;
 @property (strong, nonatomic) PHImageManager *manager;
@@ -121,7 +123,12 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     self.collectionView.delegate = self ;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
-    float cellHeight = keyboardHeight - 158. - 8. - 50. ;
+    float cellHeight = keyboardHeight - 158. - 8. - 35. ;
+    if (XT_LESS_THAN_IPHONE_6 || XT_IS_IPHONE_6) {
+        self.top_collection.constant = 5 ;
+        self.bottom_collection.constant = 5 ;
+        cellHeight = keyboardHeight - 158. - 8. - 10. ;
+    }
     layout.itemSize = CGSizeMake(cellHeight, cellHeight) ;
     layout.minimumInteritemSpacing = 6.0f ;
     self.h_collection.constant = cellHeight - APP_SAFEAREA_TABBAR_FLEX ;
@@ -133,8 +140,9 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
         if (status == PHAuthorizationStatusAuthorized) {
             // 用户同意授权
             [self firstLoadAllPhotos];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.collectionView reloadData];
+                [self.collectionView reloadData] ;
             });
         }
         else {
@@ -166,20 +174,25 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MDEKPhotoViewCell *cell = [MDEKPhotoViewCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
-    return cell ;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(MDEKPhotoViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     NSInteger row  = indexPath.row;
     PHAsset *photo = [self.allPhotos objectAtIndex:row];
+    
+    // todo options 改为sync
     [self.manager requestImageForAsset:photo
                             targetSize:CGSizeMake(self.keyboardHeight - 158., self.keyboardHeight - 158.)
                            contentMode:PHImageContentModeAspectFill
                                options:nil
                          resultHandler:^(UIImage *result, NSDictionary *info) {
                              if (result) cell.imgView.image = result;
-                         }];
+                         }] ;
+    
+    return cell ;
 }
+
+//- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(MDEKPhotoViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+//
+//}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row  = indexPath.row;
@@ -216,7 +229,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 
 - (PHImageManager *)manager {
     if (!_manager) {
-        _manager = [PHImageManager defaultManager];
+        _manager = [PHImageManager defaultManager] ;
     }
     return _manager;
 }

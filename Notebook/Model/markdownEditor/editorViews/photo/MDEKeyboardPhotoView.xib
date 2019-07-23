@@ -153,11 +153,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="bottom_collection" destination="LAM-Tg-KRt" id="NWN-0R-hwX"/>
                 <outlet property="btLink" destination="21H-CS-dsx" id="sHV-1a-aJ4"/>
                 <outlet property="btViewAlbum" destination="ixB-Vs-EZp" id="Wmt-tk-tlg"/>
                 <outlet property="btViewCamera" destination="uBq-FU-Z8e" id="QW6-dL-qV6"/>
                 <outlet property="collectionView" destination="VqO-MH-tX7" id="NAo-7d-eib"/>
                 <outlet property="h_collection" destination="qeY-3T-PbR" id="HcU-3b-Zmu"/>
+                <outlet property="top_collection" destination="hbh-qh-a6t" id="KbJ-uL-0fk"/>
             </connections>
             <point key="canvasLocation" x="136.80000000000001" y="191.6041979010495"/>
         </view>
