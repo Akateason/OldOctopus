@@ -178,11 +178,13 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     NSInteger row  = indexPath.row;
     PHAsset *photo = [self.allPhotos objectAtIndex:row];
     
-    // todo options 改为sync
+    PHImageRequestOptions *option = [PHImageRequestOptions new] ;
+    option.synchronous = YES ;
+    
     [self.manager requestImageForAsset:photo
                             targetSize:CGSizeMake(self.keyboardHeight - 158., self.keyboardHeight - 158.)
                            contentMode:PHImageContentModeAspectFill
-                               options:nil
+                               options:option
                          resultHandler:^(UIImage *result, NSDictionary *info) {
                              if (result) cell.imgView.image = result;
                          }] ;
