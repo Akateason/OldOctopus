@@ -35,14 +35,17 @@
     
     
     if (![IAPShare sharedHelper].iap) {
-        NSSet* dataSet = [[NSSet alloc] initWithObjects:@"octopus.im.shimo.test.iap.subscription.auto", nil];
-        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
+        NSSet *dataSet = [[NSSet alloc] initWithObjects:@"iap.octopus.month",@"iap.octopus.year",@"iap.test", nil] ;
+        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet] ;
     }
     [IAPShare sharedHelper].iap.production = NO;
-
+    
     // Request Products
     [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response) {
-         
+        
+        
+        
+        
      }] ;
     
     NSLog(@"purchasedProducts %@",[IAPShare sharedHelper].iap.purchasedProducts);
