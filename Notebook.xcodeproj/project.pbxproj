@@ -206,6 +206,7 @@
 		8FD7993F22C362A100270C2C /* setting_skin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD7993E22C362A000270C2C /* setting_skin@2x.png */; };
 		8FD7994122C362BE00270C2C /* setting_editor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD7994022C362BE00270C2C /* setting_editor@2x.png */; };
 		8FE0AD7C22E835730011C173 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0AD7B22E835730011C173 /* web.zip */; };
+		8FE0ADAB22E8466E0011C173 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FE0ADAA22E8466E0011C173 /* StoreKit.framework */; };
 		8FE5A3D9224B6CE800947D14 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A3D8224B6CE800947D14 /* HomeVC.m */; };
 		8FE5A3DB224B6E4000947D14 /* md_tb_bt_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE5A3DA224B6E3F00947D14 /* md_tb_bt_photo@2x.png */; };
 		8FE5A3E1224B82E600947D14 /* bt_home_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE5A3E0224B82E500947D14 /* bt_home_add@2x.png */; };
@@ -626,6 +627,7 @@
 		8FD7993E22C362A000270C2C /* setting_skin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_skin@2x.png"; sourceTree = "<group>"; };
 		8FD7994022C362BE00270C2C /* setting_editor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_editor@2x.png"; sourceTree = "<group>"; };
 		8FE0AD7B22E835730011C173 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
+		8FE0ADAA22E8466E0011C173 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8FE5A3D7224B6CE800947D14 /* HomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVC.h; sourceTree = "<group>"; };
 		8FE5A3D8224B6CE800947D14 /* HomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeVC.m; sourceTree = "<group>"; };
 		8FE5A3DA224B6E3F00947D14 /* md_tb_bt_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_photo@2x.png"; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FE0ADAB22E8466E0011C173 /* StoreKit.framework in Frameworks */,
 				C371690FA8B8F8976235DDEE /* Pods_Notebook.framework in Frameworks */,
 				8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */,
 			);
@@ -786,6 +789,7 @@
 		2366BB8312859B51C204C163 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8FE0ADAA22E8466E0011C173 /* StoreKit.framework */,
 				8F579FDD222E54A500C54929 /* CloudKit.framework */,
 				3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */,
 			);
@@ -1666,9 +1670,12 @@
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.Push = {
@@ -1990,6 +1997,7 @@
 				"${BUILT_PRODUCTS_DIR}/XTFMDB/XTFMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/XTReq/XTReq.framework",
 				"${BUILT_PRODUCTS_DIR}/XTlib/XTlib.framework",
+				"${BUILT_PRODUCTS_DIR}/XYIAPKit/XYIAPKit.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 				"${BUILT_PRODUCTS_DIR}/iosMath/iosMath.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
@@ -2028,6 +2036,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XTFMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XTReq.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XTlib.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XYIAPKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iosMath.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",

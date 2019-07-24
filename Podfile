@@ -19,6 +19,7 @@ target 'Notebook' do
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'MGSwipeTableCell'
   pod 'IAPHelper'
+  pod 'XYIAPKit'
 
 
 end

@@ -99,6 +99,9 @@ PODS:
     - SVProgressHUD
     - XTFMDB (> 2.0.0)
     - YYModel
+  - XYIAPKit (1.0.0):
+    - XYIAPKit/Core (= 1.0.0)
+  - XYIAPKit/Core (1.0.0)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -117,6 +120,7 @@ DEPENDENCIES:
   - XTlib
   - XTlib/Animations
   - XTlib/CustomUIs
+  - XYIAPKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -153,6 +157,7 @@ SPEC REPOS:
     - XTFMDB
     - XTlib
     - XTReq
+    - XYIAPKit
     - YYModel
 
 SPEC CHECKSUMS:
@@ -189,8 +194,9 @@ SPEC CHECKSUMS:
   XTFMDB: 0891f3355697ebbc3d75f373bcda34329f2d5d94
   XTlib: af2365b1b5dbc6e9b1cd0bf4c5114a92f5b68db3
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
+  XYIAPKit: 7c50e705d1cee36a6f1588356154f09a35544cd2
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: b204f4f9f22e337eaed40d3da91a697fd73b343d
+PODFILE CHECKSUM: a0c6e4f1c89aa4cd40ea24bfe1c5704af339c8c9
 
 COCOAPODS: 1.6.1

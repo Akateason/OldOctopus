@@ -21,6 +21,8 @@
 
 #import <IAPHelper/IAPHelper.h>
 #import <IAPShare.h>
+#import <XYIAPKit/XYIAPKit.h>
+
 
 @interface AppDelegate ()
 
@@ -28,27 +30,79 @@
 
 @implementation AppDelegate
 
+
+static NSString *const kAPP_SHARE_SECRET = @"5498d6de8ace4f52acd789f795ee9a81" ;
+
+
 - (void)test {
 //    NSString *jsonlist = @"[\"h3\"]" ;
 //    NSArray *list = [self.class convertjsonStringToDict:jsonlist] ;
 //    NSArray *list = [NSArray yy_modelArrayWithClass:[NSString class] json:jsonlist] ;
     
     
-    if (![IAPShare sharedHelper].iap) {
+//    if (![IAPShare sharedHelper].iap) {
         NSSet *dataSet = [[NSSet alloc] initWithObjects:@"iap.octopus.month",@"iap.octopus.year",@"iap.test", nil] ;
         [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet] ;
-    }
+//    }
     [IAPShare sharedHelper].iap.production = NO;
-    
+
     // Request Products
     [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response) {
-        
-        
-        
-        
+
+        if(response > 0 ) {
+            SKProduct* product =[[IAPShare sharedHelper].iap.products lastObject] ;
+            NSLog(@"Price: %@",[[IAPShare sharedHelper].iap getLocalePrice:product]);
+            NSLog(@"Title: %@",product.localizedTitle);
+
+            [[IAPShare sharedHelper].iap buyProduct:product onCompletion:^(SKPaymentTransaction* trans){
+
+                if (trans.error) {
+                   NSLog(@"Fail %@",[trans.error localizedDescription]) ;
+                }
+                else if(trans.transactionState == SKPaymentTransactionStatePurchased) {
+
+                   [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:kAPP_SHARE_SECRET onCompletion:^(NSString *response, NSError *error) {
+
+                       //Convert JSON String to NSDictionary
+                       if (!error) {
+                           NSDictionary* rec = [IAPShare toJSON:response];
+                           if ([rec[@"status"] integerValue] == 0) {
+                               [[IAPShare sharedHelper].iap provideContentWithTransaction:trans];
+                               NSLog(@"SUCCESS %@",response);
+                               NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+                           }
+                           else {
+                               NSLog(@"Fail");
+                           }
+                       }
+                       else {
+                           NSLog(@"Fail, %@",error);
+                       }
+
+                   }];
+                }
+                else if(trans.transactionState == SKPaymentTransactionStateFailed) {
+                   NSLog(@"Fail");
+                }
+
+            }] ;//end of buy product
+        }
      }] ;
+//
+//
+//    NSLog(@"purchasedProducts %@",[IAPShare sharedHelper].iap.purchasedProducts);
     
-    NSLog(@"purchasedProducts %@",[IAPShare sharedHelper].iap.purchasedProducts);
+    
+    [[XYStore defaultStore] requestProducts:dataSet success:^(NSArray *products, NSArray *invalidProductIdentifiers){
+        
+        
+        
+     } failure:^(NSError *error) {
+         
+         
+         
+         
+     }] ;
     
     
     
