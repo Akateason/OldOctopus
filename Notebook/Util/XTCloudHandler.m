@@ -34,7 +34,7 @@
         return ((XTIcloudUser *)[self userInCacheSyncGet]).givenName ;
     }
     else {
-        return @"小章鱼用户" ;
+        return @"未登录" ;
     }
 }
 

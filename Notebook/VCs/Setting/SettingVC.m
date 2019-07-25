@@ -123,8 +123,8 @@
     
     if (section == 0) {
         if (row == 0) cell.sepLineMode = SettingCellSeperateLine_Mode_Top ;
-        else if (row == 1) cell.sepLineMode = SettingCellSeperateLine_Mode_Middel ;
-        else if (row == 2) cell.sepLineMode = SettingCellSeperateLine_Mode_Bottom ;
+        else if (row == 3) cell.sepLineMode = SettingCellSeperateLine_Mode_Bottom ;
+        else cell.sepLineMode = SettingCellSeperateLine_Mode_Middel ;
     }
     else if (section == 1) {
         cell.sepLineMode = SettingCellSeperateLine_Mode_ALL_FULL ;

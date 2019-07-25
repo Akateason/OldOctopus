@@ -38,7 +38,9 @@ XT_SINGLETON_M(GuidingICloud)
 
 - (void)awakeFromNib {
     [super awakeFromNib] ;
-
+    
+    self.hud.xt_theme_backgroundColor = k_md_drawerColor ;
+    self.img.xt_theme_imageColor = k_md_iconColor ;
     self.hud.xt_cornerRadius = 20 ;
     self.lb1.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lb2.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;

@@ -13,6 +13,8 @@
 #import "SetThemeVC.h"
 #import "SetEditorVC.h"
 #import <SafariServices/SafariServices.h>
+#import "IAPSubscriptionVC.h"
+
 
 @implementation SettingCell
 
@@ -61,6 +63,10 @@
         // https://shimo.im/forms/bvVAXVnavgjCjqm7/fill 小章鱼移动端问题反馈
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://fankui.shimo.im/?type=create&tags[]=5cd3dc0c27f63b001104c052"]] ;
         [self.xt_viewController presentViewController:safariVC animated:YES completion:nil] ;
+    }
+    else if ([title containsString:@"订阅"]) {
+        IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
+        [self.xt_navigationController pushViewController:vc animated:YES] ;
     }
 }
 

@@ -22,21 +22,21 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guid_icloud_top_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="A73-3T-yQi">
                             <rect key="frame" x="50" y="20" width="195" height="92"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    如何打开？" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUw-IY-dCv">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    如何登录？" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUw-IY-dCv">
                             <rect key="frame" x="98.5" y="355" width="98.5" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTQ-eN-5mg">
-                            <rect key="frame" x="37.5" y="180" width="220.5" height="43"/>
-                            <string key="text">请开启允许以便小章鱼笔记
+                            <rect key="frame" x="35" y="180" width="225" height="43"/>
+                            <string key="text">请开启允许 以便小章鱼笔记
 能够正常工作</string>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iCloud 同步" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLv-Gi-7e3">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iCloud 登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLv-Gi-7e3">
                             <rect key="frame" x="75" y="127" width="145" height="38"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="27"/>
                             <nil key="textColor"/>
@@ -93,6 +93,7 @@
                 <outlet property="btClose" destination="TrD-ID-NRB" id="jdW-dz-hKQ"/>
                 <outlet property="btOpen" destination="aUv-am-MfK" id="Qbl-9w-zm9"/>
                 <outlet property="hud" destination="XxM-V1-a4D" id="gDb-Xq-RPz"/>
+                <outlet property="img" destination="A73-3T-yQi" id="tGz-mv-7UJ"/>
                 <outlet property="lb1" destination="oLv-Gi-7e3" id="0Kd-Vf-FiE"/>
                 <outlet property="lb2" destination="gTQ-eN-5mg" id="GpL-u8-p3Z"/>
                 <outlet property="lbHowToOpen" destination="BUw-IY-dCv" id="7eg-F6-sS0"/>

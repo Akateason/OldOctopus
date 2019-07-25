@@ -14,11 +14,12 @@
 
 + (void)addInController:(UIViewController *)ctrller {    
     SettingNavBar *navBar = [[SettingNavBar alloc] init] ;
+//    navBar.backgroundColor = [UIColor yellowColor] ;
     [ctrller.view addSubview:navBar] ;
     [navBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ctrller.view.mas_safeAreaLayoutGuideTop) ;
+        make.top.equalTo(ctrller.view.mas_top).offset(APP_STATUSBAR_HEIGHT) ;
         make.left.right.equalTo(ctrller.view) ;
-        make.height.equalTo(@44) ;
+        make.height.equalTo(@66) ;
     }] ;
 }
 

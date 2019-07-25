@@ -27,6 +27,14 @@
 			<key>r</key>
 			<string></string>
 		</dict>
+		<dict>
+			<key>p</key>
+			<string>setting_iap</string>
+			<key>t</key>
+			<string>订阅</string>
+			<key>r</key>
+			<string>开启更多功能</string>
+		</dict>
 	</array>
 	<array>
 		<dict>
