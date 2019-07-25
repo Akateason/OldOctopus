@@ -38,6 +38,7 @@
 		8F0C15DE2296834600E8837D /* GuidingICloud.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C15DD2296834600E8837D /* GuidingICloud.xib */; };
 		8F0C15E1229684B200E8837D /* guid_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C15DF229684B200E8837D /* guid_close@2x.png */; };
 		8F0C15E2229684B200E8837D /* guid_icloud_top_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0C15E0229684B200E8837D /* guid_icloud_top_icon@2x.png */; };
+		8F0CB78D22E9BBB400480DD4 /* IAPSuccessSubscriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0CB78C22E9BBB400480DD4 /* IAPSuccessSubscriptionVC.m */; };
 		8F0FDECB2293EB7700915C21 /* OctToolbarBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0FDECA2293EB7700915C21 /* OctToolbarBlockView.m */; };
 		8F0FDECD2293EB8700915C21 /* OctToolbarBlockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0FDECC2293EB8700915C21 /* OctToolbarBlockView.xib */; };
 		8F0FDED02293F12400915C21 /* md_r_tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0FDECE2293F12400915C21 /* md_r_tab@2x.png */; };
@@ -74,6 +75,7 @@
 		8F1D1BFE22E9786700C3B700 /* IAPInfoBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1D1BFC22E9786700C3B700 /* IAPInfoBottomCell.m */; };
 		8F1D1BFF22E9786700C3B700 /* IAPInfoBottomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1D1BFD22E9786700C3B700 /* IAPInfoBottomCell.xib */; };
 		8F1D1C0122E97CC600C3B700 /* iap_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1D1C0022E97CC600C3B700 /* iap_bottom@2x.png */; };
+		8F1D1C0422E9822300C3B700 /* IapUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1D1C0322E9822300C3B700 /* IapUtil.m */; };
 		8F2A2673226EE98D0076EBA4 /* guiding_img_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2672226EE98D0076EBA4 /* guiding_img_1@2x.png */; };
 		8F2A2675226EEC010076EBA4 /* guiding_img_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2674226EEC010076EBA4 /* guiding_img_2@2x.png */; };
 		8F2A2677226EEC830076EBA4 /* guiding_img_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2676226EEC830076EBA4 /* guiding_img_3@2x.png */; };
@@ -168,6 +170,8 @@
 		8F7B2ED422C61D0B000018DE /* midnight.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2ED222C61D0B000018DE /* midnight.json */; };
 		8F7B2ED522C61D0B000018DE /* sunshine.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2ED322C61D0B000018DE /* sunshine.json */; };
 		8F7C8EC222C1F70F005731FA /* nav_back_reverse_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */; };
+		8F90189522E9BDE600D1BA4B /* IapPaySuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F90189322E9BDE600D1BA4B /* IapPaySuccessCell.m */; };
+		8F90189622E9BDE600D1BA4B /* IapPaySuccessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */; };
 		8F931B9B228E89F800F73219 /* home_top_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9A228E89F800F73219 /* home_top_note@2x.png */; };
 		8F931B9D228E90CF00F73219 /* home_cell_top_corner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9C228E90CF00F73219 /* home_cell_top_corner@2x.png */; };
 		8F97514422D7A8BD0012F403 /* OctMBPHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F97514322D7A8BD0012F403 /* OctMBPHud.m */; };
@@ -399,6 +403,8 @@
 		8F0C15DD2296834600E8837D /* GuidingICloud.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuidingICloud.xib; sourceTree = "<group>"; };
 		8F0C15DF229684B200E8837D /* guid_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guid_close@2x.png"; sourceTree = "<group>"; };
 		8F0C15E0229684B200E8837D /* guid_icloud_top_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guid_icloud_top_icon@2x.png"; sourceTree = "<group>"; };
+		8F0CB78B22E9BBB400480DD4 /* IAPSuccessSubscriptionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAPSuccessSubscriptionVC.h; sourceTree = "<group>"; };
+		8F0CB78C22E9BBB400480DD4 /* IAPSuccessSubscriptionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IAPSuccessSubscriptionVC.m; sourceTree = "<group>"; };
 		8F0FDEC92293EB7700915C21 /* OctToolbarBlockView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctToolbarBlockView.h; sourceTree = "<group>"; };
 		8F0FDECA2293EB7700915C21 /* OctToolbarBlockView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctToolbarBlockView.m; sourceTree = "<group>"; };
 		8F0FDECC2293EB8700915C21 /* OctToolbarBlockView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OctToolbarBlockView.xib; sourceTree = "<group>"; };
@@ -449,6 +455,8 @@
 		8F1D1BFC22E9786700C3B700 /* IAPInfoBottomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IAPInfoBottomCell.m; sourceTree = "<group>"; };
 		8F1D1BFD22E9786700C3B700 /* IAPInfoBottomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IAPInfoBottomCell.xib; sourceTree = "<group>"; };
 		8F1D1C0022E97CC600C3B700 /* iap_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iap_bottom@2x.png"; sourceTree = "<group>"; };
+		8F1D1C0222E9822300C3B700 /* IapUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IapUtil.h; sourceTree = "<group>"; };
+		8F1D1C0322E9822300C3B700 /* IapUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IapUtil.m; sourceTree = "<group>"; };
 		8F2A2672226EE98D0076EBA4 /* guiding_img_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guiding_img_1@2x.png"; sourceTree = "<group>"; };
 		8F2A2674226EEC010076EBA4 /* guiding_img_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guiding_img_2@2x.png"; sourceTree = "<group>"; };
 		8F2A2676226EEC830076EBA4 /* guiding_img_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guiding_img_3@2x.png"; sourceTree = "<group>"; };
@@ -586,6 +594,9 @@
 		8F7B2ED222C61D0B000018DE /* midnight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = midnight.json; sourceTree = "<group>"; };
 		8F7B2ED322C61D0B000018DE /* sunshine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sunshine.json; sourceTree = "<group>"; };
 		8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_reverse_item@2x.png"; sourceTree = "<group>"; };
+		8F90189222E9BDE600D1BA4B /* IapPaySuccessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IapPaySuccessCell.h; sourceTree = "<group>"; };
+		8F90189322E9BDE600D1BA4B /* IapPaySuccessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IapPaySuccessCell.m; sourceTree = "<group>"; };
+		8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IapPaySuccessCell.xib; sourceTree = "<group>"; };
 		8F931B9A228E89F800F73219 /* home_top_note@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_top_note@2x.png"; sourceTree = "<group>"; };
 		8F931B9C228E90CF00F73219 /* home_cell_top_corner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_cell_top_corner@2x.png"; sourceTree = "<group>"; };
 		8F97514222D7A8BD0012F403 /* OctMBPHud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctMBPHud.h; sourceTree = "<group>"; };
@@ -1180,6 +1191,8 @@
 				8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */,
 				8F97514222D7A8BD0012F403 /* OctMBPHud.h */,
 				8F97514322D7A8BD0012F403 /* OctMBPHud.m */,
+				8F1D1C0222E9822300C3B700 /* IapUtil.h */,
+				8F1D1C0322E9822300C3B700 /* IapUtil.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1475,6 +1488,11 @@
 			children = (
 				8FE0ADAE22E945A40011C173 /* IAPSubscriptionVC.h */,
 				8FE0ADAF22E945A40011C173 /* IAPSubscriptionVC.m */,
+				8F90189222E9BDE600D1BA4B /* IapPaySuccessCell.h */,
+				8F90189322E9BDE600D1BA4B /* IapPaySuccessCell.m */,
+				8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */,
+				8F0CB78B22E9BBB400480DD4 /* IAPSuccessSubscriptionVC.h */,
+				8F0CB78C22E9BBB400480DD4 /* IAPSuccessSubscriptionVC.m */,
 				8F1D1BFB22E9786700C3B700 /* IAPInfoBottomCell.h */,
 				8F1D1BFC22E9786700C3B700 /* IAPInfoBottomCell.m */,
 				8F1D1BFD22E9786700C3B700 /* IAPInfoBottomCell.xib */,
@@ -1999,6 +2017,7 @@
 				8FFAE0FA229CDAF400CDAC47 /* apache.plist in Resources */,
 				8F931B9D228E90CF00F73219 /* home_cell_top_corner@2x.png in Resources */,
 				8FE0ADC322E96D2E0011C173 /* iap_icon_theme@2x.png in Resources */,
+				8F90189622E9BDE600D1BA4B /* IapPaySuccessCell.xib in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
 				8F1357F122929A5400F5F874 /* tb_hidekb@2x.png in Resources */,
 				8F6863CA22671D0600261626 /* LDSepLineCell.xib in Resources */,
@@ -2153,6 +2172,7 @@
 				8FB2EFE022DC2BAF00B294F1 /* MarkdownEditor+OctToolbarUtil.m in Sources */,
 				8FE5A3E4224CA4CC00947D14 /* LeftDrawerVC.m in Sources */,
 				8F07D653224CCED4005BA86D /* NoteBooks.m in Sources */,
+				8F0CB78D22E9BBB400480DD4 /* IAPSuccessSubscriptionVC.m in Sources */,
 				8F679E2B2238FA17008DE1BC /* MdOtherModel.m in Sources */,
 				8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */,
 				8FEA9E4C225B27C1002A756B /* EmojiJson.m in Sources */,
@@ -2166,6 +2186,7 @@
 				8F6863C22266FA7A00261626 /* SearchEmptyVC.m in Sources */,
 				8F5C7E4422A8FDB40032680D /* WebPhotoHandler.m in Sources */,
 				8F0BC9EA22D496C6002064CC /* EmojiCell.m in Sources */,
+				8F90189522E9BDE600D1BA4B /* IapPaySuccessCell.m in Sources */,
 				8F08FB7922A8E819008AB6A6 /* TableCreatorView.m in Sources */,
 				8FE5A3EA224CA77400947D14 /* LDHeadView.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
@@ -2174,6 +2195,7 @@
 				8F05C57C22754CD40047CC04 /* XTMarkdownParser+Regular.m in Sources */,
 				8F6C95D322CFBE6C00AF5302 /* SingleGuidVC.m in Sources */,
 				8F0C15DC2296833200E8837D /* GuidingICloud.m in Sources */,
+				8F1D1C0422E9822300C3B700 /* IapUtil.m in Sources */,
 				8F79AE7A2269CD9100E8FD0D /* HomeVC+PanGestureHandler.m in Sources */,
 				8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */,
 				8F08FB6322A8C328008AB6A6 /* WebModel.m in Sources */,

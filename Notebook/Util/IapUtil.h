@@ -1,0 +1,36 @@
+//
+//  IapUtil.h
+//  Notebook
+//
+//  Created by teason23 on 2019/7/25.
+//  Copyright © 2019 teason23. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <IAPHelper/IAPHelper.h>
+#import <IAPShare.h>
+#import <XYIAPKit/XYIAPKit.h>
+
+// 共享沙盒密钥
+static NSString *const kAPP_SHARE_SECRET = @"5498d6de8ace4f52acd789f795ee9a81" ;
+static NSString *const k_IAP_ID_MONTH = @"iap.octopus.month" ;
+static NSString *const k_IAP_ID_YEAR  = @"iap.octopus.year" ;
+
+
+@interface IapUtil : NSObject
+- (void)setup ;
+
+- (void)buy:(NSString *)identifier ;
+
++ (void)saveIapSubscriptionDate:(long long)tick ;
+
+// 获取订阅超时时间
+// todo 如果本地没有 去服务端调
++ (void)fetchIapSubscriptionDate:(void(^)(long long tick))fetchBlk ;
+
+// 是否vip
++ (void)iapVipUserIsValid:(void(^)(BOOL isValid))completionBlk ;
+
+@end
+
+

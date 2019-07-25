@@ -14,7 +14,8 @@
 #import "SetEditorVC.h"
 #import <SafariServices/SafariServices.h>
 #import "IAPSubscriptionVC.h"
-
+#import "IapUtil.h"
+#import "IAPSuccessSubscriptionVC.h"
 
 @implementation SettingCell
 
@@ -65,8 +66,19 @@
         [self.xt_viewController presentViewController:safariVC animated:YES completion:nil] ;
     }
     else if ([title containsString:@"订阅"]) {
-        IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
-        [self.xt_navigationController pushViewController:vc animated:YES] ;
+        [IapUtil iapVipUserIsValid:^(BOOL isValid) {
+            
+            if (isValid) {
+                IAPSuccessSubscriptionVC *vc = [IAPSuccessSubscriptionVC getMe] ;
+                [self.xt_navigationController pushViewController:vc animated:YES] ;
+            }
+            else {
+                IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
+                [self.xt_navigationController pushViewController:vc animated:YES] ;
+            }
+        }] ;
+        
+        
     }
 }
 

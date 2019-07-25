@@ -1,41 +1,34 @@
 //
-//  IAPSubscriptionVC.m
+//  IAPSuccessSubscriptionVC.m
 //  Notebook
 //
 //  Created by teason23 on 2019/7/25.
 //  Copyright © 2019 teason23. All rights reserved.
 //
 
-#import "IAPSubscriptionVC.h"
+#import "IAPSuccessSubscriptionVC.h"
 #import "SettingNavBar.h"
 #import "IAPSepLineCell.h"
 #import "IAPIntroductionCell.h"
-#import "IAPPayCell.h"
 #import "IAPInfoBottomCell.h"
-
-#import <IAPHelper/IAPHelper.h>
-#import <IAPShare.h>
-#import <XYIAPKit/XYIAPKit.h>
+#import "IapPaySuccessCell.h"
 
 
-@interface IAPSubscriptionVC ()
-@property (weak, nonatomic) IBOutlet UIView *topLine;
-@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
-@property (weak, nonatomic) IBOutlet UILabel *lbSubTitle;
-@property (weak, nonatomic) IBOutlet UITableView *table;
+
+
+@interface IAPSuccessSubscriptionVC ()
 
 @end
 
-@implementation IAPSubscriptionVC
+@implementation IAPSuccessSubscriptionVC
 
 + (instancetype)getMe {
-    return [IAPSubscriptionVC getCtrllerFromStory:@"Main" controllerIdentifier:@"IAPSubscriptionVC"] ;
+    return [IAPSuccessSubscriptionVC getCtrllerFromStory:@"Main" controllerIdentifier:@"IAPSuccessSubscriptionVC"] ;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
 }
 
 - (void)prepareUI {
@@ -44,7 +37,7 @@
     [SettingNavBar addInController:self] ;
     
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
-    self.lbSubTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    self.lbDesc.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     
     self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     
@@ -58,9 +51,10 @@
     
     [IAPSepLineCell xt_registerNibFromTable:self.table] ;
     [IAPIntroductionCell xt_registerNibFromTable:self.table] ;
-    [IAPPayCell xt_registerNibFromTable:self.table] ;
     [IAPInfoBottomCell xt_registerNibFromTable:self.table] ;
+    [IapPaySuccessCell xt_registerNibFromTable:self.table] ;
 }
+
 
 #pragma mark - table
 
@@ -75,11 +69,11 @@
         return cell ;
     }
     else if (row == 1) {
-        IAPIntroductionCell *cell = [IAPIntroductionCell xt_fetchFromTable:tableView] ;
+        IapPaySuccessCell *cell = [IapPaySuccessCell xt_fetchFromTable:tableView] ;
         return cell ;
     }
     else if (row == 2) {
-        IAPPayCell *cell = [IAPPayCell xt_fetchFromTable:tableView] ;
+        IAPIntroductionCell *cell = [IAPIntroductionCell xt_fetchFromTable:tableView] ;
         return cell ;
     }
     else if (row == 3) {
@@ -96,17 +90,16 @@
         return [IAPSepLineCell xt_cellHeight] ;
     }
     else if (row == 1) {
-        return [IAPIntroductionCell xt_cellHeight] ; 
+        return [IapPaySuccessCell xt_cellHeight] ;
     }
     else if (row == 2) {
-        return [IAPPayCell xt_cellHeight] ;
+        return [IAPIntroductionCell xt_cellHeight] ;
     }
     else if (row == 3) {
         return [IAPInfoBottomCell xt_cellHeight] ;
     }
     return 0 ;
 }
-
 
 
 

@@ -11,6 +11,8 @@
 #import "MDThemeConfiguration.h"
 
 
+
+
 @implementation IAPPayCell
 
 - (void)awakeFromNib {
@@ -18,16 +20,14 @@
     // Initialization code
     self.selectionStyle = 0 ;
     self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
-    
     self.lbMonth.xt_theme_textColor = self.lbYear.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
-    
     self.btMonth.xt_theme_textColor = self.btYear.xt_theme_textColor = k_md_drawerSelectedColor ;
-    
     self.btMonth.xt_theme_backgroundColor = self.btYear.xt_theme_backgroundColor = k_md_themeColor ;
-    
     self.btMonth.xt_cornerRadius = self.btYear.xt_cornerRadius = 6. ;
-    
     self.lbDescYear.xt_theme_textColor = self.lbDescMonth.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    
+    
+    self.iap = [IapUtil new] ;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -39,5 +39,15 @@
 + (CGFloat)xt_cellHeight {
     return 127. ;
 }
+
+- (IBAction)btMonthAction:(id)sender {
+    [self.iap buy:k_IAP_ID_MONTH] ;
+}
+
+- (IBAction)btYearAction:(id)sender {
+    [self.iap buy:k_IAP_ID_YEAR] ;
+}
+
+
 
 @end

@@ -18,20 +18,18 @@
 #import "MDNavVC.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "OctMBPHud.h"
-
-#import <IAPHelper/IAPHelper.h>
-#import <IAPShare.h>
-#import <XYIAPKit/XYIAPKit.h>
+#import "IapUtil.h"
 
 
-@interface AppDelegate ()
+
+@interface AppDelegate () <SKPaymentTransactionObserver>
 
 @end
 
 @implementation AppDelegate
 
 
-static NSString *const kAPP_SHARE_SECRET = @"5498d6de8ace4f52acd789f795ee9a81" ;
+
 
 
 - (void)test {
@@ -39,73 +37,74 @@ static NSString *const kAPP_SHARE_SECRET = @"5498d6de8ace4f52acd789f795ee9a81" ;
 //    NSArray *list = [self.class convertjsonStringToDict:jsonlist] ;
 //    NSArray *list = [NSArray yy_modelArrayWithClass:[NSString class] json:jsonlist] ;
     
-    
-//    if (![IAPShare sharedHelper].iap) {
-//        NSSet *dataSet = [[NSSet alloc] initWithObjects:@"iap.octopus.month",@"iap.octopus.year",@"iap.test", nil] ;
-//        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet] ;
-//    }
-//    [IAPShare sharedHelper].iap.production = NO;
+    [IapUtil iapVipUserIsValid:^(BOOL isValid) {
+        
+    }] ;
+}
 
-    // Request Products
-//    [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response) {
-//
-//        if(response > 0 ) {
-//            SKProduct* product =[[IAPShare sharedHelper].iap.products lastObject] ;
-//            NSLog(@"Price: %@",[[IAPShare sharedHelper].iap getLocalePrice:product]);
-//            NSLog(@"Title: %@",product.localizedTitle);
-//
-//            [[IAPShare sharedHelper].iap buyProduct:product onCompletion:^(SKPaymentTransaction* trans){
-//
-//                if (trans.error) {
-//                   NSLog(@"Fail %@",[trans.error localizedDescription]) ;
-//                }
-//                else if(trans.transactionState == SKPaymentTransactionStatePurchased) {
-//
-//                   [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:kAPP_SHARE_SECRET onCompletion:^(NSString *response, NSError *error) {
-//
-//                       //Convert JSON String to NSDictionary
-//                       if (!error) {
-//                           NSDictionary* rec = [IAPShare toJSON:response];
-//                           if ([rec[@"status"] integerValue] == 0) {
-//                               [[IAPShare sharedHelper].iap provideContentWithTransaction:trans];
-//                               NSLog(@"SUCCESS %@",response);
-//                               NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
-//                           }
-//                           else {
-//                               NSLog(@"Fail");
-//                           }
-//                       }
-//                       else {
-//                           NSLog(@"Fail, %@",error);
-//                       }
-//
-//                   }];
-//                }
-//                else if(trans.transactionState == SKPaymentTransactionStateFailed) {
-//                   NSLog(@"Fail");
-//                }
-//
-//            }] ;//end of buy product
-//        }
-//     }] ;
-//
-//
-//    NSLog(@"purchasedProducts %@",[IAPShare sharedHelper].iap.purchasedProducts);
-    
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
+    for (SKPaymentTransaction *transaction in transactions) {
+        NSLog(@"transactionState %ld",(long)transaction.transactionState) ;
+        
+        if (transaction.transactionState == SKPaymentTransactionStatePurchased
+            //|| transaction.transactionState == SKPaymentTransactionStateRestored
+            ) {
+            
+            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:kAPP_SHARE_SECRET onCompletion:^(NSString *response, NSError *error) {
+                
+                //Convert JSON String to NSDictionary
+                if (!error) {
+                    NSDictionary* rec = [IAPShare toJSON:response];
+                    if ([rec[@"status"] integerValue] == 0) {
+                        [[IAPShare sharedHelper].iap provideContentWithTransaction:transaction];
+                        NSLog(@"SUCCESS %@",response);
+                        NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+                        
+                        NSDictionary *dictLatestReceiptsInfo = rec[@"latest_receipt_info"];
+                        long long int expirationDateMs = [[dictLatestReceiptsInfo valueForKeyPath:@"@max.expires_date_ms"] longLongValue] ; // 结束时间
+                        long long requestDateMs = [rec[@"receipt"][@"request_date_ms"] longLongValue] ;//请求时间
+                        NSLog(@"%lld--%lld", expirationDateMs, requestDateMs) ;
+                        NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(expirationDateMs / 1000.0)] ;
+                        NSLog(@"新订单截止到 : %@", resExpiraDate) ;
+
+                        
+                        // 调api 成功后, 设置本地的 更新时间
+                        [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
+                        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+                        
+                    }
+                    else {
+                        NSLog(@"Fail");
+                    }
+                }
+                else {
+                    NSLog(@"Fail, %@",error);
+                }
+            }] ;
+        }
+        else {
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+        }
+    }
 }
 
 
 
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    if (IS_IPAD) {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES] ;
-    }
     
+    if (IS_IPAD) [[UIApplication sharedApplication] setStatusBarHidden:YES] ;
+    
+    // iap
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self] ; // 处理iap回调
+    IapUtil *iap = [IapUtil new] ;
+    [iap setup] ;
+    
+    // lauching events
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
     [self.launchingEvents setup:application appdelegate:self] ;
 
+    //
     if (![XTIcloudUser userInCacheSyncGet]) {
         [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
             [self.launchingEvents pullAll] ;
@@ -209,3 +208,4 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 }
 
 @end
+ 

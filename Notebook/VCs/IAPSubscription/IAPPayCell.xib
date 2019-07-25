@@ -39,6 +39,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="每月 ￥9.00"/>
+                        <connections>
+                            <action selector="btMonthAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7OS-TS-hFE"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfg-Fs-ZHt">
                         <rect key="frame" x="170" y="61.5" width="135" height="40"/>
@@ -48,6 +51,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="一年 ￥99.00"/>
+                        <connections>
+                            <action selector="btYearAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bek-Kh-1k6"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="之后每月 ￥9.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Seb-2c-nOV">
                         <rect key="frame" x="42" y="109.5" width="91" height="15"/>
