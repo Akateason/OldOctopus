@@ -49,8 +49,7 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
 // 是否vip
 + (void)iapVipUserIsValid:(void(^)(BOOL isValid))completionBlk {
     [self fetchIapSubscriptionDate:^(long long tick) {
-//        NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(tick / 1000.0)] ;
-//        NSDate *now = [NSDate date] ;
+
         tick = tick / 1000. ;
         long long nowTick = [[NSDate date] xt_getTick] ;
         NSLog(@"vip %lld - now %lld", tick, nowTick) ;

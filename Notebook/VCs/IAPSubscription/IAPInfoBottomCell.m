@@ -9,6 +9,7 @@
 #import "IAPInfoBottomCell.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
+#import <BlocksKit+UIKit.h>
 
 @implementation IAPInfoBottomCell
 
@@ -29,6 +30,22 @@
     self.lbPrivacy.xt_theme_textColor =  self.lbService.xt_theme_textColor = k_md_themeColor ;
     
     self.btImage.xt_theme_imageColor = k_md_iconColor ;
+    
+    self.lbPrivacy.userInteractionEnabled = self.lbService.userInteractionEnabled = YES ;
+    [self.lbPrivacy bk_whenTapped:^{
+        
+    }] ;
+    
+    [self.lbService bk_whenTapped:^{
+        
+    }] ;
+}
+
+- (IBAction)replyAction:(id)sender {
+    // https://shimo.im/forms/bvVAXVnavgjCjqm7/fill 小章鱼移动端问题反馈
+    NSString *urlStr = @"https://fankui.shimo.im/?type=create&tags[]=5cd3dc0c27f63b001104c052" ;
+    NSURL *url = [NSURL URLWithString:urlStr] ;
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
