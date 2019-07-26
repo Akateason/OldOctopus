@@ -23,10 +23,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="162.5" height="100"/>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="theme_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="7o3-3L-eDA">
-                        <rect key="frame" x="61.5" y="30" width="40" height="40"/>
+                        <rect key="frame" x="54" y="22.5" width="55" height="55"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="40" id="I0r-4f-z3c"/>
-                            <constraint firstAttribute="height" constant="40" id="VCN-a6-FPU"/>
+                            <constraint firstAttribute="width" constant="55" id="DDt-Sh-HiF"/>
+                            <constraint firstAttribute="height" constant="55" id="da9-iW-giR"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -48,6 +48,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="theme_lock.png" width="92" height="92"/>
+        <image name="theme_lock.png" width="55" height="55"/>
     </resources>
 </document>

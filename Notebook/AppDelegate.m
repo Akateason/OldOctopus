@@ -47,7 +47,6 @@
         NSLog(@"transactionState %ld",(long)transaction.transactionState) ;
         
         if (transaction.transactionState == SKPaymentTransactionStatePurchased
-            //|| transaction.transactionState == SKPaymentTransactionStateRestored
             ) {
             
             [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:kAPP_SHARE_SECRET onCompletion:^(NSString *response, NSError *error) {
@@ -82,8 +81,11 @@
                 }
             }] ;
         }
-        else {
+        else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+        }
+        else {
+            
         }
     }
 }
