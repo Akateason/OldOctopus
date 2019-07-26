@@ -86,7 +86,7 @@
           fromCtrller:(UIViewController *)ctrller {
     
     self.aNote = note ;
-    self.delegate = (id <MarkdownVCDelegate>)ctrller ;
+    if (ctrller != nil) self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
     self.editor.isCreateNew = (note == nil) ? 1 : 0 ;
@@ -94,6 +94,11 @@
     self.editor.left = [self.class getEditorLeftIpad] ;
     self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
     [self.editor.toolBar reset] ;
+}
+
+- (void)setupWithNote:(Note *)note
+               bookID:(NSString *)bookID {
+    [self setupWithNote:note bookID:bookID fromCtrller:nil] ;
 }
 
 - (void)viewDidLoad {
@@ -130,15 +135,6 @@
          @strongify(self)
          self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
          [self.editor changeTheme] ;
-         
-//         for (UIView *sub in self.topBar.subviews) {
-//             if ([sub isKindOfClass:UIVisualEffectView.class]) {
-//                 [sub removeFromSuperview] ;
-//             }
-//         }
-//         [self.topBar oct_addBlurBg] ;
-//         [self.topBar setNeedsLayout] ;
-//         [self.topBar layoutIfNeeded] ;
      }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -236,10 +232,10 @@
          
          if (self.aNote == nil || self.editor.aNote == nil || self.editor.aNote.content.length < 1) {
              if (num == -1) {
+                 [self setupWithNote:nil bookID:self.delegate.currentBookID] ;
+                 
                  self.emptyView.hidden = YES ;
-                 self.myBookID = self.delegate.currentBookID ;
                  self.editor.webViewHasSetMarkdown = YES ;
-                 [self.editor openKeyboard] ;
              }
              else {
                  self.emptyView.hidden = NO ;
@@ -251,6 +247,7 @@
          }
         
      }] ;
+    
     
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
         id target = self.navigationController.interactivePopGestureRecognizer.delegate ;
@@ -290,7 +287,7 @@
     return [self.oct_panDelegate oct_gestureRecognizerShouldBegin:gestureRecognizer] ;
 }
 
-// 一句话总结就是此方法返回YES时，手势事件会一直往下传递，不论当前层次是否对该事件进行响应。
+// 此方法返回YES时，手势事件会一直往下传递，不论当前层次是否对该事件进行响应
 - (BOOL)gestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
@@ -465,10 +462,6 @@ return;}
     
     self.navArea.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;
     self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;
-
-//    [self.topBar setNeedsDisplay] ;
-//    [self.topBar layoutIfNeeded] ;
-//    [self.topBar oct_addBlurBg] ;
     
     if (IS_IPAD) {
         [self.btBack setImage:[UIImage imageNamed:@"nav_back_reverse_item"] forState:0] ;
