@@ -230,12 +230,7 @@
     self.listNotes = topList ;
 }
 
-- (void)openDrawer {    
-//    if (![XTIcloudUser hasLogin]) {
-//        [XTIcloudUser alertUserToLoginICloud] ;
-//        return ;
-//    }
-    
+- (void)openDrawer {
     [self.leftVC render] ;
     [self.slidingController toggleDrawer] ;
 }
@@ -376,7 +371,7 @@
     cell.rightSwipeSettings.transition = MGSwipeStateSwippingLeftToRight;
     
     [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
-    if (self.leftVC.currentBook.vType != Notebook_Type_trash) {
+    if (self.leftVC.currentBook.vType != Notebook_Type_trash && IS_IPAD) {
         [cell setUserSelected:
          [aNote.icRecordName isEqualToString:XT_USERDEFAULT_GET_VAL(kUDCached_lastNote_RecID)]
          ] ;
@@ -405,10 +400,20 @@
     
     NSInteger row = indexPath.row ;
     Note *aNote = self.listNotes[row] ;
-    XT_USERDEFAULT_SET_VAL(aNote.icRecordName, kUDCached_lastNote_RecID) ;
-    [tableView reloadData] ;
     
-    [self newNoteCombineFunc:aNote] ;
+    if (IS_IPAD) {
+        XT_USERDEFAULT_SET_VAL(aNote.icRecordName, kUDCached_lastNote_RecID) ;
+        [tableView reloadData] ;
+        [self newNoteCombineFunc:aNote] ;
+    }
+    else {
+        [UIView animateWithDuration:.2 animations:^{
+            cell.area.backgroundColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .03) ;
+        } completion:^(BOOL finished) {
+            cell.area.backgroundColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_bgColor, 1) ;
+            [self newNoteCombineFunc:aNote] ;
+        }] ;
+    }
 }
 
 - (UIView *)makePlaceHolderView {
@@ -429,25 +434,6 @@
 - (BOOL)enableScrollWhenPlaceHolderViewShowing {
     return YES ;
 }
-
-//- (NSArray *)rightButtonItemsInRevealTableViewCell:(SWRevealTableViewCell *)cell1 {
-//    return [self setupPanList:cell1] ;
-//}
-//
-//- (void)revealTableViewCell:(SWRevealTableViewCell *)revealTableViewCell willMoveToPosition:(SWCellRevealPosition)position {
-//    if (position == SWCellRevealPositionLeft) {
-//        NoteCell *aCell = (NoteCell *)revealTableViewCell ;
-//        NSArray *visibleCells = [self.table visibleCells] ;
-//        for (UITableViewCell *cell in visibleCells) {
-//
-//            if ( [cell isKindOfClass:[SWRevealTableViewCell class]] &&
-//                 ((SWRevealTableViewCell *)cell).revealPosition != SWCellRevealPositionCenter &&
-//                 cell.xt_indexPath.row != aCell.xt_indexPath.row )
-//
-//                [(SWRevealTableViewCell *)cell setRevealPosition:SWCellRevealPositionCenter animated:YES] ;
-//        }
-//    }
-//}
 
 #pragma mark - MarkdownVCDelegate <NSObject>
 
