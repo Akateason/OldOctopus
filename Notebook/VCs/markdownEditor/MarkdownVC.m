@@ -26,6 +26,10 @@
 #import "OctMBPHud.h"
 #import "HomeTrashEmptyPHView.h"
 #import "SearchVC.h"
+#import "GuidingICloud.h"
+#import "IapUtil.h"
+#import "IAPSubscriptionVC.h"
+
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -130,15 +134,6 @@
          @strongify(self)
          self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
          [self.editor changeTheme] ;
-         
-//         for (UIView *sub in self.topBar.subviews) {
-//             if ([sub isKindOfClass:UIVisualEffectView.class]) {
-//                 [sub removeFromSuperview] ;
-//             }
-//         }
-//         [self.topBar oct_addBlurBg] ;
-//         [self.topBar setNeedsLayout] ;
-//         [self.topBar layoutIfNeeded] ;
      }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -518,6 +513,9 @@ return;}
     
     // 导出预览
     self.infoVC.blkOutput = ^{
+        
+        if (![weakSelf isVIPandLogin]) return ;
+        
         [weakSelf.editor hideKeyboard] ;
         [weakSelf.infoVC.view removeFromSuperview] ;
         
@@ -610,7 +608,25 @@ return;}
     }
 }
 
+- (BOOL)isVIPandLogin {
+    if (![XTIcloudUser hasLogin]) {
+        NSLog(@"未登录") ;
+        [GuidingICloud show] ;
+        
+        return NO ;
+    }
+    
+    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+        [IAPSubscriptionVC showMePresentedInFromCtrller:self] ;
+        
+        return NO ;
+    }
+    return YES ;
+}
+
 - (IBAction)shareAction:(id)sender {
+    if (![self isVIPandLogin]) return ;
+    
     [self.editor hideKeyboard] ;
     [[OctMBPHud sharedInstance] show] ;
     [self.editor getShareHtml] ;

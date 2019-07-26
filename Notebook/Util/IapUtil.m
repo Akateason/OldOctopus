@@ -42,7 +42,7 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
         fetchBlk(localTick) ;
     }
     else {
-        fetchBlk(0) ; // 暂时
+        fetchBlk(0) ; // todo 暂时反馈空 等接口加上. 返回 expireDate
     }
 }
 
@@ -55,6 +55,20 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
         NSLog(@"vip %lld - now %lld", tick, nowTick) ;
         completionBlk( nowTick <= tick ) ;
     }] ;
+}
+
+// 是否vip同步 , 如果没有,则去请求一把.并存本地
++ (BOOL)isIapVipFromLocalAndRequestIfLocalNotExist {
+    long long localTick = [XT_USERDEFAULT_GET_VAL(kUD_Iap_ExpireDate) longLongValue] ;
+    if (localTick > 0) {
+        localTick = localTick / 1000. ;
+        long long nowTick = [[NSDate date] xt_getTick] ;
+        NSLog(@"vip %lld - now %lld 是否vip %d", localTick, nowTick, nowTick <= localTick) ;
+        return nowTick <= localTick ;
+    }
+    
+    [self fetchIapSubscriptionDate:^(long long tick) {}] ;
+    return NO ;
 }
 
 - (void)buy:(NSString *)identifier {

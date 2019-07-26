@@ -9,6 +9,7 @@
 #import "ThemeCollectCell.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
+#import "IapUtil.h"
 
 @implementation ThemeCollectCell
 
@@ -30,6 +31,15 @@
 
 - (void)setThemeStr:(NSString *)str {
     self.imageView.image = [UIImage imageNamed:STR_FORMAT(@"theme_%@",str)] ;
+    
+    BOOL isLightTheme = [str isEqualToString:@"light"] ;
+    BOOL isVip = [IapUtil isIapVipFromLocalAndRequestIfLocalNotExist] ;
+    if (!isLightTheme) {
+        self.imgLock.hidden = isVip ;
+    }
+    else {
+        self.imgLock.hidden = YES ;
+    }
 }
 
 - (void)setOnSelect:(BOOL)on {

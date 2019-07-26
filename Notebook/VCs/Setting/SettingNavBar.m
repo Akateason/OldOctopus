@@ -10,11 +10,19 @@
 #import "MDThemeConfiguration.h"
 #import <BlocksKit+UIKit.h>
 
+@interface SettingNavBar ()
+@property (strong, nonatomic) UIButton *back ;
+@end
+
 @implementation SettingNavBar
 
-+ (void)addInController:(UIViewController *)ctrller {    
++ (void)addInController:(UIViewController *)ctrller {
+    [self addInController:ctrller hiddenNavigationBackBt:NO] ;
+}
+
++ (void)addInController:(UIViewController *)ctrller hiddenNavigationBackBt:(BOOL)hide {
     SettingNavBar *navBar = [[SettingNavBar alloc] init] ;
-//    navBar.backgroundColor = [UIColor yellowColor] ;
+    navBar.back.hidden = hide ;
     [ctrller.view addSubview:navBar] ;
     [navBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ctrller.view.mas_top).offset(APP_STATUSBAR_HEIGHT) ;
@@ -23,10 +31,11 @@
     }] ;
 }
 
+
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.height = 44 ;
+        self.height = 66 ;
         self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
         
         UIButton *back = [UIButton new] ;
@@ -44,6 +53,7 @@
         [back bk_whenTapped:^{
             [weakSelf.xt_navigationController popViewControllerAnimated:YES] ;
         }] ;
+        self.back = back ;
         
         UIButton *close = [UIButton new] ;
         close.size = CGSizeMake(20, 20) ;

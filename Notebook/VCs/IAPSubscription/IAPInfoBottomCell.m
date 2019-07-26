@@ -37,7 +37,9 @@
     }] ;
     
     [self.lbService bk_whenTapped:^{
-        
+        NSString *urlStr = @"https://octopus.smcdn.cn/shared/597dbdfb29c074be7d94040603a3555d.html" ;
+        NSURL *url = [NSURL URLWithString:urlStr] ;
+        [[UIApplication sharedApplication] openURL:url];
     }] ;
 }
 

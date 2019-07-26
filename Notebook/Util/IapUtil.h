@@ -28,8 +28,11 @@ static NSString *const k_IAP_ID_YEAR  = @"iap.octopus.year" ;
 // todo 如果本地没有 去服务端调
 + (void)fetchIapSubscriptionDate:(void(^)(long long tick))fetchBlk ;
 
-// 是否vip
+// 是否vip异步
 + (void)iapVipUserIsValid:(void(^)(BOOL isValid))completionBlk ;
+// 是否vip同步
++ (BOOL)isIapVipFromLocalAndRequestIfLocalNotExist ;
+
 
 @end
 

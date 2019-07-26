@@ -15,6 +15,7 @@
 #import "NoteBooks.h"
 #import "LDSepLineCell.h"
 #import "HomeVC.h"
+#import "IapUtil.h"
 
 @interface LDHeadView ()
 
@@ -38,14 +39,13 @@
     [LDSepLineCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     
     self.xt_theme_backgroundColor = k_md_drawerColor ;
-//    self.lbHead.xt_theme_backgroundColor = k_md_themeColor ;
-//    self.lbHead.textColor = [UIColor whiteColor] ;
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     
     ([MDThemeConfiguration sharedInstance].isDarkMode) ? [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_day"] forState:0] : [self.btTheme setImage:[UIImage imageNamed:@"ld_theme_night"] forState:0] ;
     
     self.btTheme.xt_theme_imageColor = k_md_iconColor ;
     [self.btTheme xt_enlargeButtonsTouchArea] ;
+    self.btTheme.hidden = ![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist] ;
     
     @weakify(self)
     [self.btTheme bk_whenTapped:^{
@@ -78,7 +78,7 @@
 
 - (void)setupUser {
     NSString *givenName = [XTIcloudUser displayUserName] ;
-//    self.lbHead.text = [givenName substringToIndex:1] ;
+
     self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
     self.lbName.text = givenName ;
 }
@@ -128,8 +128,6 @@
     else if (indexPath.row == 4) {
         [self.ld_delegate LDHeadDidSelectedOneBook:self.addBook] ;
     }
-    
-//    [tableView reloadData] ;
 }
 
 @end

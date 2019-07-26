@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThemeCollectCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *imgLock;
 
 - (void)setThemeStr:(NSString *)str ;
 - (void)setOnSelect:(BOOL)on ;

@@ -9,6 +9,7 @@
 #import "XTCloudHandler.h"
 #import <CommonCrypto/CommonRandom.h>
 #import "GuidingICloud.h"
+#import "IapUtil.h"
 
 
 @implementation XTIcloudUser
@@ -198,6 +199,10 @@ XT_SINGLETON_M(XTCloudHandler)
         return ;
     }
     
+    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+        return ;
+    }
+    
     self.isSyncingOnICloud = YES ;
     CKModifyRecordsOperation *modifyRecordsOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recInsertOrUpdateList recordIDsToDelete:recDeleteList];
     modifyRecordsOperation.savePolicy = CKRecordSaveAllKeys;
@@ -218,6 +223,9 @@ XT_SINGLETON_M(XTCloudHandler)
         return ;
     }
     
+    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+        return ;
+    }
     
     self.isSyncingOnICloud = YES ;
     CKRecordID *recId = [[CKRecordID alloc] initWithRecordName:recordID zoneID:self.zoneID] ;
@@ -255,6 +263,10 @@ XT_SINGLETON_M(XTCloudHandler)
     
     if (![XTIcloudUser hasLogin]) {
         NSLog(@"未登录") ;
+        return ;
+    }
+    
+    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
         return ;
     }
     
@@ -309,6 +321,10 @@ XT_SINGLETON_M(XTCloudHandler)
         return ;
     }
     
+    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+        return ;
+    }
+    
     self.isSyncingOnICloud = YES ;
     
     CKDatabase *database = self.container.privateCloudDatabase ;
@@ -337,6 +353,10 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
 {
     if (![XTIcloudUser hasLogin]) {
         NSLog(@"未登录") ;
+        return ;
+    }
+    
+    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
         return ;
     }
     

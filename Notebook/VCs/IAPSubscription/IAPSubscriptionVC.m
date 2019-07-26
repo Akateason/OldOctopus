@@ -24,12 +24,21 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbSubTitle;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
+@property (nonatomic) BOOL isPresentState ;
+
 @end
 
 @implementation IAPSubscriptionVC
 
 + (instancetype)getMe {
     return [IAPSubscriptionVC getCtrllerFromStory:@"Main" controllerIdentifier:@"IAPSubscriptionVC"] ;
+}
+
++ (void)showMePresentedInFromCtrller:(UIViewController *)fromCtrller {
+    IAPSubscriptionVC *vc = [IAPSubscriptionVC getCtrllerFromStory:@"Main" controllerIdentifier:@"IAPSubscriptionVC"] ;
+    vc.isPresentState = YES ;
+    [fromCtrller presentViewController:vc animated:YES completion:^{
+    }] ;
 }
 
 - (void)viewDidLoad {
@@ -41,7 +50,7 @@
 - (void)prepareUI {
     self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     self.fd_prefersNavigationBarHidden = YES ;
-    [SettingNavBar addInController:self] ;
+    [SettingNavBar addInController:self hiddenNavigationBackBt:self.isPresentState] ;
     
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbSubTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
@@ -60,6 +69,8 @@
     [IAPIntroductionCell xt_registerNibFromTable:self.table] ;
     [IAPPayCell xt_registerNibFromTable:self.table] ;
     [IAPInfoBottomCell xt_registerNibFromTable:self.table] ;
+    
+    
 }
 
 #pragma mark - table

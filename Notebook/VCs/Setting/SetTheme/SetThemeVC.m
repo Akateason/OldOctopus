@@ -9,6 +9,9 @@
 #import "SetThemeVC.h"
 #import "ThemeCollectCell.h"
 #import "SettingNavBar.h"
+#import "GuidingICloud.h"
+#import "IapUtil.h"
+#import "IAPSubscriptionVC.h"
 
 @interface SetThemeVC ()
 @property (copy, nonatomic) NSArray *themes ;
@@ -62,6 +65,22 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row ;
+    if (row > 0) {
+        if (![XTIcloudUser hasLogin]) {
+            NSLog(@"未登录") ;
+            [GuidingICloud show] ;
+            
+            return ;
+        }
+        
+        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+            [IAPSubscriptionVC showMePresentedInFromCtrller:self] ;
+            
+            return ;
+        }        
+    }
+    
     [[MDThemeConfiguration sharedInstance] changeTheme:self.themes[indexPath.row]] ;
     [self.collectionView reloadData] ;
 }

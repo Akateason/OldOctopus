@@ -14,6 +14,9 @@
 #import "MarkdownEditor.h"
 #import "XTMarkdownParser+Fetcher.h"
 #import "OctWebEditor.h"
+#import "IAPSubscriptionVC.h"
+#import "IapUtil.h"
+#import "GuidingICloud.h"
 
 @interface OctToolbar ()
 @property (weak, nonatomic)IBOutlet UIButton *btShowKeyboard ;
@@ -141,6 +144,20 @@ XT_SINGLETON_M(OctToolbar)
 }
 
 - (IBAction)photoAc:(UIButton *)sender {
+    if (![XTIcloudUser hasLogin]) {
+        NSLog(@"未登录") ;
+        [GuidingICloud show] ;
+        
+        return ;
+    }
+    
+    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+        [IAPSubscriptionVC showMePresentedInFromCtrller:self.delegate.fromEditor.xt_viewController] ;
+        
+        return ;
+    }
+    
+    
     self.selectedPosition = 3 ;
     [self hideAllBoards] ;
     [self moveUnderLineFromView:sender] ;
