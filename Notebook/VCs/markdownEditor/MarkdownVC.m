@@ -131,7 +131,9 @@
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         // Sync your note
-        if (!self.aNote) return ;
+        if (!self.aNote || self.aNote.content.length <= 1 ) return ;
+        
+        NSLog(@"Sync your note") ;
         
         __block Note *noteFromIcloud = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
         if ([noteFromIcloud.content isEqualToString:self.aNote.content]) return ; // 如果内容一样,不处理
@@ -166,12 +168,6 @@
         self.editor.top = APP_STATUSBAR_HEIGHT ;
         self.editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
         self.editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) {
-            self.editor.left = 0. ;
-        }
-        else {
-            self.editor.left = [self.class getEditorLeftIpad] ;
-        }
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_book_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -180,7 +176,11 @@
         
         NoteBooks *book = x.object ;
         
-        if (![self.aNote.noteBookId isEqualToString:book.icRecordName]) {
+        if (
+            ![self.aNote.noteBookId isEqualToString:book.icRecordName]
+            &&
+            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1
+            ) {
             [self clearArticleInIpad] ;
         }
         
@@ -246,6 +246,7 @@
          if (self.aNote == nil || self.editor.aNote == nil || self.editor.aNote.content.length < 1) {
              if (num == -1) {
                  [self setupWithNote:nil bookID:self.delegate.currentBookID] ;
+                 [self moveRelativeViewsOnState:YES] ;
                  
                  self.emptyView.hidden = YES ;
                  self.editor.webViewHasSetMarkdown = YES ;
@@ -643,10 +644,13 @@ return;}
         // normal
         if (stateOn) {
             self.emptyView.centerX = self.view.centerX ;
+            self.editor.left = 0 ;
         }
         else {
             float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
             self.emptyView.centerX = newWid ;
+            
+            self.editor.left = [MarkdownVC getEditorLeftIpad] ;
         }
         
     } completion:^(BOOL finished) {
