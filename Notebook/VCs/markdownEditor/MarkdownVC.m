@@ -26,6 +26,7 @@
 #import "OctMBPHud.h"
 #import "HomeTrashEmptyPHView.h"
 #import "SearchVC.h"
+#import "MDEKeyboardPhotoView.h"
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -36,7 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btShare;
 
 
-@property (strong, nonatomic) XTCameraHandler   *handler;
+@property (strong, nonatomic) XTCameraHandler   *cameraHandler ;
 @property (strong, nonatomic) ArticleInfoVC     *infoVC ;
 
 @property (strong, nonatomic) Note              *aNote ;
@@ -113,6 +114,18 @@
         
         // Update Your Note
         [self updateMyNote] ;
+    }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_User_Open_Camera object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        @weakify(self)
+        [self.cameraHandler openCameraFromController:self takePhoto:^(UIImage *imageResult) {
+            if (!imageResult) return;
+            
+            @strongify(self)
+            [self.editor sendImageLocalPathWithImage:imageResult] ;
+        }] ;
     }] ;
     
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -701,5 +714,11 @@ return;}
     return _emptyView ;
 }
 
+- (XTCameraHandler *)cameraHandler {
+    if (!_cameraHandler) {
+        _cameraHandler = [[XTCameraHandler alloc] init] ;
+    }
+    return _cameraHandler ;
+}
 
 @end

@@ -17,7 +17,6 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 
 @interface MDEKeyboardPhotoView () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (strong, nonatomic) UIViewController *ctrller ;
-@property (strong, nonatomic) XTCameraHandler *handler;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *h_collection;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top_collection;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom_collection;
@@ -45,24 +44,21 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     
     @weakify(photoView)
     [photoView.btViewCamera bk_whenTapped:^{
-        @strongify(photoView)
+//        @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
-            [photoView cameraAddCrop:blkPressCameraBt] ;
-//            [photoView removeFromSuperview] ;
+//            [photoView cameraAddCrop:blkPressCameraBt] ;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_User_Open_Camera object:nil] ;
         }) ;
     }] ;
     [photoView.btViewAlbum bk_whenTapped:^{
         @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
             [photoView albumAddCrop:blkPressAlbum] ;
-//            [photoView removeFromSuperview] ;
         }) ;
     }] ;
     [photoView.btLink bk_whenTapped:^{
-//        @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
             linkPressed() ;
-//            [photoView removeFromSuperview] ;
         }) ;
     }] ;
     
@@ -78,30 +74,25 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     [XTPhotoAlbumVC openAlbumWithConfig:config fromCtrller:self.ctrller willDismiss:NO getResult:^(NSArray<UIImage *> *_Nonnull imageList, NSArray<PHAsset *> *_Nonnull assetList, XTPhotoAlbumVC *vc) {
         if (!imageList) return;
         
-//        @weakify(vc)
-//        [XTPACropImageVC showFromCtrller:vc imageOrigin:imageList.firstObject croppedImageCallback:^(UIImage *_Nonnull image) {
-//            @strongify(vc)
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [vc dismissViewControllerAnimated:YES completion:nil];
-                blkGetImage(imageList.firstObject) ;
-            }) ;
-//        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [vc dismissViewControllerAnimated:YES completion:nil];
+            blkGetImage(imageList.firstObject) ;
+        }) ;
+
     }];
 }
 
-- (void)cameraAddCrop:(void(^)(UIImage *image))blkGetImage {
-    @weakify(self)
-    XTCameraHandler *handler = [[XTCameraHandler alloc] init];
-    [handler openCameraFromController:self.ctrller takePhoto:^(UIImage *imageResult) {
-        if (!imageResult) return;
-        
-        @strongify(self)
-//        [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:imageResult croppedImageCallback:^(UIImage *_Nonnull image){
-            blkGetImage(imageResult) ;
-//        }];
-    }];
-    self.handler = handler;
-}
+//- (void)cameraAddCrop:(void(^)(UIImage *image))blkGetImage {
+//    @weakify(self)
+//    XTCameraHandler *handler = [[XTCameraHandler alloc] init];
+//    [handler openCameraFromController:self.ctrller takePhoto:^(UIImage *imageResult) {
+//        if (!imageResult) return;
+//
+//        @strongify(self)
+//        blkGetImage(imageResult) ;
+//    }] ;
+//    self.handler = handler;
+//}
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight {
     for (UIView *window in [UIApplication sharedApplication].windows) {
@@ -192,10 +183,6 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     return cell ;
 }
 
-//- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(MDEKPhotoViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-//
-//}
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row  = indexPath.row;
     PHAsset *photo = [self.allPhotos objectAtIndex:row];
@@ -213,14 +200,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
                                  @strongify(self)
                                  if (result) {
                                      dispatch_async(dispatch_get_main_queue(), ^{
-//                                         @weakify(self)
-//                                         [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:result croppedImageCallback:^(UIImage *_Nonnull image){
-//                                             @strongify(self)
-//                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                 self.blkFlowPressed(result) ;
-//                                                 [self removeFromSuperview] ;
-//                                             }) ;
-//                                         }];
+                                         self.blkFlowPressed(result) ;
                                      }) ;
                                  }
                              }] ;
