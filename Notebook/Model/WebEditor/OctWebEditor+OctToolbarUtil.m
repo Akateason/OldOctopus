@@ -60,8 +60,15 @@
     photo.fromNoteClientID = self.note_clientID ;
     // todo 图片类型
     photo.localPath = XT_STR_FORMAT(@"%d_%lld",self.note_clientID,[NSDate xt_getNowTick]) ;
-    NSData *data = UIImageJPEGRepresentation(image, 1) ;
-    BOOL success = [data writeToFile:photo.realPath atomically:YES];
+    NSData *data = UIImageJPEGRepresentation(image, 0.5) ;
+    
+    float mb = [self mdFileSize:[data length]] ;
+    if (mb > 5.) {
+        [SVProgressHUD showErrorWithStatus:@"超过限制\n请控制上传图片大小在5MB以内"] ;
+        return ;
+    }
+    
+    BOOL success = [data writeToFile:photo.realPath atomically:YES] ;
     if (success) {
         [photo xt_insert] ;
     
@@ -72,6 +79,13 @@
         }] ;
     }        
 }
+
+- (float)mdFileSize:(long long)size {
+    long mb = 1024 * 1024;
+    float f = (float) size / mb;
+    return f ;
+}
+
 
 - (void)uploadWebPhoto:(WebPhoto *)photo image:(UIImage *)image {
     @weakify(self)
