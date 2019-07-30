@@ -28,24 +28,7 @@
 
 @implementation AppDelegate
 
-
-
-
-
 - (void)test {
-//    NSString *jsonlist = @"[\"h3\"]" ;
-//    NSArray *list = [self.class convertjsonStringToDict:jsonlist] ;
-//    NSArray *list = [NSArray yy_modelArrayWithClass:[NSString class] json:jsonlist] ;
-    
-//    [IapUtil iapVipUserIsValid:^(BOOL isValid) {
-//
-//    }] ;
-    
-//    [OctRequestUtil getIapInfo:^(long long tick, BOOL success) {
-//
-//    }] ;
-    
-//    [OctRequestUtil setIapInfoExpireDateTick:123] ;
     
 }
 
@@ -72,27 +55,38 @@
                         NSLog(@"%lld--%lld", expirationDateMs, requestDateMs) ;
                         NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(expirationDateMs / 1000.0)] ;
                         NSLog(@"新订单截止到 : %@", resExpiraDate) ;
-
                         
-                        // 调api 成功后, 设置本地的 更新时间
-                        [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
-                        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
-                        
+                        // 调api 成功后, 再设置本地的 更新时间
+                        [OctRequestUtil setIapInfoExpireDateTick:expirationDateMs complete:^(BOOL success) {
+                            
+                            if (success) {
+                                [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
+                                
+                                // finish transaction .
+                                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+                                // 设置本地
+                                [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
+                                // hud
+//                                [SVProgressHUD showSuccessWithStatus:@"订阅成功"] ;
+                            }
+                        }] ;
                     }
                     else {
-                        NSLog(@"Fail");
+                        NSLog(@"Fail") ;
+                        [SVProgressHUD showErrorWithStatus:@"购买失败, 请检查网络"] ;
                     }
                 }
                 else {
-                    NSLog(@"Fail, %@",error);
+                    NSLog(@"Fail, %@",error) ;
+                    [SVProgressHUD showErrorWithStatus:@"购买失败, 请检查网络"] ;
                 }
             }] ;
         }
         else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
         }
-        else {
-            
+        else if (transaction.transactionState == SKPaymentTransactionStatePurchasing) {
+            [[OctMBPHud sharedInstance] hide] ;
         }
     }
 }
@@ -104,7 +98,7 @@
     
     if (IS_IPAD) [[UIApplication sharedApplication] setStatusBarHidden:YES] ;
     
-    // iap
+    // iap observer
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self] ; // 处理iap回调
     IapUtil *iap = [IapUtil new] ;
     [iap setup] ;

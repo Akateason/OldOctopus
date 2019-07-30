@@ -12,7 +12,7 @@
 #import "IAPIntroductionCell.h"
 #import "IAPInfoBottomCell.h"
 #import "IapPaySuccessCell.h"
-
+#import "AppDelegate.h"
 
 
 
@@ -29,6 +29,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    @weakify(self)
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_iap_purchased_done object:nil] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self dismissViewControllerAnimated:YES completion:nil] ;
+    }] ;
 }
 
 - (void)prepareUI {

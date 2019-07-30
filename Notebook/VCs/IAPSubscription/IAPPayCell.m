@@ -9,7 +9,7 @@
 #import "IAPPayCell.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
-
+#import "OctMBPHud.h"
 
 
 
@@ -41,10 +41,14 @@
 }
 
 - (IBAction)btMonthAction:(id)sender {
+    [[OctMBPHud sharedInstance] show] ;
+    
     [self.iap buy:k_IAP_ID_MONTH] ;
 }
 
 - (IBAction)btYearAction:(id)sender {
+    [[OctMBPHud sharedInstance] show] ;
+    
     [self.iap buy:k_IAP_ID_YEAR] ;
 }
 

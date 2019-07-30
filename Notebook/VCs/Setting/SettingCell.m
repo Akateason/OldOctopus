@@ -91,8 +91,16 @@
     [super xt_configure:model indexPath:indexPath] ;
     
     self.icon.image = [UIImage imageNamed:model[@"p"]] ;
-    self.lbTitle.text = model[@"t"] ;
+    NSString *title = model[@"t"] ;
+    self.lbTitle.text = title ;
     self.rightTip.text = model[@"r"] ;
+    
+    if ([title containsString:@"订阅"]) {
+        WEAK_SELF
+        [IapUtil iapVipUserIsValid:^(BOOL isValid) {
+            weakSelf.rightTip.text = isValid ? @"已订阅" : model[@"r"] ;
+        }] ;
+    }
 }
 
 - (void)setSepLineMode:(SettingCellSeperateLine_Mode)sepLineMode {
