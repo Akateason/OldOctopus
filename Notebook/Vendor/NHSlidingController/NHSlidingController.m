@@ -194,7 +194,9 @@ static const CGFloat slidingSpeed = 1500.0;
     
     [UIView animateWithDuration:duration animations:^{
         self->_topViewContainer.center = center;
-    }];
+    }] ;
+    
+    [self moveIpadEditorSubViews:opened] ;
 }
 
 #pragma mark - Public Methods
@@ -295,11 +297,9 @@ static const CGFloat slidingSpeed = 1500.0;
                 center.x = centerForEdge;
                 [UIView animateWithDuration:0.3 animations:^{
                     self->_topViewContainer.center = center;
-//                    [self moveIpadEditorSubViews:finalOpenState] ;
                 } completion:^(BOOL finished) {
                     self.drawerOpened = finalOpenState;
                 }];
-//                [self moveIpadEditorSubViews:finalOpenState] ;
             }];
         }
         else if (timeToEdgeWithCurrentVelocity < timeToEdgeWithStandardVelocity) {

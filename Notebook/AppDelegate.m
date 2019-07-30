@@ -21,7 +21,6 @@
 #import "IapUtil.h"
 #import "OctRequestUtil.h"
 
-
 @interface AppDelegate () <SKPaymentTransactionObserver>
 
 @end

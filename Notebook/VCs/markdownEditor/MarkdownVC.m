@@ -29,6 +29,7 @@
 #import "GuidingICloud.h"
 #import "IapUtil.h"
 #import "IAPSubscriptionVC.h"
+#import "MDEKeyboardPhotoView.h"
 
 
 @interface MarkdownVC () <WKScriptMessageHandler>
@@ -40,7 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btShare;
 
 
-@property (strong, nonatomic) XTCameraHandler   *handler;
+@property (strong, nonatomic) XTCameraHandler   *cameraHandler ;
 @property (strong, nonatomic) ArticleInfoVC     *infoVC ;
 
 @property (strong, nonatomic) Note              *aNote ;
@@ -90,7 +91,7 @@
           fromCtrller:(UIViewController *)ctrller {
     
     self.aNote = note ;
-    self.delegate = (id <MarkdownVCDelegate>)ctrller ;
+    if (ctrller != nil) self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
     self.editor.isCreateNew = (note == nil) ? 1 : 0 ;
@@ -98,6 +99,11 @@
     self.editor.left = [self.class getEditorLeftIpad] ;
     self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
     [self.editor.toolBar reset] ;
+}
+
+- (void)setupWithNote:(Note *)note
+               bookID:(NSString *)bookID {
+    [self setupWithNote:note bookID:bookID fromCtrller:nil] ;
 }
 
 - (void)viewDidLoad {
@@ -114,10 +120,24 @@
         [self updateMyNote] ;
     }] ;
     
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_User_Open_Camera object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        @weakify(self)
+        [self.cameraHandler openCameraFromController:self takePhoto:^(UIImage *imageResult) {
+            if (!imageResult) return;
+            
+            @strongify(self)
+            [self.editor sendImageLocalPathWithImage:imageResult] ;
+        }] ;
+    }] ;
+    
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         // Sync your note
-        if (!self.aNote) return ;
+        if (!self.aNote || self.aNote.content.length <= 1 ) return ;
+        
+        NSLog(@"Sync your note") ;
         
         __block Note *noteFromIcloud = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
         if ([noteFromIcloud.content isEqualToString:self.aNote.content]) return ; // 如果内容一样,不处理
@@ -152,12 +172,6 @@
         self.editor.top = APP_STATUSBAR_HEIGHT ;
         self.editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
         self.editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) {
-            self.editor.left = 0. ;
-        }
-        else {
-            self.editor.left = [self.class getEditorLeftIpad] ;
-        }
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_book_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -165,14 +179,18 @@
         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
         
         NoteBooks *book = x.object ;
-        
-        if (![self.aNote.noteBookId isEqualToString:book.icRecordName]) {
+        if (
+            ![self.aNote.noteBookId isEqualToString:book.icRecordName]
+            &&
+            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1
+            ) {
             [self clearArticleInIpad] ;
         }
         
         self.emptyView.isTrash = (book.vType == Notebook_Type_trash) ;
         self.isInTrash = (book.vType == Notebook_Type_trash) ;
         self.btBack.hidden = (book.vType == Notebook_Type_trash) ;
+        
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SearchVC_On_Window object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -231,10 +249,16 @@
          
          if (self.aNote == nil || self.editor.aNote == nil || self.editor.aNote.content.length < 1) {
              if (num == -1) {
+                 [self setupWithNote:nil bookID:self.delegate.currentBookID] ;
+                 
+                 [UIView animateWithDuration:.1 animations:^{
+                     [self moveRelativeViewsOnState:YES] ;
+                 } completion:^(BOOL finished) {
+                     
+                 }] ;
+                 
                  self.emptyView.hidden = YES ;
-                 self.myBookID = self.delegate.currentBookID ;
                  self.editor.webViewHasSetMarkdown = YES ;
-                 [self.editor openKeyboard] ;
              }
              else {
                  self.emptyView.hidden = NO ;
@@ -246,6 +270,7 @@
          }
         
      }] ;
+    
     
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
         id target = self.navigationController.interactivePopGestureRecognizer.delegate ;
@@ -285,7 +310,7 @@
     return [self.oct_panDelegate oct_gestureRecognizerShouldBegin:gestureRecognizer] ;
 }
 
-// 一句话总结就是此方法返回YES时，手势事件会一直往下传递，不论当前层次是否对该事件进行响应。
+// 此方法返回YES时，手势事件会一直往下传递，不论当前层次是否对该事件进行响应
 - (BOOL)gestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
@@ -460,10 +485,6 @@ return;}
     
     self.navArea.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;
     self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;
-
-//    [self.topBar setNeedsDisplay] ;
-//    [self.topBar layoutIfNeeded] ;
-//    [self.topBar oct_addBlurBg] ;
     
     if (IS_IPAD) {
         [self.btBack setImage:[UIImage imageNamed:@"nav_back_reverse_item"] forState:0] ;
@@ -649,18 +670,19 @@ return;}
 #pragma mark - HomePadVCDelegate <NSObject>
 
 - (void)moveRelativeViewsOnState:(bool)stateOn {
-    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        // normal
-        if (stateOn) {
-            self.emptyView.centerX = self.view.centerX ;
-        }
-        else {
-            float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
-            self.emptyView.centerX = newWid ;
-        }
+
+    // normal
+    if (stateOn) {
+        self.emptyView.centerX = self.view.centerX ;
+        self.editor.left = 0 ;
+    }
+    else {
+        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
+        self.emptyView.centerX = newWid ;
         
-    } completion:^(BOOL finished) {
-    }];
+        self.editor.left = [MarkdownVC getEditorLeftIpad] ;
+    }
+
 }
 
 #pragma mark - prop
@@ -724,5 +746,11 @@ return;}
     return _emptyView ;
 }
 
+- (XTCameraHandler *)cameraHandler {
+    if (!_cameraHandler) {
+        _cameraHandler = [[XTCameraHandler alloc] init] ;
+    }
+    return _cameraHandler ;
+}
 
 @end
