@@ -43,6 +43,7 @@
         }] ;
         bt1.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
         bt1.xt_theme_imageColor = k_md_iconColor ;
+        bt1.titleLabel.font = [UIFont systemFontOfSize:12] ;
         [bt1 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
         
         MGSwipeButton *bt2 = [MGSwipeButton buttonWithTitle:@"恢复" icon:[UIImage imageNamed:@"home_huifu"] backgroundColor:itemBgColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
@@ -72,8 +73,8 @@
         }] ;
         bt2.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
         bt2.xt_theme_imageColor = k_md_iconColor ;
+        bt2.titleLabel.font = [UIFont systemFontOfSize:12] ;
         [bt2 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
-        
         return @[bt1,bt2] ;
         
     }
@@ -97,9 +98,9 @@
 
         bt1.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
         bt1.xt_theme_imageColor = k_md_iconColor ;
-        [bt1 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
         bt1.buttonWidth = 70 ;
-
+        bt1.titleLabel.font = [UIFont systemFontOfSize:12] ;
+        [bt1 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
         
         MGSwipeButton *bt2 = [MGSwipeButton buttonWithTitle:@"移动" icon:[UIImage imageNamed:@"home_move_note"] backgroundColor:itemBgColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
             
@@ -117,9 +118,9 @@
         }] ;
         bt2.xt_theme_imageColor = k_md_iconColor ;
         bt2.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
-        [bt2 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
         bt2.buttonWidth = 70 ;
-        
+        bt2.titleLabel.font = [UIFont systemFontOfSize:12] ;
+        [bt2 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
         
         __block Note *aNote = ((NoteCell *)cell).xt_model ;
         MGSwipeButton *bt3 = [MGSwipeButton buttonWithTitle:aNote.isTop ? @"取消置顶" : @"置顶" icon:[UIImage imageNamed:@"home_top_note"] backgroundColor:itemBgColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
@@ -143,9 +144,9 @@
         
         bt3.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
         bt3.xt_theme_imageColor = k_md_iconColor ;
-        [bt3 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
         bt3.buttonWidth = aNote.isTop ? 100 : 70 ;
-        
+        bt3.titleLabel.font = [UIFont systemFontOfSize:12] ;
+        [bt3 xt_setImagePosition:(XTBtImagePositionTop) spacing:6] ;
         return @[bt1,bt2,bt3] ;
     }
 }
