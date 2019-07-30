@@ -111,5 +111,60 @@
 }
 
 
+// iap expire Date . setter getter
++ (void)getIapInfo:(void(^)(long long tick, BOOL success))complete {
+    if (![XTIcloudUser hasLogin]) {
+        // 未登录
+        return ;
+    }
+    
+    NSString *url = [self requestLinkWithNail:@"users/subscribe"] ;
+    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
+    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
+    NSDictionary *header = @{@"Authorization" : code} ;
+    
+    [XTRequest reqWithUrl:url mode:XTRequestMode_GET_MODE header:header parameters:nil rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
+        long long tick = [json[@"expired_at"] longLongValue] ;
+//        NSLog(@"expired_at %lld",tick) ;
+        complete(tick, YES) ;
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        complete(0, NO) ;
+    }] ;
+}
+
+
+
+/**
+ setIapInfoExpireDateTick
+
+ return
+ {
+ "expired_at" = 123;
+ "user_id" = "_074e9bb2241e7f6cb71878cb5a543325";
+ }
+ */
++ (void)setIapInfoExpireDateTick:(long long)tick complete:(void(^)(BOOL success))complete {
+    if (![XTIcloudUser hasLogin]) {
+        // 未登录
+        return ;
+    }
+
+    NSString *url = [self requestLinkWithNail:@"users/subscribe"] ;
+    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
+    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
+    NSDictionary *header = @{@"Authorization" : code,
+                             @"Content-Type":@"application/json"
+                             } ;
+    
+    NSDictionary *bodyDic = @{@"expired_at":@(tick)} ;
+    NSString *bodyString = [bodyDic yy_modelToJSONString] ;
+    
+    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:nil rawBody:bodyString hud:NO success:^(id json, NSURLResponse *response) {
+        complete(YES) ;
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        complete(NO) ;
+    }] ;
+}
+
 
 @end

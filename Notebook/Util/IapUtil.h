@@ -24,8 +24,7 @@ static NSString *const k_IAP_ID_YEAR  = @"iap.octopus.year" ;
 
 + (void)saveIapSubscriptionDate:(long long)tick ;
 
-// 获取订阅超时时间
-// todo 如果本地没有 去服务端调
+// 获得iap超出时间 如果本地没有 去服务端调
 + (void)fetchIapSubscriptionDate:(void(^)(long long tick))fetchBlk ;
 
 // 是否vip异步

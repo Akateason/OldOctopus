@@ -8,7 +8,7 @@
 
 #import "IapUtil.h"
 #import <XTlib/XTlib.h>
-
+#import "OctRequestUtil.h"
 
 
 @implementation IapUtil
@@ -35,14 +35,23 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
     XT_USERDEFAULT_SET_VAL(@(tick), kUD_Iap_ExpireDate) ;
 }
 
-// todo 如果本地没有 去服务端调
+// 获得iap超出时间 如果本地没有 去服务端调
 + (void)fetchIapSubscriptionDate:(void(^)(long long tick))fetchBlk {
     long long localTick = [XT_USERDEFAULT_GET_VAL(kUD_Iap_ExpireDate) longLongValue] ;
     if (localTick > 0) {
         fetchBlk(localTick) ;
     }
     else {
-        fetchBlk(0) ; // todo 暂时反馈空 等接口加上. 返回 expireDate
+        // ask iap expire date for server
+        [OctRequestUtil getIapInfo:^(long long tick, BOOL success) {
+            if (success) {
+                XT_USERDEFAULT_SET_VAL(@(tick), kUD_Iap_ExpireDate) ;
+                fetchBlk(tick) ;
+            }
+            else {
+                fetchBlk(0) ;
+            }
+        }] ;
     }
 }
 

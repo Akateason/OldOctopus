@@ -31,6 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)verifyCode:(NSString *)code
         completion:(void(^)(bool success))completion ;
 
+
+// iap
++ (void)getIapInfo:(void(^)(long long tick, BOOL success))complete ;
+
++ (void)setIapInfoExpireDateTick:(long long)tick
+                        complete:(void(^)(BOOL success))complete ;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

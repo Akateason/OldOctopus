@@ -19,7 +19,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "OctMBPHud.h"
 #import "IapUtil.h"
-
+#import "OctRequestUtil.h"
 
 
 @interface AppDelegate () <SKPaymentTransactionObserver>
@@ -37,9 +37,16 @@
 //    NSArray *list = [self.class convertjsonStringToDict:jsonlist] ;
 //    NSArray *list = [NSArray yy_modelArrayWithClass:[NSString class] json:jsonlist] ;
     
-    [IapUtil iapVipUserIsValid:^(BOOL isValid) {
-        
-    }] ;
+//    [IapUtil iapVipUserIsValid:^(BOOL isValid) {
+//
+//    }] ;
+    
+//    [OctRequestUtil getIapInfo:^(long long tick, BOOL success) {
+//
+//    }] ;
+    
+//    [OctRequestUtil setIapInfoExpireDateTick:123] ;
+    
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
