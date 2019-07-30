@@ -231,7 +231,7 @@ typedef void(^BlkTapBookCell)(void);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             [self.slidingController setDrawerOpened:NO animated:YES] ;
-        });
+        }) ;
         
     } cancel:^{
         self.nBookVC = nil ;

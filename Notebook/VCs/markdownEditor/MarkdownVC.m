@@ -175,7 +175,6 @@
         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
         
         NoteBooks *book = x.object ;
-        
         if (
             ![self.aNote.noteBookId isEqualToString:book.icRecordName]
             &&
@@ -187,6 +186,7 @@
         self.emptyView.isTrash = (book.vType == Notebook_Type_trash) ;
         self.isInTrash = (book.vType == Notebook_Type_trash) ;
         self.btBack.hidden = (book.vType == Notebook_Type_trash) ;
+        
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SearchVC_On_Window object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -246,7 +246,12 @@
          if (self.aNote == nil || self.editor.aNote == nil || self.editor.aNote.content.length < 1) {
              if (num == -1) {
                  [self setupWithNote:nil bookID:self.delegate.currentBookID] ;
-                 [self moveRelativeViewsOnState:YES] ;
+                 
+                 [UIView animateWithDuration:.1 animations:^{
+                     [self moveRelativeViewsOnState:YES] ;
+                 } completion:^(BOOL finished) {
+                     
+                 }] ;
                  
                  self.emptyView.hidden = YES ;
                  self.editor.webViewHasSetMarkdown = YES ;
@@ -640,21 +645,19 @@ return;}
 #pragma mark - HomePadVCDelegate <NSObject>
 
 - (void)moveRelativeViewsOnState:(bool)stateOn {
-    [UIView animateWithDuration:.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        // normal
-        if (stateOn) {
-            self.emptyView.centerX = self.view.centerX ;
-            self.editor.left = 0 ;
-        }
-        else {
-            float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
-            self.emptyView.centerX = newWid ;
-            
-            self.editor.left = [MarkdownVC getEditorLeftIpad] ;
-        }
+
+    // normal
+    if (stateOn) {
+        self.emptyView.centerX = self.view.centerX ;
+        self.editor.left = 0 ;
+    }
+    else {
+        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
+        self.emptyView.centerX = newWid ;
         
-    } completion:^(BOOL finished) {
-    }];
+        self.editor.left = [MarkdownVC getEditorLeftIpad] ;
+    }
+
 }
 
 #pragma mark - prop
