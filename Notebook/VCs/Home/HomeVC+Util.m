@@ -89,6 +89,8 @@
                         @strongify(self)
                         self.leftVC.currentBook = nil ;
                         [self.leftVC render] ;
+                        
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Delete_Note_In_Pad object:nil] ;
                     }] ;
                 }
             }] ;
