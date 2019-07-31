@@ -207,6 +207,7 @@
         [regex replaceMatchesInString:tmpString options:0 range:NSMakeRange(0, [tmpString length]) withTemplate:@""] ;
     }
     tmpString = [tmpString stringByReplacingOccurrencesOfString:@"\n" withString:@" "].mutableCopy ;
+    tmpString = [tmpString stringByReplacingOccurrencesOfString:@" " withString:@""].mutableCopy ;
     return tmpString ;
 }
 

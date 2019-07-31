@@ -41,6 +41,11 @@ static NSString *const kNote_pad_Editor_PullBack = @"kNote_pad_Editor_PullBack" 
                      bookID:(NSString *)bookID
                 fromCtrller:(UIViewController *)ctrller ;
 
++ (instancetype)newWithNote:(Note *)note
+                     bookID:(NSString *)bookID
+        isCreateNewFromIpad:(BOOL)newFromIpad
+                fromCtrller:(UIViewController *)ctrller ;
+
 - (void)setupWithNote:(Note *)note
                bookID:(NSString *)bookID
           fromCtrller:(UIViewController *)ctrller ;

@@ -23,7 +23,7 @@ static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_
     CGFloat keyboardHeight ;
 }
 
-@property (nonatomic)         int           isCreateNew ;
+
 @property (strong, nonatomic) WKWebView     *webView ;
 @property (strong, nonatomic) WebModel      *webInfo ;
 @property (copy, nonatomic)   NSArray       *typeInlineList ;
@@ -51,6 +51,8 @@ static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_
 - (void)changeTheme ;
 - (void)renderNote ;
 - (void)setSideFlex ;
+- (void)setEditable:(BOOL)editable ;
+
 
 // initial
 - (void)setup ;
@@ -62,6 +64,7 @@ static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_
 - (void)getShareHtmlWithMd:(NSString *)md ;
 
 - (BOOL)typeBlkListHasThisType:(int)type ;
+
 
 XT_SINGLETON_H(OctWebEditor)
 
