@@ -249,6 +249,11 @@
         }] ;
     }] ;
     
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Delete_Note_In_Pad object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)        
+        [self clearArticleInIpad] ;
+    }] ;
+    
     [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
        deliverOnMainThread]
        takeUntil:self.rac_willDeallocSignal]

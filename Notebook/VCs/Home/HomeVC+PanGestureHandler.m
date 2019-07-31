@@ -91,6 +91,8 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.table xt_loadNewInfoInBackGround:YES] ;
                     }) ;
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Delete_Note_In_Pad object:nil] ;
                 }
             }] ;
             return YES ;
