@@ -46,7 +46,10 @@ static const float slidingSpeed = 2000 ;
     self = [super init];
     if (self) {
         _homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
-        _editorVC = [MarkdownVC newWithNote:nil bookID:nil fromCtrller:_homeVC] ;        
+        
+        NSString *noteRecName = XT_USERDEFAULT_GET_VAL(kUDCached_lastNote_RecID) ;
+        Note *aNote = [Note xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",noteRecName)] ;
+        _editorVC = [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:_homeVC] ;
     }
     return self;
 }
