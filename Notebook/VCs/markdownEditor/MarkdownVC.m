@@ -250,7 +250,7 @@
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Delete_Note_In_Pad object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)        
+        @strongify(self)
         [self clearArticleInIpad] ;
     }] ;
     
@@ -456,7 +456,9 @@ return;}
         Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:markdown title:title] ;
         self.aNote = newNote ;
         [Note createNewNote:self.aNote] ;
+        XT_USERDEFAULT_SET_VAL(newNote.icRecordName, kUDCached_lastNote_RecID) ;
         [self.delegate addNoteComplete:self.aNote] ;
+        
     }
     XT_HIDE_HUD
 }
