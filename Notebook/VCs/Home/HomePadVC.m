@@ -43,15 +43,17 @@ static const float slidingSpeed = 2000 ;
 }
 
 - (instancetype)init {
-    self = [super init];
+    self = [super init] ;
     if (self) {
         _homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"HomeVC"] ;
         
         NSString *noteRecName = XT_USERDEFAULT_GET_VAL(kUDCached_lastNote_RecID) ;
         Note *aNote = [Note xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",noteRecName)] ;
-        _editorVC = [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:_homeVC] ;
+        _editorVC = [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId isCreateNewFromIpad:YES fromCtrller:_homeVC] ;
+        
+//        _editorVC = [MarkdownVC newWithNote:nil bookID:nil fromCtrller:_homeVC] ;
     }
-    return self;
+    return self ;
 }
 
 - (void)viewDidLoad {

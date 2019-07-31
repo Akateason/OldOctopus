@@ -48,6 +48,7 @@
 
 @property (nonatomic)         BOOL              isInTrash ;
 @property (nonatomic)         BOOL              isInShare ;
+@property (nonatomic)         BOOL              isNewFromIpad ;
 @end
 
 @implementation MarkdownVC
@@ -63,22 +64,41 @@
                      bookID:(NSString *)bookID
                 fromCtrller:(UIViewController *)ctrller {
     
+    return  [self newWithNote:note
+                       bookID:bookID
+          isCreateNewFromIpad:NO
+                  fromCtrller:ctrller] ;
+}
+
++ (instancetype)newWithNote:(Note *)note
+                     bookID:(NSString *)bookID
+        isCreateNewFromIpad:(BOOL)newFromIpad
+                fromCtrller:(UIViewController *)ctrller {
+    
     MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarkdownVC"] ;
+    [vc viewDidLoad] ;
     vc.aNote = note ;
-    if (note) {
-        vc.editor.isCreateNew = 0 ;
+    vc.isNewFromIpad = newFromIpad ;
+    if (newFromIpad) {
         vc.editor.aNote = note ;
+        vc.editor.left = [self.class getEditorLeftIpad] ;
+        vc.canBeEdited = NO ;
     }
     else {
-        vc.editor.isCreateNew = 1 ;
-        vc.editor.aNote = [[Note alloc] initWithBookID:nil content:nil title:nil] ;
+        if (note) {
+            vc.editor.aNote = note ;
+        }
+        else {
+            vc.editor.aNote = [[Note alloc] initWithBookID:nil content:nil title:nil] ;
+        }
+        vc.canBeEdited = YES ;
     }
     vc.delegate = (id <MarkdownVCDelegate>)ctrller ;
     vc.myBookID = bookID ;
-    if (!note && !bookID && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) vc.canBeEdited = NO ;
-    else vc.canBeEdited = YES ;
     [vc.editor.toolBar reset] ;
-    [ctrller.navigationController pushViewController:vc animated:YES] ;
+    if ([GlobalDisplaySt sharedInstance].displayMode != GDST_Home_3_Column_Horizon) {
+        [ctrller.navigationController pushViewController:vc animated:YES] ;
+    }
     return vc ;
 }
 
@@ -90,7 +110,7 @@
     if (ctrller != nil) self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
-    self.editor.isCreateNew = (note == nil) ? 1 : 0 ;
+    self.isNewFromIpad = (note == nil) ? 1 : 0 ;
     self.editor.aNote = note ?: [Note new] ;
     self.editor.left = [self.class getEditorLeftIpad] ;
     self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
@@ -179,6 +199,7 @@
             ![self.aNote.noteBookId isEqualToString:book.icRecordName]
             &&
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1
+            && !self.isNewFromIpad
             ) {
             [self clearArticleInIpad] ;
         }
@@ -355,6 +376,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated] ;
     
+    if (self.isNewFromIpad) {
+        self.editor.left = [self.class getEditorLeftIpad] ;
+        // self.canBeEdited = NO ; 在webview第一次初始化之后,设置才有用.
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -665,14 +690,7 @@ return;}
 - (void)setCanBeEdited:(BOOL)canBeEdited {
     _canBeEdited = canBeEdited ;
     
-    if (canBeEdited) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"setEditable" json:[@(TRUE) stringValue] completion:^(NSString *val, NSError *error) {
-        }] ;
-    }
-    else {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"setEditable" json:[@(FALSE) stringValue] completion:^(NSString *val, NSError *error) {
-        }] ;
-    }
+    [[OctWebEditor sharedInstance] setEditable:canBeEdited] ;
 }
 
 - (OctWebEditor *)editor {

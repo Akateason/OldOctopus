@@ -129,6 +129,11 @@ XT_SINGLETON_M(OctWebEditor)
     }
 }
 
+- (void)setEditable:(BOOL)editable {
+    [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"setEditable" json:[@(editable) stringValue] completion:^(NSString *val, NSError *error) {
+        
+    }] ;
+}
 
 - (void)leavePage {
     self.webViewHasSetMarkdown = NO ;
@@ -281,6 +286,10 @@ XT_SINGLETON_M(OctWebEditor)
                  
                  [self openKeyboard] ;             
         }
+    }
+    
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+        [self setEditable:NO] ;
     }
 }
 
