@@ -174,6 +174,8 @@
 		8F99DBD822E194F000A39F99 /* HomeTrashEmptyPHView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F99DBD722E194F000A39F99 /* HomeTrashEmptyPHView.xib */; };
 		8F99DBDA22E1952B00A39F99 /* trash_empty_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F99DBD922E1952B00A39F99 /* trash_empty_bg@2x.png */; };
 		8F9BECC0227043E800EAEAD2 /* userhead_sync_animate.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */; };
+		8FA05EB422F191800091DEDA /* ArticleBgVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA05EB222F191800091DEDA /* ArticleBgVC.m */; };
+		8FA05EB522F191800091DEDA /* ArticleBgVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA05EB322F191800091DEDA /* ArticleBgVC.xib */; };
 		8FA1420022715E8000A23873 /* SchBarPositiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */; };
 		8FA142022271B35700A23873 /* home_huifu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA142012271B35700A23873 /* home_huifu@2x.png */; };
 		8FA142042271C5E400A23873 /* book_empty_write_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA142032271C5E400A23873 /* book_empty_write_icon@2x.png */; };
@@ -578,6 +580,9 @@
 		8F99DBD722E194F000A39F99 /* HomeTrashEmptyPHView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTrashEmptyPHView.xib; sourceTree = "<group>"; };
 		8F99DBD922E1952B00A39F99 /* trash_empty_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash_empty_bg@2x.png"; sourceTree = "<group>"; };
 		8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = userhead_sync_animate.json; sourceTree = "<group>"; };
+		8FA05EB122F191800091DEDA /* ArticleBgVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleBgVC.h; sourceTree = "<group>"; };
+		8FA05EB222F191800091DEDA /* ArticleBgVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleBgVC.m; sourceTree = "<group>"; };
+		8FA05EB322F191800091DEDA /* ArticleBgVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleBgVC.xib; sourceTree = "<group>"; };
 		8FA141FE22715E8000A23873 /* SchBarPositiveTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SchBarPositiveTransition.h; sourceTree = "<group>"; };
 		8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SchBarPositiveTransition.m; sourceTree = "<group>"; };
 		8FA142012271B35700A23873 /* home_huifu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_huifu@2x.png"; sourceTree = "<group>"; };
@@ -1326,6 +1331,9 @@
 				8FA2295622646A9500D736E2 /* ArticleInfoVC.h */,
 				8FA2295722646A9500D736E2 /* ArticleInfoVC.m */,
 				8FA2295822646A9500D736E2 /* ArticleInfoVC.xib */,
+				8FA05EB122F191800091DEDA /* ArticleBgVC.h */,
+				8FA05EB222F191800091DEDA /* ArticleBgVC.m */,
+				8FA05EB322F191800091DEDA /* ArticleBgVC.xib */,
 			);
 			path = articleInfo;
 			sourceTree = "<group>";
@@ -1901,6 +1909,7 @@
 				8FFAE0EB229CDAF400CDAC47 /* shell.plist in Resources */,
 				8F08FB6F22A8D96A008AB6A6 /* md_l_flow@2x.png in Resources */,
 				8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */,
+				8FA05EB522F191800091DEDA /* ArticleBgVC.xib in Resources */,
 				8FC431222265B9FA0002C9A1 /* home_bar_add@2x.png in Resources */,
 				8FFAE121229CDAF400CDAC47 /* ada.plist in Resources */,
 				8FFAE0E7229CDAF400CDAC47 /* lisp.plist in Resources */,
@@ -2107,6 +2116,7 @@
 				8F173D7B22A1385B00FA4D8D /* OctWebEditor.m in Sources */,
 				8FBA0421228BC0E900EED229 /* HomeVC+Util.m in Sources */,
 				8FC431272265CCAF0002C9A1 /* SearchVC.m in Sources */,
+				8FA05EB422F191800091DEDA /* ArticleBgVC.m in Sources */,
 				8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */,
 				8F18B24422BB90130073552A /* HomePadVC.m in Sources */,
 				8FAE3AC222CFBB130054F3BB /* OctGuidingVC.m in Sources */,

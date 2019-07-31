@@ -27,31 +27,9 @@ typedef void(^BlkOutputOnClick)(void) ;
 
 @property (strong, nonatomic) WebModel *webInfo ;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wid_rightPart;
-
-@property (weak, nonatomic) IBOutlet UIView *topArea;
-@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
-@property (weak, nonatomic) IBOutlet UIView *bgView;
-
-
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *lbCollectForKeys;
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *lvCollectionForVals;
-
-
-@property (weak, nonatomic) IBOutlet UILabel *lbBookName;
-@property (weak, nonatomic) IBOutlet UILabel *lbCreateTime;
-@property (weak, nonatomic) IBOutlet UILabel *lbUpdateTime;
-@property (weak, nonatomic) IBOutlet UILabel *lbCountOfWord;
-@property (weak, nonatomic) IBOutlet UILabel *lbCountOfCharactor;
-@property (weak, nonatomic) IBOutlet UILabel *lbCountOfPara;
-@property (weak, nonatomic) IBOutlet UIButton *btDelete;
-@property (weak, nonatomic) IBOutlet UIButton *btOutput;
-@property (weak, nonatomic) IBOutlet UIImageView *imgRight;
-
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topHeight;
-
 + (CGFloat)movingDistance ;
+
+- (void)close ;
 
 @end
 
