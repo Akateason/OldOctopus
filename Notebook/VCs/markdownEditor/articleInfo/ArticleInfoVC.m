@@ -9,9 +9,11 @@
 #import "ArticleInfoVC.h"
 #import "XTMarkdownParser.h"
 #import "WebModel.h"
+#import "GlobalDisplaySt.h"
+#import "ArticleBgVC.h"
 
 @interface ArticleInfoVC ()
-
+@property (strong, nonatomic) ArticleBgVC *bgVC ;
 @end
 
 @implementation ArticleInfoVC
@@ -24,56 +26,53 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-//    self.imgRight.hidden = YES ;
-//    self.btOutput.hidden = YES ;
-    
-    
-    self.wid_rightPart.constant = [self.class movingDistance] ;
-    
-    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.3] ;
-    self.bgView.xt_theme_backgroundColor = k_md_bgColor ;
-    
-    self.topHeight.constant = 55 + APP_STATUSBAR_HEIGHT ;
-    
-    for (UILabel *lb in self.lbCollectForKeys) {
-        lb.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
-    }
-    for (UILabel *lb in self.lvCollectionForVals) {
-        lb.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
-    }
-    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
-    self.btOutput.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
-    self.btDelete.xt_theme_textColor = k_md_themeColor ;
-    
-    self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
+    self.view.backgroundColor = nil ;
     
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)] ;
     [self.view addGestureRecognizer:recognizer] ;
     
-    [self bind] ;
-    
     WEAK_SELF
     [self.view bk_whenTapped:^{
         [weakSelf close] ;
     }] ;
+    
+    
+    [self bgVC] ;
+    [self.view addSubview:self.bgVC.view] ;
+    
+    if (IS_IPAD) {
+        [self.bgVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(50) ;
+            make.right.equalTo(self.view).offset(-50) ;
+            make.size.mas_equalTo(CGSizeMake(280, 580)) ;
+        }] ;
+        
+        self.bgVC.view.xt_cornerRadius = 5 ;
+        self.bgVC.view.xt_borderWidth = .25 ;
+        self.bgVC.view.xt_borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3] ;
+        self.bgVC.topArea.backgroundColor = nil ;
+
+        self.bgVC.view.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.15].CGColor;
+        self.bgVC.view.layer.shadowOffset = CGSizeMake(0,10) ;
+        self.bgVC.view.layer.shadowOpacity = 60 ;
+        self.bgVC.view.layer.shadowRadius = 10 ;
+    }
+    else {
+        [self.bgVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.bottom.equalTo(self.view) ;
+            make.width.equalTo(@([self.class movingDistance])) ;
+        }] ;
+    }
+    self.bgVC.btClose.hidden = !IS_IPAD ;
 }
 
 - (void)setWebInfo:(WebModel *)webInfo {
     _webInfo = webInfo ;
     
-    [self bind] ;
-}
-
-
-- (void)bind {
-    NoteBooks *book = [NoteBooks xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.noteBookId)] ;
-    self.lbBookName.text = book.displayBookName ?: @"暂存区" ;
-    self.lbCreateTime.text = [NSDate xt_getStrWithTick:self.aNote.createDateOnServer format:kTIME_STR_FORMAT_YYYY_MM_dd_HH_mm] ;
-    self.lbUpdateTime.text = [NSDate xt_getStrWithTick:self.aNote.modifyDateOnServer format:kTIME_STR_FORMAT_YYYY_MM_dd_HH_mm] ;
-    self.lbCountOfWord.text = @(self.webInfo.wordCount.word).stringValue ;
-    self.lbCountOfCharactor.text = @(self.webInfo.wordCount.character).stringValue ;
-    self.lbCountOfPara.text = @(self.webInfo.wordCount.paragraph).stringValue ;
+    self.bgVC.aNote = self.aNote ;
+    self.bgVC.webInfo = webInfo ;
+    [self.bgVC bind] ;
 }
 
 - (void)handleSwipeFrom:(id)gesture {
@@ -81,20 +80,25 @@
 }
 
 - (void)close {
-    [UIView animateWithDuration:.4 animations:^{
-        self.bgView.left = APP_WIDTH ;
+    [UIView animateWithDuration:.2 animations:^{
+        self.bgVC.view.left = APP_WIDTH ;
         self.view.alpha = 0.1 ;
     } completion:^(BOOL finished) {
         [self.view removeFromSuperview] ;
-        self.bgView.left = APP_WIDTH - self.wid_rightPart.constant ;
     }] ;
 }
 
-- (IBAction)btOutputAction:(id)sender {
+#pragma mark - ArticleBgVCDelegate <NSObject>
+
+- (void)closeBg {
+    [self close] ;
+}
+
+- (void)output {
     if (self.blkOutput) self.blkOutput() ;
 }
 
-- (IBAction)btDeleteAction:(id)sender {
+- (void)removeToTrash {
     // Delete Note
     [self close] ;
     
@@ -105,6 +109,19 @@
             self.blkDelete() ;
         }
     }] ;
+}
+
+#pragma mark -
+
+- (ArticleBgVC *)bgVC{
+    if(!_bgVC){
+        _bgVC = ({
+            ArticleBgVC * object = [ArticleBgVC getCtrllerFromNIB] ;
+            object.delegate = (id<ArticleBgVCDelegate>)self ;
+            object;
+       });
+    }
+    return _bgVC;
 }
 
 @end

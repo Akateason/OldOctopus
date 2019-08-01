@@ -53,6 +53,9 @@
 @property (nonatomic)         BOOL              isInTrash ;
 @property (nonatomic)         BOOL              isInShare ;
 @property (nonatomic)         BOOL              isNewFromIpad ;
+
+@property (strong, nonatomic) RACSubject        *outputPhotoSubject ;
+@property (nonatomic)         BOOL              isSnapshoting ;
 @end
 
 @implementation MarkdownVC
@@ -176,11 +179,12 @@
          [self.editor changeTheme] ;
      }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] throttle:.5] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
+        
         NSString *json = x.object ;
         [self snapShotFullScreen:json] ;
-    }] ;        
+    }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -297,6 +301,62 @@
         
      }] ;
     
+    [[[self.outputPhotoSubject throttle:.4] deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        
+        if (!self.isSnapshoting) return ;
+        
+//        NSLog(@"wwwww : %@", x) ;
+        
+        float textHeight = [x floatValue] ;
+
+        self.snapDuration = .4 + (float)textHeight / (float)APP_HEIGHT * .35 ;
+        self.webView.height = textHeight ;
+
+        self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight) ;
+        [self.webView setNeedsLayout] ;
+        [self.webView layoutIfNeeded] ;
+        CGSize size = self.view.frame.size ;
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+            UIGraphicsBeginImageContextWithOptions(size, true,  [UIScreen mainScreen].scale) ;
+            [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
+            __block UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
+            UIGraphicsEndImageContext() ;
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.webView.hidden = YES ;
+                [self.webView removeFromSuperview] ;
+                self->_webView = nil ;
+
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:image] ;
+                [self.view addSubview:imageView] ;
+                imageView.height = textHeight ;
+
+                self.nail = [OutputPreviewsNailView makeANail] ;
+                self.nail.top = textHeight ;
+                [self.view addSubview:self.nail] ;
+                self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
+                image = [UIImage getImageFromView:self.view] ;
+
+
+                [self.nail removeFromSuperview] ;
+                self.nail = nil ;
+                [imageView removeFromSuperview] ;
+                imageView = nil ;
+
+//                self.editor.hidden = NO ;
+                
+                [[OctMBPHud sharedInstance] hide] ;
+                
+                if (!image) return ;
+                [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
+                
+            }) ;
+        }) ;
+    }] ;
+    
     
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
         id target = self.navigationController.interactivePopGestureRecognizer.delegate ;
@@ -347,12 +407,12 @@
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
     if (self.isInShare) return ;
     
-    CGPoint offset = [recognizer translationInView:self.view] ;
-    // NSLog(@"offset : %@", NSStringFromCGPoint(offset)) ;
+//    CGPoint offset = [recognizer translationInView:self.view] ;
+//    NSLog(@"offset : %@", NSStringFromCGPoint(offset)) ;
     CGFloat velocity = [recognizer velocityInView:self.view].x ;
     
     if (self.isInTrash && velocity < 0 && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 0) return ; // 垃圾桶 不能新建
-    NSLog(@"dddd : %d",[GlobalDisplaySt sharedInstance].gdst_level_for_horizon) ;
+//    NSLog(@"dddd : %d",[GlobalDisplaySt sharedInstance].gdst_level_for_horizon) ;
     
     switch ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon) {
         // 里层
@@ -385,9 +445,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated] ;
     
-    if (self.isNewFromIpad) {
+    if (self.isNewFromIpad && !self.isSnapshoting) {
         self.editor.left = [self.class getEditorLeftIpad] ;
         // self.canBeEdited = NO ; 在webview第一次初始化之后,设置才有用.
+    }
+    
+    if (self.isSnapshoting) {
+        self.isSnapshoting = NO ;
+        self.editor.left = 0 ;
     }
 }
 
@@ -577,11 +642,13 @@ return;}
 }
 
 - (void)snapShotFullScreen:(NSString *)htmlString {
+//    NSLog(@"sssssss") ;
+
     [self dismissViewControllerAnimated:YES completion:nil] ;
     
     [[OctMBPHud sharedInstance] show] ;
     
-    self.editor.hidden = YES ;
+//    self.editor.hidden = YES ;
     
     NSMutableString *tmpStr = [htmlString mutableCopy] ;
     htmlString = [tmpStr stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"] ;
@@ -592,15 +659,15 @@ return;}
     [htmlString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil] ;
     NSURL *url = [NSURL fileURLWithPath:path] ;
     
-    WKWebViewConfiguration *config = [WKWebViewConfiguration new] ;
-    [config.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"] ;
-    _webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config] ;
-    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
-    _webView.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
-    _webView.opaque = NO ;
-    [self.view addSubview:_webView] ;
-    [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
-    [_webView loadFileURL:url allowingReadAccessToURL:url] ;
+    if (!self.webView.superview) {
+        [self.view addSubview:self.webView] ;
+    }
+    
+    if (!self.isSnapshoting) {
+        self.isSnapshoting = YES ;
+        
+        [self.webView loadFileURL:url allowingReadAccessToURL:url] ;
+    }
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
@@ -613,51 +680,9 @@ return;}
     
     if ([func isEqualToString:@"snapshotHeight"]) {
         float textHeight = [ret[@"params"] floatValue] ;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.snapDuration = .4 + (float)textHeight / (float)APP_HEIGHT * .35 ;
-            self.webView.height = textHeight ;
-            
-            self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight) ;
-            [self.webView setNeedsLayout] ;
-            [self.webView layoutIfNeeded] ;
-            CGSize size = self.view.frame.size ;
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
-                UIGraphicsBeginImageContextWithOptions(size, true,  [UIScreen mainScreen].scale) ;
-                [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
-                UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
-                UIGraphicsEndImageContext() ;
-            
-                [self.webView removeFromSuperview] ;
-                self.webView = nil ;
-                
-                UIImageView *imageView = [[UIImageView alloc] initWithImage:image] ;
-                [self.view addSubview:imageView] ;
-                imageView.height = textHeight ;
-
-                self.nail = [OutputPreviewsNailView makeANail] ;
-                self.nail.top = textHeight ;
-                [self.view addSubview:self.nail] ;
-                self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
-                image = [UIImage getImageFromView:self.view] ;
-
-
-                [self.nail removeFromSuperview] ;
-                self.nail = nil ;
-                [imageView removeFromSuperview] ;
-                imageView = nil ;
-
-                self.editor.hidden = NO ;
-
-                [[OctMBPHud sharedInstance] hide] ;
-                
-
-                if (!image) return ;
-                [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
-            }) ;
-        }) ;
+        [self.outputPhotoSubject sendNext:@(textHeight)] ;
+//        [self.outputPhotoSubject sendCompleted] ;
+//        NSLog(@"fffffff") ;
     }
 }
 
@@ -778,4 +803,32 @@ return;}
     return _cameraHandler ;
 }
 
+
+- (RACSubject *)outputPhotoSubject{
+    if(!_outputPhotoSubject){
+        _outputPhotoSubject = ({
+            RACSubject * object = [[RACSubject alloc] init];
+            object;
+       });
+    }
+    return _outputPhotoSubject;
+}
+
+- (WKWebView *)webView{
+    if(!_webView){
+        _webView = ({
+            WKWebViewConfiguration *config = [WKWebViewConfiguration new] ;
+            [config.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"] ;
+            
+            WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config] ;
+            webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
+            webView.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+            webView.opaque = NO ;
+            webView.hidden = NO ;
+            [webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
+            webView;
+       });
+    }
+    return _webView;
+}
 @end
