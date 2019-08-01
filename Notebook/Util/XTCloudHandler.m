@@ -134,15 +134,13 @@ XT_SINGLETON_M(XTCloudHandler)
                 user.userRecordName = userInfo.userRecordID.recordName ;
                 user.familyName = userInfo.nameComponents.familyName ;
                 user.givenName = userInfo.nameComponents.givenName ;
-                user.name = XT_STR_FORMAT(@"%@ %@",user.givenName,user.familyName) ;                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    blkUser(user) ;
-                }) ;
-                
+                user.name = XT_STR_FORMAT(@"%@ %@",user.givenName,user.familyName) ;
                 if (user.name.length > 0 && user != nil) {
                     [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
                 }
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    blkUser(user) ;
+                }) ;
             }] ;
         }] ;
     }] ;

@@ -310,8 +310,8 @@
         }
     }] ;
     
-    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-    }] ;
+//    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+//    }] ;
     
     if (IS_IPAD) {
         UIView *sideLine = [UIView new] ;
