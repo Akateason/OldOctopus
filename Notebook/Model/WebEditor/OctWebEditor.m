@@ -59,34 +59,38 @@ XT_SINGLETON_M(OctWebEditor)
     
     // keyboard showing
     @weakify(self)
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.02] subscribeNext:^(NSNotification *_Nullable x) {
+    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.02] deliverOnMainThread] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
         
         NSDictionary *info = [x userInfo] ;
         CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
         // 工具条的Y值 == 键盘的Y值 - 工具条的高度
-        self.toolBar.top = 2000 ;
-        self.toolBar.width = APP_WIDTH ;
-        
-        [UIView animateWithDuration:.3 animations:^{
-            if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
-                self.toolBar.top = self.height - kOctEditorToolBarHeight;
-            }
-            else {
-                self.toolBar.top = endKeyboardRect.origin.y - kOctEditorToolBarHeight;
-            }
-            
-            if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
-            self.toolBar.hidden = NO ;
-        }] ;
         
         // get keyboard height
         self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
         float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
         if (!param) {
             [self.toolBar hideAllBoards] ;
-            [self.toolBar removeFromSuperview] ;
+            self.toolBar.hidden = YES ;
+        }
+        else {
+            self.toolBar.top = 2000 ;
+            self.toolBar.width = APP_WIDTH ;
+            if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
+            
+            [UIView animateWithDuration:.3 animations:^{
+                if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
+                    self.toolBar.top = self.height - kOctEditorToolBarHeight;
+                }
+                else {
+                    self.toolBar.top = endKeyboardRect.origin.y - kOctEditorToolBarHeight;
+                }
+                NSLog(@"toolbar top : %f", self.toolBar.top) ;
+                self.toolBar.hidden = NO ;
+                [self.toolBar setNeedsLayout] ;
+                [self.toolBar layoutIfNeeded] ;
+            }] ;
         }
         
         if (self.toolBar.hidden == NO) {
@@ -101,7 +105,6 @@ XT_SINGLETON_M(OctWebEditor)
         self.toolBar.hidden = YES ;
         [self.toolBar hideAllBoards] ;
         self.toolBar.top = 2000 ;
-        [self.toolBar removeFromSuperview] ;
     }] ;
     
     [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {
@@ -203,7 +206,7 @@ XT_SINGLETON_M(OctWebEditor)
         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
         
         [self.toolBar hideAllBoards] ;
-        [self.toolBar removeFromSuperview] ;
+        self.toolBar.hidden = YES ;
         [self hideKeyboard] ;
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -313,6 +316,7 @@ static const float kOctEditorToolBarHeight = 41. ;
         _toolBar = [OctToolbar xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         _toolBar.frame = CGRectMake(0, 2000, [self.class currentScreenBoundsDependOnOrientation].size.width, kOctEditorToolBarHeight) ;
         _toolBar.delegate = (id<OctToolbarDelegate>)self ;
+        if (!_toolBar.superview) [self.window addSubview:_toolBar] ;
     }
     return _toolBar ;
 }
@@ -608,6 +612,8 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 
 - (void)reloadWKWebview {
+    [[NSNotificationCenter defaultCenter] removeObserver:self] ;
+    
     [SVProgressHUD showErrorWithStatus:@"系统出现异常,自动刷新页面"] ;
     
     [self.toolBar removeFromSuperview] ;
