@@ -148,9 +148,6 @@
                     <state key="normal" title="导出图片">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
-                    <connections>
-                        <action selector="btOutputAction:" destination="-1" eventType="touchUpInside" id="bL9-lA-Kyr"/>
-                    </connections>
                 </button>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info_right.png" translatesAutoresizingMaskIntoConstraints="NO" id="hHC-3o-S2G">
                     <rect key="frame" x="378" y="796" width="17" height="17"/>
@@ -185,6 +182,15 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aRS-KA-oYn">
+                    <rect key="frame" x="0.0" y="787" width="414" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="r7v-S6-Ym2"/>
+                    </constraints>
+                    <connections>
+                        <action selector="btOutputAction:" destination="-1" eventType="touchUpInside" id="asl-Ds-TCI"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -211,11 +217,14 @@
                 <constraint firstItem="cBW-r8-7sH" firstAttribute="top" secondItem="jgp-gs-ekc" secondAttribute="bottom" constant="7" id="XgF-k8-Uqv"/>
                 <constraint firstItem="0q5-dj-NR5" firstAttribute="leading" secondItem="5Cx-UI-d5k" secondAttribute="leading" constant="20" id="Y7N-1y-6qx"/>
                 <constraint firstAttribute="trailing" secondItem="MfQ-n2-z0M" secondAttribute="trailing" id="br2-wK-Odf"/>
+                <constraint firstItem="aRS-KA-oYn" firstAttribute="trailing" secondItem="Vw1-oi-yIU" secondAttribute="trailing" id="c1b-tV-PZk"/>
                 <constraint firstItem="uBh-a8-JIn" firstAttribute="leading" secondItem="5Cx-UI-d5k" secondAttribute="leading" constant="20" id="ci3-WV-8CQ"/>
                 <constraint firstItem="Eq9-WE-1ZA" firstAttribute="leading" secondItem="OzF-B5-L1y" secondAttribute="leading" id="hMm-Ws-6Q8"/>
                 <constraint firstItem="xag-AH-FPY" firstAttribute="leading" secondItem="5Cx-UI-d5k" secondAttribute="leading" constant="20" id="hdo-3P-e9f"/>
+                <constraint firstItem="0WY-zp-rVo" firstAttribute="centerY" secondItem="aRS-KA-oYn" secondAttribute="centerY" id="iqj-Hh-Kzy"/>
                 <constraint firstItem="hHC-3o-S2G" firstAttribute="centerY" secondItem="0WY-zp-rVo" secondAttribute="centerY" id="jqj-P2-b3b"/>
                 <constraint firstItem="ayj-Ot-mnI" firstAttribute="top" secondItem="HLT-0W-DM2" secondAttribute="bottom" constant="20" id="l0k-xM-mtA"/>
+                <constraint firstItem="aRS-KA-oYn" firstAttribute="leading" secondItem="Vw1-oi-yIU" secondAttribute="leading" id="n5d-EF-OtL"/>
                 <constraint firstAttribute="trailing" secondItem="OzF-B5-L1y" secondAttribute="trailing" constant="20" id="n7i-df-sY6"/>
                 <constraint firstItem="HLT-0W-DM2" firstAttribute="leading" secondItem="5Cx-UI-d5k" secondAttribute="leading" constant="20" id="nNs-rB-H4o"/>
                 <constraint firstItem="uBh-a8-JIn" firstAttribute="top" secondItem="MfQ-n2-z0M" secondAttribute="bottom" constant="8" id="qDH-5A-hlX"/>
@@ -232,6 +241,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="Vw1-oi-yIU"/>
+            <point key="canvasLocation" x="34.782608695652179" y="34.821428571428569"/>
         </view>
     </objects>
     <resources>
