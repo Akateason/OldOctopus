@@ -9,6 +9,7 @@
 #import "SettingNavBar.h"
 #import "MDThemeConfiguration.h"
 #import <BlocksKit+UIKit.h>
+#import "GlobalDisplaySt.h"
 
 @interface SettingNavBar ()
 @property (strong, nonatomic) UIButton *back ;
@@ -24,13 +25,14 @@
     SettingNavBar *navBar = [[SettingNavBar alloc] init] ;
     navBar.back.hidden = hide ;
     [ctrller.view addSubview:navBar] ;
+    
+    float topFlex = ([GlobalDisplaySt sharedInstance].isPopOverFromIpad) ? 0 : APP_STATUSBAR_HEIGHT ;
     [navBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ctrller.view.mas_top).offset(APP_STATUSBAR_HEIGHT) ;
+        make.top.equalTo(ctrller.view.mas_top).offset(topFlex) ;
         make.left.right.equalTo(ctrller.view) ;
         make.height.equalTo(@66) ;
     }] ;
 }
-
 
 - (instancetype)init {
     self = [super init];

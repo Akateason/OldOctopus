@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SettingNavBar : UIView
 + (void)addInController:(UIViewController *)ctrller ;
 + (void)addInController:(UIViewController *)ctrller hiddenNavigationBackBt:(BOOL)hide ;
+
+
 - (instancetype)init ;
 @end
 

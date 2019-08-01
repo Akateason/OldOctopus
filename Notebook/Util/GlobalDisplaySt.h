@@ -23,6 +23,8 @@ XT_SINGLETON_H(GlobalDisplaySt)
 @property (nonatomic) CGSize containerSize ;
 - (void)correctCurrentCondition:(UIViewController *)ctrller ;
 
+
+@property (nonatomic) BOOL isPopOverFromIpad ; // 从ipad弹出的 气泡窗口,  控制topFLex 为0 ;
 @property (nonatomic) BOOL isInNewBookVC ;
 @end
 

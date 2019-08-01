@@ -35,4 +35,8 @@ XT_SINGLETON_M(GlobalDisplaySt)
 //    [[UIApplication sharedApplication] setStatusBarHidden:gdst_level_for_horizon == 1] ;
 }
 
+- (BOOL)isPopOverFromIpad {
+    return IS_IPAD && self.displayMode == GDST_Home_3_Column_Horizon ;
+}
+
 @end
