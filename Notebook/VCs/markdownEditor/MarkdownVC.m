@@ -83,7 +83,7 @@
                 fromCtrller:(UIViewController *)ctrller {
     
     MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarkdownVC"] ;
-    [vc viewDidLoad] ;
+
     vc.aNote = note ;
     vc.isNewFromIpad = newFromIpad ;
     if (newFromIpad) {
