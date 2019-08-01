@@ -38,48 +38,15 @@
         if (transaction.transactionState == SKPaymentTransactionStatePurchased
             ) {
             
+#ifdef DEBUG
             [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:kAPP_SHARE_SECRET onCompletion:^(NSString *response, NSError *error) {
-                
-                //Convert JSON String to NSDictionary
-                if (!error) {
-                    NSDictionary* rec = [IAPShare toJSON:response];
-                    if ([rec[@"status"] integerValue] == 0) {
-                        [[IAPShare sharedHelper].iap provideContentWithTransaction:transaction];
-                        NSLog(@"SUCCESS %@",response);
-                        NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
-                        
-                        NSDictionary *dictLatestReceiptsInfo = rec[@"latest_receipt_info"];
-                        long long int expirationDateMs = [[dictLatestReceiptsInfo valueForKeyPath:@"@max.expires_date_ms"] longLongValue] ; // 结束时间
-                        long long requestDateMs = [rec[@"receipt"][@"request_date_ms"] longLongValue] ;//请求时间
-                        NSLog(@"%lld--%lld", expirationDateMs, requestDateMs) ;
-                        NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(expirationDateMs / 1000.0)] ;
-                        NSLog(@"新订单截止到 : %@", resExpiraDate) ;
-                        
-                        // 调api 成功后, 再设置本地的 更新时间
-                        [OctRequestUtil setIapInfoExpireDateTick:expirationDateMs complete:^(BOOL success) {
-                            
-                            if (success) {
-                                [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
-                                
-                                // finish transaction .
-                                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
-                                // 设置本地
-                                [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
-                                // hud
-//                                [SVProgressHUD showSuccessWithStatus:@"订阅成功"] ;
-                            }
-                        }] ;
-                    }
-                    else {
-                        NSLog(@"Fail") ;
-                        [SVProgressHUD showErrorWithStatus:@"购买失败, 请检查网络"] ;
-                    }
-                }
-                else {
-                    NSLog(@"Fail, %@",error) ;
-                    [SVProgressHUD showErrorWithStatus:@"购买失败, 请检查网络"] ;
-                }
+                [self dealReciept:response transaction:transaction error:error] ;
             }] ;
+#else
+            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] onCompletion:^(NSString *response, NSError *error) {
+                [self dealReciept:response transaction:transaction error:error] ;
+            }] ;
+#endif
         }
         else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
@@ -87,6 +54,51 @@
         else if (transaction.transactionState == SKPaymentTransactionStatePurchasing) {
             [[OctMBPHud sharedInstance] hide] ;
         }
+    }
+}
+
+- (void)dealReciept:(NSString *)response
+        transaction:(SKPaymentTransaction *)transaction
+              error:(NSError *)error {
+    
+    if (!error) {
+        NSDictionary* rec = [IAPShare toJSON:response];
+        if ([rec[@"status"] integerValue] == 0) {
+            [[IAPShare sharedHelper].iap provideContentWithTransaction:transaction];
+            NSLog(@"SUCCESS %@",response);
+            NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+            
+            NSDictionary *dictLatestReceiptsInfo = rec[@"latest_receipt_info"];
+            long long int expirationDateMs = [[dictLatestReceiptsInfo valueForKeyPath:@"@max.expires_date_ms"] longLongValue] ; // 结束时间
+            long long requestDateMs = [rec[@"receipt"][@"request_date_ms"] longLongValue] ;//请求时间
+            NSLog(@"%lld--%lld", expirationDateMs, requestDateMs) ;
+            NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(expirationDateMs / 1000.0)] ;
+            NSLog(@"新订单截止到 : %@", resExpiraDate) ;
+            
+            // 调api 成功后, 再设置本地的 更新时间
+            [OctRequestUtil setIapInfoExpireDateTick:expirationDateMs complete:^(BOOL success) {
+                
+                if (success) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
+                    
+                    // finish transaction .
+                    [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+                    // 设置本地
+                    [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
+                    // hud
+                    //                                [SVProgressHUD showSuccessWithStatus:@"订阅成功"] ;
+                }
+            }] ;
+        }
+        else {
+            NSLog(@"Fail") ;
+            [SVProgressHUD showErrorWithStatus:@"购买失败, 请检查网络"] ;
+        }
+
+    }
+    else {
+        NSLog(@"Fail, %@",error) ;
+        [SVProgressHUD showErrorWithStatus:@"购买失败, 请检查网络"] ;
     }
 }
 
