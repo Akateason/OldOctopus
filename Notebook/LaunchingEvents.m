@@ -48,8 +48,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupNaviStyle] ;
     [self setupIqKeyboard] ;
     [self setupLoadingHomePage] ;
-    [self setupIcloudEvent] ;
-    [self pullOrSync] ;
+    [self setupIcloudEvent] ; // get User. Then Pull or Sync .
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
 }
@@ -185,11 +184,16 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 }
 
 - (void)pullAll {
+    NSLog(@"pullall") ;
+    
     [NoteBooks getFromServerComplete:^(bool hasData) {
         
         [Note getFromServerComplete:^{
-            if ([Note xt_count]) XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
-            
+            if ([Note xt_count]) {
+                XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
+                XT_USERDEFAULT_SET_VAL(@1, kUD_OCT_PullAll_Done) ;
+            }
+            NSLog(@"pullall done") ;
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ; // pull all in first time
         }] ;
     }] ;

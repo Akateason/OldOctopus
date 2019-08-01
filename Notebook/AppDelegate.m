@@ -121,9 +121,22 @@
 
     //
     if (![XTIcloudUser userInCacheSyncGet]) {
-        [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-            [self.launchingEvents pullAll] ;
-        }] ;
+        NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
+        if ([num intValue] != 1) {
+            // 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
+            @weakify(self)
+            [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]] take:3] subscribeNext:^(NSDate * _Nullable x) {
+                @strongify(self)
+                NSNumber *num1 = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
+                if ([num1 intValue] == 1) return ;
+                
+                @weakify(self)
+                [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+                    @strongify(self)
+                    [self.launchingEvents pullAll] ;
+                }] ;
+            }] ;
+        }
     }
     
     [self test] ;
@@ -157,7 +170,6 @@
 static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [[OctMBPHud sharedInstance] hide] ;
-    
     
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self.window.rootViewController] ;
 

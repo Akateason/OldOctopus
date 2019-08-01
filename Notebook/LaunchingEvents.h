@@ -17,6 +17,8 @@ extern NSString *const kNotificationSyncCompleteAllPageRefresh ;
 extern NSString *const kFirstTimeLaunch ;
 extern NSString *const kNotificationImportFileIn ;
 
+static NSString *const kUD_OCT_PullAll_Done = @"kUD_OCT_PullAll_Done" ;
+
 @class UIApplication, AppDelegate ;
 
 
@@ -26,6 +28,7 @@ extern NSString *const kNotificationImportFileIn ;
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate ;
 - (void)icloudSync:(void(^)(void))completeBlk ;
 - (void)pullAll ;
+- (void)pullOrSync ;
 
 - (void)setupAlbumn ;
 
