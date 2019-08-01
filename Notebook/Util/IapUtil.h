@@ -27,6 +27,11 @@ static NSString *const k_IAP_ID_YEAR  = @"iap.octopus.year" ;
 // 获得iap超出时间 如果本地没有 去服务端调
 + (void)fetchIapSubscriptionDate:(void(^)(long long tick))fetchBlk ;
 
+// 每次启动, 调一把 以服务端为准
++ (void)geteIapStateFromSever ;
+
+
+
 // 是否vip异步
 + (void)iapVipUserIsValid:(void(^)(BOOL isValid))completionBlk ;
 // 是否vip同步

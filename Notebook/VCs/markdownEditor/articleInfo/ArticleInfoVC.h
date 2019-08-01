@@ -7,6 +7,8 @@
 //
 
 #import "BasicVC.h"
+#import "ArticleBgVC.h"
+
 @class XTMarkdownParser,WebModel ;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,6 +29,7 @@ typedef void(^BlkOutputOnClick)(void) ;
 
 @property (strong, nonatomic) WebModel *webInfo ;
 
+@property (strong, nonatomic) ArticleBgVC *bgVC ;
 + (CGFloat)movingDistance ;
 
 - (void)close ;

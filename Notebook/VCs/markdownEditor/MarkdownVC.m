@@ -632,7 +632,7 @@ return;}
     // 导出预览
     self.infoVC.blkOutput = ^{
         
-        if (![weakSelf isVIPandLogin]) return ;
+        if (![weakSelf isVIPandLogin:weakSelf.infoVC.bgVC.btOutput]) return ;
         
         [weakSelf.editor hideKeyboard] ;
         [weakSelf.infoVC.view removeFromSuperview] ;
@@ -686,7 +686,7 @@ return;}
     }
 }
 
-- (BOOL)isVIPandLogin {
+- (BOOL)isVIPandLogin:(UIView *)sourceView {
     if (![XTIcloudUser hasLogin]) {
         NSLog(@"未登录") ;
         [GuidingICloud show] ;
@@ -695,7 +695,7 @@ return;}
     }
     
     if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        [IAPSubscriptionVC showMePresentedInFromCtrller:self] ;
+        [IAPSubscriptionVC showMePresentedInFromCtrller:self fromSourceView:sourceView] ;
         
         return NO ;
     }
@@ -703,7 +703,7 @@ return;}
 }
 
 - (IBAction)shareAction:(id)sender {
-    if (![self isVIPandLogin]) return ;
+    if (![self isVIPandLogin:sender]) return ;
     
     [self.editor hideKeyboard] ;
     [[OctMBPHud sharedInstance] show] ;
@@ -831,4 +831,5 @@ return;}
     }
     return _webView;
 }
+
 @end

@@ -75,7 +75,7 @@
         }
         
         if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-            [IAPSubscriptionVC showMePresentedInFromCtrller:self] ;
+            [IAPSubscriptionVC showMePresentedInFromCtrller:self fromSourceView:collectionView] ;
             
             return ;
         }        

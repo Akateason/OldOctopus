@@ -12,6 +12,7 @@
 #import "IAPIntroductionCell.h"
 #import "IAPPayCell.h"
 #import "IAPInfoBottomCell.h"
+#import "AppDelegate.h"
 
 #import <IAPHelper/IAPHelper.h>
 #import <IAPShare.h>
@@ -34,9 +35,17 @@
     return [IAPSubscriptionVC getCtrllerFromStory:@"Main" controllerIdentifier:@"IAPSubscriptionVC"] ;
 }
 
-+ (void)showMePresentedInFromCtrller:(UIViewController *)fromCtrller {
++ (void)showMePresentedInFromCtrller:(UIViewController *)fromCtrller fromSourceView:(UIView *)souceView {
     IAPSubscriptionVC *vc = [IAPSubscriptionVC getCtrllerFromStory:@"Main" controllerIdentifier:@"IAPSubscriptionVC"] ;
     vc.isPresentState = YES ;
+    vc.modalPresentationStyle = UIModalPresentationPopover ;
+    
+    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
+    popVC.sourceView = souceView ;
+    popVC.sourceRect = souceView.bounds ;
+    popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
+    popVC.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    
     [fromCtrller presentViewController:vc animated:YES completion:^{
     }] ;
 }
@@ -45,6 +54,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    @weakify(self)
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_iap_purchased_done object:nil] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self dismissViewControllerAnimated:YES completion:nil] ;
+    }] ;
 }
 
 - (void)prepareUI {

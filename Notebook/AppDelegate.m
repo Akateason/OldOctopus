@@ -101,6 +101,7 @@
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self] ; // 处理iap回调
     IapUtil *iap = [IapUtil new] ;
     [iap setup] ;
+    [IapUtil geteIapStateFromSever] ;
     
     // lauching events
     self.launchingEvents = [[LaunchingEvents alloc] init] ;

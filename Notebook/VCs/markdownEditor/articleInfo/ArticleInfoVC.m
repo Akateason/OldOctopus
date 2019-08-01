@@ -10,10 +10,10 @@
 #import "XTMarkdownParser.h"
 #import "WebModel.h"
 #import "GlobalDisplaySt.h"
-#import "ArticleBgVC.h"
+
 
 @interface ArticleInfoVC ()
-@property (strong, nonatomic) ArticleBgVC *bgVC ;
+
 @end
 
 @implementation ArticleInfoVC

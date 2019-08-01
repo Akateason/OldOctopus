@@ -55,6 +55,16 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
     }
 }
 
++ (void)geteIapStateFromSever {
+    [OctRequestUtil getIapInfo:^(long long tick, BOOL success) {
+        if (success) {
+            XT_USERDEFAULT_SET_VAL(@(tick), kUD_Iap_ExpireDate) ;
+        }
+        else {
+        }
+    }] ;
+}
+
 // 是否vip
 + (void)iapVipUserIsValid:(void(^)(BOOL isValid))completionBlk {
     [self fetchIapSubscriptionDate:^(long long tick) {
@@ -72,7 +82,7 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
     if (localTick > 0) {
         localTick = localTick / 1000. ;
         long long nowTick = [[NSDate date] xt_getTick] ;
-        NSLog(@"vip %lld - now %lld 是否vip %d", localTick, nowTick, nowTick <= localTick) ;
+        NSLog(@"vip %lld - now %lld 是否vip %d 截止日:%@", localTick, nowTick, nowTick <= localTick, [NSDate xt_getStrWithTick:localTick]) ;
         return nowTick <= localTick ;
     }
     
