@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArticleBgVC">
             <connections>
+                <outlet property="btClose" destination="Pie-UL-Tad" id="mtG-ri-Jrj"/>
                 <outlet property="btDelete" destination="RuX-xR-Dfq" id="Oyv-hV-DHg"/>
                 <outlet property="btOutput" destination="0WY-zp-rVo" id="7BF-m3-ifd"/>
                 <outlet property="imgRight" destination="hHC-3o-S2G" id="2fU-cC-pZf"/>
@@ -53,12 +54,22 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pie-UL-Tad">
+                            <rect key="frame" x="374" y="20" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="2we-46-tWJ"/>
+                                <constraint firstAttribute="height" constant="20" id="Zhm-NC-Ns0"/>
+                            </constraints>
+                            <state key="normal" image="m_note_close.png"/>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="TKk-hv-t2a" firstAttribute="leading" secondItem="MfQ-n2-z0M" secondAttribute="leading" constant="20" id="M2I-D0-niy"/>
                         <constraint firstAttribute="height" constant="75" id="V2M-gw-UbX"/>
                         <constraint firstItem="TKk-hv-t2a" firstAttribute="top" secondItem="MfQ-n2-z0M" secondAttribute="top" constant="35" id="mu2-rX-cPi"/>
+                        <constraint firstAttribute="trailing" secondItem="Pie-UL-Tad" secondAttribute="trailing" constant="20" id="uUe-Ig-oaZ"/>
+                        <constraint firstItem="Pie-UL-Tad" firstAttribute="top" secondItem="MfQ-n2-z0M" secondAttribute="top" constant="20" id="wd8-vf-ttk"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="位置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBh-a8-JIn">
@@ -225,5 +236,6 @@
     </objects>
     <resources>
         <image name="info_right.png" width="34" height="34"/>
+        <image name="m_note_close.png" width="40" height="40"/>
     </resources>
 </document>

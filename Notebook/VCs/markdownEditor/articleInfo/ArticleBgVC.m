@@ -40,6 +40,11 @@
     
     self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
     
+    [self.btClose xt_enlargeButtonsTouchArea] ;
+    WEAK_SELF
+    [self.btClose bk_whenTapped:^{
+        [weakSelf.delegate closeBg] ;
+    }] ;
     
     [self.view bk_whenTapped:^{
         

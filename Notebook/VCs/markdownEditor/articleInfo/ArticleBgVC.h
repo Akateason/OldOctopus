@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ArticleBgVCDelegate <NSObject>
 - (void)output ;
 - (void)removeToTrash ;
+- (void)closeBg ;
 @end
 
 
@@ -38,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *line1;
 @property (weak, nonatomic) IBOutlet UIView *line2;
 
+@property (weak, nonatomic) IBOutlet UIButton *btClose;
 
 @property (strong, nonatomic) Note *aNote ;
 @property (strong, nonatomic) WebModel *webInfo ;

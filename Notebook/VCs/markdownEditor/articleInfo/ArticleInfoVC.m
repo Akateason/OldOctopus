@@ -49,7 +49,7 @@
         }] ;
         
         self.bgVC.view.xt_cornerRadius = 5 ;
-        self.bgVC.view.xt_borderWidth = .5 ;
+        self.bgVC.view.xt_borderWidth = .25 ;
         self.bgVC.view.xt_borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3] ;
         self.bgVC.topArea.backgroundColor = nil ;
 
@@ -64,6 +64,7 @@
             make.width.equalTo(@([self.class movingDistance])) ;
         }] ;
     }
+    self.bgVC.btClose.hidden = !IS_IPAD ;
 }
 
 - (void)setWebInfo:(WebModel *)webInfo {
@@ -88,6 +89,10 @@
 }
 
 #pragma mark - ArticleBgVCDelegate <NSObject>
+
+- (void)closeBg {
+    [self close] ;
+}
 
 - (void)output {
     if (self.blkOutput) self.blkOutput() ;
