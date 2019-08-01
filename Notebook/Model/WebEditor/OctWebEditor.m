@@ -282,7 +282,9 @@ XT_SINGLETON_M(OctWebEditor)
              (
               [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 &&
               [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon
-              ) ) ) {
+              )
+             )
+            ) {
                  
                  [self openKeyboard] ;             
         }
