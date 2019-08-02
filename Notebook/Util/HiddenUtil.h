@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)switchEditorLoadWay:(BOOL)isOnline ;
 + (BOOL)getEditorLoadWay ;
 
+
++ (NSString *)developerMacLink ;
++ (void)setDeveloperMacLink:(NSString *)link ;
+
 @end
 
 NS_ASSUME_NONNULL_END

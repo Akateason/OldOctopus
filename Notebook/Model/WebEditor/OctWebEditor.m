@@ -19,7 +19,7 @@
 #import "MarkdownVC.h"
 #import "HiddenUtil.h"
 #import "OctShareCopyLinkView.h"
-
+#import "HiddenUtil.h"
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -258,7 +258,7 @@ XT_SINGLETON_M(OctWebEditor)
     }
     else {
         //link
-        NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.97:3000/"] ;
+        NSURL *editorURL = [NSURL URLWithString:[HiddenUtil developerMacLink]] ;
         [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
     }
 }
