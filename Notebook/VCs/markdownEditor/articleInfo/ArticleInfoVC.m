@@ -26,7 +26,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    self.view.backgroundColor = nil ;
+    if (IS_IPAD) {
+        self.view.backgroundColor = nil ;
+    }
+    else {
+        self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.3] ;
+    }
+    
     
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)] ;
