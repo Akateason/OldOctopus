@@ -33,7 +33,9 @@
     
     self.lbPrivacy.userInteractionEnabled = self.lbService.userInteractionEnabled = YES ;
     [self.lbPrivacy bk_whenTapped:^{
-        
+        NSString *urlStr = @"https://octopus.smcdn.cn/shared/e564c544a6f2c5f2e430620b04076896.html" ;
+        NSURL *url = [NSURL URLWithString:urlStr] ;
+        [[UIApplication sharedApplication] openURL:url];
     }] ;
     
     [self.lbService bk_whenTapped:^{
