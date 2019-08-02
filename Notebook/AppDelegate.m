@@ -38,15 +38,15 @@
         if (transaction.transactionState == SKPaymentTransactionStatePurchased
             ) {
             
-#ifdef DEBUG
+//#ifdef DEBUG
             [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:kAPP_SHARE_SECRET onCompletion:^(NSString *response, NSError *error) {
                 [self dealReciept:response transaction:transaction error:error] ;
             }] ;
-#else
-            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] onCompletion:^(NSString *response, NSError *error) {
-                [self dealReciept:response transaction:transaction error:error] ;
-            }] ;
-#endif
+//#else
+//            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] onCompletion:^(NSString *response, NSError *error) {
+//                [self dealReciept:response transaction:transaction error:error] ;
+//            }] ;
+//#endif
         }
         else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
@@ -63,7 +63,8 @@
     
     if (!error) {
         NSDictionary* rec = [IAPShare toJSON:response];
-        if ([rec[@"status"] integerValue] == 0) {
+        NSInteger status = [rec[@"status"] integerValue]  ;
+        if ( status == 0 ) {
             [[IAPShare sharedHelper].iap provideContentWithTransaction:transaction];
             NSLog(@"SUCCESS %@",response);
             NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
@@ -86,19 +87,27 @@
                     // 设置本地
                     [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
                     // hud
-                    //                                [SVProgressHUD showSuccessWithStatus:@"订阅成功"] ;
+                    // [SVProgressHUD showSuccessWithStatus:@"订阅成功"] ;
                 }
             }] ;
         }
+        else if (status == 21007) {
+            [IAPShare sharedHelper].iap.production = NO;
+            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:kAPP_SHARE_SECRET onCompletion:^(NSString *response, NSError *error) {
+                [self dealReciept:response transaction:transaction error:error] ;
+            }] ;
+        }
         else {
-            NSLog(@"Fail") ;
-            [SVProgressHUD showErrorWithStatus:@"购买失败, 请检查网络"] ;
+            NSLog(@"Fail : %@",rec) ;
+            NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",response,error) ;
+            [SVProgressHUD showErrorWithStatus:res] ;
         }
 
     }
     else {
-        NSLog(@"Fail, %@",error) ;
-        [SVProgressHUD showErrorWithStatus:@"购买失败, 请检查网络"] ;
+        NSLog(@"Fail : %@",error) ;
+        NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",response,error) ;
+        [SVProgressHUD showErrorWithStatus:res] ;
     }
 }
 
