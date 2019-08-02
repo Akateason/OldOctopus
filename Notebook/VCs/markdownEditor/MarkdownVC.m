@@ -43,6 +43,7 @@
 @property (strong, nonatomic) Note              *aNote ;
 @property (copy, nonatomic)   NSString          *myBookID ;
 @property (strong, nonatomic) WKWebView         *webView ;
+@property (strong, nonatomic) UIView            *snapBgView ;
 @property (strong, nonatomic) OutputPreviewsNailView *nail ;
 @property (nonatomic)         float             snapDuration ;
 
@@ -300,23 +301,26 @@
         @strongify(self)
         
         if (!self.isSnapshoting) return ;
-        
 //        NSLog(@"wwwww : %@", x) ;
         
         float textHeight = [x floatValue] ;
+        if ( textHeight < APP_HEIGHT) textHeight += 100. ;
 
         self.snapDuration = .4 + (float)textHeight / (float)APP_HEIGHT * .35 ;
+        
+        CGSize snapSize = CGSizeMake(APP_WIDTH, textHeight) ;
+        self.snapBgView.frame = CGRectMake(0, 0, APP_WIDTH , textHeight) ;
+        [self.snapBgView setNeedsLayout] ;
+        [self.snapBgView layoutIfNeeded] ;
         self.webView.height = textHeight ;
-
-        self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight) ;
         [self.webView setNeedsLayout] ;
         [self.webView layoutIfNeeded] ;
-        CGSize size = self.view.frame.size ;
+        
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-            UIGraphicsBeginImageContextWithOptions(size, true,  [UIScreen mainScreen].scale) ;
-            [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
+            UIGraphicsBeginImageContextWithOptions(snapSize, true,  [UIScreen mainScreen].scale) ;
+            [self.snapBgView.layer renderInContext:UIGraphicsGetCurrentContext()] ;
             __block UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
             UIGraphicsEndImageContext() ;
 
@@ -326,22 +330,25 @@
                 self->_webView = nil ;
 
                 UIImageView *imageView = [[UIImageView alloc] initWithImage:image] ;
-                [self.view addSubview:imageView] ;
+                [self.snapBgView addSubview:imageView] ;
                 imageView.height = textHeight ;
 
                 self.nail = [OutputPreviewsNailView makeANail] ;
                 self.nail.top = textHeight ;
-                [self.view addSubview:self.nail] ;
-                self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
-                image = [UIImage getImageFromView:self.view] ;
+                [self.snapBgView addSubview:self.nail] ;
+                self.snapBgView.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
+                image = [UIImage getImageFromView:self.snapBgView] ;
 
 
                 [self.nail removeFromSuperview] ;
                 self.nail = nil ;
                 [imageView removeFromSuperview] ;
                 imageView = nil ;
+                [self.snapBgView removeFromSuperview] ;
+                self.snapBgView = nil ;
 
-//                self.editor.hidden = NO ;
+                self.editor.hidden = NO ;
+                self.navArea.hidden = NO ;
                 
                 [[OctMBPHud sharedInstance] hide] ;
                 
@@ -640,7 +647,8 @@ return;}
     
     [[OctMBPHud sharedInstance] show] ;
     
-//    self.editor.hidden = YES ;
+    self.editor.hidden = YES ;
+    self.navArea.hidden = YES ;
     
     NSMutableString *tmpStr = [htmlString mutableCopy] ;
     htmlString = [tmpStr stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"] ;
@@ -651,8 +659,13 @@ return;}
     [htmlString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil] ;
     NSURL *url = [NSURL fileURLWithPath:path] ;
     
+    if (!self.snapBgView.superview) {
+        self.snapBgView.frame = self.view.bounds ;
+        [self.view addSubview:self.snapBgView] ;
+    }
+    
     if (!self.webView.superview) {
-        [self.view addSubview:self.webView] ;
+        [self.snapBgView addSubview:self.webView] ;
     }
     
     if (!self.isSnapshoting) {
@@ -800,9 +813,21 @@ return;}
             webView.opaque = NO ;
             webView.hidden = NO ;
             [webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
-            webView;
+            webView ;
        });
     }
     return _webView;
+}
+
+- (UIView *)snapBgView{
+    if(!_snapBgView){
+        _snapBgView = ({
+            UIView *object = [[UIView alloc] init] ;
+            object.frame = self.view.bounds ;
+            object.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+            object;
+       });
+    }
+    return _snapBgView;
 }
 @end
