@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *line2;
 
 @property (weak, nonatomic) IBOutlet UIButton *btClose;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topFlex;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topFlex2;
 
 @property (strong, nonatomic) Note *aNote ;
 @property (strong, nonatomic) WebModel *webInfo ;

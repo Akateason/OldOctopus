@@ -27,9 +27,10 @@
     inviroment = @"product环境" ;
 #endif
     
-    NSString *editorState = XT_STR_FORMAT(@"编辑器 : %@", [self getEditorLoadWay]?@"线上":@"本地") ;
+    NSString *editorState = XT_STR_FORMAT(@"编辑器 : %@", [self getEditorLoadWay]?@"连接电脑调试":@"本地zip") ;
+    NSString *devLinkStr = XT_STR_FORMAT(@"更改编辑器地址: %@",[self developerMacLink]) ;
     
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@) - %@ - %@",versionNum,buildNum,inviroment,editorState) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅",@"编辑器加载本地or线上"] callBackBlock:^(NSInteger btnIndex) {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@) - %@ - %@",versionNum,buildNum,inviroment,editorState) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅",@"编辑器加载本地or线上",devLinkStr] callBackBlock:^(NSInteger btnIndex) {
         
         if (btnIndex == 1) {
             [self clearLocal] ;
@@ -42,6 +43,9 @@
         }
         else if (btnIndex == 4) {
             [self editorLoadFromLocalOrOnline] ;
+        }
+        else if (btnIndex == 5) {
+            [self devLinkChanging] ;
         }
         
     }] ;
@@ -102,6 +106,16 @@
     }] ;
 }
 
++ (void)devLinkChanging {
+    [UIAlertController xt_showTextFieldAlertWithTitle:@"更改编辑器调试地址" subtitle:@"形如: http://192.168.50.97:3000/" cancel:@"取消" commit:@"保存" placeHolder:@"输入" fromWithView:nil callback:^(BOOL isConfirm, NSString *text) {
+        
+        if (isConfirm) {
+            [self setDeveloperMacLink:text] ;
+        }
+        
+    }] ;
+}
+
 //0本地 1线上
 static NSString *const k_UD_isLoadWebViewOnline = @"k_UD_isLoadWebViewOnline" ;
 + (void)switchEditorLoadWay:(BOOL)isOnline {
@@ -112,5 +126,16 @@ static NSString *const k_UD_isLoadWebViewOnline = @"k_UD_isLoadWebViewOnline" ;
     return [XT_USERDEFAULT_GET_VAL(k_UD_isLoadWebViewOnline) boolValue] ;
 }
 
+
+// 线上地址
+static NSString *const k_UD_Developer_Mac_Tune_Link = @"k_UD_Developer_Mac_Tune_Link" ;
++ (NSString *)developerMacLink {
+    NSString *link = XT_USERDEFAULT_GET_VAL(k_UD_Developer_Mac_Tune_Link) ;
+    return link ?: @"http://192.168.50.97:3000/" ;
+}
+
++ (void)setDeveloperMacLink:(NSString *)link {
+    XT_USERDEFAULT_SET_VAL(link, k_UD_Developer_Mac_Tune_Link) ;
+}
 
 @end

@@ -22,6 +22,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+        self.topFlex.constant = 55 + APP_STATUSBAR_HEIGHT ;
+        self.topFlex2.constant = 15 + APP_STATUSBAR_HEIGHT ;
+    }
+    
     self.line1.xt_theme_backgroundColor =
     self.line2.xt_theme_backgroundColor =
     XT_MAKE_theme_color(k_md_textColor, .2) ;

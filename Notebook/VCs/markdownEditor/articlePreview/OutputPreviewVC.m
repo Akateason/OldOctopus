@@ -8,6 +8,7 @@
 
 #import "OutputPreviewVC.h"
 #import <XTlib/XTZoomPicture.h>
+#import "OctMBPHud.h"
 
 
 @interface OutputPreviewVC ()
@@ -40,6 +41,8 @@
     
     WEAK_SELF
     [self.btCancel bk_whenTapped:^{
+        [[OctMBPHud sharedInstance] hide] ;
+        
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
@@ -56,8 +59,6 @@
                 
             }] ;
         }) ;
-        
-        
     }] ;
     
     

@@ -19,7 +19,7 @@
 #import "MarkdownVC.h"
 #import "HiddenUtil.h"
 #import "OctShareCopyLinkView.h"
-
+#import "HiddenUtil.h"
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -62,6 +62,7 @@ XT_SINGLETON_M(OctWebEditor)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.02] deliverOnMainThread] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
+        if (!self.window) return ;
         
         NSDictionary *info = [x userInfo] ;
         CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -257,7 +258,7 @@ XT_SINGLETON_M(OctWebEditor)
     }
     else {
         //link
-        NSURL *editorURL = [NSURL URLWithString:@"http://192.168.50.97:3000/"] ;
+        NSURL *editorURL = [NSURL URLWithString:[HiddenUtil developerMacLink]] ;
         [self.webView loadRequest:[NSURLRequest requestWithURL:editorURL]] ;
     }
 }

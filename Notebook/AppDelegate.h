@@ -20,3 +20,4 @@ static NSString *const kNote_iap_purchased_done = @"kNote_iap_purchased_done" ;
 @property (nonatomic)         int               padDisplayMode ;
 @end
 
+
