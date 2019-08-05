@@ -17,7 +17,7 @@
 static NSString *const kNote_Editor_CHANGE          = @"kNote_Editor_CHANGE" ;
 static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Photo" ;
 static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_Html" ;
-
+static const float k_side_margin = 100. ;
 
 @interface OctWebEditor : UIView {
     CGFloat keyboardHeight ;
@@ -37,6 +37,7 @@ static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_
 - (BOOL)articleAreTheSame ;     //如果文章比对一致不能上传      default NO
 @property (nonatomic)         BOOL          webViewHasSetMarkdown ; //如果未setMarkdown则不能上传  default NO
 @property (copy, nonatomic) NSString        *firstTimeArticle ; // 首次文章比对
+@property (nonatomic)       float           sideWid ;
 /**
  native call js.
  obj是json时,传入ret或list

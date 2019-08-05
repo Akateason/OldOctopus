@@ -14,8 +14,8 @@
 #import "GlobalDisplaySt.h"
 
 
-const float kWidth_ListView = 320 ;
-static const float slidingSpeed = 2000 ;
+const float kWidth_ListView = 360. ; //320 ;
+static const float slidingSpeed = 2000. ;
 
 @interface HomePadVC ()
 @property (strong, nonatomic) UIView        *leftContainer ;

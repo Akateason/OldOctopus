@@ -58,7 +58,7 @@
 @implementation MarkdownVC
 
 + (CGFloat)getEditorLeftIpad {
-    return - [GlobalDisplaySt sharedInstance].containerSize.width / 4. + 65. ;
+    return - [OctWebEditor sharedInstance].sideWid + k_side_margin ;
 }
 
 #pragma mark - Life

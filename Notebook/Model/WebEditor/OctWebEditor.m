@@ -20,6 +20,7 @@
 #import "HiddenUtil.h"
 #import "OctShareCopyLinkView.h"
 #import "HiddenUtil.h"
+#import "HomePadVC.h"
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -127,9 +128,13 @@ XT_SINGLETON_M(OctWebEditor)
 - (void)setSideFlex {
     if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
         [self nativeCallJSWithFunc:@"setEditorFlex" json:@"28" completion:^(NSString *val, NSError *error) {}] ;
+        self.sideWid = 28. ;
     }
     else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-        [self nativeCallJSWithFunc:@"setEditorFlex" json:[@([GlobalDisplaySt sharedInstance].containerSize.width / 4) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+        float appWid = [GlobalDisplaySt sharedInstance].containerSize.width ?: APP_WIDTH ;
+        float wid = ( appWid - ( appWid - kWidth_ListView - k_side_margin * 2. ) ) / 2. ;
+        [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(wid) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+        self.sideWid = wid ;
     }
 }
 
