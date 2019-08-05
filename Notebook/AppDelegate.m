@@ -77,6 +77,7 @@
             NSLog(@"新订单截止到 : %@", resExpiraDate) ;
             
             // 调api 成功后, 再设置本地的 更新时间
+            WEAK_SELF
             [OctRequestUtil setIapInfoExpireDateTick:expirationDateMs complete:^(BOOL success) {
                 
                 if (success) {
@@ -86,8 +87,8 @@
                     [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
                     // 设置本地
                     [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
-                    // hud
-                    // [SVProgressHUD showSuccessWithStatus:@"订阅成功"] ;
+                    // 订阅成功之后 pull all
+                    [weakSelf.launchingEvents pullAll] ;
                 }
             }] ;
         }
@@ -129,24 +130,23 @@
     [self.launchingEvents setup:application appdelegate:self] ;
 
     //
-    if (![XTIcloudUser userInCacheSyncGet]) {
-        NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
-        if ([num intValue] != 1) {
-            // 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
+    NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
+    if ([num intValue] != 1) {
+        // 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
+        @weakify(self)
+        [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]] take:3] subscribeNext:^(NSDate * _Nullable x) {
+            @strongify(self)
+            NSNumber *num1 = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
+            if ([num1 intValue] == 1) return ;
+            
             @weakify(self)
-            [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]] take:3] subscribeNext:^(NSDate * _Nullable x) {
+            [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
                 @strongify(self)
-                NSNumber *num1 = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
-                if ([num1 intValue] == 1) return ;
-                
-                @weakify(self)
-                [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-                    @strongify(self)
-                    [self.launchingEvents pullAll] ;
-                }] ;
+                [self.launchingEvents pullAll] ;
             }] ;
-        }
+        }] ;
     }
+    
     
     [self test] ;
     
