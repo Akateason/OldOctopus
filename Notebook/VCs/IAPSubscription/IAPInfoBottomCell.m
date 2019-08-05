@@ -14,7 +14,7 @@
 @implementation IAPInfoBottomCell
 
 - (void)awakeFromNib {
-    [super awakeFromNib];
+    [super awakeFromNib] ;
     // Initialization code
     
     self.lbInfo.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
