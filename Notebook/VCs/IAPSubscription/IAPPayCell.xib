@@ -38,7 +38,7 @@
                             <constraint firstAttribute="height" constant="40" id="VpG-70-VJZ"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <state key="normal" title="每月 ￥9.00"/>
+                        <state key="normal" title="免费试用1星期"/>
                         <connections>
                             <action selector="btMonthAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7OS-TS-hFE"/>
                         </connections>
@@ -50,7 +50,7 @@
                             <constraint firstAttribute="height" constant="40" id="z3T-Iv-wil"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <state key="normal" title="一年 ￥99.00"/>
+                        <state key="normal" title="免费试用1个月"/>
                         <connections>
                             <action selector="btYearAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bek-Kh-1k6"/>
                         </connections>
