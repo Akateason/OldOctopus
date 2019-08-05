@@ -33,13 +33,13 @@
     
     self.lbPrivacy.userInteractionEnabled = self.lbService.userInteractionEnabled = YES ;
     [self.lbPrivacy bk_whenTapped:^{
-        NSString *urlStr = @"https://octopus.smcdn.cn/shared/e564c544a6f2c5f2e430620b04076896.html" ;
+        NSString *urlStr = @"https://shimo.im/octopus#/privacy" ;
         NSURL *url = [NSURL URLWithString:urlStr] ;
         [[UIApplication sharedApplication] openURL:url];
     }] ;
     
     [self.lbService bk_whenTapped:^{
-        NSString *urlStr = @"https://octopus.smcdn.cn/shared/597dbdfb29c074be7d94040603a3555d.html" ;
+        NSString *urlStr = @"https://shimo.im/octopus#/terms" ;
         NSURL *url = [NSURL URLWithString:urlStr] ;
         [[UIApplication sharedApplication] openURL:url];
     }] ;
