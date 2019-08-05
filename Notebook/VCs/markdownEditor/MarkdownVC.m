@@ -298,6 +298,8 @@
          if (num != -1) {
              [self.editor hideKeyboard] ;
          }
+         
+//         [self.editor setSideFlex] ;
         
      }] ;
     
