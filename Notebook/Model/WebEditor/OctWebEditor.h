@@ -48,6 +48,8 @@ static const float k_side_margin = 100. ;
 - (void)getAllPhotos:(void(^)(NSString *json))complete ;
 
 - (void)changeTheme ;
+- (void)setupSettings ;
+
 - (void)renderNote ;
 - (void)setSideFlex ;
 - (void)setEditable:(BOOL)editable ;

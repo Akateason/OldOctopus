@@ -284,26 +284,26 @@ XT_SINGLETON_M(OctWebEditor)
     [self changeTheme] ;
     
     [self setupSettings] ;
-    
+}
+
+- (void)doSomethingWhenNoteHasLoaded {
     [self renderNote] ;
-    
     [self nativeCallJSWithFunc:@"setEditorScrollOffset" json:@"0" completion:^(NSString *val, NSError *error) {}] ;
-    
     if (_isFirstTimeLoad) {
         _isFirstTimeLoad = NO ;
     }
     else {
         if ( !self.aNote.content.length &&
             (
-              [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default ||
+             [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default ||
              (
               [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 &&
               [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon
               )
              )
             ) {
-                 
-                 [self openKeyboard] ;             
+            
+            [self openKeyboard] ;
         }
     }
     
@@ -311,6 +311,8 @@ XT_SINGLETON_M(OctWebEditor)
         [self setEditable:NO] ;
     }
 }
+
+
 
 - (void)setupSettings {
     SettingSave *sSave = [SettingSave fetch] ;
@@ -339,7 +341,7 @@ static const float kOctEditorToolBarHeight = 41. ;
     _aNote = aNote ;
     
     self.firstTimeArticle = aNote.content ;
-    [self setupJSCoreWhenFinishLoad] ;
+    [self doSomethingWhenNoteHasLoaded] ;
 }
 
 - (BOOL)articleAreTheSame {
@@ -425,6 +427,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self setupJSCoreWhenFinishLoad] ;
+    [self doSomethingWhenNoteHasLoaded] ;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self enableKeyboardDisplayAutomatically] ;
