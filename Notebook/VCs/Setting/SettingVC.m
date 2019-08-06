@@ -21,6 +21,7 @@
 #import "NoteBooks.h"
 #import "UIView+OctupusExtension.h"
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
+#import "OctWebEditor.h"
 
 @interface SettingVC ()
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -66,6 +67,12 @@
         
         self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
     }] ;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated] ;
+    
+    [[OctWebEditor sharedInstance] setupSettings] ;
 }
 
 - (void)prepareUI {
