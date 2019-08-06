@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <XTlib/XTlib.h>
-#import "XTCloudHandler.h"
 #import <XTFMDB/XTFMDB.h>
 
 typedef enum : NSUInteger {

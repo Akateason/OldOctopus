@@ -172,7 +172,7 @@
 		8F7B2ED522C61D0B000018DE /* sunshine.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2ED322C61D0B000018DE /* sunshine.json */; };
 		8F7C8EC222C1F70F005731FA /* nav_back_reverse_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */; };
 		8F81B83F22F95C9E00DFFEDB /* AppstoreCommentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F81B83E22F95C9E00DFFEDB /* AppstoreCommentUtil.m */; };
-		8F81B84322F971E300DFFEDB /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F81B84222F971E200DFFEDB /* web.zip */; };
+		8F81B84B22F97C2000DFFEDB /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F81B84A22F97C2000DFFEDB /* web.zip */; };
 		8F90189522E9BDE600D1BA4B /* IapPaySuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F90189322E9BDE600D1BA4B /* IapPaySuccessCell.m */; };
 		8F90189622E9BDE600D1BA4B /* IapPaySuccessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */; };
 		8F931B9B228E89F800F73219 /* home_top_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9A228E89F800F73219 /* home_top_note@2x.png */; };
@@ -603,7 +603,7 @@
 		8F81B83E22F95C9E00DFFEDB /* AppstoreCommentUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppstoreCommentUtil.m; sourceTree = "<group>"; };
 		8F81B84022F96D9400DFFEDB /* OctPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctPrefixHeader.pch; sourceTree = "<group>"; };
 		8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctNotificationHeader.h; sourceTree = "<group>"; };
-		8F81B84222F971E200DFFEDB /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
+		8F81B84A22F97C2000DFFEDB /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F90189222E9BDE600D1BA4B /* IapPaySuccessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IapPaySuccessCell.h; sourceTree = "<group>"; };
 		8F90189322E9BDE600D1BA4B /* IapPaySuccessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IapPaySuccessCell.m; sourceTree = "<group>"; };
 		8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IapPaySuccessCell.xib; sourceTree = "<group>"; };
@@ -1084,7 +1084,7 @@
 				8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8F81B84222F971E200DFFEDB /* web.zip */,
+				8F81B84A22F97C2000DFFEDB /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -1898,7 +1898,7 @@
 				8FFAE112229CDAF400CDAC47 /* verilog.plist in Resources */,
 				8F7A8436223BD1780099E905 /* introUseICloud.md in Resources */,
 				8FEA9E46225AFEF1002A756B /* nb_right_fish@2x.png in Resources */,
-				8F81B84322F971E300DFFEDB /* web.zip in Resources */,
+				8F81B84B22F97C2000DFFEDB /* web.zip in Resources */,
 				8FA2295122645CF600D736E2 /* md_ed_more@2x.png in Resources */,
 				8F12DA90226D9F3600265563 /* HomeSearchCell.xib in Resources */,
 				8F7A84452244BA9D0099E905 /* nav_back_item@2x.png in Resources */,
