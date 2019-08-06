@@ -30,7 +30,7 @@
 #import "IapUtil.h"
 #import "IAPSubscriptionVC.h"
 #import "MDEKeyboardPhotoView.h"
-
+#import "AppstoreCommentUtil.h"
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -517,6 +517,9 @@ return;}
         
         [self.editor leavePage] ;
     }] ;
+    
+    
+    [AppstoreCommentUtil jumpReviewAfterNoteRead] ;
 }
 
 

@@ -26,6 +26,7 @@
 #import "OctWebEditor.h"
 #import <SSZipArchive/SSZipArchive.h>
 #import <Photos/Photos.h>
+#import "AppstoreCommentUtil.h"
 
 
 
@@ -51,6 +52,11 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupIcloudEvent] ; // get User. Then Pull or Sync .
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
+    [self setupAppComment] ;
+}
+
+- (void)setupAppComment {
+    [AppstoreCommentUtil setup] ;
 }
 
 - (void)setupAlbumn {
