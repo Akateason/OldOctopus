@@ -16,6 +16,8 @@
 #import "IAPSubscriptionVC.h"
 #import "IapUtil.h"
 #import "IAPSuccessSubscriptionVC.h"
+#import "XTCloudHandler.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @implementation SettingCell
 
@@ -67,19 +69,25 @@
         [[UIApplication sharedApplication] openURL:url];
     }
     else if ([title containsString:@"订阅"]) {
-        [IapUtil iapVipUserIsValid:^(BOOL isValid) {
-            
-            if (isValid) {
-                IAPSuccessSubscriptionVC *vc = [IAPSuccessSubscriptionVC getMe] ;
-                [self.xt_navigationController pushViewController:vc animated:YES] ;
-            }
-            else {
-                IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
-                [self.xt_navigationController pushViewController:vc animated:YES] ;
-            }
-        }] ;
-        
-        
+        if ([XTIcloudUser hasLogin]) {
+            [IapUtil iapVipUserIsValid:^(BOOL isValid) {
+                
+                if (isValid) {
+                    IAPSuccessSubscriptionVC *vc = [IAPSuccessSubscriptionVC getMe] ;
+                    [self.xt_navigationController pushViewController:vc animated:YES] ;
+                }
+                else {
+                    IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
+                    [self.xt_navigationController pushViewController:vc animated:YES] ;
+                }
+            }] ;
+        }
+        else {
+            [SVProgressHUD showInfoWithStatus:@"请登录"] ;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [XTIcloudUser alertUserToLoginICloud] ;
+            }) ;
+        }
     }
 }
 

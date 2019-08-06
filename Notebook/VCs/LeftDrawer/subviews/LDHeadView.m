@@ -81,6 +81,18 @@
         self.btTheme.hidden = NO ;
     }] ;
     
+    self.userHead.userInteractionEnabled = self.lbName.userInteractionEnabled = YES ;
+    [self.userHead bk_whenTapped:^{
+        if (![XTIcloudUser hasLogin]) {
+            [XTIcloudUser alertUserToLoginICloud] ;
+        }
+    }] ;
+    
+    [self.lbName bk_whenTapped:^{
+        if (![XTIcloudUser hasLogin]) {
+            [XTIcloudUser alertUserToLoginICloud] ;
+        }
+    }] ;
 }
 
 - (void)setupUser {
