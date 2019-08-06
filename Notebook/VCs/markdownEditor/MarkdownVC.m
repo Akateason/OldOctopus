@@ -262,6 +262,20 @@
         [self clearArticleInIpad] ;
     }] ;
     
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIDeviceOrientationDidChangeNotification object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+            if ([GlobalDisplaySt sharedInstance].containerSize.width < [GlobalDisplaySt sharedInstance].containerSize.height) {
+                float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
+                self.emptyView.centerX = newWid ;
+            }
+            else {
+                self.emptyView.left = 0 ;
+            }
+        }
+    }] ;
+    
     [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
        deliverOnMainThread]
        takeUntil:self.rac_willDeallocSignal]
@@ -298,8 +312,6 @@
          if (num != -1) {
              [self.editor hideKeyboard] ;
          }
-         
-//         [self.editor setSideFlex] ;
         
      }] ;
     
@@ -307,7 +319,6 @@
         @strongify(self)
         
         if (!self.isSnapshoting) return ;
-//        NSLog(@"wwwww : %@", x) ;
         
         float textHeight = [x floatValue] ;
         if ( textHeight < APP_HEIGHT) textHeight += 100. ;
@@ -653,8 +664,6 @@ return;}
 }
 
 - (void)snapShotFullScreen:(NSString *)htmlString {
-//    NSLog(@"sssssss") ;
-
     [self dismissViewControllerAnimated:YES completion:nil] ;
     
     [[OctMBPHud sharedInstance] show] ;
@@ -698,8 +707,6 @@ return;}
     if ([func isEqualToString:@"snapshotHeight"]) {
         float textHeight = [ret[@"params"] floatValue] ;
         [self.outputPhotoSubject sendNext:@(textHeight)] ;
-//        [self.outputPhotoSubject sendCompleted] ;
-//        NSLog(@"fffffff") ;
     }
 }
 
@@ -732,8 +739,13 @@ return;}
 
 - (void)animateMoveState:(BOOL)drawerOpened {
     if (drawerOpened) {
-        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
-        self.emptyView.centerX = newWid ;
+        if ([GlobalDisplaySt sharedInstance].containerSize.width > [GlobalDisplaySt sharedInstance].containerSize.height) {
+            float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
+            self.emptyView.centerX = newWid ;
+        }
+        else {
+            self.emptyView.left = 0 ;
+        }
     }
     else {
         float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
@@ -744,7 +756,6 @@ return;}
 #pragma mark - HomePadVCDelegate <NSObject>
 
 - (void)moveRelativeViewsOnState:(bool)stateOn {
-
     // normal
     if (stateOn) {
         self.emptyView.centerX = self.view.centerX ;
@@ -756,7 +767,6 @@ return;}
         
         self.editor.left = [MarkdownVC getEditorLeftIpad] ;
     }
-
 }
 
 #pragma mark - prop
@@ -807,7 +817,6 @@ return;}
         _emptyView.hidden = YES ;
     }
     _emptyView.height = APP_HEIGHT - self.topBar.bottom ;
-    // _emptyView.left = self.view.left ;
     _emptyView.top = self.topBar.bottom ;
     _emptyView.width = [GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView ;
     return _emptyView ;
