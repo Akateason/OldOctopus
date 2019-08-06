@@ -7,9 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <XTlib/XTlib.h>
-#import "XTCloudHandler.h"
-#import "Note.h"
 #import "GlobalDisplaySt.h"
 #import "HomePadVC.h"
 #import "HomeVC.h"

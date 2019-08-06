@@ -10,8 +10,7 @@
 #import "HomeEmptyPHView.h"
 #import "OctWebEditor.h"
 
-static NSString *const kNote_pad_Editor_OnClick = @"kNote_pad_Editor_OnClick" ;
-static NSString *const kNote_pad_Editor_PullBack = @"kNote_pad_Editor_PullBack" ;
+
 
 @protocol MarkdownVCDelegate <NSObject>
 - (void)addNoteComplete:(Note *)aNote ;

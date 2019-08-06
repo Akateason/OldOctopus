@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString *const kNote_User_Open_Camera = @"kNote_User_Open_Camera" ;
+
 
 NS_ASSUME_NONNULL_BEGIN
 

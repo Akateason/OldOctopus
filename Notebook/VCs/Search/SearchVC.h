@@ -8,7 +8,7 @@
 
 #import "BasicVC.h"
 
-static NSString *const kNote_SearchVC_On_Window = @"kNote_SearchVC_On_Window" ;
+
 
 NS_ASSUME_NONNULL_BEGIN
 

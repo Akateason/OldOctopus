@@ -14,9 +14,7 @@
 #import "OctToolbar.h"
 
 
-static NSString *const kNote_Editor_CHANGE          = @"kNote_Editor_CHANGE" ;
-static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Photo" ;
-static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_Html" ;
+
 static const float k_side_margin = 100. ;
 
 @interface OctWebEditor : UIView {
