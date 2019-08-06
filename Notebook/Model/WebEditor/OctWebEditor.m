@@ -554,8 +554,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 // 禁止键盘弹起时滚动 webView
-- (void)disableAdjustScrollViewWithUserInteracting:(id)contentView
-{
+- (void)disableAdjustScrollViewWithUserInteracting:(id)contentView {
     WKWebView *webView = [contentView valueForKey:@"_webView"];
     _contentOffsetBeforeScroll = webView.scrollView.contentOffset;
     webView.scrollView.delegate = self;
@@ -683,8 +682,5 @@ static const float kOctEditorToolBarHeight = 41. ;
     [self nativeCallJSWithFunc:@"selectAll" json:nil completion:^(NSString *val, NSError *error) {
     }] ;
 }
-
-
-
 
 @end
