@@ -494,7 +494,7 @@
 
 + (CGFloat)movingDistance {
     if (IS_IPAD) {
-        return 250. ; // 200.
+        return 230. ; // 200.
     }
     return  62. / 75. * APP_WIDTH ;
 }

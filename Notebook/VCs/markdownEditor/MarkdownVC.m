@@ -206,8 +206,10 @@
             ![self.aNote.noteBookId isEqualToString:book.icRecordName]
             &&
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1
-            && !self.isNewFromIpad
+            &&
+            self.isNewFromIpad
             ) {
+            // 点击其他笔记本，清空当前的笔记。
             [self clearArticleInIpad] ;
         }
         
@@ -259,20 +261,6 @@
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Delete_Note_In_Pad object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self clearArticleInIpad] ;
-    }] ;
-    
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIDeviceOrientationDidChangeNotification object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-            if ([GlobalDisplaySt sharedInstance].containerSize.width < [GlobalDisplaySt sharedInstance].containerSize.height) {
-                float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
-                self.emptyView.centerX = newWid ;
-            }
-            else {
-                self.emptyView.left = 0 ;
-            }
-        }
     }] ;
     
     [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
@@ -738,13 +726,13 @@ return;}
 
 - (void)animateMoveState:(BOOL)drawerOpened {
     if (drawerOpened) {
-        if ([GlobalDisplaySt sharedInstance].containerSize.width > [GlobalDisplaySt sharedInstance].containerSize.height) {
+//        if ([GlobalDisplaySt sharedInstance].containerSize.width > [GlobalDisplaySt sharedInstance].containerSize.height) {
             float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
             self.emptyView.centerX = newWid ;
-        }
-        else {
-            self.emptyView.left = 0 ;
-        }
+//        }
+//        else {
+//            self.emptyView.left = 0 ;
+//        }
     }
     else {
         float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
