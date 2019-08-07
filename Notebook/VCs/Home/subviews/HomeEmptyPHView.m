@@ -29,7 +29,6 @@
     if (!_trashEmptyView) {
         _trashEmptyView = [HomeTrashEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         [self addSubview:_trashEmptyView] ;
-//        _trashEmptyView.backgroundColor = [UIColor redColor] ;
         [_trashEmptyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self) ;
         }] ;
@@ -45,22 +44,41 @@
 
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.imgIcon.xt_theme_imageColor = k_md_iconColor ;
-    self.area.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
-    self.lbPh.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    
+    if ([[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"light"]) {
+        self.area.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    }
+    else {
+        self.area.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_midDrawerPadColor) ;
+    }
+    
+    @weakify(self)
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)        
+        if ([[MDThemeConfiguration sharedInstance].currentThemeKey isEqualToString:@"light"]) {
+            self.area.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        }
+        else {
+            self.area.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_midDrawerPadColor) ;
+        }
+    }] ;
+    
+    
+    self.lbPh.xt_theme_textColor = k_md_iconColor ;  //XT_MAKE_theme_color(k_md_textColor, .6) ;
     self.lbTitle.font = [UIFont systemFontOfSize:18] ;
     
     self.lbPh.textAlignment = IS_IPAD ? NSTextAlignmentLeft : NSTextAlignmentCenter ;
     
     self.area.layer.cornerRadius = 10 ;
-    self.area.xt_borderColor = [UIColor colorWithRed:51./255.0 green:51./255.0 blue:51./255.0 alpha:0.06] ;
+    self.area.xt_borderColor = [UIColor colorWithRed:51./255.0 green:51./255.0 blue:51./255.0 alpha:0.16] ;
     self.area.xt_borderWidth = .5 ;
     
-    self.area.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.06].CGColor;
-    self.area.layer.shadowOffset = CGSizeMake(0,4) ;
+    self.area.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.10].CGColor;
+    self.area.layer.shadowOffset = CGSizeMake(0,6) ; //CGSizeMake(0,4) ;
     self.area.layer.shadowOpacity = 40 ;
-    self.area.layer.shadowRadius = 10 ;
+    self.area.layer.shadowRadius = 8 ; //10 ;
     
-    @weakify(self)
+    
     [[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSDate * _Nullable x) {
         
         @strongify(self)
