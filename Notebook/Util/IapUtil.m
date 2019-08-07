@@ -120,5 +120,22 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
 }
 
 
+- (void)productInfo:(NSString *)identifier complete:(void(^)(SKProduct *product))completion {
+    [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response) {
+        if (response > 0 ) {
+            for (SKProduct *product in [IAPShare sharedHelper].iap.products) {
+                if ([product.productIdentifier isEqualToString:identifier]) {
+                    NSLog(@"Price: %@",[[IAPShare sharedHelper].iap getLocalePrice:product]) ;
+                    NSLog(@"Title: %@",product.localizedTitle);
+                    completion(product) ;
+                }
+            }
+        }
+        
+    }] ;
+
+}
+
+
 
 @end

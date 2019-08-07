@@ -28,6 +28,21 @@
     
     
     self.iap = [IapUtil new] ;
+    
+    WEAK_SELF
+    [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response) {
+        if (response > 0 ) {
+            for (SKProduct *product in [IAPShare sharedHelper].iap.products) {
+                NSString *title = XT_STR_FORMAT(@"%@ 订阅",[[IAPShare sharedHelper].iap getLocalePrice:product]) ;
+                if ([product.productIdentifier isEqualToString:k_IAP_ID_MONTH]) {
+                     [weakSelf.btMonth setTitle:title forState:0] ;
+                }
+                else if ([product.productIdentifier isEqualToString:k_IAP_ID_YEAR]) {
+                    [weakSelf.btYear setTitle:title forState:0] ;
+                }
+            }
+        }
+    }] ;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

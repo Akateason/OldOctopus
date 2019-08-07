@@ -21,6 +21,7 @@ static NSString *const k_IAP_ID_YEAR  = @"iap.octopus.year" ;
 - (void)setup ;
 
 - (void)buy:(NSString *)identifier ;
+- (void)productInfo:(NSString *)identifier complete:(void(^)(SKProduct *product))completion ;
 
 + (void)saveIapSubscriptionDate:(long long)tick ;
 
