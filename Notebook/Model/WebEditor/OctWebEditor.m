@@ -281,8 +281,6 @@ XT_SINGLETON_M(OctWebEditor)
     
     [self setSideFlex] ;
     
-    [self changeTheme] ;
-    
     [self setupSettings] ;
 }
 
@@ -356,6 +354,12 @@ static const float kOctEditorToolBarHeight = 41. ;
         });
     }
     return _editorCrashSignal ;
+}
+
+- (void)setThemeStr:(NSString *)themeStr {
+    _themeStr = themeStr ;
+    
+    [self changeTheme] ;
 }
 
 #pragma mark --

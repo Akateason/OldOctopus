@@ -175,8 +175,7 @@
       deliverOnMainThread]
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
-         self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
-         [self.editor changeTheme] ;
+         self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;         
      }] ;
     
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] throttle:.5] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
