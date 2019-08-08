@@ -69,9 +69,11 @@
     
     self.lbPh.textAlignment = IS_IPAD ? NSTextAlignmentLeft : NSTextAlignmentCenter ;
     
-    self.area.layer.cornerRadius = 10 ;
+//    self.area.layer.cornerRadius = 10 ;
+    self.area.xt_completeRound = YES ;
     self.area.xt_borderColor = [UIColor colorWithRed:51./255.0 green:51./255.0 blue:51./255.0 alpha:0.16] ;
     self.area.xt_borderWidth = .5 ;
+    self.area.layer.masksToBounds = NO ;
     
     self.area.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.10].CGColor;
     self.area.layer.shadowOffset = CGSizeMake(0,6) ; //CGSizeMake(0,4) ;
