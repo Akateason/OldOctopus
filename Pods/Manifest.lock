@@ -33,6 +33,9 @@ PODS:
   - CHTCollectionViewWaterfallLayout (0.9.7):
     - CHTCollectionViewWaterfallLayout/ObjC (= 0.9.7)
   - CHTCollectionViewWaterfallLayout/ObjC (0.9.7)
+  - CocoaLumberjack (3.5.3):
+    - CocoaLumberjack/Core (= 3.5.3)
+  - CocoaLumberjack/Core (3.5.3)
   - CYLTableViewPlaceHolder (1.0.9)
   - EllipsePageControl (0.0.4)
   - FDFullscreenPopGesture (1.1)
@@ -106,6 +109,7 @@ PODS:
 
 DEPENDENCIES:
   - Bugly
+  - CocoaLumberjack
   - EllipsePageControl
   - IAPHelper
   - iosMath
@@ -128,6 +132,7 @@ SPEC REPOS:
     - BlocksKit
     - Bugly
     - CHTCollectionViewWaterfallLayout
+    - CocoaLumberjack
     - CYLTableViewPlaceHolder
     - EllipsePageControl
     - FDFullscreenPopGesture
@@ -165,6 +170,7 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CHTCollectionViewWaterfallLayout: 9d11068fafecac106695bb5a5d6d0f738483b598
+  CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
   CYLTableViewPlaceHolder: 678e070180a24e2f241adc7830d5d7f5e2abbaa5
   EllipsePageControl: d6c436006d72119c6cbba45af6648d15a7af7d3a
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
@@ -197,6 +203,6 @@ SPEC CHECKSUMS:
   XYIAPKit: 7c50e705d1cee36a6f1588356154f09a35544cd2
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: a0c6e4f1c89aa4cd40ea24bfe1c5704af339c8c9
+PODFILE CHECKSUM: b52bf4a6f57c5eeaed385fa51d6c0a3a7788e33e
 
 COCOAPODS: 1.6.1

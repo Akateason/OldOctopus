@@ -20,6 +20,7 @@ target 'Notebook' do
   pod 'MGSwipeTableCell'
   pod 'IAPHelper'
   pod 'XYIAPKit'
+  pod 'CocoaLumberjack'
 
 
 end
