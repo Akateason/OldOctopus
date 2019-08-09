@@ -14,7 +14,7 @@
 // 共享沙盒密钥
 static NSString *const kAPP_SHARE_SECRET = @"5498d6de8ace4f52acd789f795ee9a81" ;
 static NSString *const k_IAP_ID_MONTH = @"iap.octopus.month" ;
-static NSString *const k_IAP_ID_YEAR  = @"iap.octopus.year" ;
+static NSString *const k_IAP_ID_YEAR  = @"iap.octopus.year.90" ;
 
 
 @interface IapUtil : NSObject
