@@ -46,16 +46,5 @@
 			<string></string>
 		</dict>
 	</array>
-    <array>
-        <dict>
-            <key>p</key>
-            <string></string>
-            <key>t</key>
-            <string>当前版本</string>
-            <key>r</key>
-            <string></string>
-        </dict>
-    </array>
-    
 </array>
 </plist>

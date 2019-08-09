@@ -33,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
+@property (strong, nonatomic) UILabel *lbVersionNum ;
+
 @property (copy, nonatomic) NSArray *datasource ;
 @end
 
@@ -111,6 +113,21 @@
     
     NSString *givenName = [XTIcloudUser displayUserName] ;    
     self.lbName.text = givenName ;
+    
+    self.lbVersionNum = ({
+        UILabel *lb = [UILabel new] ;
+        lb.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+        NSString *versionNum = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ;
+        NSString *buildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] ;
+        lb.text = XT_STR_FORMAT(@"v %@ (%@)",versionNum,buildNum) ;
+        lb.font = [UIFont systemFontOfSize:12] ;
+        [self.table addSubview:lb] ;
+        [lb mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view.mas_bottom).offset(-45) ;
+            make.centerX.equalTo(self.view) ;
+        }] ;
+        lb ;
+    }) ;
 }
 
 #pragma mark - UITableViewDataSource<NSObject>
@@ -135,9 +152,6 @@
         else cell.sepLineMode = SettingCellSeperateLine_Mode_Middel ;
     }
     else if (section == 1) {
-        cell.sepLineMode = SettingCellSeperateLine_Mode_ALL_FULL ;
-    }
-    else if (section == 2) {
         cell.sepLineMode = SettingCellSeperateLine_Mode_ALL_FULL ;
     }
     return cell ;
