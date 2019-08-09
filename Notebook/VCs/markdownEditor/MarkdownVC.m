@@ -727,13 +727,8 @@ return;}
 
 - (void)animateMoveState:(BOOL)drawerOpened {
     if (drawerOpened) {
-//        if ([GlobalDisplaySt sharedInstance].containerSize.width > [GlobalDisplaySt sharedInstance].containerSize.height) {
-            float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
-            self.emptyView.centerX = newWid ;
-//        }
-//        else {
-//            self.emptyView.left = 0 ;
-//        }
+        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
+        self.emptyView.centerX = newWid ;
     }
     else {
         float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
