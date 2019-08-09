@@ -201,6 +201,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             }
             NSLog(@"pullall done") ;
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ; // pull all in first time
+            
+            [self createDefaultBookAndNotes] ;
         }] ;
     }] ;
 }
