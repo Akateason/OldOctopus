@@ -54,6 +54,7 @@
 @property (nonatomic)         BOOL              isInTrash ;
 @property (nonatomic)         BOOL              isInShare ;
 @property (nonatomic)         BOOL              isNewFromIpad ;
+@property (nonatomic)         BOOL              isCreateEmptyNote ;
 
 @property (strong, nonatomic) RACSubject        *outputPhotoSubject ;
 @property (nonatomic)         BOOL              isSnapshoting ;
@@ -117,7 +118,7 @@
     if (ctrller != nil) self.delegate = (id <MarkdownVCDelegate>)ctrller ;
     self.myBookID = bookID ;
     self.emptyView.hidden = note != nil ;
-    self.isNewFromIpad = (note == nil) ? 1 : 0 ;
+    self.isCreateEmptyNote = (note == nil) ? 1 : 0 ;
     self.editor.aNote = note ?: [Note new] ;
     self.editor.left = [self.class getEditorLeftIpad] ;
     self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
@@ -207,7 +208,7 @@
             &&
             [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1
             &&
-            self.isNewFromIpad
+            !self.isCreateEmptyNote
             ) {
             // 点击其他笔记本，清空当前的笔记。
             [self clearArticleInIpad] ;
