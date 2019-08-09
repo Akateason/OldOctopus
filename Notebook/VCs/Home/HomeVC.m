@@ -144,7 +144,7 @@
          }] ;
      }] ;
     
-    [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]]
+    [[[RACSignal interval:6 onScheduler:[RACScheduler mainThreadScheduler]]
       takeUntil:self.rac_willDeallocSignal]
      subscribeNext:^(NSDate * _Nullable x) {
          @strongify(self)

@@ -109,6 +109,14 @@
             weakSelf.rightTip.text = isValid ? @"已订阅" : model[@"r"] ;
         }] ;
     }
+    else if ([title containsString:@"当前版本"]) {
+        NSString *versionNum = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ;
+        NSString *buildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] ;
+        self.rightTip.text = XT_STR_FORMAT(@"%@ (%@)",versionNum,buildNum) ;
+        self.rightCorner.hidden = YES ;
+    }
+        
+        
 }
 
 - (void)setSepLineMode:(SettingCellSeperateLine_Mode)sepLineMode {

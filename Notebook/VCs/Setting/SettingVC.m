@@ -137,6 +137,9 @@
     else if (section == 1) {
         cell.sepLineMode = SettingCellSeperateLine_Mode_ALL_FULL ;
     }
+    else if (section == 2) {
+        cell.sepLineMode = SettingCellSeperateLine_Mode_ALL_FULL ;
+    }
     return cell ;
 }
 
