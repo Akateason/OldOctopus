@@ -65,6 +65,20 @@ XT_SINGLETON_M(GuidingICloud)
         make.edges.equalTo(self.btOpen) ;
     }] ;
     
+    @weakify(self)
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+            
+            if (user != nil) {
+                [self removeFromSuperview] ;
+                [SVProgressHUD showSuccessWithStatus:@"已登录成功"] ;
+            }
+        }] ;
+    }] ;
+    
+    
     WEAK_SELF
     [self.btOpen bk_whenTapped:^{
         //Specifically, your app uses the following non-public URL scheme:

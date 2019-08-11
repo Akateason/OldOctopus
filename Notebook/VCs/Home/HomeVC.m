@@ -309,10 +309,7 @@
             self.animationSync.hidden = YES ;
         }
     }] ;
-    
-//    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-//    }] ;
-    
+        
     if (IS_IPAD) {
         UIView *sideLine = [UIView new] ;
         sideLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
