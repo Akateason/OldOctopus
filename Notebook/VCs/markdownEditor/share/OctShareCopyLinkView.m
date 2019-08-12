@@ -18,7 +18,7 @@
               link:(NSString *)link
           complete:(OctCompletion)completeBlk {
     
-    OctShareCopyLinkView *share = [OctShareCopyLinkView xt_newFromNib] ;
+    OctShareCopyLinkView *share = [OctShareCopyLinkView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     [onView addSubview:share] ;
     share.tf.text = link ;
     [share mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -15,7 +15,6 @@
 
 - (void)setup {
     if (![IAPShare sharedHelper].iap) {
-//        NSSet *dataSet = [[NSSet alloc] initWithObjects:@"iap.octopus.month",@"iap.octopus.year",@"iap.test", nil] ;
         NSSet *dataSet = [[NSSet alloc] initWithObjects:k_IAP_ID_MONTH,k_IAP_ID_YEAR, nil] ;
         [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet] ;
     }
@@ -25,8 +24,6 @@
 #else
     [IAPShare sharedHelper].iap.production = YES;
 #endif
-
-//    NSLog(@"purchasedProducts %@",[IAPShare sharedHelper].iap.purchasedProducts);
 }
 
 static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
@@ -82,7 +79,10 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
     if (localTick > 0) {
         localTick = localTick / 1000. ;
         long long nowTick = [[NSDate date] xt_getTick] ;
-        NSLog(@"vip %lld - now %lld 是否vip %d 截止日:%@", localTick, nowTick, nowTick <= localTick, [NSDate xt_getStrWithTick:localTick]) ;
+        if (nowTick <= localTick) {
+            DDLogDebug(@"是vip");
+        }
+//        NSLog(@"vip %lld - now %lld 是否vip %d 截止日:%@", localTick, nowTick, nowTick <= localTick, [NSDate xt_getStrWithTick:localTick]) ;
         return nowTick <= localTick ;
     }
     
