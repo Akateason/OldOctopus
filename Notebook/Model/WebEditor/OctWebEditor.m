@@ -88,7 +88,7 @@ XT_SINGLETON_M(OctWebEditor)
                 else {
                     self.toolBar.top = endKeyboardRect.origin.y - kOctEditorToolBarHeight;
                 }
-                NSLog(@"toolbar top : %f", self.toolBar.top) ;
+//                NSLog(@"toolbar top : %f", self.toolBar.top) ;
                 self.toolBar.hidden = NO ;
                 [self.toolBar setNeedsLayout] ;
                 [self.toolBar layoutIfNeeded] ;
@@ -180,18 +180,17 @@ XT_SINGLETON_M(OctWebEditor)
     [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
 }
 
-// WKScriptMessageHandler delegate
+#pragma mark - WKScriptMessageHandler delegate
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message {
-    
 //    NSString *name = message.name ; // 就是上边注入到 JS 的哪个名字，在这里是 nativeMethod
     NSString *body = message.body ;       // 就是 JS 调用 Native 时，传过来的 value
-    NSLog(@"%@", body) ;
+    
     NSDictionary *ret = [WebModel convertjsonStringToJsonObj:body] ;
     NSString *func = ret[@"method"] ;
     NSDictionary *jsonDic = ret[@"params"] ;
     NSString *json = [jsonDic yy_modelToJSONString] ;
-    NSLog(@"WebViewBridge func : %@\njson : %@",func,jsonDic) ;
+    DLogINFO(@"WebViewBridge Func : %@\njson : %@",func,jsonDic) ;
     
     if ([func isEqualToString:@"change"]) {
         WebModel *model = [WebModel yy_modelWithJSON:jsonDic] ;
@@ -387,10 +386,9 @@ static const float kOctEditorToolBarHeight = 41. ;
     json = !json ? @"''" : json ;
     
     NSString *js = XT_STR_FORMAT(@"WebViewBridgeCallback({\"method\":\"%@\"}, %@)",func,json) ;
-//    NSLog(@"js : %@",js) ;
     [_webView evaluateJavaScript:js completionHandler:^(id _Nullable val, NSError * _Nullable error) {
-        NSLog(@"js:%@, val:%@",js,val) ;
-        if (error) NSLog(@"%@", error) ;
+        DLogINFO(@"js : %@\nreturn : %@",js,val) ;
+        if (error) DLogERR(@"%@", error) ;
         if (completion) completion(val, error) ;
     }] ;    
 }
@@ -409,9 +407,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 - (void)renderNote {
-    NSLog(@"renderNote setMarkdown : %@",self.aNote.content) ;
     WEAK_SELF
-//    NSDictionary *dic = @{@"markdown":weakSelf.aNote.content ?: @"", @"isRenderCursor": @(self.isCreateNew) } ;
     NSDictionary *dic = @{@"markdown":weakSelf.aNote.content ?: @"", @"isRenderCursor": @0 } ;
     [self nativeCallJSWithFunc:@"setMarkdown" json:dic completion:^(NSString *val, NSError *error) {
         if (!error) {
@@ -448,11 +444,11 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    NSLog(@"error: %@",error) ;
+    DLogERR(@"error: %@",error) ;
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    NSLog(@"error: %@",error) ;
+    DLogERR(@"error: %@",error) ;
 }
 
 #pragma mark --
@@ -682,7 +678,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 //}
 
 - (void)selectAll:(UIMenuController *)menu {
-    NSLog(@"%s %@", __func__, menu);
+//    NSLog(@"%s %@", __func__, menu);
     [self nativeCallJSWithFunc:@"selectAll" json:nil completion:^(NSString *val, NSError *error) {
     }] ;
 }

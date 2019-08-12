@@ -27,7 +27,7 @@
 #import <SSZipArchive/SSZipArchive.h>
 #import <Photos/Photos.h>
 #import "AppstoreCommentUtil.h"
-
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 
 
@@ -42,6 +42,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [Bugly startWithAppId:@"8abe605307"] ;
 
     self.appDelegate = appDelegate ;
+    [self setupCocoaLumberjack] ;
     [[MDThemeConfiguration sharedInstance] setup] ;
     [self setupWebZipPackageAndSetupWebView] ;
     [self setupRemoteNotification:application] ;
@@ -53,6 +54,15 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
     [self setupAppComment] ;
+}
+
+- (void)setupCocoaLumberjack {
+    [DDLog addLogger:[DDOSLogger sharedInstance]] ;
+    
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] init] ;
+    fileLogger.rollingFrequency = 60 * 60 * 24 ; // 24 hour rolling
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7 ;
+    [DDLog addLogger:fileLogger] ;
 }
 
 - (void)setupAppComment {

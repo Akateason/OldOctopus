@@ -321,7 +321,6 @@
         [self.webView setNeedsLayout] ;
         [self.webView layoutIfNeeded] ;
         
-
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
             UIGraphicsBeginImageContextWithOptions(snapSize, true,  [UIScreen mainScreen].scale) ;
@@ -343,7 +342,6 @@
                 [self.snapBgView addSubview:self.nail] ;
                 self.snapBgView.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
                 image = [UIImage getImageFromView:self.snapBgView] ;
-
 
                 [self.nail removeFromSuperview] ;
                 self.nail = nil ;
