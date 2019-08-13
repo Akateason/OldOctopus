@@ -17,8 +17,9 @@
 #import "OctMBPHud.h"
 #import "IapUtil.h"
 #import "OctRequestUtil.h"
+#import <XTIAP/XTIAP.h>
 
-@interface AppDelegate () <SKPaymentTransactionObserver>
+@interface AppDelegate ()
 
 @end
 
@@ -29,43 +30,16 @@
         
 }
 
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
-    for (SKPaymentTransaction *transaction in transactions) {
-        NSLog(@"transactionState %ld",(long)transaction.transactionState) ;
-        
-        if (transaction.transactionState == SKPaymentTransactionStatePurchased
-            ) {
-            
-//#ifdef DEBUG
-            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:kAPP_SHARE_SECRET onCompletion:^(NSString *response, NSError *error) {
-                [self dealReciept:response transaction:transaction error:error] ;
-            }] ;
-//#else
-//            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] onCompletion:^(NSString *response, NSError *error) {
-//                [self dealReciept:response transaction:transaction error:error] ;
-//            }] ;
-//#endif
-        }
-        else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
-            [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
-        }
-        else if (transaction.transactionState == SKPaymentTransactionStatePurchasing) {
-            [[OctMBPHud sharedInstance] hide] ;
-        }
-    }
-}
 
-- (void)dealReciept:(NSString *)response
+// 验证票据
+- (void)dealReciept:(NSDictionary *)rec
         transaction:(SKPaymentTransaction *)transaction
               error:(NSError *)error {
     
     if (!error) {
-        NSDictionary* rec = [IAPShare toJSON:response];
         NSInteger status = [rec[@"status"] integerValue]  ;
         if ( status == 0 ) {
-            [[IAPShare sharedHelper].iap provideContentWithTransaction:transaction];
-            NSLog(@"SUCCESS %@",response);
-            NSLog(@"Pruchases %@",[IAPShare sharedHelper].iap.purchasedProducts);
+            NSLog(@"iap SUCCESS") ;
             
             NSDictionary *dictLatestReceiptsInfo = rec[@"latest_receipt_info"];
             long long int expirationDateMs = [[dictLatestReceiptsInfo valueForKeyPath:@"@max.expires_date_ms"] longLongValue] ; // 结束时间
@@ -79,33 +53,29 @@
             [OctRequestUtil setIapInfoExpireDateTick:expirationDateMs complete:^(BOOL success) {
                 
                 if (success) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
-                    
                     // finish transaction .
-                    [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+                    if ([SKPaymentQueue defaultQueue]) {
+                        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+                    }
                     // 设置本地
                     [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
                     // 订阅成功之后 pull all
                     [weakSelf.launchingEvents pullAll] ;
+                    // Notificate
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
                 }
-            }] ;
-        }
-        else if (status == 21007) {
-            [IAPShare sharedHelper].iap.production = NO;
-            [[IAPShare sharedHelper].iap checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] AndSharedSecret:kAPP_SHARE_SECRET onCompletion:^(NSString *response, NSError *error) {
-                [self dealReciept:response transaction:transaction error:error] ;
             }] ;
         }
         else {
             NSLog(@"Fail : %@",rec) ;
-            NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",response,error) ;
+            NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",rec,error) ;
             [SVProgressHUD showErrorWithStatus:res] ;
         }
 
     }
     else {
         NSLog(@"Fail : %@",error) ;
-        NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",response,error) ;
+        NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",rec,error) ;
         [SVProgressHUD showErrorWithStatus:res] ;
     }
 }
@@ -117,20 +87,52 @@
     
     if (IS_IPAD) [[UIApplication sharedApplication] setStatusBarHidden:YES] ;
     
-    // iap observer
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self] ; // 处理iap回调
     IapUtil *iap = [IapUtil new] ;
     [iap setup] ;
     [IapUtil geteIapStateFromSever] ;
+    // SKPaymentQueue callback
+    [XTIAP sharedInstance].g_transactionBlock = ^(SKPaymentTransaction *transaction) {
+
+        NSLog(@"transactionState %ld",(long)transaction.transactionState) ;
+        if (transaction.transactionState == SKPaymentTransactionStatePurchased
+            ) {
+            
+#ifdef DEBUG
+            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:YES onCompletion:^(NSDictionary *json, NSError *error) {
+                [self dealReciept:json transaction:transaction error:error] ;
+            }] ;
+#else
+            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:NO onCompletion:^(NSDictionary *json, NSError *error) {
+                [self dealReciept:json transaction:transaction error:error] ;
+            }] ;
+#endif
+
+        }
+        else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
+            if ([SKPaymentQueue defaultQueue]) {
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+            }
+        }
+        else if (transaction.transactionState == SKPaymentTransactionStatePurchasing) {
+            [[OctMBPHud sharedInstance] hide] ;
+        }
+        else if (transaction.transactionState == SKPaymentTransactionStateFailed) {
+            if ([SKPaymentQueue defaultQueue]) {
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+            }
+        }
+    } ;
+    
     
     // lauching events
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
     [self.launchingEvents setup:application appdelegate:self] ;
 
-    //
+    
+    // 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
     NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
     if ([num intValue] != 1) {
-        // 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
+        
         @weakify(self)
         [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]] take:3] subscribeNext:^(NSDate * _Nullable x) {
             @strongify(self)

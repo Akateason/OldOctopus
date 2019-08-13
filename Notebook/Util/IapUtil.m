@@ -14,16 +14,9 @@
 @implementation IapUtil
 
 - (void)setup {
-    if (![IAPShare sharedHelper].iap) {
-        NSSet *dataSet = [[NSSet alloc] initWithObjects:k_IAP_ID_MONTH,k_IAP_ID_YEAR, nil] ;
-        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet] ;
-    }
-    
-#ifdef DEBUG
-    [IAPShare sharedHelper].iap.production = NO;
-#else
-    [IAPShare sharedHelper].iap.production = YES;
-#endif
+    NSSet *dataSet = [[NSSet alloc] initWithObjects:k_IAP_ID_MONTH,k_IAP_ID_YEAR, nil] ;
+    [[XTIAP sharedInstance] setup:dataSet] ;
+    [XTIAP sharedInstance].isManuallyFinishTransaction = YES ;
 }
 
 static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
@@ -92,48 +85,18 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
 
 - (void)buy:(NSString *)identifier {
     // Request Products
-    [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response) {
-
-        if (response > 0 ) {
-            for (SKProduct *product in [IAPShare sharedHelper].iap.products) {
-                if ([product.productIdentifier isEqualToString:identifier]) {
-                    NSLog(@"Price: %@",[[IAPShare sharedHelper].iap getLocalePrice:product]) ;
-                    NSLog(@"Title: %@",product.localizedTitle);
-                    
-                    // buy
-                    [[IAPShare sharedHelper].iap buyProduct:product onCompletion:^(SKPaymentTransaction* trans){  // 通过appdelegate中 updatedTransactions 监听, 防止漏单.
-                        if (trans.error) {
-                            NSLog(@"Fail %@",[trans.error localizedDescription]) ;
-                        }
-                        else if(trans.transactionState == SKPaymentTransactionStatePurchased) {
-                            
-                        }
-                        else if(trans.transactionState == SKPaymentTransactionStateFailed) {
-                            NSLog(@"Fail");
-                        }
-                    }] ; //end of buy product
-                }
-            }
-        }
+    [[XTIAP sharedInstance] requestProductWithID:identifier complete:^(SKProduct *product) {
         
-     }] ;
+        [[XTIAP sharedInstance] buyProduct:product] ;
+    }] ;
 }
 
-
 - (void)productInfo:(NSString *)identifier complete:(void(^)(SKProduct *product))completion {
-    [[IAPShare sharedHelper].iap requestProductsWithCompletion:^(SKProductsRequest* request,SKProductsResponse* response) {
-        if (response > 0 ) {
-            for (SKProduct *product in [IAPShare sharedHelper].iap.products) {
-                if ([product.productIdentifier isEqualToString:identifier]) {
-                    NSLog(@"Price: %@",[[IAPShare sharedHelper].iap getLocalePrice:product]) ;
-                    NSLog(@"Title: %@",product.localizedTitle);
-                    completion(product) ;
-                }
-            }
-        }
-        
+    [[XTIAP sharedInstance] requestProductWithID:identifier complete:^(SKProduct *product) {
+        NSLog(@"Price: %@",[[XTIAP sharedInstance] getLocalePrice:product]) ;
+        NSLog(@"Title: %@",product.localizedTitle) ;
+        if (completion) completion(product) ;
     }] ;
-
 }
 
 

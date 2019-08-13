@@ -20,7 +20,7 @@ target 'Notebook' do
   pod 'MGSwipeTableCell'
   pod 'CocoaLumberjack'
   pod 'XTIAP'
-#  pod 'IAPHelper'
-#  pod 'XYIAPKit'
+
+#  pod 'XTIAP',:path => '../XTIAP/'
 
 end
