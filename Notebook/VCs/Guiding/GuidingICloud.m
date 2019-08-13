@@ -71,7 +71,7 @@ XT_SINGLETON_M(GuidingICloud)
         
         [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
             
-            if (user != nil) {
+            if (user != nil && self.window != nil) {
                 [self removeFromSuperview] ;
                 [SVProgressHUD showSuccessWithStatus:@"已登录成功"] ;
             }
