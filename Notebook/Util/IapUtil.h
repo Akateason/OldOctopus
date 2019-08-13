@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <IAPHelper/IAPHelper.h>
-#import <IAPShare.h>
-#import <XYIAPKit/XYIAPKit.h>
+
 
 // 共享沙盒密钥
 static NSString *const kAPP_SHARE_SECRET = @"5498d6de8ace4f52acd789f795ee9a81" ;

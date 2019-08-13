@@ -10,8 +10,8 @@
 #endif
 #endif
 
-#import "FTPopOverMenu.h"
+#import "XTIAP.h"
 
-FOUNDATION_EXPORT double FTPopOverMenuVersionNumber;
-FOUNDATION_EXPORT const unsigned char FTPopOverMenuVersionString[];
+FOUNDATION_EXPORT double XTIAPVersionNumber;
+FOUNDATION_EXPORT const unsigned char XTIAPVersionString[];
 

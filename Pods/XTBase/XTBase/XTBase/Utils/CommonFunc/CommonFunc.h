@@ -16,15 +16,13 @@
 
 + (void)saveImageToLibrary:(UIImage *)savedImage complete:(void(^)(bool success))complete ;
 
-#pragma mark - water mask SubaoJiang
-
-//+ (UIImage *)getSuBaoJiangWaterMask:(UIImage *)orgImage;
-
 #pragma mark - current appname / version
 
 + (NSString *)getAppName;
 
 + (NSString *)getVersionStrOfMyAPP;
+
++ (NSString *)getBuildVersion;
 
 #pragma mark - update the latest version if neccessary .
 
@@ -43,7 +41,7 @@
 + (void)shutDownAppWithCtrller:(UIViewController *)ctrller;
 
 #pragma mark - 设备名
-- (NSString *)getDeviceName;
+- (NSString *)getDeviceName ;
 + (BOOL)getIsIpad ;
 
 @end

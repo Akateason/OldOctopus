@@ -18,9 +18,9 @@ target 'Notebook' do
   pod 'JTMaterialSwitch'
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'MGSwipeTableCell'
-  pod 'IAPHelper'
-  pod 'XYIAPKit'
   pod 'CocoaLumberjack'
-
+  pod 'XTIAP'
+#  pod 'IAPHelper'
+#  pod 'XYIAPKit'
 
 end

@@ -6,6 +6,7 @@
 //  Copyright © 2018年 teason23. All rights reserved.
 
 // use in IB / Storyboard . inherit
+// ！！所有用到 @IBInspectable 功能的都要继承于 RootCustomView！！
 
 #import <UIKit/UIKit.h>
 

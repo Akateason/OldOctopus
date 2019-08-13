@@ -14,9 +14,8 @@
 #import "IAPInfoBottomCell.h"
 #import "AppDelegate.h"
 
-#import <IAPHelper/IAPHelper.h>
-#import <IAPShare.h>
-#import <XYIAPKit/XYIAPKit.h>
+
+
 
 
 @interface IAPSubscriptionVC ()

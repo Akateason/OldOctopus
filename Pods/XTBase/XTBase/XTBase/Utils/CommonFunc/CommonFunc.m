@@ -64,41 +64,16 @@
     }];
 }
 
-//+ (void)saveImageToLibrary:(UIImage *)savedImage albumName:(NSString *)name {
-//    __block UIImage *imgSave = savedImage;
-//
-//    dispatch_queue_t queue = dispatch_queue_create("pictureSaveInAlbum", NULL);
-//    dispatch_async(queue, ^{
-//        imgSave                  = [self getSuBaoJiangWaterMask:imgSave];
-//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//        [library saveImage:imgSave
-//                    toAlbum:name
-//            completionBlock:^(NSError *error) {
-//                if (!error) {
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                                       //                   [XTHudManager showWordHudWithTitle:WD_HUD_PIC_SAVE_SUCCESS] ;
-//                                   });
-//                }
-//            }];
-//
-//    });
-//}
-
-//+ (UIImage *)getSuBaoJiangWaterMask:(UIImage *)orgImage {
-//    orgImage = [orgImage imageCompressWithTargetWidth:640];
-//
-//    CGRect rect = CGRectMake(18, orgImage.size.height - 66 - 8, 44, 66);
-//    orgImage    = [orgImage imageWithWaterMask:[UIImage imageNamed:@"waterMask"] inRect:rect];
-//
-//    return orgImage;
-//}
-
 #pragma mark-- version
 
 + (NSString *)getVersionStrOfMyAPP {
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSLog(@"version : %@", version);
     return version;
+}
+
++ (NSString *)getBuildVersion {
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] ;
 }
 
 + (NSString *)getAppName {
@@ -200,11 +175,10 @@
 
 + (void)shutDownAppWithCtrller:(UIViewController *)ctrller {
     [UIView animateWithDuration:0.65f animations:^{
-        ctrller.view.window.alpha = 0;
-        ctrller.view.window.frame = CGRectMake(0, 0, 0, 0);
+        ctrller.view.window.alpha = 0 ;
     } completion:^(BOOL finished) {
-        exit(0);
-    }];
+        exit(0) ;
+    }] ;
 }
 
 
