@@ -94,6 +94,22 @@
     }] ;
 }
 
+- (void)openFromView:(UIView *)fromView {
+    [fromView.window addSubview:self.view] ;
+    [self.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(fromView) ;
+    }] ;
+    self.view.alpha = 0.1 ;
+    
+    self.bgVC.view.transform = CGAffineTransformTranslate(self.bgVC.view.transform, APP_WIDTH * 2, 0) ;
+    [UIView animateWithDuration:.3 animations:^{
+        self.view.alpha = 1 ;
+        self.bgVC.view.transform = CGAffineTransformIdentity ;
+    } completion:^(BOOL finished) {
+        
+    }] ;
+}
+
 #pragma mark - ArticleBgVCDelegate <NSObject>
 
 - (void)closeBg {

@@ -274,26 +274,46 @@
     @weakify(self)
     [self.btAdd bk_addEventHandler:^(id sender) {
         @strongify(self)
-        [self addBtOnClick:sender] ;
+        
+        @weakify(self)
+        [self.btAdd oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self addBtOnClick:sender] ;
+        }] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     self.btMore.touchExtendInset = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
     [self.btMore bk_addEventHandler:^(id sender) {
         @strongify(self)
-        [self moreBtOnClick:sender] ;
+        
+        @weakify(self)
+        [self.btMore oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self moreBtOnClick:sender] ;
+        }] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     self.btLeftDraw.userInteractionEnabled = YES ;
     [self.btLeftDraw bk_whenTapped:^{
         @strongify(self)
-        [self openDrawer] ;
+        
+        @weakify(self)
+        [self.btLeftDraw oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self openDrawer] ;
+        }] ;
     }] ;
     
     self.nameOfNoteBook.userInteractionEnabled = YES ;
     [self.nameOfNoteBook bk_whenTapped:^{
         @strongify(self)
-        [self openDrawer] ;
+        
+        @weakify(self)
+        [self.btLeftDraw oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self openDrawer] ;
+        }] ;
     }] ;
     
     [self.leftVC render] ;

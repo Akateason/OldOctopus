@@ -33,6 +33,7 @@ typedef void(^BlkOutputOnClick)(void) ;
 + (CGFloat)movingDistance ;
 
 - (void)close ;
+- (void)openFromView:(UIView *)fromView ;
 
 @end
 

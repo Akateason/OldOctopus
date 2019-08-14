@@ -611,17 +611,19 @@ return;}
     [self.navigationController popViewControllerAnimated:YES] ;
 }
 
-- (IBAction)moreAction:(id)sender {
+- (IBAction)moreAction:(UIButton *)sender {
     if (!self.canBeEdited) return ;
     
-    [self.editor hideKeyboard] ;
-
-    self.infoVC.view.alpha = 1 ;
-    [self.view.window addSubview:self.infoVC.view] ;
-    [self.infoVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view) ;
+    [sender oct_buttonClickAnimationComplete:^{
+        [self openMoreInfoView] ;
     }] ;
+}
+
+- (void)openMoreInfoView {
+    [self.editor hideKeyboard] ;
     
+    [self.infoVC openFromView:self.view] ;
+        
     self.infoVC.aNote = self.aNote ;
     self.infoVC.webInfo = self.editor.webInfo ;
     WEAK_SELF
@@ -647,6 +649,7 @@ return;}
         
         [weakSelf.editor nativeCallJSWithFunc:@"getPureHtml" json:nil completion:^(NSString *val, NSError *error) {}] ;
     } ;
+
 }
 
 - (void)snapShotFullScreen:(NSString *)htmlString {
@@ -712,12 +715,14 @@ return;}
     return YES ;
 }
 
-- (IBAction)shareAction:(id)sender {
+- (IBAction)shareAction:(UIButton *)sender {
     if (![self isVIPandLogin:sender]) return ;
     
-    [self.editor hideKeyboard] ;
-    [[OctMBPHud sharedInstance] show] ;
-    [self.editor getShareHtml] ;
+    [sender oct_buttonClickAnimationComplete:^{
+        [self.editor hideKeyboard] ;
+        [[OctMBPHud sharedInstance] show] ;
+        [self.editor getShareHtml] ;
+    }] ;
 }
 
 
