@@ -59,7 +59,7 @@
 }
 
 + (CGFloat)xt_cellHeight {
-    return 400. ;
+    return 460. ;
 }
 
 @end

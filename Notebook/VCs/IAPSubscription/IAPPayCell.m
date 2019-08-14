@@ -35,11 +35,13 @@
         if (response > 0 ) {
             NSArray<SKProduct *> *products = response.products ;
             for (SKProduct *product in products) {
-                NSString *title = XT_STR_FORMAT(@"%@ 订阅",[[XTIAP sharedInstance] getLocalePrice:product]) ;
+                
                 if ([product.productIdentifier isEqualToString:k_IAP_ID_MONTH]) {
+                    NSString *title = XT_STR_FORMAT(@"%@ 每月",[[XTIAP sharedInstance] getLocalePrice:product]) ;
                     [weakSelf.btMonth setTitle:title forState:0] ;
                 }
                 else if ([product.productIdentifier isEqualToString:k_IAP_ID_YEAR]) {
+                    NSString *title = XT_STR_FORMAT(@"%@ 每年",[[XTIAP sharedInstance] getLocalePrice:product]) ;
                     [weakSelf.btYear setTitle:title forState:0] ;
                 }
             }
@@ -49,7 +51,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 
