@@ -27,12 +27,6 @@
     }] ;
 }
 
-
-
-
-
-
-
 - (UIImage *)blur:(UIImage *)theImage {
     // ***********If you need re-orienting (e.g. trying to blur a photo taken from the device camera front facing camera in portrait mode)
     // theImage = [self reOrientIfNeeded:theImage];
@@ -140,5 +134,25 @@
     
     return theImage;
 }
+
+- (void)oct_buttonClickAnimationComplete:(void(^)(void))completion {
+    [self oct_buttonClickAnimationWithScale:1.2 complete:completion] ;
+}
+
+- (void)oct_buttonClickAnimationWithScale:(float)scale
+                                 complete:(void(^)(void))completion {
+    
+    [UIView animateWithDuration:.2 delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+        self.transform = CGAffineTransformMakeScale(scale, scale) ;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1 animations:^{
+            self.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            if (completion) completion() ;
+        }] ;
+    }] ;
+}
+
+
 
 @end

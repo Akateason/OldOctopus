@@ -32,16 +32,21 @@
     self.btImage.xt_theme_imageColor = k_md_iconColor ;
     
     self.lbPrivacy.userInteractionEnabled = self.lbService.userInteractionEnabled = YES ;
+    WEAK_SELF
     [self.lbPrivacy bk_whenTapped:^{
-        NSString *urlStr = @"https://shimo.im/octopus#/privacy" ;
-        NSURL *url = [NSURL URLWithString:urlStr] ;
-        [[UIApplication sharedApplication] openURL:url];
+        [weakSelf.lbPrivacy oct_buttonClickAnimationComplete:^{
+            NSString *urlStr = @"https://shimo.im/octopus#/privacy" ;
+            NSURL *url = [NSURL URLWithString:urlStr] ;
+            [[UIApplication sharedApplication] openURL:url];
+        }] ;
     }] ;
     
     [self.lbService bk_whenTapped:^{
-        NSString *urlStr = @"https://shimo.im/octopus#/terms" ;
-        NSURL *url = [NSURL URLWithString:urlStr] ;
-        [[UIApplication sharedApplication] openURL:url];
+        [weakSelf.lbService oct_buttonClickAnimationComplete:^{
+            NSString *urlStr = @"https://shimo.im/octopus#/terms" ;
+            NSURL *url = [NSURL URLWithString:urlStr] ;
+            [[UIApplication sharedApplication] openURL:url];
+        }] ;
     }] ;
 }
 

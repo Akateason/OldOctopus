@@ -102,7 +102,13 @@ typedef void(^BlkTapBookCell)(void);
     [self.btSetting xt_enlargeButtonsTouchArea] ;
     [self.btSetting bk_whenTapped:^{
         @strongify(self)
-        [SettingVC getMeFromCtrller:self.slidingController fromView:self.btSetting] ;
+        
+        @weakify(self)
+        [self.btSetting oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [SettingVC getMeFromCtrller:self.slidingController fromView:self.btSetting] ;
+        }] ;
+        
     }] ;
 }
 

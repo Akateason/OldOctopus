@@ -58,16 +58,20 @@
     return 127. ;
 }
 
-- (IBAction)btMonthAction:(id)sender {
-    [[OctMBPHud sharedInstance] show] ;
-    
-    [self.iap buy:k_IAP_ID_MONTH] ;
+- (IBAction)btMonthAction:(UIButton *)sender {
+    [sender oct_buttonClickAnimationWithScale:1.1 complete:^{
+        [[OctMBPHud sharedInstance] show] ;
+        
+        [self.iap buy:k_IAP_ID_MONTH] ;
+    }] ;
 }
 
-- (IBAction)btYearAction:(id)sender {
-    [[OctMBPHud sharedInstance] show] ;
+- (IBAction)btYearAction:(UIButton *)sender {
+    [sender oct_buttonClickAnimationWithScale:1.1 complete:^{
+        [[OctMBPHud sharedInstance] show] ;
     
-    [self.iap buy:k_IAP_ID_YEAR] ;
+        [self.iap buy:k_IAP_ID_YEAR] ;
+    }] ;
 }
 
 

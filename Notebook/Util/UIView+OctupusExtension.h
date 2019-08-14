@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)oct_addBlurBg ;
 
-
+- (void)oct_buttonClickAnimationComplete:(void(^)(void))completion ;
+- (void)oct_buttonClickAnimationWithScale:(float)scale
+                                 complete:(void(^)(void))completion ;
 
 
 @end

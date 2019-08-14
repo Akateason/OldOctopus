@@ -38,7 +38,11 @@
         [UIView animateWithDuration:.3 animations:^{
             weakSelf.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
         } completion:^(BOOL finished) {
-            [weakSelf cellDidSelect] ;
+            
+            [weakSelf.icon oct_buttonClickAnimationComplete:^{
+                [weakSelf cellDidSelect] ;
+            }] ;
+            
             weakSelf.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_drawerSelectedColor) ;
         }] ;
     }] ;
