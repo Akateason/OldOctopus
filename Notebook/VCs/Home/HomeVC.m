@@ -500,7 +500,7 @@
     if (!_animationSync) {
         LOTAnimationView *animation = [LOTAnimationView animationNamed:@"userhead_sync_animate" inBundle:[NSBundle bundleForClass:self.class]] ;
         animation.loopAnimation = YES ;
-        float animateFlex = 8 ;
+        float animateFlex = 14 ;
         animation.frame = [self.topArea convertRect:self.btLeftDraw.frame fromView:self.topArea] ;
         animation.frame = CGRectMake(animation.frame.origin.x - animateFlex, animation.frame.origin.y - animateFlex, animation.frame.size.width + 2 * animateFlex, animation.frame.size.height + 2 * animateFlex) ;
         _animationSync = animation ;
