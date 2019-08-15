@@ -90,13 +90,14 @@
     IapUtil *iap = [IapUtil new] ;
     [iap setup] ;
     [IapUtil geteIapStateFromSever] ;
+    
     // SKPaymentQueue callback
     [XTIAP sharedInstance].g_transactionBlock = ^(SKPaymentTransaction *transaction) {
 
-        NSLog(@"transactionState %ld",(long)transaction.transactionState) ;
+        DLogERR(@"transactionState %ld",(long)transaction.transactionState) ;
+        
         if (transaction.transactionState == SKPaymentTransactionStatePurchased
             ) {
-            
 #ifdef DEBUG
             [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:YES onCompletion:^(NSDictionary *json, NSError *error) {
                 [self dealReciept:json transaction:transaction error:error] ;
@@ -106,7 +107,6 @@
                 [self dealReciept:json transaction:transaction error:error] ;
             }] ;
 #endif
-
         }
         else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
             if ([SKPaymentQueue defaultQueue]) {
@@ -147,7 +147,6 @@
             }] ;
         }] ;
     }
-    
     
     [self test] ;
     

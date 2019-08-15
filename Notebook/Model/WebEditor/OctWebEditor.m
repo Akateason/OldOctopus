@@ -284,6 +284,7 @@ XT_SINGLETON_M(OctWebEditor)
 }
 
 - (void)doSomethingWhenNoteHasLoaded {
+    self.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
     [self renderNote] ;
     [self nativeCallJSWithFunc:@"setEditorScrollOffset" json:@"0" completion:^(NSString *val, NSError *error) {}] ;
     if (_isFirstTimeLoad) {

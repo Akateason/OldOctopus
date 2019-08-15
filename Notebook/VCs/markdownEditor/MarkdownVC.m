@@ -572,7 +572,7 @@ return;}
     [self editor] ;
     
     self.editor.xt_theme_backgroundColor = k_md_bgColor ;
-    self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
+    
     
     self.fd_prefersNavigationBarHidden = YES ;
     dispatch_async(dispatch_get_main_queue(), ^{
