@@ -58,6 +58,7 @@
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @property (strong, nonatomic) HomeEmptyPHView           *phView ;
 @property (strong, nonatomic) SearchEmptyVC             *sEmptyVC ;
+@property (nonatomic)         BOOL                      isOnDeleting ;
 @end
 
 @implementation HomeVC
@@ -111,10 +112,11 @@
        deliverOnMainThread]
       throttle:1.]
      subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
+         @strongify(self)
          NSLog(@"go sync list") ;
-        [self.leftVC render] ;
-        [self.table xt_loadNewInfoInBackGround:YES] ;
+         if (self.isOnDeleting) return ;
+         [self.leftVC render] ;
+         [self.table xt_loadNewInfoInBackGround:YES] ;
          
     }] ;
     
@@ -361,6 +363,8 @@
 #pragma mark - table
 
 - (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
+    self.isOnDeleting = NO ;
+    
     [self renderTable:^{
         endRefresh() ;
     }] ;
@@ -411,6 +415,8 @@
         
         [self.table reloadRowsAtIndexPaths:tmplist withRowAnimation:(UITableViewRowAnimationNone)] ;
     }
+    
+    self.isOnDeleting = gestureIsActive ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
