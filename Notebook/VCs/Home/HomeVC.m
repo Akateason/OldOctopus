@@ -274,26 +274,46 @@
     @weakify(self)
     [self.btAdd bk_addEventHandler:^(id sender) {
         @strongify(self)
-        [self addBtOnClick:sender] ;
+        
+        @weakify(self)
+        [self.btAdd oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self addBtOnClick:sender] ;
+        }] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     self.btMore.touchExtendInset = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
     [self.btMore bk_addEventHandler:^(id sender) {
         @strongify(self)
-        [self moreBtOnClick:sender] ;
+        
+        @weakify(self)
+        [self.btMore oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self moreBtOnClick:sender] ;
+        }] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     self.btLeftDraw.userInteractionEnabled = YES ;
     [self.btLeftDraw bk_whenTapped:^{
         @strongify(self)
-        [self openDrawer] ;
+        
+        @weakify(self)
+        [self.btLeftDraw oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self openDrawer] ;
+        }] ;
     }] ;
     
     self.nameOfNoteBook.userInteractionEnabled = YES ;
     [self.nameOfNoteBook bk_whenTapped:^{
         @strongify(self)
-        [self openDrawer] ;
+        
+        @weakify(self)
+        [self.btLeftDraw oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self openDrawer] ;
+        }] ;
     }] ;
     
     [self.leftVC render] ;
@@ -500,7 +520,7 @@
     if (!_animationSync) {
         LOTAnimationView *animation = [LOTAnimationView animationNamed:@"userhead_sync_animate" inBundle:[NSBundle bundleForClass:self.class]] ;
         animation.loopAnimation = YES ;
-        float animateFlex = 8 ;
+        float animateFlex = 14 ;
         animation.frame = [self.topArea convertRect:self.btLeftDraw.frame fromView:self.topArea] ;
         animation.frame = CGRectMake(animation.frame.origin.x - animateFlex, animation.frame.origin.y - animateFlex, animation.frame.size.width + 2 * animateFlex, animation.frame.size.height + 2 * animateFlex) ;
         _animationSync = animation ;

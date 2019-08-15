@@ -120,6 +120,7 @@
             if ([SKPaymentQueue defaultQueue]) {
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
             }
+            DLogERR(@"订阅失败error : %@", transaction.error) ;
         }
     } ;
     
