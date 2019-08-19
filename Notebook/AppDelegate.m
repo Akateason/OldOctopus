@@ -39,14 +39,13 @@
     if (!error) {
         NSInteger status = [rec[@"status"] integerValue]  ;
         if ( status == 0 ) {
-            NSLog(@"iap SUCCESS") ;
-            
+            DLogINFO(@"iap SUCCESS") ;
             NSDictionary *dictLatestReceiptsInfo = rec[@"latest_receipt_info"];
             long long int expirationDateMs = [[dictLatestReceiptsInfo valueForKeyPath:@"@max.expires_date_ms"] longLongValue] ; // 结束时间
             long long requestDateMs = [rec[@"receipt"][@"request_date_ms"] longLongValue] ;//请求时间
             NSLog(@"%lld--%lld", expirationDateMs, requestDateMs) ;
             NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(expirationDateMs / 1000.0)] ;
-            NSLog(@"新订单截止到 : %@", resExpiraDate) ;
+            DLogINFO(@"新订单截止到 : %@", resExpiraDate) ;
             
             // 调api 成功后, 再设置本地的 更新时间
             WEAK_SELF
@@ -55,7 +54,7 @@
                 if (success) {
                     // finish transaction .
                     if ([SKPaymentQueue defaultQueue]) {
-                        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+                        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
                     }
                     // 设置本地
                     [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
@@ -67,14 +66,14 @@
             }] ;
         }
         else {
-            NSLog(@"Fail : %@",rec) ;
+            DLogERR(@"dealReciept Fail : %@",rec) ;
             NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",rec,error) ;
             [SVProgressHUD showErrorWithStatus:res] ;
         }
 
     }
     else {
-        NSLog(@"Fail : %@",error) ;
+        DLogERR(@"dealReciept Fail : %@",error) ;
         NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",rec,error) ;
         [SVProgressHUD showErrorWithStatus:res] ;
     }
@@ -90,13 +89,14 @@
     IapUtil *iap = [IapUtil new] ;
     [iap setup] ;
     [IapUtil geteIapStateFromSever] ;
+    
     // SKPaymentQueue callback
     [XTIAP sharedInstance].g_transactionBlock = ^(SKPaymentTransaction *transaction) {
 
-        NSLog(@"transactionState %ld",(long)transaction.transactionState) ;
+        DLogERR(@"transactionState %ld",(long)transaction.transactionState) ;
+        
         if (transaction.transactionState == SKPaymentTransactionStatePurchased
             ) {
-            
 #ifdef DEBUG
             [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:YES onCompletion:^(NSDictionary *json, NSError *error) {
                 [self dealReciept:json transaction:transaction error:error] ;
@@ -106,7 +106,6 @@
                 [self dealReciept:json transaction:transaction error:error] ;
             }] ;
 #endif
-
         }
         else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
             if ([SKPaymentQueue defaultQueue]) {
@@ -147,7 +146,6 @@
             }] ;
         }] ;
     }
-    
     
     [self test] ;
     

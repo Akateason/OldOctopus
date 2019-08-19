@@ -74,13 +74,7 @@
             [circle removeFromSuperview] ;
         }] ;
     }] ;
-    
-    
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_iap_purchased_done object:nil] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        self.btTheme.hidden = NO ;
-    }] ;
-    
+                
     self.userHead.userInteractionEnabled = self.lbName.userInteractionEnabled = YES ;
     [self.userHead bk_whenTapped:^{
         if (![XTIcloudUser hasLogin]) {

@@ -58,6 +58,7 @@
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @property (strong, nonatomic) HomeEmptyPHView           *phView ;
 @property (strong, nonatomic) SearchEmptyVC             *sEmptyVC ;
+@property (nonatomic)         BOOL                      isOnDeleting ;
 @end
 
 @implementation HomeVC
@@ -111,10 +112,11 @@
        deliverOnMainThread]
       throttle:1.]
      subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
+         @strongify(self)
          NSLog(@"go sync list") ;
-        [self.leftVC render] ;
-        [self.table xt_loadNewInfoInBackGround:YES] ;
+         if (self.isOnDeleting) return ;
+         [self.leftVC render] ;
+         [self.table xt_loadNewInfoInBackGround:YES] ;
          
     }] ;
     
@@ -361,6 +363,8 @@
 #pragma mark - table
 
 - (void)tableView:(UITableView *)table loadNew:(void (^)(void))endRefresh {
+    self.isOnDeleting = NO ;
+    
     [self renderTable:^{
         endRefresh() ;
     }] ;
@@ -386,6 +390,8 @@
     
     cell.rightButtons = [self setupPanList:cell] ;
     cell.rightSwipeSettings.transition = MGSwipeStateSwippingLeftToRight;
+    cell.allowsMultipleSwipe = YES ;
+    cell.delegate = (id<MGSwipeTableCellDelegate>)self ;
     
     [cell trashMode:(self.leftVC.currentBook.vType == Notebook_Type_trash)] ;
     if (self.leftVC.currentBook.vType != Notebook_Type_trash && IS_IPAD) {
@@ -394,6 +400,23 @@
          ] ;
     }
     return cell ;
+}
+
+// 左滑的时候隐藏其他左滑的cell
+- (void)swipeTableCell:(nonnull MGSwipeTableCell *)cell didChangeSwipeState:(MGSwipeState)state gestureIsActive:(BOOL)gestureIsActive {
+    if (gestureIsActive && state == MGSwipeStateSwipingRightToLeft) {
+        NSIndexPath *indexPath = cell.xt_indexPath ;
+        NSMutableArray *tmplist = [self.table.indexPathsForVisibleRows mutableCopy] ;
+        for (NSIndexPath *ip in self.table.indexPathsForVisibleRows) {
+            if (ip.section == indexPath.section && ip.row == indexPath.row) {
+                [tmplist removeObject:ip] ;
+            }
+        }
+        
+        [self.table reloadRowsAtIndexPaths:tmplist withRowAnimation:(UITableViewRowAnimationNone)] ;
+    }
+    
+    self.isOnDeleting = gestureIsActive ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

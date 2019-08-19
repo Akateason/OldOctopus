@@ -76,6 +76,10 @@ typedef void(^BlkTapBookCell)(void);
         }] ;
     }] ;
 
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_iap_purchased_done object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self.table reloadData] ;
+    }] ;
 }
 
 - (void)prepareUI {
