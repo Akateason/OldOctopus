@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OcBookCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIView *viewForBookIcon;//占位，icon或emoji
+@property (weak, nonatomic) IBOutlet UILabel *lbName;
+@property (weak, nonatomic) IBOutlet UIView *viewOnSelected;
 
 @end
 

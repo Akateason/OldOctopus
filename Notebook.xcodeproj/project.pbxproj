@@ -221,6 +221,10 @@
 		8FDA735E230A6D4600EEDC57 /* home_top_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDA735D230A6D4600EEDC57 /* home_top_arrow@2x.png */; };
 		8FDA7363230A741200EEDC57 /* OcBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA7361230A741200EEDC57 /* OcBookCell.m */; };
 		8FDA7364230A741200EEDC57 /* OcBookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FDA7362230A741200EEDC57 /* OcBookCell.xib */; };
+		8FDA7368230A7BF700EEDC57 /* OcContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA7366230A7BF700EEDC57 /* OcContainerCell.m */; };
+		8FDA7369230A7BF700EEDC57 /* OcContainerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FDA7367230A7BF700EEDC57 /* OcContainerCell.xib */; };
+		8FDA736D230A7D5200EEDC57 /* OcNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA736B230A7D5200EEDC57 /* OcNoteCell.m */; };
+		8FDA736E230A7D5200EEDC57 /* OcNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FDA736C230A7D5200EEDC57 /* OcNoteCell.xib */; };
 		8FE0ADAB22E8466E0011C173 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FE0ADAA22E8466E0011C173 /* StoreKit.framework */; };
 		8FE0ADB022E945A40011C173 /* IAPSubscriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0ADAF22E945A40011C173 /* IAPSubscriptionVC.m */; };
 		8FE0ADB222E949D20011C173 /* setting_iap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0ADB122E949D20011C173 /* setting_iap@2x.png */; };
@@ -678,6 +682,12 @@
 		8FDA7360230A741200EEDC57 /* OcBookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OcBookCell.h; sourceTree = "<group>"; };
 		8FDA7361230A741200EEDC57 /* OcBookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OcBookCell.m; sourceTree = "<group>"; };
 		8FDA7362230A741200EEDC57 /* OcBookCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OcBookCell.xib; sourceTree = "<group>"; };
+		8FDA7365230A7BF700EEDC57 /* OcContainerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OcContainerCell.h; sourceTree = "<group>"; };
+		8FDA7366230A7BF700EEDC57 /* OcContainerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OcContainerCell.m; sourceTree = "<group>"; };
+		8FDA7367230A7BF700EEDC57 /* OcContainerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OcContainerCell.xib; sourceTree = "<group>"; };
+		8FDA736A230A7D5200EEDC57 /* OcNoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OcNoteCell.h; sourceTree = "<group>"; };
+		8FDA736B230A7D5200EEDC57 /* OcNoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OcNoteCell.m; sourceTree = "<group>"; };
+		8FDA736C230A7D5200EEDC57 /* OcNoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OcNoteCell.xib; sourceTree = "<group>"; };
 		8FE0ADAA22E8466E0011C173 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8FE0ADAE22E945A40011C173 /* IAPSubscriptionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAPSubscriptionVC.h; sourceTree = "<group>"; };
 		8FE0ADAF22E945A40011C173 /* IAPSubscriptionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IAPSubscriptionVC.m; sourceTree = "<group>"; };
@@ -1528,6 +1538,12 @@
 				8FDA7360230A741200EEDC57 /* OcBookCell.h */,
 				8FDA7361230A741200EEDC57 /* OcBookCell.m */,
 				8FDA7362230A741200EEDC57 /* OcBookCell.xib */,
+				8FDA7365230A7BF700EEDC57 /* OcContainerCell.h */,
+				8FDA7366230A7BF700EEDC57 /* OcContainerCell.m */,
+				8FDA7367230A7BF700EEDC57 /* OcContainerCell.xib */,
+				8FDA736A230A7D5200EEDC57 /* OcNoteCell.h */,
+				8FDA736B230A7D5200EEDC57 /* OcNoteCell.m */,
+				8FDA736C230A7D5200EEDC57 /* OcNoteCell.xib */,
 			);
 			path = OcHome;
 			sourceTree = "<group>";
@@ -1964,6 +1980,7 @@
 				8F1357E92292988300F5F874 /* tb_abc@2x.png in Resources */,
 				8FFAE0EC229CDAF400CDAC47 /* cpp.plist in Resources */,
 				8FFAE105229CDAF400CDAC47 /* csound.plist in Resources */,
+				8FDA7369230A7BF700EEDC57 /* OcContainerCell.xib in Resources */,
 				8F1296FC22C9ABA200939DD6 /* theme_sunshine@2x.png in Resources */,
 				8FFAE100229CDAF400CDAC47 /* matlab.plist in Resources */,
 				8F7A847D2244E1EB0099E905 /* md_tb_bt_ulist@2x.png in Resources */,
@@ -2080,6 +2097,7 @@
 				8FE0ADB822E94EB60011C173 /* IAPSepLineCell.xib in Resources */,
 				8FFAE11C229CDAF400CDAC47 /* sgml.plist in Resources */,
 				8FFAE0F6229CDAF400CDAC47 /* header.plist in Resources */,
+				8FDA736E230A7D5200EEDC57 /* OcNoteCell.xib in Resources */,
 				8F08FB6D22A8D910008AB6A6 /* md_l_vega@2x.png in Resources */,
 				8FFAE102229CDAF400CDAC47 /* actionscript.plist in Resources */,
 			);
@@ -2223,6 +2241,7 @@
 				8F07D656224CD8CE005BA86D /* BasicVC.m in Sources */,
 				8F07D64D224CB9FF005BA86D /* Note.m in Sources */,
 				8F65DBCE221BECFC0067C321 /* AppDelegate.m in Sources */,
+				8FDA7368230A7BF700EEDC57 /* OcContainerCell.m in Sources */,
 				8F303998225217A300DEB656 /* HomeEmptyPHView.m in Sources */,
 				8F7B2EB822C370CF000018DE /* SettingNavBar.m in Sources */,
 				8F19E10D22819AB000121851 /* ArticlePhotoPreviewVC.m in Sources */,
@@ -2230,6 +2249,7 @@
 				8FE0ADB022E945A40011C173 /* IAPSubscriptionVC.m in Sources */,
 				8F12DA8F226D9F3600265563 /* HomeSearchCell.m in Sources */,
 				8FC9DB8922BCB04D003A78D9 /* GlobalDisplaySt.m in Sources */,
+				8FDA736D230A7D5200EEDC57 /* OcNoteCell.m in Sources */,
 				8FBA041E228A98B200EED229 /* HrView.m in Sources */,
 				8F173DCE22A4D02900FA4D8D /* UIViewController+SlidingController.m in Sources */,
 				8FE0ADB722E94EB60011C173 /* IAPSepLineCell.m in Sources */,

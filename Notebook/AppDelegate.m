@@ -18,6 +18,8 @@
 #import "IapUtil.h"
 #import "OctRequestUtil.h"
 #import <XTIAP/XTIAP.h>
+#import "OcHomeVC.h"
+
 
 @interface AppDelegate ()
 
@@ -127,7 +129,24 @@
     // lauching events
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
     [self.launchingEvents setup:application appdelegate:self] ;
-
+    
+    
+    // set Root Controller START
+    OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
+    if (guidVC != nil) {
+        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
+        self.window.rootViewController = navVC ;
+        [self.window makeKeyAndVisible] ;
+        
+        [self.launchingEvents setupAlbumn] ;
+    }
+    else {
+        UIViewController *vc = [OcHomeVC getMe] ;
+        self.window.rootViewController = vc ;
+        [self.window makeKeyAndVisible] ;
+    }
+    // set Root Controller END
+    
     
     // 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
     NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
@@ -183,17 +202,17 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 
     if ([self.window.rootViewController isKindOfClass:MDNavVC.class]) return ; // guiding
 
-    OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
-    if (guidVC != nil) {
-        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
-        self.window.rootViewController = navVC ;
-        [self.window makeKeyAndVisible] ;
-        
-        [self.launchingEvents setupAlbumn] ;
-    }
-    else {
-        [self setupRootWIndow] ;
-    }
+//    OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
+//    if (guidVC != nil) {
+//        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
+//        self.window.rootViewController = navVC ;
+//        [self.window makeKeyAndVisible] ;
+//
+//        [self.launchingEvents setupAlbumn] ;
+//    }
+//    else {
+//        [self setupRootWIndow] ;
+//    }
 }
 
 - (void)setupRootWIndow {
