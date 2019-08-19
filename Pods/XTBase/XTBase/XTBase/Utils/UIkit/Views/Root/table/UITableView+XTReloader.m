@@ -9,7 +9,6 @@
 #import "UITableView+XTReloader.h"
 #import "RootRefreshHeader.h"
 #import "RootRefreshFooter.h"
-#import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
 
 
 @implementation UITableView (XTReloader)
@@ -188,7 +187,7 @@
 
 - (void)reloadTableInMainThread {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self cyl_reloadData];
+        [self reloadData];
     });
 }
 

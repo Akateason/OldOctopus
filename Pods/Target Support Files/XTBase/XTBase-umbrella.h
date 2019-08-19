@@ -58,6 +58,7 @@
 #import "RootRefreshHeader.h"
 #import "RootTableCell.h"
 #import "RootTableView.h"
+#import "UITableView+XTPlaceHolder.h"
 #import "UITableView+XTReloader.h"
 #import "UITableViewCell+XT.h"
 #import "UIButton+XT.h"

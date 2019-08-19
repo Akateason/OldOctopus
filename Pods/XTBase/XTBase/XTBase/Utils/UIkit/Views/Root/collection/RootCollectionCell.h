@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 
 __attribute__((deprecated("Class RootCollectionCell is deprecated , use UICollectionViewCell+XT instead!!!")))
 

@@ -36,7 +36,6 @@ PODS:
   - CocoaLumberjack (3.5.3):
     - CocoaLumberjack/Core (= 3.5.3)
   - CocoaLumberjack/Core (3.5.3)
-  - CYLTableViewPlaceHolder (1.0.9)
   - EllipsePageControl (0.0.4)
   - FDFullscreenPopGesture (1.1)
   - FMDB (2.7.5):
@@ -62,8 +61,7 @@ PODS:
   - UIFontWDCustomLoader (0.1.0)
   - "UITableView+FDTemplateLayoutCell (1.6)"
   - Valet (2.4.2)
-  - XTBase (1.1.5):
-    - CYLTableViewPlaceHolder
+  - XTBase (1.1.7):
     - Masonry
     - MJRefresh
     - ReactiveObjC
@@ -117,6 +115,7 @@ DEPENDENCIES:
   - MSDynamicsDrawerViewController
   - SDWebImage (<= 4.4.6)
   - SSZipArchive
+  - XTBase (from `../XTBase/`)
   - XTIAP
   - XTlib
   - XTlib/Animations
@@ -129,7 +128,6 @@ SPEC REPOS:
     - Bugly
     - CHTCollectionViewWaterfallLayout
     - CocoaLumberjack
-    - CYLTableViewPlaceHolder
     - EllipsePageControl
     - FDFullscreenPopGesture
     - FMDB
@@ -151,7 +149,6 @@ SPEC REPOS:
     - UIFontWDCustomLoader
     - "UITableView+FDTemplateLayoutCell"
     - Valet
-    - XTBase
     - XTColor
     - XTFMDB
     - XTIAP
@@ -159,13 +156,16 @@ SPEC REPOS:
     - XTReq
     - YYModel
 
+EXTERNAL SOURCES:
+  XTBase:
+    :path: "../XTBase/"
+
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CHTCollectionViewWaterfallLayout: 9d11068fafecac106695bb5a5d6d0f738483b598
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
-  CYLTableViewPlaceHolder: 678e070180a24e2f241adc7830d5d7f5e2abbaa5
   EllipsePageControl: d6c436006d72119c6cbba45af6648d15a7af7d3a
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -187,7 +187,7 @@ SPEC CHECKSUMS:
   UIFontWDCustomLoader: 233f0f83e543b8f24a6299d7fc773be9d704fe22
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   Valet: 14463ef24fab8fd5809044ecedb61484b799fdd6
-  XTBase: f10e1e337e4eaf12472b7674f594cbc5ee369e92
+  XTBase: 6dbe59887898f8e13bf928f3d8fb70e5e45002b8
   XTColor: 0151b3b61e3b1de2dc29fcdb4a0a22758c8a38df
   XTFMDB: 0891f3355697ebbc3d75f373bcda34329f2d5d94
   XTIAP: f81c573fac930af7fc76b50706a9bbcaac8b2bb8
@@ -195,6 +195,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: a64b88135e6900f967fa1ad375a83e663eac6678
+PODFILE CHECKSUM: 08d7706ad138524bac12d3b99944074841001343
 
 COCOAPODS: 1.7.5

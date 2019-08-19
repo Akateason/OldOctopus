@@ -10,7 +10,6 @@
 #import <UINavigationController+FDFullscreenPopGesture.h>
 #import "NoteCell.h"
 #import "MarkdownVC.h"
-#import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
 #import "MDNavVC.h"
 #import "SearchEmptyVC.h"
 #import "SchBarPositiveTransition.h"
@@ -19,7 +18,7 @@
 #import "NHSlidingController.h"
 #import "UIViewController+SlidingController.h"
 
-@interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
+@interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
 @property (nonatomic) BOOL isTrash ;
 @end
@@ -130,7 +129,7 @@
     else
         self.listResult = @[] ;
     
-    [self.table cyl_reloadData] ;
+    [self.table reloadData] ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

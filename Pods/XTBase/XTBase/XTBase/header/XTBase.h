@@ -23,6 +23,7 @@
 #import "XTlibConst.h"
 
 // Root
+#import "UITableView+XTPlaceHolder.h"
 #import "UITableView+XTReloader.h"
 #import "UITableViewCell+XT.h"
 #import "RootTableView.h"

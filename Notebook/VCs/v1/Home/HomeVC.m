@@ -12,7 +12,6 @@
 #import "Note.h"
 #import "NoteCell.h"
 #import "MarkdownVC.h"
-#import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
 #import "HomeEmptyPHView.h"
 #import "AppDelegate.h"
 #import "LDHeadView.h"
@@ -41,7 +40,7 @@
 
 
 
-@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
+@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
@@ -125,7 +124,7 @@
       deliverOnMainThread]
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
-         [self.table cyl_reloadData] ;
+         [self.table reloadData] ;
      }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationImportFileIn object:nil]
@@ -481,7 +480,7 @@
     NSMutableArray *tmplist = [self.listNotes mutableCopy] ;
     [tmplist insertObject:aNote atIndex:0] ;
     self.listNotes = tmplist ;
-    [self.table cyl_reloadData] ;
+    [self.table reloadData] ;
 }
 
 - (void)editNoteComplete:(Note *)aNote {
@@ -495,7 +494,7 @@
         }
     }] ;
     self.listNotes = tmplist ;
-    [self.table cyl_reloadData] ;
+    [self.table reloadData] ;
 }
 
 - (NSString *)currentBookID {
