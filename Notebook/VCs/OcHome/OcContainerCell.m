@@ -8,6 +8,7 @@
 
 #import "OcContainerCell.h"
 #import "OcNoteCell.h"
+#import "OcHomeVC.h"
 
 @implementation OcContainerCell
 
@@ -36,12 +37,26 @@
     }]
        distinctUntilChanged]
       takeUntil:self.rac_willDeallocSignal]
-     subscribeNext:^(id  _Nullable x) {
+     subscribeNext:^(NSNumber *offsetY) {
          @strongify(self)
-         NSLog(@"offset : %@",x) ;
-         NSLog(@"self : %@",self) ;
-         CGPoint point = [self.contentCollection.panGestureRecognizer translationInView:self] ;
-         if (self.UIDelegate) [self.UIDelegate containerCellDraggingDirection:point.y < 0] ;
+//         NSLog(@"offset : %@",offsetY) ;
+//         NSLog(@"self : %@",self) ;
+         CGPoint translation = [self.contentCollection.panGestureRecognizer translationInView:self] ;
+         CGPoint velocity = [self.contentCollection.panGestureRecognizer velocityInView:self] ;
+//         BOOL velocityOverThis = (fabs(velocity.y) > 600) ;
+         BOOL directionIsVerical = (fabs(translation.y) > fabs(translation.x)) ;
+         BOOL overDistance = offsetY.floatValue > 134 ;
+         BOOL scrollUpDirection = translation.y < 0 ;
+         
+         if ( directionIsVerical ) {
+             NSLog(@"v : %@",@(velocity.y)) ;
+             if (scrollUpDirection) {
+                 if (overDistance) [(OcHomeVC *)self.xt_viewController containerCellDraggingDirection:YES] ;
+             }
+             else {
+                 if (!overDistance) [(OcHomeVC *)self.xt_viewController containerCellDraggingDirection:NO] ;
+             }
+         }
     }] ;
 }
 

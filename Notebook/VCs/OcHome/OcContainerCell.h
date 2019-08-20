@@ -10,13 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol OcContainerCellDelegate <NSObject>
-- (void)containerCellDraggingDirection:(BOOL)directionUp ; // up - YES, down - NO.
-@end
+
 
 @interface OcContainerCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *contentCollection;
-@property (weak, nonatomic) id <OcContainerCellDelegate> UIDelegate ;
 @end
 
 NS_ASSUME_NONNULL_END
