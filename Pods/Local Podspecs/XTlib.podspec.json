@@ -1,6 +1,6 @@
 {
   "name": "XTlib",
-  "version": "1.7.3",
+  "version": "1.8.1",
   "summary": "a rapid develop lib for iOS",
   "description": "XTlib. a rapid develop lib for iOS .",
   "homepage": "https://github.com/Akateason/XTlib",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/Akateason/XTlib.git",
-    "tag": "1.7.3"
+    "tag": "1.8.1"
   },
   "default_subspecs": "base",
   "subspecs": [
@@ -38,9 +38,6 @@
 
         ],
         "FDFullscreenPopGesture": [
-
-        ],
-        "IQKeyboardManager": [
 
         ],
         "BlocksKit": [

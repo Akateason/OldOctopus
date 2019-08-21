@@ -3,9 +3,14 @@ target 'Notebook' do
 
   use_frameworks!
 
-  pod 'XTlib'
-  pod 'XTlib/Animations'
-  pod 'XTlib/CustomUIs'
+#  pod 'XTlib'
+#  pod 'XTlib/Animations'
+#  pod 'XTlib/CustomUIs'
+
+pod 'XTBase',:path => '../XTBase/'
+pod 'XTlib',:path => '../XTlib/'
+pod 'XTlib/Animations',:path => '../XTlib/'
+pod 'XTlib/CustomUIs',:path => '../XTlib/'
 
   pod 'IQKeyboardManager'
   pod 'SDWebImage','<=4.4.6'
@@ -21,9 +26,7 @@ target 'Notebook' do
   pod 'CocoaLumberjack'
   pod 'XTIAP'
 
-#  pod 'XTIAP',:path => '../XTIAP/'
-  pod 'XTBase',:path => '../XTBase/'
-
+  
 end
 
 

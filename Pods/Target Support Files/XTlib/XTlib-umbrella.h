@@ -36,6 +36,7 @@
 #import "XTPhotoAlbum.h"
 #import "XTSegment.h"
 #import "XTSIAlertView.h"
+#import "XTStretchSegCell.h"
 #import "XTStretchSegment.h"
 #import "XTZoomPicture.h"
 #import "XTlib.h"
