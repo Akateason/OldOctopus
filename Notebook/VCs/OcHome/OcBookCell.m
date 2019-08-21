@@ -23,6 +23,8 @@
     [self.bookBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.viewForBookIcon) ;
     }] ;
+    
+    self.viewOnSelected.alpha = 0 ;
 }
 
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
@@ -31,7 +33,18 @@
     self.lbName.text = book.name ;
     [self.bookBgView configBook:book] ;
     
-    self.viewOnSelected.hidden = !book.isOnSelect ;
+    if (book.isOnSelect == NO) {
+        self.viewOnSelected.alpha = 0 ;
+    }
+    else {
+        self.viewOnSelected.transform = CGAffineTransformMakeScale(1.3, 1.3) ;
+        [UIView animateWithDuration:.4 animations:^{
+            self.viewOnSelected.alpha = 1 ;
+            self.viewOnSelected.transform = CGAffineTransformIdentity ;
+        } completion:^(BOOL finished) {
+            
+        }] ;
+    }
 }
 
 

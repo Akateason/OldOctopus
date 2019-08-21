@@ -7,11 +7,10 @@
 //
 
 #import "OcHomeVC.h"
-#import "OcBookCell.h"
-#import "OcContainerCell.h"
 #import "MDNavVC.h"
+#import "LaunchingEvents.h"
+#import "OcHomeVC+UIPart.h"
 
-#import <XTlib/XTStretchSegment.h>
 
 // lastBook
 // @key     kUDCached_lastBook_RecID
@@ -19,17 +18,6 @@
 static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
-
-/**
- topbar的变化State Y - 短， N - 长， default - 长;
- */
-@property (nonatomic)           BOOL                uiStatus_TopBar_turnSmall ;
-// 短topbar book segment
-@property (strong, nonatomic)   XTStretchSegment    *segmentBooks ;
-@property (copy, nonatomic)     NSArray             *bookList ;
-
-@property (strong, nonatomic)   NoteBooks           *currentBook ;
-@property (nonatomic)           NSInteger           bookCurrentIdx ;
 
 @end
 
@@ -44,24 +32,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 #pragma mark - life
 
 - (void)prepareUI {
-    self.fd_prefersNavigationBarHidden = YES ;
-    
-    [OcBookCell      xt_registerNibFromCollection:self.bookCollectionView] ;
-    [OcContainerCell xt_registerNibFromCollection:self.mainCollectionView] ;
-    
-    self.bookCollectionView.delegate    = self ;
-    self.bookCollectionView.dataSource  = self ;
-    self.mainCollectionView.delegate    = self ;
-    self.mainCollectionView.dataSource  = self ;
-    self.mainCollectionView.pagingEnabled = YES ;
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
-    layout.itemSize = CGSizeMake(APP_WIDTH, APP_HEIGHT - APP_SAFEAREA_STATUSBAR_FLEX - 49. - 134.) ;
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
-    layout.minimumLineSpacing = 0 ;
-    self.mainCollectionView.collectionViewLayout = layout ;
-    
-    
-    
+    [self xt_prepareUI] ;
 }
 
 - (void)viewDidLoad {
@@ -72,6 +43,22 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
     [self getAllBooks] ;
     
     [self setupNotifications] ;
+    
+    //    [[[RACSignal interval:6 onScheduler:[RACScheduler mainThreadScheduler]]
+    //      takeUntil:self.rac_willDeallocSignal]
+    //     subscribeNext:^(NSDate * _Nullable x) {
+    //         @strongify(self)
+    //         if (self.view.window) {
+    //             LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
+    //             [events icloudSync:^{}] ;
+    //         }
+    //     }] ;
+    //
+    //    [[[self rac_signalForSelector:@selector(viewDidAppear:)] throttle:1] subscribeNext:^(RACTuple * _Nullable x) {
+    //        @strongify(self)
+    //        // 内测验证码
+    //        [UserTestCodeVC getMeFrom:self.slidingController] ;
+    //    }] ;
 }
 
 - (void)setupNotifications {
@@ -102,22 +89,53 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
         [self refreshAll] ;
     }] ;
     
-    
+    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
+        takeUntil:self.rac_willDeallocSignal]
+       deliverOnMainThread]
+      throttle:1.]
+     subscribeNext:^(NSNotification * _Nullable x) {
+         @strongify(self)
+         NSLog(@"go sync list") ;
+//         if (self.isOnDeleting) return ;
+         
+         [self refreshAll] ;
+     }] ;
+
+//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationImportFileIn object:nil]
+//       takeUntil:self.rac_willDeallocSignal]
+//      deliverOnMainThread]
+//     subscribeNext:^(NSNotification * _Nullable x) {
+//         @strongify(self)
+//         NSString *path = x.object ;
+//         NSString *md = [[NSString alloc] initWithContentsOfFile:path encoding:(NSUTF8StringEncoding) error:nil] ;
+//         NSString *title = [Note getTitleWithContent:md] ;
+//         Note *aNote = [[Note alloc] initWithBookID:self.leftVC.currentBook.icRecordName content:md title:title] ;
+//         [Note createNewNote:aNote] ;
+//
+//         @weakify(self)
+//         [self renderTable:^{
+//             @strongify(self)
+//             [self newNoteCombineFunc:aNote] ;
+//         }] ;
+//     }] ;
+//
+
+
+
 }
 
 #pragma mark - Funcs
 
 - (void)refreshAll {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.mainCollectionView reloadData] ;
-        
         if (self.uiStatus_TopBar_turnSmall) {
-//            [self.segmentBooks moveToIndex:self.bookCurrentIdx] ;
             [self.segmentBooks reloadData] ;
         }
         else {
             [self.bookCollectionView reloadData] ;
         }
+        
+        [self.mainCollectionView reloadData] ;
     }) ;
 }
 
@@ -139,6 +157,11 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
         }
         
         [self refreshAll] ;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
+            [cell.contentCollection xt_loadNewInfo] ;
+        }) ;        
     }] ;
 }
 
@@ -153,6 +176,21 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
         book = [NoteBooks xt_findFirstWhere:@"icRecordName == 'book-default'"] ;
     }
     return book ;
+}
+
+- (void)moveMainCollection {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        if (self.mainCollectionView.xt_currentIndexPath.row == self.bookCurrentIdx) return ;
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
+        [self.mainCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
+            [cell.contentCollection xt_loadNewInfo] ;
+        }) ;
+    }) ;
 }
 
 #pragma mark - props
@@ -185,15 +223,11 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
             }
         }
     }] ;
-    
-    [self refreshAll] ;
 }
 
 - (void)setUiStatus_TopBar_turnSmall:(BOOL)uiStatus_TopBar_turnSmall {
     _uiStatus_TopBar_turnSmall = uiStatus_TopBar_turnSmall ;
-    
-    
-    
+
     float newMidHeight = uiStatus_TopBar_turnSmall ? 51. : 134. ;
     
     [UIView animateWithDuration:.3 animations:^{
@@ -215,7 +249,12 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
         
         if (uiStatus_TopBar_turnSmall) { // 静态刷新 segmentBooks 的选中状态
             [self.segmentBooks setValue:@(self.bookCurrentIdx) forKey:@"currentIndex"] ;
-            [self.segmentBooks reloadData] ;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.segmentBooks reloadData] ;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.segmentBooks setOverLayUI] ;
+                }) ;
+            }) ;
         }
         else {
             [self.bookCollectionView reloadData] ;
@@ -227,11 +266,11 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
     if(!_segmentBooks){
         _segmentBooks = ({
             XTStretchSegment *object = [XTStretchSegment getNew] ;
-            [object setupTitleColor:nil selectedColor:nil bigFontSize:20 normalFontSize:15 hasUserLine:YES lineSpace:20 sideMargin:20] ;
+            [object setupTitleColor:nil selectedColor:nil bigFontSize:17 normalFontSize:14 hasUserLine:YES lineSpace:20 sideMargin:20] ;
             [object setupCollections] ;
             object.xtSSDelegate    = self;
             object.xtSSDataSource  = self;
-            
+            object.hidden = YES ;
             if (!object.superview) {
                 [self.midBar addSubview:object] ;
                 [object mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -244,7 +283,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
     return _segmentBooks;
 }
 
-#pragma mark - collection
+#pragma mark - UICollectionView
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (collectionView == self.bookCollectionView) {
@@ -257,14 +296,16 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NoteBooks *book = self.bookList[indexPath.row] ;
+    
     if (collectionView == self.bookCollectionView) {
         OcBookCell *cell = [OcBookCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
-        NoteBooks *book = self.bookList[indexPath.row] ;
         [cell xt_configure:book indexPath:indexPath] ;
         return cell ;
     }
     else if (collectionView == self.mainCollectionView) {
         OcContainerCell *cell = [OcContainerCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
+        [cell xt_configure:book indexPath:indexPath] ;
         return cell ;
     }
     return nil ;
@@ -273,11 +314,51 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == self.bookCollectionView) {
         self.currentBook = self.bookList[indexPath.row] ;
+        [self refreshAll] ;
+        [self moveMainCollection] ;
+        [self.segmentBooks setOverLayUI] ;
     }
     else if (collectionView == self.mainCollectionView) {
         
     }
 }
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView != self.mainCollectionView) return ;
+    [self scrollViewEndScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView != self.mainCollectionView) return ;
+    if (!decelerate) [self scrollViewEndScroll:scrollView];
+}
+
+- (void)scrollViewEndScroll:(UIScrollView *)scrollView {
+    NSLog(@"scrollViewEndScroll") ;
+    NSInteger row = self.mainCollectionView.xt_currentIndexPath.row ;
+    if (row == self.bookCurrentIdx) return ;
+    
+    self.currentBook = self.bookList[row] ;
+    [self refreshAll] ;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
+        [cell.contentCollection xt_loadNewInfo] ;
+        
+        if (self.uiStatus_TopBar_turnSmall) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.segmentBooks moveToIndex:self.bookCurrentIdx] ;
+            }) ;
+        }
+        else {
+            [self.bookCollectionView reloadData] ;
+        }
+        
+        [self.segmentBooks setOverLayUI] ;
+    }) ;
+}
+
+
 
 #pragma mark - OcContainerCell callback
 // up - YES, down - NO.
@@ -299,14 +380,26 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 }
 
 - (UIView *)overlayView {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btBase"]] ;
-    imageView.frame        = CGRectMake(0, 0, 30, 70) ;
-    return imageView ;
+    UIView *clearBg = [UIView new] ;
+    clearBg.backgroundColor = nil ;
+    clearBg.frame = CGRectMake(0, 0, 22, 51) ;
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"book_sel_mark"]] ;
+    [clearBg addSubview:imageView] ;
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(clearBg) ;
+        make.bottom.equalTo(clearBg) ;
+        make.size.mas_equalTo(CGSizeMake(22, 3)) ;
+    }] ;
+    return clearBg ;
 }
 
 - (void)stretchSegment:(XTStretchSegment *)segment didSelectedIdx:(NSInteger)idx {
     NSLog(@"did select : %@", @(idx)) ;
     self.currentBook = self.bookList[idx] ;
+    [self refreshAll] ;
+    [self moveMainCollection] ;
 }
 
 @end
+

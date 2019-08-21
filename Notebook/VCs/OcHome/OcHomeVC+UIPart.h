@@ -8,10 +8,13 @@
 
 #import "OcHomeVC.h"
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @interface OcHomeVC (UIPart)
 
+- (void)xt_prepareUI ;
+
+
 @end
 
-NS_ASSUME_NONNULL_END
+

@@ -9,15 +9,24 @@
 #import "OcContainerCell.h"
 #import "OcNoteCell.h"
 #import "OcHomeVC.h"
+#import "SettingSave.h"
+
+static const int kNotesContainerPageSize = 10 ;
 
 @implementation OcContainerCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    self.noteList = @[] ;
+    
     [OcNoteCell xt_registerNibFromCollection:self.contentCollection] ;
     self.contentCollection.dataSource = (id<UICollectionViewDataSource>)self ;
     self.contentCollection.delegate = (id<UICollectionViewDelegate>)self ;
+    self.contentCollection.xt_Delegate = (id<UICollectionViewXTReloader>)self ;
+    [self.contentCollection xt_setup] ;
+    self.contentCollection.mj_footer = nil ;
+
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     float wid = ( APP_WIDTH - 10. * 3 ) / 2. ;
@@ -60,19 +69,88 @@
     }] ;
 }
 
+- (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
+    [super xt_configure:book indexPath:indexPath] ;
+        
+}
+
+- (void)renderWithBook:(NoteBooks *)book complete:(void(^)(void))completion {
+//    if (self.noteList) {
+//    }
+    
+    if (book.vType == Notebook_Type_recent) {
+        NSArray *list = [Note xt_findWhere:@"isDeleted == 0 order by modifyDateOnServer DESC limit 20"] ;
+        [self dealTopNoteLists:list] ;
+        completion() ;
+        return ;
+    }
+    else if (book.vType == Notebook_Type_staging) {
+        NSArray *list = [[Note xt_findWhere:@"noteBookId == '' and isDeleted == 0"] xt_orderby:@"modifyDateOnServer" descOrAsc:YES] ;
+        [self dealTopNoteLists:list] ;
+        completion() ;
+        return ;
+    }
+    
+    // note book normal
+    @weakify(self)
+    [Note noteListWithNoteBook:book completion:^(NSArray * _Nonnull list) {
+        @strongify(self)
+        [self dealTopNoteLists:list] ;
+        completion() ;
+    }] ;
+}
+
+- (NSArray *)sortThisList:(NSArray *)list {
+    SettingSave *sSave = [SettingSave fetch] ;
+    NSString *orderBy = sSave.sort_isNoteUpdateTime ? @"createDateOnServer" : @"modifyDateOnServer" ;
+    list = [list xt_orderby:orderBy descOrAsc:sSave.sort_isNewestFirst] ;
+    return list ;
+}
+
+- (void)dealTopNoteLists:(NSArray *)list {
+    NSMutableArray *tmplist = [@[] mutableCopy] ;
+    [list enumerateObjectsUsingBlock:^(Note *aNote, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![aNote.icRecordName containsString:@"mac-"]) {
+            [tmplist addObject:aNote] ;
+        }
+    }] ;
+    list = tmplist ; // 屏蔽桌面端的文章
+    
+    NSMutableArray *topList = [@[] mutableCopy] ;
+    NSMutableArray *normalList = [@[] mutableCopy] ;
+    [list enumerateObjectsUsingBlock:^(Note *aNote, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (aNote.isTop) {
+            [topList addObject:aNote] ;
+        }
+        else {
+            [normalList addObject:aNote] ;
+        }
+    }] ;
+    
+    topList = [[self sortThisList:topList] mutableCopy] ;
+    [topList addObjectsFromArray:normalList] ;
+    self.noteList = topList ;
+}
 
 #pragma mark - collection
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 9 ;
+    return self.noteList.count ;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
-    cell.backgroundColor = [UIColor blueColor] ;
+    cell.backgroundColor = [UIColor xt_seedGreen] ;
+    
     return cell ;
 }
 
+#pragma mark - UICollectionViewXTReloader <NSObject>
 
+- (void)collectionView:(UICollectionView *)collection loadNew:(void (^)(void))endRefresh {
+    [self renderWithBook:self.xt_model complete:^{
+        endRefresh() ;
+    }] ;
+}
 
 @end
