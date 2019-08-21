@@ -19,14 +19,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="72" height="77"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NZN-ie-Q5t">
-                        <rect key="frame" x="25" y="74" width="22" height="3"/>
-                        <color key="backgroundColor" red="0.91495835780000001" green="0.33410280939999998" blue="0.33362057810000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="22" id="V6K-2P-7Vi"/>
-                            <constraint firstAttribute="height" constant="3" id="qx6-wD-Bdf"/>
-                        </constraints>
-                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最近使用" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kly-WX-s4s">
                         <rect key="frame" x="12" y="50" width="48" height="12"/>
                         <constraints>
@@ -44,24 +36,34 @@
                             <constraint firstAttribute="width" constant="42" id="qoV-XA-YBd"/>
                         </constraints>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book_sel_mark.png" translatesAutoresizingMaskIntoConstraints="NO" id="WCS-Lt-hOX">
+                        <rect key="frame" x="25" y="74" width="22" height="3"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="U0Q-XW-803"/>
+                            <constraint firstAttribute="height" constant="3" id="Wrb-0c-w3J"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="NZN-ie-Q5t" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="PKM-xT-A6O"/>
-                <constraint firstItem="NZN-ie-Q5t" firstAttribute="top" secondItem="kly-WX-s4s" secondAttribute="bottom" constant="12" id="Tgo-mQ-BzN"/>
+                <constraint firstItem="WCS-Lt-hOX" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="6A6-b5-hQI"/>
+                <constraint firstItem="WCS-Lt-hOX" firstAttribute="top" secondItem="kly-WX-s4s" secondAttribute="bottom" constant="12" id="8Qp-EW-bEZ"/>
                 <constraint firstItem="ZqR-08-BSE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Wiu-ug-eWb"/>
+                <constraint firstAttribute="bottom" secondItem="WCS-Lt-hOX" secondAttribute="bottom" id="gBQ-Hh-gdl"/>
                 <constraint firstItem="ZqR-08-BSE" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="iH6-OA-VnR"/>
                 <constraint firstItem="kly-WX-s4s" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="nSa-3o-CIn"/>
-                <constraint firstAttribute="bottom" secondItem="NZN-ie-Q5t" secondAttribute="bottom" id="wHu-df-SGo"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <size key="customSize" width="119" height="169"/>
             <connections>
                 <outlet property="lbName" destination="kly-WX-s4s" id="K67-1O-Rwr"/>
                 <outlet property="viewForBookIcon" destination="ZqR-08-BSE" id="Kvk-Ci-ME8"/>
-                <outlet property="viewOnSelected" destination="NZN-ie-Q5t" id="HEd-La-RVP"/>
+                <outlet property="viewOnSelected" destination="WCS-Lt-hOX" id="VOH-YH-z0f"/>
             </connections>
             <point key="canvasLocation" x="69.565217391304358" y="65.959821428571431"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="book_sel_mark.png" width="44" height="6"/>
+    </resources>
 </document>

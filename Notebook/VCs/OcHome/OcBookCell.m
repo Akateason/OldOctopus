@@ -30,6 +30,8 @@
     
     self.lbName.text = book.name ;
     [self.bookBgView configBook:book] ;
+    
+    self.viewOnSelected.hidden = !book.isOnSelect ;
 }
 
 

@@ -29,6 +29,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (copy, nonatomic)     NSArray             *bookList ;
 
 @property (strong, nonatomic)   NoteBooks           *currentBook ;
+@property (nonatomic)           NSInteger           bookCurrentIdx ;
 
 @end
 
@@ -107,14 +108,17 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 #pragma mark - Funcs
 
 - (void)refreshAll {
-    [self.mainCollectionView reloadData] ;
-    
-    if (self.uiStatus_TopBar_turnSmall) {
-        [self.segmentBooks reloadData] ;
-    }
-    else {
-        [self.bookCollectionView reloadData] ;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.mainCollectionView reloadData] ;
+        
+        if (self.uiStatus_TopBar_turnSmall) {
+//            [self.segmentBooks moveToIndex:self.bookCurrentIdx] ;
+            [self.segmentBooks reloadData] ;
+        }
+        else {
+            [self.bookCollectionView reloadData] ;
+        }
+    }) ;
 }
 
 - (void)getAllBooks {
@@ -151,15 +155,44 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
     return book ;
 }
 
-
-
-
-
-
 #pragma mark - props
+
+- (void)setCurrentBook:(NoteBooks *)currentBook {
+    _currentBook = currentBook ;
+    
+    NSString *cachedValue ;
+    if (currentBook.vType != Notebook_Type_notebook ) {
+        cachedValue = @(currentBook.vType).stringValue ;
+    }
+    else {
+        cachedValue = currentBook.icRecordName ;
+    }
+    if (currentBook.name) XT_USERDEFAULT_SET_VAL(cachedValue, kUDCached_lastBook_RecID) ;
+    
+    [self.bookList enumerateObjectsUsingBlock:^(NoteBooks *book, NSUInteger idx, BOOL * _Nonnull stop) {
+        book.isOnSelect = NO ;
+        
+        if (currentBook.vType != Notebook_Type_notebook) {
+            if (currentBook.vType == book.vType) {
+                book.isOnSelect = YES ;
+                self.bookCurrentIdx = idx ;
+            }
+        }
+        else {
+            if ([book.icRecordName isEqualToString:currentBook.icRecordName]) {
+                book.isOnSelect = YES ;
+                self.bookCurrentIdx = idx ;
+            }
+        }
+    }] ;
+    
+    [self refreshAll] ;
+}
 
 - (void)setUiStatus_TopBar_turnSmall:(BOOL)uiStatus_TopBar_turnSmall {
     _uiStatus_TopBar_turnSmall = uiStatus_TopBar_turnSmall ;
+    
+    
     
     float newMidHeight = uiStatus_TopBar_turnSmall ? 51. : 134. ;
     
@@ -178,11 +211,15 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
         layout.minimumLineSpacing = 0 ;
         self.mainCollectionView.collectionViewLayout = layout ;
         
-        
-        
     } completion:^(BOOL finished) {
         
-        
+        if (uiStatus_TopBar_turnSmall) { // 静态刷新 segmentBooks 的选中状态
+            [self.segmentBooks setValue:@(self.bookCurrentIdx) forKey:@"currentIndex"] ;
+            [self.segmentBooks reloadData] ;
+        }
+        else {
+            [self.bookCollectionView reloadData] ;
+        }
     }] ;
 }
 
@@ -233,6 +270,15 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
     return nil ;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (collectionView == self.bookCollectionView) {
+        self.currentBook = self.bookList[indexPath.row] ;
+    }
+    else if (collectionView == self.mainCollectionView) {
+        
+    }
+}
+
 #pragma mark - OcContainerCell callback
 // up - YES, down - NO.
 - (void)containerCellDraggingDirection:(BOOL)directionUp {
@@ -260,6 +306,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 
 - (void)stretchSegment:(XTStretchSegment *)segment didSelectedIdx:(NSInteger)idx {
     NSLog(@"did select : %@", @(idx)) ;
+    self.currentBook = self.bookList[idx] ;
 }
 
 @end
