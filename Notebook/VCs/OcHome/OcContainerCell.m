@@ -141,7 +141,8 @@ static const int kNotesContainerPageSize = 10 ;
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
     cell.backgroundColor = [UIColor xt_seedGreen] ;
-    
+    Note *note = self.noteList[indexPath.row] ;
+    [cell xt_configure:note indexPath:indexPath] ;
     return cell ;
 }
 

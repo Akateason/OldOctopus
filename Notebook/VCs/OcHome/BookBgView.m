@@ -39,7 +39,7 @@
         self.imageBookView.hidden = YES ;
         
         UILabel *lb = [UILabel new] ;
-        lb.font = [UIFont systemFontOfSize:bigOrSmall ? 22 : 16] ;
+        lb.font = [UIFont systemFontOfSize:bigOrSmall ? 22 : 14] ;
         
         [self addSubview:lb] ;
         [lb mas_makeConstraints:^(MASConstraintMaker *make) {

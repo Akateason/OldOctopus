@@ -27,6 +27,7 @@
     _lbContent.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     _lbDate.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     _img_isTop.hidden = YES ;
+    
 }
 
 - (void)setUserSelected:(BOOL)userSelected {

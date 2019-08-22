@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BookBgView.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface OcNoteCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
+@property (weak, nonatomic) IBOutlet UIView *sepLine;
+@property (weak, nonatomic) IBOutlet UILabel *lbContent;
+@property (weak, nonatomic) IBOutlet UIButton *btMore;
+@property (weak, nonatomic) IBOutlet UIView *bookPHView;
+@property (weak, nonatomic) IBOutlet UILabel *lbDate;
 
+@property (strong, nonatomic) BookBgView *bookBg ;
 @end
 
-NS_ASSUME_NONNULL_END
+

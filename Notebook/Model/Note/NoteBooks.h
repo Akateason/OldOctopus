@@ -44,12 +44,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)fetchAllNoteBook:(void(^)(NSArray<NoteBooks *> *array))completion ;
 
 + (NoteBooks *)recordToNoteBooks:(CKRecord *)record ;
++ (NoteBooks *)getBookWithBookID:(NSString *)bookID ;
 
 - (instancetype)initWithName:(NSString *)name
                        emoji:(NSString *)emoji ;
 
 + (NoteBooks *)createOtherBookWithType:(Notebook_Type)type ;
-
 
 
 + (void)createNewBook:(NoteBooks *)book ;

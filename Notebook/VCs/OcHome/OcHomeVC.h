@@ -10,6 +10,8 @@
 #import "OcBookCell.h"
 #import "OcContainerCell.h"
 #import <XTlib/XTStretchSegment.h>
+#import "HomeAddButton.h"
+
 
 @interface OcHomeVC : BasicVC
 // UI
@@ -31,6 +33,8 @@
 @property (nonatomic)           BOOL                uiStatus_TopBar_turnSmall ;
 // 短topbar book segment
 @property (strong, nonatomic)   XTStretchSegment    *segmentBooks ;
+// 加号
+@property (strong, nonatomic)   HomeAddButton       *btAdd ;
 
 // data
 @property (copy, nonatomic)     NSArray             *bookList ;

@@ -283,6 +283,19 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
     return _segmentBooks;
 }
 
+- (HomeAddButton *)btAdd {
+    if (!_btAdd) {
+        _btAdd = [[HomeAddButton alloc] init] ;
+        [self.view addSubview:_btAdd] ;
+        [_btAdd mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(50, 50)) ;
+            make.bottom.equalTo(self.view).offset(-45) ;
+            make.right.equalTo(self.view).offset(-20) ;
+        }] ;
+    }
+    return _btAdd ;
+}
+
 #pragma mark - UICollectionView
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -402,4 +415,3 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 }
 
 @end
-

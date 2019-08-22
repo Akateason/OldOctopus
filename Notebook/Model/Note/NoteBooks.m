@@ -37,6 +37,16 @@
     return book ;
 }
 
++ (NoteBooks *)getBookWithBookID:(NSString *)bookID {
+    NoteBooks *book = [NoteBooks xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",bookID)] ;
+    if (book) return book ;
+        
+    NSInteger type = [bookID integerValue] ;
+    book = [NoteBooks createOtherBookWithType:type] ;
+    return book ;
+}
+
+
 - (instancetype)initWithName:(NSString *)name
                        emoji:(NSString *)emoji {
     

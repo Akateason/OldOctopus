@@ -13,6 +13,7 @@
 - (void)xt_prepareUI {
     self.fd_prefersNavigationBarHidden = YES ;
     
+    //
     [OcBookCell      xt_registerNibFromCollection:self.bookCollectionView] ;
     [OcContainerCell xt_registerNibFromCollection:self.mainCollectionView] ;
     
@@ -27,6 +28,14 @@
     layout.minimumLineSpacing = 0 ;
     self.mainCollectionView.collectionViewLayout = layout ;
     
+    //
+    [self btAdd] ;
+    self.btAdd.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.12].CGColor;
+    //[UIColor blackColor].CGColor ;
+    //[UIColor colorWithRed:0 green:0 blue:0 alpha:0.12].CGColor ;
+    self.btAdd.layer.shadowOffset = CGSizeMake(0, 7.5) ;
+    self.btAdd.layer.shadowOpacity = 15 ;
+    self.btAdd.layer.shadowRadius = 5 ;
 }
 
 
