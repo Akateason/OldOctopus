@@ -12,10 +12,7 @@
 #import "OcHomeVC+UIPart.h"
 
 
-// lastBook
-// @key     kUDCached_lastBook_RecID
-// @value   recID,  trash, recent , staging 这三种的话就保存vType.toStr
-static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
+
 
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
 
@@ -159,9 +156,18 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
         [self refreshAll] ;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
-            [cell.contentCollection xt_loadNewInfo] ;
-        }) ;        
+
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
+            [self.mainCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+                OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
+                [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+            }) ;
+        }) ;
+        
+        [self moveBigBookCollection] ;
     }] ;
 }
 
@@ -188,8 +194,19 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
-            [cell.contentCollection xt_loadNewInfo] ;
+            [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
         }) ;
+    }) ;
+}
+
+- (void)moveBigBookCollection {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+        if (self.bookCollectionView.xt_currentIndexPath.row == self.bookCurrentIdx) return ;
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
+
+        [self.bookCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:YES] ;
     }) ;
 }
 
@@ -352,11 +369,10 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
     if (row == self.bookCurrentIdx) return ;
     
     self.currentBook = self.bookList[row] ;
-    [self refreshAll] ;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
-        [cell.contentCollection xt_loadNewInfo] ;
+        [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
         
         if (self.uiStatus_TopBar_turnSmall) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -365,6 +381,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
         }
         else {
             [self.bookCollectionView reloadData] ;
+            [self moveBigBookCollection] ;
         }
         
         [self.segmentBooks setOverLayUI] ;
@@ -413,5 +430,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
     [self refreshAll] ;
     [self moveMainCollection] ;
 }
+
+
 
 @end

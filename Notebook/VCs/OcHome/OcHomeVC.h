@@ -11,7 +11,12 @@
 #import "OcContainerCell.h"
 #import <XTlib/XTStretchSegment.h>
 #import "HomeAddButton.h"
+#import "NewBookVC.h"
 
+// lastBook
+// @key     kUDCached_lastBook_RecID
+// @value   recID,  trash, recent , staging 这三种的话就保存vType.toStr
+static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 
 @interface OcHomeVC : BasicVC
 // UI
@@ -42,12 +47,14 @@
 @property (nonatomic)           NSInteger           bookCurrentIdx ;
 
 
+@property (strong, nonatomic)   NewBookVC           *nBookVC ;
+
 // FUNC
 + (UIViewController *)getMe ;
 
 - (void)refreshAll ;
 
-
+- (void)getAllBooks ;
 
 /**
  ContainerCell call back

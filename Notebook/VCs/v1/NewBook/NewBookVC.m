@@ -40,7 +40,7 @@
     vc.slidingController = ctrller.slidingController ;
     
     vc.modalPresentationStyle = UIModalPresentationPopover ;
-    [ctrller.slidingController presentViewController:vc animated:YES completion:nil] ;
+    [ctrller presentViewController:vc animated:YES completion:nil] ;
     UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
     popVC.sourceView = fromView ;
     popVC.permittedArrowDirections = 0 ;
