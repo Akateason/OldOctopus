@@ -37,7 +37,7 @@
     
     NewBookVC *vc = [NewBookVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"NewBookVC"] ;
     if (book != nil) vc.aBook = book ;
-    vc.slidingController = ctrller.slidingController ;
+    //vc.slidingController = ctrller.slidingController ;
     
     vc.modalPresentationStyle = UIModalPresentationPopover ;
     [ctrller presentViewController:vc animated:YES completion:nil] ;

@@ -17,6 +17,7 @@
     if (self) {
         float length = bigOrSmall ? 42. : 26.  ;
         self.frame = CGRectMake(0, 0, length, length) ;
+        self.backgroundColor = nil ;
         
         NSString *imgStr = bigOrSmall ? @"book_bg_big@2x" : @"book_bg_small@2x" ;
         NSString *filePath = [[NSBundle mainBundle] pathForResource:imgStr ofType:@"png"] ;
@@ -28,6 +29,7 @@
             make.width.height.equalTo(@(length)) ;
         }] ;
         self.imageBgView = imageBgView ;
+        self.imageBgView.backgroundColor = nil ;
         
         UIImageView *imageBookView = [[UIImageView alloc] init] ;
         [self addSubview:imageBookView] ;

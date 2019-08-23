@@ -26,6 +26,8 @@ static int kLimitCount = 70 ;
     [self.bookBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.bookPHView) ;
     }] ;
+    
+    self.bookPHView.backgroundColor = nil ;
 }
 
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {

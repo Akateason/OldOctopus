@@ -31,6 +31,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (weak, nonatomic) IBOutlet UICollectionView *bookCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *mainCollectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *height_midBar;
+@property (weak, nonatomic) IBOutlet UIButton *btAllNote;
 
 /**
  topbar的变化State Y - 短， N - 长， default - 长;
@@ -38,8 +39,11 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (nonatomic)           BOOL                uiStatus_TopBar_turnSmall ;
 // 短topbar book segment
 @property (strong, nonatomic)   XTStretchSegment    *segmentBooks ;
+// 短topbar 全部按钮
+@property (strong, nonatomic)   UIView              *btBooksSmall_All  ;
 // 加号
 @property (strong, nonatomic)   HomeAddButton       *btAdd ;
+
 
 // data
 @property (copy, nonatomic)     NSArray             *bookList ;
@@ -47,7 +51,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (nonatomic)           NSInteger           bookCurrentIdx ;
 
 
-@property (strong, nonatomic)   NewBookVC           *nBookVC ;
+
 
 // FUNC
 + (UIViewController *)getMe ;
@@ -55,6 +59,11 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 - (void)refreshAll ;
 
 - (void)getAllBooks ;
+
+- (void)btAddOnClick ;
+- (void)addNoteOnClick ;
+- (void)addBookOnClick ;
+
 
 /**
  ContainerCell call back

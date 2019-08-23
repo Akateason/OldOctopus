@@ -10,7 +10,7 @@
 #import "MDNavVC.h"
 #import "LaunchingEvents.h"
 #import "OcHomeVC+UIPart.h"
-
+#import "MarkdownVC.h"
 
 
 
@@ -115,7 +115,6 @@
 //             [self newNoteCombineFunc:aNote] ;
 //         }] ;
 //     }] ;
-//
 
 
 
@@ -168,6 +167,7 @@
         }) ;
         
         [self moveBigBookCollection] ;
+        [self.segmentBooks moveToIndex:self.bookCurrentIdx] ;
     }] ;
 }
 
@@ -184,31 +184,42 @@
     return book ;
 }
 
-- (void)moveMainCollection {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+- (void)btAddOnClick {
+    @weakify(self)
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"🖋 新建笔记",@"📒 新建笔记本"] fromWithView:self.btAdd CallBackBlock:^(NSInteger btnIndex) {
         
-        if (self.mainCollectionView.xt_currentIndexPath.row == self.bookCurrentIdx) return ;
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
-        [self.mainCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
-            [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
-        }) ;
-    }) ;
+        @strongify(self)
+        if (btnIndex == 1) { // new note
+            [self addNoteOnClick] ;
+        }
+        else if (btnIndex == 2) { // new book
+            [self addBookOnClick] ;
+        }
+    }] ;
 }
 
-- (void)moveBigBookCollection {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
-        if (self.bookCollectionView.xt_currentIndexPath.row == self.bookCurrentIdx) return ;
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
-
-        [self.bookCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:YES] ;
-    }) ;
+- (void)addNoteOnClick {
+    [MarkdownVC newWithNote:nil bookID:self.currentBook.icRecordName fromCtrller:self] ;
 }
+
+- (void)addBookOnClick {
+    @weakify(self)
+    [NewBookVC showMeFromCtrller:self
+                        fromView:self.btAdd
+                         changed:^(NSString * _Nonnull emoji, NSString * _Nonnull bookName) {
+                             @strongify(self)
+                             // create new book
+                             NoteBooks *aBook = [[NoteBooks alloc] initWithName:bookName emoji:emoji] ;
+                             [NoteBooks createNewBook:aBook] ;
+                             
+                             // save curent book in UD .
+                             [self addedABook:aBook] ;
+                             
+                         } cancel:^{
+
+                         }] ;
+}
+
 
 #pragma mark - props
 
@@ -247,13 +258,13 @@
 
     float newMidHeight = uiStatus_TopBar_turnSmall ? 51. : 134. ;
     
-    [UIView animateWithDuration:.3 animations:^{
+    [UIView animateWithDuration:.2 animations:^{
         
         // hidden or show
         self.height_midBar.constant = newMidHeight ;
-        self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = uiStatus_TopBar_turnSmall ? 0 : 1 ;
+        self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = uiStatus_TopBar_turnSmall ? 0 : 1 ;
         
-        self.segmentBooks.hidden = !uiStatus_TopBar_turnSmall ;
+        self.segmentBooks.alpha = self.btBooksSmall_All.alpha = uiStatus_TopBar_turnSmall ? 1 : 0 ;
         
         // collection flow
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
@@ -264,37 +275,36 @@
         
     } completion:^(BOOL finished) {
         
-        if (uiStatus_TopBar_turnSmall) { // 静态刷新 segmentBooks 的选中状态
-            [self.segmentBooks setValue:@(self.bookCurrentIdx) forKey:@"currentIndex"] ;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.segmentBooks reloadData] ;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.segmentBooks setOverLayUI] ;
-                }) ;
-            }) ;
-        }
-        else {
-            [self.bookCollectionView reloadData] ;
-        }
     }] ;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.segmentBooks setValue:@(self.bookCurrentIdx) forKey:@"currentIndex"] ;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
+        [self.segmentBooks scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
+        [self.segmentBooks reloadData] ;
+        
+        [self.bookCollectionView reloadData] ;
+    }) ;
+    
 }
 
 - (XTStretchSegment *)segmentBooks{
     if(!_segmentBooks){
         _segmentBooks = ({
             XTStretchSegment *object = [XTStretchSegment getNew] ;
-            [object setupTitleColor:nil selectedColor:nil bigFontSize:17 normalFontSize:14 hasUserLine:YES lineSpace:20 sideMargin:20] ;
+            [object setupTitleColor:nil selectedColor:nil bigFontSize:17 normalFontSize:14 hasUserLine:YES lineSpace:20 sideMarginLeft:20 sideMarginRight:56] ;
             [object setupCollections] ;
             object.xtSSDelegate    = self;
             object.xtSSDataSource  = self;
-            object.hidden = YES ;
+//            object.hidden = YES;
+            object.alpha = 0 ;
             if (!object.superview) {
                 [self.midBar addSubview:object] ;
                 [object mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.edges.equalTo(self.midBar) ;
                 }] ;
             }
-            object;
+            object ;
         });
     }
     return _segmentBooks;
@@ -313,124 +323,50 @@
     return _btAdd ;
 }
 
-#pragma mark - UICollectionView
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (collectionView == self.bookCollectionView) {
-        return self.bookList.count ;
-    }
-    else if (collectionView == self.mainCollectionView) {
-        return self.bookList.count ;
-    }
-    return 0 ;
-}
-
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NoteBooks *book = self.bookList[indexPath.row] ;
-    
-    if (collectionView == self.bookCollectionView) {
-        OcBookCell *cell = [OcBookCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
-        [cell xt_configure:book indexPath:indexPath] ;
-        return cell ;
-    }
-    else if (collectionView == self.mainCollectionView) {
-        OcContainerCell *cell = [OcContainerCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
-        [cell xt_configure:book indexPath:indexPath] ;
-        return cell ;
-    }
-    return nil ;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView == self.bookCollectionView) {
-        self.currentBook = self.bookList[indexPath.row] ;
-        [self refreshAll] ;
-        [self moveMainCollection] ;
-        [self.segmentBooks setOverLayUI] ;
-    }
-    else if (collectionView == self.mainCollectionView) {
-        
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if (scrollView != self.mainCollectionView) return ;
-    [self scrollViewEndScroll:scrollView];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (scrollView != self.mainCollectionView) return ;
-    if (!decelerate) [self scrollViewEndScroll:scrollView];
-}
-
-- (void)scrollViewEndScroll:(UIScrollView *)scrollView {
-    NSLog(@"scrollViewEndScroll") ;
-    NSInteger row = self.mainCollectionView.xt_currentIndexPath.row ;
-    if (row == self.bookCurrentIdx) return ;
-    
-    self.currentBook = self.bookList[row] ;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
-        [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
-        
-        if (self.uiStatus_TopBar_turnSmall) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.segmentBooks moveToIndex:self.bookCurrentIdx] ;
-            }) ;
-        }
-        else {
-            [self.bookCollectionView reloadData] ;
-            [self moveBigBookCollection] ;
-        }
-        
-        [self.segmentBooks setOverLayUI] ;
-    }) ;
-}
-
-
-
 #pragma mark - OcContainerCell callback
 // up - YES, down - NO.
 - (void)containerCellDraggingDirection:(BOOL)directionUp {
     if (directionUp != self.uiStatus_TopBar_turnSmall) self.uiStatus_TopBar_turnSmall = directionUp ;
-//    if (!directionUp) {NSLog(@"下")}
-//    else {NSLog(@"上")} ;
+    //    if (!directionUp) {NSLog(@"下")}
+    //    else {NSLog(@"上")} ;
 }
 
-#pragma mark - segmentBooks callback XTStretchSegmentDelegate
+#pragma mark - OcAllBookVCDelegate <NSObject>
 
-- (NSInteger)stretchSegment_CountsOfDatasource {
-    return self.bookList.count;
-}
-
-- (NSString *)stretchSegment:(XTStretchSegment *)segment titleOfDataAtIndex:(NSInteger)index {
-    NoteBooks *book = self.bookList[index] ;
-    return book.name ;
-}
-
-- (UIView *)overlayView {
-    UIView *clearBg = [UIView new] ;
-    clearBg.backgroundColor = nil ;
-    clearBg.frame = CGRectMake(0, 0, 22, 51) ;
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"book_sel_mark"]] ;
-    [clearBg addSubview:imageView] ;
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(clearBg) ;
-        make.bottom.equalTo(clearBg) ;
-        make.size.mas_equalTo(CGSizeMake(22, 3)) ;
-    }] ;
-    return clearBg ;
-}
-
-- (void)stretchSegment:(XTStretchSegment *)segment didSelectedIdx:(NSInteger)idx {
-    NSLog(@"did select : %@", @(idx)) ;
-    self.currentBook = self.bookList[idx] ;
+- (void)clickABook:(NoteBooks *)book {
+    self.currentBook = book ;
     [self refreshAll] ;
-    [self moveMainCollection] ;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self moveMainCollection] ;
+        [self moveBigBookCollection] ;
+        [self.segmentBooks moveToIndex:self.bookCurrentIdx] ;
+    }) ;
 }
 
+- (void)addedABook:(NoteBooks *)book {
+    self.currentBook = book ;
+    
+    [self getAllBooks] ;
+}
 
+- (void)renameBook:(NoteBooks *)book {
+    self.currentBook = book ;
+    
+    [self getAllBooks] ;
+}
+
+- (void)deleteBook:(NoteBooks *)book {
+    self.bookList = @[] ;
+    [self refreshAll] ;
+    
+    [self getAllBooks] ;
+}
+
+- (void)ocAllBookVCDidClose {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
+    OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
+    [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+}
 
 @end

@@ -10,7 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol OcBookCellDelegate <NSObject>
+- (void)longPressed:(NSIndexPath *)indexPath ;
+@end
+
 @interface OcBookCell : UICollectionViewCell
+@property (weak, nonatomic) id <OcBookCellDelegate> delegate ;
 @property (weak, nonatomic) IBOutlet UIView *viewForBookIcon;//占位，icon或emoji
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UIImageView *viewOnSelected;

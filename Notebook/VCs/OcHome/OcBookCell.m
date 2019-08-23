@@ -17,15 +17,29 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+        
     self.bookBgView = [[BookBgView alloc] initWithSize:YES book:nil] ;
     [self.viewForBookIcon addSubview:self.bookBgView] ;
     [self.bookBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.viewForBookIcon) ;
     }] ;
     
+    self.viewForBookIcon.backgroundColor = nil ;
+    
     self.viewOnSelected.alpha = 0 ;
+    
+    
+    UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];
+    longPressGr.minimumPressDuration = 1.0;
+    [self addGestureRecognizer:longPressGr];
 }
+
+- (void)longPressToDo:(UILongPressGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if (self.delegate) [self.delegate longPressed:self.xt_indexPath] ;
+    }
+}
+
 
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
     [super xt_configure:book indexPath:indexPath] ;
