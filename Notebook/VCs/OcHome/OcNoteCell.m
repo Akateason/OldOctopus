@@ -9,7 +9,7 @@
 static int kLimitCount = 70 ;
 
 #import "OcNoteCell.h"
-
+#import "WebModel.h"
 
 @implementation OcNoteCell
 
@@ -36,15 +36,26 @@ static int kLimitCount = 70 ;
     NSString *title = [Note filterMD:note.title] ;
     if (!title || !title.length) title = @"未命名的笔记" ;
     _lbTitle.text = title ;
-    NSString *content = [Note filterMD:note.content] ;
-    if (!content || !content.length) content = @"美好的故事，从小章鱼开始..." ;
-    if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
-    _lbContent.attributedText = [[NSAttributedString alloc] initWithString:content] ;
     _lbDate.text = [[NSDate xt_getDateWithTick:note.modifyDateOnServer] xt_timeInfo] ;
-    
     NoteBooks *book = [NoteBooks getBookWithBookID:note.noteBookId] ;
     [self.bookBg configBook:book] ;
     
+    _img.hidden = !note.previewPicture ;
+    _sepLine.hidden = _lbContent.hidden = note.previewPicture ;
+    
+    if (note.previewPicture) {
+        NSArray *list = [WebModel convertjsonStringToJsonObj:note.previewPicture] ;
+        [_img sd_setImageWithURL:[NSURL URLWithString:list.firstObject]] ;
+    }
+    else {
+        NSString *content = [Note filterMD:note.content] ;
+        if (!content || !content.length) content = @"美好的故事，从小章鱼开始..." ;
+        if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
+        _lbContent.attributedText = [[NSAttributedString alloc] initWithString:content] ;
+    }
+    
+    
+
 }
 
 

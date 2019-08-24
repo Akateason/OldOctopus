@@ -8,8 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "LaunchingEvents.h"
 
-
-static const int k_Is_Internal_Testing          = 0 ;  // 是否打开内测, 0默认关闭,  1打开内测
+// 内测模式下, 内购全部打开.
+static const int k_Is_Internal_Testing = 1 ;  // 是否打开内测, 0默认关闭,  1打开内测
 
 
 

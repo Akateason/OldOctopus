@@ -60,12 +60,20 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rkb-N7-URJ">
+                        <rect key="frame" x="20" y="50" width="132" height="99"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="rkb-N7-URJ" secondAttribute="height" multiplier="4:3" id="riD-5d-pBl"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstItem="nni-X2-plk" firstAttribute="top" secondItem="ino-pf-t1s" secondAttribute="bottom" constant="12" id="0pI-jK-vQf"/>
                 <constraint firstItem="JIK-mH-wNR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="1Xy-Hl-w3E"/>
                 <constraint firstItem="nni-X2-plk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="8Su-MJ-Fdo"/>
+                <constraint firstAttribute="trailing" secondItem="rkb-N7-URJ" secondAttribute="trailing" constant="20" id="E6W-sH-z42"/>
+                <constraint firstItem="rkb-N7-URJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="EZt-Tr-6Hu"/>
                 <constraint firstItem="Naf-FT-Xdm" firstAttribute="leading" secondItem="fXo-h1-IoL" secondAttribute="trailing" constant="8" id="Fyt-0B-tb3"/>
                 <constraint firstItem="ino-pf-t1s" firstAttribute="top" secondItem="JIK-mH-wNR" secondAttribute="bottom" constant="12" id="GbM-xn-r4m"/>
                 <constraint firstAttribute="bottom" secondItem="hO9-aW-6TW" secondAttribute="bottom" constant="19" id="LV5-c4-5Od"/>
@@ -75,15 +83,18 @@
                 <constraint firstAttribute="trailing" secondItem="ino-pf-t1s" secondAttribute="trailing" constant="20" id="ReW-Ty-QsW"/>
                 <constraint firstAttribute="trailing" secondItem="nni-X2-plk" secondAttribute="trailing" constant="20" id="TcY-Ai-7zQ"/>
                 <constraint firstAttribute="bottom" secondItem="fXo-h1-IoL" secondAttribute="bottom" constant="15" id="Xx2-Ya-hgT"/>
+                <constraint firstItem="fXo-h1-IoL" firstAttribute="top" secondItem="rkb-N7-URJ" secondAttribute="bottom" constant="26" id="YoV-6y-TJX"/>
                 <constraint firstAttribute="trailing" secondItem="hO9-aW-6TW" secondAttribute="trailing" constant="11" id="g3b-sD-AcX"/>
                 <constraint firstItem="ino-pf-t1s" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="k9J-tH-q8X"/>
                 <constraint firstItem="JIK-mH-wNR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="ncy-xt-930"/>
+                <constraint firstItem="rkb-N7-URJ" firstAttribute="top" secondItem="JIK-mH-wNR" secondAttribute="bottom" constant="12.5" id="wNI-eL-M81"/>
                 <constraint firstItem="fXo-h1-IoL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nni-X2-plk" secondAttribute="bottom" constant="15" id="zB8-LP-8fi"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <connections>
                 <outlet property="bookPHView" destination="fXo-h1-IoL" id="boB-zH-3nI"/>
                 <outlet property="btMore" destination="hO9-aW-6TW" id="Vg9-hb-gM0"/>
+                <outlet property="img" destination="rkb-N7-URJ" id="XH6-mh-kCp"/>
                 <outlet property="lbContent" destination="nni-X2-plk" id="b5n-RV-nOY"/>
                 <outlet property="lbDate" destination="Naf-FT-Xdm" id="KgR-wS-ZjB"/>
                 <outlet property="lbTitle" destination="JIK-mH-wNR" id="d1k-gb-Q8G"/>

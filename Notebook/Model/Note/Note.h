@@ -30,6 +30,7 @@
 @property (copy, nonatomic) NSString *title ;
 @property (nonatomic)       int      isTop ; // 置顶
 @property (copy, nonatomic) NSString *comeFrom ; // 发自
+@property (copy, nonatomic) NSString *previewPicture ; // 预览图数组 jsonstr [ imgUrl , ... ]
 
 
 + (instancetype)recordToNote:(CKRecord *)record ;
@@ -58,6 +59,13 @@
 + (NSString *)getTitleWithContent:(NSString *)content ;
 
 + (NSString *)filterMD:(NSString *)originString ;
+
+// 获取预览图
++ (NSString *)getMDImageWithContent:(NSString *)content ;
+
+// 启动时, 检查所有笔记并加入预览图
++ (void)addPreviewPictureInLaunchingTime ;
+
 @end
 
 

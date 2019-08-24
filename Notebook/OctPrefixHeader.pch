@@ -22,7 +22,7 @@
 #import <XTlib/XTlib.h>
 #import "GlobalDisplaySt.h"
 #import "OctNotificationHeader.h"
-
+#import "AppDelegate.h"
 
 
 #define LOG_LEVEL_DEF ddLogLevel

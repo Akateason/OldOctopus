@@ -296,7 +296,6 @@
             [object setupCollections] ;
             object.xtSSDelegate    = self;
             object.xtSSDataSource  = self;
-//            object.hidden = YES;
             object.alpha = 0 ;
             if (!object.superview) {
                 [self.midBar addSubview:object] ;

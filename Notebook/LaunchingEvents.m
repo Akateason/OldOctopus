@@ -54,6 +54,12 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
     [self setupAppComment] ;
+    
+    [self setupNotePreviewPicture] ;
+}
+
+- (void)setupNotePreviewPicture {
+    [Note addPreviewPictureInLaunchingTime] ;
 }
 
 - (void)setupCocoaLumberjack {
@@ -131,7 +137,10 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
 - (void)setupDB {
 #ifdef DEBUG
     [XTlibConfig sharedInstance].isDebug    = YES;
+//    [XTFMDBBase sharedInstance].isDebugMode = YES;
     [[XTFMDBBase sharedInstance] configureDBWithPath:OCTUPUS_DB_Location_Dev];
+    NSLog(@"db path : %@",OCTUPUS_DB_Location_Dev) ;
+    
 #else
     [XTlibConfig sharedInstance].isDebug    = NO;
     [[XTFMDBBase sharedInstance] configureDBWithPath:OCTUPUS_DB_Location];
@@ -149,6 +158,7 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
     [[XTFMDBBase sharedInstance] dbUpgradeTable:NoteBooks.class paramsAdd:@[@"createDateOnServer"] version:6] ;
     [[XTFMDBBase sharedInstance] dbUpgradeTable:Note.class paramsAdd:@[@"isTop",@"comeFrom"] version:7] ;
     [[XTFMDBBase sharedInstance] dbUpgradeTable:NoteBooks.class paramsAdd:@[@"isTop",@"comeFrom"] version:8] ;
+    [[XTFMDBBase sharedInstance] dbUpgradeTable:Note.class paramsAdd:@[@"previewPicture"] version:9] ;
 }
 
 - (void)setupNaviStyle {

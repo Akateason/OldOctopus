@@ -19,6 +19,7 @@
     
     self.baseContent = [content base64EncodedString] ;
     self.searchContent = [self.class filterSqliteString:content] ;
+    self.previewPicture = [self.class getMDImageWithContent:content] ;
 }
 
 - (NSString *)content {
@@ -37,6 +38,7 @@
     [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
     [_record setObject:@(_isTop) forKey:@"isTop"] ;
     [_record setObject:_comeFrom forKey:@"comeFrom"] ;
+    [_record setObject:_previewPicture forKey:@"previewPicture"] ;
     
     return _record ;
 }
@@ -52,6 +54,7 @@
     note.title = record[@"title"] ;
     note.isTop = [record[@"isTop"] intValue] ;
     note.comeFrom = record[@"comeFrom"] ;
+    note.previewPicture = record[@"previewPicture"] ;
     return note ;
 }
 
@@ -70,6 +73,7 @@
         _modifyDateOnServer = _createDateOnServer ;
         _isTop = NO ;
         _comeFrom = IS_IPAD ? @"iPad" : @"iPhone" ;
+        _previewPicture = [self.class getMDImageWithContent:content] ;
     }
     return self;
 }
@@ -159,7 +163,6 @@
     }] ;
 }
 
-
 + (void)deleteAllNoteComplete:(void(^)(bool success))completion {
     [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"Note" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
         NSMutableArray *tmplist = [@[] mutableCopy] ;
@@ -229,6 +232,45 @@
     return title ;
 }
 
+// 获取 所有图片url数组
++ (NSString *)getMDImageWithContent:(NSString *)content {
+    NSString *IMAGE_REG = @"(\\!\\[)(.*?)(\\\\*)\\]\\((.*?)(\\\\*)\\)" ;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
+    NSArray *matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
+    if (!matsImage.count) return nil ;
+    
+    NSMutableArray *results = [@[] mutableCopy] ;
+    for (NSTextCheckingResult *result in matsImage) {
+        NSString *strRes = [content substringWithRange:result.range] ;
+        
+        NSRange startRange = [strRes rangeOfString:@"("];
+        NSRange endRange = [strRes rangeOfString:@")"];
+        NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length) ;
+        NSString *tmpStr = [strRes substringWithRange:range];
+        [results addObject:tmpStr] ;
+    }
+    return [results yy_modelToJSONString] ;
+}
+
+// 启动时, 检查所有笔记并加入预览图
++ (void)addPreviewPictureInLaunchingTime {
+    NSArray *list = [Note xt_findWhere:@"previewPicture is NULL or previewPicture == ''"] ;
+    NSMutableArray *records = [@[] mutableCopy] ;
+    
+    [list enumerateObjectsUsingBlock:^(Note *note, NSUInteger idx, BOOL * _Nonnull stop) {
+        note.previewPicture = [self getMDImageWithContent:note.content] ;
+        [records addObject:note.record] ;
+    }] ;
+    if (!list || !list.count) return ;
+
+    [[XTCloudHandler sharedInstance] saveList:records deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+        
+        if (!error) {
+            [Note xt_updateList:list whereByProp:@"icRecordName"] ;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
+        }
+    }] ;
+}
 
 #pragma mark - db
 
@@ -244,7 +286,5 @@
 }
 // Container property , value should be Class or Class name. Same as YYmodel .
 //+ (NSDictionary *)modelContainerPropertyGenericClass;
-
-
 
 @end

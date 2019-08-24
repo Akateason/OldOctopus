@@ -68,6 +68,8 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
 
 // 是否vip同步 , 如果没有,则去请求一把.并存本地
 + (BOOL)isIapVipFromLocalAndRequestIfLocalNotExist {
+    if (k_Is_Internal_Testing) return YES ; // 测试状态下默认全部打开
+    
     long long localTick = [XT_USERDEFAULT_GET_VAL(kUD_Iap_ExpireDate) longLongValue] ;
     if (localTick > 0) {
         localTick = localTick / 1000. ;

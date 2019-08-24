@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
 @property (weak, nonatomic) IBOutlet UIView *bookPHView;
 @property (weak, nonatomic) IBOutlet UILabel *lbDate;
+@property (weak, nonatomic) IBOutlet UIImageView *img;
 
 @property (strong, nonatomic) BookBgView *bookBg ;
 @end
