@@ -11,8 +11,8 @@
 #import "LaunchingEvents.h"
 #import "OcHomeVC+UIPart.h"
 #import "MarkdownVC.h"
-
-
+#import <FTPopOverMenu/FTPopOverMenu.h>
+#import "MoveNoteToBookVC.h"
 
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
 
@@ -66,7 +66,7 @@
       deliverOnMainThread]
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
-         [self refreshAll] ;
+         [self getAllBooks] ;
      }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -76,14 +76,14 @@
         [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
             if (user != nil) {
                 @strongify(self)
-                [self refreshAll] ;
+                [self getAllBooks] ;
             }
         }] ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_iap_purchased_done object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        [self refreshAll] ;
+        [self getAllBooks] ;
     }] ;
     
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
@@ -95,7 +95,7 @@
          NSLog(@"go sync list") ;
 //         if (self.isOnDeleting) return ;
          
-         [self refreshAll] ;
+         [self getAllBooks] ;
      }] ;
 
 //    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationImportFileIn object:nil]
@@ -185,16 +185,38 @@
 }
 
 - (void)btAddOnClick {
+    FTPopOverMenuConfiguration *configuration = [FTPopOverMenuConfiguration defaultConfiguration];
+    configuration.menuRowHeight = 60. ;
+    configuration.menuWidth = 145. ;
+    configuration.textColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) ;
+    configuration.textFont = [UIFont systemFontOfSize:17] ;
+    configuration.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    configuration.borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+    configuration.borderWidth = .25 ;
+//    configuration.textAlignment = ...
+    configuration.ignoreImageOriginalColor = YES ;// set 'ignoreImageOriginalColor' to YES, images color will be same as textColor
+//    configuration.allowRoundedArrow = ...// Default is 'NO', if sets to 'YES', the arrow will be drawn with round corner.
+    configuration.separatorColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+    configuration.separatorInset = UIEdgeInsetsMake(0, 65, 0, 0) ;
+    configuration.shadowColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .15) ; // Default is black
+    configuration.shadowOpacity = 1; // Default is 0 - choose anything between 0 to 1 to show actual shadow, e.g. 0.2
+    configuration.shadowRadius = 30; // Default is 5
+    configuration.shadowOffsetX = 0;
+    configuration.shadowOffsetY = 15;
+    configuration.menuIconMargin = 20 ;
+    configuration.menuTextMargin = 20 ;
+
     @weakify(self)
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"🖋 新建笔记",@"📒 新建笔记本"] fromWithView:self.btAdd CallBackBlock:^(NSInteger btnIndex) {
-        
+    [FTPopOverMenu showForSender:self.btAdd withMenuArray:@[@"笔记",@"笔记本"] imageArray:@[@"home_add_note",@"home_add_book"] configuration:configuration doneBlock:^(NSInteger selectedIndex) {
         @strongify(self)
-        if (btnIndex == 1) { // new note
+        if (selectedIndex == 0) {        // new note
             [self addNoteOnClick] ;
         }
-        else if (btnIndex == 2) { // new book
+        else if (selectedIndex == 1) {   // new book
             [self addBookOnClick] ;
         }
+    } dismissBlock:^{
+        
     }] ;
 }
 
@@ -220,6 +242,48 @@
                          }] ;
 }
 
+
+- (void)moveNote:(Note *)aNote {
+    @weakify(self)
+    [MoveNoteToBookVC showFromCtrller:self
+                           moveToBook:^(NoteBooks * _Nonnull book) {
+                               @strongify(self)
+                               aNote.noteBookId = book.icRecordName ;
+                               [Note updateMyNote:aNote] ;
+                               self.currentBook = book ;
+                               [self getAllBooks] ;
+                           }] ;
+}
+
+- (void)changeNoteTopState:(Note *)aNote {
+    aNote.isTop = !aNote.isTop ;
+    aNote.modifyDateOnServer = [[NSDate date] xt_getTick] ;
+    [Note updateMyNote:aNote] ;
+        
+    OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0]] ;
+//    NSMutableArray *tmplist = [cell.noteList mutableCopy] ;
+//    [tmplist replaceObjectAtIndex:cell.xt_indexPath.row withObject:aNote] ;
+    [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [cell.contentCollection scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:(UICollectionViewScrollPositionTop) animated:YES] ;
+    });
+}
+
+- (void)deleteNote:(Note *)aNote {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要将此文章放入垃圾桶?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+        if (btnIndex == 1) {
+            aNote.isDeleted = YES ;
+            [Note updateMyNote:aNote] ;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self getAllBooks] ;
+            }) ;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Delete_Note_In_Pad object:nil] ;
+        }
+    }] ;
+}
 
 #pragma mark - props
 
@@ -310,18 +374,7 @@
     return _segmentBooks;
 }
 
-- (HomeAddButton *)btAdd {
-    if (!_btAdd) {
-        _btAdd = [[HomeAddButton alloc] init] ;
-        [self.view addSubview:_btAdd] ;
-        [_btAdd mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(50, 50)) ;
-            make.bottom.equalTo(self.view).offset(-45) ;
-            make.right.equalTo(self.view).offset(-20) ;
-        }] ;
-    }
-    return _btAdd ;
-}
+
 
 #pragma mark - OcContainerCell callback  self.xt_viewcontroller
 // up - YES, down - NO.
@@ -333,6 +386,34 @@
 
 - (void)containerCellDidSelectedNote:(Note *)note {
     [MarkdownVC newWithNote:note bookID:self.currentBook.icRecordName fromCtrller:self] ;
+}
+
+#pragma mark - OcNoteCell call back  self.xt_viewcontroller
+/**
+  OcNoteCell call back
+ */
+- (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView {
+    
+    NSArray *titles = aNote.isTop ? @[@"移动",@"取消置顶"] : @[@"移动",@"置顶"] ;
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:titles fromWithView:fromView CallBackBlock:^(NSInteger btnIndex) {
+        
+        switch (btnIndex) {
+                case 1: { // move
+                    [self moveNote:aNote] ;
+                }
+                break;
+                case 2: { // top
+                    [self changeNoteTopState:aNote] ;
+                }
+                break;
+                case 3: { // delegte
+                    [self deleteNote:aNote] ;
+                }
+                break;
+            default:
+                break;
+        }
+    }] ;
 }
 
 #pragma mark - OcAllBookVCDelegate <NSObject>
@@ -362,7 +443,6 @@
 
 - (void)deleteBook:(NoteBooks *)book {
     self.bookList = @[] ;
-    [self refreshAll] ;
     
     [self getAllBooks] ;
 }

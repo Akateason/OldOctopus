@@ -12,11 +12,14 @@
 
 @interface NewBookVC : BasicVC
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
-@property (weak, nonatomic) IBOutlet UILabel *lbEmoji;
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
 @property (weak, nonatomic) IBOutlet UIView *underline;
 @property (weak, nonatomic) IBOutlet UIButton *btCreate;
 @property (weak, nonatomic) IBOutlet UIButton *btCancel;
+@property (weak, nonatomic) IBOutlet UILabel *lbEmoji;
+@property (strong, nonatomic) IBOutlet UIView *hud;
+
+
 
 // create
 + (instancetype)showMeFromCtrller:(UIViewController *)ctrller

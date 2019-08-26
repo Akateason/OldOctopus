@@ -25,6 +25,7 @@ pod 'XTlib/CustomUIs',:path => '../XTlib/'
   pod 'MGSwipeTableCell'
   pod 'CocoaLumberjack'
   pod 'XTIAP'
+  pod 'FTPopOverMenu'
 
   
 end

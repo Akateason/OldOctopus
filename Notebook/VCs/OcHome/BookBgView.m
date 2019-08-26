@@ -30,13 +30,13 @@
         }] ;
         self.imageBgView = imageBgView ;
         self.imageBgView.backgroundColor = nil ;
-        self.imageBgView.xt_theme_imageColor = XT_MAKE_theme_color(k_md_iconBorderColor, .1) ;
+        self.imageBgView.xt_theme_imageColor = XT_MAKE_theme_color(k_md_iconBorderColor, .4) ; // todo .1 太细        
         
         UIImageView *imageBookView = [[UIImageView alloc] init] ;
         [self addSubview:imageBookView] ;
         [imageBookView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self) ;
-            make.width.height.equalTo(@(bigOrSmall ? 24. : 21.)) ;
+            make.width.height.equalTo(@(bigOrSmall ? 24. : 16.)) ;
         }] ;
         self.imageBookView = imageBookView ;
         self.imageBookView.hidden = YES ;

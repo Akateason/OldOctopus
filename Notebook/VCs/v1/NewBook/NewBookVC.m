@@ -39,7 +39,11 @@
     if (book != nil) vc.aBook = book ;
     //vc.slidingController = ctrller.slidingController ;
     
-    vc.modalPresentationStyle = UIModalPresentationPopover ;
+//    vc.modalPresentationStyle = UIModalPresentationPopover ;
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
+    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve ;
+    ctrller.definesPresentationContext = YES ;
+    
     [ctrller presentViewController:vc animated:YES completion:nil] ;
     UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
     popVC.sourceView = fromView ;
@@ -63,25 +67,31 @@
     
     [GlobalDisplaySt sharedInstance].isInNewBookVC = YES ;
     
-//    self.view.backgroundColor = nil ;
-//    [self.view oct_addBlurBg] ;
-    self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.view.backgroundColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .4) ;
+
+    self.hud.xt_cornerRadius = 14. ;
+    self.hud.xt_maskToBounds = YES ;
     
     [self.tfName becomeFirstResponder] ;
     
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     
-    self.underline.xt_theme_backgroundColor = k_md_themeColor ;
-    self.btCreate.xt_theme_textColor = XT_MAKE_theme_color(k_md_themeColor, 1) ;
-    self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    self.underline.xt_theme_backgroundColor = k_md_iconColor ;
+    self.btCreate.xt_theme_textColor = k_md_bgColor ;
+    self.btCreate.xt_theme_backgroundColor = k_md_themeColor ;
+    self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    self.btCancel.xt_cornerRadius = self.btCreate.xt_cornerRadius = 8 ;
+    self.btCancel.xt_borderWidth = 1 ;
+    self.btCancel.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, .2) ;
+    
     self.tfName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     @weakify(self)
     [self.tfName.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
         @strongify(self)
         if (x.length > 0)
-            self.btCreate.xt_theme_textColor = XT_MAKE_theme_color(k_md_themeColor, 1) ;
+            self.btCreate.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_themeColor, 1) ;
         else
-            self.btCreate.xt_theme_textColor = XT_MAKE_theme_color(k_md_themeColor, .5) ;
+            self.btCreate.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_themeColor, .5) ;
         
         self.btCreate.enabled = x.length > 0 ;
     }] ;

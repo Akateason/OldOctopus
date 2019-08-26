@@ -40,7 +40,11 @@
 + (NoteBooks *)getBookWithBookID:(NSString *)bookID {
     NoteBooks *book = [NoteBooks xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",bookID)] ;
     if (book) return book ;
-        
+    
+    if (!bookID.length) {
+        book = [NoteBooks createOtherBookWithType:Notebook_Type_staging] ;
+        return book ;
+    }
     NSInteger type = [bookID integerValue] ;
     book = [NoteBooks createOtherBookWithType:type] ;
     return book ;

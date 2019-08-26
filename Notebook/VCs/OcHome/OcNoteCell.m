@@ -10,6 +10,7 @@ static int kLimitCount = 70 ;
 
 #import "OcNoteCell.h"
 #import "WebModel.h"
+#import "OcHomeVC.h"
 
 @implementation OcNoteCell
 
@@ -27,7 +28,7 @@ static int kLimitCount = 70 ;
         make.edges.equalTo(self.bookPHView) ;
     }] ;
     self.bookPHView.backgroundColor = nil ;
-
+    
     
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.sepLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .05) ;
@@ -36,6 +37,13 @@ static int kLimitCount = 70 ;
     self.img.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
     self.xt_theme_backgroundColor = k_md_bgColor ;
+    
+    [self.btMore xt_enlargeButtonsTouchArea] ;
+    WEAK_SELF
+    [self.btMore bk_addEventHandler:^(id sender) {
+        [(OcHomeVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
+        
+    } forControlEvents:(UIControlEventTouchUpInside)] ;
 }
 
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {
@@ -61,6 +69,8 @@ static int kLimitCount = 70 ;
         if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
         _lbContent.attributedText = [[NSAttributedString alloc] initWithString:content] ;
     }
+    
+    self.topMark.hidden = !note.isTop ;
     
 }
 

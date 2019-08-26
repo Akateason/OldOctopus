@@ -10,7 +10,6 @@
 #import "OcBookCell.h"
 #import "OcContainerCell.h"
 #import <XTlib/XTStretchSegment.h>
-#import "HomeAddButton.h"
 #import "NewBookVC.h"
 
 // lastBook
@@ -24,6 +23,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btUser;
 @property (weak, nonatomic) IBOutlet UIButton *btSearch;
+@property (weak, nonatomic) IBOutlet UIButton *btAdd;
 @property (weak, nonatomic) IBOutlet UIView *midBar;
 @property (weak, nonatomic) IBOutlet UILabel *lbMyNotes;
 @property (weak, nonatomic) IBOutlet UILabel *lbAll;
@@ -41,8 +41,6 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (strong, nonatomic)   XTStretchSegment    *segmentBooks ;
 // 短topbar 全部按钮
 @property (strong, nonatomic)   UIView              *btBooksSmall_All  ;
-// 加号
-@property (strong, nonatomic)   HomeAddButton       *btAdd ;
 
 
 // data
@@ -64,6 +62,9 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 - (void)addNoteOnClick ;
 - (void)addBookOnClick ;
 
+- (void)moveNote:(Note *)note ;
+- (void)changeNoteTopState:(Note *)note ;
+- (void)deleteNote:(Note *)note ;
 
 /**
  ContainerCell call back
@@ -72,6 +73,10 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 - (void)containerCellDraggingDirection:(BOOL)directionUp ;
 - (void)containerCellDidSelectedNote:(Note *)note ;
 
+/**
+ OcNoteCell call back
+ */
+- (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView ;
 @end
 
 

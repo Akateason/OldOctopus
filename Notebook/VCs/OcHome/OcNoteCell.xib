@@ -66,6 +66,13 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="rkb-N7-URJ" secondAttribute="height" multiplier="4:3" id="riD-5d-pBl"/>
                         </constraints>
                     </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_cell_top_corner.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hmz-9I-3d2">
+                        <rect key="frame" x="150" y="0.0" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="OBc-tH-jHy"/>
+                            <constraint firstAttribute="width" constant="22" id="z2h-Rj-Y5n"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
@@ -79,6 +86,7 @@
                 <constraint firstAttribute="bottom" secondItem="hO9-aW-6TW" secondAttribute="bottom" constant="19" id="LV5-c4-5Od"/>
                 <constraint firstItem="fXo-h1-IoL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="M8c-I5-r9n"/>
                 <constraint firstAttribute="trailing" secondItem="JIK-mH-wNR" secondAttribute="trailing" constant="20" id="Ogy-aI-OgC"/>
+                <constraint firstItem="Hmz-9I-3d2" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Ptm-Rl-YXq"/>
                 <constraint firstItem="Naf-FT-Xdm" firstAttribute="centerY" secondItem="fXo-h1-IoL" secondAttribute="centerY" id="RLn-We-jJ6"/>
                 <constraint firstAttribute="trailing" secondItem="ino-pf-t1s" secondAttribute="trailing" constant="20" id="ReW-Ty-QsW"/>
                 <constraint firstAttribute="trailing" secondItem="nni-X2-plk" secondAttribute="trailing" constant="20" id="TcY-Ai-7zQ"/>
@@ -87,6 +95,7 @@
                 <constraint firstAttribute="trailing" secondItem="hO9-aW-6TW" secondAttribute="trailing" constant="11" id="g3b-sD-AcX"/>
                 <constraint firstItem="ino-pf-t1s" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="k9J-tH-q8X"/>
                 <constraint firstItem="JIK-mH-wNR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="ncy-xt-930"/>
+                <constraint firstAttribute="trailing" secondItem="Hmz-9I-3d2" secondAttribute="trailing" id="ve3-n0-wUt"/>
                 <constraint firstItem="rkb-N7-URJ" firstAttribute="top" secondItem="JIK-mH-wNR" secondAttribute="bottom" constant="12.5" id="wNI-eL-M81"/>
                 <constraint firstItem="fXo-h1-IoL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nni-X2-plk" secondAttribute="bottom" constant="15" id="zB8-LP-8fi"/>
             </constraints>
@@ -99,11 +108,13 @@
                 <outlet property="lbDate" destination="Naf-FT-Xdm" id="KgR-wS-ZjB"/>
                 <outlet property="lbTitle" destination="JIK-mH-wNR" id="d1k-gb-Q8G"/>
                 <outlet property="sepLine" destination="ino-pf-t1s" id="8Z7-S9-NhK"/>
+                <outlet property="topMark" destination="Hmz-9I-3d2" id="BHT-Dk-HTU"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="153.34821428571428"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="home_cell_top_corner.png" width="22" height="22"/>
         <image name="md_ed_more.png" width="40" height="40"/>
     </resources>
 </document>

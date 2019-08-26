@@ -36,23 +36,33 @@
                                         <state key="normal" image="uhead_light.png"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIO-Yy-xSv">
-                                        <rect key="frame" x="374" y="14.5" width="20" height="20"/>
+                                        <rect key="frame" x="338" y="14.5" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="3MV-HR-9kI"/>
                                             <constraint firstAttribute="height" constant="20" id="He1-H3-fhB"/>
                                         </constraints>
                                         <state key="normal" image="md_home_search.png"/>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9G-1C-fsC">
+                                        <rect key="frame" x="378" y="14.5" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="5PN-ER-PlQ"/>
+                                            <constraint firstAttribute="height" constant="20" id="zSL-4V-j5g"/>
+                                        </constraints>
+                                        <state key="normal" image="md_home_add.png"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="4Xt-Fh-ad5" firstAttribute="top" secondItem="yn3-xC-D1q" secondAttribute="top" constant="11" id="6eH-46-tEb"/>
-                                    <constraint firstAttribute="trailing" secondItem="VIO-Yy-xSv" secondAttribute="trailing" constant="20" id="6gA-hg-kCa"/>
                                     <constraint firstAttribute="height" constant="49" id="CiI-KX-zrB"/>
                                     <constraint firstItem="4Xt-Fh-ad5" firstAttribute="leading" secondItem="yn3-xC-D1q" secondAttribute="leading" constant="20" id="bWY-xL-qFb"/>
                                     <constraint firstItem="3lK-Z4-ncy" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="gTE-ND-87Z"/>
                                     <constraint firstItem="VIO-Yy-xSv" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="hD7-JH-3q9"/>
                                     <constraint firstItem="3lK-Z4-ncy" firstAttribute="centerX" secondItem="yn3-xC-D1q" secondAttribute="centerX" id="hzv-qW-TT1"/>
+                                    <constraint firstItem="F9G-1C-fsC" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="rJN-bl-DxS"/>
+                                    <constraint firstAttribute="trailing" secondItem="F9G-1C-fsC" secondAttribute="trailing" constant="16" id="rXA-w1-tpC"/>
+                                    <constraint firstItem="F9G-1C-fsC" firstAttribute="leading" secondItem="VIO-Yy-xSv" secondAttribute="trailing" constant="20" id="yHs-5z-JGg"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ih-R3-ZgS">
@@ -189,6 +199,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bookCollectionView" destination="57U-wi-15D" id="Nc4-Mm-3te"/>
+                        <outlet property="btAdd" destination="F9G-1C-fsC" id="uTL-Ka-c9Z"/>
                         <outlet property="btAllNote" destination="72M-AJ-CX8" id="HNQ-0N-wMY"/>
                         <outlet property="btSearch" destination="VIO-Yy-xSv" id="E7P-rf-hN6"/>
                         <outlet property="btUser" destination="4Xt-Fh-ad5" id="uOq-Hv-slA"/>
@@ -339,7 +350,8 @@
     <resources>
         <image name="home_top_arrow.png" width="20" height="20"/>
         <image name="m_note_close.png" width="40" height="40"/>
-        <image name="md_home_search.png" width="32" height="32"/>
+        <image name="md_home_add.png" width="42" height="42"/>
+        <image name="md_home_search.png" width="42" height="42"/>
         <image name="uhead_light.png" width="64" height="64"/>
     </resources>
 </document>

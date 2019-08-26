@@ -43,14 +43,14 @@
     self.lbMyNotes.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbAll.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.img_lbAllRight.xt_theme_imageColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
-
+    self.btSearch.xt_theme_imageColor = k_md_iconColor ;
     
     // 加号
-    [self btAdd] ;
-    self.btAdd.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.12].CGColor;
-    self.btAdd.layer.shadowOffset = CGSizeMake(0, 7.5) ;
-    self.btAdd.layer.shadowOpacity = 15 ;
-    self.btAdd.layer.shadowRadius = 5 ;
+    [self.btAdd xt_enlargeButtonsTouchArea] ;
+//    self.btAdd.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.12].CGColor;
+//    self.btAdd.layer.shadowOffset = CGSizeMake(0, 7.5) ;
+//    self.btAdd.layer.shadowOpacity = 15 ;
+//    self.btAdd.layer.shadowRadius = 5 ;
     
     // 按钮
     WEAK_SELF

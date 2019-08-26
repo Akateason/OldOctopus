@@ -234,6 +234,8 @@
 
 // 获取 所有图片url数组
 + (NSString *)getMDImageWithContent:(NSString *)content {
+    if (!content || !content.length) return nil ;
+    
     NSString *IMAGE_REG = @"(\\!\\[)(.*?)(\\\\*)\\]\\((.*?)(\\\\*)\\)" ;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
     NSArray *matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
