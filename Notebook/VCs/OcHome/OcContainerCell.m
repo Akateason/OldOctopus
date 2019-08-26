@@ -27,6 +27,7 @@ static const int kNotesContainerPageSize = 10 ;
     [self.contentCollection xt_setup] ;
     self.contentCollection.mj_footer = nil ;
 
+    self.contentCollection.xt_theme_backgroundColor = k_md_backColor ;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     float wid = ( APP_WIDTH - 10. * 3 ) / 2. ;
@@ -139,8 +140,7 @@ static const int kNotesContainerPageSize = 10 ;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
-    cell.backgroundColor = [UIColor xt_seedGreen] ;
+    OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;    
     Note *note = self.noteList[indexPath.row] ;
     [cell xt_configure:note indexPath:indexPath] ;
     return cell ;

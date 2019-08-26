@@ -32,7 +32,17 @@
     layout.minimumLineSpacing = 0 ;
     self.mainCollectionView.collectionViewLayout = layout ;
     
+    self.bookCollectionView.xt_theme_backgroundColor = k_md_bgColor ;
+    self.mainCollectionView.xt_theme_backgroundColor = k_md_backColor ;
+    
+    
     // ..
+    self.topBar.xt_theme_backgroundColor = k_md_bgColor ;
+    self.midBar.xt_theme_backgroundColor = k_md_bgColor ;
+    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .9) ;
+    self.lbMyNotes.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    self.lbAll.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    self.img_lbAllRight.xt_theme_imageColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
 
     
     // 加号
@@ -76,7 +86,8 @@
     // 短topbar  全部 按钮
     self.btBooksSmall_All = ({
         UIView *obj = [UIView new] ;
-
+        obj.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .95) ;
+        
         UIImageView *btImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bt_s_t_all"]] ;
         [obj addSubview:btImageView] ;
         [btImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,8 +101,7 @@
             make.top.bottom.left.equalTo(obj) ;
             make.width.equalTo(@4) ;
         }] ;
-
-//        obj.hidden = YES ;
+        
         obj.alpha = 0 ;
         [self.view addSubview:obj] ;
         [obj mas_makeConstraints:^(MASConstraintMaker *make) {

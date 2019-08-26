@@ -30,6 +30,7 @@
         }] ;
         self.imageBgView = imageBgView ;
         self.imageBgView.backgroundColor = nil ;
+        self.imageBgView.xt_theme_imageColor = XT_MAKE_theme_color(k_md_iconBorderColor, .1) ;
         
         UIImageView *imageBookView = [[UIImageView alloc] init] ;
         [self addSubview:imageBookView] ;
@@ -39,6 +40,7 @@
         }] ;
         self.imageBookView = imageBookView ;
         self.imageBookView.hidden = YES ;
+
         
         UILabel *lb = [UILabel new] ;
         lb.font = [UIFont systemFontOfSize:bigOrSmall ? 22 : 14] ;
@@ -68,6 +70,7 @@
 - (void)configBook:(NoteBooks *)book {
     if (book.vType != Notebook_Type_notebook) {
         UIImage *image = [UIImage imageNamed:book.emoji] ;
+        image = [image imageWithTintColor:XT_GET_MD_THEME_COLOR_KEY(k_md_iconColor)] ;                        
         self.imageBookView.image = image ;
 
         self.imageBookView.hidden = NO ;

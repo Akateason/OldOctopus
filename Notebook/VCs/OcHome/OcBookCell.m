@@ -17,6 +17,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    
+    
+    
         
     self.bookBgView = [[BookBgView alloc] initWithSize:YES book:nil] ;
     [self.viewForBookIcon addSubview:self.bookBgView] ;
@@ -49,10 +53,12 @@
     
     if (book.isOnSelect == NO) {
         self.viewOnSelected.alpha = 0 ;
+        self.lbName.textColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
     }
     else {
         self.viewOnSelected.transform = CGAffineTransformMakeScale(1.3, 1.3) ;
         [UIView animateWithDuration:.4 animations:^{
+            self.lbName.textColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) ;
             self.viewOnSelected.alpha = 1 ;
             self.viewOnSelected.transform = CGAffineTransformIdentity ;
         } completion:^(BOOL finished) {

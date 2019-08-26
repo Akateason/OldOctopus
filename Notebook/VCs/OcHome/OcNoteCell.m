@@ -17,7 +17,7 @@ static int kLimitCount = 70 ;
     [super awakeFromNib] ;
     // Initialization code
     
-    self.xt_borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.06] ;
+    self.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .06) ;
     self.xt_borderWidth = .5 ;
     self.xt_cornerRadius = 2 ;
     
@@ -26,8 +26,16 @@ static int kLimitCount = 70 ;
     [self.bookBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.bookPHView) ;
     }] ;
-    
     self.bookPHView.backgroundColor = nil ;
+
+    
+    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    self.sepLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .05) ;
+    self.lbContent.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    self.lbDate.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+    self.img.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
+    self.btMore.xt_theme_imageColor = k_md_iconColor ;
+    self.xt_theme_backgroundColor = k_md_bgColor ;
 }
 
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {
@@ -54,8 +62,6 @@ static int kLimitCount = 70 ;
         _lbContent.attributedText = [[NSAttributedString alloc] initWithString:content] ;
     }
     
-    
-
 }
 
 
