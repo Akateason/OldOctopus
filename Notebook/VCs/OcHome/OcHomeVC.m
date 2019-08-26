@@ -322,12 +322,16 @@
     return _btAdd ;
 }
 
-#pragma mark - OcContainerCell callback
+#pragma mark - OcContainerCell callback  self.xt_viewcontroller
 // up - YES, down - NO.
 - (void)containerCellDraggingDirection:(BOOL)directionUp {
     if (directionUp != self.uiStatus_TopBar_turnSmall) self.uiStatus_TopBar_turnSmall = directionUp ;
     //    if (!directionUp) {NSLog(@"下")}
     //    else {NSLog(@"上")} ;
+}
+
+- (void)containerCellDidSelectedNote:(Note *)note {
+    [MarkdownVC newWithNote:note bookID:self.currentBook.icRecordName fromCtrller:self] ;
 }
 
 #pragma mark - OcAllBookVCDelegate <NSObject>

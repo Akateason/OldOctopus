@@ -146,6 +146,12 @@ static const int kNotesContainerPageSize = 10 ;
     return cell ;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    Note *note = self.noteList[indexPath.row] ;
+    [(OcHomeVC *)self.xt_viewController containerCellDidSelectedNote:note] ;
+}
+
+
 #pragma mark - UICollectionViewXTReloader <NSObject>
 
 - (void)collectionView:(UICollectionView *)collection loadNew:(void (^)(void))endRefresh {

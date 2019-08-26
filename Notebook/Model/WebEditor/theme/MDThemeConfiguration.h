@@ -15,14 +15,18 @@
 
 
 static NSString *const k_md_textColor = @"textColor" ;
+static NSString *const k_md_backColor = @"backColor" ;
+static NSString *const k_md_themeColor = @"themeColor" ;
+static NSString *const k_md_bgColor = @"bgColor" ;
+static NSString *const k_md_iconBorderColor = @"iconBorderColor" ;
+static NSString *const k_md_iconColor = @"iconColor" ;
+
+
 static NSString *const k_md_markColor = @"markColor" ;
 static NSString *const k_md_seplineLineColor = @"seplineLineColor" ;
 static NSString *const k_md_quoteTextColor = @"quoteTextColor" ;
 static NSString *const k_md_quoteBarColor = @"quoteBarColor" ;
-static NSString *const k_md_themeColor = @"themeColor" ;
 static NSString *const k_md_homeTitleTextColor = @"homeTitleTextColor" ;
-static NSString *const k_md_bgColor = @"bgColor" ;
-static NSString *const k_md_iconColor = @"iconColor" ;
 static NSString *const k_md_drawerColor = @"drawerColor" ;
 static NSString *const k_md_linkColor = @"linkColor" ;
 static NSString *const k_md_midDrawerPadColor = @"midDrawerPadColor" ;
