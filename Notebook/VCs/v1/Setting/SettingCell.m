@@ -26,12 +26,12 @@
     
     self.selectionStyle = 0 ;
     self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
-    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .9) ;
     self.rightTip.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
-    self.icon.xt_theme_imageColor = k_md_iconColor ;
+    self.icon.xt_theme_imageColor = XT_MAKE_theme_color(k_md_iconColor, .8) ;
     
-    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
-    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
+    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
     WEAK_SELF
     [self bk_whenTapped:^{
         
@@ -112,7 +112,13 @@
         [IapUtil iapVipUserIsValid:^(BOOL isValid) {
             weakSelf.rightTip.text = isValid ? @"已订阅" : model[@"r"] ;
         }] ;
-    }            
+    }
+    else if ([title containsString:@"垃圾桶"]) {
+        self.rightTip.text = XT_STR_FORMAT(@"%d",[Note xt_countWhere:@"isDeleted == 1 AND icRecordName NOT LIKE 'mac-note%%'"]) ;
+    }
+    else if ([title containsString:@"主题"]) {
+        self.rightTip.text = [MDThemeConfiguration sharedInstance].currentFormatLanguage ;
+    }
     
 }
 

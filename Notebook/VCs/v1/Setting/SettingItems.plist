@@ -5,6 +5,16 @@
 	<array>
 		<dict>
 			<key>p</key>
+			<string>setting_trash</string>
+			<key>t</key>
+			<string>垃圾桶</string>
+			<key>r</key>
+			<string></string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>p</key>
 			<string>setting_normal</string>
 			<key>t</key>
 			<string>通用设置</string>

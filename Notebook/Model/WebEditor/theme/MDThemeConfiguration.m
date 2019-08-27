@@ -101,4 +101,20 @@ static NSString *const k_UD_Last_Day_THEME = @"k_UD_Last_Day_THEME" ;
     XT_USERDEFAULT_SET_VAL(theme, k_UD_Last_Day_THEME) ;
 }
 
+- (NSString *)currentFormatLanguage {
+    if ([self.currentThemeKey isEqualToString:@"light"]) {
+        return @"无暇白" ;
+    }
+    else if ([self.currentThemeKey isEqualToString:@"dark"]) {
+        return @"暗夜黑" ;
+    }
+    else if ([self.currentThemeKey isEqualToString:@"midnight"]) {
+        return @"情调黑" ;
+    }
+    else if ([self.currentThemeKey isEqualToString:@"sunshine"]) {
+        return @"日落黄" ;
+    }
+    return @"" ;
+}
+
 @end

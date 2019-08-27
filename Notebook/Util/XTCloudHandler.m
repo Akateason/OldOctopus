@@ -35,7 +35,7 @@
         return ((XTIcloudUser *)[self userInCacheSyncGet]).givenName ;
     }
     else {
-        return @"未登录" ;
+        return @"未登录/点击登录" ;
     }
 }
 

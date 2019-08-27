@@ -64,10 +64,11 @@ static int kLimitCount = 70 ;
     NoteBooks *book = [NoteBooks getBookWithBookID:note.noteBookId] ;
     [self.bookBg configBook:book] ;
     
-    _img.hidden = !note.previewPicture ;
-    _sepLine.hidden = _lbContent.hidden = note.previewPicture ;
+    BOOL hasPic = note.previewPicture && note.previewPicture.length > 0 ;
+    _img.hidden = !hasPic ;
+    _sepLine.hidden = _lbContent.hidden = hasPic ;
     
-    if (note.previewPicture) {
+    if (hasPic) {
         NSArray *list = [WebModel convertjsonStringToJsonObj:note.previewPicture] ;
         [_img sd_setImageWithURL:[NSURL URLWithString:list.firstObject]] ;
     }

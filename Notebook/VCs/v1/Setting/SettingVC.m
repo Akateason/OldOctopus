@@ -23,7 +23,7 @@
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import "OctWebEditor.h"
 
-@interface SettingVC ()
+@interface SettingVC () <UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btClose;
 @property (weak, nonatomic) IBOutlet UILabel *lbAccountTitle;
@@ -66,8 +66,15 @@
     @weakify(self)
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        
         self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
+        [self.table reloadData] ;
+    }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_User_Login_Success object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
+        NSString *givenName = [XTIcloudUser displayUserName] ;
+        self.lbName.text = givenName ;
     }] ;
 }
 
@@ -86,7 +93,13 @@
     self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbAccountTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
-    self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
+    if ([XTIcloudUser hasLogin]) {
+        self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
+    }
+    else {
+        self.userHead.image = [UIImage imageNamed:@"icon_user_not_login"] ;
+    }
+    
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     [SettingCell xt_registerNibFromTable:self.table] ;
     self.table.dataSource = self ;
@@ -123,11 +136,20 @@
         lb.font = [UIFont systemFontOfSize:12] ;
         [self.table addSubview:lb] ;
         [lb mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view.mas_bottom).offset(-45) ;
+            make.bottom.equalTo(self.view.mas_bottom).offset(-25) ;
             make.centerX.equalTo(self.view) ;
         }] ;
         lb ;
     }) ;
+    
+    self.userHead.userInteractionEnabled = self.lbName.userInteractionEnabled = YES ;
+    [self.userHead bk_whenTapped:^{
+        if (![XTIcloudUser hasLogin]) [XTIcloudUser alertUserToLoginICloud] ;
+    }] ;
+    
+    [self.lbName bk_whenTapped:^{
+        if (![XTIcloudUser hasLogin]) [XTIcloudUser alertUserToLoginICloud] ;
+    }] ;
 }
 
 #pragma mark - UITableViewDataSource<NSObject>
@@ -147,11 +169,14 @@
     [cell xt_configure:self.datasource[section][row] indexPath:indexPath] ;
     
     if (section == 0) {
+        cell.sepLineMode = SettingCellSeperateLine_Mode_ALL_FULL ;
+    }
+    else if (section == 1) {
         if (row == 0) cell.sepLineMode = SettingCellSeperateLine_Mode_Top ;
         else if (row == 3) cell.sepLineMode = SettingCellSeperateLine_Mode_Bottom ;
         else cell.sepLineMode = SettingCellSeperateLine_Mode_Middel ;
     }
-    else if (section == 1) {
+    else if (section == 2) {
         cell.sepLineMode = SettingCellSeperateLine_Mode_ALL_FULL ;
     }
     return cell ;

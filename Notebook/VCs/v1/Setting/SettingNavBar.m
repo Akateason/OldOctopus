@@ -30,14 +30,14 @@
     [navBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ctrller.view.mas_top).offset(topFlex) ;
         make.left.right.equalTo(ctrller.view) ;
-        make.height.equalTo(@66) ;
+        make.height.equalTo(@49) ;
     }] ;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.height = 66 ;
+        self.height = 49 ;
         self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
         
         UIButton *back = [UIButton new] ;

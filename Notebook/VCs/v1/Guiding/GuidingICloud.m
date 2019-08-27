@@ -74,6 +74,7 @@ XT_SINGLETON_M(GuidingICloud)
             if (user != nil && self.window != nil) {
                 [self removeFromSuperview] ;
                 [SVProgressHUD showSuccessWithStatus:@"已登录成功"] ;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNote_User_Login_Success object:nil] ;
             }
         }] ;
     }] ;

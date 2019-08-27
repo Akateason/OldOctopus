@@ -64,6 +64,8 @@ XT_SINGLETON_H(MDThemeConfiguration)
 - (void)setThemeDayOrNight:(BOOL)dark ;
 - (BOOL)isDarkMode ;
 
+- (NSString *)currentFormatLanguage ;
+
 @end
 
 
