@@ -124,16 +124,25 @@
 
 - (void)refreshAll {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.uiStatus_TopBar_turnSmall) {
-            [self.segmentBooks reloadData] ;
-        }
-        else {
-            [self.bookCollectionView reloadData] ;
-        }
+        [self refreshBars] ;
         
-        [self.mainCollectionView reloadData] ;
+        [self refreshContents] ;
     }) ;
 }
+
+- (void)refreshBars {
+//    if (self.uiStatus_TopBar_turnSmall) {
+        [self.segmentBooks reloadData] ;
+//    }
+//    else {
+        [self.bookCollectionView reloadData] ;
+//    }
+}
+
+- (void)refreshContents {
+    [self.mainCollectionView reloadData] ;
+}
+
 
 - (void)getAllBooks {
     NoteBooks *bookRecent = [NoteBooks createOtherBookWithType:Notebook_Type_recent] ;
@@ -259,7 +268,7 @@
     aNote.isTop = !aNote.isTop ;
     aNote.modifyDateOnServer = [[NSDate date] xt_getTick] ;
     [Note updateMyNote:aNote] ;
-        
+    
     OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0]] ;
 //    NSMutableArray *tmplist = [cell.noteList mutableCopy] ;
 //    [tmplist replaceObjectAtIndex:cell.xt_indexPath.row withObject:aNote] ;

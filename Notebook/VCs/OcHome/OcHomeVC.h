@@ -55,6 +55,8 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 + (UIViewController *)getMe ;
 
 - (void)refreshAll ;
+- (void)refreshBars ;
+- (void)refreshContents ;
 
 - (void)getAllBooks ;
 

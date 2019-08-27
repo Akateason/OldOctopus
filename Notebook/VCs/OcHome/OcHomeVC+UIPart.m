@@ -210,7 +210,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == self.bookCollectionView) {
         self.currentBook = self.bookList[indexPath.row] ;
-        [self refreshAll] ;
+        [self refreshBars] ;
         [self moveMainCollection] ;
     }
     else if (collectionView == self.mainCollectionView) {
@@ -285,7 +285,7 @@
 - (void)stretchSegment:(XTStretchSegment *)segment didSelectedIdx:(NSInteger)idx {
     NSLog(@"did select : %@", @(idx)) ;
     self.currentBook = self.bookList[idx] ;
-    [self refreshAll] ;
+    [self refreshBars] ;
     [self moveMainCollection] ;
 }
 
