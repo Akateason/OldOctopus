@@ -10,6 +10,8 @@
 #import "OcNoteCell.h"
 #import "OcHomeVC.h"
 #import "SettingSave.h"
+#import "HomeEmptyPHView.h"
+
 
 static const int kNotesContainerPageSize = 10 ;
 
@@ -36,6 +38,15 @@ static const int kNotesContainerPageSize = 10 ;
     layout.minimumLineSpacing = 10 ;
     layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
     self.contentCollection.collectionViewLayout = layout ;
+    
+    // 占位
+//    HomeEmptyPHView *phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+//    @weakify(self)
+//    [phView.area bk_whenTapped:^{
+//        @strongify(self)
+//        [(OcHomeVC *)self.xt_viewController addNoteOnClick] ;
+//    }] ;
+    self.contentCollection.customNoDataView = [UIView new] ;
     
     @weakify(self)
     [[[[[RACObserve(self.contentCollection, contentOffset) map:^id _Nullable(NSValue *value) {

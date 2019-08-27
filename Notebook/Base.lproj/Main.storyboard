@@ -174,27 +174,44 @@
                                     <constraint firstAttribute="bottom" secondItem="DIJ-PC-Vun" secondAttribute="bottom" constant="5" id="ufq-3X-hd4"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mx3-NJ-kCx">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nFC-ue-OFd">
                                 <rect key="frame" x="0.0" y="73" width="375" height="594"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="EMw-yd-sfU">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H0g-Yg-tek">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="OZY-4F-Bc1" firstAttribute="trailing" secondItem="i58-py-mD5" secondAttribute="trailing" id="2Yj-Be-PAW"/>
-                            <constraint firstItem="OZY-4F-Bc1" firstAttribute="trailing" secondItem="Mx3-NJ-kCx" secondAttribute="trailing" id="9SP-lL-YIX"/>
+                            <constraint firstItem="OZY-4F-Bc1" firstAttribute="bottom" secondItem="nFC-ue-OFd" secondAttribute="bottom" id="CxG-Do-YEj"/>
+                            <constraint firstItem="OZY-4F-Bc1" firstAttribute="trailing" secondItem="nFC-ue-OFd" secondAttribute="trailing" id="E53-q5-i27"/>
+                            <constraint firstItem="nFC-ue-OFd" firstAttribute="top" secondItem="i58-py-mD5" secondAttribute="bottom" id="F5f-17-b0o"/>
                             <constraint firstItem="i58-py-mD5" firstAttribute="leading" secondItem="OZY-4F-Bc1" secondAttribute="leading" id="L9b-XS-Xdq"/>
-                            <constraint firstItem="Mx3-NJ-kCx" firstAttribute="leading" secondItem="OZY-4F-Bc1" secondAttribute="leading" id="YS4-Df-Ag1"/>
-                            <constraint firstItem="OZY-4F-Bc1" firstAttribute="bottom" secondItem="Mx3-NJ-kCx" secondAttribute="bottom" id="cha-Og-APw"/>
-                            <constraint firstItem="Mx3-NJ-kCx" firstAttribute="top" secondItem="i58-py-mD5" secondAttribute="bottom" id="ddL-0Q-IoK"/>
+                            <constraint firstItem="nFC-ue-OFd" firstAttribute="leading" secondItem="OZY-4F-Bc1" secondAttribute="leading" id="kKj-yU-vyd"/>
                             <constraint firstItem="i58-py-mD5" firstAttribute="top" secondItem="b0y-Gt-7PU" secondAttribute="top" constant="20" id="ypc-Fv-n7H"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OZY-4F-Bc1"/>
                     </view>
                     <connections>
                         <outlet property="btCancel" destination="8K2-oZ-XXw" id="g2V-yG-bvU"/>
+                        <outlet property="collectionView" destination="nFC-ue-OFd" id="hvI-60-eaT"/>
+                        <outlet property="imgSearch" destination="HLb-l2-wdA" id="oSB-am-YLB"/>
                         <outlet property="searchBar" destination="DIJ-PC-Vun" id="etk-Kl-d3J"/>
-                        <outlet property="table" destination="Mx3-NJ-kCx" id="veo-Pz-hXL"/>
                         <outlet property="tf" destination="M00-Ep-IXe" id="yzF-VV-NIf"/>
                         <outlet property="topArea" destination="i58-py-mD5" id="xa8-NY-hEr"/>
                         <outlet property="topFlex" destination="ypc-Fv-n7H" id="hC3-yi-nic"/>

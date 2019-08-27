@@ -18,11 +18,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btCancel;
 @property (weak, nonatomic) IBOutlet UITextField *tf;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topFlex;
+@property (weak, nonatomic) IBOutlet UIImageView *imgSearch;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (weak, nonatomic) IBOutlet UITableView *table;
+
 
 + (void)showSearchVCFrom:(UIViewController *)fromCtrller ;
-+ (void)showSearchVCFrom:(UIViewController *)fromCtrller inTrash:(BOOL)inTrash ;
+
+#pragma mark - OcNoteCell call back  self.xt_viewcontroller
+/**
+ OcNoteCell call back
+ */
+- (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView ;
 
 @end
 

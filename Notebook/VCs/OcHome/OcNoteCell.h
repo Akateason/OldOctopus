@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UIImageView *topMark;
 
+@property (copy, nonatomic) NSString *textForSearching ;
+
 @property (strong, nonatomic) BookBgView *bookBg ;
 @end
 

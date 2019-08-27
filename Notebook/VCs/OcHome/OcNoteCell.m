@@ -11,6 +11,7 @@ static int kLimitCount = 70 ;
 #import "OcNoteCell.h"
 #import "WebModel.h"
 #import "OcHomeVC.h"
+#import "SearchVC.h"
 
 @implementation OcNoteCell
 
@@ -41,7 +42,14 @@ static int kLimitCount = 70 ;
     [self.btMore xt_enlargeButtonsTouchArea] ;
     WEAK_SELF
     [self.btMore bk_addEventHandler:^(id sender) {
-        [(OcHomeVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
+        
+        id vc = weakSelf.xt_viewController ;
+        if ([vc isKindOfClass:[OcHomeVC class]]) {
+            [(OcHomeVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
+        }
+        else if ([vc isKindOfClass:[SearchVC class]]) {
+            [(SearchVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
+        }
         
     } forControlEvents:(UIControlEventTouchUpInside)] ;
 }
@@ -74,8 +82,37 @@ static int kLimitCount = 70 ;
     
 }
 
-
-
-
+- (void)setTextForSearching:(NSString *)textForSearching {
+    _textForSearching = textForSearching ;
+    
+    if ([self.lbTitle.text containsString:textForSearching]) {
+        self.lbTitle.text = self.lbTitle.text ;
+        
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:self.lbTitle.text] ;
+        NSArray <NSValue *> *listRange = [self.lbTitle.text xt_searchAllRangesWithText:textForSearching] ;
+        [listRange enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSRange range = obj.rangeValue ;
+            NSDictionary * resultDic = @{NSBackgroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ,
+                                         NSFontAttributeName : self.lbTitle.font
+                                         };
+            [attr addAttributes:resultDic range:range] ;
+        }] ;
+        self.lbTitle.attributedText = attr ;
+    }
+    if ([self.lbContent.text containsString:textForSearching]) {
+        self.lbContent.text = self.lbContent.text ;
+        
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:self.lbContent.text] ;
+        NSArray <NSValue *> *listRange = [self.lbContent.text xt_searchAllRangesWithText:textForSearching] ;
+        [listRange enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSRange range = obj.rangeValue ;
+            NSDictionary * resultDic = @{NSBackgroundColorAttributeName : XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ,
+                                         NSFontAttributeName : self.lbContent.font
+                                         };
+            [attr addAttributes:resultDic range:range] ;
+        }] ;
+        self.lbContent.attributedText = attr ;
+    }
+}
 
 @end

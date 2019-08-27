@@ -46,11 +46,8 @@
     self.btSearch.xt_theme_imageColor = k_md_iconColor ;
     
     // 加号
-    [self.btAdd xt_enlargeButtonsTouchArea] ;
-//    self.btAdd.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.12].CGColor;
-//    self.btAdd.layer.shadowOffset = CGSizeMake(0, 7.5) ;
-//    self.btAdd.layer.shadowOpacity = 15 ;
-//    self.btAdd.layer.shadowRadius = 5 ;
+    self.btSearch.touchExtendInset  = UIEdgeInsetsMake(-15, -15, -15, -15) ;
+    self.btAdd.touchExtendInset     = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     
     // 按钮
     WEAK_SELF
@@ -68,7 +65,7 @@
         
         [weakSelf.btSearch oct_buttonClickAnimationComplete:^{
             
-            [SearchVC showSearchVCFrom:weakSelf inTrash:NO] ;
+            [SearchVC showSearchVCFrom:weakSelf] ;
         }] ;
         
     } forControlEvents:UIControlEventTouchUpInside] ;

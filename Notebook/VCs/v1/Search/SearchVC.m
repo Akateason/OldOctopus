@@ -8,36 +8,29 @@
 
 #import "SearchVC.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
-#import "NoteCell.h"
 #import "MarkdownVC.h"
 #import "MDNavVC.h"
 #import "SearchEmptyVC.h"
 #import "SchBarPositiveTransition.h"
-#import "GlobalDisplaySt.h"
 #import "HomeVC.h"
-#import "NHSlidingController.h"
-#import "UIViewController+SlidingController.h"
+//#import "NHSlidingController.h"
+//#import "UIViewController+SlidingController.h"
+#import "OcNoteCell.h"
 
-@interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate>
+
+@interface SearchVC () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
-@property (nonatomic) BOOL isTrash ;
 @end
 
 @implementation SearchVC
 
 + (void)showSearchVCFrom:(UIViewController *)fromCtrller {
-    [self showSearchVCFrom:fromCtrller inTrash:NO] ;
-}
-
-+ (void)showSearchVCFrom:(UIViewController *)fromCtrller inTrash:(BOOL)inTrash {
     SearchVC *vc = [SearchVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"SearchVC"] ;
-    vc.isTrash = inTrash ;
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:vc] ;
     fromCtrller.definesPresentationContext = YES;
-    navVC.transitioningDelegate = fromCtrller ;
+    navVC.transitioningDelegate = (id<UIViewControllerTransitioningDelegate>)fromCtrller ;
     navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
     [fromCtrller presentViewController:navVC animated:YES completion:^{
-        [fromCtrller.slidingController setDrawerOpened:NO animated:YES] ;
     }] ;
 }
 
@@ -53,7 +46,6 @@
         @strongify(self)
         [self.tf resignFirstResponder] ;
         [self dismissViewControllerAnimated:YES completion:nil] ;
-        
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [[[self.tf.rac_textSignal throttle:.3]
@@ -76,7 +68,7 @@
 - (void)prepareUI {
     self.fd_prefersNavigationBarHidden = YES ;
     
-    self.view.xt_theme_backgroundColor = IS_IPAD ? XT_MAKE_theme_color(k_md_midDrawerPadColor, 1) : XT_MAKE_theme_color(k_md_bgColor,1) ;
+    self.view.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor,1) ;
     
     self.topArea.xt_theme_backgroundColor = nil ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
@@ -87,23 +79,30 @@
     [self.tf setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"] ;
     
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.6)  ;
+    self.imgSearch.xt_theme_imageColor = XT_MAKE_theme_color(k_md_iconColor, .6) ;
     
-    [NoteCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
+    [OcNoteCell xt_registerNibFromCollection:self.collectionView] ;
+    self.collectionView.dataSource = self ;
+    self.collectionView.delegate = self ;
+    self.collectionView.xt_theme_backgroundColor = k_md_backColor ;
     
-    self.table.estimatedRowHeight           = 0;
-    self.table.estimatedSectionHeaderHeight = 0;
-    self.table.estimatedSectionFooterHeight = 0;
-    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.table.dataSource = self ;
-    self.table.delegate = self ;
-    self.table.backgroundColor = nil ;
-    self.table.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
+    SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
+    self.collectionView.customNoDataView = phVC.view ;
+    
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
+    float wid = ( APP_WIDTH - 10. * 3 ) / 2. ;
+    float height = wid  / 345. * 432. ;
+    layout.itemSize = CGSizeMake(wid, height) ;
+    layout.minimumLineSpacing = 10 ;
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
+    self.collectionView.collectionViewLayout = layout ;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated] ;
     
-    self.table.scrollEnabled = YES ;
+    self.collectionView.scrollEnabled = YES ;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNote_SearchVC_On_Window object:@1] ;
 }
 
@@ -118,66 +117,76 @@
 - (void)render {
     NSString *searchForText = self.tf.text ;
     if (searchForText.length) {
-        NSString *sql =
-        self.isTrash ?
-        XT_STR_FORMAT(@"searchContent like '%%%@%%' and isDeleted == 1",searchForText)
-        :
-        XT_STR_FORMAT(@"searchContent like '%%%@%%' and isDeleted == 0",searchForText) ;
+        NSString *sql = XT_STR_FORMAT(@"searchContent like '%%%@%%' and isDeleted == 0",searchForText) ;
         NSArray *list = [Note xt_findWhere:sql] ;
         self.listResult = list ;
     }
     else
         self.listResult = @[] ;
     
-    [self.table reloadData] ;
+    [self.collectionView reloadData] ;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#pragma mark - UICollectionView
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.listResult.count ;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NoteCell *cell = [NoteCell xt_fetchFromTable:tableView] ;
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
+    cell.btMore.hidden = YES ;
     [cell xt_configure:self.listResult[indexPath.row] indexPath:indexPath] ;
     cell.textForSearching = self.tf.text ;
     return cell ;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [NoteCell xt_cellHeight] ;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row ;
     Note *aNote = self.listResult[row] ;
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
-        [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:self] ;
-    }
-    else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
-    }
-    
+    [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:self] ;
     [self.tf resignFirstResponder] ;
 }
 
-- (UIView *)makePlaceHolderView {
-    if (!self.tf.text.length) {
-        return nil ;
-    }
-    SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
-    return phVC.view ;
+#pragma mark - OcNoteCell call back  self.xt_viewcontroller
+/**
+ OcNoteCell call back
+ */
+- (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView {
+    
 }
 
 
 
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return self.listResult.count ;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    NoteCell *cell = [NoteCell xt_fetchFromTable:tableView] ;
+//    [cell xt_configure:self.listResult[indexPath.row] indexPath:indexPath] ;
+//    cell.textForSearching = self.tf.text ;
+//    return cell ;
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return [NoteCell xt_cellHeight] ;
+//}
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    NSInteger row = indexPath.row ;
+//    Note *aNote = self.listResult[row] ;
+//    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+//        [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:self] ;
+//    }
+//    else {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
+//    }
+//
+//    [self.tf resignFirstResponder] ;
+//}
+//
 
-
-
-
-
-
-
-
-
+//
 
 @end

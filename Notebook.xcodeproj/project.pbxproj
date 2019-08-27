@@ -1493,6 +1493,7 @@
 		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				8FC431242265CC960002C9A1 /* Search */,
 				8F29F69C2315020E003DF3B7 /* NoteInfo */,
 				8F41EECC225B479200D9CD35 /* MoveNoteToBook */,
 				8FEA9E41225AFBAE002A756B /* NewBook */,
@@ -1521,7 +1522,8 @@
 				8F6863C02266FA7A00261626 /* SearchEmptyVC.m */,
 				8F6863C12266FA7A00261626 /* SearchEmptyVC.xib */,
 			);
-			path = Search;
+			name = Search;
+			path = v1/Search;
 			sourceTree = "<group>";
 		};
 		8FD7992D22C3451A00270C2C /* Setting */ = {
@@ -1593,7 +1595,6 @@
 				8FD7992D22C3451A00270C2C /* Setting */,
 				8F2A2667226EC6260076EBA4 /* Guiding */,
 				8FE5A3D5224B6C6800947D14 /* Home */,
-				8FC431242265CC960002C9A1 /* Search */,
 				8F679DF922324341008DE1BC /* markdownEditor */,
 				8FE5A3D6224B6C7400947D14 /* LeftDrawer */,
 			);
