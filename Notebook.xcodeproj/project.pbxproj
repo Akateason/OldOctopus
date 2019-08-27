@@ -78,6 +78,9 @@
 		8F1D1C0422E9822300C3B700 /* IapUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1D1C0322E9822300C3B700 /* IapUtil.m */; };
 		8F29F69A2314E1CF003DF3B7 /* MNTBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F29F6982314E1CF003DF3B7 /* MNTBCell.m */; };
 		8F29F69B2314E1CF003DF3B7 /* MNTBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F29F6992314E1CF003DF3B7 /* MNTBCell.xib */; };
+		8F29F69F23150223003DF3B7 /* NoteInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F29F69E23150223003DF3B7 /* NoteInfoVC.m */; };
+		8F29F6A223150EB7003DF3B7 /* note_info_remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F29F6A023150EB1003DF3B7 /* note_info_remove@2x.png */; };
+		8F29F6A323150EB7003DF3B7 /* note_info_output@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F29F6A123150EB3003DF3B7 /* note_info_output@2x.png */; };
 		8F2A2673226EE98D0076EBA4 /* guiding_img_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2672226EE98D0076EBA4 /* guiding_img_1@2x.png */; };
 		8F2A2675226EEC010076EBA4 /* guiding_img_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2674226EEC010076EBA4 /* guiding_img_2@2x.png */; };
 		8F2A2677226EEC830076EBA4 /* guiding_img_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2676226EEC830076EBA4 /* guiding_img_3@2x.png */; };
@@ -487,6 +490,10 @@
 		8F29F6972314E1CF003DF3B7 /* MNTBCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNTBCell.h; sourceTree = "<group>"; };
 		8F29F6982314E1CF003DF3B7 /* MNTBCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MNTBCell.m; sourceTree = "<group>"; };
 		8F29F6992314E1CF003DF3B7 /* MNTBCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MNTBCell.xib; sourceTree = "<group>"; };
+		8F29F69D23150223003DF3B7 /* NoteInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteInfoVC.h; sourceTree = "<group>"; };
+		8F29F69E23150223003DF3B7 /* NoteInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteInfoVC.m; sourceTree = "<group>"; };
+		8F29F6A023150EB1003DF3B7 /* note_info_remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "note_info_remove@2x.png"; sourceTree = "<group>"; };
+		8F29F6A123150EB3003DF3B7 /* note_info_output@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "note_info_output@2x.png"; sourceTree = "<group>"; };
 		8F2A2672226EE98D0076EBA4 /* guiding_img_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guiding_img_1@2x.png"; sourceTree = "<group>"; };
 		8F2A2674226EEC010076EBA4 /* guiding_img_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guiding_img_2@2x.png"; sourceTree = "<group>"; };
 		8F2A2676226EEC830076EBA4 /* guiding_img_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guiding_img_3@2x.png"; sourceTree = "<group>"; };
@@ -1020,6 +1027,15 @@
 			path = photoPreview;
 			sourceTree = "<group>";
 		};
+		8F29F69C2315020E003DF3B7 /* NoteInfo */ = {
+			isa = PBXGroup;
+			children = (
+				8F29F69D23150223003DF3B7 /* NoteInfoVC.h */,
+				8F29F69E23150223003DF3B7 /* NoteInfoVC.m */,
+			);
+			path = NoteInfo;
+			sourceTree = "<group>";
+		};
 		8F2A2667226EC6260076EBA4 /* Guiding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1275,6 +1291,8 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F29F6A123150EB3003DF3B7 /* note_info_output@2x.png */,
+				8F29F6A023150EB1003DF3B7 /* note_info_remove@2x.png */,
 				8F6860ED2313C110009436F1 /* home_add_book@2x.png */,
 				8F6860EE2313C110009436F1 /* home_add_note@2x.png */,
 				8F320D342313B7470075F2A7 /* md_home_add@2x.png */,
@@ -1475,6 +1493,7 @@
 		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				8F29F69C2315020E003DF3B7 /* NoteInfo */,
 				8F41EECC225B479200D9CD35 /* MoveNoteToBook */,
 				8FEA9E41225AFBAE002A756B /* NewBook */,
 				8FF32ABD230FCEAC00C1C835 /* OcAllBook */,
@@ -2041,6 +2060,7 @@
 				8FFAE10E229CDAF400CDAC47 /* mysql.plist in Resources */,
 				8F99DBD822E194F000A39F99 /* HomeTrashEmptyPHView.xib in Resources */,
 				8FFAE0E6229CDAF400CDAC47 /* rhtml.plist in Resources */,
+				8F29F6A323150EB7003DF3B7 /* note_info_output@2x.png in Resources */,
 				8FFAE132229CDAF400CDAC47 /* torquescript.plist in Resources */,
 				8F7A848F2244E4510099E905 /* md_tb_bt_link@2x.png in Resources */,
 				8F320D352313B7470075F2A7 /* md_home_add@2x.png in Resources */,
@@ -2063,6 +2083,7 @@
 				8FFAE0F1229CDAF400CDAC47 /* d.plist in Resources */,
 				8F0722E322E0673A0038A199 /* uhead_sunshine@2x.png in Resources */,
 				8FFAE0E9229CDAF400CDAC47 /* none.plist in Resources */,
+				8F29F6A223150EB7003DF3B7 /* note_info_remove@2x.png in Resources */,
 				8F0722E522E0673A0038A199 /* uhead_dark@2x.png in Resources */,
 				8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */,
 				8F7A84792244E1EB0099E905 /* md_tb_bt_quote@2x.png in Resources */,
@@ -2262,6 +2283,7 @@
 				8F05C57F22754F150047CC04 /* XTMarkdownParser+ImageUtil.m in Sources */,
 				8FE0ADBC22E960760011C173 /* IAPIntroductionCell.m in Sources */,
 				8F6863C22266FA7A00261626 /* SearchEmptyVC.m in Sources */,
+				8F29F69F23150223003DF3B7 /* NoteInfoVC.m in Sources */,
 				8F5C7E4422A8FDB40032680D /* WebPhotoHandler.m in Sources */,
 				8F0BC9EA22D496C6002064CC /* EmojiCell.m in Sources */,
 				8F90189522E9BDE600D1BA4B /* IapPaySuccessCell.m in Sources */,

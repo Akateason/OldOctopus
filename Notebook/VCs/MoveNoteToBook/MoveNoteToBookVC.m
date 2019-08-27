@@ -51,10 +51,10 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     self.hud.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
     self.btClose.xt_theme_imageColor = k_md_iconColor ;
     
-    self.hud.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;
-    self.hud.layer.shadowOffset = CGSizeMake(0, .5) ;
-    self.hud.layer.shadowOpacity = 0 ;
-    self.hud.layer.shadowRadius = 10 ;
+    self.topBar.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;
+    self.topBar.layer.shadowOffset = CGSizeMake(0, .5) ;
+    self.topBar.layer.shadowOpacity = 0 ;
+    self.topBar.layer.shadowRadius = 10 ;
 
     
     if (IS_IPAD) {

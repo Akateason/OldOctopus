@@ -10,7 +10,8 @@
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
-#import "ArticleInfoVC.h"
+//#import "ArticleInfoVC.h"
+#import "NoteInfoVC.h"
 #import "OutputPreviewVC.h"
 #import "OutputPreviewsNailView.h"
 #import "OctWebEditor+OctToolbarUtil.h"
@@ -42,7 +43,7 @@
 
 
 @property (strong, nonatomic) XTCameraHandler   *cameraHandler ;
-@property (strong, nonatomic) ArticleInfoVC     *infoVC ;
+//@property (strong, nonatomic) ArticleInfoVC     *infoVC ;
 
 @property (strong, nonatomic) Note              *aNote ;
 @property (copy, nonatomic)   NSString          *myBookID ;
@@ -622,34 +623,65 @@ return;}
 - (void)openMoreInfoView {
     [self.editor hideKeyboard] ;
     
-    [self.infoVC openFromView:self.view] ;
-        
-    self.infoVC.aNote = self.aNote ;
-    self.infoVC.webInfo = self.editor.webInfo ;
     WEAK_SELF
-    self.infoVC.blkDelete = ^{
-        if (IS_IPAD) {
-            [weakSelf clearArticleInIpad] ;
-            [weakSelf backAction:nil] ;
-        }
-        else {
-            [weakSelf.navigationController popViewControllerAnimated:YES] ;
-        }
+    [NoteInfoVC showFromCtrller:self
+                           note:self.aNote
+                       webModel:self.editor.webInfo
+                 outputCallback:^(NoteInfoVC * _Nonnull infoVC) {
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
-    } ;
-    
-    // 导出预览
-    self.infoVC.blkOutput = ^{
-        
-        if (![weakSelf isVIPandLogin:weakSelf.infoVC.bgVC.btOutput]) return ;
+        if (![weakSelf isVIPandLogin:infoVC.btOutput]) return ;
         
         [weakSelf.editor hideKeyboard] ;
-        [weakSelf.infoVC.view removeFromSuperview] ;
+        [infoVC dismissViewControllerAnimated:YES completion:nil] ;
         
         [weakSelf.editor nativeCallJSWithFunc:@"getPureHtml" json:nil completion:^(NSString *val, NSError *error) {}] ;
-    } ;
+        
+    } removeCallBack:^(NoteInfoVC * _Nonnull infoVC) {
+        
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"确认要将此文章放入垃圾桶?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+            if (btnIndex == 1) {
+                self.aNote.isDeleted = YES ;
+                [Note updateMyNote:self.aNote] ;
+                
+                
+                [weakSelf.navigationController popViewControllerAnimated:YES] ;
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
+            }
+        }] ;
 
+    }] ;
+    
+    
+    
+    
+//    [self.infoVC openFromView:self.view] ;
+//
+//    self.infoVC.aNote = self.aNote ;
+//    self.infoVC.webInfo = self.editor.webInfo ;
+//    WEAK_SELF
+//    self.infoVC.blkDelete = ^{
+//        if (IS_IPAD) {
+//            [weakSelf clearArticleInIpad] ;
+//            [weakSelf backAction:nil] ;
+//        }
+//        else {
+//            [weakSelf.navigationController popViewControllerAnimated:YES] ;
+//        }
+//
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
+//    } ;
+//
+//    // 导出预览
+//    self.infoVC.blkOutput = ^{
+//
+//        if (![weakSelf isVIPandLogin:weakSelf.infoVC.bgVC.btOutput]) return ;
+//
+//        [weakSelf.editor hideKeyboard] ;
+//        [weakSelf.infoVC.view removeFromSuperview] ;
+//
+//        [weakSelf.editor nativeCallJSWithFunc:@"getPureHtml" json:nil completion:^(NSString *val, NSError *error) {}] ;
+//    } ;
+    
 }
 
 - (void)snapShotFullScreen:(NSString *)htmlString {
@@ -775,16 +807,6 @@ return;}
         [self.view insertSubview:_editor atIndex:0] ;
     }
     return _editor ;
-}
-
-- (ArticleInfoVC *)infoVC{
-    if(!_infoVC){
-        _infoVC = ({
-            ArticleInfoVC *infoVC = [ArticleInfoVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
-            infoVC;
-       });
-    }
-    return _infoVC;
 }
 
 - (UIViewController *)fromCtrller {
