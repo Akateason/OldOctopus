@@ -76,6 +76,7 @@
     
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     
+    self.hud.xt_theme_backgroundColor = k_md_bgColor ;
     self.underline.xt_theme_backgroundColor = k_md_iconColor ;
     self.btCreate.xt_theme_textColor = k_md_bgColor ;
     self.btCreate.xt_theme_backgroundColor = k_md_themeColor ;

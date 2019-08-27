@@ -76,6 +76,8 @@
 		8F1D1BFF22E9786700C3B700 /* IAPInfoBottomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1D1BFD22E9786700C3B700 /* IAPInfoBottomCell.xib */; };
 		8F1D1C0122E97CC600C3B700 /* iap_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1D1C0022E97CC600C3B700 /* iap_bottom@2x.png */; };
 		8F1D1C0422E9822300C3B700 /* IapUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1D1C0322E9822300C3B700 /* IapUtil.m */; };
+		8F29F69A2314E1CF003DF3B7 /* MNTBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F29F6982314E1CF003DF3B7 /* MNTBCell.m */; };
+		8F29F69B2314E1CF003DF3B7 /* MNTBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F29F6992314E1CF003DF3B7 /* MNTBCell.xib */; };
 		8F2A2673226EE98D0076EBA4 /* guiding_img_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2672226EE98D0076EBA4 /* guiding_img_1@2x.png */; };
 		8F2A2675226EEC010076EBA4 /* guiding_img_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2674226EEC010076EBA4 /* guiding_img_2@2x.png */; };
 		8F2A2677226EEC830076EBA4 /* guiding_img_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A2676226EEC830076EBA4 /* guiding_img_3@2x.png */; };
@@ -482,6 +484,9 @@
 		8F1D1C0022E97CC600C3B700 /* iap_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iap_bottom@2x.png"; sourceTree = "<group>"; };
 		8F1D1C0222E9822300C3B700 /* IapUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IapUtil.h; sourceTree = "<group>"; };
 		8F1D1C0322E9822300C3B700 /* IapUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IapUtil.m; sourceTree = "<group>"; };
+		8F29F6972314E1CF003DF3B7 /* MNTBCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNTBCell.h; sourceTree = "<group>"; };
+		8F29F6982314E1CF003DF3B7 /* MNTBCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MNTBCell.m; sourceTree = "<group>"; };
+		8F29F6992314E1CF003DF3B7 /* MNTBCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MNTBCell.xib; sourceTree = "<group>"; };
 		8F2A2672226EE98D0076EBA4 /* guiding_img_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guiding_img_1@2x.png"; sourceTree = "<group>"; };
 		8F2A2674226EEC010076EBA4 /* guiding_img_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guiding_img_2@2x.png"; sourceTree = "<group>"; };
 		8F2A2676226EEC830076EBA4 /* guiding_img_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guiding_img_3@2x.png"; sourceTree = "<group>"; };
@@ -1065,6 +1070,9 @@
 			children = (
 				8F41EECD225B47AE00D9CD35 /* MoveNoteToBookVC.h */,
 				8F41EECE225B47AE00D9CD35 /* MoveNoteToBookVC.m */,
+				8F29F6972314E1CF003DF3B7 /* MNTBCell.h */,
+				8F29F6982314E1CF003DF3B7 /* MNTBCell.m */,
+				8F29F6992314E1CF003DF3B7 /* MNTBCell.xib */,
 			);
 			path = MoveNoteToBook;
 			sourceTree = "<group>";
@@ -1467,6 +1475,7 @@
 		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				8F41EECC225B479200D9CD35 /* MoveNoteToBook */,
 				8FEA9E41225AFBAE002A756B /* NewBook */,
 				8FF32ABD230FCEAC00C1C835 /* OcAllBook */,
 				8FDA7357230A53C000EEDC57 /* OcHome */,
@@ -1568,7 +1577,6 @@
 				8FC431242265CC960002C9A1 /* Search */,
 				8F679DF922324341008DE1BC /* markdownEditor */,
 				8FE5A3D6224B6C7400947D14 /* LeftDrawer */,
-				8F41EECC225B479200D9CD35 /* MoveNoteToBook */,
 			);
 			path = v1;
 			sourceTree = "<group>";
@@ -2036,6 +2044,7 @@
 				8FFAE132229CDAF400CDAC47 /* torquescript.plist in Resources */,
 				8F7A848F2244E4510099E905 /* md_tb_bt_link@2x.png in Resources */,
 				8F320D352313B7470075F2A7 /* md_home_add@2x.png in Resources */,
+				8F29F69B2314E1CF003DF3B7 /* MNTBCell.xib in Resources */,
 				8F71E22022AB8EAB0009BE62 /* dark.json in Resources */,
 				8FFAE0E2229CDAF400CDAC47 /* asm-mips.plist in Resources */,
 				8F1D1BFF22E9786700C3B700 /* IAPInfoBottomCell.xib in Resources */,
@@ -2261,6 +2270,7 @@
 				8FE5A3EA224CA77400947D14 /* LDHeadView.m in Sources */,
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
 				8F97514422D7A8BD0012F403 /* OctMBPHud.m in Sources */,
+				8F29F69A2314E1CF003DF3B7 /* MNTBCell.m in Sources */,
 				8F7B2EB522C36DCA000018DE /* SetGeneralVC.m in Sources */,
 				8F05C57C22754CD40047CC04 /* XTMarkdownParser+Regular.m in Sources */,
 				8F6C95D322CFBE6C00AF5302 /* SingleGuidVC.m in Sources */,

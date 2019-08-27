@@ -20,7 +20,7 @@
 
 + (instancetype)getMeFrom:(UIViewController *)fromCtrller {
     OcAllBookVC *vc = [OcAllBookVC getCtrllerFromStory:@"Home" controllerIdentifier:@"OcAllBookVC"] ;
-    vc.delegate = fromCtrller ;
+    vc.delegate = (id<OcAllBookVCDelegate>)fromCtrller ;
     vc.modalPresentationStyle = UIModalPresentationPopover ;
 //    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
     [fromCtrller presentViewController:vc animated:YES completion:^{}] ;
@@ -36,8 +36,14 @@
 }
 
 - (void)prepareUI {
-    self.collectionView.dataSource      = self ;
-    self.collectionView.delegate        = self ;
+    self.topBar.xt_theme_backgroundColor = k_md_bgColor ;
+    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .9) ;
+    self.btClose.xt_theme_imageColor = k_md_iconColor ;
+    self.collectionView.xt_theme_backgroundColor = k_md_bgColor ;
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    
+    self.collectionView.dataSource      = (id<UICollectionViewDataSource>)self ;
+    self.collectionView.delegate        = (id<UICollectionViewDelegate>)self ;
     [OcBookCell xt_registerNibFromCollection:self.collectionView] ;
     
     WEAK_SELF

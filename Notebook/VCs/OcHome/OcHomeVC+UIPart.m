@@ -34,7 +34,7 @@
     
     self.bookCollectionView.xt_theme_backgroundColor = k_md_bgColor ;
     self.mainCollectionView.xt_theme_backgroundColor = k_md_backColor ;
-    
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
     
     // ..
     self.topBar.xt_theme_backgroundColor = k_md_bgColor ;

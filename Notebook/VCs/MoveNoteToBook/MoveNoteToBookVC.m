@@ -7,18 +7,15 @@
 //
 
 #import "MoveNoteToBookVC.h"
-#import "LDNotebookCell.h"
+#import "MNTBCell.h"
 
 typedef void(^BlkMoveBook)(NoteBooks *book);
 
 @interface MoveNoteToBookVC () <UITableViewDataSource,UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
-@property (weak, nonatomic) IBOutlet UIButton *btClose;
-@property (weak, nonatomic) IBOutlet UITableView *table;
-@property (weak, nonatomic) IBOutlet UIImageView *imgRightCornerPaint;
-
-@property (copy, nonatomic) NSArray *booklist ;
+@property (copy, nonatomic) NSArray     *booklist ;
 @property (copy, nonatomic) BlkMoveBook blkMove ;
+
+
 @end
 
 @implementation MoveNoteToBookVC
@@ -29,6 +26,7 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     MoveNoteToBookVC *vc = [MoveNoteToBookVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MoveNoteToBookVC"] ;
     ctrller.definesPresentationContext = YES;
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
+    vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve ;
     [ctrller presentViewController:vc animated:YES completion:^{
     }] ;
     vc.blkMove = blkMove ;
@@ -47,18 +45,37 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 }
 
 - (void)prepareUI {
+    self.view.backgroundColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .4) ;
+    self.topBar.backgroundColor = UIColorRGBA(249, 249, 249, .94) ;
     self.lbTitle.xt_theme_textColor = k_md_textColor ;
+    self.hud.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    self.btClose.xt_theme_imageColor = k_md_iconColor ;
     
-    self.view.backgroundColor = nil ;
-    [self.view oct_addBlurBg] ;
+    self.hud.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;
+    self.hud.layer.shadowOffset = CGSizeMake(0, .5) ;
+    self.hud.layer.shadowOpacity = 0 ;
+    self.hud.layer.shadowRadius = 10 ;
+
+    
+    if (IS_IPAD) {
+//        self.hud.xt_cornerRadius = 13 ;
+        self.width_hud.constant = 325 ;
+        self.height_hud.constant = APP_HEIGHT / 3. * 2. ;
+    }
+    else {
+        self.width_hud.constant = APP_WIDTH ;
+        self.height_hud.constant = APP_HEIGHT - APP_STATUSBAR_HEIGHT * 2 ;
+//        self.hud.xt_cornerRadius = 0 ;
+    }
+    
     
     [self.btClose xt_enlargeButtonsTouchArea] ;
     
-    [LDNotebookCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
+    [MNTBCell xt_registerNibFromTable:self.table bundleOrNil:[NSBundle bundleForClass:self.class]] ;
     self.table.separatorStyle = 0 ;
     self.table.dataSource = self ;
     self.table.delegate = self ;
-    self.table.backgroundColor = nil ;
+    self.table.xt_theme_backgroundColor = k_md_bgColor ;
 }
 
 #pragma mark - table
@@ -68,16 +85,13 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    LDNotebookCell *cell = [LDNotebookCell xt_fetchFromTable:tableView indexPath:indexPath] ;
+    MNTBCell *cell = [MNTBCell xt_fetchFromTable:tableView indexPath:indexPath] ;
     [cell xt_configure:self.booklist[indexPath.row] indexPath:indexPath] ;
-    cell.backgroundColor = nil ;
-    
-    
     return cell ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [LDNotebookCell xt_cellHeight] ;
+    return [MNTBCell xt_cellHeight] ;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -86,8 +100,8 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
         if (indexPath.row == idx) aBook = obj ;
     }] ;
     
-    LDNotebookCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
-    [cell shineOnce:^{
+    MNTBCell *cell = [tableView cellForRowAtIndexPath:indexPath] ;
+    [cell.lbEmoji oct_buttonClickAnimationComplete:^{
         
         @weakify(self)
         [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"移动笔记" message:XT_STR_FORMAT(@"移动笔记到《%@》?",aBook.name) cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
@@ -97,10 +111,8 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
                 [self dismissViewControllerAnimated:YES completion:^{}] ;
             }
         }] ;
-        
+
     }] ;
-    
-    
 }
 
 @end
