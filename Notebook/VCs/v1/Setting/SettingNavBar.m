@@ -38,7 +38,7 @@
     self = [super init];
     if (self) {
         self.height = 49 ;
-        self.xt_theme_backgroundColor = k_md_backColor ;
+        self.xt_theme_backgroundColor = k_md_bgColor ;
         
         UIButton *back = [UIButton new] ;
         back.size = CGSizeMake(20, 20) ;

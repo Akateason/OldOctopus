@@ -32,7 +32,7 @@
 }
 
 - (void)prepareUI {
-    self.view.xt_theme_backgroundColor = k_md_backColor ;
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
     
     
     self.fd_prefersNavigationBarHidden = YES ;

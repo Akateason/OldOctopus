@@ -34,7 +34,7 @@
 }
 
 - (void)prepareUI {
-    self.view.xt_theme_backgroundColor = k_md_backColor ;
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
     self.fd_prefersNavigationBarHidden = YES ;
     [SettingNavBar addInController:self] ;
     
@@ -43,7 +43,7 @@
     
     self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     
-    self.table.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
+    self.table.xt_theme_backgroundColor = k_md_backColor ;
     self.table.dataSource = self ;
     self.table.delegate = self ;
     self.table.estimatedRowHeight           = 0;

@@ -25,7 +25,7 @@
     self.btReply.xt_cornerRadius = 6 ;
     
     self.selectionStyle = 0 ;
-    self.xt_theme_backgroundColor = k_md_backColor ;
+    self.xt_theme_backgroundColor = k_md_bgColor ;
 
     self.lbPrivacy.xt_theme_textColor =  self.lbService.xt_theme_textColor = k_md_themeColor ;
     

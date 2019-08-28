@@ -18,7 +18,7 @@
     // Initialization code
     
     self.selectionStyle = 0 ;
-    self.xt_theme_backgroundColor = k_md_backColor ;
+    self.xt_theme_backgroundColor = k_md_bgColor ;
     
     
     self.lb1.xt_theme_textColor = self.lb2.xt_theme_textColor = self.lb3.xt_theme_textColor = self.lb4.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;

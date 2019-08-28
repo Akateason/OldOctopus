@@ -19,7 +19,7 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = 0 ;
-    self.xt_theme_backgroundColor = k_md_backColor ;
+    self.xt_theme_backgroundColor = k_md_bgColor ;
     self.lbMonth.xt_theme_textColor = self.lbYear.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.btMonth.xt_theme_textColor = self.btYear.xt_theme_textColor = k_md_backColor ;
     self.btMonth.xt_theme_backgroundColor = self.btYear.xt_theme_backgroundColor = k_md_themeColor ;

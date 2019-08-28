@@ -26,7 +26,7 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = 0 ;
-    self.xt_theme_backgroundColor = k_md_backColor ;
+    self.xt_theme_backgroundColor = k_md_bgColor ;
     
     self.lbTip.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     

@@ -20,7 +20,7 @@
     [super awakeFromNib];
     
     self.selectionStyle = 0 ;
-    self.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_midDrawerPadColor) ;
+    self.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_backColor) ;
     self.bottomLine.backgroundColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, .2) ;
 }
 

@@ -34,7 +34,7 @@
 }
 
 - (void)prepareUI {
-    self.view.xt_theme_backgroundColor = k_md_backColor ;
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
     self.fd_prefersNavigationBarHidden = YES ;
     [SettingNavBar addInController:self] ;
     
@@ -44,7 +44,7 @@
     [self.table registerClass:SettingCellHeader.class forHeaderFooterViewReuseIdentifier:@"SettingCellHeader"] ;
     self.table.dataSource   = self ;
     self.table.delegate     = self ;
-    self.table.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
+    self.table.xt_theme_backgroundColor = k_md_backColor ;
     self.table.estimatedRowHeight           = 0;
     self.table.estimatedSectionHeaderHeight = 0;
     self.table.estimatedSectionFooterHeight = 0;
