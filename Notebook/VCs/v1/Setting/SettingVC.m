@@ -22,6 +22,7 @@
 #import "UIView+OctupusExtension.h"
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import "OctWebEditor.h"
+#import "HiddenUtil.h"
 
 @interface SettingVC () <UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -75,6 +76,12 @@
         self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
         NSString *givenName = [XTIcloudUser displayUserName] ;
         self.lbName.text = givenName ;
+    }] ;
+    
+    
+    // 清数据 暗开关
+    [self.view bk_whenTouches:2 tapped:7 handler:^{
+        [HiddenUtil showAlert] ;
     }] ;
 }
 

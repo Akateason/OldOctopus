@@ -13,6 +13,8 @@
 #import "MarkdownVC.h"
 #import <FTPopOverMenu/FTPopOverMenu.h>
 #import "MoveNoteToBookVC.h"
+#import "UserTestCodeVC.h"
+#import "OcHomeVC+Notifications.h"
 
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
 
@@ -36,93 +38,27 @@
     [super viewDidLoad] ;
     
     self.bookList = @[] ;
-    
     [self getAllBooks] ;
+    [self xt_setupNotifications] ;
     
-    [self setupNotifications] ;
-    
-    //    [[[RACSignal interval:6 onScheduler:[RACScheduler mainThreadScheduler]]
-    //      takeUntil:self.rac_willDeallocSignal]
-    //     subscribeNext:^(NSDate * _Nullable x) {
-    //         @strongify(self)
-    //         if (self.view.window) {
-    //             LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
-    //             [events icloudSync:^{}] ;
-    //         }
-    //     }] ;
-    //
-    //    [[[self rac_signalForSelector:@selector(viewDidAppear:)] throttle:1] subscribeNext:^(RACTuple * _Nullable x) {
-    //        @strongify(self)
-    //        // 内测验证码
-    //        [UserTestCodeVC getMeFrom:self.slidingController] ;
-    //    }] ;
-}
-
-- (void)setupNotifications {
-    // BOOK RELATIVE NOTIFICATES
     @weakify(self)
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
-       takeUntil:self.rac_willDeallocSignal]
-      deliverOnMainThread]
-     subscribeNext:^(NSNotification * _Nullable x) {
+    [[[RACSignal interval:6 onScheduler:[RACScheduler mainThreadScheduler]]
+      takeUntil:self.rac_willDeallocSignal]
+     subscribeNext:^(NSDate * _Nullable x) {
          @strongify(self)
-         
-         self.segmentBooks.titleColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
-         self.segmentBooks.titleSelectedColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) ;
-         
-         [self refreshAll] ;
+         if (self.view.window) {
+             LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
+             [events icloudSync:^{}] ;
+         }
      }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+    [[[self rac_signalForSelector:@selector(viewDidAppear:)] throttle:1] subscribeNext:^(RACTuple * _Nullable x) {
         @strongify(self)
-        
-        @weakify(self)
-        [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-            if (user != nil) {
-                @strongify(self)
-                [self getAllBooks] ;
-            }
-        }] ;
+        // 内测验证码
+        [UserTestCodeVC getMeFrom:self] ;
     }] ;
-    
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_iap_purchased_done object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        [self getAllBooks] ;
-    }] ;
-    
-    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
-        takeUntil:self.rac_willDeallocSignal]
-       deliverOnMainThread]
-      throttle:1.]
-     subscribeNext:^(NSNotification * _Nullable x) {
-         @strongify(self)
-         NSLog(@"go sync list") ;
-//         if (self.isOnDeleting) return ;
-         
-         [self getAllBooks] ;
-     }] ;
-
-//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationImportFileIn object:nil]
-//       takeUntil:self.rac_willDeallocSignal]
-//      deliverOnMainThread]
-//     subscribeNext:^(NSNotification * _Nullable x) {
-//         @strongify(self)
-//         NSString *path = x.object ;
-//         NSString *md = [[NSString alloc] initWithContentsOfFile:path encoding:(NSUTF8StringEncoding) error:nil] ;
-//         NSString *title = [Note getTitleWithContent:md] ;
-//         Note *aNote = [[Note alloc] initWithBookID:self.leftVC.currentBook.icRecordName content:md title:title] ;
-//         [Note createNewNote:aNote] ;
-//
-//         @weakify(self)
-//         [self renderTable:^{
-//             @strongify(self)
-//             [self newNoteCombineFunc:aNote] ;
-//         }] ;
-//     }] ;
-
-
-
 }
+
 
 #pragma mark - Funcs
 
@@ -135,12 +71,9 @@
 }
 
 - (void)refreshBars {
-//    if (self.uiStatus_TopBar_turnSmall) {
-        [self.segmentBooks reloadData] ;
-//    }
-//    else {
-        [self.bookCollectionView reloadData] ;
-//    }
+    [self.segmentBooks reloadData] ;
+    
+    [self.bookCollectionView reloadData] ;
 }
 
 - (void)refreshContents {
