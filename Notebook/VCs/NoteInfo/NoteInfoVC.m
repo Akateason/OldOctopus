@@ -41,8 +41,8 @@ typedef void(^BlkRemove)(NoteInfoVC *infoVC) ;
 
 
 - (void)prepareUI {
-    self.view.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
-    self.hud.xt_theme_backgroundColor = k_md_bgColor ;
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.2] ;
+    self.hud.xt_theme_backgroundColor = k_md_hudColor ;
     self.hud.xt_cornerRadius = 13. ;
     self.hud.xt_maskToBounds = YES ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
@@ -61,7 +61,7 @@ typedef void(^BlkRemove)(NoteInfoVC *infoVC) ;
     }
     
     for (UILabel *lb in self.infoTitlesGroup) {
-        lb.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+        lb.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .45) ;
     }
     
     [self.btOutput setTitleColor:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) forState:0] ;

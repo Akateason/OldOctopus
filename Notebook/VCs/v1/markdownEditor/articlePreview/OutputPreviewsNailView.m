@@ -21,7 +21,7 @@
     UILabel *lbName = [UILabel new] ;
     lbName.text = [XTIcloudUser displayUserName] ;
     lbName.font = [UIFont systemFontOfSize:21] ;
-    lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    lbName.textColor = [UIColor colorWithWhite:0 alpha:.8] ;
     lbName.textAlignment = NSTextAlignmentRight ;
     [view addSubview:lbName] ;
     [lbName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -32,7 +32,7 @@
     UILabel *lbDetail = [UILabel new] ;
     lbDetail.text = XT_STR_FORMAT(@"于 %@ 写于小章鱼笔记", [[NSDate date] xt_getStrWithFormat:@"YYYY.MM.dd"] ) ;
     lbDetail.font = [UIFont systemFontOfSize:16] ;
-    lbDetail.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    lbDetail.textColor = [UIColor colorWithWhite:0 alpha:.6] ;
     lbDetail.textAlignment = NSTextAlignmentRight ;
     [view addSubview:lbDetail] ;
     [lbDetail mas_makeConstraints:^(MASConstraintMaker *make) {

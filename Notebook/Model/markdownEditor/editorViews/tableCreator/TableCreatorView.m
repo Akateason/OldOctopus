@@ -71,7 +71,7 @@
     _tfLineCount.keyboardType = UIKeyboardTypeNumberPad ;
     _tfColumnCount.keyboardType = UIKeyboardTypeNumberPad ;
     
-    self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.xt_theme_backgroundColor = k_md_backColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.btOk.xt_theme_textColor = k_md_textColor ;
     self.btCancel.xt_theme_textColor = k_md_textColor ;

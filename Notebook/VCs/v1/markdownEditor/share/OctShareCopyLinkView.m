@@ -43,11 +43,11 @@
     
     self.backgroundColor = [UIColor colorWithWhite:0 alpha:.3] ;
     self.hud.xt_cornerRadius = 6 ;
-    self.hud.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.hud.xt_theme_backgroundColor = k_md_backColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     self.tf.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.tf.userInteractionEnabled = NO ;
-    self.tf.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.tf.xt_theme_backgroundColor = k_md_backColor ;
     
     self.btConfirm.xt_cornerRadius = self.btCancel.xt_cornerRadius = 8 ;
     self.btConfirm.xt_borderColor = self.btCancel.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .2) ;

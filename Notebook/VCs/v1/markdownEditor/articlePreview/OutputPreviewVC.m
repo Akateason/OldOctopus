@@ -34,10 +34,9 @@
 
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.fd_prefersNavigationBarHidden = YES ;
+    [super viewDidLoad] ;
 
+    self.fd_prefersNavigationBarHidden = YES ;
     
     WEAK_SELF
     [self.btCancel bk_whenTapped:^{
@@ -66,16 +65,17 @@
     XTZoomPicture *zoomPic = [[XTZoomPicture alloc] initWithFrame:rect backImage:self.outpuImage tapped:^{
         
     }] ;
+    zoomPic.backgroundColor = UIColorHex(@"F5F5F5") ;
     zoomPic.frame = CGRectMake(15, APP_NAVIGATIONBAR_HEIGHT + APP_STATUSBAR_HEIGHT + 20, rect.size.width, rect.size.height) ;
     [self.view addSubview:zoomPic] ;
 }
 
 - (void)prepareUI {
-    self.topBar.xt_theme_backgroundColor = k_md_bgColor ;
-    self.btCancel.xt_theme_textColor = k_md_textColor ;
-    self.btSave.xt_theme_textColor = k_md_themeColor ;
-    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    self.topBar.backgroundColor = [UIColor whiteColor] ;
 
+    self.view.backgroundColor = [UIColor whiteColor] ;
+    [self.btCancel setTitleColor:[UIColor colorWithWhite:0 alpha:.6] forState:0] ;
+    [self.btSave setTitleColor:UIColorHex(@"FF6969") forState:0] ;
 }
 
 

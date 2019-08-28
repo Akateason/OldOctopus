@@ -1233,7 +1233,8 @@
 				8F2C760D2282D39400A6DC89 /* articlePreview */,
 				8FA2295222646A2C00D736E2 /* articleInfo */,
 			);
-			path = markdownEditor;
+			name = markdownEditor;
+			path = v1/markdownEditor;
 			sourceTree = "<group>";
 		};
 		8F679DFD2232437E008DE1BC /* markdownEditor */ = {
@@ -1526,6 +1527,7 @@
 		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				8F679DF922324341008DE1BC /* markdownEditor */,
 				8FE0ADAD22E945860011C173 /* IAPSubscription */,
 				8FD7992D22C3451A00270C2C /* Setting */,
 				8FC431242265CC960002C9A1 /* Search */,
@@ -1630,7 +1632,6 @@
 				8F5E27BD22CDCC150012AB22 /* Emoji */,
 				8F2A2667226EC6260076EBA4 /* Guiding */,
 				8FE5A3D5224B6C6800947D14 /* Home */,
-				8F679DF922324341008DE1BC /* markdownEditor */,
 				8FE5A3D6224B6C7400947D14 /* LeftDrawer */,
 			);
 			path = v1;

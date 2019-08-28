@@ -90,7 +90,7 @@
     self.btClose.xt_theme_imageColor = k_md_iconColor ;
     [self.btClose xt_enlargeButtonsTouchArea] ;
     
-    self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbAccountTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     if ([XTIcloudUser hasLogin]) {
@@ -104,7 +104,7 @@
     [SettingCell xt_registerNibFromTable:self.table] ;
     self.table.dataSource = self ;
     self.table.delegate = self ;
-    self.table.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
+    self.table.xt_theme_backgroundColor = k_md_backColor ;
     self.table.estimatedRowHeight           = 0;
     self.table.estimatedSectionHeaderHeight = 0;
     self.table.estimatedSectionFooterHeight = 0;

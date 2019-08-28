@@ -27,26 +27,20 @@
     [super awakeFromNib];
     
     self.selectionStyle = 0 ;
-    self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.xt_theme_backgroundColor = k_md_bgColor ; //k_md_drawerSelectedColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .9) ;
     self.rightTip.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.icon.xt_theme_imageColor = XT_MAKE_theme_color(k_md_iconColor, .8) ;
     
-    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
-    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
+    self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     WEAK_SELF
     [self bk_whenTapped:^{
         
-        [UIView animateWithDuration:.3 animations:^{
-            weakSelf.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
-        } completion:^(BOOL finished) {
-            
-            [weakSelf.icon oct_buttonClickAnimationComplete:^{
-                [weakSelf cellDidSelect] ;
-            }] ;
-            
-            weakSelf.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_drawerSelectedColor) ;
+        [weakSelf.icon oct_buttonClickAnimationComplete:^{
+            [weakSelf cellDidSelect] ;
         }] ;
+        
     }] ;
 }
 

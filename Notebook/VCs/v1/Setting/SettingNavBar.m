@@ -38,7 +38,7 @@
     self = [super init];
     if (self) {
         self.height = 49 ;
-        self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+        self.xt_theme_backgroundColor = k_md_backColor ;
         
         UIButton *back = [UIButton new] ;
         back.size = CGSizeMake(20, 20) ;

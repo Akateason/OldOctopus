@@ -19,9 +19,9 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = 0 ;
-    self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.xt_theme_backgroundColor = k_md_backColor ;
     self.lbMonth.xt_theme_textColor = self.lbYear.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
-    self.btMonth.xt_theme_textColor = self.btYear.xt_theme_textColor = k_md_drawerSelectedColor ;
+    self.btMonth.xt_theme_textColor = self.btYear.xt_theme_textColor = k_md_backColor ;
     self.btMonth.xt_theme_backgroundColor = self.btYear.xt_theme_backgroundColor = k_md_themeColor ;
     self.btMonth.xt_cornerRadius = self.btYear.xt_cornerRadius = 6. ;
     self.lbDescYear.xt_theme_textColor = self.lbDescMonth.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;

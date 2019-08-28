@@ -856,7 +856,7 @@ return;}
             
             WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config] ;
             webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
-            webView.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+            webView.backgroundColor = UIColorHex(@"ffffff") ;
             webView.opaque = NO ;
             webView.hidden = NO ;
             [webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
@@ -871,7 +871,7 @@ return;}
         _snapBgView = ({
             UIView *object = [[UIView alloc] init] ;
             object.frame = self.view.bounds ;
-            object.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+            object.backgroundColor = UIColorHex(@"FAFAFA") ;
             object;
        });
     }

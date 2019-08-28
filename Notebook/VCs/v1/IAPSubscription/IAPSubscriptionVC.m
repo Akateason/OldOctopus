@@ -43,7 +43,7 @@
     popVC.sourceView = souceView ;
     popVC.sourceRect = souceView.bounds ;
     popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
-    popVC.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    popVC.xt_theme_backgroundColor = k_md_backColor ;
     
     [fromCtrller presentViewController:vc animated:YES completion:^{
     }] ;
@@ -63,7 +63,7 @@
 }
 
 - (void)prepareUI {
-    self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.view.xt_theme_backgroundColor = k_md_backColor ;
     self.fd_prefersNavigationBarHidden = YES ;
     [SettingNavBar addInController:self hiddenNavigationBackBt:self.isPresentState] ;
     
