@@ -13,6 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SetThemeVC : BasicVC
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *lbDesc;
+@property (weak, nonatomic) IBOutlet UIView *midBack;
+@property (weak, nonatomic) IBOutlet UIView *sepLine;
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+
+
+
+
+
+
 + (instancetype)getMe ;
 @end
 

@@ -26,6 +26,7 @@
     self.mainCollectionView.delegate    = (id<UICollectionViewDelegate>)self ;
     self.mainCollectionView.dataSource  = (id<UICollectionViewDataSource>)self ;
     self.mainCollectionView.pagingEnabled = YES ;
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     layout.itemSize = CGSizeMake(APP_WIDTH, APP_HEIGHT - APP_SAFEAREA_STATUSBAR_FLEX - 49. - 134.) ;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;

@@ -13,7 +13,7 @@
 #import "IapUtil.h"
 #import "IAPSubscriptionVC.h"
 
-@interface SetThemeVC ()
+@interface SetThemeVC () <UICollectionViewDelegate,UICollectionViewDataSource>
 @property (copy, nonatomic) NSArray *themes ;
 @end
 
@@ -33,15 +33,29 @@
 
 - (void)prepareUI {
     self.view.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    
+    
     self.fd_prefersNavigationBarHidden = YES ;
     [SettingNavBar addInController:self] ;
     
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
-    self.collectionView.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
+    self.lbDesc.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    self.sepLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    self.midBack.xt_theme_backgroundColor = k_md_backColor ;
+    self.collectionView.xt_theme_backgroundColor = k_md_backColor ;
     
     [ThemeCollectCell xt_registerNibFromCollection:self.collectionView] ;
     self.collectionView.dataSource = self ;
     self.collectionView.delegate = self ;
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
+    float wid = ( APP_WIDTH - 40. - 12. * 3 ) / 4. ;
+    float hei = wid / 5. * 4. ;
+    layout.itemSize = CGSizeMake(wid, hei) ;
+//    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
+    layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20) ;
+    layout.minimumLineSpacing = 0 ;
+    self.collectionView.collectionViewLayout = layout ;
 }
 
 #pragma mark - collection
@@ -58,11 +72,11 @@
     return cell ;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout *)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [ThemeCollectCell xt_cellSizeForModel:@(self.view.width)] ;
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView
+//                  layout:(UICollectionViewLayout *)collectionViewLayout
+//  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    return [ThemeCollectCell xt_cellSizeForModel:@(self.view.width)] ;
+//}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row ;
@@ -83,6 +97,8 @@
     
     [[MDThemeConfiguration sharedInstance] changeTheme:self.themes[indexPath.row]] ;
     [self.collectionView reloadData] ;
+    
+//    self.img.image = [UIImage imageNamed:XT_STR_FORMAT(<#format, ...#>)] ;
 }
 
 
