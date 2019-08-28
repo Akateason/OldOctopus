@@ -12,11 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="460" id="KGk-i7-Jjw" customClass="IAPInfoBottomCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="350" id="KGk-i7-Jjw" customClass="IAPInfoBottomCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="459.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="349.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JM-sJ-10w">
@@ -54,21 +54,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iap_bottom.png" translatesAutoresizingMaskIntoConstraints="NO" id="UvX-DR-JiF">
-                        <rect key="frame" x="0.0" y="346" width="320" height="113.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="UvX-DR-JiF" secondAttribute="height" multiplier="748:265" id="0B6-9M-cEw"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="UvX-DR-JiF" secondAttribute="bottom" id="BaE-cY-vWa"/>
                     <constraint firstAttribute="trailing" secondItem="6NE-9k-Vej" secondAttribute="trailing" constant="20" id="JWl-dx-JGR"/>
                     <constraint firstAttribute="trailing" secondItem="6JM-sJ-10w" secondAttribute="trailing" constant="20" id="Q1E-4M-X1s"/>
                     <constraint firstItem="brG-sz-XM3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Qy3-0V-M7H"/>
-                    <constraint firstAttribute="trailing" secondItem="UvX-DR-JiF" secondAttribute="trailing" id="THr-J4-AEE"/>
                     <constraint firstItem="6JM-sJ-10w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="VuT-4H-Wra"/>
-                    <constraint firstItem="UvX-DR-JiF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="X3R-MP-NSF"/>
                     <constraint firstItem="brG-sz-XM3" firstAttribute="top" secondItem="6NE-9k-Vej" secondAttribute="bottom" constant="45" id="b8r-Gf-aFE"/>
                     <constraint firstItem="5iU-uD-iI4" firstAttribute="top" secondItem="6NE-9k-Vej" secondAttribute="bottom" constant="45" id="iVX-MU-Cvo"/>
                     <constraint firstAttribute="trailing" secondItem="5iU-uD-iI4" secondAttribute="trailing" constant="20" id="j6a-qP-Nmv"/>
@@ -79,16 +70,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
-                <outlet property="btImage" destination="UvX-DR-JiF" id="XTh-su-SiL"/>
                 <outlet property="btReply" destination="6NE-9k-Vej" id="ofJ-CR-S4s"/>
                 <outlet property="lbInfo" destination="6JM-sJ-10w" id="SVa-vD-PO0"/>
                 <outlet property="lbPrivacy" destination="brG-sz-XM3" id="b5l-L3-nz3"/>
                 <outlet property="lbService" destination="5iU-uD-iI4" id="HWV-HH-Mw7"/>
             </connections>
-            <point key="canvasLocation" x="37.681159420289859" y="26.450892857142858"/>
+            <point key="canvasLocation" x="37.681159420289859" y="-10.714285714285714"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="iap_bottom.png" width="748" height="268"/>
-    </resources>
 </document>

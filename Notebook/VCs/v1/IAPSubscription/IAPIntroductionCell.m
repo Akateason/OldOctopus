@@ -20,7 +20,6 @@
     self.selectionStyle = 0 ;
     self.xt_theme_backgroundColor = k_md_drawerSelectedColor ;
     
-    self.icon1.xt_theme_imageColor = self.icon2.xt_theme_imageColor = self.icon3.xt_theme_imageColor = self.icon4.xt_theme_imageColor = k_md_iconColor ;
     
     self.lb1.xt_theme_textColor = self.lb2.xt_theme_textColor = self.lb3.xt_theme_textColor = self.lb4.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     
@@ -34,7 +33,7 @@
 }
 
 + (CGFloat)xt_cellHeight {
-    return 200. ;
+    return 260. ;
 }
 
 @end

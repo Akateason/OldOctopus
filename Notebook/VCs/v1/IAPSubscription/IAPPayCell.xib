@@ -21,13 +21,13 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="按月订阅" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tC8-r4-fsd">
                         <rect key="frame" x="55.5" y="30" width="64" height="23"/>
-                        <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
+                        <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="按年订阅" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oib-LS-9Z1">
                         <rect key="frame" x="205.5" y="30" width="64" height="23"/>
-                        <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
+                        <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -57,13 +57,13 @@
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="试用1周，之后¥9.00每月" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Seb-2c-nOV">
                         <rect key="frame" x="19" y="109.5" width="137" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="试用1个月，之后¥90.00每年" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpK-bP-iNj">
                         <rect key="frame" x="159" y="109.5" width="157" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>

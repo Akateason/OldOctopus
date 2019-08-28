@@ -100,11 +100,11 @@
         IAPSepLineCell *cell = [IAPSepLineCell xt_fetchFromTable:tableView] ;
         return cell ;
     }
-    else if (row == 1) {
+    else if (row == 2) {
         IAPIntroductionCell *cell = [IAPIntroductionCell xt_fetchFromTable:tableView] ;
         return cell ;
     }
-    else if (row == 2) {
+    else if (row == 1) {
         IAPPayCell *cell = [IAPPayCell xt_fetchFromTable:tableView] ;
         return cell ;
     }
@@ -121,10 +121,10 @@
     if (row == 0) {
         return [IAPSepLineCell xt_cellHeight] ;
     }
-    else if (row == 1) {
+    else if (row == 2) {
         return [IAPIntroductionCell xt_cellHeight] ; 
     }
-    else if (row == 2) {
+    else if (row == 1) {
         return [IAPPayCell xt_cellHeight] ;
     }
     else if (row == 3) {

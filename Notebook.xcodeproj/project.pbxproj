@@ -1514,6 +1514,7 @@
 		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				8FE0ADAD22E945860011C173 /* IAPSubscription */,
 				8FD7992D22C3451A00270C2C /* Setting */,
 				8FC431242265CC960002C9A1 /* Search */,
 				8F29F69C2315020E003DF3B7 /* NoteInfo */,
@@ -1613,7 +1614,6 @@
 		8FDA7356230A538600EEDC57 /* v1 */ = {
 			isa = PBXGroup;
 			children = (
-				8FE0ADAD22E945860011C173 /* IAPSubscription */,
 				8F64AF0D22D6DA11003A5508 /* TestCode */,
 				8F5E27BD22CDCC150012AB22 /* Emoji */,
 				8F2A2667226EC6260076EBA4 /* Guiding */,
@@ -1671,7 +1671,8 @@
 				8FE0ADB522E94EB60011C173 /* IAPSepLineCell.m */,
 				8FE0ADB622E94EB60011C173 /* IAPSepLineCell.xib */,
 			);
-			path = IAPSubscription;
+			name = IAPSubscription;
+			path = v1/IAPSubscription;
 			sourceTree = "<group>";
 		};
 		8FE5A3D5224B6C6800947D14 /* Home */ = {
