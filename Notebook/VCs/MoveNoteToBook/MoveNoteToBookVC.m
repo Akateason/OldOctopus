@@ -46,7 +46,7 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 
 - (void)prepareUI {
     self.view.backgroundColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .4) ;
-    self.topBar.backgroundColor = UIColorRGBA(249, 249, 249, .94) ;
+    self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconBorderColor, .03) ;
     self.lbTitle.xt_theme_textColor = k_md_textColor ;
     self.hud.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
     self.btClose.xt_theme_imageColor = k_md_iconColor ;

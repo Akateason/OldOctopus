@@ -81,7 +81,7 @@
                 <constraint firstItem="nni-X2-plk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="8Su-MJ-Fdo"/>
                 <constraint firstAttribute="trailing" secondItem="rkb-N7-URJ" secondAttribute="trailing" constant="20" id="E6W-sH-z42"/>
                 <constraint firstItem="rkb-N7-URJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="EZt-Tr-6Hu"/>
-                <constraint firstItem="Naf-FT-Xdm" firstAttribute="leading" secondItem="fXo-h1-IoL" secondAttribute="trailing" constant="8" id="Fyt-0B-tb3"/>
+                <constraint firstItem="Naf-FT-Xdm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="54" id="FLP-EG-vaU"/>
                 <constraint firstItem="ino-pf-t1s" firstAttribute="top" secondItem="JIK-mH-wNR" secondAttribute="bottom" constant="12" id="GbM-xn-r4m"/>
                 <constraint firstAttribute="bottom" secondItem="hO9-aW-6TW" secondAttribute="bottom" constant="19" id="LV5-c4-5Od"/>
                 <constraint firstItem="fXo-h1-IoL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="M8c-I5-r9n"/>
@@ -107,6 +107,7 @@
                 <outlet property="lbContent" destination="nni-X2-plk" id="b5n-RV-nOY"/>
                 <outlet property="lbDate" destination="Naf-FT-Xdm" id="KgR-wS-ZjB"/>
                 <outlet property="lbTitle" destination="JIK-mH-wNR" id="d1k-gb-Q8G"/>
+                <outlet property="lead_date" destination="FLP-EG-vaU" id="31C-0e-CcM"/>
                 <outlet property="sepLine" destination="ino-pf-t1s" id="8Z7-S9-NhK"/>
                 <outlet property="topMark" destination="Hmz-9I-3d2" id="BHT-Dk-HTU"/>
             </connections>

@@ -23,7 +23,7 @@
 #import "GlobalDisplaySt.h"
 #import "OctNotificationHeader.h"
 #import "AppDelegate.h"
-
+#import "OctMBPHud.h"
 
 #define LOG_LEVEL_DEF ddLogLevel
 #import <CocoaLumberjack.h>

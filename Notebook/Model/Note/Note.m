@@ -163,6 +163,21 @@
     }] ;
 }
 
++ (void)deleteTheseNotes:(NSArray *)notes
+      fromICloudComplete:(void(^)(bool success))completion {
+    
+    NSMutableArray *list = [@[] mutableCopy] ;
+    for (Note *aNote in notes) {
+        [list addObject:aNote.record.recordID] ;
+    }
+    
+    [[XTCloudHandler sharedInstance] saveList:nil deleteList:list complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+        
+        completion(!error) ;
+    }] ;
+}
+
+
 + (void)deleteAllNoteComplete:(void(^)(bool success))completion {
     [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"Note" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
         NSMutableArray *tmplist = [@[] mutableCopy] ;

@@ -49,7 +49,7 @@ typedef void(^BlkRemove)(NoteInfoVC *infoVC) ;
     self.btClose.xt_theme_imageColor = k_md_iconColor ;
     [self.btClose xt_enlargeButtonsTouchArea] ;
     
-    self.topBar.backgroundColor = UIColorRGBA(249, 249, 249, .94) ;
+    self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconBorderColor, .03) ;
     
     self.topBar.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;
     self.topBar.layer.shadowOffset = CGSizeMake(0, .5) ;

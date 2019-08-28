@@ -116,4 +116,14 @@ static int kLimitCount = 70 ;
     }
 }
 
+- (void)setTrashState:(BOOL)trashState {
+    if (trashState) {
+        self.btMore.hidden = YES ;
+        self.img.alpha = self.lbTitle.alpha = self.lbContent.alpha = .4 ;
+        self.lbDate.alpha = .3 ;
+        self.bookPHView.hidden = YES ;
+        self.lead_date.constant = 20. ;
+    }
+}
+
 @end

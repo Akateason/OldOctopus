@@ -199,7 +199,7 @@
 
 - (void)btAddOnClick {
     FTPopOverMenuConfiguration *configuration = [FTPopOverMenuConfiguration defaultConfiguration];
-    configuration.menuRowHeight = 60. ;
+    configuration.menuRowHeight = 75. ;
     configuration.menuWidth = 145. ;
     configuration.textColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) ;
     configuration.textFont = [UIFont systemFontOfSize:17] ;
@@ -211,13 +211,13 @@
 //    configuration.allowRoundedArrow = ...// Default is 'NO', if sets to 'YES', the arrow will be drawn with round corner.
     configuration.separatorColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
     configuration.separatorInset = UIEdgeInsetsMake(0, 65, 0, 0) ;
-    configuration.shadowColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .15) ; // Default is black
+    configuration.shadowColor = [UIColor colorWithWhite:0 alpha:.15] ; //XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .15) ; // Default is black
     configuration.shadowOpacity = 1; // Default is 0 - choose anything between 0 to 1 to show actual shadow, e.g. 0.2
     configuration.shadowRadius = 30; // Default is 5
     configuration.shadowOffsetX = 0;
     configuration.shadowOffsetY = 15;
     configuration.menuIconMargin = 20 ;
-    configuration.menuTextMargin = 20 ;
+    configuration.menuTextMargin = 17 ;
 
     @weakify(self)
     [FTPopOverMenu showForSender:self.btAdd withMenuArray:@[@"笔记",@"笔记本"] imageArray:@[@"home_add_note",@"home_add_book"] configuration:configuration doneBlock:^(NSInteger selectedIndex) {

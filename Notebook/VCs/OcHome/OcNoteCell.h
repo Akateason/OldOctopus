@@ -19,9 +19,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbDate;
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UIImageView *topMark;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lead_date;
 
 @property (copy, nonatomic) NSString *textForSearching ;
-
+@property (nonatomic) BOOL trashState ;
 @property (strong, nonatomic) BookBgView *bookBg ;
 @end
 

@@ -18,6 +18,8 @@
 #import "IAPSuccessSubscriptionVC.h"
 #import "XTCloudHandler.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "SetTrashVC.h"
+
 
 @implementation SettingCell
 
@@ -92,6 +94,9 @@
                 [XTIcloudUser alertUserToLoginICloud] ;
             }) ;
         }
+    }
+    else if ([title containsString:@"垃圾"]) {
+        [SetTrashVC showFromCtller:self.xt_viewController] ;
     }
 }
 

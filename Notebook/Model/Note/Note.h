@@ -49,6 +49,9 @@
 + (void)deleteThisNoteFromICloud:(Note *)aNote
                         complete:(void(^)(bool success))completion ;
 
++ (void)deleteTheseNotes:(NSArray *)notes
+      fromICloudComplete:(void(^)(bool success))completion ;
+
 + (void)deleteAllNoteComplete:(void(^)(bool success))completion ;
 
 + (void)getFromServerComplete:(void(^)(void))completion ;

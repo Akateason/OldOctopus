@@ -100,6 +100,7 @@
 		8F41EED7225C4CA700D9CD35 /* home_edit_book@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F41EED6225C4CA700D9CD35 /* home_edit_book@2x.png */; };
 		8F44636F231534AC000C1DDF /* icon_user_not_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F44636E231534AC000C1DDF /* icon_user_not_login@2x.png */; };
 		8F44637123153A13000C1DDF /* setting_trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F44637023153A12000C1DDF /* setting_trash@2x.png */; };
+		8F4463762315432E000C1DDF /* SetTrashVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4463752315432E000C1DDF /* SetTrashVC.m */; };
 		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
 		8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */; };
@@ -520,6 +521,8 @@
 		8F41EED6225C4CA700D9CD35 /* home_edit_book@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_edit_book@2x.png"; sourceTree = "<group>"; };
 		8F44636E231534AC000C1DDF /* icon_user_not_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_user_not_login@2x.png"; sourceTree = "<group>"; };
 		8F44637023153A12000C1DDF /* setting_trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_trash@2x.png"; sourceTree = "<group>"; };
+		8F4463742315432E000C1DDF /* SetTrashVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetTrashVC.h; sourceTree = "<group>"; };
+		8F4463752315432E000C1DDF /* SetTrashVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetTrashVC.m; sourceTree = "<group>"; };
 		8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
 		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
 		8F50AAA02276A3D500B32B5B /* XTMarkdownParser+Fetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XTMarkdownParser+Fetcher.h"; sourceTree = "<group>"; };
@@ -1097,6 +1100,15 @@
 			path = MoveNoteToBook;
 			sourceTree = "<group>";
 		};
+		8F4463732315431C000C1DDF /* SetTrash */ = {
+			isa = PBXGroup;
+			children = (
+				8F4463742315432E000C1DDF /* SetTrashVC.h */,
+				8F4463752315432E000C1DDF /* SetTrashVC.m */,
+			);
+			path = SetTrash;
+			sourceTree = "<group>";
+		};
 		8F5E27BD22CDCC150012AB22 /* Emoji */ = {
 			isa = PBXGroup;
 			children = (
@@ -1538,6 +1550,7 @@
 			children = (
 				8F7B2EC722C5F83E000018DE /* SettingSave.h */,
 				8F7B2EC822C5F83E000018DE /* SettingSave.m */,
+				8F4463732315431C000C1DDF /* SetTrash */,
 				8FD7994522C3686500270C2C /* SetEditor */,
 				8FD7994322C3686500270C2C /* SetGeneral */,
 				8FD7994422C3686500270C2C /* SetTheme */,
@@ -2288,6 +2301,7 @@
 				8F6863C922671D0600261626 /* LDSepLineCell.m in Sources */,
 				8F7B2EC522C5E6F9000018DE /* SettingItemCell.m in Sources */,
 				8F679E1E2238F2E2008DE1BC /* MarkdownModel.m in Sources */,
+				8F4463762315432E000C1DDF /* SetTrashVC.m in Sources */,
 				8F12970722C9CC3300939DD6 /* RowHeightCell.m in Sources */,
 				8F1357F92292AA4200F5F874 /* KeyboardViewButton.m in Sources */,
 				8F05C57F22754F150047CC04 /* XTMarkdownParser+ImageUtil.m in Sources */,
