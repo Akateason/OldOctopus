@@ -203,7 +203,7 @@
     configuration.menuWidth = 145. ;
     configuration.textColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) ;
     configuration.textFont = [UIFont systemFontOfSize:17] ;
-    configuration.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+    configuration.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_hudColor) ;
     configuration.borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
     configuration.borderWidth = .25 ;
 //    configuration.textAlignment = ...

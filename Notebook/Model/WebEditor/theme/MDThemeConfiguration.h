@@ -21,6 +21,8 @@ static NSString *const k_md_bgColor = @"bgColor" ;
 static NSString *const k_md_iconBorderColor = @"iconBorderColor" ;
 static NSString *const k_md_iconColor = @"iconColor" ;
 static NSString *const k_md_topBarColor = @"topBarColor" ;
+static NSString *const k_md_hudColor = @"hudColor" ;
+
 
 static NSString *const k_md_markColor = @"markColor" ;
 static NSString *const k_md_seplineLineColor = @"seplineLineColor" ;
