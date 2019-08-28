@@ -227,6 +227,10 @@
 		8FC431222265B9FA0002C9A1 /* home_bar_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC431212265B9FA0002C9A1 /* home_bar_add@2x.png */; };
 		8FC431272265CCAF0002C9A1 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC431262265CCAF0002C9A1 /* SearchVC.m */; };
 		8FC9DB8922BCB04D003A78D9 /* GlobalDisplaySt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC9DB8822BCB04D003A78D9 /* GlobalDisplaySt.m */; };
+		8FD009B323166BBF004EADC9 /* theme_b_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD009AF23166BBE004EADC9 /* theme_b_light@2x.png */; };
+		8FD009B423166BBF004EADC9 /* theme_b_sunshine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD009B023166BBF004EADC9 /* theme_b_sunshine@2x.png */; };
+		8FD009B523166BBF004EADC9 /* theme_b_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD009B123166BBF004EADC9 /* theme_b_dark@2x.png */; };
+		8FD009B623166BBF004EADC9 /* theme_b_midnight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD009B223166BBF004EADC9 /* theme_b_midnight@2x.png */; };
 		8FD7993022C3453B00270C2C /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7992F22C3453B00270C2C /* SettingVC.m */; };
 		8FD7993422C3482400270C2C /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7993222C3482400270C2C /* SettingCell.m */; };
 		8FD7993522C3482400270C2C /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FD7993322C3482400270C2C /* SettingCell.xib */; };
@@ -713,6 +717,10 @@
 		8FC431262265CCAF0002C9A1 /* SearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
 		8FC9DB8722BCB04D003A78D9 /* GlobalDisplaySt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalDisplaySt.h; sourceTree = "<group>"; };
 		8FC9DB8822BCB04D003A78D9 /* GlobalDisplaySt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalDisplaySt.m; sourceTree = "<group>"; };
+		8FD009AF23166BBE004EADC9 /* theme_b_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme_b_light@2x.png"; path = "../../../../../Desktop/notebook/theme_b_light@2x.png"; sourceTree = "<group>"; };
+		8FD009B023166BBF004EADC9 /* theme_b_sunshine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme_b_sunshine@2x.png"; path = "../../../../../Desktop/notebook/theme_b_sunshine@2x.png"; sourceTree = "<group>"; };
+		8FD009B123166BBF004EADC9 /* theme_b_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme_b_dark@2x.png"; path = "../../../../../Desktop/notebook/theme_b_dark@2x.png"; sourceTree = "<group>"; };
+		8FD009B223166BBF004EADC9 /* theme_b_midnight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "theme_b_midnight@2x.png"; path = "../../../../../Desktop/notebook/theme_b_midnight@2x.png"; sourceTree = "<group>"; };
 		8FD7992E22C3453B00270C2C /* SettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
 		8FD7992F22C3453B00270C2C /* SettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingVC.m; sourceTree = "<group>"; };
 		8FD7993122C3482400270C2C /* SettingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
@@ -1309,6 +1317,10 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8FD009B123166BBF004EADC9 /* theme_b_dark@2x.png */,
+				8FD009AF23166BBE004EADC9 /* theme_b_light@2x.png */,
+				8FD009B223166BBF004EADC9 /* theme_b_midnight@2x.png */,
+				8FD009B023166BBF004EADC9 /* theme_b_sunshine@2x.png */,
 				8F446377231651D2000C1DDF /* theme_select@2x.png */,
 				8F44637023153A12000C1DDF /* setting_trash@2x.png */,
 				8F44636E231534AC000C1DDF /* icon_user_not_login@2x.png */,
@@ -1998,6 +2010,7 @@
 				8FFAE0FE229CDAF400CDAC47 /* asm-x86.plist in Resources */,
 				8FD7994122C362BE00270C2C /* setting_editor@2x.png in Resources */,
 				8FFAE113229CDAF400CDAC47 /* lsl.plist in Resources */,
+				8FD009B623166BBF004EADC9 /* theme_b_midnight@2x.png in Resources */,
 				8FFAE123229CDAF400CDAC47 /* r.plist in Resources */,
 				8FFAE10D229CDAF400CDAC47 /* c.plist in Resources */,
 				8FD7993D22C35ED600270C2C /* setting_icon@2x.png in Resources */,
@@ -2102,6 +2115,7 @@
 				8FFAE0EC229CDAF400CDAC47 /* cpp.plist in Resources */,
 				8FFAE105229CDAF400CDAC47 /* csound.plist in Resources */,
 				8FDA7369230A7BF700EEDC57 /* OcContainerCell.xib in Resources */,
+				8FD009B323166BBF004EADC9 /* theme_b_light@2x.png in Resources */,
 				8F1296FC22C9ABA200939DD6 /* theme_sunshine@2x.png in Resources */,
 				8F6860F02313C110009436F1 /* home_add_note@2x.png in Resources */,
 				8FFAE100229CDAF400CDAC47 /* matlab.plist in Resources */,
@@ -2213,6 +2227,7 @@
 				8F931B9D228E90CF00F73219 /* home_cell_top_corner@2x.png in Resources */,
 				8FE0ADC322E96D2E0011C173 /* iap_icon_theme@2x.png in Resources */,
 				8F90189622E9BDE600D1BA4B /* IapPaySuccessCell.xib in Resources */,
+				8FD009B423166BBF004EADC9 /* theme_b_sunshine@2x.png in Resources */,
 				8F65DBD4221BECFC0067C321 /* Main.storyboard in Resources */,
 				8F1357F122929A5400F5F874 /* tb_hidekb@2x.png in Resources */,
 				8F6863CA22671D0600261626 /* LDSepLineCell.xib in Resources */,
@@ -2221,6 +2236,7 @@
 				8FFAE0FD229CDAF400CDAC47 /* batch.plist in Resources */,
 				8F7B2EC622C5E6F9000018DE /* SettingItemCell.xib in Resources */,
 				8FD7993522C3482400270C2C /* SettingCell.xib in Resources */,
+				8FD009B523166BBF004EADC9 /* theme_b_dark@2x.png in Resources */,
 				8FE0ADB822E94EB60011C173 /* IAPSepLineCell.xib in Resources */,
 				8FFAE11C229CDAF400CDAC47 /* sgml.plist in Resources */,
 				8FFAE0F6229CDAF400CDAC47 /* header.plist in Resources */,

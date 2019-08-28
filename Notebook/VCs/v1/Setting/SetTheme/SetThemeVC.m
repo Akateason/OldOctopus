@@ -38,15 +38,22 @@
     self.fd_prefersNavigationBarHidden = YES ;
     [SettingNavBar addInController:self] ;
     
+    
+    self.img.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+    self.img.xt_borderWidth = .5 ;
+    self.img.xt_cornerRadius = 6. ;
+    
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbDesc.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.sepLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
     self.midBack.xt_theme_backgroundColor = k_md_backColor ;
     self.collectionView.xt_theme_backgroundColor = k_md_backColor ;
     
+    
     [ThemeCollectCell xt_registerNibFromCollection:self.collectionView] ;
     self.collectionView.dataSource = self ;
     self.collectionView.delegate = self ;
+    
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     float wid = ( APP_WIDTH - 40. - 12. * 3 ) / 4. ;
@@ -56,6 +63,9 @@
     layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20) ;
     layout.minimumLineSpacing = 0 ;
     self.collectionView.collectionViewLayout = layout ;
+    
+    
+    self.img.image = [UIImage imageNamed:XT_STR_FORMAT(@"theme_b_%@", [MDThemeConfiguration sharedInstance].currentThemeKey )] ;
 }
 
 #pragma mark - collection
@@ -98,7 +108,7 @@
     [[MDThemeConfiguration sharedInstance] changeTheme:self.themes[indexPath.row]] ;
     [self.collectionView reloadData] ;
     
-//    self.img.image = [UIImage imageNamed:XT_STR_FORMAT(<#format, ...#>)] ;
+    self.img.image = [UIImage imageNamed:XT_STR_FORMAT(@"theme_b_%@",self.themes[indexPath.row])] ;
 }
 
 

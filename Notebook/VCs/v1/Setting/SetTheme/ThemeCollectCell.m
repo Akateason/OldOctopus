@@ -18,7 +18,9 @@
     // Initialization code
     
 //    self.xt_cornerRadius = 10. ;
-    
+    self.imageView.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+    self.imageView.xt_borderWidth = .5 ;
+    self.imageView.xt_cornerRadius = 6. ;
 }
 
 //

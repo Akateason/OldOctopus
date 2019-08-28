@@ -444,7 +444,10 @@
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yke-wq-wE2">
-                                        <rect key="frame" x="40" y="20.5" width="295" height="312.5"/>
+                                        <rect key="frame" x="40" y="20.5" width="295" height="345"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Yke-wq-wE2" secondAttribute="height" multiplier="580:678" id="oac-n4-jhk"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45112746949999999" green="0.63476520780000001" blue="0.88979804520000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -454,7 +457,6 @@
                                     <constraint firstItem="Yke-wq-wE2" firstAttribute="top" secondItem="gBE-BY-ELr" secondAttribute="bottom" constant="20" id="XVa-X4-BNQ"/>
                                     <constraint firstAttribute="trailing" secondItem="gBE-BY-ELr" secondAttribute="trailing" id="bn6-64-GMJ"/>
                                     <constraint firstAttribute="trailing" secondItem="Yke-wq-wE2" secondAttribute="trailing" constant="40" id="lY8-N8-ffD"/>
-                                    <constraint firstAttribute="bottom" secondItem="Yke-wq-wE2" secondAttribute="bottom" constant="40" id="mVh-mT-w9q"/>
                                     <constraint firstItem="gBE-BY-ELr" firstAttribute="top" secondItem="RZj-Rf-ZSl" secondAttribute="top" id="qvF-kz-bQC"/>
                                 </constraints>
                             </view>
@@ -539,7 +541,7 @@
                                 <rect key="frame" x="22.5" y="167" width="330" height="233"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新建笔记本" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SE4-Vb-AiY">
-                                        <rect key="frame" x="120" y="20" width="90.5" height="25.5"/>
+                                        <rect key="frame" x="120" y="20" width="90" height="25.5"/>
                                         <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1127,7 +1129,7 @@
                                         <state key="normal" image="nav_back_item.png"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="垃圾桶" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXx-CV-jzb">
-                                        <rect key="frame" x="160.5" y="12" width="54.5" height="25.5"/>
+                                        <rect key="frame" x="160.5" y="11.5" width="54" height="26"/>
                                         <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
