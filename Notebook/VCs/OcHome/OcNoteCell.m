@@ -82,7 +82,14 @@ static int kLimitCount = 70 ;
     
     self.topMark.hidden = !note.isTop ;
     
+    [self setNeedsLayout] ;
+    [self layoutIfNeeded] ;
 }
+
+
+
+
+
 
 - (void)setTextForSearching:(NSString *)textForSearching {
     _textForSearching = textForSearching ;
