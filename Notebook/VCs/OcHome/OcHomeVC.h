@@ -11,6 +11,8 @@
 #import "OcContainerCell.h"
 #import <XTlib/XTStretchSegment.h>
 #import "NewBookVC.h"
+#import <Lottie/Lottie.h>
+
 
 // lastBook
 // @key     kUDCached_lastBook_RecID
@@ -41,7 +43,8 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (strong, nonatomic)   XTStretchSegment    *segmentBooks ;
 // 短topbar 全部按钮
 @property (strong, nonatomic)   UIView              *btBooksSmall_All  ;
-
+// 同步转圈
+@property (strong, nonatomic) LOTAnimationView          *animationSync ;
 
 // data
 @property (copy, nonatomic)     NSArray             *bookList ;
@@ -67,6 +70,9 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 - (void)moveNote:(Note *)note ;
 - (void)changeNoteTopState:(Note *)note ;
 - (void)deleteNote:(Note *)note ;
+
+- (float)newMidHeight ;
+- (void)setupStructCollectionLayout ;
 
 /**
  ContainerCell call back

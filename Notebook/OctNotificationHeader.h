@@ -18,11 +18,14 @@ static NSString *const kNote_Default_Note_And_Book_Updated = @"kNote_Default_Not
 static NSString *const kNote_User_Open_Camera = @"kNote_User_Open_Camera" ;
 
 // home vc
+static NSString *const kNote_SizeClass_Changed = @"kNote_SizeClass_Changed" ;
 static NSString *const kNote_ClickNote_In_Pad = @"kNote_ClickNote_In_Pad" ;
 static NSString *const kNote_new_Note_In_Pad = @"kNote_new_Note_In_Pad" ;
 static NSString *const kNote_book_Changed = @"kNote_book_Changed" ;
 static NSString *const kUDCached_lastNote_RecID = @"kUDCached_lastNote_RecID" ;
 static NSString *const kNote_Delete_Note_In_Pad = @"kNote_Delete_Note_In_Pad" ;
+
+
 // search vc
 static NSString *const kNote_SearchVC_On_Window = @"kNote_SearchVC_On_Window" ;
 // markdown vc

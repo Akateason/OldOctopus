@@ -142,22 +142,22 @@ static const CGFloat slidingSpeed = 1500.0;
 - (void)setDrawerOpened:(BOOL)drawerOpened {
     _drawerOpened = drawerOpened;
     
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = drawerOpened ? 1 : 0 ;
-    }
-    
-    
-    
-    if (drawerOpened) {
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) _topViewContainer.userInteractionEnabled = NO;
-        tapGestureRecognizer.enabled = YES;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidOpenNotification object:self];
-    }
-    else {
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) _topViewContainer.userInteractionEnabled = YES;
-        tapGestureRecognizer.enabled = NO;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidCloseNotification object:self];
-    }
+//    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+//        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = drawerOpened ? 1 : 0 ;
+//    }
+//
+//
+//
+//    if (drawerOpened) {
+//        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) _topViewContainer.userInteractionEnabled = NO;
+//        tapGestureRecognizer.enabled = YES;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidOpenNotification object:self];
+//    }
+//    else {
+//        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) _topViewContainer.userInteractionEnabled = YES;
+//        tapGestureRecognizer.enabled = NO;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kSlidingControllerDidCloseNotification object:self];
+//    }
 }
 
 #pragma mark - Animation Trigger Methods
@@ -229,10 +229,10 @@ static const CGFloat slidingSpeed = 1500.0;
         BOOL directionIsHorizontal = (fabs(translation.x) > fabs(translation.y));
         BOOL directionIsToRight = translation.x > 0;
         bool result = directionIsHorizontal && (directionIsToRight || self.drawerOpened) ;
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-            NSLog(@"不走") ;
-            return NO ;
-        }
+//        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+//            NSLog(@"不走") ;
+//            return NO ;
+//        }
         return result ;
     }
     else if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
@@ -246,13 +246,11 @@ static const CGFloat slidingSpeed = 1500.0;
     CGPoint offset = [recognizer translationInView:self.view] ;
     // DEBUG解决手势滑动, 有时(当横滑再竖滑), 卡在中间的问题.
     if (fabs(offset.y) > fabs(offset.x) && recognizer.state == UIGestureRecognizerStateBegan) return ;
-//    NSLog(@"aaa11111 ") ;
     
-    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-//        NSLog(@"bbb11 ") ;
-        return ;
-    }
-//    NSLog(@"aaa22222 ") ;
+//    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+//        return ;
+//    }
+
     
     CGFloat velocity = [recognizer velocityInView:self.view].x;
 	CGFloat translation = offset.x;
@@ -334,9 +332,9 @@ static const CGFloat slidingSpeed = 1500.0;
 }
 
 - (void)moveIpadEditorSubViews:(BOOL)openState {
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) { // ipad
-        if (self.animateDelegate) [self.animateDelegate animateMoveState:openState] ;
-    }
+//    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) { // ipad
+//        if (self.animateDelegate) [self.animateDelegate animateMoveState:openState] ;
+//    }
 }
 
 

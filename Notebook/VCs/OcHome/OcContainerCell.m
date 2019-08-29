@@ -11,7 +11,7 @@
 #import "OcHomeVC.h"
 #import "SettingSave.h"
 #import "HomeEmptyPHView.h"
-
+#import "SearchEmptyVC.h"
 
 static const int kNotesContainerPageSize = 10 ;
 
@@ -26,28 +26,18 @@ static const int kNotesContainerPageSize = 10 ;
     self.contentCollection.dataSource = (id<UICollectionViewDataSource>)self ;
     self.contentCollection.delegate = (id<UICollectionViewDelegate>)self ;
     self.contentCollection.xt_Delegate = (id<UICollectionViewXTReloader>)self ;
-    self.contentCollection.xt_refreshType = XTRefreshType_gifImages ;
+//    self.contentCollection.xt_refreshType = XTRefreshType_gifImages ;
     [self.contentCollection xt_setup] ;
     self.contentCollection.mj_footer = nil ;
 
     self.contentCollection.xt_theme_backgroundColor = k_md_backColor ;
+//    self.contentCollection.backgroundColor = [UIColor yellowColor] ;
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
-    float wid = ( APP_WIDTH - 10. * 3 ) / 2. ;
-    float height = wid  / 345. * 432. ;
-    layout.itemSize = CGSizeMake(wid, height) ;
-    layout.minimumLineSpacing = 10 ;
-    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
-    self.contentCollection.collectionViewLayout = layout ;
+    self.contentCollection.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
     
     // 占位
-//    HomeEmptyPHView *phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-//    @weakify(self)
-//    [phView.area bk_whenTapped:^{
-//        @strongify(self)
-//        [(OcHomeVC *)self.xt_viewController addNoteOnClick] ;
-//    }] ;
-    self.contentCollection.customNoDataView = [UIView new] ;
+    SearchEmptyVC *emptyVc = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
+    self.contentCollection.customNoDataView = emptyVc.view ;
     
     @weakify(self)
     [[[[[RACObserve(self.contentCollection, contentOffset) map:^id _Nullable(NSValue *value) {
@@ -80,6 +70,12 @@ static const int kNotesContainerPageSize = 10 ;
              }
          }
     }] ;
+    
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        self.contentCollection.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
+    }] ;
 }
 
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
@@ -88,8 +84,6 @@ static const int kNotesContainerPageSize = 10 ;
 }
 
 - (void)renderWithBook:(NoteBooks *)book complete:(void(^)(void))completion {
-//    if (self.noteList) {
-//    }
     
     if (book.vType == Notebook_Type_recent) {
         NSArray *list = [Note xt_findWhere:@"isDeleted == 0 order by modifyDateOnServer DESC limit 20"] ;

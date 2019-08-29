@@ -16,27 +16,56 @@ XT_SINGLETON_M(GlobalDisplaySt)
 - (void)correctCurrentCondition:(UIViewController *)ctrller {
     if (IS_IPAD) {
         if (ctrller.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular || ctrller.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassUnspecified ) {
-            [GlobalDisplaySt sharedInstance].displayMode = GDST_Home_3_Column_Horizon ;
+            [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_iPad_Horizon_6_collumn ;
         }
         else {
-            [GlobalDisplaySt sharedInstance].displayMode = GDST_Home_2_Column_Verical_default ;
+            [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_iPad_Verical_4_collumn ;
         }
     }
     else {
-        [GlobalDisplaySt sharedInstance].displayMode = GDST_Home_2_Column_Verical_default ;
+        [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_default_iPhone_2_collumn ;
     }
 }
 
-- (void)setGdst_level_for_horizon:(int)gdst_level_for_horizon {
-    _gdst_level_for_horizon = gdst_level_for_horizon ;
-    
-    NSLog(@"gdst_level_for_horizon %d",gdst_level_for_horizon) ;
-    
-//    [[UIApplication sharedApplication] setStatusBarHidden:gdst_level_for_horizon == 1] ;
-}
 
 - (BOOL)isPopOverFromIpad {
-    return IS_IPAD && self.displayMode == GDST_Home_3_Column_Horizon ;
+    return IS_IPAD ;
 }
+
+
+- (UICollectionViewFlowLayout *)homeContentLayout {
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
+    if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Horizon_6_collumn ||
+        [GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Verical_4_collumn
+        ) {
+        if (self.containerSize.width > self.containerSize.height) {
+            float wid = ( self.containerSize.width - 20. * 2 - 5 * 24. ) / 6. ;
+            float height = wid  / 345. * 432. ;
+            layout.itemSize = CGSizeMake(wid, height) ;
+            layout.minimumLineSpacing = 24 ;
+            layout.sectionInset = UIEdgeInsetsMake(10, 20, 10, 20) ;
+        }
+        else {
+            float wid = ( self.containerSize.width - 20. * 2 - 3 * 35. ) / 4. ;
+            float height = wid  / 345. * 432. ;
+            layout.itemSize = CGSizeMake(wid, height) ;
+            layout.minimumLineSpacing = 35. ;
+            layout.sectionInset = UIEdgeInsetsMake(10, 20, 10, 20) ;
+        }
+    }
+    else {
+        float wid = ( self.containerSize.width - 10. * 3 ) / 2. ;
+        float height = wid  / 345. * 432. ;
+        layout.itemSize = CGSizeMake(wid, height) ;
+        layout.minimumLineSpacing = 10 ;
+        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
+    }
+    
+    return layout ;
+}
+
+
+
+
 
 @end

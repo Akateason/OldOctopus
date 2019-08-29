@@ -10,7 +10,7 @@
 
 #define kSlidingControllerDidOpenNotification   @"kSlidingControllerDidOpenNotification"
 #define kSlidingControllerDidCloseNotification  @"kSlidingControllerDidCloseNotification"
-#define kNoteSlidingSizeChanging                @"kNoteSlidingSizeChanging"
+#define kNoteSlidingSizeChanging                @"kNote_SizeClass_Changed"
 
 @protocol NHSlidingControllerAnimateDelegate <NSObject>
 - (void)animateMoveState:(BOOL)drawerOpened ;

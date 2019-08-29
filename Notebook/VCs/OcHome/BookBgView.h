@@ -20,6 +20,7 @@
 @property (strong, nonatomic) UIImageView *imageBgView ;
 @property (strong, nonatomic) UIImageView *imageBookView ;
 @property (strong, nonatomic) UILabel *lbEmoji ;
+@property (nonatomic) BOOL bigOrSmall ;
 
 @end
 

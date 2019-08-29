@@ -86,26 +86,20 @@
     MarkdownVC *vc = [MarkdownVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"MarkdownVC"] ;
     vc.aNote = note ;
     vc.isNewFromIpad = newFromIpad ;
-    if (newFromIpad) {
+    
+    if (note) {
         vc.editor.aNote = note ;
-        vc.editor.left = [self.class getEditorLeftIpad] ;
-        vc.canBeEdited = NO ;
     }
     else {
-        if (note) {
-            vc.editor.aNote = note ;
-        }
-        else {
-            vc.editor.aNote = [[Note alloc] initWithBookID:nil content:nil title:nil] ;
-        }
-        vc.canBeEdited = YES ;
+        vc.editor.aNote = [[Note alloc] initWithBookID:nil content:nil title:nil] ;
     }
+    vc.canBeEdited = YES ;
+    
     vc.delegate = (id <MarkdownVCDelegate>)ctrller ;
     vc.myBookID = bookID ;
-    [vc.editor.toolBar reset] ;
-    if ([GlobalDisplaySt sharedInstance].displayMode != GDST_Home_3_Column_Horizon) {
-        [ctrller.navigationController pushViewController:vc animated:YES] ;
-    }
+    [vc.editor.toolBar reset] ;        
+    [ctrller.navigationController pushViewController:vc animated:YES] ;
+    
     return vc ;
 }
 
@@ -120,7 +114,7 @@
     self.isCreateEmptyNote = (note == nil) ? 1 : 0 ;
     self.editor.aNote = note ?: [Note new] ;
     self.editor.left = [self.class getEditorLeftIpad] ;
-    self.canBeEdited = [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
+    self.canBeEdited = YES ; // [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 ;
     [self.editor.toolBar reset] ;
 }
 
@@ -137,8 +131,6 @@
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
-        
         // Update Your Note
         [self updateMyNote] ;
     }] ;
@@ -185,39 +177,18 @@
         [self snapShotFullScreen:json] ;
     }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
-        
-        [self.editor setSideFlex] ;
-        
-        self.editor.bottom = self.view.bottom ;
-        self.editor.top = APP_STATUSBAR_HEIGHT ;
-        self.editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
-        self.editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
-    }] ;
+//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+//        @strongify(self)
+////        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
+//
+//        [self.editor setSideFlex] ;
+//
+////        self.editor.bottom = self.view.bottom ;
+////        self.editor.top = APP_STATUSBAR_HEIGHT ;
+////        self.editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
+////        self.editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
+//    }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_book_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
-        
-        NoteBooks *book = x.object ;
-        if (
-            ![self.aNote.noteBookId isEqualToString:book.icRecordName]
-            &&
-            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1
-            &&
-            !self.isCreateEmptyNote
-            ) {
-            // 点击其他笔记本，清空当前的笔记。
-            [self clearArticleInIpad] ;
-        }
-        
-        self.emptyView.isTrash = (book.vType == Notebook_Type_trash) ;
-        self.isInTrash = (book.vType == Notebook_Type_trash) ;
-        self.btBack.hidden = (book.vType == Notebook_Type_trash) ;
-        
-    }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SearchVC_On_Window object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -323,41 +294,18 @@
     }] ;
     
     
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
-        id target = self.navigationController.interactivePopGestureRecognizer.delegate ;
-        // 创建全屏滑动手势，调用系统自带滑动手势的target的action方法
-        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:@selector(handleNavigationTransition:)];
-        pan.delegate = (id<UIGestureRecognizerDelegate>)self;
-        [self.view addGestureRecognizer:pan];
-        // 禁止使用系统自带的滑动手势
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    }
-    else { // ipad大
-        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
-        pan.delegate = (id<UIGestureRecognizerDelegate>)self;
-        [self.view addGestureRecognizer:pan];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)] ;
-        [self.view addGestureRecognizer:tap] ;
-    }
-}
-
-- (void)tapped:(UIGestureRecognizer *)recog {
-    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) return ;
-    if (self.isInTrash) return ;
+    id target = self.navigationController.interactivePopGestureRecognizer.delegate ;
+    // 创建全屏滑动手势，调用系统自带滑动手势的target的action方法
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:@selector(handleNavigationTransition:)];
+    pan.delegate = (id<UIGestureRecognizerDelegate>)self;
+    [self.view addGestureRecognizer:pan];
+    // 禁止使用系统自带的滑动手势
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
-    if (!self.emptyView.hidden) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
-    }
-    else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
-    }
+
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return YES ;
-    if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != 1) return YES ;
-    
     return [self.oct_panDelegate oct_gestureRecognizerShouldBegin:gestureRecognizer] ;
 }
 
@@ -366,46 +314,7 @@
     return YES;
 }
 
-
-
-- (void)panned:(UIPanGestureRecognizer *)recognizer {
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
-    if (self.isInShare) return ;
-    
-//    CGPoint offset = [recognizer translationInView:self.view] ;
-//    NSLog(@"offset : %@", NSStringFromCGPoint(offset)) ;
-    CGFloat velocity = [recognizer velocityInView:self.view].x ;
-    
-    if (self.isInTrash && velocity < 0 && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 0) return ; // 垃圾桶 不能新建
-//    NSLog(@"dddd : %d",[GlobalDisplaySt sharedInstance].gdst_level_for_horizon) ;
-    
-    switch ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon) {
-        // 里层
-        case -1: [self.pad_panDelegate pad_panned:recognizer] ; break;
-        case 0: { // 中层
-            if (velocity > 0) { //
-                NSLog(@"👉") ;
-                [self.oct_panDelegate oct_panned:recognizer] ; // 外层
-            }
-            else { //
-                NSLog(@"👈") ;
-                [self.pad_panDelegate pad_panned:recognizer] ; // 里层
-            }
-        } break;
-        // 外层
-        case  1: [self.oct_panDelegate oct_panned:recognizer] ; break;
-        
-        default: break;
-    }
-}
-
 - (void)handleNavigationTransition:(id)ges {} // 调用系统自带滑动手势的target的action方法
-
-
-
-
-
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated] ;
@@ -549,25 +458,10 @@ return;}
     [self.btShare xt_enlargeButtonsTouchArea] ;
     
     self.navArea.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;
-    self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;
-    
-    if (IS_IPAD) {
-        [self.btBack setImage:[UIImage imageNamed:@"nav_back_reverse_item"] forState:0] ;
-    }
+    self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;            
 }
 
 - (IBAction)backAction:(id)sender {
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
-        }
-        else {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_PullBack object:nil] ;
-            [self leaveOut] ;
-        }
-        return ;
-    }
-    
     [self.navigationController popViewControllerAnimated:YES] ;
 }
 
@@ -609,37 +503,6 @@ return;}
         }] ;
 
     }] ;
-    
-    
-    
-    
-//    [self.infoVC openFromView:self.view] ;
-//
-//    self.infoVC.aNote = self.aNote ;
-//    self.infoVC.webInfo = self.editor.webInfo ;
-//    WEAK_SELF
-//    self.infoVC.blkDelete = ^{
-//        if (IS_IPAD) {
-//            [weakSelf clearArticleInIpad] ;
-//            [weakSelf backAction:nil] ;
-//        }
-//        else {
-//            [weakSelf.navigationController popViewControllerAnimated:YES] ;
-//        }
-//
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
-//    } ;
-//
-//    // 导出预览
-//    self.infoVC.blkOutput = ^{
-//
-//        if (![weakSelf isVIPandLogin:weakSelf.infoVC.bgVC.btOutput]) return ;
-//
-//        [weakSelf.editor hideKeyboard] ;
-//        [weakSelf.infoVC.view removeFromSuperview] ;
-//
-//        [weakSelf.editor nativeCallJSWithFunc:@"getPureHtml" json:nil completion:^(NSString *val, NSError *error) {}] ;
-//    } ;
     
 }
 

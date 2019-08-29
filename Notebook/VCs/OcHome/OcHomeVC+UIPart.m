@@ -27,14 +27,11 @@
     self.mainCollectionView.dataSource  = (id<UICollectionViewDataSource>)self ;
     self.mainCollectionView.pagingEnabled = YES ;
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
-    layout.itemSize = CGSizeMake(APP_WIDTH, APP_HEIGHT - APP_SAFEAREA_STATUSBAR_FLEX - 49. - 134.) ;
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
-    layout.minimumLineSpacing = 0 ;
-    self.mainCollectionView.collectionViewLayout = layout ;
+    [self setupStructCollectionLayout] ;
     
     self.bookCollectionView.xt_theme_backgroundColor = k_md_bgColor ;
     self.mainCollectionView.xt_theme_backgroundColor = k_md_backColor ;
+//    self.mainCollectionView.backgroundColor = [UIColor redColor] ;
     self.view.xt_theme_backgroundColor = k_md_bgColor ;
     
     // ..
@@ -118,6 +115,15 @@
         [weakSelf goToAllBookVC] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
+    
+    UIView *sepLine = [UIView new] ;
+    sepLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .1) ;
+    [self.view addSubview:sepLine] ;
+    [sepLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.left.equalTo(self.view) ;
+        make.height.equalTo(@.5) ;
+        make.top.equalTo(self.mainCollectionView) ;
+    }] ;
 }
 
 - (void)goToAllBookVC {
@@ -215,6 +221,16 @@
         
     }
 }
+
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    if (collectionView == self.mainCollectionView) {
+//        return CGSizeMake([GlobalDisplaySt sharedInstance].containerSize.width ,
+//                          [GlobalDisplaySt sharedInstance].containerSize.height - (APP_STATUSBAR_HEIGHT) - 49. - self.newMidHeight) ;
+//    }
+//
+//    return CGSizeZero ;
+//}
+
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView != self.mainCollectionView) return ;

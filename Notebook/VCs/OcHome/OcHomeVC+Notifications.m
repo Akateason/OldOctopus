@@ -88,6 +88,17 @@
         NSLog(@"kNote_Default_Note_And_Book_Updated") ;
         [self getAllBooks] ;
     }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self setupStructCollectionLayout] ;
+            
+            [self.mainCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
+        }) ;
+        
+    }] ;
 }
 
 

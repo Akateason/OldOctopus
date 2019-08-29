@@ -49,6 +49,7 @@
     self.midBack.xt_theme_backgroundColor = k_md_backColor ;
     self.collectionView.xt_theme_backgroundColor = k_md_backColor ;
     
+    self.backView.xt_theme_backgroundColor = k_md_backColor ;
     
     [ThemeCollectCell xt_registerNibFromCollection:self.collectionView] ;
     self.collectionView.dataSource = self ;
@@ -56,10 +57,10 @@
     
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
-    float wid = ( APP_WIDTH - 40. - 12. * 3 ) / 4. ;
+    float scnWid = IS_IPAD ? 400 : APP_WIDTH ;
+    float wid = ( scnWid - 40. - 12. * 3 ) / 4. ;
     float hei = wid / 5. * 4. ;
     layout.itemSize = CGSizeMake(wid, hei) ;
-//    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
     layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20) ;
     layout.minimumLineSpacing = 0 ;
     self.collectionView.collectionViewLayout = layout ;
@@ -109,6 +110,7 @@
     [self.collectionView reloadData] ;
     
     self.img.image = [UIImage imageNamed:XT_STR_FORMAT(@"theme_b_%@",self.themes[indexPath.row])] ;
+    self.img.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
 }
 
 

@@ -8,6 +8,7 @@
 
 #import "SetTrashVC.h"
 #import "OcNoteCell.h"
+#import "SearchEmptyVC.h"
 
 @interface SetTrashVC ()
 @property (nonatomic, copy) NSArray *list ;
@@ -46,13 +47,22 @@
 - (void)prepareUI {
     self.fd_prefersNavigationBarHidden = YES ;
     
-    WEAK_SELF
+    @weakify(self)
     [self.btBack bk_addEventHandler:^(id sender) {
-        [weakSelf.navigationController popViewControllerAnimated:YES] ;
+        @strongify(self)
+        [self.navigationController popViewControllerAnimated:YES] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btClear bk_addEventHandler:^(id sender) {
-        [weakSelf clearAllTrash] ;
+        @strongify(self)
+        @weakify(self)
+        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"此操作将会清空垃圾桶内所有笔记，而且不可恢复。确认要清空吗？" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确认清空" otherButtonTitles:nil fromWithView:self.btClear CallBackBlock:^(NSInteger btnIndex) {
+            @strongify(self)
+            if (btnIndex == 1) {
+                [self clearAllTrash] ;
+            }
+        }] ;
+        
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     self.btBack.xt_theme_imageColor = k_md_iconColor ;
@@ -70,12 +80,15 @@
     self.collectionView.delegate = (id<UICollectionViewDelegate>)self ;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
-    float wid = ( APP_WIDTH - 10. * 3 ) / 2. ;
+    float wid = ( ( IS_IPAD ? 400. : APP_WIDTH ) - 10. * 3 ) / 2. ;
     float height = wid  / 345. * 432. ;
     layout.itemSize = CGSizeMake(wid, height) ;
     layout.minimumLineSpacing = 10 ;
     layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
     self.collectionView.collectionViewLayout = layout ;
+    
+    SearchEmptyVC *emptyVc = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
+    self.collectionView.customNoDataView = emptyVc.view ;
 }
 
 - (void)viewDidLoad {

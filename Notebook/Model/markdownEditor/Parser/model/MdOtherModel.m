@@ -55,7 +55,7 @@
         }
             break ;
         case MarkdownSyntaxTable: {
-//            resultDic = @{NSBackgroundColorAttributeName : [UIColor redColor] } ;
+
             [attributedString addAttributes:[MDThemeConfiguration sharedInstance].editorThemeObj.codeBlockStyle range:self.range] ;
         }
             break ;            

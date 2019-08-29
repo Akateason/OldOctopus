@@ -43,15 +43,17 @@
 
 + (MDNavVC *)getMeFromCtrller:(UIViewController *)contentController fromView:(UIView *)fromView {
     SettingVC *settignVC = [SettingVC getCtrllerFromStory:@"Main" controllerIdentifier:@"SettingVC"] ;
-    
+    settignVC.preferredContentSize = CGSizeMake(400, 800) ;
+
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:settignVC] ;
     
     navVC.modalPresentationStyle = UIModalPresentationPopover ;
-    
     UIPopoverPresentationController *popVC = navVC.popoverPresentationController ;
-    popVC.sourceView = fromView ;
-    popVC.sourceRect = fromView.bounds ;
-    popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
+    popVC.sourceView = contentController.view ;
+    popVC.sourceRect = CGRectMake(-12, -40, 0, 0) ; // 把sourceRect移动到屏幕外
+    popVC.permittedArrowDirections = UIPopoverArrowDirectionLeft ;
+    
+
     popVC.xt_theme_backgroundColor = k_md_bgColor ;
     
     [contentController presentViewController:navVC animated:YES completion:^{}] ;
@@ -78,7 +80,6 @@
         self.lbName.text = givenName ;
     }] ;
     
-    
     // 清数据 暗开关
     [self.view bk_whenTouches:2 tapped:7 handler:^{
         [HiddenUtil showAlert] ;
@@ -89,6 +90,7 @@
     [super viewDidDisappear:animated] ;
     
     [[OctWebEditor sharedInstance] setupSettings] ;
+    [self.table reloadData] ;
 }
 
 - (void)prepareUI {

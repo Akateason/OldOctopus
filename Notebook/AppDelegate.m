@@ -83,7 +83,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    if (IS_IPAD) [[UIApplication sharedApplication] setStatusBarHidden:YES] ;
+//    if (IS_IPAD) [[UIApplication sharedApplication] setStatusBarHidden:YES] ;
     
     IapUtil *iap = [IapUtil new] ;
     [iap setup] ;
@@ -228,6 +228,9 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
     }
     return UIInterfaceOrientationMaskPortrait;
 }
+
+
+
 
 @end
  

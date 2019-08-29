@@ -17,6 +17,10 @@
 #import "OcHomeVC+Notifications.h"
 #import "SchBarPositiveTransition.h"
 
+static const float kFlex_loft_sync_animate = 10.f ;
+
+
+
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @end
@@ -32,6 +36,10 @@
 #pragma mark - life
 
 - (void)prepareUI {
+    AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
+    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
+    [GlobalDisplaySt sharedInstance].containerSize = appDelegate.window.size ;
+    
     [self xt_prepareUI] ;
 }
 
@@ -58,6 +66,20 @@
         // 内测验证码
         [UserTestCodeVC getMeFrom:self] ;
     }] ;
+    
+    [[RACObserve([XTCloudHandler sharedInstance], isSyncingOnICloud) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        BOOL isSync = [x boolValue] ;
+        if (isSync) {
+            [self.animationSync play] ;
+            self.animationSync.hidden = NO ;
+        }
+        else {
+            [self.animationSync stop] ;
+            self.animationSync.hidden = YES ;
+        }
+    }] ;
+
 }
 
 
@@ -232,6 +254,23 @@
     }] ;
 }
 
+- (float)newMidHeight {
+    return self.uiStatus_TopBar_turnSmall ? 51. : 134. ;
+}
+
+- (void)setupStructCollectionLayout {
+    [self.mainCollectionView setNeedsLayout] ;
+    [self.mainCollectionView setNeedsDisplay] ;
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
+    layout.itemSize = CGSizeMake([GlobalDisplaySt sharedInstance].containerSize.width ,
+                                 [GlobalDisplaySt sharedInstance].containerSize.height - (APP_STATUSBAR_HEIGHT) - 49. - self.newMidHeight) ;
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
+    layout.minimumLineSpacing = 0. ;
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0) ;
+    self.mainCollectionView.collectionViewLayout = layout ;
+}
+
 #pragma mark - props
 
 - (void)setCurrentBook:(NoteBooks *)currentBook {
@@ -268,33 +307,35 @@
     _uiStatus_TopBar_turnSmall = uiStatus_TopBar_turnSmall ;
 
     float newMidHeight = uiStatus_TopBar_turnSmall ? 51. : 134. ;
-    
-    [UIView animateWithDuration:.2 animations:^{
         
-        // hidden or show
-        self.height_midBar.constant = newMidHeight ;
-        self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = uiStatus_TopBar_turnSmall ? 0 : 1 ;
-        
-        self.segmentBooks.alpha = self.btBooksSmall_All.alpha = uiStatus_TopBar_turnSmall ? 1 : 0 ;
-        
-        // collection flow
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
-        layout.itemSize = CGSizeMake(APP_WIDTH, APP_HEIGHT - APP_SAFEAREA_STATUSBAR_FLEX - 49. - newMidHeight) ;
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
-        layout.minimumLineSpacing = 0 ;
-        self.mainCollectionView.collectionViewLayout = layout ;
-        
-    } completion:^(BOOL finished) {
-        
-    }] ;
-    
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.segmentBooks setValue:@(self.bookCurrentIdx) forKey:@"currentIndex"] ;
+        
+        [UIView animateWithDuration:.2 animations:^{
+            
+            // hidden or show
+            self.height_midBar.constant = newMidHeight ;
+            self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = uiStatus_TopBar_turnSmall ? 0 : 1 ;
+            self.segmentBooks.alpha = self.btBooksSmall_All.alpha = uiStatus_TopBar_turnSmall ? 1 : 0 ;
+            
+        } completion:^(BOOL finished) {
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (IS_IPAD) [self setupStructCollectionLayout] ;
+            }) ;
+            
+        }] ;
+    
+        // collection flow
+        
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
+        
+        [self.segmentBooks setValue:@(self.bookCurrentIdx) forKey:@"currentIndex"] ;
         [self.segmentBooks scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
         [self.segmentBooks reloadData] ;
         
         [self.bookCollectionView reloadData] ;
+        
+
     }) ;
     
 }
@@ -326,6 +367,18 @@
         _transition = [[SchBarPositiveTransition alloc] initWithPositive:YES] ;
     }
     return _transition ;
+}
+
+- (LOTAnimationView *)animationSync {
+    if (!_animationSync) {
+        LOTAnimationView *animation = [LOTAnimationView animationNamed:@"userhead_sync_animate" inBundle:[NSBundle bundleForClass:self.class]] ;
+        animation.loopAnimation = YES ;
+        animation.frame = [self.topBar convertRect:self.btUser.frame fromView:self.topBar] ;
+        animation.frame = CGRectMake(animation.frame.origin.x - kFlex_loft_sync_animate, animation.frame.origin.y - kFlex_loft_sync_animate, animation.frame.size.width + 2 * kFlex_loft_sync_animate, animation.frame.size.height + 2 * kFlex_loft_sync_animate) ;
+        _animationSync = animation ;
+        [self.topBar insertSubview:_animationSync belowSubview:self.btUser] ;
+    }
+    return _animationSync ;
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
@@ -415,6 +468,46 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
     OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
     [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+}
+
+#define SIZECLASS_2_STR(sizeClass) [[self class] sizeClassInt2Str:sizeClass]
+#pragma mark - Size Class
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass)) ;
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    
+    NSLog(@"willTransitionToTraitCollection: current %@, new: %@", SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass), SIZECLASS_2_STR(newCollection.horizontalSizeClass)) ;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    NSLog(@"viewWillTransitionToSize: size %@", NSStringFromCGSize(size)) ;
+    
+    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
+    [GlobalDisplaySt sharedInstance].containerSize = size ;
+    
+    NSValue *val = [NSValue valueWithCGSize:size] ;
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kNoteSlidingSizeChanging object:val] ;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_SizeClass_Changed object:val] ;
+}
+
++ (NSString *)sizeClassInt2Str:(UIUserInterfaceSizeClass)sizeClass {
+    switch (sizeClass) {
+        case UIUserInterfaceSizeClassCompact:
+            return @"UIUserInterfaceSizeClassCompact";
+        case UIUserInterfaceSizeClassRegular:
+            return @"UIUserInterfaceSizeClassRegular";
+        case UIUserInterfaceSizeClassUnspecified:
+        default:
+            return @"UIUserInterfaceSizeClassUnspecified";
+    }
 }
 
 @end

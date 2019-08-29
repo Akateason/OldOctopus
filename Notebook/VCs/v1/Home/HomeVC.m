@@ -237,12 +237,12 @@
 }
 
 - (void)newNoteCombineFunc:(Note *)aNote {
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
-        [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
-    }
-    else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
-    }
+//    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+//        [MarkdownVC newWithNote:aNote bookID:self.leftVC.currentBook.icRecordName fromCtrller:self] ;
+//    }
+//    else {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
+//    }
 }
 
 - (void)prepareUI {
@@ -461,10 +461,10 @@
         return self.sEmptyVC.view ;
     }
     else {
-        if (IS_IPAD && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon ) {
-            self.sEmptyVC.lbWord.text = @"点击开始记录你的新故事..." ;
-            return self.sEmptyVC.view ;
-        }
+//        if (IS_IPAD && [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon ) {
+//            self.sEmptyVC.lbWord.text = @"点击开始记录你的新故事..." ;
+//            return self.sEmptyVC.view ;
+//        }
         self.phView.book = self.leftVC.currentBook ;
         return self.phView ;
     }

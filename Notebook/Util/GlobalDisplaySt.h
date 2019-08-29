@@ -12,20 +12,32 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSUInteger {
-    GDST_Home_2_Column_Verical_default = 22,
-    GDST_Home_3_Column_Horizon ,
-} GDST_Home_mode ;
+    SC_Home_mode_default_iPhone_2_collumn = 32,
+    SC_Home_mode_iPad_Horizon_6_collumn = 40 ,
+    SC_Home_mode_iPad_Verical_4_collumn
+} SC_Home_mode_Type ;
 
 @interface GlobalDisplaySt : NSObject
 XT_SINGLETON_H(GlobalDisplaySt)
-@property (nonatomic) GDST_Home_mode displayMode ; // 三排还是两排
-@property (nonatomic) int gdst_level_for_horizon ; // 三排下的抽屉级数, -1最外(编辑器),0(列表和编辑器),1(书本,列表,编辑器)
+
+@property (nonatomic) SC_Home_mode_Type vType ;
 @property (nonatomic) CGSize containerSize ;
 - (void)correctCurrentCondition:(UIViewController *)ctrller ;
 
 
 @property (nonatomic) BOOL isPopOverFromIpad ; // 从ipad弹出的 气泡窗口,  控制topFLex 为0 ;
 @property (nonatomic) BOOL isInNewBookVC ;
+
+- (UICollectionViewFlowLayout *)homeContentLayout ;
+
+
+
+
+
+
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

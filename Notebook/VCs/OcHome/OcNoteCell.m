@@ -38,6 +38,7 @@ static int kLimitCount = 70 ;
     self.img.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
     self.xt_theme_backgroundColor = k_md_bgColor ;
+//    self.backgroundColor = [UIColor blueColor] ;
     
     [self.btMore xt_enlargeButtonsTouchArea] ;
     WEAK_SELF

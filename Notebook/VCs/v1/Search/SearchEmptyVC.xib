@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,25 +19,20 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-K2-8VY">
-                    <rect key="frame" x="113" y="256" width="188" height="236"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="ljM-K2-8VY" secondAttribute="height" multiplier="309:387" id="iK0-6q-Ano"/>
-                    </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂时没有找到相应关键词" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9i-ig-lVs">
-                    <rect key="frame" x="139.5" y="507" width="135" height="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9i-ig-lVs">
+                    <rect key="frame" x="187.5" y="372" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_bottom.png" translatesAutoresizingMaskIntoConstraints="NO" id="wHz-n3-Ks8">
-                    <rect key="frame" x="51" y="784.5" width="312" height="66.5"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search_empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-K2-8VY">
+                    <rect key="frame" x="109.5" y="162" width="156" height="195"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="wHz-n3-Ks8" secondAttribute="height" multiplier="513:109" id="8MA-wz-EkD"/>
+                        <constraint firstAttribute="width" secondItem="ljM-K2-8VY" secondAttribute="height" multiplier="309:387" id="iK0-6q-Ano"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="156" id="qVg-lq-FLG"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -45,18 +40,13 @@
             <constraints>
                 <constraint firstItem="S9i-ig-lVs" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DBd-Hq-v8s"/>
                 <constraint firstItem="ljM-K2-8VY" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-74" id="Frg-6a-nDg"/>
-                <constraint firstItem="ljM-K2-8VY" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="309:680" id="P0u-Ao-yDY"/>
                 <constraint firstItem="S9i-ig-lVs" firstAttribute="top" secondItem="ljM-K2-8VY" secondAttribute="bottom" constant="15" id="eWc-HK-KC1"/>
-                <constraint firstItem="wHz-n3-Ks8" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="g6E-Jk-qyt"/>
-                <constraint firstItem="wHz-n3-Ks8" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="513:680" id="hNu-N7-qCY"/>
                 <constraint firstItem="ljM-K2-8VY" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ljh-OQ-m5c"/>
-                <constraint firstAttribute="bottom" secondItem="wHz-n3-Ks8" secondAttribute="bottom" constant="45" id="x16-GD-58Q"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>
     </objects>
     <resources>
-        <image name="empty_bottom.png" width="518" height="114"/>
         <image name="search_empty.png" width="312" height="391"/>
     </resources>
 </document>

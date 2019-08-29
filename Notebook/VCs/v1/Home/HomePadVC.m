@@ -99,9 +99,9 @@ static const float slidingSpeed = 2000. ;
         self.rightContainer.top = APP_STATUSBAR_HEIGHT ;
         self.rightContainer.bottom = self.view.bottom ;
         
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) {
-            self.rightContainer.left = 0 ;
-        }
+//        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1) {
+//            self.rightContainer.left = 0 ;
+//        }
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_ClickNote_In_Pad object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -114,12 +114,12 @@ static const float slidingSpeed = 2000. ;
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_pad_Editor_OnClick object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
-            [self.slidingController setDrawerOpened:NO animated:YES] ;
-            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0 ;
-        }
+//        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
+//            [self.slidingController setDrawerOpened:NO animated:YES] ;
+//            [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0 ;
+//        }
         
-        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
+//        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = 0 ;
             [self.delegate moveRelativeViewsOnState:YES] ;
@@ -130,7 +130,7 @@ static const float slidingSpeed = 2000. ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_pad_Editor_PullBack object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0 ;
+//        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = 0 ;
         
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = kWidth_ListView ;
@@ -143,11 +143,11 @@ static const float slidingSpeed = 2000. ;
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_new_Note_In_Pad object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         
-        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
-            [self.slidingController setDrawerOpened:NO animated:YES] ;
-        }
+//        if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
+//            [self.slidingController setDrawerOpened:NO animated:YES] ;
+//        }
         
-        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
+//        [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = -1;
         [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.rightContainer.left = 0 ;
             [self.editorVC setupWithNote:nil bookID:nil fromCtrller:self.homeVC] ;
@@ -192,22 +192,22 @@ static const float slidingSpeed = 2000. ;
             finalOpenState = 0;
 
             // pad ,里面, 左滑, 安全距离
-            if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && velocity < 300 && left < 100) {
-                self->_rightContainer.left = 0 ;
-                NSLog(@"33333333");
-                return ;
-            }
+//            if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 && velocity > 0 && velocity < 300 && left < 100) {
+//                self->_rightContainer.left = 0 ;
+//                NSLog(@"33333333");
+//                return ;
+//            }
         }
         else {
             leftForEdge = 0;
             leftForBounce = leftForEdge - 22.0;
             finalOpenState = -1;
 
-            if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
-                [self.slidingController setDrawerOpened:NO animated:YES] ;
-                NSLog(@"4444444");
-                return ;
-            }
+//            if ([GlobalDisplaySt sharedInstance].gdst_level_for_horizon == 1) {
+//                [self.slidingController setDrawerOpened:NO animated:YES] ;
+//                NSLog(@"4444444");
+//                return ;
+//            }
         }
         
         NSLog(@"555555") ;
@@ -230,7 +230,7 @@ static const float slidingSpeed = 2000. ;
                 CGFloat left = self->_rightContainer.left;
                 left = leftForEdge;
                 
-                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState ;
+//                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState ;
                 
                 [UIView animateWithDuration:0.3 animations:^{
                     self->_rightContainer.left = left;
@@ -248,7 +248,7 @@ static const float slidingSpeed = 2000. ;
                 self->_rightContainer.left = left;
                 [self.delegate moveRelativeViewsOnState:finalOpenState == -1] ;
             } completion:^(BOOL finished) {
-                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
+//                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
             }];
         }
         else {
@@ -260,7 +260,7 @@ static const float slidingSpeed = 2000. ;
                 self->_rightContainer.left = left;
                 [self.delegate moveRelativeViewsOnState:finalOpenState == -1] ;
             } completion:^(BOOL finished) {
-                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
+//                [GlobalDisplaySt sharedInstance].gdst_level_for_horizon = finalOpenState;
             }];
         }
     }

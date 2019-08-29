@@ -18,6 +18,7 @@
         float length = bigOrSmall ? 42. : 26.  ;
         self.frame = CGRectMake(0, 0, length, length) ;
         self.backgroundColor = nil ;
+        self.bigOrSmall = bigOrSmall ;
         
         NSString *imgStr = bigOrSmall ? @"book_bg_big@2x" : @"book_bg_small@2x" ;
         NSString *filePath = [[NSBundle mainBundle] pathForResource:imgStr ofType:@"png"] ;
@@ -53,7 +54,8 @@
         self.lbEmoji.hidden = YES ;
         
         if (book.vType != Notebook_Type_notebook) {
-            UIImage *image = [UIImage imageNamed:book.emoji] ;
+            NSString *imgStr = bigOrSmall ? book.emoji : XT_STR_FORMAT(@"%@_s",book.emoji) ;
+            UIImage *image = [UIImage imageNamed:imgStr] ;
             self.imageBookView.image = image ;
             self.imageBookView.hidden = NO ;
             self.lbEmoji.hidden = YES ;
@@ -69,7 +71,8 @@
 
 - (void)configBook:(NoteBooks *)book {
     if (book.vType != Notebook_Type_notebook) {
-        UIImage *image = [UIImage imageNamed:book.emoji] ;
+        NSString *imgStr = self.bigOrSmall ? book.emoji : XT_STR_FORMAT(@"%@_s",book.emoji) ;
+        UIImage *image = [UIImage imageNamed:imgStr] ;
         image = [image imageWithTintColor:XT_GET_MD_THEME_COLOR_KEY(k_md_iconColor)] ;                        
         self.imageBookView.image = image ;
 

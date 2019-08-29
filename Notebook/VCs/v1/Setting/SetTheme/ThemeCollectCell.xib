@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="75" height="60"/>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="theme_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="7o3-3L-eDA">
-                        <rect key="frame" x="57" y="42" width="18" height="18"/>
+                        <rect key="frame" x="55" y="40" width="18" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="18" id="JQO-nQ-WyT"/>
                             <constraint firstAttribute="height" constant="18" id="uhS-uq-LDZ"/>
@@ -35,8 +35,8 @@
                 <constraint firstAttribute="trailing" secondItem="vCR-ps-gEG" secondAttribute="trailing" id="2OU-6A-q3X"/>
                 <constraint firstAttribute="bottom" secondItem="vCR-ps-gEG" secondAttribute="bottom" id="4WZ-T5-0lI"/>
                 <constraint firstItem="vCR-ps-gEG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="7So-Uy-1Dp"/>
-                <constraint firstAttribute="bottom" secondItem="7o3-3L-eDA" secondAttribute="bottom" id="UeM-PU-J5n"/>
-                <constraint firstAttribute="trailing" secondItem="7o3-3L-eDA" secondAttribute="trailing" id="eUy-9G-bFA"/>
+                <constraint firstAttribute="bottom" secondItem="7o3-3L-eDA" secondAttribute="bottom" constant="2" id="UeM-PU-J5n"/>
+                <constraint firstAttribute="trailing" secondItem="7o3-3L-eDA" secondAttribute="trailing" constant="2" id="eUy-9G-bFA"/>
                 <constraint firstItem="vCR-ps-gEG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="t0y-5k-wIF"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>

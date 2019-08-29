@@ -85,13 +85,8 @@
     SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
     self.collectionView.customNoDataView = phVC.view ;
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
-    float wid = ( APP_WIDTH - 10. * 3 ) / 2. ;
-    float height = wid  / 345. * 432. ;
-    layout.itemSize = CGSizeMake(wid, height) ;
-    layout.minimumLineSpacing = 10 ;
-    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
-    self.collectionView.collectionViewLayout = layout ;
+    
+    self.collectionView.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

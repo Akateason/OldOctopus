@@ -62,7 +62,6 @@ XT_SINGLETON_M(OctWebEditor)
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.02] deliverOnMainThread] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
         if (!self.window) return ;
         
         NSDictionary *info = [x userInfo] ;
@@ -125,24 +124,25 @@ XT_SINGLETON_M(OctWebEditor)
     }] ;
 }
 
+// todo
 - (void)setSideFlex {
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
+//    if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_default_iPhone_2_collumn) {
         [self nativeCallJSWithFunc:@"setEditorFlex" json:@"28" completion:^(NSString *val, NSError *error) {}] ;
         self.sideWid = 28. ;
-    }
-    else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-        if ( ([GlobalDisplaySt sharedInstance].containerSize.width < [GlobalDisplaySt sharedInstance].containerSize.height) ) {
-            float wid = [GlobalDisplaySt sharedInstance].containerSize.width / 4. ;
-            [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(wid) stringValue] completion:^(NSString *val, NSError *error) {}] ;
-            self.sideWid = wid ;
-        }
-        else {
-            float appWid = [GlobalDisplaySt sharedInstance].containerSize.width ?: APP_WIDTH ;
-            float wid = ( appWid - ( appWid - kWidth_ListView - k_side_margin * 2. ) ) / 2. ;
-            [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(wid) stringValue] completion:^(NSString *val, NSError *error) {}] ;
-            self.sideWid = wid ;
-        }
-    }
+//    }
+//    else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+//        if ( ([GlobalDisplaySt sharedInstance].containerSize.width < [GlobalDisplaySt sharedInstance].containerSize.height) ) {
+//            float wid = [GlobalDisplaySt sharedInstance].containerSize.width / 4. ;
+//            [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(wid) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+//            self.sideWid = wid ;
+//        }
+//        else {
+//            float appWid = [GlobalDisplaySt sharedInstance].containerSize.width ?: APP_WIDTH ;
+//            float wid = ( appWid - ( appWid - kWidth_ListView - k_side_margin * 2. ) ) / 2. ;
+//            [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(wid) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+//            self.sideWid = wid ;
+//        }
+//    }
 }
 
 
@@ -216,7 +216,7 @@ XT_SINGLETON_M(OctWebEditor)
         self.typeInlineList = list ;
     }
     else if ([func isEqualToString:@"selectImage"]) {
-        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon && [GlobalDisplaySt sharedInstance].gdst_level_for_horizon != -1) return ;
+
         
         [self.toolBar hideAllBoards] ;
         self.toolBar.hidden = YES ;
@@ -291,23 +291,14 @@ XT_SINGLETON_M(OctWebEditor)
         _isFirstTimeLoad = NO ;
     }
     else {
-        if ( !self.aNote.content.length &&
-            (
-             [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default ||
-             (
-              [GlobalDisplaySt sharedInstance].gdst_level_for_horizon == -1 &&
-              [GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon
-              )
-             )
-            ) {
-            
+        if ( !self.aNote.content.length ) {
             [self openKeyboard] ;
         }
     }
     
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-        [self setEditable:NO] ;
-    }
+//    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
+//        [self setEditable:NO] ;
+//    }
 }
 
 
