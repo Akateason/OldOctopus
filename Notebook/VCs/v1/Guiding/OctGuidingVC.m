@@ -12,10 +12,9 @@
 #import <EllipsePageControl/EllipsePageControl.h>
 #import "MDThemeConfiguration.h"
 #import "AppDelegate.h"
-#import "HomeVC.h"
 #import "MDNavVC.h"
 #import "GlobalDisplaySt.h"
-#import "HomePadVC.h"
+#import "OcHomeVC.h"
 
 @interface OctGuidingVC () {
     long ld_currentIndex ;
@@ -123,20 +122,10 @@
 #pragma mark - SingleGuidVCDelegate <NSObject>
 
 - (void)startOnClick {
-    
     AppDelegate *appDelegaete = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
-    appDelegaete.window.rootViewController = [HomeVC getMe];
+    appDelegaete.window.rootViewController = [OcHomeVC getMe] ;
     [appDelegaete.window makeKeyAndVisible] ;
-    
-    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
-        appDelegaete.window.rootViewController = [HomeVC getMe];
-        [appDelegaete.window makeKeyAndVisible] ;
-    }
-    else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-        appDelegaete.window.rootViewController = [HomePadVC getMe] ;
-        [appDelegaete.window makeKeyAndVisible] ;
-    }
-
+    [appDelegaete.window makeKeyAndVisible] ;
 }
 
 @end

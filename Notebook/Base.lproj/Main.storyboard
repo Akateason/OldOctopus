@@ -133,15 +133,15 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DIJ-PC-Vun">
                                         <rect key="frame" x="15" y="10" width="286" height="38"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="md_home_search.png" translatesAutoresizingMaskIntoConstraints="NO" id="HLb-l2-wdA">
-                                                <rect key="frame" x="10" y="11" width="16" height="16"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="md_home_search.png" translatesAutoresizingMaskIntoConstraints="NO" id="HLb-l2-wdA">
+                                                <rect key="frame" x="10" y="8.5" width="21" height="21"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="16" id="q1X-46-jAg"/>
-                                                    <constraint firstAttribute="height" constant="16" id="sb3-tN-aHT"/>
+                                                    <constraint firstAttribute="width" constant="21" id="q1X-46-jAg"/>
+                                                    <constraint firstAttribute="height" constant="21" id="sb3-tN-aHT"/>
                                                 </constraints>
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="M00-Ep-IXe">
-                                                <rect key="frame" x="36" y="0.0" width="250" height="38"/>
+                                                <rect key="frame" x="41" y="0.0" width="245" height="38"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>

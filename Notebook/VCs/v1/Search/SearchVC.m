@@ -12,9 +12,6 @@
 #import "MDNavVC.h"
 #import "SearchEmptyVC.h"
 #import "SchBarPositiveTransition.h"
-#import "HomeVC.h"
-//#import "NHSlidingController.h"
-//#import "UIViewController+SlidingController.h"
 #import "OcNoteCell.h"
 
 
@@ -28,10 +25,9 @@
     SearchVC *vc = [SearchVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"SearchVC"] ;
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:vc] ;
     fromCtrller.definesPresentationContext = YES;
-    navVC.transitioningDelegate = (id<UIViewControllerTransitioningDelegate>)fromCtrller ;
+    navVC.transitioningDelegate = (id<UIViewControllerTransitioningDelegate>)fromCtrller ; // !!
     navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
-    [fromCtrller presentViewController:navVC animated:YES completion:^{
-    }] ;
+    [fromCtrller presentViewController:navVC animated:YES completion:^{}] ;
 }
 
 
@@ -68,9 +64,9 @@
 - (void)prepareUI {
     self.fd_prefersNavigationBarHidden = YES ;
     
-    self.view.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor,1) ;
+    self.view.xt_theme_backgroundColor = k_md_bgColor ;
     
-    self.topArea.xt_theme_backgroundColor = nil ;
+    self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.tf.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.8)  ;
     self.tf.placeholder = @"搜索笔记" ;
@@ -84,11 +80,10 @@
     [OcNoteCell xt_registerNibFromCollection:self.collectionView] ;
     self.collectionView.dataSource = self ;
     self.collectionView.delegate = self ;
-    self.collectionView.xt_theme_backgroundColor = k_md_backColor ;
+    self.collectionView.xt_theme_backgroundColor = k_md_bgColor ;
     
     SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
     self.collectionView.customNoDataView = phVC.view ;
-    
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     float wid = ( APP_WIDTH - 10. * 3 ) / 2. ;
@@ -148,45 +143,12 @@
     [self.tf resignFirstResponder] ;
 }
 
-#pragma mark - OcNoteCell call back  self.xt_viewcontroller
-/**
- OcNoteCell call back
- */
-- (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView {
-    
-}
-
-
-
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return self.listResult.count ;
+//#pragma mark - OcNoteCell call back  self.xt_viewcontroller
+///**
+// OcNoteCell call back
+// */
+//- (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView {
+//
 //}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NoteCell *cell = [NoteCell xt_fetchFromTable:tableView] ;
-//    [cell xt_configure:self.listResult[indexPath.row] indexPath:indexPath] ;
-//    cell.textForSearching = self.tf.text ;
-//    return cell ;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return [NoteCell xt_cellHeight] ;
-//}
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSInteger row = indexPath.row ;
-//    Note *aNote = self.listResult[row] ;
-//    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
-//        [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:self] ;
-//    }
-//    else {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
-//    }
-//
-//    [self.tf resignFirstResponder] ;
-//}
-//
-
-//
 
 @end

@@ -15,9 +15,10 @@
 #import "MoveNoteToBookVC.h"
 #import "UserTestCodeVC.h"
 #import "OcHomeVC+Notifications.h"
+#import "SchBarPositiveTransition.h"
 
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
-
+@property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @end
 
 @implementation OcHomeVC
@@ -320,7 +321,24 @@
     return _segmentBooks;
 }
 
+- (SchBarPositiveTransition *)transition {
+    if (!_transition) {
+        _transition = [[SchBarPositiveTransition alloc] initWithPositive:YES] ;
+    }
+    return _transition ;
+}
 
+#pragma mark - UIViewControllerTransitioningDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    self.transition.isPositive = YES ;
+    return self.transition ;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    self.transition.isPositive = NO ;
+    return self.transition ;
+}
 
 #pragma mark - OcContainerCell callback  self.xt_viewcontroller
 // up - YES, down - NO.

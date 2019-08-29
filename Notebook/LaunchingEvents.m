@@ -19,7 +19,6 @@
 #import <Bugly/Bugly.h>
 #import "AppDelegate.h"
 #import "OctGuidingVC.h"
-#import "HomeVC.h"
 #import "MDNavVC.h"
 #import "WebPhotoHandler.h"
 #import "HomePadVC.h"
@@ -163,8 +162,8 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
 
 - (void)setupNaviStyle {
     [[UIApplication sharedApplication] keyWindow].tintColor = [UIColor whiteColor] ;
-    // todo 黑色主题有问题呢
-//    [UIView appearance].tintColor = [[MDThemeConfiguration sharedInstance] themeColor:k_md_textColor] ; // change alert contrller tint color ;
+    
+    
 }
 
 - (void)setupIqKeyboard {
@@ -264,7 +263,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         }
     }] ;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Default_Note_And_Book_Updated object:nil] ;
 }
 
 - (void)icloudSync:(void(^)(void))completeBlk {
@@ -320,7 +319,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         if (status > AFNetworkReachabilityStatusNotReachable) {
             // upload all local data if not Uploaded
             
-            NSArray *localNotelist = [Note xt_findWhere:@"isSendOnICloud == 0"] ;
+            NSArray *localNotelist = [Note      xt_findWhere:@"isSendOnICloud == 0"] ;
             NSArray *localBooklist = [NoteBooks xt_findWhere:@"isSendOnICloud == 0"] ;
             
             NSMutableArray *tmplist = [@[] mutableCopy] ;

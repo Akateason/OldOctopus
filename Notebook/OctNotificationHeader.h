@@ -12,6 +12,7 @@
 // appdelegate
 static NSString *const kNote_iap_purchased_done = @"kNote_iap_purchased_done" ;
 static NSString *const kNote_User_Login_Success = @"kNote_User_Login_Success" ;
+static NSString *const kNote_Default_Note_And_Book_Updated = @"kNote_Default_Note_And_Book_Updated" ;
 
 // camera handler
 static NSString *const kNote_User_Open_Camera = @"kNote_User_Open_Camera" ;

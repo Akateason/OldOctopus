@@ -25,9 +25,7 @@
     self.scBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.lbPh.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     self.scBar.xt_cornerRadius = 6 ;
-    
-    
-//    self.backgroundColor = [UIColor xt_red] ;
+    self.imgSearchIcon.alpha = .6 ;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

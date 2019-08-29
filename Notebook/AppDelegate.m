@@ -7,9 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "GlobalDisplaySt.h"
-#import "HomePadVC.h"
-#import "HomeVC.h"
 #import "OctWebEditor.h"
 #import "OctGuidingVC.h"
 #import "MDNavVC.h"
@@ -197,38 +194,9 @@
 static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [[OctMBPHud sharedInstance] hide] ;
-    
-    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self.window.rootViewController] ;
 
-    if ([self.window.rootViewController isKindOfClass:MDNavVC.class]) return ; // guiding
-
-//    OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
-//    if (guidVC != nil) {
-//        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
-//        self.window.rootViewController = navVC ;
-//        [self.window makeKeyAndVisible] ;
-//
-//        [self.launchingEvents setupAlbumn] ;
-//    }
-//    else {
-//        [self setupRootWIndow] ;
-//    }
 }
 
-- (void)setupRootWIndow {
-    int displayMode = [GlobalDisplaySt sharedInstance].displayMode ;
-    if (self.padDisplayMode == displayMode) return ;
-    
-    if (displayMode == GDST_Home_2_Column_Verical_default) {
-        self.window.rootViewController = [HomeVC getMe] ;
-        [self.window makeKeyAndVisible] ;
-    }
-    else if (displayMode == GDST_Home_3_Column_Horizon) {
-        self.window.rootViewController = [HomePadVC getMe] ;
-        [self.window makeKeyAndVisible] ;
-    }
-    self.padDisplayMode = displayMode ;
-}
 
 //file:///private/var/mobile/Containers/Data/Application/929D7113-DCE0-4F39-9436-D85BFD644DC6/Documents/Inbox/%E7%BC%96%E8%BE%91%E5%99%A8%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1.md
 //导入文件,默认导入到当前的笔记本,如果是最近或者垃圾桶,进入暂存区. 导入之后打开此笔记.

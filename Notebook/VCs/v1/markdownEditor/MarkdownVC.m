@@ -10,7 +10,6 @@
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
-//#import "ArticleInfoVC.h"
 #import "NoteInfoVC.h"
 #import "OutputPreviewVC.h"
 #import "OutputPreviewsNailView.h"
@@ -20,7 +19,6 @@
 #import "GlobalDisplaySt.h"
 #import "HomePadVC.h"
 #import "NHSlidingController.h"
-#import "HomeVC.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "OctRequestUtil.h"
 #import "OctShareCopyLinkView.h"
@@ -264,45 +262,6 @@
         @strongify(self)
         [self clearArticleInIpad] ;
     }] ;
-    
-    [[[[RACObserve([GlobalDisplaySt sharedInstance], gdst_level_for_horizon)
-       deliverOnMainThread]
-       takeUntil:self.rac_willDeallocSignal]
-      throttle:.3]
-     subscribeNext:^(id  _Nullable x) {
-         @strongify(self)
-         int num = [x intValue] ;
-         if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
-         
-         self.canBeEdited = num == -1 ;
-         [UIView animateWithDuration:.1 animations:^{
-             if (num == -1) self.btBack.transform = CGAffineTransformScale(self.btBack.transform, -1, 1) ;
-             else self.btBack.transform = CGAffineTransformIdentity ;
-         }] ;
-         
-         if (self.aNote == nil || self.editor.aNote == nil || self.editor.aNote.content.length < 1) {
-             if (num == -1) {
-                 [self setupWithNote:nil bookID:self.delegate.currentBookID] ;
-                 
-                 [UIView animateWithDuration:.1 animations:^{
-                     [self moveRelativeViewsOnState:YES] ;
-                 } completion:^(BOOL finished) {
-                     
-                 }] ;
-                 
-                 self.emptyView.hidden = YES ;
-                 self.editor.webViewHasSetMarkdown = YES ;
-             }
-             else {
-                 self.emptyView.hidden = NO ;
-             }
-         }
-         
-         if (num != -1) {
-             [self.editor hideKeyboard] ;
-         }
-        
-     }] ;
     
     [[[self.outputPhotoSubject throttle:.4] deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
         @strongify(self)
@@ -757,35 +716,6 @@ return;}
     }] ;
 }
 
-
-#pragma mark - NHSlidingControllerAnimateDelegate <NSObject>
-
-- (void)animateMoveState:(BOOL)drawerOpened {
-    if (drawerOpened) {
-        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView - HomeVC.movingDistance) / 2. ;
-        self.emptyView.centerX = newWid ;
-    }
-    else {
-        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
-        self.emptyView.centerX = newWid ;
-    }
-}
-
-#pragma mark - HomePadVCDelegate <NSObject>
-
-- (void)moveRelativeViewsOnState:(bool)stateOn {
-    // normal
-    if (stateOn) {
-        self.emptyView.centerX = self.view.centerX ;
-        self.editor.left = 0 ;
-    }
-    else {
-        float newWid = ([GlobalDisplaySt sharedInstance].containerSize.width - kWidth_ListView) / 2. ;
-        self.emptyView.centerX = newWid ;
-        
-        self.editor.left = [MarkdownVC getEditorLeftIpad] ;
-    }
-}
 
 #pragma mark - prop
 

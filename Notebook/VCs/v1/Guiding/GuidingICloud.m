@@ -12,8 +12,7 @@
 #import "Note.h"
 #import "MarkdownVC.h"
 #import "AppDelegate.h"
-#import "GlobalDisplaySt.h"
-#import "HomeVC.h"
+
 
 
 @implementation GuidingICloud
@@ -92,18 +91,9 @@ XT_SINGLETON_M(GuidingICloud)
     [self.lbHowToOpen bk_whenTapped:^{
         Note *aNote = [Note xt_findFirstWhere:@"icRecordName == 'iOS-note-guide'"] ;
         if (aNote.content) {
-            if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) {
-                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
-                UINavigationController *navVC = (UINavigationController *)(appDelegate.window.rootViewController) ;
-                [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:navVC.topViewController] ;
-            }
-            else {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNote_ClickNote_In_Pad object:aNote] ;
-                [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
-            }
-            
-            
-            
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
+            UINavigationController *navVC = (UINavigationController *)(appDelegate.window.rootViewController) ;
+            [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:navVC.topViewController] ;
             [weakSelf removeFromSuperview] ;
         }
     }] ;
@@ -111,10 +101,6 @@ XT_SINGLETON_M(GuidingICloud)
     [self.btClose bk_whenTapped:^{
         [weakSelf removeFromSuperview] ;
     }] ;
-    
-    if (IS_IPAD) {
-        self.backgroundColor = nil ;
-    }
 }
 
 

@@ -1482,15 +1482,15 @@
 		8F9BECBE227012F400EAEAD2 /* subviews */ = {
 			isa = PBXGroup;
 			children = (
+				8F12DA8C226D9F3600265563 /* HomeSearchCell.h */,
+				8F12DA8D226D9F3600265563 /* HomeSearchCell.m */,
+				8F12DA8E226D9F3600265563 /* HomeSearchCell.xib */,
 				8F303999225217AB00DEB656 /* HomeEmptyPHView.xib */,
 				8F303996225217A300DEB656 /* HomeEmptyPHView.h */,
 				8F303997225217A300DEB656 /* HomeEmptyPHView.m */,
 				8F99DBD422E194D400A39F99 /* HomeTrashEmptyPHView.h */,
 				8F99DBD522E194D400A39F99 /* HomeTrashEmptyPHView.m */,
 				8F99DBD722E194F000A39F99 /* HomeTrashEmptyPHView.xib */,
-				8F12DA8C226D9F3600265563 /* HomeSearchCell.h */,
-				8F12DA8D226D9F3600265563 /* HomeSearchCell.m */,
-				8F12DA8E226D9F3600265563 /* HomeSearchCell.xib */,
 				8FA232D3224E07C400163685 /* NoteCell.h */,
 				8FA232D4224E07C400163685 /* NoteCell.m */,
 				8FA232D5224E07C400163685 /* NoteCell.xib */,
@@ -1558,6 +1558,8 @@
 			children = (
 				8FC431252265CCAF0002C9A1 /* SearchVC.h */,
 				8FC431262265CCAF0002C9A1 /* SearchVC.m */,
+				8FA141FE22715E8000A23873 /* SchBarPositiveTransition.h */,
+				8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */,
 				8F6863BF2266FA7A00261626 /* SearchEmptyVC.h */,
 				8F6863C02266FA7A00261626 /* SearchEmptyVC.m */,
 				8F6863C12266FA7A00261626 /* SearchEmptyVC.xib */,
@@ -1704,8 +1706,6 @@
 				8FBA0420228BC0E800EED229 /* HomeVC+Util.m */,
 				8F79AE782269CD9100E8FD0D /* HomeVC+PanGestureHandler.h */,
 				8F79AE792269CD9100E8FD0D /* HomeVC+PanGestureHandler.m */,
-				8FA141FE22715E8000A23873 /* SchBarPositiveTransition.h */,
-				8FA141FF22715E8000A23873 /* SchBarPositiveTransition.m */,
 				8F9BECBE227012F400EAEAD2 /* subviews */,
 			);
 			path = Home;

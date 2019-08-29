@@ -82,6 +82,12 @@
             }
         }] ;
     }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Default_Note_And_Book_Updated object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        NSLog(@"kNote_Default_Note_And_Book_Updated") ;
+        [self getAllBooks] ;
+    }] ;
 }
 
 
