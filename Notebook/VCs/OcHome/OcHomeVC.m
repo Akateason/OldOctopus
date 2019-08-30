@@ -148,8 +148,8 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     NSNumber *lastTick = XT_USERDEFAULT_GET_VAL(kCache_Last_Update_Note_Info_Time) ;
     NSDate *lastUpdateTime = [NSDate xt_getDateWithTick:lastTick.longLongValue] ;
     NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:lastUpdateTime] ;
-    if (time < 30) {
-        NSLog(@"未超过时间, 不刷新book, %ds前刷新过了",time) ;
+    if (time < 20) {
+        NSLog(@"未超过时间, 不刷新book, %@s前刷新过了",@(time)) ;
         return ;
     }
     
