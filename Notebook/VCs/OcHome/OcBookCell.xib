@@ -20,10 +20,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最近使用" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kly-WX-s4s">
-                        <rect key="frame" x="0.0" y="50" width="72" height="12"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="12" id="PYU-uI-gE1"/>
-                        </constraints>
+                        <rect key="frame" x="0.0" y="45" width="72" height="17"/>
                         <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>

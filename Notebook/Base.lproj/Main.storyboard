@@ -401,6 +401,9 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题皮肤" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSW-1N-mcV">
                                 <rect key="frame" x="20" y="93" width="96" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="GPJ-8z-AFU"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -430,6 +433,9 @@
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="部分主题需要订阅「小章鱼 Pro」才能使用。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxl-VV-aR2">
                                 <rect key="frame" x="20" y="137" width="279" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="8PN-34-ykm"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

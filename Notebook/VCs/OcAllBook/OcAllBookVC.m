@@ -50,7 +50,7 @@
     if (!IS_IPAD) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
         layout.itemSize = CGSizeMake(72., 77.) ;
-        layout.minimumLineSpacing = 0 ;
+        layout.minimumLineSpacing = 30 ;
         layout.minimumInteritemSpacing = 0 ;
         layout.sectionInset = UIEdgeInsetsMake(30, 20, 100, 20) ;
         self.collectionView.collectionViewLayout = layout ;
@@ -134,10 +134,11 @@
         book.vType == Notebook_Type_recent ||
         book.vType == Notebook_Type_staging) return ;
     
+    OcBookCell *cell = (OcBookCell *)[self.collectionView cellForItemAtIndexPath:indexPath] ;
     
     NSString *title = XT_STR_FORMAT(@"对“%@”进行以下操作",book.name) ;
     @weakify(self)
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:title cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除笔记本" otherButtonTitles:@[@"重命名"] fromWithView:self.view CallBackBlock:^(NSInteger btnIndex) {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:title cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除笔记本" otherButtonTitles:@[@"重命名"] fromWithView:cell CallBackBlock:^(NSInteger btnIndex) {
         @strongify(self)
         if (btnIndex == 1) {
             @weakify(self)

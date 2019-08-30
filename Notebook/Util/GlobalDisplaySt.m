@@ -58,30 +58,30 @@ XT_SINGLETON_M(GlobalDisplaySt)
 
 - (UICollectionViewFlowLayout *)homeContentLayout {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
-    if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Horizon_6_collumn ||
-        [GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Verical_4_collumn
-        ) {
-        if (self.containerSize.width > self.containerSize.height) {
-            float wid = ( self.containerSize.width - 20. * 2 - 5 * 24. ) / 6. ;
-            float height = wid  / 345. * 432. ;
-            layout.itemSize = CGSizeMake(wid, height) ;
-            layout.minimumLineSpacing = 24 ;
-            layout.sectionInset = UIEdgeInsetsMake(10, 20, 10, 20) ;
-        }
-        else {
-            float wid = ( self.containerSize.width - 20. * 2 - 3 * 35. ) / 4. ;
-            float height = wid  / 345. * 432. ;
-            layout.itemSize = CGSizeMake(wid, height) ;
-            layout.minimumLineSpacing = 35. ;
-            layout.sectionInset = UIEdgeInsetsMake(10, 20, 10, 20) ;
-        }
-    }
-    else {
-        float wid = ( self.containerSize.width - 10. * 3 ) / 2. ;
+    if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Horizon_6_collumn) {
+        float wid = ( self.containerSize.width - 20. * 2 - 5 * 24. ) / 6. ;
         float height = wid  / 345. * 432. ;
         layout.itemSize = CGSizeMake(wid, height) ;
-        layout.minimumLineSpacing = 10 ;
-        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
+        layout.minimumInteritemSpacing = 24. ;
+        layout.minimumLineSpacing = 24. ;
+        layout.sectionInset = UIEdgeInsetsMake(24., 20., 24., 20.) ;
+    }
+    else if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Verical_4_collumn) {
+        float wid = ( self.containerSize.width - 20. * 2 - 3 * 35. ) / 4. ;
+        float height = wid  / 345. * 432. ;
+        layout.itemSize = CGSizeMake(wid, height) ;
+        layout.minimumInteritemSpacing = 35. ;
+        layout.minimumLineSpacing = 35. ;
+        layout.sectionInset = UIEdgeInsetsMake(35., 20., 35., 20.) ;
+    }
+    
+    else {
+        float wid = ( self.containerSize.width - 10. * 3. ) / 2. ;
+        float height = wid  / 345. * 432. ;
+        layout.itemSize = CGSizeMake(wid, height) ;
+        layout.minimumInteritemSpacing = 10. ;
+        layout.minimumLineSpacing = 10. ;
+        layout.sectionInset = UIEdgeInsetsMake(10., 10., 10., 10.) ;
     }
     
     return layout ;

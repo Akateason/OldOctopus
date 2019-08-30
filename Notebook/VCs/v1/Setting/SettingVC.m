@@ -142,7 +142,7 @@
         lb.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
         NSString *versionNum = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ;
         NSString *buildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] ;
-        lb.text = XT_STR_FORMAT(@"v %@ (%@)",versionNum,buildNum) ;
+        lb.text = XT_STR_FORMAT(@"v %@ (%@) %@",versionNum,buildNum, (k_Is_Internal_Testing) ? @"内测" : @"") ;        
         lb.font = [UIFont systemFontOfSize:12] ;
         [self.table addSubview:lb] ;
         [lb mas_makeConstraints:^(MASConstraintMaker *make) {
