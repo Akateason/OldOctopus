@@ -16,12 +16,8 @@
 @implementation OcBookCell
 
 - (void)awakeFromNib {
-    [super awakeFromNib];
+    [super awakeFromNib] ;
     
-    
-    
-    
-        
     self.bookBgView = [[BookBgView alloc] initWithSize:YES book:nil] ;
     [self.viewForBookIcon addSubview:self.bookBgView] ;
     [self.bookBgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -31,7 +27,7 @@
     self.viewForBookIcon.backgroundColor = nil ;
     
     self.viewOnSelected.alpha = 0 ;
-    
+    self.viewOnSelected.xt_theme_imageColor = k_md_themeColor ;
     
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];
     longPressGr.minimumPressDuration = 1.0;

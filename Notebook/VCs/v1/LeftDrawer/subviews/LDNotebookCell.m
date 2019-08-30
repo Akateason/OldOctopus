@@ -22,7 +22,7 @@
     self.imgView.xt_theme_imageColor = k_md_iconColor ;
     self.leftRedView.xt_theme_backgroundColor = k_md_themeColor ;
     self.xt_theme_backgroundColor = k_md_drawerColor ;
-    self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;    
 }
 
 + (CGFloat)xt_cellHeight {

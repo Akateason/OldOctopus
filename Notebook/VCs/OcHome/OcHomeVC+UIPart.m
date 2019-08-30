@@ -48,6 +48,8 @@
     self.btAdd.touchExtendInset     = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     
     // 按钮
+    [self.btUser setImage:[UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] forState:0] ;
+    
     WEAK_SELF
     [self.btUser bk_addEventHandler:^(id sender) {
         
@@ -289,6 +291,7 @@
     clearBg.frame = CGRectMake(0, 0, 22, 51) ;
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"book_sel_mark"]] ;
+    imageView.xt_theme_imageColor = k_md_themeColor ;
     [clearBg addSubview:imageView] ;
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(clearBg) ;
