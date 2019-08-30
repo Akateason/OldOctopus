@@ -103,13 +103,17 @@ static const float kFlex_loft_sync_animate = 10.f ;
     [self.mainCollectionView reloadData] ;
 }
 
-
+static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_Note_Info_Time" ;
 - (void)getAllBooks {
     NoteBooks *bookRecent = [NoteBooks createOtherBookWithType:Notebook_Type_recent] ;
     NoteBooks *bookStage = [NoteBooks createOtherBookWithType:Notebook_Type_staging] ;
     NSMutableArray *tmplist = [@[bookRecent,bookStage] mutableCopy] ;
     
     [NoteBooks fetchAllNoteBook:^(NSArray<NoteBooks *> * _Nonnull array) {
+        if (array.count > 0) {
+            XT_USERDEFAULT_SET_VAL(@([[NSDate date] xt_getTick]), kCache_Last_Update_Note_Info_Time) ;
+        }
+        
         [tmplist addObjectsFromArray:array] ;
         self.bookList = tmplist ;
         
@@ -139,6 +143,20 @@ static const float kFlex_loft_sync_animate = 10.f ;
         [self.segmentBooks moveToIndex:self.bookCurrentIdx] ;
     }] ;
 }
+
+- (void)getAllBooksIfNeeded {
+    NSNumber *lastTick = XT_USERDEFAULT_GET_VAL(kCache_Last_Update_Note_Info_Time) ;
+    NSDate *lastUpdateTime = [NSDate xt_getDateWithTick:lastTick.longLongValue] ;
+    NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:lastUpdateTime] ;
+    if (time < 30) {
+        NSLog(@"未超过时间, 不刷新book, %ds前刷新过了",time) ;
+        return ;
+    }
+    
+    [self getAllBooks] ;
+}
+
+
 
 - (NoteBooks *)nextUsefulBook {
     NSString *value = XT_USERDEFAULT_GET_VAL(kUDCached_lastBook_RecID) ;
@@ -319,8 +337,8 @@ static const float kFlex_loft_sync_animate = 10.f ;
             
         } completion:^(BOOL finished) {
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (IS_IPAD) [self setupStructCollectionLayout] ;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.mainCollectionView reloadData] ;
             }) ;
             
         }] ;
@@ -335,7 +353,6 @@ static const float kFlex_loft_sync_animate = 10.f ;
         
         [self.bookCollectionView reloadData] ;
         
-
     }) ;
     
 }

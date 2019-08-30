@@ -53,7 +53,7 @@
          NSLog(@"go sync list") ;
          // if (self.isOnDeleting) return ;
          
-         [self getAllBooks] ;
+         [self getAllBooksIfNeeded] ;
      }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationImportFileIn object:nil]
@@ -71,29 +71,18 @@
          [MarkdownVC newWithNote:aNote bookID:self.currentBook.icRecordName fromCtrller:self] ;
      }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        
-        @weakify(self)
-        [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-            if (user != nil) {
-                @strongify(self)
-                [self getAllBooks] ;
-            }
-        }] ;
-    }] ;
-    
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Default_Note_And_Book_Updated object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         NSLog(@"kNote_Default_Note_And_Book_Updated") ;
-        [self getAllBooks] ;
+        [self getAllBooksIfNeeded] ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self setupStructCollectionLayout] ;
+//            [self setupStructCollectionLayout] ;
+            [self.mainCollectionView reloadData] ;
             
             [self.mainCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
         }) ;

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *width_hud;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *height_hud;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom_Hud;
 
 
 + (instancetype)showFromCtrller:(UIViewController *)ctrller

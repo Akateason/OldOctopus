@@ -61,7 +61,8 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 - (void)refreshBars ;
 - (void)refreshContents ;
 
-- (void)getAllBooks ;
+- (void)getAllBooks ;           // 拿所有书, 和笔记
+- (void)getAllBooksIfNeeded ;   // 不会频繁刷新
 
 - (void)btAddOnClick ;
 - (void)addNoteOnClick ;

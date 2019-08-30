@@ -675,7 +675,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pvc-VQ-fKM">
-                                <rect key="frame" x="0.0" y="124.5" width="375" height="418"/>
+                                <rect key="frame" x="0.0" y="249" width="375" height="418"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bqD-Ez-i7k">
                                         <rect key="frame" x="0.0" y="71" width="375" height="327"/>
@@ -731,12 +731,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Pvc-VQ-fKM" firstAttribute="centerY" secondItem="igS-pf-BaO" secondAttribute="centerY" id="fb0-Kr-NPy"/>
+                            <constraint firstAttribute="bottom" secondItem="Pvc-VQ-fKM" secondAttribute="bottom" id="j2O-vp-Ls3"/>
                             <constraint firstItem="Pvc-VQ-fKM" firstAttribute="centerX" secondItem="igS-pf-BaO" secondAttribute="centerX" id="ywc-aC-8Ng"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Zik-kr-s2z"/>
                     </view>
                     <connections>
+                        <outlet property="bottom_Hud" destination="j2O-vp-Ls3" id="X0Y-VR-OlY"/>
                         <outlet property="btClose" destination="Z5d-9X-qPp" id="LVc-P9-eax"/>
                         <outlet property="height_hud" destination="nP4-3m-NPd" id="0MA-fw-YVE"/>
                         <outlet property="hud" destination="Pvc-VQ-fKM" id="thk-VX-cU4"/>

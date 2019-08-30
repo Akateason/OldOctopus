@@ -222,14 +222,16 @@
     }
 }
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    if (collectionView == self.mainCollectionView) {
-//        return CGSizeMake([GlobalDisplaySt sharedInstance].containerSize.width ,
-//                          [GlobalDisplaySt sharedInstance].containerSize.height - (APP_STATUSBAR_HEIGHT) - 49. - self.newMidHeight) ;
-//    }
-//
-//    return CGSizeZero ;
-//}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (collectionView == self.mainCollectionView) {
+        return CGSizeMake([GlobalDisplaySt sharedInstance].containerSize.width ,
+                          [GlobalDisplaySt sharedInstance].containerSize.height - (APP_STATUSBAR_HEIGHT) - 49. - self.newMidHeight) ;
+    }
+    else if (collectionView == self.bookCollectionView) {
+        return CGSizeMake(72, 77) ;
+    }
+    return CGSizeZero ;
+}
 
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {

@@ -45,7 +45,7 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 }
 
 - (void)prepareUI {
-    self.view.backgroundColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .4) ;
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.2] ;
     self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconBorderColor, .03) ;
     self.lbTitle.xt_theme_textColor = k_md_textColor ;
     self.hud.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
@@ -58,14 +58,14 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
 
     
     if (IS_IPAD) {
-//        self.hud.xt_cornerRadius = 13 ;
         self.width_hud.constant = 325 ;
-        self.height_hud.constant = APP_HEIGHT / 3. * 2. ;
+        self.height_hud.constant = [GlobalDisplaySt sharedInstance].containerSize.height / 3. * 2. ;
+        self.bottom_Hud.constant = ([GlobalDisplaySt sharedInstance].containerSize.height - self.height_hud.constant) / 2. ;
     }
     else {
-        self.width_hud.constant = APP_WIDTH ;
-        self.height_hud.constant = APP_HEIGHT - APP_STATUSBAR_HEIGHT * 2 ;
-//        self.hud.xt_cornerRadius = 0 ;
+        self.width_hud.constant = [GlobalDisplaySt sharedInstance].containerSize.width ;
+        self.height_hud.constant = [GlobalDisplaySt sharedInstance].containerSize.height / 2. ;
+        self.bottom_Hud.constant = -13. ;
     }
     
     
