@@ -130,7 +130,9 @@
 
 - (void)longPressed:(NSIndexPath *)indexPath {
     NoteBooks *book = self.bookList[indexPath.row] ;
-    if (book.vType == Notebook_Type_add) return ;
+    if (book.vType == Notebook_Type_add ||
+        book.vType == Notebook_Type_recent ||
+        book.vType == Notebook_Type_staging) return ;
     
     
     NSString *title = XT_STR_FORMAT(@"对“%@”进行以下操作",book.name) ;

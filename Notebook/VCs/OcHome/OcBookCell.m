@@ -30,8 +30,8 @@
     self.viewOnSelected.xt_theme_imageColor = k_md_themeColor ;
     
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToDo:)];
-    longPressGr.minimumPressDuration = 1.0;
-    [self addGestureRecognizer:longPressGr];
+    longPressGr.minimumPressDuration = .7 ;
+    [self addGestureRecognizer:longPressGr] ;
 }
 
 - (void)longPressToDo:(UILongPressGestureRecognizer *)gesture {

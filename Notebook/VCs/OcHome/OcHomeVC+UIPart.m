@@ -282,7 +282,9 @@
 
 - (NSString *)stretchSegment:(XTStretchSegment *)segment titleOfDataAtIndex:(NSInteger)index {
     NoteBooks *book = self.bookList[index] ;
-    return book.name ;
+    NSString *nameBook = book.name ;
+    if (nameBook.length > 15) nameBook = [[nameBook substringToIndex:15] stringByAppendingString:@"..."] ;    
+    return nameBook ;
 }
 
 - (UIView *)overlayView {
