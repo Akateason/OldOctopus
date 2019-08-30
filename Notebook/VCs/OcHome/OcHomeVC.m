@@ -37,8 +37,8 @@ static const float kFlex_loft_sync_animate = 10.f ;
 
 - (void)prepareUI {
     AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
-    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     [GlobalDisplaySt sharedInstance].containerSize = appDelegate.window.size ;
+    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     
     [self xt_prepareUI] ;
 }
@@ -476,22 +476,22 @@ static const float kFlex_loft_sync_animate = 10.f ;
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
     
-    NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass)) ;
+//    NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass)) ;
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     
-    NSLog(@"willTransitionToTraitCollection: current %@, new: %@", SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass), SIZECLASS_2_STR(newCollection.horizontalSizeClass)) ;
+//    NSLog(@"willTransitionToTraitCollection: current %@, new: %@", SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass), SIZECLASS_2_STR(newCollection.horizontalSizeClass)) ;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
-    NSLog(@"viewWillTransitionToSize: size %@", NSStringFromCGSize(size)) ;
+//    NSLog(@"viewWillTransitionToSize: size %@", NSStringFromCGSize(size)) ;
     
-    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     [GlobalDisplaySt sharedInstance].containerSize = size ;
+    [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     
     NSValue *val = [NSValue valueWithCGSize:size] ;
 //    [[NSNotificationCenter defaultCenter] postNotificationName:kNoteSlidingSizeChanging object:val] ;

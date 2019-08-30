@@ -177,17 +177,17 @@
         [self snapShotFullScreen:json] ;
     }] ;
     
-//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-//        @strongify(self)
-////        if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_2_Column_Verical_default) return ;
-//
-//        [self.editor setSideFlex] ;
-//
-////        self.editor.bottom = self.view.bottom ;
-////        self.editor.top = APP_STATUSBAR_HEIGHT ;
-////        self.editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
-////        self.editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
-//    }] ;
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        if (!self.view.window) return ;
+
+        [self.editor setSideFlex] ;
+        self.editor.bottom = self.view.bottom ;
+        self.editor.top = APP_STATUSBAR_HEIGHT ;
+        self.editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
+        self.editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
+
+    }] ;
     
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SearchVC_On_Window object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {

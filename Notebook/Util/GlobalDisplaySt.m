@@ -13,13 +13,36 @@
 @implementation GlobalDisplaySt
 XT_SINGLETON_M(GlobalDisplaySt)
 
+
 - (void)correctCurrentCondition:(UIViewController *)ctrller {
+//    DLogINFO(@"traitCollection : %@",ctrller.traitCollection) ;
+    
     if (IS_IPAD) {
-        if (ctrller.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular || ctrller.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassUnspecified ) {
-            [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_iPad_Horizon_6_collumn ;
+        if (ctrller.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact &&
+            ctrller.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular ) {
+                [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_default_iPhone_2_collumn ;
+        }
+        else if (ctrller.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular &&
+                 ctrller.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular) {
+            
+            if (CGSizeEqualToSize(self.containerSize, APPFRAME.size) ) {
+                if (self.containerSize.width > self.containerSize.height) {
+                    [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_iPad_Horizon_6_collumn ;
+                }
+                else {
+                    [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_iPad_Verical_4_collumn ;
+                }
+            }
+            else {
+                if (self.containerSize.width > self.containerSize.height) {
+                 }
+                else {
+                    [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_default_iPhone_2_collumn ;
+                }
+            }
         }
         else {
-            [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_iPad_Verical_4_collumn ;
+            [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_default_iPhone_2_collumn ;
         }
     }
     else {

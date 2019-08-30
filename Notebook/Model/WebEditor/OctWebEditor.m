@@ -126,23 +126,16 @@ XT_SINGLETON_M(OctWebEditor)
 
 // todo
 - (void)setSideFlex {
-//    if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_default_iPhone_2_collumn) {
+    if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_default_iPhone_2_collumn) {
         [self nativeCallJSWithFunc:@"setEditorFlex" json:@"28" completion:^(NSString *val, NSError *error) {}] ;
         self.sideWid = 28. ;
-//    }
-//    else if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-//        if ( ([GlobalDisplaySt sharedInstance].containerSize.width < [GlobalDisplaySt sharedInstance].containerSize.height) ) {
-//            float wid = [GlobalDisplaySt sharedInstance].containerSize.width / 4. ;
-//            [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(wid) stringValue] completion:^(NSString *val, NSError *error) {}] ;
-//            self.sideWid = wid ;
-//        }
-//        else {
-//            float appWid = [GlobalDisplaySt sharedInstance].containerSize.width ?: APP_WIDTH ;
-//            float wid = ( appWid - ( appWid - kWidth_ListView - k_side_margin * 2. ) ) / 2. ;
-//            [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(wid) stringValue] completion:^(NSString *val, NSError *error) {}] ;
-//            self.sideWid = wid ;
-//        }
-//    }
+    }
+    else if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Verical_4_collumn ||
+             [GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Horizon_6_collumn) {
+        float wid = [GlobalDisplaySt sharedInstance].containerSize.width / 4. ;
+        [self nativeCallJSWithFunc:@"setEditorFlex" json:[@(wid) stringValue] completion:^(NSString *val, NSError *error) {}] ;
+        self.sideWid = wid ;
+    }
 }
 
 
