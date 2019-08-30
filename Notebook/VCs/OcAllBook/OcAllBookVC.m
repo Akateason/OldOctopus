@@ -47,6 +47,16 @@
     self.collectionView.delegate        = (id<UICollectionViewDelegate>)self ;
     [OcBookCell xt_registerNibFromCollection:self.collectionView] ;
     
+    if (!IS_IPAD) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
+        layout.itemSize = CGSizeMake(72., 77.) ;
+        layout.minimumLineSpacing = 0 ;
+        layout.minimumInteritemSpacing = 0 ;
+        layout.sectionInset = UIEdgeInsetsMake(30, 20, 100, 20) ;
+        self.collectionView.collectionViewLayout = layout ;
+    }
+    
+    
     WEAK_SELF
     [self.btClose xt_enlargeButtonsTouchArea] ;
     [self.btClose bk_addEventHandler:^(id sender) {

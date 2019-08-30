@@ -361,11 +361,12 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     if(!_segmentBooks){
         _segmentBooks = ({
             XTStretchSegment *object = [XTStretchSegment getNew] ;
-            [object setupTitleColor:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) selectedColor:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) bigFontSize:17 normalFontSize:14 hasUserLine:YES lineSpace:20 sideMarginLeft:20 sideMarginRight:56] ;
+            [object setupTitleColor:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) selectedColor:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) bigFontSize:17 normalFontSize:15 hasUserLine:YES cellSpace:30 sideMarginLeft:20 sideMarginRight:56] ;
             [object setupCollections] ;
             object.xtSSDelegate    = self;
             object.xtSSDataSource  = self;
             object.xt_theme_backgroundColor = k_md_bgColor ;
+            
             object.alpha = 0 ;
             if (!object.superview) {
                 [self.midBar addSubview:object] ;
