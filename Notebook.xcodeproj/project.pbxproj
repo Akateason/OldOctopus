@@ -281,6 +281,8 @@
 		8FEBC28522A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBC28422A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.m */; };
 		8FEBC28822A68BEB004EB0F5 /* OctWebEditor+InlineBoardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBC28722A68BEB004EB0F5 /* OctWebEditor+InlineBoardUtil.m */; };
 		8FEBC28B22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEBC28A22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m */; };
+		8FF05C5B2319101200282DCB /* OcHomeEmptyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF05C592319101200282DCB /* OcHomeEmptyVC.m */; };
+		8FF05C5C2319101200282DCB /* OcHomeEmptyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FF05C5A2319101200282DCB /* OcHomeEmptyVC.xib */; };
 		8FF32ABA230F8CE500C1C835 /* smallTopbar_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF32AB9230F8CE500C1C835 /* smallTopbar_shadow@2x.png */; };
 		8FF32ABC230F8D1300C1C835 /* bt_s_t_all@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF32ABB230F8D1300C1C835 /* bt_s_t_all@2x.png */; };
 		8FF32AC0230FCEC400C1C835 /* OcAllBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF32ABF230FCEC400C1C835 /* OcAllBookVC.m */; };
@@ -788,6 +790,9 @@
 		8FEBC28722A68BEB004EB0F5 /* OctWebEditor+InlineBoardUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OctWebEditor+InlineBoardUtil.m"; sourceTree = "<group>"; };
 		8FEBC28922A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OctWebEditor+BlockBoardUtil.h"; sourceTree = "<group>"; };
 		8FEBC28A22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OctWebEditor+BlockBoardUtil.m"; sourceTree = "<group>"; };
+		8FF05C582319101200282DCB /* OcHomeEmptyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OcHomeEmptyVC.h; sourceTree = "<group>"; };
+		8FF05C592319101200282DCB /* OcHomeEmptyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OcHomeEmptyVC.m; sourceTree = "<group>"; };
+		8FF05C5A2319101200282DCB /* OcHomeEmptyVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OcHomeEmptyVC.xib; sourceTree = "<group>"; };
 		8FF32AB9230F8CE500C1C835 /* smallTopbar_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smallTopbar_shadow@2x.png"; sourceTree = "<group>"; };
 		8FF32ABB230F8D1300C1C835 /* bt_s_t_all@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_s_t_all@2x.png"; sourceTree = "<group>"; };
 		8FF32ABE230FCEC400C1C835 /* OcAllBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OcAllBookVC.h; sourceTree = "<group>"; };
@@ -1634,6 +1639,9 @@
 				8F33B052230E6D9D00BF4B5E /* HomeAddButton.m */,
 				8F6E9B92230CF5080011D935 /* BookBgView.h */,
 				8F6E9B93230CF5080011D935 /* BookBgView.m */,
+				8FF05C582319101200282DCB /* OcHomeEmptyVC.h */,
+				8FF05C592319101200282DCB /* OcHomeEmptyVC.m */,
+				8FF05C5A2319101200282DCB /* OcHomeEmptyVC.xib */,
 				8FDA7360230A741200EEDC57 /* OcBookCell.h */,
 				8FDA7361230A741200EEDC57 /* OcBookCell.m */,
 				8FDA7362230A741200EEDC57 /* OcBookCell.xib */,
@@ -2017,6 +2025,7 @@
 				8F7A84832244E2440099E905 /* md_tb_bt_h1@2x.png in Resources */,
 				8F7A843E2240C7470099E905 /* check-box-off@2x.png in Resources */,
 				8FFAE089229BD22500CDAC47 /* md_l_math@2x.png in Resources */,
+				8FF05C5C2319101200282DCB /* OcHomeEmptyVC.xib in Resources */,
 				8F1357EF2292998100F5F874 /* tb_list@2x.png in Resources */,
 				8F71E59322AE06D60009BE62 /* md_tb_bt_underline@2x.png in Resources */,
 				8F65DBD9221BECFE0067C321 /* LaunchScreen.storyboard in Resources */,
@@ -2365,6 +2374,7 @@
 				8FEBC28B22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m in Sources */,
 				8F6E9B94230CF5080011D935 /* BookBgView.m in Sources */,
 				8FD7993022C3453B00270C2C /* SettingVC.m in Sources */,
+				8FF05C5B2319101200282DCB /* OcHomeEmptyVC.m in Sources */,
 				8FEA80D822D0737200703272 /* OctShareCopyLinkView.m in Sources */,
 				8F679E282238F9DE008DE1BC /* MdListModel.m in Sources */,
 				8F2C76102282D3B700A6DC89 /* OutputPreviewVC.m in Sources */,

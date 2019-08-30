@@ -40,7 +40,7 @@
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .9) ;
     self.lbMyNotes.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbAll.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
-    self.img_lbAllRight.xt_theme_imageColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    self.img_lbAllRight.xt_theme_imageColor = k_md_textColor ;
     self.btSearch.xt_theme_imageColor = k_md_iconColor ;
     
     // 加号

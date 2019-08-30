@@ -20,9 +20,8 @@
         self.backgroundColor = nil ;
         self.bigOrSmall = bigOrSmall ;
         
-        NSString *imgStr = bigOrSmall ? @"book_bg_big@2x" : @"book_bg_small@2x" ;
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:imgStr ofType:@"png"] ;
-        UIImage *image = [UIImage imageWithContentsOfFile:filePath] ;
+        NSString *imgStr = bigOrSmall ? @"book_bg_big" : @"book_bg_small" ;
+        UIImage *image = [UIImage imageNamed:imgStr] ;
         UIImageView *imageBgView = [[UIImageView alloc] initWithImage:image] ;
         [self addSubview:imageBgView] ;
         [imageBgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -31,7 +30,7 @@
         }] ;
         self.imageBgView = imageBgView ;
         self.imageBgView.backgroundColor = nil ;
-        self.imageBgView.xt_theme_imageColor = XT_MAKE_theme_color(k_md_iconBorderColor, .4) ; // todo .1 太细        
+        self.imageBgView.xt_theme_imageColor = k_md_iconBorderColor ;
         
         UIImageView *imageBookView = [[UIImageView alloc] init] ;
         [self addSubview:imageBookView] ;

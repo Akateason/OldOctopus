@@ -11,9 +11,9 @@
 #import "OcHomeVC.h"
 #import "SettingSave.h"
 #import "HomeEmptyPHView.h"
-#import "SearchEmptyVC.h"
+#import "OcHomeEmptyVC.h"
 
-static const int kNotesContainerPageSize = 10 ;
+//static const int kNotesContainerPageSize = 10 ;
 
 @implementation OcContainerCell
 
@@ -36,7 +36,7 @@ static const int kNotesContainerPageSize = 10 ;
     self.contentCollection.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
     
     // 占位
-    SearchEmptyVC *emptyVc = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
+    OcHomeEmptyVC *emptyVc = [OcHomeEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
     self.contentCollection.customNoDataView = emptyVc.view ;
     
     @weakify(self)

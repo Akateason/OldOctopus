@@ -17,6 +17,7 @@
 
 @interface SearchVC () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
+@property (strong, nonatomic) SearchEmptyVC *phVC ;
 @end
 
 @implementation SearchVC
@@ -54,6 +55,9 @@
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)] ;
     [self.view addGestureRecognizer:recognizer] ;
+    
+    SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
+    self.phVC = phVC ;
 }
 
 - (void)handleSwipeFrom:(id)gest {
@@ -64,9 +68,9 @@
 - (void)prepareUI {
     self.fd_prefersNavigationBarHidden = YES ;
     
-    self.view.xt_theme_backgroundColor = k_md_bgColor ;
+    self.view.xt_theme_backgroundColor = k_md_backColor ;
     
-    self.topArea.xt_theme_backgroundColor = k_md_bgColor ;
+    self.topArea.xt_theme_backgroundColor = k_md_backColor ;
     self.searchBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
     self.tf.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.8)  ;
     self.tf.placeholder = @"搜索笔记" ;
@@ -78,12 +82,14 @@
     self.imgSearch.xt_theme_imageColor = XT_MAKE_theme_color(k_md_iconColor, .6) ;
     
     [OcNoteCell xt_registerNibFromCollection:self.collectionView] ;
+    [self.collectionView xt_setup] ;
     self.collectionView.dataSource = self ;
     self.collectionView.delegate = self ;
-    self.collectionView.xt_theme_backgroundColor = k_md_bgColor ;
-    
-    SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
-    self.collectionView.customNoDataView = phVC.view ;
+//    self.collectionView.xt_Delegate = self ;
+    self.collectionView.xt_theme_backgroundColor = k_md_backColor ;
+    self.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
+
+    self.collectionView.customNoDataView = [UIView new] ;
     
     
     self.collectionView.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
@@ -110,14 +116,24 @@
         NSString *sql = XT_STR_FORMAT(@"searchContent like '%%%@%%' and isDeleted == 0",searchForText) ;
         NSArray *list = [Note xt_findWhere:sql] ;
         self.listResult = list ;
+        
+        self.collectionView.customNoDataView = self.phVC.view ;
     }
-    else
+    else {
         self.listResult = @[] ;
+    }
     
     [self.collectionView reloadData] ;
 }
 
 #pragma mark - UICollectionView
+
+//- (void)collectionView:(UICollectionView *)collection loadNew:(void (^)(void))endRefresh {
+//    [self.tf resignFirstResponder] ;
+//
+//    endRefresh() ;
+//}
+
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.listResult.count ;
@@ -137,13 +153,5 @@
     [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:self] ;
     [self.tf resignFirstResponder] ;
 }
-
-//#pragma mark - OcNoteCell call back  self.xt_viewcontroller
-///**
-// OcNoteCell call back
-// */
-//- (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView {
-//
-//}
 
 @end

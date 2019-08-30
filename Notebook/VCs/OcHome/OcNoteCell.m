@@ -36,7 +36,11 @@ static int kLimitCount = 70 ;
     self.sepLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .05) ;
     self.lbContent.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     self.lbDate.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
-    self.img.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
+//    self.img.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
+    self.img.backgroundColor = [UIColor colorWithWhite:0 alpha:.03] ;
+    self.img.xt_borderWidth = .25 ;
+    self.img.xt_cornerRadius = 2. ;
+    
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
     self.xt_theme_backgroundColor = k_md_bgColor ;
 //    self.backgroundColor = [UIColor blueColor] ;
@@ -82,6 +86,8 @@ static int kLimitCount = 70 ;
     }
     
     self.topMark.hidden = !note.isTop ;
+    
+    self.img.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, 0.1) ;
     
     [self setNeedsLayout] ;
     [self layoutIfNeeded] ;

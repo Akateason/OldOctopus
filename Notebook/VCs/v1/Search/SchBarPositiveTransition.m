@@ -59,7 +59,7 @@ static const float kDuration_animate_2 = .2 ;
     ssImage.frame = self.originRect_img = [containerView convertRect:fromVC.btSearch.frame fromView:fromVC.btSearch.superview] ;
     
     UIView *ssBar = [UIView new] ;
-    ssBar.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ; //[UIColor whiteColor] ;
+    ssBar.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_backColor) ; //[UIColor whiteColor] ;
 
     ssBar.frame = self.originRect_bar = CGRectMake(0, 0, APP_WIDTH, 69) ;
     

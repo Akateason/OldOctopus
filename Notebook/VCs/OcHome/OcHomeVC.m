@@ -181,10 +181,10 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     configuration.borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
     configuration.borderWidth = .25 ;
 //    configuration.textAlignment = ...
-    configuration.ignoreImageOriginalColor = YES ;// set 'ignoreImageOriginalColor' to YES, images color will be same as textColor
+//    configuration.ignoreImageOriginalColor = YES ;// set 'ignoreImageOriginalColor' to YES, images color will be same as textColor
 //    configuration.allowRoundedArrow = ...// Default is 'NO', if sets to 'YES', the arrow will be drawn with round corner.
-    configuration.separatorColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
-    configuration.separatorInset = UIEdgeInsetsMake(0, 65, 0, 0) ;
+    configuration.separatorColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .2) ;
+    configuration.separatorInset = UIEdgeInsetsMake(0, 65, 0, 20) ;
     configuration.shadowColor = [UIColor colorWithWhite:0 alpha:.15] ; //XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .15) ; // Default is black
     configuration.shadowOpacity = 1; // Default is 0 - choose anything between 0 to 1 to show actual shadow, e.g. 0.2
     configuration.shadowRadius = 30; // Default is 5
@@ -332,7 +332,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
             
             // hidden or show
             self.height_midBar.constant = newMidHeight ;
-            self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = uiStatus_TopBar_turnSmall ? 0 : 1 ;
+            self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = uiStatus_TopBar_turnSmall ? 0. : 1. ;
             self.segmentBooks.alpha = self.btBooksSmall_All.alpha = uiStatus_TopBar_turnSmall ? 1 : 0 ;
             
         } completion:^(BOOL finished) {

@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    self.view.xt_theme_backgroundColor = nil ;
+    self.view.backgroundColor = nil ;
     self.lbWord.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .2) ;
 }
 

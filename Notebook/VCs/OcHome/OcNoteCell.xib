@@ -40,7 +40,7 @@
                         <constraints>
                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="91" id="opN-A7-P5r"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                        <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>

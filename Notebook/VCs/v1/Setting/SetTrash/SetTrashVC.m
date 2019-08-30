@@ -8,7 +8,7 @@
 
 #import "SetTrashVC.h"
 #import "OcNoteCell.h"
-#import "SearchEmptyVC.h"
+#import "OcHomeEmptyVC.h"
 
 @interface SetTrashVC ()
 @property (nonatomic, copy) NSArray *list ;
@@ -87,7 +87,7 @@
     layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10) ;
     self.collectionView.collectionViewLayout = layout ;
     
-    SearchEmptyVC *emptyVc = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
+    OcHomeEmptyVC *emptyVc = [OcHomeEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
     self.collectionView.customNoDataView = emptyVc.view ;
 }
 
