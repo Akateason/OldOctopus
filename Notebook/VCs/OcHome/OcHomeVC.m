@@ -428,16 +428,16 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
  */
 - (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView {
     
-    NSArray *titles = aNote.isTop ? @[@"移动",@"取消置顶"] : @[@"移动",@"置顶"] ;
+    NSArray *titles = aNote.isTop ? @[@"取消置顶",@"移动"] : @[@"置顶",@"移动"] ;
     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:titles fromWithView:fromView CallBackBlock:^(NSInteger btnIndex) {
         
         switch (btnIndex) {
-                case 1: { // move
-                    [self moveNote:aNote] ;
+                case 1: { // top
+                    [self changeNoteTopState:aNote] ;
                 }
                 break;
-                case 2: { // top
-                    [self changeNoteTopState:aNote] ;
+                case 2: { // move
+                    [self moveNote:aNote] ;
                 }
                 break;
                 case 3: { // delegte

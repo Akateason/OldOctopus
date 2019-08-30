@@ -340,6 +340,7 @@
                     </view>
                     <connections>
                         <outlet property="btClose" destination="xUL-KH-ZkQ" id="v35-e3-mB6"/>
+                        <outlet property="img_arrow_account" destination="ukm-JL-zJp" id="8Fu-bh-Zmd"/>
                         <outlet property="lbAccountTitle" destination="Nov-tf-Vlf" id="yqF-ut-p9y"/>
                         <outlet property="lbName" destination="gCp-Cd-Hao" id="yY0-83-7cS"/>
                         <outlet property="lbTitle" destination="Pd3-3j-ggA" id="qj5-Lj-WlS"/>

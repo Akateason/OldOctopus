@@ -149,6 +149,8 @@ static const int kNotesContainerPageSize = 10 ;
     OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;    
     Note *note = self.noteList[indexPath.row] ;
     [cell xt_configure:note indexPath:indexPath] ;
+    NoteBooks *book = self.xt_model ;
+    cell.recentState = book.vType == Notebook_Type_recent ;
     return cell ;
 }
 

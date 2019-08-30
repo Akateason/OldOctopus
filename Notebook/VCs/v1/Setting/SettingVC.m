@@ -28,12 +28,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btClose;
 @property (weak, nonatomic) IBOutlet UILabel *lbAccountTitle;
-
+@property (weak, nonatomic) IBOutlet UIImageView *img_arrow_account;
 @property (weak, nonatomic) IBOutlet UIImageView *userHead;
-
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UITableView *table;
-
 @property (strong, nonatomic) UILabel *lbVersionNum ;
 
 @property (copy, nonatomic) NSArray *datasource ;
@@ -78,6 +76,7 @@
         self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
         NSString *givenName = [XTIcloudUser displayUserName] ;
         self.lbName.text = givenName ;
+        self.img_arrow_account.hidden = YES ;
     }] ;
     
     // 清数据 暗开关
@@ -104,9 +103,11 @@
     self.lbAccountTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     if ([XTIcloudUser hasLogin]) {
         self.userHead.image = [UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] ;
+        self.img_arrow_account.hidden = YES ;
     }
     else {
         self.userHead.image = [UIImage imageNamed:@"icon_user_not_login"] ;
+        self.img_arrow_account.hidden = NO ;
     }
     
     self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;

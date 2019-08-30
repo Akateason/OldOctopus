@@ -134,4 +134,11 @@ static int kLimitCount = 70 ;
     }
 }
 
+- (void)setRecentState:(BOOL)recentState {
+    _recentState = recentState ;
+    
+    self.bookPHView.hidden = !recentState ;
+    self.lead_date.constant = recentState ? 54. : 20. ;
+}
+
 @end
