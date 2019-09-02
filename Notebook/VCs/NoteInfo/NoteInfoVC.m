@@ -41,7 +41,7 @@ typedef void(^BlkRemove)(NoteInfoVC *infoVC) ;
 
 
 - (void)prepareUI {
-    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.2] ;
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.4] ;
     self.hud.xt_theme_backgroundColor = k_md_hudColor ;
     self.hud.xt_cornerRadius = 13. ;
     self.hud.xt_maskToBounds = YES ;
@@ -86,6 +86,10 @@ typedef void(^BlkRemove)(NoteInfoVC *infoVC) ;
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
+    [self.view bk_whenTapped:^{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
+    }] ;
+    
     if (IS_IPAD) {
         self.width_hud.constant = 325. ;
         self.height_hud.constant = 424. ;
@@ -109,6 +113,16 @@ typedef void(^BlkRemove)(NoteInfoVC *infoVC) ;
     self.lbWord.text = @(self.webModel.wordCount.word).stringValue ;
     self.lbCharacter.text = @(self.webModel.wordCount.character).stringValue ;
     self.lbParagraph.text = @(self.webModel.wordCount.paragraph).stringValue ;
+    
+    @weakify(self)
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        if (IS_IPAD) {
+            self.bottom_hud.constant = ([GlobalDisplaySt sharedInstance].containerSize.height - self.height_hud.constant) / 2. ;
+        }
+    }] ;
+    
     
 }
 

@@ -42,10 +42,24 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     [self.btClose bk_addEventHandler:^(id sender) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
+    
+    [self.view bk_whenTapped:^{
+        [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
+    }] ;
+    
+    
+    @weakify(self)
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        
+        if (IS_IPAD) {
+            self.bottom_Hud.constant = ([GlobalDisplaySt sharedInstance].containerSize.height - self.height_hud.constant) / 2. ;
+        }
+    }] ;
 }
 
 - (void)prepareUI {
-    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.2] ;
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.4] ;
     self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconBorderColor, .03) ;
     self.lbTitle.xt_theme_textColor = k_md_textColor ;
     self.hud.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;

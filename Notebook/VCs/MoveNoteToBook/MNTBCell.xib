@@ -21,6 +21,10 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🐙" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEa-ra-CYg">
                         <rect key="frame" x="30" y="14" width="26" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="27" id="bAc-uY-8Z3"/>
+                            <constraint firstAttribute="width" constant="26" id="huG-bj-Gbt"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -44,6 +48,7 @@
                     <constraint firstAttribute="trailing" secondItem="vNz-Hw-KNL" secondAttribute="trailing" id="IlQ-o2-G5E"/>
                     <constraint firstAttribute="bottom" secondItem="vNz-Hw-KNL" secondAttribute="bottom" id="KB0-La-yuE"/>
                     <constraint firstItem="5dh-BV-Xg6" firstAttribute="centerY" secondItem="JEa-ra-CYg" secondAttribute="centerY" id="TLk-rD-4W8"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5dh-BV-Xg6" secondAttribute="trailing" constant="30" id="aHh-zO-Oxn"/>
                     <constraint firstItem="JEa-ra-CYg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="cOA-Uc-hIX"/>
                     <constraint firstItem="5dh-BV-Xg6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hMO-lp-kWc"/>
                     <constraint firstItem="5dh-BV-Xg6" firstAttribute="leading" secondItem="JEa-ra-CYg" secondAttribute="trailing" constant="20" id="ixM-tF-5ah"/>

@@ -67,7 +67,7 @@
     
     [GlobalDisplaySt sharedInstance].isInNewBookVC = YES ;
     
-    self.view.backgroundColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .4) ;
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.4] ;
 
     self.hud.xt_cornerRadius = 14. ;
     self.hud.xt_maskToBounds = YES ;
@@ -110,6 +110,11 @@
         [weakSelf.tfName resignFirstResponder] ;
         [EmojiChooseVC showMeFrom:weakSelf fromView:weakSelf.lbEmoji] ;
     }] ;
+    
+    [self.view bk_whenTapped:^{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
+    }] ;
+    
     
     if (self.aBook) {
         self.lbEmoji.text = self.aBook.displayEmoji ;
