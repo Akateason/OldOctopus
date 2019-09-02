@@ -67,8 +67,8 @@ XT_SINGLETON_M(OctToolbar)
 }
 
 - (void)reset {
-    self.selectedPosition = 0 ;
-    self.underLineView.centerX = self.btShowKeyboard.centerX + 17 ;
+    self.selectedPosition = self.smartKeyboardState ? 1 : 0 ;
+    self.underLineView.centerX = self.smartKeyboardState ? (self.width / 5. / 2. + 17) : (self.width / 6. / 2. + 17) ;
     self.underLineView.top = 38. ;
 }
 
@@ -103,7 +103,7 @@ XT_SINGLETON_M(OctToolbar)
     [self layoutIfNeeded] ;
     
     self.underLineView.width = self.btInlineStyle.width - 4 ;
-    self.underLineView.centerX = self.btShowKeyboard.centerX + 17;
+    self.underLineView.centerX = self.smartKeyboardState ? (self.width / 5. / 2. + 17) : (self.width / 6. / 2. + 17) ;
     self.underLineView.top = 38. ;
 }
 
@@ -188,6 +188,12 @@ XT_SINGLETON_M(OctToolbar)
     [UIView animateWithDuration:.4 animations:^{
         self.underLineView.layer.transform = CATransform3DIdentity ;
     }] ;
+}
+
+- (void)setSmartKeyboardState:(BOOL)smartKeyboardState {
+    _smartKeyboardState = smartKeyboardState ;
+    
+    self.btShowKeyboard.hidden = smartKeyboardState ;
 }
 
 #pragma mark - prop

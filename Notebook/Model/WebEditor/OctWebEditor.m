@@ -66,7 +66,6 @@ XT_SINGLETON_M(OctWebEditor)
         
         NSDictionary *info = [x userInfo] ;
         CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-        // 工具条的Y值 == 键盘的Y值 - 工具条的高度
         
         // get keyboard height
         self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
@@ -75,28 +74,17 @@ XT_SINGLETON_M(OctWebEditor)
             [self.toolBar hideAllBoards] ;
             self.toolBar.hidden = YES ;
         }
+        else if (param == 96.) { // smart keyboard
+            self->keyboardHeight = param = 512. ;
+            [self.toolBar setSmartKeyboardState:YES] ;
+            [self openKeyboardToolBar] ;
+        }
         else {
-            self.toolBar.top = 2000 ;
-            self.toolBar.width = APP_WIDTH ;
-            if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
-            
-            [UIView animateWithDuration:.3 animations:^{
-                if (endKeyboardRect.origin.y > self.height) { // 键盘的Y值已经远远超过了控制器view的高度
-                    self.toolBar.top = self.height - kOctEditorToolBarHeight;
-                }
-                else {
-                    self.toolBar.top = endKeyboardRect.origin.y - kOctEditorToolBarHeight;
-                }
-//                NSLog(@"toolbar top : %f", self.toolBar.top) ;
-                self.toolBar.hidden = NO ;
-                [self.toolBar setNeedsLayout] ;
-                [self.toolBar layoutIfNeeded] ;
-            }] ;
+            [self.toolBar setSmartKeyboardState:NO] ;
+            [self openKeyboardToolBar] ;
         }
         
-        if (self.toolBar.hidden == NO) {
-            [self.toolBar refresh] ;
-        }
+        if (self.toolBar.hidden == NO) [self.toolBar refresh] ;
         
         [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {}] ;
     }] ;
@@ -124,7 +112,25 @@ XT_SINGLETON_M(OctWebEditor)
     }] ;
 }
 
-// todo
+
+- (void)openKeyboardToolBar {
+    self.toolBar.top = 2000 ;
+    self.toolBar.width = APP_WIDTH ;
+    if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
+    
+    [UIView animateWithDuration:.3 animations:^{
+        self.toolBar.top = APP_HEIGHT - self->keyboardHeight ;
+        
+        self.toolBar.hidden = NO ;
+        [self.toolBar setNeedsLayout] ;
+        [self.toolBar layoutIfNeeded] ;
+    }] ;
+    
+    if (self.toolBar.smartKeyboardState) {
+        [self.toolBar reset] ;
+    }
+}
+
 - (void)setSideFlex {
     if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_default_iPhone_2_collumn) {
         [self nativeCallJSWithFunc:@"setEditorFlex" json:@"28" completion:^(NSString *val, NSError *error) {}] ;

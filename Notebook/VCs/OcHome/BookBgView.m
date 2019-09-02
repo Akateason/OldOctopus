@@ -36,7 +36,7 @@
         [self addSubview:imageBookView] ;
         [imageBookView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self) ;
-            make.width.height.equalTo(@(bigOrSmall ? 24. : 16.)) ;
+            make.width.height.equalTo(@(bigOrSmall ? 24. : 15.5)) ;
         }] ;
         self.imageBookView = imageBookView ;
         self.imageBookView.hidden = YES ;
@@ -71,6 +71,10 @@
 - (void)configBook:(NoteBooks *)book {
     if (book.vType != Notebook_Type_notebook) {
         NSString *imgStr = self.bigOrSmall ? book.emoji : XT_STR_FORMAT(@"%@_s",book.emoji) ;
+        if (!book.displayBookName && !self.bigOrSmall) {
+            imgStr = !self.bigOrSmall ? @"ld_bt_staging_s" : @"ld_bt_staging" ;
+        }
+        
         UIImage *image = [UIImage imageNamed:imgStr] ;
         image = [image imageWithTintColor:XT_GET_MD_THEME_COLOR_KEY(k_md_iconColor)] ;                        
         self.imageBookView.image = image ;

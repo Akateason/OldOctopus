@@ -47,11 +47,10 @@
     
     navVC.modalPresentationStyle = UIModalPresentationPopover ;
     UIPopoverPresentationController *popVC = navVC.popoverPresentationController ;
-    popVC.sourceView = contentController.view ;
-    popVC.sourceRect = CGRectMake(-12, -40, 0, 0) ; // 把sourceRect移动到屏幕外
+    popVC.sourceView = fromView ; // contentController.view ;
+    popVC.sourceRect = CGRectMake(30, -80, 0, 0) ;  // CGRectMake(50, -20, 0, 0) ;
     popVC.permittedArrowDirections = UIPopoverArrowDirectionLeft ;
     
-
     popVC.xt_theme_backgroundColor = k_md_bgColor ;
     
     [contentController presentViewController:navVC animated:YES completion:^{}] ;

@@ -40,6 +40,8 @@ static const float kFlex_loft_sync_animate = 10.f ;
     [GlobalDisplaySt sharedInstance].containerSize = appDelegate.window.size ;
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     
+    [[OctWebEditor sharedInstance] setSideFlex] ;
+    
     [self xt_prepareUI] ;
 }
 

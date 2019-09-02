@@ -25,13 +25,17 @@
 @interface OctToolbar : UIView
 XT_SINGLETON_H(OctToolbar)
 @property (nonatomic, weak) id<OctToolbarDelegate> delegate ;
-@property (nonatomic) int selectedPosition ;
+@property (nonatomic) int       selectedPosition ;
+@property (nonatomic) BOOL      smartKeyboardState ;
 
 - (void)renderWithParaType:(NSArray *)paraList inlineList:(NSArray *)inlineList ;
 - (void)renderWithModel:(MarkdownModel *)model ;
 - (void)reset ;
 - (void)refresh ;
 - (void)hideAllBoards ;
+
+
+
 @end
 
 

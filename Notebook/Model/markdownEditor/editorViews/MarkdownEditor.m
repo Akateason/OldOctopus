@@ -87,7 +87,7 @@ static const int kTag_MathView          = 78089 ;
         if (!self.isFirstResponder) return ;
         
         [self parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
-        //        self.typingAttributes = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
+//        self.typingAttributes = MDThemeConfiguration.sharedInstance.editorThemeObj.basicStyle ;
         [[NSNotificationCenter defaultCenter] postNotificationName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] ;
     }] ;
     
@@ -102,7 +102,7 @@ static const int kTag_MathView          = 78089 ;
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
         NSDictionary *info = [x userInfo];
-        CGSize kbSize          = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+        CGSize kbSize      = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
         // get keyboard height
         self->keyboardHeight = kbSize.height;
     }];
