@@ -23,13 +23,9 @@ XT_SINGLETON_M(GuidingICloud)
     GuidingICloud *guid = [GuidingICloud xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     [[UIView xt_topWindow] addSubview:guid] ;
     [guid mas_makeConstraints:^(MASConstraintMaker *make) {
-        if (IS_IPAD) {
-            make.size.mas_equalTo(CGSizeMake(400, 800)) ;
-        }
-        else {
-            make.size.mas_equalTo(APPFRAME.size) ;
-        }
-        make.center.equalTo([UIView xt_topWindow]) ;
+//        make.size.mas_equalTo(APPFRAME.size) ;
+//        make.center.equalTo([UIView xt_topWindow]) ;
+        make.edges.equalTo([UIView xt_topWindow]) ;
     }] ;
     return guid ;
 }

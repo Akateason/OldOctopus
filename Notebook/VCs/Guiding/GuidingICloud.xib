@@ -63,10 +63,11 @@
                         <constraint firstItem="BUw-IY-dCv" firstAttribute="top" secondItem="aUv-am-MfK" secondAttribute="bottom" constant="15" id="Rgx-4S-4yF"/>
                         <constraint firstItem="gTQ-eN-5mg" firstAttribute="top" secondItem="oLv-Gi-7e3" secondAttribute="bottom" constant="15" id="VQ9-7w-GpI"/>
                         <constraint firstItem="gTQ-eN-5mg" firstAttribute="centerX" secondItem="XxM-V1-a4D" secondAttribute="centerX" id="Vtk-Sg-fsX"/>
+                        <constraint firstAttribute="width" constant="295" id="aCG-NH-sG1"/>
                         <constraint firstItem="A73-3T-yQi" firstAttribute="top" secondItem="XxM-V1-a4D" secondAttribute="top" constant="20" id="mhf-wU-Eaj"/>
-                        <constraint firstAttribute="width" secondItem="XxM-V1-a4D" secondAttribute="height" multiplier="59:78" id="oap-Os-rsL"/>
                         <constraint firstItem="aUv-am-MfK" firstAttribute="centerX" secondItem="XxM-V1-a4D" secondAttribute="centerX" id="rc9-8t-vEk"/>
                         <constraint firstItem="oLv-Gi-7e3" firstAttribute="centerX" secondItem="XxM-V1-a4D" secondAttribute="centerX" id="vIs-MS-sdP"/>
+                        <constraint firstAttribute="height" constant="390" id="zxE-AH-k6p"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TrD-ID-NRB">
@@ -80,10 +81,9 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="XxM-V1-a4D" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="CNt-WL-ScP"/>
                 <constraint firstItem="TrD-ID-NRB" firstAttribute="top" secondItem="XxM-V1-a4D" secondAttribute="bottom" constant="30" id="EMQ-Lb-sx5"/>
                 <constraint firstItem="TrD-ID-NRB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="R8k-uF-nY9"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XxM-V1-a4D" secondAttribute="trailing" constant="40" id="Smq-Fm-bpC"/>
+                <constraint firstItem="XxM-V1-a4D" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="s3N-uJ-4tB"/>
                 <constraint firstItem="XxM-V1-a4D" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="zwp-y3-WCd"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
