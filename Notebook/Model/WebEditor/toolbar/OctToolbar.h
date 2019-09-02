@@ -18,6 +18,7 @@
 - (void)toolbarDidSelectUndo ;
 - (void)toolbarDidSelectRedo ;
 - (UIView *)fromEditor ;
+- (void)subscription ;
 
 @end
 

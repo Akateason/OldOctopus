@@ -152,8 +152,9 @@ XT_SINGLETON_M(OctToolbar)
     }
     
     if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        [IAPSubscriptionVC showMePresentedInFromCtrller:self.delegate.fromEditor.xt_viewController fromSourceView:self.delegate.fromEditor] ;
-        
+        [self.delegate subscription] ;
+        [self hideAllBoards] ;
+    
         return ;
     }
     

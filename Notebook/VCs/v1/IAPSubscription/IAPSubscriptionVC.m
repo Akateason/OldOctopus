@@ -35,13 +35,13 @@
 }
 
 + (void)showMePresentedInFromCtrller:(UIViewController *)fromCtrller fromSourceView:(UIView *)souceView {
-    IAPSubscriptionVC *vc = [IAPSubscriptionVC getCtrllerFromStory:@"Main" controllerIdentifier:@"IAPSubscriptionVC"] ;
+    IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
     vc.isPresentState = YES ;
     vc.modalPresentationStyle = UIModalPresentationPopover ;
     
     UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
     popVC.sourceView = souceView ;
-    popVC.sourceRect = souceView.bounds ;
+//    popVC.sourceRect = souceView.bounds ; 工具篮,点击图片有问题.
     popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
     popVC.xt_theme_backgroundColor = k_md_backColor ;
     

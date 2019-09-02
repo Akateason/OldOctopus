@@ -12,6 +12,7 @@
 #import "XTMarkdownParser+ImageUtil.h"
 #import "WebPhotoHandler.h"
 #import "OctRequestUtil.h"
+#import "IAPSubscriptionVC.h"
 
 @implementation OctWebEditor (OctToolbarUtil)
 
@@ -135,6 +136,12 @@
 
 - (UIView *)fromEditor {
     return self ;
+}
+
+- (void)subscription {
+    [self.webView resignFirstResponder] ;
+
+    [IAPSubscriptionVC showMePresentedInFromCtrller:self.xt_viewController fromSourceView:self.webView] ;
 }
 
 @end
