@@ -80,6 +80,7 @@
 		8F2901EB231CE827008D479D /* theme_b_midnight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2901E7231CE827008D479D /* theme_b_midnight@2x.png */; };
 		8F2901EF231CE84F008D479D /* theme_b_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2901ED231CE84E008D479D /* theme_b_dark@2x.png */; };
 		8F2901F0231CE84F008D479D /* theme_b_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2901EE231CE84F008D479D /* theme_b_light@2x.png */; };
+		8F2901F2231D1452008D479D /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F2901F1231D1452008D479D /* web.zip */; };
 		8F29F69A2314E1CF003DF3B7 /* MNTBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F29F6982314E1CF003DF3B7 /* MNTBCell.m */; };
 		8F29F69B2314E1CF003DF3B7 /* MNTBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F29F6992314E1CF003DF3B7 /* MNTBCell.xib */; };
 		8F29F69F23150223003DF3B7 /* NoteInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F29F69E23150223003DF3B7 /* NoteInfoVC.m */; };
@@ -195,7 +196,6 @@
 		8F7B2ED522C61D0B000018DE /* sunshine.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F7B2ED322C61D0B000018DE /* sunshine.json */; };
 		8F7C8EC222C1F70F005731FA /* nav_back_reverse_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */; };
 		8F81B83F22F95C9E00DFFEDB /* AppstoreCommentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F81B83E22F95C9E00DFFEDB /* AppstoreCommentUtil.m */; };
-		8F81B84B22F97C2000DFFEDB /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F81B84A22F97C2000DFFEDB /* web.zip */; };
 		8F90189522E9BDE600D1BA4B /* IapPaySuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F90189322E9BDE600D1BA4B /* IapPaySuccessCell.m */; };
 		8F90189622E9BDE600D1BA4B /* IapPaySuccessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */; };
 		8F931B9B228E89F800F73219 /* home_top_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9A228E89F800F73219 /* home_top_note@2x.png */; };
@@ -499,6 +499,7 @@
 		8F2901E7231CE827008D479D /* theme_b_midnight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_b_midnight@2x.png"; sourceTree = "<group>"; };
 		8F2901ED231CE84E008D479D /* theme_b_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_b_dark@2x.png"; sourceTree = "<group>"; };
 		8F2901EE231CE84F008D479D /* theme_b_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_b_light@2x.png"; sourceTree = "<group>"; };
+		8F2901F1231D1452008D479D /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F29F6972314E1CF003DF3B7 /* MNTBCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNTBCell.h; sourceTree = "<group>"; };
 		8F29F6982314E1CF003DF3B7 /* MNTBCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MNTBCell.m; sourceTree = "<group>"; };
 		8F29F6992314E1CF003DF3B7 /* MNTBCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MNTBCell.xib; sourceTree = "<group>"; };
@@ -666,7 +667,6 @@
 		8F81B83E22F95C9E00DFFEDB /* AppstoreCommentUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppstoreCommentUtil.m; sourceTree = "<group>"; };
 		8F81B84022F96D9400DFFEDB /* OctPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctPrefixHeader.pch; sourceTree = "<group>"; };
 		8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctNotificationHeader.h; sourceTree = "<group>"; };
-		8F81B84A22F97C2000DFFEDB /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F90189222E9BDE600D1BA4B /* IapPaySuccessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IapPaySuccessCell.h; sourceTree = "<group>"; };
 		8F90189322E9BDE600D1BA4B /* IapPaySuccessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IapPaySuccessCell.m; sourceTree = "<group>"; };
 		8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IapPaySuccessCell.xib; sourceTree = "<group>"; };
@@ -1184,7 +1184,7 @@
 				8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8F81B84A22F97C2000DFFEDB /* web.zip */,
+				8F2901F1231D1452008D479D /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -2062,7 +2062,6 @@
 				8F6E9B98230CF6130011D935 /* book_bg_small@2x.png in Resources */,
 				8FFAE112229CDAF400CDAC47 /* verilog.plist in Resources */,
 				8F7A8436223BD1780099E905 /* introUseICloud.md in Resources */,
-				8F81B84B22F97C2000DFFEDB /* web.zip in Resources */,
 				8FA2295122645CF600D736E2 /* md_ed_more@2x.png in Resources */,
 				8F12DA90226D9F3600265563 /* HomeSearchCell.xib in Resources */,
 				8F7A84452244BA9D0099E905 /* nav_back_item@2x.png in Resources */,
@@ -2152,6 +2151,7 @@
 				8FA142022271B35700A23873 /* home_huifu@2x.png in Resources */,
 				8FFAE120229CDAF400CDAC47 /* cobol.plist in Resources */,
 				8F7A84682244E1EB0099E905 /* md_tb_bt_h4@2x.png in Resources */,
+				8F2901F2231D1452008D479D /* web.zip in Resources */,
 				8FFAE0EE229CDAF400CDAC47 /* standard.plist in Resources */,
 				8F12970822C9CC3300939DD6 /* RowHeightCell.xib in Resources */,
 				8FFAE12B229CDAF400CDAC47 /* html.plist in Resources */,

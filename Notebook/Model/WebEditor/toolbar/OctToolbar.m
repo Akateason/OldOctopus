@@ -19,14 +19,6 @@
 #import "GuidingICloud.h"
 
 @interface OctToolbar ()
-@property (weak, nonatomic)IBOutlet UIButton *btShowKeyboard ;
-@property (weak, nonatomic)IBOutlet UIButton *btInlineStyle ;
-@property (weak, nonatomic)IBOutlet UIButton *btList ;
-@property (weak, nonatomic)IBOutlet UIButton *btPhoto ;
-@property (weak, nonatomic)IBOutlet UIButton *btUndo ;
-@property (weak, nonatomic)IBOutlet UIButton *btRedo ;
-@property (weak, nonatomic)IBOutlet UIButton *btHideKeyboard ;
-
 @property (strong, nonatomic) UIView *underLineView ; // 下划线
 
 @property (strong, nonatomic) OctToolBarInlineView *inlineBoard ;
@@ -36,7 +28,12 @@
 
 @implementation OctToolbar
 
-XT_SINGLETON_M(OctToolbar)
+- (UIButton *)makeButton:(NSString *)imgStr {
+    UIButton *bt = [UIButton new] ;
+    [bt setImage:[UIImage imageNamed:imgStr] forState:0] ;
+    bt.frame = CGRectMake(0, 0, 100, 41) ;
+    return bt ;
+}
 
 - (void)renderWithParaType:(NSArray *)paraList inlineList:(NSArray *)inlineList {
     [self clearUI] ;
@@ -153,7 +150,7 @@ XT_SINGLETON_M(OctToolbar)
     
     if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
         [self.delegate subscription] ;
-        [self hideAllBoards] ;
+        
     
         return ;
     }

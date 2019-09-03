@@ -23,49 +23,49 @@
                             <rect key="frame" x="0.0" y="9" width="54.5" height="22"/>
                             <state key="normal" image="tb_abc.png"/>
                             <connections>
-                                <action selector="showKeyboardAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="cyW-PD-ZEQ"/>
+                                <action selector="showKeyboardAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="2RY-9E-Dsd"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vT2-Nk-ruz">
                             <rect key="frame" x="54.5" y="9" width="54" height="22"/>
                             <state key="normal" image="tb_inlinetext.png"/>
                             <connections>
-                                <action selector="inlinestyleAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="iv3-uy-z1d"/>
+                                <action selector="inlinestyleAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="mhF-3x-qZz"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rY5-Bk-thG">
                             <rect key="frame" x="108.5" y="9" width="54.5" height="22"/>
                             <state key="normal" image="md_tb_bt_olist.png"/>
                             <connections>
-                                <action selector="listAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="32b-kf-2t5"/>
+                                <action selector="listAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="KzH-1X-3Ul"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fI-aD-Sw2">
                             <rect key="frame" x="163" y="9" width="54" height="22"/>
                             <state key="normal" image="md_tb_bt_photo.png"/>
                             <connections>
-                                <action selector="photoAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="2SX-EH-c8G"/>
+                                <action selector="photoAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="nIX-HE-mhj"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygM-gy-8u2">
                             <rect key="frame" x="217" y="9" width="54.5" height="22"/>
                             <state key="normal" image="md_tb_bt_undo.png"/>
                             <connections>
-                                <action selector="undoAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="42f-Jy-GP5"/>
+                                <action selector="undoAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="esX-8b-AaR"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AaF-Dn-av8">
                             <rect key="frame" x="271.5" y="9" width="54" height="22"/>
                             <state key="normal" image="md_tb_bt_redo.png"/>
                             <connections>
-                                <action selector="redoAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="UbN-i4-XkE"/>
+                                <action selector="redoAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="mt9-ev-k8B"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZi-jW-PZY">
                             <rect key="frame" x="325.5" y="9" width="54.5" height="22"/>
                             <state key="normal" image="tb_hidekb.png"/>
                             <connections>
-                                <action selector="hideKeyboardAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="T3c-Ki-DFA"/>
+                                <action selector="hideKeyboardAc:" destination="iN0-l3-epB" eventType="touchUpInside" id="vYW-Zf-S9g"/>
                             </connections>
                         </button>
                     </subviews>
@@ -83,13 +83,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="btHideKeyboard" destination="tZi-jW-PZY" id="iA1-gu-JcD"/>
-                <outlet property="btInlineStyle" destination="vT2-Nk-ruz" id="Teg-ys-WT8"/>
-                <outlet property="btList" destination="rY5-Bk-thG" id="EZD-FP-00I"/>
-                <outlet property="btPhoto" destination="5fI-aD-Sw2" id="ZxI-mP-jgG"/>
-                <outlet property="btRedo" destination="AaF-Dn-av8" id="V6N-eI-o9G"/>
-                <outlet property="btShowKeyboard" destination="cth-Ci-PD1" id="xNa-7f-fMQ"/>
-                <outlet property="btUndo" destination="ygM-gy-8u2" id="C4h-g6-0cd"/>
+                <outlet property="btHideKeyboard" destination="tZi-jW-PZY" id="44v-uX-XE0"/>
+                <outlet property="btInlineStyle" destination="vT2-Nk-ruz" id="IMj-LX-UIf"/>
+                <outlet property="btList" destination="rY5-Bk-thG" id="CGs-W6-5gy"/>
+                <outlet property="btPhoto" destination="5fI-aD-Sw2" id="W0S-qk-tme"/>
+                <outlet property="btRedo" destination="AaF-Dn-av8" id="UBf-Sf-fRH"/>
+                <outlet property="btShowKeyboard" destination="cth-Ci-PD1" id="n1f-2I-l8O"/>
+                <outlet property="btUndo" destination="ygM-gy-8u2" id="huc-Vs-ZuH"/>
             </connections>
             <point key="canvasLocation" x="34.782608695652179" y="110.49107142857143"/>
         </view>

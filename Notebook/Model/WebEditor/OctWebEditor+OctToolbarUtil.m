@@ -13,6 +13,8 @@
 #import "WebPhotoHandler.h"
 #import "OctRequestUtil.h"
 #import "IAPSubscriptionVC.h"
+#import "MarkdownVC.h"
+
 
 @implementation OctWebEditor (OctToolbarUtil)
 
@@ -139,9 +141,14 @@
 }
 
 - (void)subscription {
-    [self.webView resignFirstResponder] ;
+    MarkdownVC *vc = (MarkdownVC *)self.xt_viewController ;
+    [IAPSubscriptionVC showMePresentedInFromCtrller:vc fromSourceView:self.toolBar.btPhoto] ;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.toolBar hideAllBoards] ;
+        [self.webView resignFirstResponder] ;
+    }) ;
 
-    [IAPSubscriptionVC showMePresentedInFromCtrller:self.xt_viewController fromSourceView:self.webView] ;
 }
 
 @end

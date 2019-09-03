@@ -48,6 +48,7 @@ XT_SINGLETON_M(OctWebEditor)
     
     [self createWebView] ;
     [self setupHTMLEditor] ;
+    [self toolBar] ;
     
     _disabledActions = @[
                          [@[@"_", @"lo", @"oku", @"p", @":"] componentsJoinedByString:@""], // _lookup: 查询按钮
@@ -65,7 +66,7 @@ XT_SINGLETON_M(OctWebEditor)
         if (!self.window) return ;
         
         NSDictionary *info = [x userInfo] ;
-        CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue] ;
         
         // get keyboard height
         self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
@@ -116,7 +117,7 @@ XT_SINGLETON_M(OctWebEditor)
 - (void)openKeyboardToolBar {
     self.toolBar.top = 2000 ;
     self.toolBar.width = APP_WIDTH ;
-    if (!self.toolBar.superview) [self.window addSubview:self.toolBar] ;
+    
     
     [UIView animateWithDuration:.3 animations:^{
         self.toolBar.top = APP_HEIGHT - self->keyboardHeight ;
@@ -317,11 +318,15 @@ XT_SINGLETON_M(OctWebEditor)
 static const float kOctEditorToolBarHeight = 41. ;
 - (OctToolbar *)toolBar {
     if (!_toolBar) {
-        _toolBar = [OctToolbar xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
+        _toolBar = [OctToolbar xt_newFromNib] ;
         _toolBar.frame = CGRectMake(0, 2000, [self.class currentScreenBoundsDependOnOrientation].size.width, kOctEditorToolBarHeight) ;
         _toolBar.delegate = (id<OctToolbarDelegate>)self ;
-        if (!_toolBar.superview) [self.window addSubview:_toolBar] ;
     }
+    
+    if (!_toolBar.superview && self.window != nil) {
+        [self.window addSubview:_toolBar] ;
+    }
+
     return _toolBar ;
 }
 
@@ -624,7 +629,6 @@ static const float kOctEditorToolBarHeight = 41. ;
     [SVProgressHUD showErrorWithStatus:@"系统出现异常,自动刷新页面"] ;
     
     [self.toolBar removeFromSuperview] ;
-    _toolBar = nil ;
     
     [_webView removeFromSuperview] ;
     _webView = nil ;

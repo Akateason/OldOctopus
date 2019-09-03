@@ -36,6 +36,14 @@
 @property (strong, nonatomic) HomeEmptyPHView                   *emptyView ;
 @property (strong, nonatomic) OctWebEditor                      *editor ;
 
+@property (weak, nonatomic) IBOutlet UIButton *btMore;
+@property (weak, nonatomic) IBOutlet UIButton *btBack;
+@property (weak, nonatomic) IBOutlet UIView *navArea;
+@property (weak, nonatomic) IBOutlet UIView *topBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
+@property (weak, nonatomic) IBOutlet UIButton *btShare;
+
+
 + (instancetype)newWithNote:(Note *)note
                      bookID:(NSString *)bookID
                 fromCtrller:(UIViewController *)ctrller ;

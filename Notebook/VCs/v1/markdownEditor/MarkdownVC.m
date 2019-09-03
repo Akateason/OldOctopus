@@ -32,17 +32,7 @@
 #import "AppstoreCommentUtil.h"
 
 @interface MarkdownVC () <WKScriptMessageHandler>
-@property (weak, nonatomic) IBOutlet UIButton *btMore;
-@property (weak, nonatomic) IBOutlet UIButton *btBack;
-@property (weak, nonatomic) IBOutlet UIView *navArea;
-@property (weak, nonatomic) IBOutlet UIView *topBar;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
-@property (weak, nonatomic) IBOutlet UIButton *btShare;
-
-
 @property (strong, nonatomic) XTCameraHandler   *cameraHandler ;
-//@property (strong, nonatomic) ArticleInfoVC     *infoVC ;
-
 @property (strong, nonatomic) Note              *aNote ;
 @property (copy, nonatomic)   NSString          *myBookID ;
 @property (strong, nonatomic) WKWebView         *webView ;
@@ -97,7 +87,7 @@
     
     vc.delegate = (id <MarkdownVCDelegate>)ctrller ;
     vc.myBookID = bookID ;
-    [vc.editor.toolBar reset] ;        
+    [vc.editor.toolBar reset] ;
     [ctrller.navigationController pushViewController:vc animated:YES] ;
     
     return vc ;
@@ -127,6 +117,7 @@
     [super viewDidLoad] ;
     
     self.view.xt_maskToBounds = YES ;
+    [self.editor toolBar] ;
     
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -347,6 +338,7 @@ return;}
 
 - (void)leaveOut {
     [self.editor.toolBar reset] ;
+    [self.editor.toolBar removeFromSuperview] ;
     self.editor.toolBar = nil ;
     
     if ([GlobalDisplaySt sharedInstance].isInNewBookVC) {
