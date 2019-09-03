@@ -81,6 +81,7 @@
 		8F2901EF231CE84F008D479D /* theme_b_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2901ED231CE84E008D479D /* theme_b_dark@2x.png */; };
 		8F2901F0231CE84F008D479D /* theme_b_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2901EE231CE84F008D479D /* theme_b_light@2x.png */; };
 		8F2901F2231D1452008D479D /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F2901F1231D1452008D479D /* web.zip */; };
+		8F2901F4231E5349008D479D /* introUsePro.md in Resources */ = {isa = PBXBuildFile; fileRef = 8F2901F3231E5349008D479D /* introUsePro.md */; };
 		8F29F69A2314E1CF003DF3B7 /* MNTBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F29F6982314E1CF003DF3B7 /* MNTBCell.m */; };
 		8F29F69B2314E1CF003DF3B7 /* MNTBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F29F6992314E1CF003DF3B7 /* MNTBCell.xib */; };
 		8F29F69F23150223003DF3B7 /* NoteInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F29F69E23150223003DF3B7 /* NoteInfoVC.m */; };
@@ -500,6 +501,7 @@
 		8F2901ED231CE84E008D479D /* theme_b_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_b_dark@2x.png"; sourceTree = "<group>"; };
 		8F2901EE231CE84F008D479D /* theme_b_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_b_light@2x.png"; sourceTree = "<group>"; };
 		8F2901F1231D1452008D479D /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
+		8F2901F3231E5349008D479D /* introUsePro.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = introUsePro.md; sourceTree = "<group>"; };
 		8F29F6972314E1CF003DF3B7 /* MNTBCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNTBCell.h; sourceTree = "<group>"; };
 		8F29F6982314E1CF003DF3B7 /* MNTBCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MNTBCell.m; sourceTree = "<group>"; };
 		8F29F6992314E1CF003DF3B7 /* MNTBCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MNTBCell.xib; sourceTree = "<group>"; };
@@ -1191,6 +1193,7 @@
 				8FDA735B230A548500EEDC57 /* Home.storyboard */,
 				8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */,
 				8FEA9E47225B2713002A756B /* emojisJson.json */,
+				8F2901F3231E5349008D479D /* introUsePro.md */,
 				8F7A8435223BD1770099E905 /* introUseICloud.md */,
 				8F679E1122363EB7008DE1BC /* intro.md */,
 				8F79AE74226881AC00E8FD0D /* Util */,
@@ -1986,6 +1989,7 @@
 				8F2901E9231CE827008D479D /* theme_b_sunshine@2x.png in Resources */,
 				8FFAE12D229CDAF400CDAC47 /* active4d.plist in Resources */,
 				8FFAE126229CDAF400CDAC47 /* objectivec.plist in Resources */,
+				8F2901F4231E5349008D479D /* introUsePro.md in Resources */,
 				8FE5A3DB224B6E4000947D14 /* md_tb_bt_photo@2x.png in Resources */,
 				8FFAE0F5229CDAF400CDAC47 /* asp-vb.plist in Resources */,
 				8FFAE11B229CDAF400CDAC47 /* haskell.plist in Resources */,

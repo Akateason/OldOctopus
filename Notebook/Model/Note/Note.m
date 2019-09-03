@@ -67,6 +67,7 @@
         _icRecordName = [XTCloudHandler sharedInstance].createUniqueIdentifier ;
         _noteBookId = bookID ?: @"" ;
         _content = content ;
+        _searchContent = [self.class filterSqliteString:content] ;
         _title = title ;
         _baseContent = [content base64EncodedString] ;
         _createDateOnServer = [[NSDate date] xt_getTick] ;

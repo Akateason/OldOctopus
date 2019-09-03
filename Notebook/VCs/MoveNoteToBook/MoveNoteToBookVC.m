@@ -27,9 +27,9 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     ctrller.definesPresentationContext = YES;
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
     vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve ;
+    vc.blkMove = blkMove ;
     [ctrller presentViewController:vc animated:YES completion:^{
     }] ;
-    vc.blkMove = blkMove ;
     return vc ;
 }
 
@@ -43,9 +43,11 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
         [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
-    [self.view bk_whenTapped:^{
-        [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
-    }] ;
+//    [self.view bk_whenTapped:^{
+//        [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
+//    }] ;
+//    todo self.view tap back 屏蔽了cell 的点击.
+    
     
     
     @weakify(self)

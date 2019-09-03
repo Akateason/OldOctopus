@@ -23,6 +23,7 @@ static const float kFlex_loft_sync_animate = 10.f ;
 
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
+@property (strong, nonatomic) MoveNoteToBookVC *moveVC ;
 @end
 
 @implementation OcHomeVC
@@ -231,6 +232,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 
 - (void)moveNote:(Note *)aNote {
     @weakify(self)
+    self.moveVC =
     [MoveNoteToBookVC showFromCtrller:self
                            moveToBook:^(NoteBooks * _Nonnull book) {
                                @strongify(self)
@@ -250,8 +252,8 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [cell.contentCollection scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:(UICollectionViewScrollPositionTop) animated:YES] ;
-    });
+        [cell.contentCollection setContentOffset:CGPointZero animated:YES] ;
+    }) ;
 }
 
 - (void)deleteNote:(Note *)aNote {
@@ -495,14 +497,14 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     
     
     if (@available(iOS 12.0, *)) {
-        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight) { // light
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight || self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleUnspecified) { // light
             [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
         }
-        else { // dark
+        else if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) { // dark
             [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
         }
     } else {
-        // Fallback on earlier versions
+        // Fallback on earlier versnions
     }
 }
 

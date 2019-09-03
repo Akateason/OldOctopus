@@ -248,10 +248,18 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     note.isSendOnICloud = NO ;
     note.icRecordName = @"iOS-note-intro" ; // 默认文章介绍 id
     [note xt_insert] ;
+//    introPro
+    path = [[NSBundle bundleForClass:self.class] pathForResource:@"introUsePro" ofType:@"md"] ;
+    data = [[NSData alloc] initWithContentsOfFile:path];
+    str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
+    Note *notePro = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"小章鱼 Pro 版"] ;
+    notePro.isSendOnICloud = NO ;
+    notePro.icRecordName = @"iOS-note-pro-intro" ; // 默认文章介绍 id
+    [notePro xt_insert] ;
 
 
 //  Upload default items .
-    [[XTCloudHandler sharedInstance] saveList:@[book.record,noteICloud.record,note.record] deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+    [[XTCloudHandler sharedInstance] saveList:@[book.record,noteICloud.record,note.record,notePro.record] deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
         
         if (!error) {
             book.isSendOnICloud = YES ;
@@ -260,6 +268,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             [note xt_update] ;
             noteICloud.isSendOnICloud = YES ;
             [noteICloud xt_update] ;
+            notePro.isSendOnICloud = YES ;
+            [notePro xt_update] ;
         }
     }] ;
     

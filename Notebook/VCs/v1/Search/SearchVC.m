@@ -128,13 +128,6 @@
 
 #pragma mark - UICollectionView
 
-//- (void)collectionView:(UICollectionView *)collection loadNew:(void (^)(void))endRefresh {
-//    [self.tf resignFirstResponder] ;
-//
-//    endRefresh() ;
-//}
-
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.listResult.count ;
 }
