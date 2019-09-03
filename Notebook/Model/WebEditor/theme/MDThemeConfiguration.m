@@ -45,6 +45,9 @@ XT_SINGLETON_M(MDThemeConfiguration)
     if ([theme isEqualToString:@"light"] || [theme isEqualToString:@"sunshine"]) {
         [self setLastDayTheme:theme] ;
     }
+    else {
+        [self setNightTheme:theme] ;
+    }
 }
 
 - (void)setStatusBarBlackOrWhite:(BOOL)isWhite {
@@ -85,7 +88,7 @@ XT_SINGLETON_M(MDThemeConfiguration)
 }
 
 - (void)setThemeDayOrNight:(BOOL)dark {
-    (dark) ? [[MDThemeConfiguration sharedInstance] changeTheme:@"dark"] : [[MDThemeConfiguration sharedInstance] changeTheme:[self lastDayTheme]] ;
+    (dark) ? [[MDThemeConfiguration sharedInstance] changeTheme:[self lastNightTheme]] : [[MDThemeConfiguration sharedInstance] changeTheme:[self lastDayTheme]] ;
 }
 
 - (BOOL)isDarkMode {
@@ -100,6 +103,17 @@ static NSString *const k_UD_Last_Day_THEME = @"k_UD_Last_Day_THEME" ;
 - (void)setLastDayTheme:(NSString *)theme {
     XT_USERDEFAULT_SET_VAL(theme, k_UD_Last_Day_THEME) ;
 }
+
+static NSString *const k_UD_Last_NIGHT_THEME = @"k_UD_Last_NIGHT_THEME" ;
+- (NSString *)lastNightTheme {
+    return XT_USERDEFAULT_GET_VAL(k_UD_Last_NIGHT_THEME) ?: @"dark" ;
+}
+
+- (void)setNightTheme:(NSString *)theme {
+    XT_USERDEFAULT_SET_VAL(theme, k_UD_Last_NIGHT_THEME) ;
+}
+
+
 
 - (NSString *)currentFormatLanguage {
     if ([self.currentThemeKey isEqualToString:@"light"]) {

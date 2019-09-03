@@ -11,6 +11,8 @@ pod 'XTBase',:path => '../XTBase/'
 pod 'XTlib',:path => '../XTlib/'
 pod 'XTlib/Animations',:path => '../XTlib/'
 pod 'XTlib/CustomUIs',:path => '../XTlib/'
+pod 'XTIAP',:path => '../XTIAP/'
+
 
   pod 'IQKeyboardManager'
   pod 'SDWebImage','<=4.4.6'
@@ -24,7 +26,6 @@ pod 'XTlib/CustomUIs',:path => '../XTlib/'
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'MGSwipeTableCell'
   pod 'CocoaLumberjack'
-  pod 'XTIAP'
   pod 'FTPopOverMenu'
 
   

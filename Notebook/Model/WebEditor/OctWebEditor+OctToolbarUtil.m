@@ -44,8 +44,8 @@
         [self sendImageLocalPathWithImage:image] ;
     } cameraOnPressed:^(UIImage * _Nonnull image) {
         // 照相生命周期问题, 交给VC处理
-//        @strongify(self)
-//        [self sendImageLocalPathWithImage:image] ;
+
+        
     } albumOnPressed:^(UIImage * _Nonnull image) {
         @strongify(self)
         [self sendImageLocalPathWithImage:image] ;

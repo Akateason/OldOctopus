@@ -139,6 +139,8 @@ typedef NS_ENUM(NSUInteger, FTPopOverMenuArrowDirection) {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
+        self.selectedBackgroundView.backgroundColor = configuration.selectedCellBackgroundColor;
         [self setupWithMenuName:menuName menuImage:menuImage selected:selected configuration:configuration];
     }
     return self;
@@ -443,8 +445,8 @@ typedef NS_ENUM(NSUInteger, FTPopOverMenuArrowDirection) {
     [self.layer insertSublayer:_backgroundLayer atIndex:0];
 }
 
+#pragma mark - UITableViewDelegate, UITableViewDataSource
 
-#pragma mark - UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.f;
 }
@@ -709,7 +711,7 @@ typedef NS_ENUM(NSUInteger, FTPopOverMenuArrowDirection) {
 }
 
 - (void)adjustPopOverMenu {
-    self.backgroundView.backgroundColor = self.config.coverBackgroundColor;
+    self.backgroundView.backgroundColor = [UIColor clearColor];
     [self.backgroundView setFrame:CGRectMake(0, 0, KSCREEN_WIDTH, KSCREEN_HEIGHT)];
 
     CGRect senderRect ;
@@ -823,6 +825,7 @@ typedef NS_ENUM(NSUInteger, FTPopOverMenuArrowDirection) {
 }
 
 #pragma mark - UIGestureRecognizerDelegate
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     CGPoint point = [touch locationInView:_popMenuView];
     if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
@@ -846,6 +849,7 @@ typedef NS_ENUM(NSUInteger, FTPopOverMenuArrowDirection) {
     self.isCurrentlyOnScreen = YES;
     [UIView animateWithDuration:self.config.animationDuration
                      animations:^{
+                         self.backgroundView.backgroundColor = self.config.coverBackgroundColor;
                          self.popMenuView.alpha = 1;
                          self.popMenuView.transform = CGAffineTransformMakeScale(1, 1);
                      }];
@@ -863,6 +867,7 @@ typedef NS_ENUM(NSUInteger, FTPopOverMenuArrowDirection) {
 - (void)doneActionWithSelectedIndex:(NSInteger)selectedIndex {
     [UIView animateWithDuration:self.config.animationDuration
                      animations:^{
+                         self.backgroundView.backgroundColor = [UIColor clearColor];
                          self.popMenuView.alpha = 0;
                          self.popMenuView.transform = CGAffineTransformMakeScale(0.1, 0.1);
                      }completion:^(BOOL finished) {

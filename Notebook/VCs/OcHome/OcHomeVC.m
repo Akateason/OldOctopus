@@ -182,9 +182,6 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     configuration.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_hudColor) ;
     configuration.borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
     configuration.borderWidth = .25 ;
-//    configuration.textAlignment = ...
-//    configuration.ignoreImageOriginalColor = YES ;// set 'ignoreImageOriginalColor' to YES, images color will be same as textColor
-//    configuration.allowRoundedArrow = ...// Default is 'NO', if sets to 'YES', the arrow will be drawn with round corner.
     configuration.separatorColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .2) ;
     configuration.separatorInset = UIEdgeInsetsMake(0, 20, 0, 20) ;
     configuration.shadowColor = [UIColor colorWithWhite:0 alpha:.15] ; //XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .15) ; // Default is black
@@ -250,8 +247,6 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     [Note updateMyNote:aNote] ;
     
     OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0]] ;
-//    NSMutableArray *tmplist = [cell.noteList mutableCopy] ;
-//    [tmplist replaceObjectAtIndex:cell.xt_indexPath.row withObject:aNote] ;
     [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -497,6 +492,18 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     [super traitCollectionDidChange:previousTraitCollection];
     
 //    NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass)) ;
+    
+    
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight) { // light
+            [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
+        }
+        else { // dark
+            [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
+        }
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -529,5 +536,6 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
             return @"UIUserInterfaceSizeClassUnspecified";
     }
 }
+
 
 @end
