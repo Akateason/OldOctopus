@@ -497,15 +497,24 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     
     
     if (@available(iOS 12.0, *)) {
-        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight || self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleUnspecified) { // light
-            [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
-        }
-        else if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) { // dark
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) { // dark
             [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
+        }
+        else { // light
+            [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
         }
     } else {
         // Fallback on earlier versnions
     }
+
+//    if (UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+//        
+//    }
+    
+//    if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+//        // 执行操作
+//    }
+
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
