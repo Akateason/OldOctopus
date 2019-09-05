@@ -17,31 +17,21 @@
     [super awakeFromNib];
     // Initialization code
     
-//    self.xt_cornerRadius = 10. ;
-    self.imageView.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+
     self.imageView.xt_borderWidth = .5 ;
     self.imageView.xt_cornerRadius = 6. ;
+    
 }
-
-//
-//+ (CGSize)xt_cellSizeForModel:(id)model {
-//    float wid = ( [model floatValue] - 20. * 2. - 10. ) / 2. ;
-//    float height = wid / 325. * 200. ;
-//    return CGSizeMake(wid, height) ;
-//}
 
 - (void)setThemeStr:(NSString *)str {
     self.imageView.image = [UIImage imageNamed:STR_FORMAT(@"theme_%@",str)] ;
-    
-//    BOOL isLightTheme = [str isEqualToString:@"light"] ;
-//    BOOL isVip = NO ;
-    // [IapUtil isIapVipFromLocalAndRequestIfLocalNotExist] ;
-    
-    
+    self.imageView.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
 }
 
 - (void)setOnSelect:(BOOL)on {
     self.imgLock.image = on ? [UIImage imageNamed:@"theme_select"] : [UIImage imageNamed:@"theme_lock"] ;
+    self.imgLock.xt_completeRound = on ;
+    self.imgLock.backgroundColor = on ? XT_GET_MD_THEME_COLOR_KEY(k_md_themeColor) : nil ;
     
     BOOL isVip = [IapUtil isIapVipFromLocalAndRequestIfLocalNotExist] ;
     
