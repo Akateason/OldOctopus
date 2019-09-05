@@ -36,15 +36,19 @@
 
 + (void)showMePresentedInFromCtrller:(UIViewController *)fromCtrller fromSourceView:(UIView *)souceView {
     IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
-    vc.isPresentState = YES ;
-    vc.modalPresentationStyle = UIModalPresentationPopover ;
     
-    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
-    popVC.sourceView = souceView ;
-//    popVC.sourceRect = souceView.bounds ; 工具篮,点击图片有问题.
-    popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
-    popVC.xt_theme_backgroundColor = k_md_backColor ;
-    
+    if ([GlobalDisplaySt sharedInstance].vType >= SC_Home_mode_iPad_Horizon_6_collumn) {
+        vc.isPresentState = YES ;
+        vc.modalPresentationStyle = UIModalPresentationPopover ;
+        UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
+        popVC.sourceView = souceView ;
+        popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
+        popVC.xt_theme_backgroundColor = k_md_backColor ;
+    }
+    else {
+        vc.modalPresentationStyle = UIModalPresentationFullScreen ;
+    }
+        
     [fromCtrller presentViewController:vc animated:YES completion:^{
     }] ;
 }

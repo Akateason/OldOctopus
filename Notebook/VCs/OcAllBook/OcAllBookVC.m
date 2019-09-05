@@ -21,7 +21,7 @@
 + (instancetype)getMeFrom:(UIViewController *)fromCtrller {
     OcAllBookVC *vc = [OcAllBookVC getCtrllerFromStory:@"Home" controllerIdentifier:@"OcAllBookVC"] ;
     vc.delegate = (id<OcAllBookVCDelegate>)fromCtrller ;
-//    vc.modalPresentationStyle = UIModalPresentationPopover ;
+    vc.modalPresentationStyle = UIModalPresentationFullScreen ;
 //    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
     
     [fromCtrller presentViewController:vc animated:YES completion:^{}] ;

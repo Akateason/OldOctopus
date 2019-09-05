@@ -507,14 +507,6 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
         // Fallback on earlier versnions
     }
 
-//    if (UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-//        
-//    }
-    
-//    if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
-//        // 执行操作
-//    }
-
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

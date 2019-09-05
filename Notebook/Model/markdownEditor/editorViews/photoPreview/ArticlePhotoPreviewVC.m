@@ -35,9 +35,6 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     [view prepareUI] ;
         
     [fromView addSubview:view] ;
-//    [view mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(fromView) ;
-//    }] ;
     view.blkDelete = deleteOnClick ;
     return view ;
 }

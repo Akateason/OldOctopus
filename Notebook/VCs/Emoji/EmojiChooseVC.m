@@ -30,16 +30,22 @@
     EmojiChooseVC *vc = [EmojiChooseVC getCtrllerFromStory:@"Main" controllerIdentifier:@"EmojiChooseVC"] ;
     vc.delegate = fromView.xt_viewController ;
     
-    vc.modalPresentationStyle = UIModalPresentationPopover ;
-    [contentController presentViewController:vc animated:YES completion:nil] ;
-    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
-    popVC.sourceView = fromView ;
-    popVC.sourceRect = fromView.bounds ;
-    popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
-    popVC.xt_theme_backgroundColor = k_md_bgColor ;
+    if ([GlobalDisplaySt sharedInstance].vType >= SC_Home_mode_iPad_Horizon_6_collumn) {
+        vc.modalPresentationStyle = UIModalPresentationPopover ;
+        [contentController presentViewController:vc animated:YES completion:nil] ;
+        UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
+        popVC.sourceView = fromView ;
+        popVC.sourceRect = fromView.bounds ;
+        popVC.permittedArrowDirections = UIPopoverArrowDirectionAny ;
+        popVC.xt_theme_backgroundColor = k_md_bgColor ;
+    }
+    else {
+        vc.modalPresentationStyle = UIModalPresentationFullScreen ;
+        [contentController presentViewController:vc animated:YES completion:nil] ;
+    }
+        
+    
 
-//    vc.view.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, .2) ;
-//    vc.view.xt_borderWidth = 1 ;
 }
 
 - (void)viewDidLoad {
@@ -141,7 +147,8 @@
     self.tfSearch.xt_theme_backgroundColor = k_md_midDrawerPadColor ;
     self.tfSearch.xt_theme_textColor = k_md_textColor ;
     UIColor *color = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .5) ;
-    [self.tfSearch setValue:color forKeyPath:@"_placeholderLabel.textColor"] ;
+    self.tfSearch.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索表情" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:color}];
+
     
     [self.btClose xt_enlargeButtonsTouchArea] ;
     

@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btCancel;
 @property (weak, nonatomic) IBOutlet UILabel *lbEmoji;
 @property (strong, nonatomic) IBOutlet UIView *hud;
+@property (weak, nonatomic) IBOutlet UIButton *btBg;
 
 
 

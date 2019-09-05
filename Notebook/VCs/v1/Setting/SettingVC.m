@@ -45,14 +45,19 @@
 
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:settignVC] ;
     
-    navVC.modalPresentationStyle = UIModalPresentationPopover ;
-    UIPopoverPresentationController *popVC = navVC.popoverPresentationController ;
-    popVC.sourceView = fromView ; // contentController.view ;
-    popVC.sourceRect = CGRectMake(30, -80, 0, 0) ;  // CGRectMake(50, -20, 0, 0) ;
-    popVC.permittedArrowDirections = UIPopoverArrowDirectionLeft ;
-    
-    popVC.xt_theme_backgroundColor = k_md_bgColor ;
-    
+    if ([GlobalDisplaySt sharedInstance].vType >= SC_Home_mode_iPad_Horizon_6_collumn) {
+        navVC.modalPresentationStyle = UIModalPresentationPopover ;
+        UIPopoverPresentationController *popVC = navVC.popoverPresentationController ;
+        popVC.sourceView = fromView ; // contentController.view ;
+        popVC.sourceRect = CGRectMake(30, -80, 0, 0) ;  // CGRectMake(50, -20, 0, 0) ;
+        popVC.permittedArrowDirections = UIPopoverArrowDirectionLeft ;
+        
+        popVC.xt_theme_backgroundColor = k_md_bgColor ;
+    }
+    else {
+        navVC.modalPresentationStyle = UIModalPresentationFullScreen ;
+    }
+                
     [contentController presentViewController:navVC animated:YES completion:^{}] ;
     return navVC ;
 }

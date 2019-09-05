@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *height_hud;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom_hud;
 
+@property (weak, nonatomic) IBOutlet UIButton *btBg;
 
 + (instancetype)showFromCtrller:(UIViewController *)fromVC
                            note:(Note *)note

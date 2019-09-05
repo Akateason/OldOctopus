@@ -87,9 +87,12 @@
     self.tfLineCount.xt_theme_backgroundColor = k_md_drawerColor ;
     self.tfColumnCount.xt_theme_backgroundColor = k_md_drawerColor ;
     
-    UIColor *color = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .5) ;
-    [self.tfLineCount setValue:color forKeyPath:@"_placeholderLabel.textColor"] ;
-    [self.tfColumnCount setValue:color forKeyPath:@"_placeholderLabel.textColor"] ;
+    UIColor *color = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .5) ;    
+    
+    self.tfLineCount.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"行" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:color}];
+    
+    self.tfColumnCount.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"列" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:color}];
+
 }
 
 @end

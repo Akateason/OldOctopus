@@ -28,6 +28,7 @@
     
     vc.outpuImage = imageOutput ;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc] ;
+    nav.modalPresentationStyle = UIModalPresentationFullScreen ;
     [ctrller presentViewController:nav animated:YES completion:nil] ;
 }
 

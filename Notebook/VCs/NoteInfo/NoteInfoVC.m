@@ -86,7 +86,7 @@ typedef void(^BlkRemove)(NoteInfoVC *infoVC) ;
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.view bk_whenTapped:^{
+    [self.btBg bk_whenTapped:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     

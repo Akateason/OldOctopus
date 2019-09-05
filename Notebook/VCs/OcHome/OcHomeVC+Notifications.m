@@ -39,18 +39,7 @@
                 [self getAllBooks] ;
             }
         }] ;
-        
-//        if (@available(iOS 12.0, *)) {
-//            if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) { // dark
-//                [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
-//            }
-//            else { // light
-//                [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
-//            }
-//        } else {
-//            // Fallback on earlier versnions
-//        }
-        
+                
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_iap_purchased_done object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {

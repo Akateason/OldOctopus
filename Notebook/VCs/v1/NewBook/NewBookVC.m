@@ -99,7 +99,8 @@
     
     
     UIColor *phColor = [MDThemeConfiguration.sharedInstance themeColor:XT_MAKE_theme_color(k_md_textColor, .4)] ;
-    [self.tfName setValue:phColor forKeyPath:@"_placeholderLabel.textColor"] ;
+    self.tfName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"笔记本名" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:phColor}];
+
     
     self.lbEmoji.userInteractionEnabled = YES ;
     NSArray *booklist = [NoteBooks xt_findWhere:@"isDeleted == 0"] ;
@@ -111,7 +112,7 @@
         [EmojiChooseVC showMeFrom:weakSelf fromView:weakSelf.lbEmoji] ;
     }] ;
     
-    [self.view bk_whenTapped:^{
+    [self.btBg bk_whenTapped:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
