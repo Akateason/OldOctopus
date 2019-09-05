@@ -192,6 +192,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     configuration.shadowOffsetY = 15;
     configuration.menuIconMargin = 20 ;
     configuration.menuTextMargin = 17 ;
+    configuration.selectedCellBackgroundColor = [UIColor colorWithWhite:0 alpha:0.05] ;
 
     @weakify(self)
     [FTPopOverMenu showForSender:self.btAdd withMenuArray:@[@"笔记",@"笔记本"] imageArray:@[@"home_add_note",@"home_add_book"] configuration:configuration doneBlock:^(NSInteger selectedIndex) {
