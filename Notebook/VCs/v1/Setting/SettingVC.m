@@ -41,11 +41,12 @@
 
 + (MDNavVC *)getMeFromCtrller:(UIViewController *)contentController fromView:(UIView *)fromView {
     SettingVC *settignVC = [SettingVC getCtrllerFromStory:@"Main" controllerIdentifier:@"SettingVC"] ;
-    settignVC.preferredContentSize = CGSizeMake(400, 800) ;
+    
 
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:settignVC] ;
     
     if ([GlobalDisplaySt sharedInstance].vType >= SC_Home_mode_iPad_Horizon_6_collumn) {
+        settignVC.preferredContentSize = CGSizeMake(400, 550) ;
         navVC.modalPresentationStyle = UIModalPresentationPopover ;
         UIPopoverPresentationController *popVC = navVC.popoverPresentationController ;
         popVC.sourceView = fromView ; // contentController.view ;

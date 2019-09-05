@@ -88,7 +88,8 @@ static int kLimitCount = 70 ;
     self.topMark.hidden = !note.isTop ;
     
     self.img.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_iconColor, 0.1) ;
-    
+    self.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .06) ;
+
     [self setNeedsLayout] ;
     [self layoutIfNeeded] ;
 }

@@ -78,7 +78,7 @@
     
     self.hud.xt_theme_backgroundColor = k_md_bgColor ;
     self.underline.xt_theme_backgroundColor = k_md_iconColor ;
-    self.btCreate.xt_theme_textColor = k_md_bgColor ;
+    [self.btCreate setTitleColor:[UIColor whiteColor] forState:0] ;
     self.btCreate.xt_theme_backgroundColor = k_md_themeColor ;
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.btCancel.xt_cornerRadius = self.btCreate.xt_cornerRadius = 8 ;

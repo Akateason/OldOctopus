@@ -151,8 +151,8 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     NSNumber *lastTick = XT_USERDEFAULT_GET_VAL(kCache_Last_Update_Note_Info_Time) ;
     NSDate *lastUpdateTime = [NSDate xt_getDateWithTick:lastTick.longLongValue] ;
     NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:lastUpdateTime] ;
-    if (time < 20) {
-        NSLog(@"未超过时间, 不刷新book, %@s前刷新过了",@(time)) ;
+    if (time < 5) {
+        NSLog(@"未超过时间, 不刷新book, %@s之内刷新过了",@(time)) ;
         return ;
     }
     
@@ -448,6 +448,26 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
                 break;
         }
     }] ;
+}
+
+#pragma mark - MarkdownVCDelegate <NSObject>
+
+- (void)addNoteComplete:(Note *)aNote {
+    OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
+    [cell.contentCollection xt_loadNewInfoInBackGround:NO] ;
+}
+
+- (void)editNoteComplete:(Note *)aNote {
+    OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
+    [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+}
+
+- (NSString *)currentBookID {
+    return self.currentBook.icRecordName ;
+}
+
+- (int)currentBookType {
+    return self.currentBook.vType ;
 }
 
 #pragma mark - OcAllBookVCDelegate <NSObject>

@@ -73,7 +73,7 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     
     if (IS_IPAD) {
         self.width_hud.constant = 325 ;
-        self.height_hud.constant = [GlobalDisplaySt sharedInstance].containerSize.height / 3. * 2. ;
+        self.height_hud.constant = [GlobalDisplaySt sharedInstance].containerSize.height / 2. ;
         self.bottom_Hud.constant = ([GlobalDisplaySt sharedInstance].containerSize.height - self.height_hud.constant) / 2. ;
     }
     else {

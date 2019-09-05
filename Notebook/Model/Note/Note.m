@@ -255,7 +255,7 @@
     NSString *IMAGE_REG = @"(\\!\\[)(.*?)(\\\\*)\\]\\((.*?)(\\\\*)\\)" ;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
     NSArray *matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
-    if (!matsImage.count) return nil ;
+    if (!matsImage.count) return @"" ;
     
     NSMutableArray *results = [@[] mutableCopy] ;
     for (NSTextCheckingResult *result in matsImage) {
@@ -270,24 +270,19 @@
     return [results yy_modelToJSONString] ;
 }
 
-// 启动时, 检查所有笔记并加入预览图
+// 启动时, 检查所有笔记并加入预览图, 第一把只在本地改动
 + (void)addPreviewPictureInLaunchingTime {
     NSArray *list = [Note xt_findWhere:@"previewPicture is NULL or previewPicture == ''"] ;
     NSMutableArray *records = [@[] mutableCopy] ;
     
     [list enumerateObjectsUsingBlock:^(Note *note, NSUInteger idx, BOOL * _Nonnull stop) {
         note.previewPicture = [self getMDImageWithContent:note.content] ;
-        [records addObject:note.record] ;
+//        [records addObject:note.record] ;
     }] ;
     if (!list || !list.count) return ;
-
-    [[XTCloudHandler sharedInstance] saveList:records deleteList:nil complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
-        
-        if (!error) {
-            [Note xt_updateList:list whereByProp:@"icRecordName"] ;
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
-        }
-    }] ;
+    
+    [Note xt_updateList:list whereByProp:@"icRecordName"] ;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
 }
 
 #pragma mark - db

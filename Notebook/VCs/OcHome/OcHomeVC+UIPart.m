@@ -165,25 +165,6 @@
 }
 
 
-#pragma mark - MarkdownVCDelegate <NSObject>
-
-- (void)addNoteComplete:(Note *)aNote {
-    OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
-    [cell.contentCollection xt_loadNewInfoInBackGround:NO] ;
-}
-
-- (void)editNoteComplete:(Note *)aNote {
-    OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
-    [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
-}
-
-- (NSString *)currentBookID {
-    return self.currentBook.icRecordName ;
-}
-
-- (int)currentBookType {
-    return self.currentBook.vType ;
-}
 
 
 #pragma mark - UICollectionView

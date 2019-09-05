@@ -413,7 +413,7 @@ return;}
     self.aNote.content = markdown ;
     self.aNote.title = title ;
     [Note updateMyNote:self.aNote] ;
-    [self.delegate editNoteComplete:self.aNote] ;
+    if (self.delegate) [self.delegate editNoteComplete:self.aNote] ;
     XT_HIDE_HUD
 }
 

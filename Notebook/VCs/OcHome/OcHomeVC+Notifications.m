@@ -39,7 +39,6 @@
                 [self getAllBooks] ;
             }
         }] ;
-                
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_iap_purchased_done object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -84,7 +83,6 @@
         @strongify(self)
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [self setupStructCollectionLayout] ;
             [self.mainCollectionView reloadData] ;
             
             [self.mainCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
