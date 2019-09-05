@@ -41,11 +41,12 @@
     self.lbMyNotes.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbAll.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.img_lbAllRight.xt_theme_imageColor = k_md_textColor ;
-    self.btSearch.xt_theme_imageColor = k_md_iconColor ;
     
     // 加号
     self.btSearch.touchExtendInset  = UIEdgeInsetsMake(-15, -15, -15, -15) ;
+    self.btSearch.xt_theme_imageColor = k_md_iconColor ;
     self.btAdd.touchExtendInset     = UIEdgeInsetsMake(-15, -15, -15, -15) ;
+    self.btAdd.xt_theme_imageColor = k_md_iconColor ;
     
     // 按钮
     [self.btUser setImage:[UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] forState:0] ;
