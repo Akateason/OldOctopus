@@ -1458,7 +1458,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bt1-f3-LbW">
-                                <rect key="frame" x="32.5" y="156" width="310" height="355"/>
+                                <rect key="frame" x="32.5" y="56" width="310" height="355"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaV-Ju-QQZ">
                                         <rect key="frame" x="0.0" y="45" width="310" height="67"/>
@@ -1567,7 +1567,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="bt1-f3-LbW" firstAttribute="centerY" secondItem="BF7-1Z-z3H" secondAttribute="centerY" id="OKv-LJ-gyS"/>
+                            <constraint firstItem="bt1-f3-LbW" firstAttribute="centerY" secondItem="BF7-1Z-z3H" secondAttribute="centerY" constant="-100" id="OKv-LJ-gyS"/>
                             <constraint firstItem="bt1-f3-LbW" firstAttribute="centerX" secondItem="BF7-1Z-z3H" secondAttribute="centerX" id="sd5-Gy-wUJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zgs-GX-Uzt"/>

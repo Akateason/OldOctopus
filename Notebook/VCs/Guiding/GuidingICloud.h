@@ -20,7 +20,8 @@ XT_SINGLETON_H(GuidingICloud)
 @property (weak, nonatomic) IBOutlet UILabel *lb2;
 @property (weak, nonatomic) IBOutlet UILabel *btOpen;
 @property (weak, nonatomic) IBOutlet UILabel *lbHowToOpen;
-@property (weak, nonatomic) IBOutlet UIImageView *img;
+@property (weak, nonatomic) IBOutlet UILabel *lb3;
+
 
 + (instancetype)show ;
 @end

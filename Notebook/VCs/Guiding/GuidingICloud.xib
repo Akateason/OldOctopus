@@ -19,52 +19,85 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XxM-V1-a4D">
                     <rect key="frame" x="40" y="138.5" width="295" height="390"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guid_icloud_top_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="A73-3T-yQi">
-                            <rect key="frame" x="50" y="20" width="195" height="16"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    如何登录？" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUw-IY-dCv">
-                            <rect key="frame" x="98.5" y="355" width="98.5" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   图文教程 &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUw-IY-dCv">
+                            <rect key="frame" x="101.5" y="345" width="92.5" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTQ-eN-5mg">
-                            <rect key="frame" x="35" y="104" width="225" height="43"/>
+                            <rect key="frame" x="61" y="78" width="173" height="39.5"/>
                             <string key="text">请开启允许 以便小章鱼笔记
 能够正常工作</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iCloud 登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLv-Gi-7e3">
-                            <rect key="frame" x="75" y="51" width="145" height="38"/>
+                            <rect key="frame" x="75" y="30" width="145" height="38"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="27"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打开" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUv-am-MfK">
-                            <rect key="frame" x="63.5" y="305" width="168" height="35"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="去设置" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUv-am-MfK">
+                            <rect key="frame" x="82.5" y="275" width="130" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="168" id="Y8V-Ph-MFQ"/>
-                                <constraint firstAttribute="height" constant="35" id="xGc-yf-Bvr"/>
+                                <constraint firstAttribute="width" constant="130" id="Y8V-Ph-MFQ"/>
+                                <constraint firstAttribute="height" constant="40" id="xGc-yf-Bvr"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sl-Jc-ppg">
+                            <rect key="frame" x="36" y="139" width="223" height="120"/>
+                            <attributedString key="attributedText">
+                                <fragment>
+                                    <string key="content">①. 打开系统设置，进入 “Apple ID”
+</string>
+                                    <attributes>
+                                        <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="24" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment>
+                                    <string key="content">②. 进入 “ iCloud ”
+③. 同时打开 iCloud 云盘 和 小章鱼
+</string>
+                                    <attributes>
+                                        <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment>
+                                    <string key="content">④. 下拉最后进入“找到我”页面，
+</string>
+                                    <attributes>
+                                        <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="0.5" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="     打开小章鱼来获取姓名">
+                                    <attributes>
+                                        <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="oLv-Gi-7e3" firstAttribute="top" secondItem="A73-3T-yQi" secondAttribute="bottom" constant="15" id="2Fs-8B-K9D"/>
                         <constraint firstItem="BUw-IY-dCv" firstAttribute="centerX" secondItem="XxM-V1-a4D" secondAttribute="centerX" id="Byi-jc-xRm"/>
-                        <constraint firstItem="A73-3T-yQi" firstAttribute="centerX" secondItem="XxM-V1-a4D" secondAttribute="centerX" id="C31-Hf-dDr"/>
-                        <constraint firstAttribute="bottom" secondItem="BUw-IY-dCv" secondAttribute="bottom" constant="15" id="ISr-aN-NgV"/>
-                        <constraint firstItem="A73-3T-yQi" firstAttribute="width" secondItem="XxM-V1-a4D" secondAttribute="width" multiplier="39:59" id="Nc0-A2-9Ma"/>
-                        <constraint firstItem="BUw-IY-dCv" firstAttribute="top" secondItem="aUv-am-MfK" secondAttribute="bottom" constant="15" id="Rgx-4S-4yF"/>
-                        <constraint firstItem="gTQ-eN-5mg" firstAttribute="top" secondItem="oLv-Gi-7e3" secondAttribute="bottom" constant="15" id="VQ9-7w-GpI"/>
+                        <constraint firstAttribute="bottom" secondItem="BUw-IY-dCv" secondAttribute="bottom" constant="25" id="ISr-aN-NgV"/>
+                        <constraint firstItem="7sl-Jc-ppg" firstAttribute="centerX" secondItem="XxM-V1-a4D" secondAttribute="centerX" id="Paf-ba-xNv"/>
+                        <constraint firstItem="oLv-Gi-7e3" firstAttribute="top" secondItem="XxM-V1-a4D" secondAttribute="top" constant="30" id="PxC-1j-KJY"/>
+                        <constraint firstItem="BUw-IY-dCv" firstAttribute="top" secondItem="aUv-am-MfK" secondAttribute="bottom" constant="30" id="Rgx-4S-4yF"/>
+                        <constraint firstItem="gTQ-eN-5mg" firstAttribute="top" secondItem="oLv-Gi-7e3" secondAttribute="bottom" constant="10" id="VQ9-7w-GpI"/>
                         <constraint firstItem="gTQ-eN-5mg" firstAttribute="centerX" secondItem="XxM-V1-a4D" secondAttribute="centerX" id="Vtk-Sg-fsX"/>
+                        <constraint firstItem="7sl-Jc-ppg" firstAttribute="top" secondItem="gTQ-eN-5mg" secondAttribute="bottom" constant="21.5" id="YqC-1P-9je"/>
                         <constraint firstAttribute="width" constant="295" id="aCG-NH-sG1"/>
-                        <constraint firstItem="A73-3T-yQi" firstAttribute="top" secondItem="XxM-V1-a4D" secondAttribute="top" constant="20" id="mhf-wU-Eaj"/>
                         <constraint firstItem="aUv-am-MfK" firstAttribute="centerX" secondItem="XxM-V1-a4D" secondAttribute="centerX" id="rc9-8t-vEk"/>
                         <constraint firstItem="oLv-Gi-7e3" firstAttribute="centerX" secondItem="XxM-V1-a4D" secondAttribute="centerX" id="vIs-MS-sdP"/>
                         <constraint firstAttribute="height" constant="390" id="zxE-AH-k6p"/>
@@ -93,9 +126,9 @@
                 <outlet property="btClose" destination="TrD-ID-NRB" id="jdW-dz-hKQ"/>
                 <outlet property="btOpen" destination="aUv-am-MfK" id="Qbl-9w-zm9"/>
                 <outlet property="hud" destination="XxM-V1-a4D" id="gDb-Xq-RPz"/>
-                <outlet property="img" destination="A73-3T-yQi" id="tGz-mv-7UJ"/>
                 <outlet property="lb1" destination="oLv-Gi-7e3" id="0Kd-Vf-FiE"/>
                 <outlet property="lb2" destination="gTQ-eN-5mg" id="GpL-u8-p3Z"/>
+                <outlet property="lb3" destination="7sl-Jc-ppg" id="hoN-1o-Grh"/>
                 <outlet property="lbHowToOpen" destination="BUw-IY-dCv" id="7eg-F6-sS0"/>
             </connections>
             <point key="canvasLocation" x="130.40000000000001" y="152.47376311844079"/>
@@ -103,6 +136,5 @@
     </objects>
     <resources>
         <image name="guid_close.png" width="68" height="68"/>
-        <image name="guid_icloud_top_icon.png" width="350" height="92"/>
     </resources>
 </document>

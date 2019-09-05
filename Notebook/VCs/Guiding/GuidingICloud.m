@@ -23,8 +23,6 @@ XT_SINGLETON_M(GuidingICloud)
     GuidingICloud *guid = [GuidingICloud xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     [[UIView xt_topWindow] addSubview:guid] ;
     [guid mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(APPFRAME.size) ;
-//        make.center.equalTo([UIView xt_topWindow]) ;
         make.edges.equalTo([UIView xt_topWindow]) ;
     }] ;
     return guid ;
@@ -37,28 +35,20 @@ XT_SINGLETON_M(GuidingICloud)
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     
-    self.hud.xt_theme_backgroundColor = k_md_drawerColor ;
-    self.img.xt_theme_imageColor = k_md_iconColor ;
+    self.hud.xt_theme_backgroundColor = k_md_bgColor ;
     self.hud.xt_cornerRadius = 20 ;
     self.lb1.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
-    self.lb2.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
+    self.lb2.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
+    self.lb3.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     self.lbHowToOpen.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
 
     self.btOpen.textColor = [UIColor whiteColor] ;
     self.btOpen.userInteractionEnabled = YES ;
+    self.btOpen.xt_theme_backgroundColor = k_md_themeColor ;
+    self.btOpen.xt_completeRound = YES ;
     self.lbHowToOpen.userInteractionEnabled = YES ;
+    self.backgroundColor = [UIColor colorWithWhite:0 alpha:.2] ;
     
-    UIView *bg = [UIView new] ;
-    bg.xt_cornerRadius = 17.5 ;
-    bg.xt_gradientPt0 = CGPointMake(0, .5) ;
-    bg.xt_gradientPt1 = CGPointMake(1, .5) ;
-    bg.xt_gradientColor0 = UIColorHex(@"fe4241") ;
-    bg.xt_gradientColor1 = UIColorHex(@"fe8c68") ;
-    bg.xt_maskToBounds = YES ;
-    [self.hud insertSubview:bg belowSubview:self.btOpen] ;
-    [bg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.btOpen) ;
-    }] ;
     
     @weakify(self)
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
