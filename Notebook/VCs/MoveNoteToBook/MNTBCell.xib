@@ -20,23 +20,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🐙" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEa-ra-CYg">
-                        <rect key="frame" x="30" y="14" width="26" height="27"/>
+                        <rect key="frame" x="30" y="14" width="28" height="27"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="bAc-uY-8Z3"/>
-                            <constraint firstAttribute="width" constant="26" id="huG-bj-Gbt"/>
+                            <constraint firstAttribute="width" constant="28" id="huG-bj-Gbt"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="notebook name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dh-BV-Xg6">
-                        <rect key="frame" x="76" y="14.5" width="130" height="26"/>
+                        <rect key="frame" x="78" y="14.5" width="130" height="26"/>
                         <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vNz-Hw-KNL">
-                        <rect key="frame" x="76" y="54" width="244" height="0.5"/>
+                        <rect key="frame" x="78" y="54" width="242" height="0.5"/>
                         <color key="backgroundColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="tSe-5F-he6"/>
