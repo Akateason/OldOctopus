@@ -139,6 +139,17 @@
         // Fallback on earlier versnions
     }
 
+//    @weakify(self)
+//    [[[RACObserve(self.mainCollectionView, contentOffset) map:^id _Nullable(id  _Nullable value) {
+//        return @([value CGPointValue].x) ;
+//    }]
+//       throttle:.2]
+//     subscribeNext:^(id  _Nullable x) {
+//        @strongify(self)
+//        NSLog(@"x : %@",x) ;
+//        [self scrollViewEndScroll:self.mainCollectionView] ;
+//    }] ;
+    
 }
 
 - (void)goToAllBookVC {
@@ -229,6 +240,12 @@
     return CGSizeZero ;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (collectionView != self.mainCollectionView) return ;
+    
+    // 滚动开始时, 刷新mainCollection 的 container
+    [((OcContainerCell *)cell).contentCollection xt_loadNewInfoInBackGround:YES] ;
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView != self.mainCollectionView) return ;
@@ -240,6 +257,7 @@
     if (!decelerate) [self scrollViewEndScroll:scrollView];
 }
 
+// 滚动停止时, 刷新topbar
 - (void)scrollViewEndScroll:(UIScrollView *)scrollView {
     NSLog(@"scrollViewEndScroll") ;
     
@@ -249,8 +267,6 @@
     self.currentBook = self.bookList[row] ;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
-        [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
         
         if (self.uiStatus_TopBar_turnSmall) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
