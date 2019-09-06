@@ -20,7 +20,7 @@
     
     UILabel *lbName = [UILabel new] ;
     lbName.text = [XTIcloudUser displayUserName] ;
-    lbName.font = [UIFont systemFontOfSize:21] ;
+    lbName.font = [UIFont systemFontOfSize:16.] ;
     lbName.textColor = [UIColor colorWithWhite:0 alpha:.8] ;
     lbName.textAlignment = NSTextAlignmentRight ;
     [view addSubview:lbName] ;
@@ -31,7 +31,7 @@
     
     UILabel *lbDetail = [UILabel new] ;
     lbDetail.text = XT_STR_FORMAT(@"于 %@ 写于小章鱼笔记", [[NSDate date] xt_getStrWithFormat:@"YYYY.MM.dd"] ) ;
-    lbDetail.font = [UIFont systemFontOfSize:16] ;
+    lbDetail.font = [UIFont systemFontOfSize:12] ;
     lbDetail.textColor = [UIColor colorWithWhite:0 alpha:.6] ;
     lbDetail.textAlignment = NSTextAlignmentRight ;
     [view addSubview:lbDetail] ;

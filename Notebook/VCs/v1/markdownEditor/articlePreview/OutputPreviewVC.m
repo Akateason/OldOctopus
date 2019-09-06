@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIView *container;
 
 @property (strong, nonatomic) UIImage *outpuImage ;
+
+@property (strong, nonatomic) XTZoomPicture *zoomPic ;
 @end
 
 @implementation OutputPreviewVC
@@ -38,7 +40,11 @@
     [super viewDidLoad] ;
 
     self.fd_prefersNavigationBarHidden = YES ;
+    self.topBar.backgroundColor = [UIColor whiteColor] ;
     
+    [self.btCancel setTitleColor:[UIColor colorWithWhite:0 alpha:.6] forState:0] ;
+    [self.btSave setTitleColor:UIColorHex(@"FF6969") forState:0] ;
+
     WEAK_SELF
     [self.btCancel bk_whenTapped:^{
         [[OctMBPHud sharedInstance] hide] ;
@@ -66,19 +72,24 @@
     XTZoomPicture *zoomPic = [[XTZoomPicture alloc] initWithFrame:rect backImage:self.outpuImage tapped:^{
         
     }] ;
-    zoomPic.backgroundColor = UIColorHex(@"F5F5F5") ;
     zoomPic.frame = CGRectMake(15, APP_NAVIGATIONBAR_HEIGHT + APP_STATUSBAR_HEIGHT + 20, rect.size.width, rect.size.height) ;
     [self.view addSubview:zoomPic] ;
-}
-
-- (void)prepareUI {
-    self.topBar.backgroundColor = [UIColor whiteColor] ;
-
+    self.zoomPic = zoomPic ;
+    
     self.view.backgroundColor = [UIColor whiteColor] ;
-    [self.btCancel setTitleColor:[UIColor colorWithWhite:0 alpha:.6] forState:0] ;
-    [self.btSave setTitleColor:UIColorHex(@"FF6969") forState:0] ;
+    self.container.backgroundColor = UIColorHex(@"F5F5F5") ;
+    self.zoomPic.backgroundColor = UIColorHex(@"F5F5F5") ;
+    self.zoomPic.imageView.backgroundColor = UIColorHex(@"F5F5F5") ;
+    
+
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated] ;
+    
+    
+
+}
 
 
 @end

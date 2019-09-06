@@ -516,7 +516,6 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     
 //    NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass)) ;
     
-    
     if (@available(iOS 12.0, *)) {
         if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) { // dark
             [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
@@ -560,6 +559,5 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
             return @"UIUserInterfaceSizeClassUnspecified";
     }
 }
-
 
 @end
