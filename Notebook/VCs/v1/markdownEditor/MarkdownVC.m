@@ -168,16 +168,21 @@
         [self snapShotFullScreen:json] ;
     }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNoteSlidingSizeChanging object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        if (!self.view.window) return ;
-
-        [self.editor setSideFlex] ;
-        self.editor.bottom = self.view.bottom ;
-        self.editor.top = APP_STATUSBAR_HEIGHT ;
-        self.editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
-        self.editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
-
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[OctWebEditor sharedInstance] setSideFlex] ;
+            
+            if (!self.editor.window) return ;
+            
+            self.editor.bottom = self.view.bottom ;
+            self.editor.top = APP_STATUSBAR_HEIGHT ;
+            self.editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
+            self.editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
+        });
+                
     }] ;
     
     

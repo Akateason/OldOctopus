@@ -122,7 +122,8 @@
                           @"isDeleted" : @(aNote.isDeleted),
                           @"noteBookId" : aNote.noteBookId,
                           @"title" : aNote.title,
-                          @"isTop" : @(aNote.isTop)
+                          @"isTop" : @(aNote.isTop),
+                          @"previewPicture" : aNote.previewPicture
                           } ;
     
     [[XTCloudHandler sharedInstance] updateWithRecId:aNote.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
