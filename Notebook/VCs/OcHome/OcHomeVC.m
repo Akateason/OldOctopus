@@ -337,14 +337,9 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
             
         } completion:^(BOOL finished) {
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.mainCollectionView reloadData] ;
-            }) ;
-            
         }] ;
     
         // collection flow
-        
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
         
         [self.segmentBooks setValue:@(self.bookCurrentIdx) forKey:@"currentIndex"] ;
@@ -353,6 +348,10 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
         
         [self.bookCollectionView reloadData] ;
         
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.mainCollectionView reloadData] ;
+        });
+                
     }) ;
     
 }
@@ -414,9 +413,12 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 #pragma mark - OcContainerCell callback  self.xt_viewcontroller
 // up - YES, down - NO.
 - (void)containerCellDraggingDirection:(BOOL)directionUp {
-    if (directionUp != self.uiStatus_TopBar_turnSmall) self.uiStatus_TopBar_turnSmall = directionUp ;
-    //    if (!directionUp) {NSLog(@"下")}
-    //    else {NSLog(@"上")} ;
+    if (directionUp != self.uiStatus_TopBar_turnSmall) {
+        self.uiStatus_TopBar_turnSmall = directionUp ;
+        //    if (!directionUp) {NSLog(@"下")}
+        //    else {NSLog(@"上")} ;
+    }
+    
 }
 
 - (void)containerCellDidSelectedNote:(Note *)note {

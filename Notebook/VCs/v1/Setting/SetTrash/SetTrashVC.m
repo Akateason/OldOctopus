@@ -26,8 +26,9 @@
 - (void)clearAllTrash {
     [[OctMBPHud sharedInstance] show] ;
     
+    @weakify(self)
     [Note deleteTheseNotes:self.list fromICloudComplete:^(bool success) {
-        
+        @strongify(self)
         if (success) {
             for (Note *aNote in self.list) {
                 [aNote xt_deleteModel] ;
