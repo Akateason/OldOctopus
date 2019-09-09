@@ -145,6 +145,7 @@
 		8F6863CE2267219D00261626 /* ld_bt_addbook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */; };
 		8F6863D1226726B400261626 /* ld_theme_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CF226726B000261626 /* ld_theme_night@2x.png */; };
 		8F6863D2226726B400261626 /* ld_theme_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863D0226726B200261626 /* ld_theme_day@2x.png */; };
+		8F6BD0A7232657F700087388 /* _NoInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6BD0A6232657F700087388 /* _NoInputAccessoryView.m */; };
 		8F6C95D322CFBE6C00AF5302 /* SingleGuidVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6C95D122CFBE6C00AF5302 /* SingleGuidVC.m */; };
 		8F6C95D422CFBE6C00AF5302 /* SingleGuidVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6C95D222CFBE6C00AF5302 /* SingleGuidVC.xib */; };
 		8F6E9B91230CE4400011D935 /* OcHomeVC+UIPart.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E9B90230CE4400011D935 /* OcHomeVC+UIPart.m */; };
@@ -599,6 +600,8 @@
 		8F6863CD2267219D00261626 /* ld_bt_addbook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_bt_addbook@2x.png"; sourceTree = "<group>"; };
 		8F6863CF226726B000261626 /* ld_theme_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_night@2x.png"; sourceTree = "<group>"; };
 		8F6863D0226726B200261626 /* ld_theme_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_day@2x.png"; sourceTree = "<group>"; };
+		8F6BD0A5232657F700087388 /* _NoInputAccessoryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _NoInputAccessoryView.h; sourceTree = "<group>"; };
+		8F6BD0A6232657F700087388 /* _NoInputAccessoryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _NoInputAccessoryView.m; sourceTree = "<group>"; };
 		8F6C95D022CFBE6C00AF5302 /* SingleGuidVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SingleGuidVC.h; sourceTree = "<group>"; };
 		8F6C95D122CFBE6C00AF5302 /* SingleGuidVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingleGuidVC.m; sourceTree = "<group>"; };
 		8F6C95D222CFBE6C00AF5302 /* SingleGuidVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleGuidVC.xib; sourceTree = "<group>"; };
@@ -984,6 +987,8 @@
 				8F08FB6022A8C1FD008AB6A6 /* webModel */,
 				8F173D7922A1385B00FA4D8D /* OctWebEditor.h */,
 				8F173D7A22A1385B00FA4D8D /* OctWebEditor.m */,
+				8F6BD0A5232657F700087388 /* _NoInputAccessoryView.h */,
+				8F6BD0A6232657F700087388 /* _NoInputAccessoryView.m */,
 				8FEBC28322A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.h */,
 				8FEBC28422A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.m */,
 				8FEBC28622A68BEA004EB0F5 /* OctWebEditor+InlineBoardUtil.h */,
@@ -2335,6 +2340,7 @@
 				8F679E222238F9BC008DE1BC /* MDHeadModel.m in Sources */,
 				8F97514422D7A8BD0012F403 /* OctMBPHud.m in Sources */,
 				8F29F69A2314E1CF003DF3B7 /* MNTBCell.m in Sources */,
+				8F6BD0A7232657F700087388 /* _NoInputAccessoryView.m in Sources */,
 				8F7B2EB522C36DCA000018DE /* SetGeneralVC.m in Sources */,
 				8F05C57C22754CD40047CC04 /* XTMarkdownParser+Regular.m in Sources */,
 				8F6C95D322CFBE6C00AF5302 /* SingleGuidVC.m in Sources */,

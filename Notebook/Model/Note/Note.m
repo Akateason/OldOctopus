@@ -117,6 +117,7 @@
 + (void)updateMyNote:(Note *)aNote {
     aNote.isSendOnICloud = NO ;
     [aNote xt_upsertWhereByProp:@"icRecordName"] ;
+    if (!aNote.previewPicture) aNote.previewPicture = @"" ;
     
     NSDictionary *dic = @{@"content" : aNote.content,
                           @"isDeleted" : @(aNote.isDeleted),

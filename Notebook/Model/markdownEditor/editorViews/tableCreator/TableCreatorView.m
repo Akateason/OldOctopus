@@ -89,9 +89,9 @@
     
     UIColor *color = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .5) ;    
     
-    self.tfLineCount.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"行" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:color}];
+    self.tfLineCount.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"2" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:color}];
     
-    self.tfColumnCount.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"列" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:color}];
+    self.tfColumnCount.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"3" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:color}];
 
 }
 

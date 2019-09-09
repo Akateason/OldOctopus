@@ -21,6 +21,8 @@
 #import "OctShareCopyLinkView.h"
 #import "HiddenUtil.h"
 #import "HomePadVC.h"
+#import "_NoInputAccessoryView.h"
+
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -49,6 +51,7 @@ XT_SINGLETON_M(OctWebEditor)
     [self createWebView] ;
     [self setupHTMLEditor] ;
     [self toolBar] ;
+    [self hideSystemToolBar] ;
     
     _disabledActions = @[
                          [@[@"_", @"lo", @"oku", @"p", @":"] componentsJoinedByString:@""], // _lookup: 查询按钮
@@ -113,6 +116,10 @@ XT_SINGLETON_M(OctWebEditor)
     }] ;
 }
 
+- (void)hideSystemToolBar {
+    _NoInputAccessoryView *accessoryView = [_NoInputAccessoryView new] ;
+    [accessoryView removeInputAccessoryViewFromWKWebView:self.webView] ;
+}
 
 - (void)openKeyboardToolBar {
     self.toolBar.top = 2000 ;
@@ -679,3 +686,6 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 @end
+
+
+
