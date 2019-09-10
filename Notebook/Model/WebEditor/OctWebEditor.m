@@ -202,13 +202,16 @@ XT_SINGLETON_M(OctWebEditor)
     if ([func isEqualToString:@"change"]) {
         WebModel *model = [WebModel yy_modelWithJSON:jsonDic] ;
         self.webInfo = model ;
-        if (![model.markdown isEqualToString:@"\n"] && self.webViewHasSetMarkdown && ![model.markdown isEqualToString:self.firstTimeArticle]) {
+        if (self.webViewHasSetMarkdown
+            &&
+            ![model.markdown isEqualToString:self.firstTimeArticle]) {
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_CHANGE object:model.markdown] ;
             self.aNote.content = model.markdown ;
+            
         }
         else {
             // 文章没改过, 不提交
-//            self.articleAreTheSame = YES ;
         }
     }
     else if ([func isEqualToString:@"typeList"]) {
