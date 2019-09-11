@@ -58,6 +58,19 @@ static int kLimitCount = 70 ;
         }
         
     } forControlEvents:(UIControlEventTouchUpInside)] ;
+    
+    
+    UIImageView *shadowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home_cell_shadow"]] ;
+    shadowImage.contentMode = UIViewContentModeScaleAspectFill ;
+    shadowImage.xt_maskToBounds = YES ;
+    [self insertSubview:shadowImage belowSubview:self.lbContent] ;
+    [shadowImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.lbContent) ;
+        make.top.equalTo(self.sepLine.mas_bottom).offset(12) ;
+        make.bottom.equalTo(self.bookPHView.mas_top).offset(-15) ;
+    }] ;
+    self.bgShadow = shadowImage ;
+    
 }
 
 - (void)xt_configure:(Note *)note indexPath:(NSIndexPath *)indexPath {
@@ -72,7 +85,7 @@ static int kLimitCount = 70 ;
     
     BOOL hasPic = note.previewPicture && note.previewPicture.length > 0 ;
     _img.hidden = !hasPic ;
-    _sepLine.hidden = _lbContent.hidden = hasPic ;
+    _sepLine.hidden = _lbContent.hidden = _bgShadow.hidden = hasPic ;
     
     if (hasPic) {
         NSArray *list = [WebModel convertjsonStringToJsonObj:note.previewPicture] ;
@@ -92,6 +105,9 @@ static int kLimitCount = 70 ;
 
     [self setNeedsLayout] ;
     [self layoutIfNeeded] ;
+    
+    [self.bgShadow setNeedsLayout] ;
+    [self.bgShadow layoutIfNeeded] ;
 }
 
 

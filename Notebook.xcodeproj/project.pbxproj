@@ -217,6 +217,7 @@
 		8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA2295B22646F4D00D736E2 /* info_right@2x.png */; };
 		8FA232D6224E07C400163685 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA232D4224E07C400163685 /* NoteCell.m */; };
 		8FA232D7224E07C400163685 /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232D5224E07C400163685 /* NoteCell.xib */; };
+		8FA69D982328EBDD00284071 /* home_cell_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */; };
 		8FAE3ABD22CF54F50054F3BB /* OctRequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */; };
 		8FAE3AC222CFBB130054F3BB /* OctGuidingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3AC122CFBB130054F3BB /* OctGuidingVC.m */; };
 		8FB2EFDE22DC2BAF00B294F1 /* MarkdownEditor+BlockBoardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB2EFD922DC2BAF00B294F1 /* MarkdownEditor+BlockBoardUtil.m */; };
@@ -698,6 +699,7 @@
 		8FA232D3224E07C400163685 /* NoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
 		8FA232D4224E07C400163685 /* NoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		8FA232D5224E07C400163685 /* NoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
+		8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_cell_shadow@2x.png"; sourceTree = "<group>"; };
 		8FAE3ABB22CF54F50054F3BB /* OctRequestUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctRequestUtil.h; sourceTree = "<group>"; };
 		8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctRequestUtil.m; sourceTree = "<group>"; };
 		8FAE3AC022CFBB130054F3BB /* OctGuidingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctGuidingVC.h; sourceTree = "<group>"; };
@@ -1325,6 +1327,7 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */,
 				8FD653DB2317D3F50033B89D /* ld_bt_staging_s@2x.png */,
 				8F2901ED231CE84E008D479D /* theme_b_dark@2x.png */,
 				8F2901EE231CE84F008D479D /* theme_b_light@2x.png */,
@@ -2169,6 +2172,7 @@
 				8F12970322C9B99E00939DD6 /* EditorSetData.plist in Resources */,
 				8FFAE117229CDAF400CDAC47 /* freefem.plist in Resources */,
 				8FEA9E392254D11B002A756B /* home_title_add@2x.png in Resources */,
+				8FA69D982328EBDD00284071 /* home_cell_shadow@2x.png in Resources */,
 				8FFAE12E229CDAF400CDAC47 /* aspdotnet-vb.plist in Resources */,
 				8F1357ED229298F700F5F874 /* tb_inlinetext@2x.png in Resources */,
 				8FFAE128229CDAF400CDAC47 /* javafx.plist in Resources */,

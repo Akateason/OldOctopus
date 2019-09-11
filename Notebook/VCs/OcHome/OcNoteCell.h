@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UIImageView *topMark;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lead_date;
+@property (strong, nonatomic) UIImageView *bgShadow ;
 
 @property (copy, nonatomic)     NSString    *textForSearching ;
 @property (nonatomic)           BOOL        trashState ;
