@@ -155,6 +155,7 @@ static int kLimitCount = 70 ;
         self.lbDate.alpha = .3 ;
         self.bookPHView.hidden = YES ;
         self.lead_date.constant = 20. ;
+        self.topMark.hidden = YES ;
     }
 }
 
