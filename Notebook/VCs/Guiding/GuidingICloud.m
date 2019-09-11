@@ -18,14 +18,18 @@
 @implementation GuidingICloud
 XT_SINGLETON_M(GuidingICloud)
 
-
-+ (instancetype)show {
++ (instancetype)showFromCtrller:(UIViewController *)fromCtrller {
     GuidingICloud *guid = [GuidingICloud xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     [[UIView xt_topWindow] addSubview:guid] ;
     [guid mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo([UIView xt_topWindow]) ;
     }] ;
+    guid.fromCtrller = fromCtrller ;
     return guid ;
+}
+
++ (instancetype)show {
+    return [self showFromCtrller:nil] ;
 }
 
 
@@ -64,7 +68,7 @@ XT_SINGLETON_M(GuidingICloud)
         }] ;
     }] ;
     
-    
+
     WEAK_SELF
     [self.btOpen bk_whenTapped:^{
         //Specifically, your app uses the following non-public URL scheme:
@@ -77,9 +81,13 @@ XT_SINGLETON_M(GuidingICloud)
     [self.lbHowToOpen bk_whenTapped:^{
         Note *aNote = [Note xt_findFirstWhere:@"icRecordName == 'iOS-note-guide'"] ;
         if (aNote.content) {
-            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
-            UINavigationController *navVC = (UINavigationController *)(appDelegate.window.rootViewController) ;
-            [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:navVC.topViewController] ;
+            if (!weakSelf.fromCtrller) {
+                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
+                UINavigationController *navVC = (UINavigationController *)(appDelegate.window.rootViewController) ;
+                weakSelf.fromCtrller = navVC.topViewController ;
+            }
+            
+            [MarkdownVC newWithNote:aNote bookID:aNote.noteBookId fromCtrller:weakSelf.fromCtrller] ;
             [weakSelf removeFromSuperview] ;
         }
     }] ;
@@ -88,17 +96,5 @@ XT_SINGLETON_M(GuidingICloud)
         [weakSelf removeFromSuperview] ;
     }] ;
 }
-
-
-
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

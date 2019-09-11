@@ -22,8 +22,11 @@ XT_SINGLETON_H(GuidingICloud)
 @property (weak, nonatomic) IBOutlet UILabel *lbHowToOpen;
 @property (weak, nonatomic) IBOutlet UILabel *lb3;
 
+@property (strong, nonatomic) UIViewController *fromCtrller ;
 
 + (instancetype)show ;
++ (instancetype)showFromCtrller:(UIViewController *)fromCtrller ;
+
 @end
 
 NS_ASSUME_NONNULL_END

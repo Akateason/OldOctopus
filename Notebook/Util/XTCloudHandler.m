@@ -26,10 +26,6 @@
     return self.userInCacheSyncGet != nil ;
 }
 
-+ (void)alertUserToLoginICloud {
-    [[XTCloudHandler sharedInstance] alertCallUserToIcloud] ;
-}
-
 + (NSString *)displayUserName {
     if (self.userInCacheSyncGet) {
         return ((XTIcloudUser *)[self userInCacheSyncGet]).givenName ;
@@ -92,7 +88,7 @@ XT_SINGLETON_M(XTCloudHandler)
         @strongify(self)
         if (error || applicationPermissionStatus == CKApplicationPermissionStatusDenied) {
 
-            [self alertCallUserToIcloud] ;
+            [self alertCallUserToIcloud:nil] ;
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 blkUser(nil) ;
@@ -104,7 +100,7 @@ XT_SINGLETON_M(XTCloudHandler)
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
             @strongify(self)
             if (!recordID) {
-                [self alertCallUserToIcloud] ;
+                [self alertCallUserToIcloud:nil] ;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     blkUser(nil) ;
                 }) ;
@@ -115,7 +111,8 @@ XT_SINGLETON_M(XTCloudHandler)
             [self.container discoverUserIdentityWithUserRecordID:recordID completionHandler:^(CKUserIdentity * _Nullable userInfo, NSError * _Nullable error) {
                 @strongify(self)
                 if (error) {
-                    [self alertCallUserToIcloud] ;
+                    [self alertCallUserToIcloud:nil] ;
+
                     dispatch_async(dispatch_get_main_queue(), ^{
                         blkUser(nil) ;
                     }) ;
@@ -124,7 +121,8 @@ XT_SINGLETON_M(XTCloudHandler)
                 
                 if (!userInfo && !error) {
                     // 获取不到用户信息, 但不报错 !. 说明没有打开找到我
-                    [self alertCallUserToIcloud] ;
+                    [self alertCallUserToIcloud:nil] ;
+
                     dispatch_async(dispatch_get_main_queue(), ^{
                         blkUser(nil) ;
                     }) ;
@@ -147,10 +145,10 @@ XT_SINGLETON_M(XTCloudHandler)
     }] ;
 }
 
-- (void)alertCallUserToIcloud {
+- (void)alertCallUserToIcloud:(UIViewController *)vc {
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        GuidingICloud *guid = [GuidingICloud show] ;
+        GuidingICloud *guid = [GuidingICloud showFromCtrller:vc] ;
         
     }) ;
 }

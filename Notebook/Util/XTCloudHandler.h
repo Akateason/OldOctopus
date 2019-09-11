@@ -21,7 +21,6 @@
 + (NSString *)pathForUserSave ;
 + (instancetype)userInCacheSyncGet ;
 + (BOOL)hasLogin ; // 未登录时, 只能纯本地使用.
-+ (void)alertUserToLoginICloud ;
 
 + (NSString *)displayUserName ; // 未登录返回 默认名字.
 
@@ -43,7 +42,7 @@ XT_SINGLETON_H(XTCloudHandler)
 
 - (NSString *)createUniqueIdentifier ;
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser ;
-- (void)alertCallUserToIcloud ;
+- (void)alertCallUserToIcloud:(UIViewController *)vc ;
 
 // Sync
 - (void)syncOperationEveryRecord:(void (^)(CKRecord *record))recordChangedBlock

@@ -77,14 +77,16 @@
                 
     self.userHead.userInteractionEnabled = self.lbName.userInteractionEnabled = YES ;
     [self.userHead bk_whenTapped:^{
+        @strongify(self)
         if (![XTIcloudUser hasLogin]) {
-            [XTIcloudUser alertUserToLoginICloud] ;
+            [[XTCloudHandler sharedInstance] alertCallUserToIcloud:self.xt_viewController] ;
         }
     }] ;
     
     [self.lbName bk_whenTapped:^{
+        @strongify(self)
         if (![XTIcloudUser hasLogin]) {
-            [XTIcloudUser alertUserToLoginICloud] ;
+            [[XTCloudHandler sharedInstance] alertCallUserToIcloud:self.xt_viewController] ;
         }
     }] ;
 }

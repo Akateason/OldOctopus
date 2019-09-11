@@ -158,12 +158,13 @@
     }) ;
     
     self.userHead.userInteractionEnabled = self.lbName.userInteractionEnabled = YES ;
+    
     [self.userHead bk_whenTapped:^{
-        if (![XTIcloudUser hasLogin]) [XTIcloudUser alertUserToLoginICloud] ;
+        if (![XTIcloudUser hasLogin]) [[XTCloudHandler sharedInstance] alertCallUserToIcloud:weakSelf] ;
     }] ;
     
     [self.lbName bk_whenTapped:^{
-        if (![XTIcloudUser hasLogin]) [XTIcloudUser alertUserToLoginICloud] ;
+        if (![XTIcloudUser hasLogin]) [[XTCloudHandler sharedInstance] alertCallUserToIcloud:weakSelf] ;
     }] ;
 }
 
