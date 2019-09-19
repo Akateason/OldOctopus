@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
                         complete:(void(^)(BOOL success))complete ;
 
 
+// 保存订单信息
++ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete ;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -166,5 +166,24 @@
     }] ;
 }
 
++ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete {
+    if (![XTIcloudUser hasLogin]) {
+        // 未登录
+        return ;
+    }
+    
+    NSString *url = [self requestLinkWithNail:@"orders"] ;
+    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
+    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
+    NSDictionary *header = @{@"Authorization" : code,
+                             @"Content-Type":@"application/json"
+                             } ;
+    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:nil rawBody:body hud:NO success:^(id json, NSURLResponse *response) {
+        complete(YES) ;
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        complete(NO) ;
+    }] ;
+}
+
 
 @end

@@ -51,6 +51,11 @@
             [OctRequestUtil setIapInfoExpireDateTick:expirationDateMs complete:^(BOOL success) {
                 
                 if (success) {
+                    // 保存订单信息
+                    [OctRequestUtil saveOrders:[rec yy_modelToJSONString] complete:^(BOOL success) {
+                        
+                    }] ;
+                    
                     // finish transaction .
                     if ([SKPaymentQueue defaultQueue]) {
                         [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
