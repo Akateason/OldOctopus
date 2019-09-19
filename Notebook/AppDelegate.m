@@ -26,7 +26,6 @@
 
 - (void)test {
     
-        
 }
 
 
@@ -52,11 +51,13 @@
                 
                 if (success) {
                     // 保存订单信息
-                    [OctRequestUtil saveOrders:[rec yy_modelToJSONString] complete:^(BOOL success) {
-                        
-                    }] ;
+                    NSString *body = [rec yy_modelToJSONString] ;
+                    if (body != nil || body.length > 0) {
+                        [OctRequestUtil saveOrders:body complete:^(BOOL success) {
+                        }] ;
+                    }
                     
-                    // finish transaction .
+                    // finish transaction
                     if ([SKPaymentQueue defaultQueue]) {
                         [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
                     }
@@ -233,9 +234,6 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
     }
     return UIInterfaceOrientationMaskPortrait;
 }
-
-
-
 
 @end
  

@@ -172,12 +172,13 @@
         return ;
     }
     
-    NSString *url = [self requestLinkWithNail:@"orders"] ;
+    NSString *url = [self requestLinkWithNail:@"users/orders"] ;
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
     NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
     NSDictionary *header = @{@"Authorization" : code,
-                             @"Content-Type":@"application/json"
+                              @"Content-Type":@"application/json"
                              } ;
+    body = [@{@"body":body} yy_modelToJSONString] ;
     [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:nil rawBody:body hud:NO success:^(id json, NSURLResponse *response) {
         complete(YES) ;
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
