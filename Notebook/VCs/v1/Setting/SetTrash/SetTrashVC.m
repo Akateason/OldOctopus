@@ -117,12 +117,12 @@
     // Completely Delete Note
     Note *aNote = self.list[indexPath.row] ;
     __block OcNoteCell *cell = (OcNoteCell *)[collectionView cellForItemAtIndexPath:indexPath] ;
-    NSString *title = XT_STR_FORMAT(@"对《%@》完成以下操作",aNote.title) ;
+    NSString *title = XT_STR_FORMAT(@"对《%@》完成以下操作", [Note filterTitle:aNote.title]) ;
     @weakify(self)
     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:nil message:title cancelButtonTitle:@"取消" destructiveButtonTitle:@"彻底删除" otherButtonTitles:@[@"恢复"] fromWithView:self.collectionView CallBackBlock:^(NSInteger btnIndex) {
         @strongify(self)
         if (btnIndex == 2) {
-            [self completelyDeleteNote:aNote fromCell:cell] ;
+            [self completelyDeleteNote:aNote fromCell:cell didSelectItemAtIndexPath:indexPath] ;
         }
         else if (btnIndex == 1) {
             [self recoverNotee:aNote] ;
@@ -135,16 +135,19 @@
 
 }
 
-- (void)completelyDeleteNote:(Note *)aNote fromCell:(OcNoteCell *)cell {
-    NSString *title = XT_STR_FORMAT(@"确认要彻底删除《%@》吗?",aNote.title) ;
+- (void)completelyDeleteNote:(Note *)aNote fromCell:(OcNoteCell *)cell didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *title = XT_STR_FORMAT(@"确认要彻底删除《%@》吗?", [Note filterTitle:aNote.title]) ;
     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:title message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
         
         if (btnIndex == 1) {
-            cell.userInteractionEnabled = NO ;
+            NSMutableArray *tmplist = [self.list mutableCopy] ;
+            [tmplist removeObjectAtIndex:indexPath.row] ;
+            self.list = tmplist ;
+            [self.collectionView deleteItemsAtIndexPaths:@[indexPath]] ;
+            
             [Note deleteThisNoteFromICloud:aNote complete:^(bool success) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.userInteractionEnabled = YES ;
-                    
                     self.list = [Note xt_findWhere:@"isDeleted == 1 AND icRecordName NOT LIKE 'mac-note%%'"] ;
                     [self.collectionView reloadData] ;
                 }) ;

@@ -145,7 +145,6 @@
 		8F6863D1226726B400261626 /* ld_theme_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863CF226726B000261626 /* ld_theme_night@2x.png */; };
 		8F6863D2226726B400261626 /* ld_theme_day@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6863D0226726B200261626 /* ld_theme_day@2x.png */; };
 		8F6BD0A7232657F700087388 /* _NoInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6BD0A6232657F700087388 /* _NoInputAccessoryView.m */; };
-		8F6BD0A92327729600087388 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F6BD0A82327729600087388 /* web.zip */; };
 		8F6C95D322CFBE6C00AF5302 /* SingleGuidVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6C95D122CFBE6C00AF5302 /* SingleGuidVC.m */; };
 		8F6C95D422CFBE6C00AF5302 /* SingleGuidVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6C95D222CFBE6C00AF5302 /* SingleGuidVC.xib */; };
 		8F6E9B91230CE4400011D935 /* OcHomeVC+UIPart.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6E9B90230CE4400011D935 /* OcHomeVC+UIPart.m */; };
@@ -218,6 +217,7 @@
 		8FA232D6224E07C400163685 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA232D4224E07C400163685 /* NoteCell.m */; };
 		8FA232D7224E07C400163685 /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232D5224E07C400163685 /* NoteCell.xib */; };
 		8FA69D982328EBDD00284071 /* home_cell_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */; };
+		8FA69D9A2329FD0D00284071 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8FA69D992329FD0D00284071 /* web.zip */; };
 		8FAE3ABD22CF54F50054F3BB /* OctRequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */; };
 		8FAE3AC222CFBB130054F3BB /* OctGuidingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3AC122CFBB130054F3BB /* OctGuidingVC.m */; };
 		8FB2EFDE22DC2BAF00B294F1 /* MarkdownEditor+BlockBoardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FB2EFD922DC2BAF00B294F1 /* MarkdownEditor+BlockBoardUtil.m */; };
@@ -602,7 +602,6 @@
 		8F6863D0226726B200261626 /* ld_theme_day@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ld_theme_day@2x.png"; sourceTree = "<group>"; };
 		8F6BD0A5232657F700087388 /* _NoInputAccessoryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _NoInputAccessoryView.h; sourceTree = "<group>"; };
 		8F6BD0A6232657F700087388 /* _NoInputAccessoryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _NoInputAccessoryView.m; sourceTree = "<group>"; };
-		8F6BD0A82327729600087388 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F6C95D022CFBE6C00AF5302 /* SingleGuidVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SingleGuidVC.h; sourceTree = "<group>"; };
 		8F6C95D122CFBE6C00AF5302 /* SingleGuidVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingleGuidVC.m; sourceTree = "<group>"; };
 		8F6C95D222CFBE6C00AF5302 /* SingleGuidVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleGuidVC.xib; sourceTree = "<group>"; };
@@ -700,6 +699,7 @@
 		8FA232D4224E07C400163685 /* NoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		8FA232D5224E07C400163685 /* NoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
 		8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_cell_shadow@2x.png"; sourceTree = "<group>"; };
+		8FA69D992329FD0D00284071 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8FAE3ABB22CF54F50054F3BB /* OctRequestUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctRequestUtil.h; sourceTree = "<group>"; };
 		8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctRequestUtil.m; sourceTree = "<group>"; };
 		8FAE3AC022CFBB130054F3BB /* OctGuidingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctGuidingVC.h; sourceTree = "<group>"; };
@@ -1193,7 +1193,7 @@
 				8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8F6BD0A82327729600087388 /* web.zip */,
+				8FA69D992329FD0D00284071 /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -2084,7 +2084,6 @@
 				8FFAE10F229CDAF400CDAC47 /* mel.plist in Resources */,
 				8FFAE108229CDAF400CDAC47 /* java.plist in Resources */,
 				8F41EED7225C4CA700D9CD35 /* home_edit_book@2x.png in Resources */,
-				8F6BD0A92327729600087388 /* web.zip in Resources */,
 				8F0688F02248EC7200A7B183 /* md_tb_bt_blkCode@2x.png in Resources */,
 				8F6863D2226726B400261626 /* ld_theme_day@2x.png in Resources */,
 				8FD7993B22C34F2E00270C2C /* SettingItems.plist in Resources */,
@@ -2226,6 +2225,7 @@
 				8FFBBB4A224B278000A304C7 /* MDEKPhotoViewCell.xib in Resources */,
 				8FDA735C230A548500EEDC57 /* Home.storyboard in Resources */,
 				8F30399A225217AB00DEB656 /* HomeEmptyPHView.xib in Resources */,
+				8FA69D9A2329FD0D00284071 /* web.zip in Resources */,
 				8F0FDED12293F12400915C21 /* md_l_tab@2x.png in Resources */,
 				8FFAE106229CDAF400CDAC47 /* scala.plist in Resources */,
 				8FFAE11E229CDAF400CDAC47 /* jsp.plist in Resources */,

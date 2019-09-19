@@ -232,6 +232,13 @@
     return tmpString ;
 }
 
++ (NSString *)filterTitle:(NSString *)title {
+    if (title.length > 7) {
+        return [title substringToIndex:6] ;
+    }
+    return title ;
+}
+
 + (NSString *)filterSqliteString:(NSString *)markdownStr {
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"\"" withString:@""] ;
     markdownStr = [markdownStr stringByReplacingOccurrencesOfString:@"'" withString:@""] ;

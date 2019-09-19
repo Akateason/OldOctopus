@@ -63,6 +63,8 @@
 
 + (NSString *)filterMD:(NSString *)originString ;
 
++ (NSString *)filterTitle:(NSString *)title ;
+
 // 获取预览图
 + (NSString *)getMDImageWithContent:(NSString *)content ;
 

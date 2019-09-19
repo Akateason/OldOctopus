@@ -118,6 +118,7 @@
     
     self.view.xt_maskToBounds = YES ;
     [self.editor toolBar] ;
+    [[OctWebEditor sharedInstance] setSideFlex] ;
     
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
