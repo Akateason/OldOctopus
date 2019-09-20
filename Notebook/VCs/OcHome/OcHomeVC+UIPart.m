@@ -44,7 +44,8 @@
     
     // 加号
     self.btSearch.touchExtendInset  = UIEdgeInsetsMake(-15, -15, -15, -15) ;
-    self.btSearch.xt_theme_imageColor = k_md_iconColor ;
+    self.btSearch.xt_theme_imageColor = k_md_iconColor ;    
+
     self.btAdd.touchExtendInset     = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     self.btAdd.xt_theme_imageColor = k_md_iconColor ;
     

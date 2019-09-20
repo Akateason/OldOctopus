@@ -45,6 +45,13 @@
             NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(expirationDateMs / 1000.0)] ;
             DLogINFO(@"新订单截止到 : %@", resExpiraDate) ;
             
+            if ([resExpiraDate compare:[NSDate date]] == NSOrderedAscending) {
+                DLogINFO(@"订单已经过期 : %@",transaction) ;
+                // finish transaction
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
+                return ;
+            }
+            
             // 调api 成功后, 再设置本地的 更新时间
             WEAK_SELF
             [OctRequestUtil setIapInfoExpireDateTick:expirationDateMs complete:^(BOOL success) {
@@ -122,9 +129,6 @@
                 [self dealReciept:json transaction:transaction error:error] ;
             }] ;
 #endif
-//            if ([SKPaymentQueue defaultQueue]) {
-//                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
-//            }
         }
         else if (transaction.transactionState == SKPaymentTransactionStatePurchasing) {
             [[OctMBPHud sharedInstance] hide] ;

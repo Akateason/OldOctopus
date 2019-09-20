@@ -65,7 +65,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
-    // Do any additional setup after loading the view.
+    
+    
+    
     NSArray *data = [PlistUtil arrayWithPlist:@"SettingItems" bundle:[NSBundle bundleForClass:self.class]] ;
     self.datasource = data ;
     

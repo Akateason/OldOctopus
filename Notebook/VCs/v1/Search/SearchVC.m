@@ -81,16 +81,17 @@
     
     
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.6)  ;
-    self.imgSearch.xt_theme_imageColor = XT_MAKE_theme_color(k_md_iconColor, .6) ;
+    self.imgSearch.xt_theme_imageColor = k_md_iconColor ;
+    self.imgSearch.alpha = .6 ;
     
     [OcNoteCell xt_registerNibFromCollection:self.collectionView] ;
     [self.collectionView xt_setup] ;
     self.collectionView.dataSource = self ;
     self.collectionView.delegate = self ;
-//    self.collectionView.xt_Delegate = self ;
+
     self.collectionView.xt_theme_backgroundColor = k_md_backColor ;
     self.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
-
+    
     self.collectionView.customNoDataView = [UIView new] ;
     
     

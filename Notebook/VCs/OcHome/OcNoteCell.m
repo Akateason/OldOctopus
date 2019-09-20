@@ -69,6 +69,7 @@ static int kLimitCount = 70 ;
         make.top.equalTo(self.sepLine.mas_bottom).offset(12) ;
         make.bottom.equalTo(self.bookPHView.mas_top).offset(-15) ;
     }] ;
+    shadowImage.xt_theme_imageColor = k_md_iconBorderColor ;
     self.bgShadow = shadowImage ;
     
 }

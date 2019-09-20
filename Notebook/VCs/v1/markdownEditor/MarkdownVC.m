@@ -116,9 +116,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
+    
     self.view.xt_maskToBounds = YES ;
     [self.editor toolBar] ;
     [[OctWebEditor sharedInstance] setSideFlex] ;
+    [[OctWebEditor sharedInstance] setupSettings] ;
     
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -237,6 +239,7 @@
         if (!self.isSnapshoting) return ;
         
         float textHeight = [x floatValue] ;
+        textHeight -= (55 + APP_SAFEAREA_STATUSBAR_FLEX) ;
         if ( textHeight < APP_HEIGHT) textHeight += 100. ;
 
         self.snapDuration = .4 + (float)textHeight / (float)APP_HEIGHT * .35 ;
@@ -248,6 +251,9 @@
         self.webView.height = textHeight ;
         [self.webView setNeedsLayout] ;
         [self.webView layoutIfNeeded] ;
+        
+//        self.webView.backgroundColor = [UIColor greenColor] ;
+//        self.snapBgView.backgroundColor = [UIColor yellowColor] ;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
@@ -267,6 +273,7 @@
 
                 self.nail = [OutputPreviewsNailView makeANail] ;
                 self.nail.top = textHeight ;
+                self.nail.backgroundColor = UIColorHex(@"FAFAFA") ;
                 [self.snapBgView addSubview:self.nail] ;
                 self.snapBgView.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + self.nail.height) ;
                 image = [UIImage getImageFromView:self.snapBgView] ;
@@ -647,12 +654,12 @@ return;}
             
             WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config] ;
             webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;
-            webView.backgroundColor = UIColorHex(@"ffffff") ;
+            webView.backgroundColor = [UIColor whiteColor] ;
             webView.opaque = NO ;
             webView.hidden = NO ;
             [webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
             webView ;
-       });
+       }) ;
     }
     return _webView;
 }
@@ -662,7 +669,7 @@ return;}
         _snapBgView = ({
             UIView *object = [[UIView alloc] init] ;
             object.frame = self.view.bounds ;
-            object.backgroundColor = UIColorHex(@"FAFAFA") ;
+            object.backgroundColor = [UIColor whiteColor] ;
             object;
        });
     }

@@ -8,6 +8,7 @@
 
 #import "SchBarPositiveTransition.h"
 #import "OcHomeVC.h"
+#import "SearchVC.h"
 
 static const float kDuration_animate_1 = .3 ;
 static const float kDuration_animate_2 = .2 ;
@@ -51,51 +52,53 @@ static const float kDuration_animate_2 = .2 ;
 - (void)positiveTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     
     OcHomeVC *fromVC = (OcHomeVC *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey] ;
-    UINavigationController *toVC   = (UINavigationController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey] ;
+    UINavigationController *toVC = (UINavigationController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey] ;
     UIView *containerView = [transitionContext containerView] ;
     
-    UIView *ssImage = [fromVC.btSearch snapshotViewAfterScreenUpdates:NO] ;
+    fromVC.btSearch.alpha = .6 ;
+    UIView *ssImage = [fromVC.btSearch snapshotViewAfterScreenUpdates:YES] ;
+    fromVC.btSearch.alpha = 1 ;
     fromVC.btSearch.hidden = YES ;
     ssImage.frame = self.originRect_img = [containerView convertRect:fromVC.btSearch.frame fromView:fromVC.btSearch.superview] ;
     
     UIView *ssBar = [UIView new] ;
-    ssBar.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_backColor) ; //[UIColor whiteColor] ;
-
+    ssBar.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_backColor) ;
     ssBar.frame = self.originRect_bar = CGRectMake(0, 0, APP_WIDTH, 69) ;
-    
     
     toVC.view.frame = [transitionContext finalFrameForViewController:toVC] ;
     toVC.view.alpha = 0 ;
-    
     
     // 把动画前后的两个ViewController加到容器中,顺序很重要,snapShotView在上方
     [containerView addSubview:ssBar] ;
     [containerView addSubview:toVC.view] ;
     [containerView addSubview:ssImage] ;
     
-    
     [containerView layoutIfNeeded] ;
-    [UIView animateWithDuration:kDuration_animate_1 + kDuration_animate_2 animations:^{
+    [UIView animateWithDuration:kDuration_animate_2 animations:^{
         
         ssBar.frame = APPFRAME ;
         fromVC.view.alpha = 0 ;
-   
-        ssImage.frame = CGRectMake(15+10, 10 + APP_STATUSBAR_HEIGHT + 11, 21, 21) ;
-        ssImage.alpha = .6 ;
-        toVC.view.alpha = 1.0 ;
+        ssImage.frame = CGRectMake(15 + 10,
+                                   10 + APP_STATUSBAR_HEIGHT + 11,
+                                   20, 20) ;
         
     }
                      completion:^(BOOL finished) {
                          
-                         fromVC.btSearch.hidden = NO ;
-                         
-                         [ssImage removeFromSuperview] ;
-                         [ssBar removeFromSuperview] ;
-                         
-                         fromVC.view.alpha = 1 ;
-                         
-                         [transitionContext completeTransition:!transitionContext.transitionWasCancelled] ;
-    
+                         [UIView animateWithDuration:kDuration_animate_1 animations:^{
+                             toVC.view.alpha = 1.0 ;
+                         } completion:^(BOOL finished) {
+                             
+                             fromVC.btSearch.hidden = NO ;
+                             
+                             [ssImage removeFromSuperview] ;
+                             [ssBar removeFromSuperview] ;
+                             
+                             fromVC.view.alpha = 1 ;
+                             
+                             [transitionContext completeTransition:!transitionContext.transitionWasCancelled] ;
+                             
+                         }] ;
                      }] ;
 }
 
@@ -107,17 +110,16 @@ static const float kDuration_animate_2 = .2 ;
     
     OcHomeVC *fromVC = (OcHomeVC *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey] ;
     UINavigationController *toVC   = (UINavigationController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey] ;
-
+    SearchVC *searchVC = (SearchVC *)toVC.topViewController ;
+    
     UIView *containerView = [transitionContext containerView] ;
     
-    
     UIView *ssImage = [fromVC.btSearch snapshotViewAfterScreenUpdates:NO] ;
-    ssImage.alpha = .6 ;
-    fromVC.btSearch.hidden = YES ;
-    ssImage.frame = CGRectMake(15+10, 10 + APP_STATUSBAR_HEIGHT + 11, 21, 21) ;
+    searchVC.imgSearch.hidden = YES ;
+    ssImage.frame = CGRectMake(15+10, 10 + APP_STATUSBAR_HEIGHT + 11, 20, 20) ;
     
-    UIView *backView = [toVC.view snapshotViewAfterScreenUpdates:NO] ;
-    
+    searchVC.btCancel.hidden = searchVC.searchBar.hidden = YES ;
+    UIView *backView = [searchVC.view snapshotViewAfterScreenUpdates:YES] ;
     
     toVC.view.frame = [transitionContext finalFrameForViewController:toVC] ;
     toVC.view.hidden = YES ;
@@ -127,25 +129,28 @@ static const float kDuration_animate_2 = .2 ;
     [containerView addSubview:ssImage] ;
     
     [UIView animateWithDuration:kDuration_animate_1 animations:^{
-        backView.alpha = 0 ;
+        
+        backView.frame = CGRectMake(0, 0, [GlobalDisplaySt sharedInstance].containerSize.width, 40) ;
+        
+    } completion:^(BOOL finished) {
+        
+        [transitionContext completeTransition:!transitionContext.transitionWasCancelled] ;
+        
+    }] ;
+
+    [UIView animateWithDuration:kDuration_animate_2 animations:^{
+        
+        ssImage.frame = self.originRect_img ;
         
     } completion:^(BOOL finished) {
         
         [backView removeFromSuperview] ;
         
-        [UIView animateWithDuration:(kDuration_animate_2 + kDuration_animate_1 ) animations:^{
-            ssImage.frame = self.originRect_img ;
-        } completion:^(BOOL finished) {
-            
-            [ssImage removeFromSuperview] ;
-            
-            fromVC.btSearch.hidden = NO ;
-            toVC.view.hidden = NO ;
-            
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled] ;
+        [ssImage removeFromSuperview] ;
         
-        }] ;
-
+        searchVC.imgSearch.hidden = NO ;
+        toVC.view.hidden = NO ;
+        
     }] ;
     
 }
