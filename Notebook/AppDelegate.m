@@ -40,7 +40,7 @@
             DLogINFO(@"iap SUCCESS") ;
             NSDictionary *dictLatestReceiptsInfo = rec[@"latest_receipt_info"];
             long long int expirationDateMs = [[dictLatestReceiptsInfo valueForKeyPath:@"@max.expires_date_ms"] longLongValue] ; // 结束时间
-            long long requestDateMs = [rec[@"receipt"][@"request_date_ms"] longLongValue] ;//请求时间
+            long long requestDateMs = [rec[@"receipt"][@"request_date_ms"] longLongValue] ; // 请求时间
             NSLog(@"%lld--%lld", expirationDateMs, requestDateMs) ;
             NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(expirationDateMs / 1000.0)] ;
             DLogINFO(@"新订单截止到 : %@", resExpiraDate) ;
@@ -113,9 +113,18 @@
 #endif
         }
         else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
-            if ([SKPaymentQueue defaultQueue]) {
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
-            }
+#ifdef DEBUG
+            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:YES onCompletion:^(NSDictionary *json, NSError *error) {
+                [self dealReciept:json transaction:transaction error:error] ;
+            }] ;
+#else
+            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:NO onCompletion:^(NSDictionary *json, NSError *error) {
+                [self dealReciept:json transaction:transaction error:error] ;
+            }] ;
+#endif
+//            if ([SKPaymentQueue defaultQueue]) {
+//                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+//            }
         }
         else if (transaction.transactionState == SKPaymentTransactionStatePurchasing) {
             [[OctMBPHud sharedInstance] hide] ;
