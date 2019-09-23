@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IAPIntroductionCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 
 @property (weak, nonatomic) IBOutlet UILabel *lb1;
 
@@ -22,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIView *bottomLine;
 
-
+- (void)userHasSubscripte:(BOOL)subscripted ;
 
 @end
 

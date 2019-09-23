@@ -17,15 +17,19 @@
     [super awakeFromNib];
     // Initialization code
     
-
     self.imageView.xt_borderWidth = .5 ;
     self.imageView.xt_cornerRadius = 6. ;
+    self.lbColorName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    self.lbTip.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
+    
     
 }
 
 - (void)setThemeStr:(NSString *)str {
     self.imageView.image = [UIImage imageNamed:STR_FORMAT(@"theme_%@",str)] ;
     self.imageView.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
+    self.lbTip.hidden = [str isEqualToString:@"light"] ;
+    self.lbColorName.text = [[MDThemeConfiguration sharedInstance] formatLanguageForKey:str] ;
 }
 
 - (void)setOnSelect:(BOOL)on {

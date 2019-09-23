@@ -116,16 +116,20 @@ static NSString *const k_UD_Last_NIGHT_THEME = @"k_UD_Last_NIGHT_THEME" ;
 
 
 - (NSString *)currentFormatLanguage {
-    if ([self.currentThemeKey isEqualToString:@"light"]) {
+    return [self formatLanguageForKey:self.currentThemeKey] ;
+}
+
+- (NSString *)formatLanguageForKey:(NSString *)key {
+    if ([key isEqualToString:@"light"]) {
         return @"无暇白" ;
     }
-    else if ([self.currentThemeKey isEqualToString:@"dark"]) {
+    else if ([key isEqualToString:@"dark"]) {
         return @"暗夜黑" ;
     }
-    else if ([self.currentThemeKey isEqualToString:@"midnight"]) {
-        return @"情调黑" ;
+    else if ([key isEqualToString:@"midnight"]) {
+        return @"午夜黑" ;
     }
-    else if ([self.currentThemeKey isEqualToString:@"sunshine"]) {
+    else if ([key isEqualToString:@"sunshine"]) {
         return @"日落黄" ;
     }
     return @"" ;

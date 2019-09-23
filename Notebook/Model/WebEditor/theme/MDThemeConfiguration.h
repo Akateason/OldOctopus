@@ -67,6 +67,7 @@ XT_SINGLETON_H(MDThemeConfiguration)
 - (BOOL)isDarkMode ;
 
 - (NSString *)currentFormatLanguage ;
+- (NSString *)formatLanguageForKey:(NSString *)key ;
 
 @end
 

@@ -19,7 +19,8 @@
     
     self.selectionStyle = 0 ;
     self.xt_theme_backgroundColor = k_md_bgColor ;
-    
+    self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+
     
     self.lb1.xt_theme_textColor = self.lb2.xt_theme_textColor = self.lb3.xt_theme_textColor = self.lb4.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
     
@@ -33,7 +34,12 @@
 }
 
 + (CGFloat)xt_cellHeight {
-    return 260. ;
+    return 314. ;
+}
+
+- (void)userHasSubscripte:(BOOL)subscripted {
+    
+    self.lbTitle.text = subscripted ? @"你已获得以下等更多功能" : @"订阅可获得以下等更多功能：" ;
 }
 
 @end

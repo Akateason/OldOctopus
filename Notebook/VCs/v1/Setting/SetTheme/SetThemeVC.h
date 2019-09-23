@@ -14,10 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *lbDesc;
-@property (weak, nonatomic) IBOutlet UIView *midBack;
 @property (weak, nonatomic) IBOutlet UIView *sepLine;
-@property (weak, nonatomic) IBOutlet UIImageView *img;
-@property (weak, nonatomic) IBOutlet UIView *backView;
+
 
 
 

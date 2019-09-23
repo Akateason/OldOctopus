@@ -76,6 +76,7 @@
     }
     else if (row == 2) {
         IAPIntroductionCell *cell = [IAPIntroductionCell xt_fetchFromTable:tableView] ;
+        [cell userHasSubscripte:YES] ;
         return cell ;
     }
     else if (row == 3) {

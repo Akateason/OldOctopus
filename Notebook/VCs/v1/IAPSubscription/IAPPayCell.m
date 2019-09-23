@@ -25,7 +25,7 @@
     self.btMonth.xt_theme_backgroundColor = self.btYear.xt_theme_backgroundColor = k_md_themeColor ;
     self.btMonth.xt_cornerRadius = self.btYear.xt_cornerRadius = 6. ;
     self.lbDescYear.xt_theme_textColor = self.lbDescMonth.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
-    
+    self.baseLien.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     
     self.iap = [IapUtil new] ;
     
@@ -62,7 +62,7 @@
 }
 
 + (CGFloat)xt_cellHeight {
-    return 127. ;
+    return 160. ;
 }
 
 - (IBAction)btMonthAction:(UIButton *)sender {
