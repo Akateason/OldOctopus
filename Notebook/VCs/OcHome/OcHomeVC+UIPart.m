@@ -26,6 +26,7 @@
     self.mainCollectionView.delegate    = (id<UICollectionViewDelegate>)self ;
     self.mainCollectionView.dataSource  = (id<UICollectionViewDataSource>)self ;
     self.mainCollectionView.pagingEnabled = YES ;
+    self.mainCollectionView.showsHorizontalScrollIndicator = NO ;
     
     [self setupStructCollectionLayout] ;
     
