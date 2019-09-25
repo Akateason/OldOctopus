@@ -42,7 +42,6 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - FTPopOverMenu (2.0.8)
-  - IAPHelper (1.1)
   - iosMath (0.9.4)
   - IQKeyboardManager (6.4.0)
   - JTMaterialSwitch (1.1)
@@ -79,7 +78,7 @@ PODS:
   - XTFMDB (2.0.6):
     - FMDB
     - YYModel
-  - XTIAP (1.0.3):
+  - XTIAP (1.1.0):
     - XTBase
     - XTReq
   - XTlib (1.8.3):
@@ -109,7 +108,6 @@ DEPENDENCIES:
   - CocoaLumberjack
   - EllipsePageControl
   - FTPopOverMenu
-  - IAPHelper
   - iosMath
   - IQKeyboardManager
   - JTMaterialSwitch
@@ -136,7 +134,6 @@ SPEC REPOS:
     - FDFullscreenPopGesture
     - FMDB
     - FTPopOverMenu
-    - IAPHelper
     - iosMath
     - IQKeyboardManager
     - JTMaterialSwitch
@@ -178,7 +175,6 @@ SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FTPopOverMenu: 79f3de38b61fae6fbe9d6115ae8ec1c187a37c36
-  IAPHelper: fd74f53b0ac142eed085777b88b86a11746a2dd4
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
   IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
   JTMaterialSwitch: cad8093c3773ff9f6c60005c98d269eb869b5e04
@@ -200,11 +196,11 @@ SPEC CHECKSUMS:
   XTBase: 6dbe59887898f8e13bf928f3d8fb70e5e45002b8
   XTColor: 0151b3b61e3b1de2dc29fcdb4a0a22758c8a38df
   XTFMDB: 0891f3355697ebbc3d75f373bcda34329f2d5d94
-  XTIAP: ef08c171e2547801a644dbf6b607e21c731a5f1d
+  XTIAP: 8061653446ba3005020052421de2093f6db4e29d
   XTlib: 79e1bf1c83b33a98184537333af22140f07e248a
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 3e6c4f64875111ce780f4d7cf3852c07ff0d39ce
+PODFILE CHECKSUM: 14fa2cbe5e2675f781e2e91356b98dd147ed8fdc
 
 COCOAPODS: 1.7.5
