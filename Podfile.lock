@@ -42,6 +42,7 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - FTPopOverMenu (2.0.8)
+  - IAPHelper (1.1)
   - iosMath (0.9.4)
   - IQKeyboardManager (6.4.0)
   - JTMaterialSwitch (1.1)
@@ -108,6 +109,7 @@ DEPENDENCIES:
   - CocoaLumberjack
   - EllipsePageControl
   - FTPopOverMenu
+  - IAPHelper
   - iosMath
   - IQKeyboardManager
   - JTMaterialSwitch
@@ -134,6 +136,7 @@ SPEC REPOS:
     - FDFullscreenPopGesture
     - FMDB
     - FTPopOverMenu
+    - IAPHelper
     - iosMath
     - IQKeyboardManager
     - JTMaterialSwitch
@@ -175,6 +178,7 @@ SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FTPopOverMenu: 79f3de38b61fae6fbe9d6115ae8ec1c187a37c36
+  IAPHelper: fd74f53b0ac142eed085777b88b86a11746a2dd4
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
   IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
   JTMaterialSwitch: cad8093c3773ff9f6c60005c98d269eb869b5e04
@@ -201,6 +205,6 @@ SPEC CHECKSUMS:
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: cc08868fcba37e815fc76a505514da6aba817527
+PODFILE CHECKSUM: 3e6c4f64875111ce780f4d7cf3852c07ff0d39ce
 
 COCOAPODS: 1.7.5

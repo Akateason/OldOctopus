@@ -102,19 +102,32 @@
     [iap setup] ;
     [IapUtil geteIapStateFromSever] ;
     
+    if(![IAPShare sharedHelper].iap) {
+        NSSet *dataSet = [[NSSet alloc] initWithObjects:k_IAP_ID_MONTH,k_IAP_ID_YEAR, nil] ;
+        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
+#ifdef DEBUG
+        [IAPShare sharedHelper].iap.production = NO;
+#else
+        [IAPShare sharedHelper].iap.production = YES;
+#endif
+    }
+
+    
     // SKPaymentQueue callback
     [XTIAP sharedInstance].g_transactionBlock = ^(SKPaymentTransaction *transaction) {
 
-        DLogERR(@"transactionState %ld",(long)transaction.transactionState) ;
+        DLogERR(@"transactionState %ld", (long)transaction.transactionState) ;
+//        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
         
         if (transaction.transactionState == SKPaymentTransactionStatePurchased
             ) {
 #ifdef DEBUG
-            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:YES onCompletion:^(NSDictionary *json, NSError *error) {
+            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:YES inDebugMode:YES onCompletion:^(NSDictionary *json, NSError *error) {
                 [self dealReciept:json transaction:transaction error:error] ;
             }] ;
+            
 #else
-            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:NO onCompletion:^(NSDictionary *json, NSError *error) {
+            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:YES inDebugMode:NO onCompletion:^(NSDictionary *json, NSError *error) {
                 [self dealReciept:json transaction:transaction error:error] ;
             }] ;
 #endif

@@ -36,21 +36,24 @@
             NSArray<SKProduct *> *products = response.products ;
             for (SKProduct *product in products) {
                 
-                NSString *price = [[XTIAP sharedInstance] getLocalePrice:product] ;
-                if ([product.productIdentifier isEqualToString:k_IAP_ID_MONTH]) {
-                    NSString *title = XT_STR_FORMAT(@"%@ 每月", price) ;
-                    [weakSelf.btMonth setTitle:title forState:0] ;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString *price = [[XTIAP sharedInstance] getLocalePrice:product] ;
+                    if ([product.productIdentifier isEqualToString:k_IAP_ID_MONTH]) {
+                        NSString *title = XT_STR_FORMAT(@"%@ 每月", price) ;
+                        [weakSelf.btMonth setTitle:title forState:0] ;
+                        
+                        NSString *desc = XT_STR_FORMAT(@"试用1周，之后%@每月",price) ;
+                        [weakSelf.lbDescMonth setText:desc] ;
+                    }
+                    else if ([product.productIdentifier isEqualToString:k_IAP_ID_YEAR]) {
+                        NSString *title = XT_STR_FORMAT(@"%@ 每年", price) ;
+                        [weakSelf.btYear setTitle:title forState:0] ;
+                        
+                        NSString *desc = XT_STR_FORMAT(@"试用1个月，之后%@每年",price) ;
+                        [weakSelf.lbDescYear setText:desc] ;
+                    }
                     
-                    NSString *desc = XT_STR_FORMAT(@"试用1周，之后%@每月",price) ;
-                    [weakSelf.lbDescMonth setText:desc] ;
-                }
-                else if ([product.productIdentifier isEqualToString:k_IAP_ID_YEAR]) {
-                    NSString *title = XT_STR_FORMAT(@"%@ 每年", price) ;
-                    [weakSelf.btYear setTitle:title forState:0] ;
-                    
-                    NSString *desc = XT_STR_FORMAT(@"试用1个月，之后%@每年",price) ;
-                    [weakSelf.lbDescYear setText:desc] ;
-                }
+                }) ;
             }
         }
     }] ;            

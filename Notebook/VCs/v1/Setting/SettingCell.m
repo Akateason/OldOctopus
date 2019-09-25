@@ -72,14 +72,14 @@
         if ([XTIcloudUser hasLogin]) {
             [IapUtil iapVipUserIsValid:^(BOOL isValid) {
                 
-                if (isValid) {
-                    IAPSuccessSubscriptionVC *vc = [IAPSuccessSubscriptionVC getMe] ;
-                    [self.xt_navigationController pushViewController:vc animated:YES] ;
-                }
-                else {
+//                if (isValid) {
+//                    IAPSuccessSubscriptionVC *vc = [IAPSuccessSubscriptionVC getMe] ;
+//                    [self.xt_navigationController pushViewController:vc animated:YES] ;
+//                }
+//                else {
                     IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
                     [self.xt_navigationController pushViewController:vc animated:YES] ;
-                }
+//                }
             }] ;
         }
         else {
