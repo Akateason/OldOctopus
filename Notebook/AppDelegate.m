@@ -102,17 +102,6 @@
     [iap setup] ;
     [IapUtil geteIapStateFromSever] ;
     
-    if(![IAPShare sharedHelper].iap) {
-        NSSet *dataSet = [[NSSet alloc] initWithObjects:k_IAP_ID_MONTH,k_IAP_ID_YEAR, nil] ;
-        [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
-#ifdef DEBUG
-        [IAPShare sharedHelper].iap.production = NO;
-#else
-        [IAPShare sharedHelper].iap.production = YES;
-#endif
-    }
-
-    
     // SKPaymentQueue callback
     [XTIAP sharedInstance].g_transactionBlock = ^(SKPaymentTransaction *transaction) {
 
