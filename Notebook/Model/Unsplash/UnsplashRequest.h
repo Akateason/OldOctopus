@@ -13,11 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UnsplashRequest : NSObject
 
 
-+ (void)photos:(void(^)(NSArray *list))result ;
++ (void)photos:(int)page
+        result:(void(^)(NSArray *list))result ;
 
 + (void)search:(NSString *)text
-          page:(NSInteger)page
-         count:(NSInteger)count
+          page:(NSInteger)page         
         result:(void(^)(NSArray *list))result ;
 
 + (void)trackDownload:(NSString *)photoID ;

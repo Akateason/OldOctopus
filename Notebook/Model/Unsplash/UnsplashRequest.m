@@ -15,9 +15,17 @@ static NSString *const kBaseUrl_unsplash = @"https://api.unsplash.com/" ;
 
 @implementation UnsplashRequest
 
-+ (void)photos:(void(^)(NSArray *list))result {
++ (void)photos:(int)page
+        result:(void(^)(NSArray *list))result {
+    
     NSString *url = STR_FORMAT(@"%@photos",kBaseUrl_unsplash) ;
-    [XTRequest reqWithUrl:url mode:(XTRequestMode_GET_MODE) header:self.defaultHeader parameters:nil rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
+    
+    NSDictionary *param = @{
+                            @"page":@(page),
+                            @"per_page":@(18),
+                            } ;
+
+    [XTRequest reqWithUrl:url mode:(XTRequestMode_GET_MODE) header:self.defaultHeader parameters:param rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
         
         NSArray *list = [NSArray yy_modelArrayWithClass:UnsplashPhoto.class json:json] ;
         result(list) ;
@@ -28,17 +36,20 @@ static NSString *const kBaseUrl_unsplash = @"https://api.unsplash.com/" ;
 }
 
 + (void)search:(NSString *)text
-          page:(NSInteger)page
-         count:(NSInteger)count
+          page:(NSInteger)page         
         result:(void(^)(NSArray *list))result {
+    
     NSString *url = STR_FORMAT(@"%@search/photos",kBaseUrl_unsplash) ;
     NSDictionary *param = @{@"query":text,
                             @"page":@(page),
-                            @"per_page":@(count),
+                            @"per_page":@(18),
                             } ;
+    
     [XTRequest reqWithUrl:url mode:(XTRequestMode_GET_MODE) header:self.defaultHeader parameters:param rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
-        NSArray *list = [NSArray yy_modelArrayWithClass:UnsplashPhoto.class json:json] ;
+        
+        NSArray *list = [NSArray yy_modelArrayWithClass:UnsplashPhoto.class json:json[@"results"]] ;
         result(list) ;
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         result(nil) ;
     }] ;

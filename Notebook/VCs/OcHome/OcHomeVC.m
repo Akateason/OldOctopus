@@ -48,7 +48,7 @@ static const float kFlex_loft_sync_animate = 10.f ;
 }
 
 - (void)viewDidLoad {
-//    [UnsplashVC showMeFrom:self] ;
+    [UnsplashVC showMeFrom:self] ;
     
     
     [super viewDidLoad] ;

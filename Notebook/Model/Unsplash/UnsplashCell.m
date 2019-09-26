@@ -13,6 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    self.lbName.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
 }
 
 @end
