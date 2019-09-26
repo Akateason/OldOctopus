@@ -18,6 +18,8 @@
 @property (nonatomic,copy) NSString   *alt_description ;
 
 @property (nonatomic,copy) NSString   *url_reqular ; // change
+@property (nonatomic,copy) NSString   *url_small ; // change
+@property (nonatomic,copy) NSString   *url_thumb ; // change
 @property (nonatomic,copy) NSString   *userName ; // change
 
 

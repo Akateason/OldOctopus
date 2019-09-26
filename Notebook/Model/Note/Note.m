@@ -105,7 +105,7 @@
             aNote.isSendOnICloud = YES ;
             aNote.createDateOnServer = [record.creationDate xt_getTick] ;
             aNote.modifyDateOnServer = [record.modificationDate xt_getTick] ;
-            [aNote xt_update] ;
+            [aNote xt_update] ;                        
         }
         else {
             // false

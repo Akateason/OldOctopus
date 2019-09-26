@@ -252,8 +252,6 @@
         [self.webView setNeedsLayout] ;
         [self.webView layoutIfNeeded] ;
         
-//        self.webView.backgroundColor = [UIColor greenColor] ;
-//        self.snapBgView.backgroundColor = [UIColor yellowColor] ;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.snapDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
@@ -403,19 +401,26 @@ return;}
 - (void)createNewNote {
     NSString *markdown = self.editor.aNote.content ;
     NSString *title = [Note getTitleWithContent:markdown] ;
-    if (markdown && markdown.length) {
+    if (markdown && markdown.length && ![markdown isEqualToString:@"\n"]) {
         Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:markdown title:title] ;
         self.aNote = newNote ;
         [Note createNewNote:self.aNote] ;
         XT_USERDEFAULT_SET_VAL(newNote.icRecordName, kUDCached_lastNote_RecID) ;
         [self.delegate addNoteComplete:self.aNote] ;
         
+        
+//        self.editor.aNote = newNote ;
+        [self.editor setValue:newNote forKey:@"_aNote"] ;
     }
     XT_HIDE_HUD
 }
 
 - (void)updateMyNote {
-    if (!self.aNote) XT_HIDE_HUD_RETURN
+    if (!self.aNote) {
+        // new note
+        [self createNewNote] ;
+        return ;
+    }
     if (!self.editor.webViewHasSetMarkdown) XT_HIDE_HUD_RETURN
     if (self.editor.articleAreTheSame) XT_HIDE_HUD_RETURN
     if (![self.editor.aNote.icRecordName isEqualToString:self.aNote.icRecordName]) XT_HIDE_HUD_RETURN

@@ -12,7 +12,7 @@
 #import "UnsplashCell.h"
 #import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
 
-@interface UnsplashVC () <UICollectionViewDataSource,UICollectionViewDelegate>
+@interface UnsplashVC () <UICollectionViewDataSource,UICollectionViewDelegate,CHTCollectionViewDelegateWaterfallLayout>
 @property (copy, nonatomic) NSArray *list ;
 @end
 
@@ -27,6 +27,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
+    
+    CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init] ;
+    layout.columnCount = 2;
+    layout.minimumInteritemSpacing = 10;
+    layout.headerHeight = 0;
+    layout.footerHeight = 0;
+    layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10) ;
+    layout.itemRenderDirection = CHTCollectionViewWaterfallLayoutItemRenderDirectionLeftToRight ;
+    
+    self.collectionView.collectionViewLayout = layout ;
     
     self.collectionView.dataSource = self ;
     self.collectionView.delegate = self ;
@@ -63,12 +73,19 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UnsplashCell *cell = [UnsplashCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
     UnsplashPhoto *photo = self.list[indexPath.row] ;
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:photo.url_reqular] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:photo.url_small] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         
     }] ;
     return cell ;
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UnsplashPhoto *photo = self.list[indexPath.row] ;
+
+    float scnWid = IS_IPAD ? 400 : APP_WIDTH ;
+    float wid = (scnWid - 10. * 3.) / 2. ;
+    return CGSizeMake(wid, wid / photo.width * photo.height) ;
+}
 
 
 @end

@@ -19,7 +19,9 @@
 // 你也可以在这里做一些自动转换不能完成的工作。
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     _url_reqular = dic[@"urls"][@"regular"];
-    _userName = dic[@"user"][@"username"] ;
+    _url_small = dic[@"urls"][@"small"];
+    _url_thumb = dic[@"urls"][@"thumb"];
+    _userName = dic[@"user"][@"username"];
     
     return YES;
 }

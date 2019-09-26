@@ -62,5 +62,3 @@
 + (CGFloat)getEditorLeftIpad ;
 
 @end
-
-
