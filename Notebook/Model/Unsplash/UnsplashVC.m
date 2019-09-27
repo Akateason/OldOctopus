@@ -89,6 +89,10 @@ static int kPage_UnsplashVC = 1 ;
     
     self.tfSearch.placeholder = @"搜索图片";
     
+    WEAK_SELF
+    [self.btClose bk_addEventHandler:^(id sender) {
+        [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
+    } forControlEvents:(UIControlEventTouchUpInside)] ;
 }
 
 #pragma mark - collection

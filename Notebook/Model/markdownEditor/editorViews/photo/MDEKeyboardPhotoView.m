@@ -20,6 +20,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *h_collection;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top_collection;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom_collection;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height_list;
 
 @property (copy, nonatomic) BlkCollectionFlowPressed blkFlowPressed ;
 @property (strong, nonatomic) PHImageManager *manager;
@@ -34,19 +35,20 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
          WhenUserPressedPhotoOnList:(void(^)(UIImage *image))blkPressedPhotoList
                     cameraOnPressed:(void(^)(UIImage *image))blkPressCameraBt
                      albumOnPressed:(void(^)(UIImage *image))blkPressAlbum
-                        linkPressed:(void(^)(void))linkPressed {
+                        linkPressed:(void(^)(void))linkPressed
+                    unsplashPressed:(void(^)(void))unsplashPressed {
     
     MDEKeyboardPhotoView *photoView = [MDEKeyboardPhotoView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     [photoView setupCollections:height] ;
     photoView.ctrller = ctrller ;
     photoView.blkFlowPressed = blkPressedPhotoList ;
     photoView.keyboardHeight = height ;
+    [photoView setupUIs] ;
     
     @weakify(photoView)
     [photoView.btViewCamera bk_whenTapped:^{
-//        @strongify(photoView)
+
         dispatch_async(dispatch_get_main_queue(), ^{
-//            [photoView cameraAddCrop:blkPressCameraBt] ;
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_User_Open_Camera object:nil] ;
         }) ;
     }] ;
@@ -59,6 +61,12 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     [photoView.btLink bk_whenTapped:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             linkPressed() ;
+        }) ;
+    }] ;
+    
+    [photoView.btUnsplash bk_whenTapped:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            unsplashPressed() ;
         }) ;
     }] ;
     
@@ -82,29 +90,52 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     }];
 }
 
-//- (void)cameraAddCrop:(void(^)(UIImage *image))blkGetImage {
-//    @weakify(self)
-//    XTCameraHandler *handler = [[XTCameraHandler alloc] init];
-//    [handler openCameraFromController:self.ctrller takePhoto:^(UIImage *imageResult) {
-//        if (!imageResult) return;
-//
-//        @strongify(self)
-//        blkGetImage(imageResult) ;
-//    }] ;
-//    self.handler = handler;
-//}
-
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight {
+    [self scrollView] ;
+    UIView *backView = [UIView new] ;
+    
     for (UIView *window in [UIApplication sharedApplication].windows) {
         if ([window isKindOfClass:NSClassFromString(@"UIRemoteKeyboardWindow")]) {
-            [window addSubview:self] ;
-            [self mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            [window addSubview:self.scrollView] ;
+            [self.scrollView addSubview:backView] ;
+            [backView addSubview:self] ;
+            
+            [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.left.right.equalTo(window) ;
                 make.height.equalTo(@(keyboardHeight)) ;
             }] ;
+            
+            [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.scrollView) ;
+            }] ;
+            
+            [self mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.right.equalTo(backView);
+                make.width.equalTo(@(APP_WIDTH));
+                make.height.equalTo(@379) ;
+            }] ;
+            
+            [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.mas_bottom) ;
+            }] ;
+            
         }
     }
 }
+
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        UIScrollView *scrollView = [[UIScrollView alloc] init] ;
+        scrollView.backgroundColor = UIColorHex(@"f9f6f6") ;
+        _scrollView = scrollView ;
+    }
+    return _scrollView ;
+}
+
+
+
+
 
 - (void)setupCollections:(CGFloat)keyboardHeight {
     [self setupAlbum] ;
@@ -141,6 +172,24 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
         }
     }];
 }
+
+- (void)setupUIs {
+//    for (UIImage *img in self.iconImgs) {
+//        img.xt_theme_imageColor = k_md_iconColor ;
+//    }
+    
+    for (UILabel *lb in self.lightLabels) {
+        lb.textColor = [UIColor colorWithWhite:0 alpha:.3] ;
+    }
+    
+    for (UILabel *lb in self.darkLabels) {
+        lb.textColor = [UIColor colorWithWhite:0 alpha:.8] ;
+    }
+    
+    self.height_list.constant = k_open_Unspash ? 150. : 100. ;
+    self.btUnsplash.hidden = !k_open_Unspash ;
+}
+
 
 - (void)firstLoadAllPhotos {
     if (self.allPhotos.count) return;

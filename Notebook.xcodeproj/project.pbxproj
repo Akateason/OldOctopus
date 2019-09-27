@@ -1048,7 +1048,8 @@
 				8FFBBB47224B278000A304C7 /* MDEKPhotoViewCell.m */,
 				8FFBBB48224B278000A304C7 /* MDEKPhotoViewCell.xib */,
 			);
-			path = photo;
+			name = photo;
+			path = ../../markdownEditor/editorViews/photo;
 			sourceTree = "<group>";
 		};
 		8F19E109228197CD00121851 /* codeBlk */ = {
@@ -1478,6 +1479,7 @@
 				8F1357E02292950E00F5F874 /* OctToolbar.h */,
 				8F1357E12292950E00F5F874 /* OctToolbar.m */,
 				8F1357E32292974600F5F874 /* OctToolbar.xib */,
+				8F19E108228197AF00121851 /* photo */,
 				8F1357F22292A33F00F5F874 /* OctToolBarInlineView.h */,
 				8F1357F32292A33F00F5F874 /* OctToolBarInlineView.m */,
 				8F1357F52292A55500F5F874 /* OctToolBarInlineView.xib */,
@@ -1772,7 +1774,6 @@
 				8FBA041B228A98A400EED229 /* Hr */,
 				8F19E10A2281984300121851 /* photoPreview */,
 				8F19E109228197CD00121851 /* codeBlk */,
-				8F19E108228197AF00121851 /* photo */,
 				8F19E107228197A300121851 /* link */,
 			);
 			path = editorViews;

@@ -114,7 +114,7 @@
 - (void)hideAllBoards {
     [self.inlineBoard removeFromSuperview] ;
     _inlineBoard = nil ;
-    [self.photoView removeFromSuperview] ;
+    [self.photoView.scrollView removeFromSuperview] ;
     _photoView = nil ;
     [self.blockBoard.scrollView removeFromSuperview] ;
     _blockBoard = nil ;
@@ -151,7 +151,6 @@
     if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
         [self.delegate subscription] ;
         
-    
         return ;
     }
     

@@ -14,7 +14,7 @@
 #import "OctRequestUtil.h"
 #import "IAPSubscriptionVC.h"
 #import "MarkdownVC.h"
-
+#import "UnsplashVC.h"
 
 @implementation OctWebEditor (OctToolbarUtil)
 
@@ -54,6 +54,9 @@
         [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
+    } unsplashPressed:^{
+        @strongify(self)
+        [UnsplashVC showMeFrom:self.xt_viewController] ;
     }] ;
     return photoView ;
 }

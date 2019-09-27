@@ -100,6 +100,8 @@
         [self uploadImage:image] ;
     } linkPressed:^{        
         
+    } unsplashPressed:^{
+        
     }] ;
     return photoView ;
 }
