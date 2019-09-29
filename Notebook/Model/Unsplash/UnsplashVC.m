@@ -152,20 +152,11 @@ static int kPage_UnsplashVC = 1 ;
     return CGSizeMake(wid, wid / photo.width * photo.height + 25) ;
 }
 
-//- (void)collectionView:(UICollectionView *)collectionView
-//       willDisplayCell:(UnsplashCell *)cell
-//    forItemAtIndexPath:(NSIndexPath *)indexPath {
-//
-//    [UIView animateWithDuration:.2 delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
-//        cell.imageView.transform = CGAffineTransformMakeScale(.8, .8) ;
-//    } completion:^(BOOL finished) {
-//        [UIView animateWithDuration:0.1 animations:^{
-//            cell.imageView.transform = CGAffineTransformIdentity;
-//        } completion:^(BOOL finished) {
-//
-//        }] ;
-//    }] ;
-//
-//}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UnsplashPhoto *photo = self.list[indexPath.row] ;
+    
+    
+}
+
 
 @end
