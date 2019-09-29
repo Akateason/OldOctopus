@@ -274,6 +274,7 @@
         NSRange endRange = [strRes rangeOfString:@")"];
         NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length) ;
         NSString *tmpStr = [strRes substringWithRange:range];
+        
         [results addObject:tmpStr] ;
     }
     return [results yy_modelToJSONString] ;

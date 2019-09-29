@@ -22,7 +22,7 @@
 #import "HiddenUtil.h"
 #import "HomePadVC.h"
 #import "_NoInputAccessoryView.h"
-
+#import "UnsplashPhoto.h"
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -98,6 +98,18 @@ XT_SINGLETON_M(OctWebEditor)
         self.toolBar.hidden = YES ;
         [self.toolBar hideAllBoards] ;
         self.toolBar.top = 2000 ;
+    }] ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Unsplash_Photo_Selected object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        UnsplashPhoto *photo = x.object ;
+        NSDictionary *dic = @{@"src":photo.url_reqular,
+                              @"alt":photo.alt_description,
+                              @"title":photo.userName
+                              } ;
+        [self nativeCallJSWithFunc:@"insertImageDirectly" json:[dic yy_modelToJSONString] completion:^(NSString *val, NSError *error) {}] ;
+        [self hideKeyboard] ;
+        
     }] ;
     
     [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {

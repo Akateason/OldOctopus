@@ -23,6 +23,8 @@
     _url_thumb = dic[@"urls"][@"thumb"];
     _userName = dic[@"user"][@"username"];
     
+    if (!_alt_description) _alt_description = @"" ;
+    
     return YES;
 }
 

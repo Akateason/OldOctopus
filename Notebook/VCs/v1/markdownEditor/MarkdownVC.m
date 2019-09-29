@@ -335,7 +335,11 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated] ;
     
-    [self leaveOut] ;
+    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+        NSLog(@"clicked navigationbar back button 编辑器页面返回 ！");
+        [self leaveOut] ; //
+    }
+    
 }
 
 #define XT_HIDE_HUD        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\

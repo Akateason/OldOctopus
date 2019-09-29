@@ -155,7 +155,8 @@ static int kPage_UnsplashVC = 1 ;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     UnsplashPhoto *photo = self.list[indexPath.row] ;
     
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Unsplash_Photo_Selected object:photo] ;
+    [self dismissViewControllerAnimated:YES completion:nil] ;
 }
 
 

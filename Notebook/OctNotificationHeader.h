@@ -37,4 +37,7 @@ static NSString *const kNote_Editor_CHANGE          = @"kNote_Editor_CHANGE" ;
 static NSString *const kNote_Editor_Make_Big_Photo  = @"kNote_Editor_Make_Big_Photo" ;
 static NSString *const kNote_Editor_Send_Share_Html = @"kNote_Editor_Send_Share_Html" ;
 
+// unsplash
+static NSString *const kNote_Unsplash_Photo_Selected = @"kNote_Unsplash_Photo_Selected" ;
+
 #endif /* OctNotificationHeader_h */

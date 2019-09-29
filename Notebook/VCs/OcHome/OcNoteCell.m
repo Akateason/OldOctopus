@@ -90,7 +90,13 @@ static int kLimitCount = 70 ;
     
     if (hasPic) {
         NSArray *list = [WebModel convertjsonStringToJsonObj:note.previewPicture] ;
-        [_img sd_setImageWithURL:[NSURL URLWithString:list.firstObject]] ;
+        NSString *strUrl = list.firstObject ;
+        strUrl = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL *imgUrl = [NSURL URLWithString:strUrl] ;
+        
+        [_img sd_setImageWithURL:imgUrl completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            
+        }] ;
     }
     else {
         NSString *content = [Note filterMD:note.content] ;
