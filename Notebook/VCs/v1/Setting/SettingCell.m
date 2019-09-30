@@ -72,14 +72,21 @@
         if ([XTIcloudUser hasLogin]) {
             [IapUtil iapVipUserIsValid:^(BOOL isValid) {
                 
-//                if (isValid) {
-//                    IAPSuccessSubscriptionVC *vc = [IAPSuccessSubscriptionVC getMe] ;
-//                    [self.xt_navigationController pushViewController:vc animated:YES] ;
-//                }
-//                else {
+                if (k_Subscript_Test_On) { // 测试连续订阅
                     IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
                     [self.xt_navigationController pushViewController:vc animated:YES] ;
-//                }
+                    
+                    return ;
+                }
+                
+                if (isValid) {
+                    IAPSuccessSubscriptionVC *vc = [IAPSuccessSubscriptionVC getMe] ;
+                    [self.xt_navigationController pushViewController:vc animated:YES] ;
+                }
+                else {
+                    IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
+                    [self.xt_navigationController pushViewController:vc animated:YES] ;
+                }
             }] ;
         }
         else {

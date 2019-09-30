@@ -45,6 +45,12 @@
             NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(expirationDateMs / 1000.0)] ;
             DLogINFO(@"新订单截止到 : %@", resExpiraDate) ;
             
+            if (!expirationDateMs && !rec) {
+                DLogINFO(@"拿不到收据 : %@",transaction) ;                
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; //
+                return ;
+            }
+            
             if ([resExpiraDate compare:[NSDate date]] == NSOrderedAscending) {
                 DLogINFO(@"订单已经过期 : %@",transaction) ;
                 // finish transaction
@@ -78,16 +84,12 @@
             }] ;
         }
         else {
-            DLogERR(@"dealReciept Fail : %@",rec) ;
-            NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",rec,error) ;
-            [SVProgressHUD showErrorWithStatus:res] ;
+            DLogERR(@"购买失败 rec : %@, err : %@",rec,error) ;
         }
 
     }
     else {
-        DLogERR(@"dealReciept Fail : %@",error) ;
-        NSString *res = XT_STR_FORMAT(@"购买失败, 请检查网络\n%@\n%@",rec,error) ;
-        [SVProgressHUD showErrorWithStatus:res] ;
+        DLogERR(@"验证收据失败 rec : %@, err : %@",rec,error) ;
     }
 }
 
@@ -107,6 +109,7 @@
 
         DLogERR(@"transactionState %ld", (long)transaction.transactionState) ;
 //        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
+        NSLog(@"appStoreReceiptURL : %@",[[NSBundle mainBundle] appStoreReceiptURL]) ;
         
         if (transaction.transactionState == SKPaymentTransactionStatePurchased
             ) {
