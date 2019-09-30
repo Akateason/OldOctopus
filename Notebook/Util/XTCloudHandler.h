@@ -18,6 +18,8 @@
 @property (copy, nonatomic) NSString *givenName ;
 @property (copy, nonatomic) NSString *familyName ;
 
+
+
 + (NSString *)pathForUserSave ;
 + (instancetype)userInCacheSyncGet ;
 + (BOOL)hasLogin ; // 未登录时, 只能纯本地使用.
@@ -39,7 +41,7 @@ XT_SINGLETON_H(XTCloudHandler)
 @property (strong, nonatomic) CKRecordZoneID *zoneID ;
 @property (readonly, nonatomic) BOOL isSyncingOnICloud ;
 
-
+- (void)setup:(void(^)(BOOL success))completion ;
 - (NSString *)createUniqueIdentifier ;
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser ;
 - (void)alertCallUserToIcloud:(UIViewController *)vc ;

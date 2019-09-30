@@ -73,6 +73,94 @@ XT_SINGLETON_M(XTCloudHandler)
     return getString ;
 }
 
+- (void)setup:(void(^)(BOOL success))completion {
+    [self.container accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError * _Nullable error) {
+        
+        void  (^requestPremission)(void) = ^{
+            [self.container requestApplicationPermission:CKApplicationPermissionUserDiscoverability completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
+                
+                switch (applicationPermissionStatus) {
+                    case CKApplicationPermissionStatusCouldNotComplete:{
+                        //无法完成
+                        NSLog(@"CKApplicationPermissionStatusCouldNotComplete");
+                        completion(NO) ;
+                        break;
+                    }
+                    case CKApplicationPermissionStatusDenied:{
+                        //拒绝
+                        NSLog(@"CKApplicationPermissionStatusDenied");
+                        completion(NO) ;
+                        break;
+                    }
+                    case CKApplicationPermissionStatusGranted:{
+                        //授权通过
+                        NSLog(@"CKApplicationPermissionStatusGranted");
+                        completion(YES) ;
+                        break;
+                    }
+                    case CKApplicationPermissionStatusInitialState:{
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            }];
+        };
+        
+        void  (^signPremission)(void) = ^{
+            [self.container statusForApplicationPermission:CKApplicationPermissionUserDiscoverability completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
+                switch (applicationPermissionStatus) {
+                    case CKApplicationPermissionStatusInitialState:{
+                        requestPremission();
+                        break;
+                    }
+                    case CKApplicationPermissionStatusGranted:{
+                        //授权过了
+                        break;
+                    }
+                    case CKApplicationPermissionStatusDenied:{
+                        //已经拒绝
+                        break;
+                    }
+                    case CKApplicationPermissionStatusCouldNotComplete:{
+                        //无法获取状态
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            }];
+        };
+        
+        switch (accountStatus) {
+            case CKAccountStatusAvailable:{
+                //账户可用
+                signPremission();
+                break;
+            }
+            case CKAccountStatusCouldNotDetermine:{
+                //无法获取账户信息
+                [SVProgressHUD showInfoWithStatus:@"无法获取账户信息"] ;
+                break;
+            }
+            case CKAccountStatusNoAccount:{
+                //当前无登录账户
+                [SVProgressHUD showInfoWithStatus:@"当前无登录账户"] ;
+                break;
+            }
+            case CKAccountStatusRestricted:{
+                //账户被禁用此功能
+                [SVProgressHUD showInfoWithStatus:@"账户被禁用此功能"] ;
+                break;
+            }
+            default:
+                break;
+        }
+    }] ;
+}
+
+
+
 - (void)fetchUser:(void(^)(XTIcloudUser *user))blkUser {
     
     XTIcloudUser *user = [XTArchive unarchiveSomething:[XTIcloudUser pathForUserSave]] ;
@@ -82,6 +170,8 @@ XT_SINGLETON_M(XTCloudHandler)
         }) ;
         return ;
     }
+    
+    
     @weakify(self)
     [self.container requestApplicationPermission:(CKApplicationPermissionUserDiscoverability) completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
         // 这里要 提醒用户开 icloud drive
@@ -95,7 +185,7 @@ XT_SINGLETON_M(XTCloudHandler)
             }) ;
             return ;
         }
-        
+
         @weakify(self)
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
             @strongify(self)
@@ -106,7 +196,7 @@ XT_SINGLETON_M(XTCloudHandler)
                 }) ;
                 return ;
             }
-            
+
             @weakify(self)
             [self.container discoverUserIdentityWithUserRecordID:recordID completionHandler:^(CKUserIdentity * _Nullable userInfo, NSError * _Nullable error) {
                 @strongify(self)
@@ -118,17 +208,17 @@ XT_SINGLETON_M(XTCloudHandler)
                     }) ;
                     return ;
                 }
-                
+
                 if (!userInfo && !error) {
                     // 获取不到用户信息, 但不报错 !. 说明没有打开找到我
-                    [self alertCallUserToIcloud:nil] ;
+//                    [self alertCallUserToIcloud:nil] ;
 
                     dispatch_async(dispatch_get_main_queue(), ^{
                         blkUser(nil) ;
                     }) ;
                     return ;
                 }
-                
+
                 XTIcloudUser *user = [XTIcloudUser new] ;
                 user.userRecordName = userInfo.userRecordID.recordName ;
                 user.familyName = userInfo.nameComponents.familyName ;
@@ -145,11 +235,10 @@ XT_SINGLETON_M(XTCloudHandler)
     }] ;
 }
 
+
 - (void)alertCallUserToIcloud:(UIViewController *)vc {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         GuidingICloud *guid = [GuidingICloud showFromCtrller:vc] ;
-        
     }) ;
 }
 

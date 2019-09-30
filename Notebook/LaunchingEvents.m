@@ -185,15 +185,21 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 
 
 - (void)setupIcloudEvent {
-    [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser * _Nonnull user) {
-        NSLog(@"!!! Icloud User Logined : %@", [user yy_modelToJSONString]) ;
-        if (user.userRecordName) {
-            [[XTCloudHandler sharedInstance] saveSubscription] ;
-            [self pullOrSync] ;
+    [[XTCloudHandler sharedInstance] setup:^(BOOL success) {
+        
+        if (success) {
+            [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser * _Nonnull user) {
+                NSLog(@"!!! Icloud User Logined : %@", [user yy_modelToJSONString]) ;
+                if (user.userRecordName) {
+                    [[XTCloudHandler sharedInstance] saveSubscription] ;
+                    [self pullOrSync] ;
+                }
+                else {
+                    
+                }
+            }] ;
         }
-        else {
-            
-        }
+        
     }] ;
 }
 
