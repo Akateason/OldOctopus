@@ -12,8 +12,10 @@
 #import "GuidingICloud.h"
 #import "IapUtil.h"
 #import "IAPSubscriptionVC.h"
+#import "SettingItemCell.h"
+#import "SettingSave.h"
 
-@interface SetThemeVC () <UICollectionViewDelegate,UICollectionViewDataSource>
+@interface SetThemeVC () <UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDataSource,UITableViewDelegate,SettingItemCellDelegate>
 @property (copy, nonatomic) NSArray *themes ;
 @end
 
@@ -25,7 +27,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad] ;
     
     self.themes = @[@"light",@"dark",@"sunshine",@"midnight"] ;
     
@@ -58,7 +60,12 @@
     self.collectionView.collectionViewLayout = layout ;
     
     
-
+    [SettingItemCell xt_registerNibFromTable:self.table] ;
+    self.table.dataSource = self ;
+    self.table.delegate = self ;
+    self.table.scrollEnabled = NO ;
+    self.table.xt_theme_backgroundColor = k_md_bgColor ;
+    self.table.separatorStyle = 0 ;
 }
 
 #pragma mark - collection
@@ -96,7 +103,47 @@
     [self.collectionView reloadData] ;
     
     
+    SettingItemCell *cell = [self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] ;
+    [cell.swt removeFromSuperview] ;
+    cell.swt = nil ;
     
+    [cell swt] ;
+    [self.table reloadData] ;
+    
+}
+
+#pragma mark - table
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1 ;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SettingItemCell *cell = [SettingItemCell xt_fetchFromTable:tableView] ;
+    cell.delegate = self ;
+    
+    cell.lbTitle.text = @"跟随系统切换主题" ;
+    cell.swt.hidden = NO ;
+    cell.imgRightCorner.hidden = YES ;
+    cell.lbDesc.hidden = YES ;
+    cell.topLine.hidden = YES ;
+    cell.bottomLine.hidden = YES ;
+    
+    SettingSave *sSave = [SettingSave fetch] ;
+    [cell.swt setOn:sSave.theme_isChangeWithSystemDarkmode animated:NO] ;
+    
+    return cell ;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [SettingItemCell xt_cellHeight] ;
+}
+
+#pragma mark - SettingItemCellDelegate <NSObject>
+- (void)switchStateChanged:(JTMaterialSwitchState)currentState dic:(NSDictionary *)dic {
+    SettingSave *sSave = [SettingSave fetch] ;
+    sSave.theme_isChangeWithSystemDarkmode = currentState == JTMaterialSwitchStateOn ;
+    [sSave save] ;
 }
 
 

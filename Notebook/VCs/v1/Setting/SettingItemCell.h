@@ -10,7 +10,7 @@
 #import <JTMaterialSwitch/JTMaterialSwitch.h>
 #import "SettingCell.h"
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @protocol SettingItemCellDelegate <NSObject>
 - (void)switchStateChanged:(JTMaterialSwitchState)currentState dic:(NSDictionary *)dic ;
@@ -33,4 +33,4 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) SettingCellSeperateLine_Mode sepLineMode ;
 @end
 
-NS_ASSUME_NONNULL_END
+

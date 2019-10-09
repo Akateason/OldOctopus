@@ -16,7 +16,7 @@
 #import "UserTestCodeVC.h"
 #import "OcHomeVC+Notifications.h"
 #import "SchBarPositiveTransition.h"
-
+#import "SettingSave.h"
 
 static const float kFlex_loft_sync_animate = 10.f ;
 
@@ -419,7 +419,6 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
         //    if (!directionUp) {NSLog(@"下")}
         //    else {NSLog(@"上")} ;
     }
-    
 }
 
 - (void)containerCellDidSelectedNote:(Note *)note {
@@ -515,21 +514,22 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 #pragma mark - Size Class
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    [super traitCollectionDidChange:previousTraitCollection];
-    
-//    NSLog(@"traitCollectionDidChange: previous %@, new %@", SIZECLASS_2_STR(previousTraitCollection.horizontalSizeClass), SIZECLASS_2_STR(self.traitCollection.horizontalSizeClass)) ;
+    [super traitCollectionDidChange:previousTraitCollection] ;
     
     if (@available(iOS 12.0, *)) {
-        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) { // dark
-            [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
+        SettingSave *sSave = [SettingSave fetch] ;
+        if (sSave.theme_isChangeWithSystemDarkmode) {
+            if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) { // dark
+                [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
+            }
+            else { // light
+                [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
+            }
         }
-        else { // light
-            [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
-        }
-    } else {
+    }
+    else {
         // Fallback on earlier versnions
     }
-
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -542,12 +542,10 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
 //    NSLog(@"viewWillTransitionToSize: size %@", NSStringFromCGSize(size)) ;
-    
     [GlobalDisplaySt sharedInstance].containerSize = size ;
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     
     NSValue *val = [NSValue valueWithCGSize:size] ;
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kNoteSlidingSizeChanging object:val] ;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNote_SizeClass_Changed object:val] ;
 }
 
