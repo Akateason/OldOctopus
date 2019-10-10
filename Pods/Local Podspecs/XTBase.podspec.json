@@ -1,6 +1,6 @@
 {
   "name": "XTBase",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "summary": "base of XTBase",
   "description": "iOS rapid utils from XTlib.",
   "homepage": "https://github.com/Akateason/XTBase",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/Akateason/XTBase.git",
-    "tag": "1.1.7"
+    "tag": "1.1.8"
   },
   "source_files": [
     "XTBase/XTBase/**/*.{h,m}",
@@ -44,9 +44,6 @@
     ],
     "Valet": [
       "2.4.2"
-    ],
-    "RxWebViewController": [
-
     ],
     "YYModel": [
 
