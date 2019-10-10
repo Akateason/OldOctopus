@@ -61,7 +61,7 @@
          BOOL scrollUpDirection = translation.y < 0 ;
          
          if ( directionIsVerical ) {
-             NSLog(@"v : %@",@(velocity.y)) ;
+//             NSLog(@"v : %@",@(velocity.y)) ;
              if (scrollUpDirection) {
                  if (overDistance) [(OcHomeVC *)self.xt_viewController containerCellDraggingDirection:YES] ;
              }
