@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IAPSubscriptionVC : BasicVC
 + (instancetype)getMe ;
 + (void)showMePresentedInFromCtrller:(UIViewController *)fromCtrller
-                      fromSourceView:(UIView *)souceView ;
+                      fromSourceView:(UIView *)souceView
+                      isPresentState:(BOOL)isPresentState ;
+
 @end
 
 NS_ASSUME_NONNULL_END

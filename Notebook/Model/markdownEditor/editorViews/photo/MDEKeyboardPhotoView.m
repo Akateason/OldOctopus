@@ -174,9 +174,9 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 }
 
 - (void)setupUIs {
-//    for (UIImage *img in self.iconImgs) {
-//        img.xt_theme_imageColor = k_md_iconColor ;
-//    }
+    for (UIImage *img in self.iconImgs) {
+        img.xt_theme_imageColor = k_md_iconColor ;
+    }
     
     for (UILabel *lb in self.lightLabels) {
         lb.textColor = [UIColor colorWithWhite:0 alpha:.3] ;

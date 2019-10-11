@@ -30,6 +30,7 @@
 #import "IAPSubscriptionVC.h"
 #import "MDEKeyboardPhotoView.h"
 #import "AppstoreCommentUtil.h"
+#import "OctWebEditor+OctToolbarUtil.h"
 
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (strong, nonatomic) XTCameraHandler   *cameraHandler ;
@@ -131,6 +132,19 @@
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_User_Open_Camera object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
+        if (![XTIcloudUser hasLogin]) {
+            NSLog(@"未登录") ;
+            [GuidingICloud show] ;
+    
+            return ;
+        }
+    
+        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+            [self.editor subscription] ;
+    
+            return ;
+        }
+        
         
         @weakify(self)
         [self.cameraHandler openCameraFromController:self takePhoto:^(UIImage *imageResult) {
@@ -576,7 +590,7 @@ return;}
     }
     
     if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        [IAPSubscriptionVC showMePresentedInFromCtrller:self fromSourceView:sourceView] ;
+        [IAPSubscriptionVC showMePresentedInFromCtrller:self fromSourceView:sourceView isPresentState:NO] ;
         
         return NO ;
     }

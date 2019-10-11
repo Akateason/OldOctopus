@@ -15,6 +15,8 @@
 #import "IAPSubscriptionVC.h"
 #import "MarkdownVC.h"
 #import "UnsplashVC.h"
+#import "GuidingICloud.h"
+#import "IapUtil.h"
 
 @implementation OctWebEditor (OctToolbarUtil)
 
@@ -40,14 +42,42 @@
     @weakify(self)
     MDEKeyboardPhotoView *photoView =
     [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - 40 WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
+        
         @strongify(self)
+        if (![XTIcloudUser hasLogin]) {
+            NSLog(@"未登录") ;
+            [GuidingICloud show] ;
+    
+            return ;
+        }
+    
+        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+            [self subscription] ;
+    
+            return ;
+        }
+        
         [self sendImageLocalPathWithImage:image] ;
+        
     } cameraOnPressed:^(UIImage * _Nonnull image) {
         // 照相生命周期问题, 交给VC处理
 
         
     } albumOnPressed:^(UIImage * _Nonnull image) {
         @strongify(self)
+        if (![XTIcloudUser hasLogin]) {
+                NSLog(@"未登录") ;
+                [GuidingICloud show] ;
+        
+                return ;
+        }
+        
+        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+            [self subscription] ;
+    
+            return ;
+        }
+        
         [self sendImageLocalPathWithImage:image] ;
     } linkPressed:^{
         @strongify(self)
@@ -56,6 +86,19 @@
         }] ;
     } unsplashPressed:^{
         @strongify(self)
+        if (![XTIcloudUser hasLogin]) {
+            NSLog(@"未登录") ;
+            [GuidingICloud show] ;
+    
+            return ;
+        }
+    
+        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+            [self subscription] ;
+    
+            return ;
+        }
+        
         [UnsplashVC showMeFrom:self.xt_viewController] ;
     }] ;
     return photoView ;
@@ -145,7 +188,7 @@
 
 - (void)subscription {
     MarkdownVC *vc = (MarkdownVC *)self.xt_viewController ;
-    [IAPSubscriptionVC showMePresentedInFromCtrller:vc fromSourceView:self.toolBar.btPhoto] ;
+    [IAPSubscriptionVC showMePresentedInFromCtrller:vc fromSourceView:self.toolBar.btPhoto isPresentState:YES] ;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.toolBar hideAllBoards] ;

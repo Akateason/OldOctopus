@@ -141,18 +141,18 @@
 }
 
 - (IBAction)photoAc:(UIButton *)sender {
-    if (![XTIcloudUser hasLogin]) {
-        NSLog(@"未登录") ;
-        [GuidingICloud show] ;
-        
-        return ;
-    }
-    
-    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        [self.delegate subscription] ;
-        
-        return ;
-    }
+//    if (![XTIcloudUser hasLogin]) {
+//        NSLog(@"未登录") ;
+//        [GuidingICloud show] ;
+//
+//        return ;
+//    }
+//
+//    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+//        [self.delegate subscription] ;
+//
+//        return ;
+//    }
     
     
     self.selectedPosition = 3 ;

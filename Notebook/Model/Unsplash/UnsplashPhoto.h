@@ -21,7 +21,7 @@
 @property (nonatomic,copy) NSString   *url_small ; // change
 @property (nonatomic,copy) NSString   *url_thumb ; // change
 @property (nonatomic,copy) NSString   *userName ; // change
-
+@property (nonatomic,copy) NSString *color ;
 
 
 @end

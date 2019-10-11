@@ -87,7 +87,15 @@ static int kPage_UnsplashVC = 1 ;
     self.bgSch.xt_borderWidth = .5 ;
     self.bgSch.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, 0.1) ;
     
-    self.tfSearch.placeholder = @"搜索图片";
+    UIColor *color = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .5) ;
+    self.tfSearch.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索图片" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:color}];
+
+    self.tfSearch.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    
+    self.icon.xt_theme_imageColor = k_md_iconColor ;
+    self.lbTitle.xt_theme_textColor = k_md_textColor ;
+    self.btClose.xt_theme_imageColor = k_md_iconColor ;
+    
     
     WEAK_SELF
     [self.btClose bk_addEventHandler:^(id sender) {
@@ -136,6 +144,7 @@ static int kPage_UnsplashVC = 1 ;
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UnsplashCell *cell = [UnsplashCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
     UnsplashPhoto *photo = self.list[indexPath.row] ;
+    cell.imageView.backgroundColor = UIColorHex(photo.color) ;
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:photo.url_small] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         
 

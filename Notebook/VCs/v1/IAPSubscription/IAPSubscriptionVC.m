@@ -34,7 +34,10 @@
     return [IAPSubscriptionVC getCtrllerFromStory:@"Main" controllerIdentifier:@"IAPSubscriptionVC"] ;
 }
 
-+ (void)showMePresentedInFromCtrller:(UIViewController *)fromCtrller fromSourceView:(UIView *)souceView {
++ (void)showMePresentedInFromCtrller:(UIViewController *)fromCtrller
+                      fromSourceView:(UIView *)souceView
+                      isPresentState:(BOOL)isPresentState {
+    
     IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
     
     if ([GlobalDisplaySt sharedInstance].vType >= SC_Home_mode_iPad_Horizon_6_collumn) {
@@ -47,6 +50,7 @@
     }
     else {
         vc.modalPresentationStyle = UIModalPresentationFullScreen ;
+        vc.isPresentState = isPresentState ;
     }
         
     [fromCtrller presentViewController:vc animated:YES completion:^{

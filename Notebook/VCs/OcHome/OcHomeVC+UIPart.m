@@ -130,16 +130,8 @@
         make.top.equalTo(self.mainCollectionView) ;
     }] ;
     
-    if (@available(iOS 12.0, *)) {
-        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) { // dark
-            [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
-        }
-        else { // light
-            [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
-        }
-    } else {
-        // Fallback on earlier versnions
-    }
+
+    
 
 //    @weakify(self)
 //    [[[RACObserve(self.mainCollectionView, contentOffset) map:^id _Nullable(id  _Nullable value) {

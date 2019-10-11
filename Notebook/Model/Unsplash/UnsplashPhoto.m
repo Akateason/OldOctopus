@@ -23,6 +23,11 @@
     _url_thumb = dic[@"urls"][@"thumb"];
     _userName = dic[@"user"][@"username"];
     
+    _color = dic[@"color"] ;
+    if ([_color hasPrefix:@"#"]) {
+        _color = [_color substringFromIndex:1] ;
+    }
+    
     if (!_alt_description) _alt_description = @"" ;
     
     return YES;

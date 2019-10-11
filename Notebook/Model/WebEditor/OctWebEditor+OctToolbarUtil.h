@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hideKeyboard ;
 - (void)openKeyboard ;
 - (void)sendImageLocalPathWithImage:(UIImage *)image ;
+
+- (void)subscription ;
 @end
 
 NS_ASSUME_NONNULL_END
