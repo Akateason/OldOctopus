@@ -102,6 +102,28 @@
     self.underLineView.width = self.btInlineStyle.width - 4 ;
     self.underLineView.centerX = self.smartKeyboardState ? (self.width / 5. / 2. + 17) : (self.width / 6. / 2. + 17) ;
     self.underLineView.top = 38. ;
+        
+    self.xt_theme_backgroundColor = k_md_bgColor ;
+    
+    for (UIButton *bt in self.toolbarBts) {
+        bt.xt_theme_imageColor = k_md_iconColor ;
+    }
+    
+    UIView *topLine = [UIView new] ;
+    topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    [self addSubview:topLine] ;
+    [topLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self) ;
+        make.height.equalTo(@0.5) ;
+    }];
+        
+    UIView *baseLine = [UIView new] ;
+    baseLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
+    [self addSubview:baseLine] ;
+    [baseLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.equalTo(self) ;
+        make.height.equalTo(@0.5) ;
+    }];
 }
 
 
@@ -141,20 +163,7 @@
 }
 
 - (IBAction)photoAc:(UIButton *)sender {
-//    if (![XTIcloudUser hasLogin]) {
-//        NSLog(@"未登录") ;
-//        [GuidingICloud show] ;
-//
-//        return ;
-//    }
-//
-//    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-//        [self.delegate subscription] ;
-//
-//        return ;
-//    }
-    
-    
+
     self.selectedPosition = 3 ;
     [self hideAllBoards] ;
     [self moveUnderLineFromView:sender] ;
@@ -215,7 +224,8 @@
     if (!_underLineView) {
         _underLineView = [UIView new] ;
         _underLineView.size = CGSizeMake(100, 2) ;
-        _underLineView.backgroundColor = UIColorHex(@"6b737b") ;
+        _underLineView.xt_theme_backgroundColor = k_md_iconColor ;
+
         _underLineView.top = 38. ;
         [_underLineView xt_completeRound] ;
         if (!_underLineView.superview) {

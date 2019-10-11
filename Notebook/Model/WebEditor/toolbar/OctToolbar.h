@@ -43,6 +43,9 @@
 - (void)refresh ;
 - (void)hideAllBoards ;
 
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *toolbarBts;
+
+
 @end
 
 
