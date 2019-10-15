@@ -16,6 +16,7 @@
     NSString *head ;
 #ifdef DEBUG
     head = @"https://shimodev.com/octopus-api/" ;
+//    head = @"https://667fbd20.cpolar.io/" ;  //qv本地
 #else
     head = @"https://shimo.im/octopus-api/" ;
 #endif
@@ -166,25 +167,58 @@
     }] ;
 }
 
-+ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete {
-    if (![XTIcloudUser hasLogin]) {
-        // 未登录
-        return ;
-    }
++ (void)checkReciptOnServer:(NSString *)receipt64
+              in_debug_mode:(BOOL)in_debug_mode
+                   complete:(void(^)(BOOL success, long long tick))complete {
     
-    NSString *url = [self requestLinkWithNail:@"users/orders"] ;
+    NSString *url = [self requestLinkWithNail:@"users/subscribe?version=2"] ;
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
     NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
     NSDictionary *header = @{@"Authorization" : code,
-                              @"Content-Type":@"application/json"
+                             @"Content-Type":@"application/json"
                              } ;
-    body = [@{@"body":body} yy_modelToJSONString] ;
-    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:nil rawBody:body hud:NO success:^(id json, NSURLResponse *response) {
-        complete(YES) ;
+
+    NSDictionary *bodyDic = @{@"receipt":receipt64,
+                              @"is_exclude_old":@(YES),
+                              @"in_debug_mode":@(in_debug_mode),
+                              @"system":@"ios"
+                              } ;
+    NSString *bodyString = [bodyDic yy_modelToJSONString] ;
+    
+    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:nil rawBody:bodyString hud:NO success:^(id json, NSURLResponse *response) {
+        
+        long long tick = [json[@"expired_at"] longLongValue] ;
+        
+        complete(YES,tick) ;
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        complete(NO) ;
+        complete(NO,0) ;
     }] ;
 }
+
+
+
+
+
+
+//+ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete {
+//    if (![XTIcloudUser hasLogin]) {
+//        // 未登录
+//        return ;
+//    }
+//
+//    NSString *url = [self requestLinkWithNail:@"users/orders"] ;
+//    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
+//    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
+//    NSDictionary *header = @{@"Authorization" : code,
+//                              @"Content-Type":@"application/json"
+//                             } ;
+//    body = [@{@"body":body} yy_modelToJSONString] ;
+//    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:nil rawBody:body hud:NO success:^(id json, NSURLResponse *response) {
+//        complete(YES) ;
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        complete(NO) ;
+//    }] ;
+//}
 
 
 @end

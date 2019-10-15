@@ -37,6 +37,8 @@ static NSString *const k_IAP_ID_YEAR  = @"iap.octopus.year.90" ;
 + (BOOL)isIapVipFromLocalAndRequestIfLocalNotExist ;
 
 
++ (void)askCheckReceiptApiComplete:(void(^)(BOOL success, long long tick))complete ;
+
 @end
 
 

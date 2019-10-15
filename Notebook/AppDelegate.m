@@ -29,67 +29,44 @@
 }
 
 
-// 验证票据
-- (void)dealReciept:(NSDictionary *)rec
-        transaction:(SKPaymentTransaction *)transaction
-              error:(NSError *)error {
-    
-    if (!error) {
-        NSInteger status = [rec[@"status"] integerValue]  ;
-        if ( status == 0 ) {
-            DLogINFO(@"iap SUCCESS") ;
-            NSDictionary *dictLatestReceiptsInfo = rec[@"latest_receipt_info"];
-            long long int expirationDateMs = [[dictLatestReceiptsInfo valueForKeyPath:@"@max.expires_date_ms"] longLongValue] ; // 结束时间
-            long long requestDateMs = [rec[@"receipt"][@"request_date_ms"] longLongValue] ; // 请求时间
-            NSLog(@"%lld--%lld", expirationDateMs, requestDateMs) ;
-            NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(expirationDateMs / 1000.0)] ;
-            DLogINFO(@"新订单截止到 : %@", resExpiraDate) ;
-            
-            if (!expirationDateMs && !rec) {
-                DLogINFO(@"拿不到收据 : %@",transaction) ;                
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; //
-                return ;
-            }
-            
-            if ([resExpiraDate compare:[NSDate date]] == NSOrderedAscending) {
-                DLogINFO(@"订单已经过期 : %@",transaction) ;
-                // finish transaction
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
-                return ;
-            }
-            
-            // 调api 成功后, 再设置本地的 更新时间
-            WEAK_SELF
-            [OctRequestUtil setIapInfoExpireDateTick:expirationDateMs complete:^(BOOL success) {
-                
-                if (success) {
-                    // 保存订单信息
-                    NSString *body = [rec yy_modelToJSONString] ;
-                    if (body != nil || body.length > 0) {
-                        [OctRequestUtil saveOrders:body complete:^(BOOL success) {
-                        }] ;
-                    }
-                    
-                    // finish transaction
-                    if ([SKPaymentQueue defaultQueue]) {
-                        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
-                    }
-                    // 设置本地
-                    [IapUtil saveIapSubscriptionDate:expirationDateMs] ;
-                    // 订阅成功之后 pull all
-                    [weakSelf.launchingEvents pullAll] ;
-                    // Notificate
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
-                }
-            }] ;
+// 处理收据结果,处理订阅时间
+- (void)dealRecieptTransaction:(SKPaymentTransaction *)transaction
+                    expireTick:(long long)tick
+                      complete:(BOOL)complete
+{
+    DLogINFO(@"处理订单 : %@", transaction.transactionIdentifier) ;
+
+    if (complete) {
+        NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(tick / 1000.0)] ;
+        DLogINFO(@"新订单截止到 : %@", resExpiraDate) ;
+        if (!tick && !complete) {
+            DLogERR(@"拿不到收据 : %@",transaction) ;
+            // finish transaction
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; //
+            return ;
         }
-        else {
-            DLogERR(@"购买失败 rec : %@, err : %@",rec,error) ;
+        
+        if ([resExpiraDate compare:[NSDate date]] == NSOrderedAscending) {
+            DLogERR(@"订单已经过期 : %@",transaction) ;
+            // finish transaction
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
+            return ;
         }
 
+        // success
+        // 设置本地
+        [IapUtil saveIapSubscriptionDate:tick] ;
+        // 订阅成功之后 pull all
+        [self.launchingEvents pullAll] ;
+        // finish transaction
+        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
+        // Notificate
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
+        DLogINFO(@"订单订阅成功 : %@", transaction.transactionIdentifier) ;
     }
     else {
-        DLogERR(@"验证收据失败 rec : %@, err : %@",rec,error) ;
+        DLogERR(@"验证收据失败 transaction : %@",transaction) ;
+        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
     }
 }
 
@@ -106,43 +83,34 @@
     
     // SKPaymentQueue callback
     [XTIAP sharedInstance].g_transactionBlock = ^(SKPaymentTransaction *transaction) {
-
-        DLogERR(@"transactionState %ld", (long)transaction.transactionState) ;
+        DLogINFO(@"transaction UPDATE id : %@",transaction.transactionIdentifier) ;
+        
 //        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
-        NSLog(@"appStoreReceiptURL : %@",[[NSBundle mainBundle] appStoreReceiptURL]) ;
         
         if (transaction.transactionState == SKPaymentTransactionStatePurchased
             ) {
-#ifdef DEBUG
-            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:YES inDebugMode:YES onCompletion:^(NSDictionary *json, NSError *error) {
-                [self dealReciept:json transaction:transaction error:error] ;
+            NSLog(@"%@ purchased",transaction.transactionIdentifier) ;
+            [IapUtil askCheckReceiptApiComplete:^(BOOL success, long long tick) {
+                [self dealRecieptTransaction:transaction expireTick:tick complete:success] ;
             }] ;
-            
-#else
-            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:YES inDebugMode:NO onCompletion:^(NSDictionary *json, NSError *error) {
-                [self dealReciept:json transaction:transaction error:error] ;
-            }] ;
-#endif
         }
         else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
-#ifdef DEBUG
-            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:YES onCompletion:^(NSDictionary *json, NSError *error) {
-                [self dealReciept:json transaction:transaction error:error] ;
+            NSLog(@"%@ restored",transaction.transactionIdentifier) ;
+            [IapUtil askCheckReceiptApiComplete:^(BOOL success, long long tick) {
+                [self dealRecieptTransaction:transaction expireTick:tick complete:success] ;
             }] ;
-#else
-            [[XTIAP sharedInstance] checkReceipt:[NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] sharedSecret:kAPP_SHARE_SECRET excludeOld:NO inDebugMode:NO onCompletion:^(NSDictionary *json, NSError *error) {
-                [self dealReciept:json transaction:transaction error:error] ;
-            }] ;
-#endif
         }
         else if (transaction.transactionState == SKPaymentTransactionStatePurchasing) {
             [[OctMBPHud sharedInstance] hide] ;
+            NSLog(@"%@ purchasing",transaction.transactionIdentifier) ;
+        }
+        else if (transaction.transactionState == SKPaymentTransactionStateDeferred) {
+            NSLog(@"%@ deferred",transaction.transactionIdentifier) ;
         }
         else if (transaction.transactionState == SKPaymentTransactionStateFailed) {
-            if ([SKPaymentQueue defaultQueue]) {
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
-            }
+            NSLog(@"%@ failed",transaction.transactionIdentifier) ;
             DLogERR(@"订阅失败error : %@", transaction.error) ;
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
         }
     } ;
     

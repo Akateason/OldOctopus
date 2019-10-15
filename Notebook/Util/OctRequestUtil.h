@@ -35,12 +35,19 @@ NS_ASSUME_NONNULL_BEGIN
 // iap
 + (void)getIapInfo:(void(^)(long long tick, BOOL success))complete ;
 
-+ (void)setIapInfoExpireDateTick:(long long)tick
-                        complete:(void(^)(BOOL success))complete ;
+//todo deprecated
+//+ (void)setIapInfoExpireDateTick:(long long)tick
+//                        complete:(void(^)(BOOL success))complete ;
+
+// 后台验证订单
++ (void)checkReciptOnServer:(NSString *)receipt64
+              in_debug_mode:(BOOL)in_debug_mode
+                   complete:(void(^)(BOOL success, long long tick))complete ;
 
 
 // 保存订单信息
-+ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete ;
+//todo deprecated
+//+ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete ;
 
 @end
 

@@ -103,38 +103,31 @@
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     
-    self.area1.backgroundColor = [UIColor whiteColor] ;
-    self.area2.backgroundColor = [UIColor whiteColor] ;
-    self.area3.backgroundColor = [UIColor whiteColor] ;
-    self.area4.backgroundColor = [UIColor whiteColor] ;
-    self.area5.backgroundColor = [UIColor whiteColor] ;
-    self.area6.backgroundColor = [UIColor whiteColor] ;
     
-    self.area1.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area2.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area3.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area4.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area5.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area6.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
+    for (UIView *area in self.areas) {
+        area.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        //[UIColor whiteColor] ;
+        
+        area.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
+        area.xt_borderWidth = .5 ;
+        area.xt_cornerRadius = 6 ;
+        area.xt_maskToBounds = YES ;
+        
+        
+    }
     
-    self.area1.xt_borderWidth = .5 ;
-    self.area2.xt_borderWidth = .5 ;
-    self.area3.xt_borderWidth = .5 ;
-    self.area4.xt_borderWidth = .5 ;
-    self.area5.xt_borderWidth = .5 ;
-    self.area6.xt_borderWidth = .5 ;
+//    self.area1.xt_theme_backgroundColor = k_md_bgColor ;
+//    self.area2.xt_theme_backgroundColor = k_md_bgColor ;
+//    self.area3.xt_theme_backgroundColor = k_md_bgColor ;
+//    self.area4.xt_theme_backgroundColor = k_md_bgColor ;
+//    self.area5.xt_theme_backgroundColor = k_md_bgColor ;
+//    self.area6.xt_theme_backgroundColor = k_md_bgColor ;
     
-    self.area1.xt_cornerRadius = 6 ;
-    self.area2.xt_cornerRadius = 6 ;
-    self.area3.xt_cornerRadius = 6 ;
-    self.area4.xt_cornerRadius = 6 ;
-    self.area5.xt_cornerRadius = 6 ;
-    self.area6.xt_cornerRadius = 6 ;
+
     
-    self.area1.xt_maskToBounds = self.area2.xt_maskToBounds = self.area3.xt_maskToBounds = self.area4.xt_maskToBounds = self.area5.xt_maskToBounds = self.area6.xt_maskToBounds = YES ;
     
-    self.backgroundColor = UIColorHex(@"f9f6f6") ;
-    
+//    self.backgroundColor = UIColorHex(@"f9f6f6") ;
+    self.xt_theme_backgroundColor = k_md_backColor ;
     
     
     

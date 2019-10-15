@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *btParaClean;
 @property (weak, nonatomic) IBOutlet UIButton *btUnderline;
 
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *areas;
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;
 - (void)renderWithlist:(NSArray *)list ;
