@@ -12,6 +12,7 @@
 #import "MDThemeConfiguration.h"
 #import <BlocksKit+UIKit.h>
 #import "MarkdownModel.h"
+#import "OctToolbar.h"
 
 @implementation OctToolbarBlockView
 
@@ -187,7 +188,7 @@
             
             [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.left.right.equalTo(window) ;
-                make.height.equalTo(@(keyboardHeight - 40)) ;
+                make.height.equalTo(@(keyboardHeight - OctToolbarHeight)) ;
             }] ;
             
             [backView mas_makeConstraints:^(MASConstraintMaker *make) {

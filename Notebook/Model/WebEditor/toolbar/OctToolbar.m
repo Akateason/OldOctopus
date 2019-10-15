@@ -31,7 +31,7 @@
 - (UIButton *)makeButton:(NSString *)imgStr {
     UIButton *bt = [UIButton new] ;
     [bt setImage:[UIImage imageNamed:imgStr] forState:0] ;
-    bt.frame = CGRectMake(0, 0, 100, 41) ;
+    bt.frame = CGRectMake(0, 0, 100, OctToolbarHeight) ;
     return bt ;
 }
 
@@ -94,7 +94,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     
-    self.bounds = CGRectMake(0, 0, [UIView currentScreenBoundsDependOnOrientation].size.width, 41) ;
+    self.bounds = CGRectMake(0, 0, [UIView currentScreenBoundsDependOnOrientation].size.width, OctToolbarHeight) ;
     
     [self setNeedsLayout] ;
     [self layoutIfNeeded] ;
@@ -121,9 +121,8 @@
     baseLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
     [self addSubview:baseLine] ;
     [baseLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self) ;
+        make.bottom.left.right.equalTo(self) ;
         make.height.equalTo(@0.5) ;
-        make.bottom.equalTo(self.mas_bottom).offset(0) ;
     }];
 }
 

@@ -44,7 +44,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 // 短topbar 全部按钮
 @property (strong, nonatomic)   UIView              *btBooksSmall_All  ;
 // 同步转圈
-@property (strong, nonatomic) LOTAnimationView          *animationSync ;
+//@property (strong, nonatomic) LOTAnimationView          *animationSync ;
 
 // data
 @property (copy, nonatomic)     NSArray             *bookList ;

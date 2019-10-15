@@ -346,7 +346,7 @@ static const int kTag_MathView          = 78089 ;
 - (OctToolbar *)toolBar {
     if (!_toolBar) {
         _toolBar = [OctToolbar xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
-        _toolBar.frame = CGRectMake(0, 0, [self.class currentScreenBoundsDependOnOrientation].size.width, 41) ;
+        _toolBar.frame = CGRectMake(0, 0, [self.class currentScreenBoundsDependOnOrientation].size.width, OctToolbarHeight) ;
         _toolBar.delegate = self ;
     }
     return _toolBar ;

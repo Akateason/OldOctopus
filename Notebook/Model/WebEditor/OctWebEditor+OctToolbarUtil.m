@@ -41,7 +41,7 @@
 - (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView  {
     @weakify(self)
     MDEKeyboardPhotoView *photoView =
-    [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - 40 WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
+    [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - OctToolbarHeight WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
         
         @strongify(self)
         if (![XTIcloudUser hasLogin]) {

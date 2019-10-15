@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <XTlib/XTlib.h>
 
+static float OctToolbarHeight = 41.f ;
+
 @class MDEKeyboardPhotoView, MarkdownModel, MarkdownEditor ;
 @protocol OctToolbarDelegate <NSObject>
 

@@ -12,6 +12,8 @@
 #import <BlocksKit+UIKit.h>
 #import "MarkdownModel.h"
 #import "KeyboardViewButton.h"
+#import "OctToolbar.h"
+
 
 @implementation OctToolBarInlineView
 
@@ -182,7 +184,7 @@
             [window addSubview:self] ;
             [self mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.left.right.equalTo(window) ;
-                make.height.equalTo(@(keyboardHeight - 40)) ;
+                make.height.equalTo(@(keyboardHeight - OctToolbarHeight)) ;
             }] ;
         }
     }

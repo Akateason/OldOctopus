@@ -71,18 +71,18 @@ static const float kFlex_loft_sync_animate = 10.f ;
         [UserTestCodeVC getMeFrom:self] ;
     }] ;
     
-    [[RACObserve([XTCloudHandler sharedInstance], isSyncingOnICloud) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
-        @strongify(self)
-        BOOL isSync = [x boolValue] ;
-        if (isSync) {
-            [self.animationSync play] ;
-            self.animationSync.hidden = NO ;
-        }
-        else {
-            [self.animationSync stop] ;
-            self.animationSync.hidden = YES ;
-        }
-    }] ;
+//    [[RACObserve([XTCloudHandler sharedInstance], isSyncingOnICloud) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
+//        @strongify(self)
+//        BOOL isSync = [x boolValue] ;
+//        if (isSync) {
+//            [self.animationSync play] ;
+//            self.animationSync.hidden = NO ;
+//        }
+//        else {
+//            [self.animationSync stop] ;
+//            self.animationSync.hidden = YES ;
+//        }
+//    }] ;
 
 }
 
@@ -387,17 +387,17 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     return _transition ;
 }
 
-- (LOTAnimationView *)animationSync {
-    if (!_animationSync) {
-        LOTAnimationView *animation = [LOTAnimationView animationNamed:@"userhead_sync_animate" inBundle:[NSBundle bundleForClass:self.class]] ;
-        animation.loopAnimation = YES ;
-        animation.frame = [self.topBar convertRect:self.btUser.frame fromView:self.topBar] ;
-        animation.frame = CGRectMake(animation.frame.origin.x - kFlex_loft_sync_animate, animation.frame.origin.y - kFlex_loft_sync_animate, animation.frame.size.width + 2 * kFlex_loft_sync_animate, animation.frame.size.height + 2 * kFlex_loft_sync_animate) ;
-        _animationSync = animation ;
-        [self.topBar insertSubview:_animationSync belowSubview:self.btUser] ;
-    }
-    return _animationSync ;
-}
+//- (LOTAnimationView *)animationSync {
+//    if (!_animationSync) {
+//        LOTAnimationView *animation = [LOTAnimationView animationNamed:@"userhead_sync_animate" inBundle:[NSBundle bundleForClass:self.class]] ;
+//        animation.loopAnimation = YES ;
+//        animation.frame = [self.topBar convertRect:self.btUser.frame fromView:self.topBar] ;
+//        animation.frame = CGRectMake(animation.frame.origin.x - kFlex_loft_sync_animate, animation.frame.origin.y - kFlex_loft_sync_animate, animation.frame.size.width + 2 * kFlex_loft_sync_animate, animation.frame.size.height + 2 * kFlex_loft_sync_animate) ;
+//        _animationSync = animation ;
+//        [self.topBar insertSubview:_animationSync belowSubview:self.btUser] ;
+//    }
+//    return _animationSync ;
+//}
 
 #pragma mark - UIViewControllerTransitioningDelegate
 
