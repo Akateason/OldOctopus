@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *darkLabels;
 @property (strong, nonatomic) UIScrollView *scrollView ;
 
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *bts;
 
 
 + (instancetype)showViewFromCtrller:(UIViewController *)ctrller

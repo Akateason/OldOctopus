@@ -127,7 +127,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc] init] ;
-        scrollView.backgroundColor = UIColorHex(@"f9f6f6") ;
+        scrollView.xt_theme_backgroundColor = k_md_backColor ;
         _scrollView = scrollView ;
     }
     return _scrollView ;
@@ -145,15 +145,14 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     self.collectionView.delegate = self ;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
-    float cellHeight = keyboardHeight - 158. - 8. - 35. ;
-    if (XT_LESS_THAN_IPHONE_6 || XT_IS_IPHONE_6) {
-        self.top_collection.constant = 5 ;
-        self.bottom_collection.constant = 5 ;
-        cellHeight = keyboardHeight - 158. - 8. - 10. ;
-    }
+    
+    float cellHeight = ([GlobalDisplaySt sharedInstance].containerSize.width - 15.) / 3.7 ;
+    self.top_collection.constant = 10 ;
+    self.bottom_collection.constant = 10 ;
+
     layout.itemSize = CGSizeMake(cellHeight, cellHeight) ;
-    layout.minimumInteritemSpacing = 6.0f ;
-    self.h_collection.constant = cellHeight - APP_SAFEAREA_TABBAR_FLEX ;
+    layout.minimumInteritemSpacing = 5.0f ;
+    self.h_collection.constant = cellHeight ;
     self.collectionView.collectionViewLayout = layout ;
 }
 
@@ -174,16 +173,23 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 }
 
 - (void)setupUIs {
+    self.xt_theme_backgroundColor = k_md_backColor ;
+    self.collectionView.xt_theme_backgroundColor = k_md_backColor ;
+    
     for (UIImage *img in self.iconImgs) {
         img.xt_theme_imageColor = k_md_iconColor ;
     }
     
     for (UILabel *lb in self.lightLabels) {
-        lb.textColor = [UIColor colorWithWhite:0 alpha:.3] ;
+        lb.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     }
     
     for (UILabel *lb in self.darkLabels) {
-        lb.textColor = [UIColor colorWithWhite:0 alpha:.8] ;
+        lb.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .8) ;
+    }
+    
+    for (UIButton *bt in self.bts) {
+        bt.xt_theme_backgroundColor = k_md_bgColor ;
     }
     
     self.height_list.constant = k_open_Unspash ? 150. : 100. ;
@@ -199,7 +205,7 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     allPhotosOptions.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ];
     allPhotosOptions.includeAssetSourceTypes = PHAssetSourceTypeUserLibrary ;
     PHFetchResult *allPhotos = [PHAsset fetchAssetsWithOptions:allPhotosOptions] ;
-    self.allPhotos           = allPhotos ;
+    self.allPhotos = allPhotos ;
 }
 
 #pragma mark - collection dataSourse

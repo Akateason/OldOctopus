@@ -106,31 +106,14 @@
     
     for (UIView *area in self.areas) {
         area.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
-        //[UIColor whiteColor] ;
-        
-        area.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
+        area.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .06) ;
         area.xt_borderWidth = .5 ;
         area.xt_cornerRadius = 6 ;
         area.xt_maskToBounds = YES ;
-        
-        
     }
-    
-//    self.area1.xt_theme_backgroundColor = k_md_bgColor ;
-//    self.area2.xt_theme_backgroundColor = k_md_bgColor ;
-//    self.area3.xt_theme_backgroundColor = k_md_bgColor ;
-//    self.area4.xt_theme_backgroundColor = k_md_bgColor ;
-//    self.area5.xt_theme_backgroundColor = k_md_bgColor ;
-//    self.area6.xt_theme_backgroundColor = k_md_bgColor ;
-    
-
-    
-    
-//    self.backgroundColor = UIColorHex(@"f9f6f6") ;
     self.xt_theme_backgroundColor = k_md_backColor ;
     
-    
-    
+        
     WEAK_SELF
     [self.btBold bk_addEventHandler:^(UIButton *sender) {
 

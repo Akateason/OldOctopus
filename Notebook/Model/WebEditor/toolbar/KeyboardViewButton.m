@@ -17,11 +17,13 @@
     [super awakeFromNib] ;
     
     [self xt_setImagePosition:(XTBtImagePositionTop) spacing:4] ;
-    [self setTitleColor:UIColorHexA(@"6b737b",.5) forState:(UIControlStateNormal)] ;
-    [self setTitleColor:UIColorHex(@"6b737b") forState:(UIControlStateSelected)] ;
+        
+    
+    [self setTitleColor:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .4) forState:(UIControlStateNormal)] ;
+    [self setTitleColor:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) forState:(UIControlStateSelected)] ;
     
     [[RACObserve(self, selected) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
-        self.backgroundColor = [x boolValue] ? UIColorRGBA(107, 115, 123, .1) : [UIColor whiteColor] ;
+        self.backgroundColor = [x boolValue] ? UIColorRGBA(107, 115, 123, .1) : XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
     }] ;
     
     WEAK_SELF

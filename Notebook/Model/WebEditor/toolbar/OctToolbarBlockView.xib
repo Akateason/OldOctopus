@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -311,6 +309,14 @@
                 <outlet property="btTaskList" destination="hOc-yi-CjY" id="xrb-V9-SLF"/>
                 <outlet property="btUlist" destination="Wd5-7V-PBA" id="HWi-7I-km8"/>
                 <outlet property="btVegaChart" destination="SNA-J4-3Ur" id="tBN-b0-igr"/>
+                <outletCollection property="areas" destination="mLW-Fs-Rs7" id="Lb2-du-9Bl"/>
+                <outletCollection property="areas" destination="VPq-2I-Q70" id="PyE-dk-RXO"/>
+                <outletCollection property="areas" destination="Pz5-mQ-CUa" id="PHd-8b-L7Y"/>
+                <outletCollection property="areas" destination="wek-XE-5IB" id="G2u-5d-5h6"/>
+                <outletCollection property="areas" destination="iNd-n8-1GN" id="4fa-hN-DQU"/>
+                <outletCollection property="areas" destination="jHS-ct-ECw" id="Nbw-WK-t5o"/>
+                <outletCollection property="areas" destination="S4E-Ir-8ub" id="lOB-0V-gAH"/>
+                <outletCollection property="areas" destination="akD-1m-HCy" id="oSW-kN-glM"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="203.23660714285714"/>
         </view>

@@ -66,6 +66,9 @@
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btSequnceDiag;
 @property (weak, nonatomic) IBOutlet KeyboardViewButton *btMermaid;
 
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *areas;
+
+
 - (void)renderWithTypeList:(NSArray *)typeList ;
 
 - (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;

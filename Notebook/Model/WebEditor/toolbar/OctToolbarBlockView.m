@@ -85,45 +85,16 @@
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     
-    self.area1.backgroundColor = [UIColor whiteColor] ;
-    self.area2.backgroundColor = [UIColor whiteColor] ;
-    self.area3.backgroundColor = [UIColor whiteColor] ;
-    self.area4.backgroundColor = [UIColor whiteColor] ;
-    self.area5.backgroundColor = [UIColor whiteColor] ;
-    self.area6.backgroundColor = [UIColor whiteColor] ;
-    self.area7.backgroundColor = [UIColor whiteColor] ;
-    self.area8.backgroundColor = [UIColor whiteColor] ;
+    for (UIView *area in self.areas) {
+        area.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_bgColor) ;
+        area.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .06) ;
+        area.xt_borderWidth = .5 ;
+        area.xt_cornerRadius = 6 ;
+        area.xt_maskToBounds = YES ;
+    }
+    self.xt_theme_backgroundColor = k_md_backColor ;
     
-    self.area1.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area2.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area3.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area4.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area5.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area6.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area7.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    self.area8.xt_borderColor = UIColorRGBA(24, 18, 17, .1) ;
-    
-    self.area1.xt_borderWidth = .5 ;
-    self.area2.xt_borderWidth = .5 ;
-    self.area3.xt_borderWidth = .5 ;
-    self.area4.xt_borderWidth = .5 ;
-    self.area5.xt_borderWidth = .5 ;
-    self.area6.xt_borderWidth = .5 ;
-    self.area7.xt_borderWidth = .5 ;
-    self.area8.xt_borderWidth = .5 ;
-    
-    self.area1.xt_cornerRadius = 6 ;
-    self.area2.xt_cornerRadius = 6 ;
-    self.area3.xt_cornerRadius = 6 ;
-    self.area4.xt_cornerRadius = 6 ;
-    self.area5.xt_cornerRadius = 6 ;
-    self.area6.xt_cornerRadius = 6 ;
-    self.area7.xt_cornerRadius = 6 ;
-    self.area8.xt_cornerRadius = 6 ;
-    
-    self.backgroundColor = UIColorHex(@"f9f6f6") ;
-    
-    self.area1.xt_maskToBounds = self.area2.xt_maskToBounds = self.area3.xt_maskToBounds = self.area4.xt_maskToBounds = self.area5.xt_maskToBounds = self.area6.xt_maskToBounds = self.area7.xt_maskToBounds = self.area8.xt_maskToBounds = YES ;
+
     
     WEAK_SELF
     [self.btUlist bk_addEventHandler:^(UIButton *sender) {
@@ -240,7 +211,7 @@
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc] init] ;
-        scrollView.backgroundColor = UIColorHex(@"f9f6f6") ;
+        scrollView.xt_theme_backgroundColor = k_md_backColor ;
         _scrollView = scrollView ;
     }
     return _scrollView ;

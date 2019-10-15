@@ -121,8 +121,9 @@
     baseLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .3) ;
     [self addSubview:baseLine] ;
     [baseLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.left.right.equalTo(self) ;
+        make.left.right.equalTo(self) ;
         make.height.equalTo(@0.5) ;
+        make.bottom.equalTo(self.mas_bottom).offset(0) ;
     }];
 }
 
@@ -224,7 +225,7 @@
     if (!_underLineView) {
         _underLineView = [UIView new] ;
         _underLineView.size = CGSizeMake(100, 2) ;
-        _underLineView.xt_theme_backgroundColor = k_md_iconColor ;
+        _underLineView.xt_theme_backgroundColor = k_md_themeColor ;
 
         _underLineView.top = 38. ;
         [_underLineView xt_completeRound] ;
