@@ -27,6 +27,18 @@
     self.lbDescYear.xt_theme_textColor = self.lbDescMonth.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .4) ;
     self.baseLien.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     
+    NSString *restoreStr = @"如果已经订阅, 请恢复购买";
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:restoreStr];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) range:NSMakeRange(0, 7)];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:XT_GET_MD_THEME_COLOR_KEY_A(k_md_themeColor,1) range:NSMakeRange(7, 6)];
+    self.lbRestore.attributedText = attrStr ;
+    
+    [self.lbRestore bk_whenTapped:^{
+        
+        [[XTIAP sharedInstance] restore] ;
+        
+    }] ;
+    
     self.iap = [IapUtil new] ;
     
     WEAK_SELF

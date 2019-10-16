@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbDescMonth;
 @property (weak, nonatomic) IBOutlet UILabel *lbDescYear;
 @property (weak, nonatomic) IBOutlet UIView *baseLien;
+@property (weak, nonatomic) IBOutlet UILabel *lbRestore;
 
 @property (strong, nonatomic) IapUtil *iap ;
 

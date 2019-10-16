@@ -112,6 +112,7 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
 + (void)askCheckReceiptApiComplete:(void(^)(BOOL success, long long tick))complete {
     NSData *receiptData = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]] ;
     NSString *receiptBase64 = [self.class base64StringFromData:receiptData length:[receiptData length]] ;
+    
 #ifdef DEBUG
     [OctRequestUtil checkReciptOnServer:receiptBase64 in_debug_mode:YES complete:complete] ;
 #else

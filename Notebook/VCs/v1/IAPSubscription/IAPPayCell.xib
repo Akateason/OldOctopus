@@ -72,18 +72,26 @@
                             <constraint firstAttribute="height" constant="0.5" id="mA6-ac-16R"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="如果已经订阅, 请恢复购买" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sh-ni-DeK">
+                        <rect key="frame" x="151" y="134.5" width="153" height="16"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Oib-LS-9Z1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="3ps-3F-yac"/>
                     <constraint firstItem="tC8-r4-fsd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="3xv-m8-B9R"/>
                     <constraint firstItem="tfg-Fs-ZHt" firstAttribute="width" secondItem="dtC-KY-hlE" secondAttribute="width" id="GT7-mM-bCi"/>
                     <constraint firstAttribute="bottom" secondItem="jGd-Sr-UsP" secondAttribute="bottom" id="L9M-lo-vHg"/>
+                    <constraint firstItem="jGd-Sr-UsP" firstAttribute="top" secondItem="6sh-ni-DeK" secondAttribute="bottom" constant="9" id="LqH-J8-BG4"/>
                     <constraint firstItem="dtC-KY-hlE" firstAttribute="top" secondItem="tC8-r4-fsd" secondAttribute="bottom" constant="9" id="PGP-wG-xrP"/>
                     <constraint firstAttribute="trailing" secondItem="tfg-Fs-ZHt" secondAttribute="trailing" constant="15" id="Pgl-pM-D2o"/>
                     <constraint firstItem="jGd-Sr-UsP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="S4O-IX-h0e"/>
                     <constraint firstItem="dtC-KY-hlE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="SGx-yf-Mdj"/>
                     <constraint firstItem="tfg-Fs-ZHt" firstAttribute="centerX" secondItem="Oib-LS-9Z1" secondAttribute="centerX" id="URf-Ac-uuO"/>
                     <constraint firstItem="Seb-2c-nOV" firstAttribute="centerX" secondItem="dtC-KY-hlE" secondAttribute="centerX" id="aZY-Ye-y5z"/>
+                    <constraint firstAttribute="trailing" secondItem="6sh-ni-DeK" secondAttribute="trailing" constant="16" id="awY-kA-VIE"/>
                     <constraint firstItem="lpK-bP-iNj" firstAttribute="top" secondItem="tfg-Fs-ZHt" secondAttribute="bottom" constant="8" id="bq0-fu-id9"/>
                     <constraint firstItem="tfg-Fs-ZHt" firstAttribute="leading" secondItem="dtC-KY-hlE" secondAttribute="trailing" constant="15" id="fBe-c0-rLy"/>
                     <constraint firstItem="Seb-2c-nOV" firstAttribute="top" secondItem="dtC-KY-hlE" secondAttribute="bottom" constant="8" id="gaG-cN-eye"/>
@@ -101,6 +109,7 @@
                 <outlet property="lbDescMonth" destination="Seb-2c-nOV" id="D17-CM-jrX"/>
                 <outlet property="lbDescYear" destination="lpK-bP-iNj" id="ZBg-D0-GHx"/>
                 <outlet property="lbMonth" destination="tC8-r4-fsd" id="7mn-7H-jEK"/>
+                <outlet property="lbRestore" destination="6sh-ni-DeK" id="TG5-8G-tRx"/>
                 <outlet property="lbYear" destination="Oib-LS-9Z1" id="a7a-sa-6rx"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
