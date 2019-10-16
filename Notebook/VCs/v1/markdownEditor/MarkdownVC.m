@@ -132,13 +132,7 @@
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_User_Open_Camera object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        if (![XTIcloudUser hasLogin]) {
-            NSLog(@"未登录") ;
-            [GuidingICloud show] ;
-    
-            return ;
-        }
-    
+            
         if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
             [self.editor subscription] ;
     
@@ -582,15 +576,8 @@ return;}
 }
 
 - (BOOL)isVIPandLogin:(UIView *)sourceView {
-    if (![XTIcloudUser hasLogin]) {
-        NSLog(@"未登录") ;
-        [GuidingICloud show] ;
-        
-        return NO ;
-    }
-    
     if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        [IAPSubscriptionVC showMePresentedInFromCtrller:self fromSourceView:sourceView isPresentState:NO] ;
+        [IAPSubscriptionVC showMePresentedInFromCtrller:self fromSourceView:sourceView isPresentState:YES] ;
         
         return NO ;
     }

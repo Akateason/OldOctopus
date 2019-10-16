@@ -28,19 +28,7 @@
          
          [self refreshAll] ;
      }] ;
-    
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidBecomeActiveNotification object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        
-        @weakify(self)
-        [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-            if (user != nil) {
-                @strongify(self)
-                [self getAllBooks] ;
-            }
-        }] ;
-    }] ;
-    
+            
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_iap_purchased_done object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self getAllBooks] ;
@@ -61,6 +49,9 @@
         @strongify(self)
         
         [self getAllBooks] ;
+        
+        [self.btUser setImage:[UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] forState:0] ;
+
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationImportFileIn object:nil]

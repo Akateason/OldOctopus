@@ -25,7 +25,6 @@
             [lb mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(@20) ;
                 make.bottom.equalTo(@-10) ;
-//                make.centerY.equalTo(self) ;
             }] ;
             lb ;
         }) ;
@@ -34,7 +33,7 @@
         backgroundView.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_backColor) ;
         self.backgroundView = backgroundView ;
     }
-    return self;
+    return self ;
 }
 
 

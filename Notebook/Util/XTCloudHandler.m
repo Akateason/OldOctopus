@@ -141,16 +141,19 @@ XT_SINGLETON_M(XTCloudHandler)
             case CKAccountStatusCouldNotDetermine:{
                 //无法获取账户信息
                 [SVProgressHUD showInfoWithStatus:@"无法获取账户信息"] ;
+                NSLog(@"无法获取账户信息");
                 break;
             }
             case CKAccountStatusNoAccount:{
                 //当前无登录账户
-                [SVProgressHUD showInfoWithStatus:@"当前无登录账户"] ;
+//                [SVProgressHUD showInfoWithStatus:@"当前无登录账户"] ;
+                NSLog(@"当前无登录账户");
                 break;
             }
             case CKAccountStatusRestricted:{
                 //账户被禁用此功能
                 [SVProgressHUD showInfoWithStatus:@"账户被禁用此功能"] ;
+                NSLog(@"账户被禁用此功能");
                 break;
             }
             default:
@@ -178,7 +181,7 @@ XT_SINGLETON_M(XTCloudHandler)
         @strongify(self)
         if (error || applicationPermissionStatus == CKApplicationPermissionStatusDenied) {
 
-            [self alertCallUserToIcloud:nil] ;
+//            [self alertCallUserToIcloud:nil] ;
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 blkUser(nil) ;
@@ -187,49 +190,50 @@ XT_SINGLETON_M(XTCloudHandler)
         }
 
         @weakify(self)
-        [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
+        // 获取iCloud用户ID
+        [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) { //<CKRecordID: 0x2831b5dc0; recordName=_074e9bb2241e7f6cb71878cb5a543325, zoneID=_defaultZone:__defaultOwner__>
             @strongify(self)
             if (!recordID) {
-                [self alertCallUserToIcloud:nil] ;
+//                [self alertCallUserToIcloud:nil] ;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     blkUser(nil) ;
                 }) ;
                 return ;
             }
-
+            
+            // 获取用户名
             @weakify(self)
             [self.container discoverUserIdentityWithUserRecordID:recordID completionHandler:^(CKUserIdentity * _Nullable userInfo, NSError * _Nullable error) {
-                @strongify(self)
-                if (error) {
-                    [self alertCallUserToIcloud:nil] ;
-
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        blkUser(nil) ;
-                    }) ;
-                    return ;
-                }
-
-                if (!userInfo && !error) {
-                    // 获取不到用户信息, 但不报错 !. 说明没有打开找到我
-//                    [self alertCallUserToIcloud:nil] ;
-
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        blkUser(nil) ;
-                    }) ;
-                    return ;
-                }
-
-                XTIcloudUser *user = [XTIcloudUser new] ;
-                user.userRecordName = userInfo.userRecordID.recordName ;
-                user.familyName = userInfo.nameComponents.familyName ;
-                user.givenName = userInfo.nameComponents.givenName ;
-                user.name = XT_STR_FORMAT(@"%@ %@",user.givenName,user.familyName) ;
-                if (user.name.length > 0 && user != nil) {
+                
+//                @strongify(self)
+                if (error || !userInfo) {
+                    // 获取不到用户信息, 但不报错 !. 说明没有打开找到我, web端打开权限.
+                    XTIcloudUser *user = [XTIcloudUser new] ;
+                    user.userRecordName = userInfo.userRecordID.recordName ;
+                    user.familyName = @"" ;
+                    user.givenName = @"" ;
+                    user.name = @"小章鱼" ;
                     [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        blkUser(user) ;
+                    }) ;
                 }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    blkUser(user) ;
-                }) ;
+                else {
+                    XTIcloudUser *user = [XTIcloudUser new] ;
+                    user.userRecordName = userInfo.userRecordID.recordName ;
+                    user.familyName = userInfo.nameComponents.familyName ;
+                    user.givenName = userInfo.nameComponents.givenName ;
+                    user.name = XT_STR_FORMAT(@"%@ %@",user.givenName,user.familyName) ;
+                    if (user.name.length > 0 && user != nil) {
+                        [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
+                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        blkUser(user) ;
+                    }) ;
+                }
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNote_User_Login_Success object:nil] ;
+                
             }] ;
         }] ;
     }] ;

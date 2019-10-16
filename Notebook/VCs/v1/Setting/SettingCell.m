@@ -90,10 +90,10 @@
             }] ;
         }
         else {
-            [SVProgressHUD showInfoWithStatus:@"请登录"] ;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [[XTCloudHandler sharedInstance] alertCallUserToIcloud:self.xt_viewController] ;
-            }) ;
+            IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
+            [self.xt_navigationController pushViewController:vc animated:YES] ;
+
+            
         }
     }
     else if ([title containsString:@"垃圾"]) {

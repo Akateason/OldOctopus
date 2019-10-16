@@ -75,8 +75,8 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 }
 
 - (void)setupAlbumn {
-    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-    }] ;
+//    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+//    }] ;
 }
 
 /**

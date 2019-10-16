@@ -44,13 +44,6 @@
     [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - OctToolbarHeight WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
         
         @strongify(self)
-        if (![XTIcloudUser hasLogin]) {
-            NSLog(@"未登录") ;
-            [GuidingICloud show] ;
-    
-            return ;
-        }
-    
         if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
             [self subscription] ;
     
@@ -65,16 +58,9 @@
         
     } albumOnPressed:^(UIImage * _Nonnull image) {
         @strongify(self)
-        if (![XTIcloudUser hasLogin]) {
-                NSLog(@"未登录") ;
-                [GuidingICloud show] ;
-        
-                return ;
-        }
-        
         if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
             [self subscription] ;
-    
+            
             return ;
         }
         
@@ -86,13 +72,6 @@
         }] ;
     } unsplashPressed:^{
         @strongify(self)
-        if (![XTIcloudUser hasLogin]) {
-            NSLog(@"未登录") ;
-            [GuidingICloud show] ;
-    
-            return ;
-        }
-    
         if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
             [self subscription] ;
     

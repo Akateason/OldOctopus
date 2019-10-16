@@ -30,13 +30,23 @@
     NSString *restoreStr = @"如果已经订阅, 请恢复购买";
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:restoreStr];
     [attrStr addAttribute:NSForegroundColorAttributeName value:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) range:NSMakeRange(0, 7)];
-    [attrStr addAttribute:NSForegroundColorAttributeName value:XT_GET_MD_THEME_COLOR_KEY_A(k_md_themeColor,1) range:NSMakeRange(7, 6)];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:XT_GET_MD_THEME_COLOR_KEY_A(k_md_themeColor,1) range:NSMakeRange(8, 5)];
     self.lbRestore.attributedText = attrStr ;
     
     [self.lbRestore bk_whenTapped:^{
         
-        [[XTIAP sharedInstance] restore] ;
-        
+        if (![XTIcloudUser hasLogin]) {
+//            [SVProgressHUD showInfoWithStatus:@"请登录"] ;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[XTCloudHandler sharedInstance] alertCallUserToIcloud:self.xt_viewController] ;
+            }) ;
+            
+            return ;
+        }
+        else {
+            [[XTIAP sharedInstance] restore] ;
+        }
+                                
     }] ;
     
     self.iap = [IapUtil new] ;
@@ -82,17 +92,37 @@
 
 - (IBAction)btMonthAction:(UIButton *)sender {
     [sender oct_buttonClickAnimationWithScale:1.1 complete:^{
-        [[OctMBPHud sharedInstance] show] ;
+        if (![XTIcloudUser hasLogin]) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[XTCloudHandler sharedInstance] alertCallUserToIcloud:self.xt_viewController] ;
+            }) ;
+            
+//            return ;
+        }
+        else {
+            [[OctMBPHud sharedInstance] show] ;
+            
+            [self.iap buy:k_IAP_ID_MONTH] ;
+        }
         
-        [self.iap buy:k_IAP_ID_MONTH] ;
     }] ;
 }
 
 - (IBAction)btYearAction:(UIButton *)sender {
     [sender oct_buttonClickAnimationWithScale:1.1 complete:^{
-        [[OctMBPHud sharedInstance] show] ;
-    
-        [self.iap buy:k_IAP_ID_YEAR] ;
+        if (![XTIcloudUser hasLogin]) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[XTCloudHandler sharedInstance] alertCallUserToIcloud:self.xt_viewController] ;
+            }) ;
+            
+//            return ;
+        }
+        else {
+            [[OctMBPHud sharedInstance] show] ;
+            
+            [self.iap buy:k_IAP_ID_YEAR] ;
+        }
+                
     }] ;
 }
 

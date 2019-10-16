@@ -32,7 +32,6 @@
     
     self.bookCollectionView.xt_theme_backgroundColor = k_md_bgColor ;
     self.mainCollectionView.xt_theme_backgroundColor = k_md_backColor ;
-//    self.mainCollectionView.backgroundColor = [UIColor redColor] ;
     self.view.xt_theme_backgroundColor = k_md_bgColor ;
     
     // ..
@@ -51,7 +50,17 @@
     self.btAdd.xt_theme_imageColor = k_md_iconColor ;
     
     // 按钮
-    [self.btUser setImage:[UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] forState:0] ;
+    if ([XTIcloudUser hasLogin]) {
+        [self.btUser setImage:[UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] forState:0] ;
+    }
+    else {
+        [self.btUser setImage:[UIImage imageNamed:@"icon_user_not_login"] forState:0] ;
+    }
+    
+
+    
+    
+    
     
     WEAK_SELF
     [self.btUser bk_addEventHandler:^(id sender) {
@@ -129,20 +138,6 @@
         make.height.equalTo(@.5) ;
         make.top.equalTo(self.mainCollectionView) ;
     }] ;
-    
-
-    
-
-//    @weakify(self)
-//    [[[RACObserve(self.mainCollectionView, contentOffset) map:^id _Nullable(id  _Nullable value) {
-//        return @([value CGPointValue].x) ;
-//    }]
-//       throttle:.2]
-//     subscribeNext:^(id  _Nullable x) {
-//        @strongify(self)
-//        NSLog(@"x : %@",x) ;
-//        [self scrollViewEndScroll:self.mainCollectionView] ;
-//    }] ;
     
 }
 
