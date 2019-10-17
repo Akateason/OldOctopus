@@ -28,9 +28,11 @@
 #endif
     
     NSString *editorState = XT_STR_FORMAT(@"编辑器 : %@", [self getEditorLoadWay]?@"连接电脑调试":@"本地zip") ;
-    NSString *devLinkStr = XT_STR_FORMAT(@"更改编辑器地址: %@",[self developerMacLink]) ;
+    NSString *devLinkStr = XT_STR_FORMAT(@"更改开发者编辑器url地址: %@",[self developerMacLink]) ;
     
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@) - %@ - %@",versionNum,buildNum,inviroment,editorState) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅",@"编辑器加载本地or线上",devLinkStr] callBackBlock:^(NSInteger btnIndex) {
+    NSString *userIDStr = XT_STR_FORMAT(@"用户id : %@, 点击复制uid",[XTIcloudUser userInCacheSyncGet].userRecordName) ;
+    
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@) - %@ - %@",versionNum,buildNum,inviroment,editorState) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅",@"编辑器加载本地zip或者开发者url",devLinkStr,userIDStr] callBackBlock:^(NSInteger btnIndex) {
         
         if (btnIndex == 1) {
             [self clearLocal] ;
@@ -47,10 +49,20 @@
         else if (btnIndex == 5) {
             [self devLinkChanging] ;
         }
+        else if (btnIndex == 6) {
+            [self copyUserIDLink] ;
+        }
         
     }] ;
 }
 
+
++ (void)copyUserIDLink {
+    NSString *userID = [XTIcloudUser userInCacheSyncGet].userRecordName ;
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = userID ;
+    [SVProgressHUD showSuccessWithStatus:@"uid已复制"] ;
+}
 
 + (void)clearLocal {
     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"确定清空本地数据?" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
@@ -94,7 +106,7 @@
 }
 
 + (void)editorLoadFromLocalOrOnline {
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"切换editor加载" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"本地",@"线上"] fromWithView:nil CallBackBlock:^(NSInteger btnIndex) {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"切换editor加载" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"本地zip",@"开发者url"] fromWithView:nil CallBackBlock:^(NSInteger btnIndex) {
         
         if (btnIndex == 1) {
             [self switchEditorLoadWay:0] ;
