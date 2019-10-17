@@ -74,11 +74,6 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [AppstoreCommentUtil setup] ;
 }
 
-- (void)setupAlbumn {
-//    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-//    }] ;
-}
-
 /**
  1. setupWebZipPackage
  2. setupWebView
