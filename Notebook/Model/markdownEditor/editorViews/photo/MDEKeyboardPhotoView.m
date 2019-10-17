@@ -168,8 +168,24 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
         }
         else {
             // 用户拒绝授权
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self userRefusePhotoAuth] ;
+            });
         }
     }];
+}
+
+- (void)userRefusePhotoAuth {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"小章鱼不能访问您的相册" message:@"请允许小章鱼访问照片" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"现在设置"] fromWithView:self CallBackBlock:^(NSInteger btnIndex) {
+        
+        if (btnIndex == 1) {
+            NSURL *settingUrl = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            if ([[UIApplication sharedApplication] canOpenURL:settingUrl]) {
+                [[UIApplication sharedApplication] openURL:settingUrl];
+            }
+        }
+        
+    }] ;
 }
 
 - (void)setupUIs {
