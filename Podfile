@@ -27,7 +27,7 @@ pod 'XTIAP',:path => '../XTIAP/'
   pod 'MGSwipeTableCell'
   pod 'CocoaLumberjack'
   pod 'FTPopOverMenu'
-  pod 'YYKeyboardManager'
+#  pod 'YYKeyboardManager'
 #  pod 'IAPHelper'
 
 
