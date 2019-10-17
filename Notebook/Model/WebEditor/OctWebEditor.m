@@ -23,6 +23,7 @@
 #import "HomePadVC.h"
 #import "_NoInputAccessoryView.h"
 #import "UnsplashPhoto.h"
+//#import <YYKeyboardManager/YYKeyboardManager.h>
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -78,7 +79,7 @@ XT_SINGLETON_M(OctWebEditor)
             [self.toolBar hideAllBoards] ;
             self.toolBar.hidden = YES ;
         }
-        else if (param == 96.) { // smart keyboard
+        else if (param < 160.) { // smart keyboard . 160根据shimo name:YYKeyboardInHardwareKeyboardModeNotification 拿到.
             self->keyboardHeight = param = 512. ;
             [self.toolBar setSmartKeyboardState:YES] ;
             [self openKeyboardToolBar] ;
@@ -92,6 +93,7 @@ XT_SINGLETON_M(OctWebEditor)
         
         [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {}] ;
     }] ;
+        
     
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
@@ -317,10 +319,6 @@ XT_SINGLETON_M(OctWebEditor)
             [self openKeyboard] ;
         }
     }
-    
-//    if ([GlobalDisplaySt sharedInstance].displayMode == GDST_Home_3_Column_Horizon) {
-//        [self setEditable:NO] ;
-//    }
 }
 
 
