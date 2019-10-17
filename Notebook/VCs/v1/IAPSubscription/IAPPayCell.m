@@ -44,16 +44,8 @@
             
             return ;
         }
-        else {
-            [[XTIAP sharedInstance] restore] ;
-            
-            [OctRequestUtil restoreOnServerCcomplete:^(BOOL success, long long tick) {
-                
-                if (success && tick > 0) {
-                    [IapUtil saveIapSubscriptionDate:tick] ;
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
-                }
-            }] ;
+        else {                        
+            [OctRequestUtil restoreOnServer] ;
         }
                                 
     }] ;
@@ -123,8 +115,6 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [[XTCloudHandler sharedInstance] alertCallUserToIcloud:self.xt_viewController] ;
             }) ;
-            
-//            return ;
         }
         else {
             [[OctMBPHud sharedInstance] show] ;

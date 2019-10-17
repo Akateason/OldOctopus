@@ -9,6 +9,8 @@
 #import "OctRequestUtil.h"
 #import "XTCloudHandler.h"
 #import <XTlib/XTlib.h>
+#import <XTIAP/XTIAP.h>
+#import "IapUtil.h"
 
 @implementation OctRequestUtil
 
@@ -61,6 +63,7 @@
     NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
     NSDictionary *header = @{@"Authorization" : code,
                              @"Content-Type":@"image/jpeg"} ;
+    NSLog(@"upload url : %@\nheader : %@",url,header) ;
     
     [XTRequest uploadFileWithData:data urlStr:url header:header progress:^(float flt) {
         
@@ -221,7 +224,7 @@
 //}
 
 
-+ (void)restoreOnServerCcomplete:(void(^)(BOOL success, long long tick))complete {
++ (void)restoreOnServer {
  
     NSString *url = [self requestLinkWithNail:@"users/action/restore-subscribe"] ;
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
@@ -234,9 +237,29 @@
         
         long long tick = [json[@"expired_at"] longLongValue] ;
         
-        complete(YES,tick) ;
+        if (tick > 0) {
+            NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(tick / 1000.0)] ;
+            DLogINFO(@"恢复 新订单截止到 : %@", resExpiraDate) ;
+            if ([resExpiraDate compare:[NSDate date]] == NSOrderedAscending) {
+                DLogERR(@"恢复 订单已经过期 or 之前没有收据") ;
+                [[XTIAP sharedInstance] restore] ;
+                
+                return ;
+            }
+            
+            // 恢复成功, 更新本地.
+            [IapUtil saveIapSubscriptionDate:tick] ;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
+        }
+        else {
+            // fail 调用本地restore
+            [[XTIAP sharedInstance] restore] ;
+        }
+
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        complete(NO,0) ;
+        // fail 调用本地restore
+        [[XTIAP sharedInstance] restore] ;
     }] ;
 
 }
