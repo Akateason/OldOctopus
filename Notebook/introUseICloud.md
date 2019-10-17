@@ -17,4 +17,4 @@
 ![](https://octopus.smcdn.cn/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/0908be10ee8c5896a6c9c7a1a44f3130.png)
 
 进入后打开小章鱼权限，来获取你的 iCloud 姓名。
-也可通过web访问[iCloud设置 https://www.icloud.com/settings/](https://www.icloud.com/settings/)，点击 **管理可以找到我的App**。
+若以上操作均不可行，可通过web访问Apple iCloud官网调整权限[浏览器访问 https://www.icloud.com/settings/](https://www.icloud.com/settings/)，点击 **管理可以找到我的App**。
