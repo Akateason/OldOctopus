@@ -177,7 +177,7 @@
     NSDictionary *header = @{@"Authorization" : code,
                              @"Content-Type":@"application/json"
                              } ;
-
+    
     NSDictionary *bodyDic = @{@"receipt":receipt64,
                               @"is_exclude_old":@(YES),
                               @"in_debug_mode":@(in_debug_mode),
@@ -220,5 +220,25 @@
 //    }] ;
 //}
 
+
++ (void)restoreOnServerCcomplete:(void(^)(BOOL success, long long tick))complete {
+ 
+    NSString *url = [self requestLinkWithNail:@"users/action/restore-subscribe"] ;
+    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
+    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
+    NSDictionary *header = @{@"Authorization" : code,
+                             @"Content-Type":@"application/json"} ;
+    NSDictionary *para = @{@"system":@"ios"} ;
+        
+    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:para rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
+        
+        long long tick = [json[@"expired_at"] longLongValue] ;
+        
+        complete(YES,tick) ;
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        complete(NO,0) ;
+    }] ;
+
+}
 
 @end

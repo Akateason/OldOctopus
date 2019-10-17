@@ -49,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 //todo deprecated
 //+ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete ;
 
+// 恢复购买 后台 api
++ (void)restoreOnServerCcomplete:(void(^)(BOOL success, long long tick))complete ;
+
 @end
 
 NS_ASSUME_NONNULL_END

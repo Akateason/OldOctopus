@@ -11,7 +11,7 @@
 #import "MDThemeConfiguration.h"
 #import "OctMBPHud.h"
 #import <XTIAP/XTIAP.h>
-
+#import "OctRequestUtil.h"
 
 @implementation IAPPayCell
 
@@ -32,6 +32,7 @@
     [attrStr addAttribute:NSForegroundColorAttributeName value:XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) range:NSMakeRange(0, 7)];
     [attrStr addAttribute:NSForegroundColorAttributeName value:XT_GET_MD_THEME_COLOR_KEY_A(k_md_themeColor,1) range:NSMakeRange(8, 5)];
     self.lbRestore.attributedText = attrStr ;
+    self.lbRestore.userInteractionEnabled = YES ;
     
     [self.lbRestore bk_whenTapped:^{
         
@@ -45,6 +46,14 @@
         }
         else {
             [[XTIAP sharedInstance] restore] ;
+            
+            [OctRequestUtil restoreOnServerCcomplete:^(BOOL success, long long tick) {
+                
+                if (success && tick > 0) {
+                    [IapUtil saveIapSubscriptionDate:tick] ;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
+                }
+            }] ;
         }
                                 
     }] ;
