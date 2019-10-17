@@ -22,7 +22,6 @@
     OcAllBookVC *vc = [OcAllBookVC getCtrllerFromStory:@"Home" controllerIdentifier:@"OcAllBookVC"] ;
     vc.delegate = (id<OcAllBookVCDelegate>)fromCtrller ;
     vc.modalPresentationStyle = UIModalPresentationFullScreen ;
-//    UIPopoverPresentationController *popVC = vc.popoverPresentationController ;
     
     [fromCtrller presentViewController:vc animated:YES completion:^{}] ;
     return vc ;
@@ -165,6 +164,12 @@
                 @strongify(self)
                 if (btnIndex1 == 1) {
                     @weakify(self)
+                    if ([book.icRecordName isEqualToString:@"book-default"]) {
+                        // 默认笔记本 id
+                        [SVProgressHUD showInfoWithStatus:@"不要删除[小章鱼🐙]的默认笔记本哦~"] ;
+                        return ;
+                    }
+                                        
                     [NoteBooks deleteBook:book done:^{
                         @strongify(self)
                         NSMutableArray *tmplist = [self.bookList mutableCopy] ;

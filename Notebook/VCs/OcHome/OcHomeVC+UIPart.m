@@ -304,6 +304,14 @@
 
 - (void)stretchSegment:(XTStretchSegment *)segment didSelectedIdx:(NSInteger)idx {
     NSLog(@"did select : %@", @(idx)) ;
+    if (idx > self.bookList.count) {
+        self.currentBook = [self.bookList firstObject] ;
+        [self refreshBars] ;
+        [self moveMainCollection] ;
+        
+        return ;
+    }
+    
     self.currentBook = self.bookList[idx] ;
     [self refreshBars] ;
     [self moveMainCollection] ;
