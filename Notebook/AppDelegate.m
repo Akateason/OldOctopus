@@ -125,9 +125,7 @@
     if (guidVC != nil) {
         MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
         self.window.rootViewController = navVC ;
-        [self.window makeKeyAndVisible] ;
-        
-        [self.launchingEvents setupAlbumn] ;
+        [self.window makeKeyAndVisible] ;        
     }
     else {
         UIViewController *vc = [OcHomeVC getMe] ;

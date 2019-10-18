@@ -182,8 +182,13 @@ XT_SINGLETON_M(XTCloudHandler)
         if (error || applicationPermissionStatus == CKApplicationPermissionStatusDenied) {
 
 //            [self alertCallUserToIcloud:nil] ;
-
             dispatch_async(dispatch_get_main_queue(), ^{
+                if (k_debugmode_findme) {
+                    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"用户未打开icloud drive" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                        
+                    }] ;
+                }
+
                 blkUser(nil) ;
             }) ;
             return ;
@@ -194,8 +199,14 @@ XT_SINGLETON_M(XTCloudHandler)
         [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) { //<CKRecordID: 0x2831b5dc0; recordName=_074e9bb2241e7f6cb71878cb5a543325, zoneID=_defaultZone:__defaultOwner__>
             @strongify(self)
             if (!recordID) {
-//                [self alertCallUserToIcloud:nil] ;
+
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    if (k_debugmode_findme) {
+                        [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"获取不到icloud RecordID" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                            
+                        }] ;
+                    }
+                    
                     blkUser(nil) ;
                 }) ;
                 return ;

@@ -17,6 +17,9 @@ static const int k_open_Unspash = 1 ;
 // 临时 测试 连续购买开关，无论购买与否都可以继续订阅, 默认关闭
 static const int k_Subscript_Test_On = 0 ;
 
+// debug for  icloud 用户找到我, 上线时关闭, 内测时打开.
+static const int k_debugmode_findme = 1 ;
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow          *window ;

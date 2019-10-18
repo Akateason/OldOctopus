@@ -64,6 +64,7 @@
 #import "UITableViewCell+XT.h"
 #import "UIButton+XT.h"
 #import "UIImage+AddFunction.h"
+#import "UIImage+XT.h"
 #import "UIImageView+QNExtention.h"
 #import "UILabel+Addition.h"
 #import "UILabel+Calculate.h"

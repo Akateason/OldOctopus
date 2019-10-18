@@ -30,7 +30,6 @@ static NSString *const kUD_OCT_PullAll_Done = @"kUD_OCT_PullAll_Done" ;
 - (void)pullAll ;
 - (void)pullOrSync ;
 
-- (void)setupAlbumn ;
 
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
