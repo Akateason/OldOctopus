@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,20 +34,12 @@
                                         <state key="normal" image="uhead_light.png"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIO-Yy-xSv">
-                                        <rect key="frame" x="299" y="14.666666666666664" width="20" height="20"/>
+                                        <rect key="frame" x="339" y="14.666666666666664" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="3MV-HR-9kI"/>
                                             <constraint firstAttribute="height" constant="20" id="He1-H3-fhB"/>
                                         </constraints>
                                         <state key="normal" image="md_home_search.png"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9G-1C-fsC">
-                                        <rect key="frame" x="339" y="14.666666666666664" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="5PN-ER-PlQ"/>
-                                            <constraint firstAttribute="height" constant="20" id="zSL-4V-j5g"/>
-                                        </constraints>
-                                        <state key="normal" image="md_home_add.png"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,9 +50,7 @@
                                     <constraint firstItem="3lK-Z4-ncy" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="gTE-ND-87Z"/>
                                     <constraint firstItem="VIO-Yy-xSv" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="hD7-JH-3q9"/>
                                     <constraint firstItem="3lK-Z4-ncy" firstAttribute="centerX" secondItem="yn3-xC-D1q" secondAttribute="centerX" id="hzv-qW-TT1"/>
-                                    <constraint firstItem="F9G-1C-fsC" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="rJN-bl-DxS"/>
-                                    <constraint firstAttribute="trailing" secondItem="F9G-1C-fsC" secondAttribute="trailing" constant="16" id="rXA-w1-tpC"/>
-                                    <constraint firstItem="F9G-1C-fsC" firstAttribute="leading" secondItem="VIO-Yy-xSv" secondAttribute="trailing" constant="20" id="yHs-5z-JGg"/>
+                                    <constraint firstAttribute="trailing" secondItem="VIO-Yy-xSv" secondAttribute="trailing" constant="16" id="n30-6R-FNO"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ih-R3-ZgS">
@@ -199,7 +187,6 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bookCollectionView" destination="57U-wi-15D" id="Nc4-Mm-3te"/>
-                        <outlet property="btAdd" destination="F9G-1C-fsC" id="uTL-Ka-c9Z"/>
                         <outlet property="btAllNote" destination="72M-AJ-CX8" id="HNQ-0N-wMY"/>
                         <outlet property="btSearch" destination="VIO-Yy-xSv" id="E7P-rf-hN6"/>
                         <outlet property="btUser" destination="4Xt-Fh-ad5" id="uOq-Hv-slA"/>
@@ -269,7 +256,6 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X2M-BN-hO4">
                                                 <rect key="frame" x="12" y="0.0" width="311" height="32"/>
-                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -478,12 +464,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UdP-2g-ndt">
-                                        <rect key="frame" x="30.333333333333336" y="294.66666666666663" width="113.66666666666666" height="43.666666666666686"/>
+                                        <rect key="frame" x="30.333333333333343" y="294.66666666666663" width="157" height="87"/>
                                         <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="14"/>
                                         <state key="normal" title="导出图片" image="note_info_output.png"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xm0-8M-tsp">
-                                        <rect key="frame" x="270.66666666666669" y="294.66666666666663" width="113.66666666666669" height="43.666666666666686"/>
+                                        <rect key="frame" x="227.33333333333331" y="294.66666666666663" width="157" height="87"/>
                                         <fontDescription key="fontDescription" name="PingFangSC-Light" family="PingFang SC" pointSize="14"/>
                                         <state key="normal" title="放入垃圾桶" image="note_info_remove.png"/>
                                     </button>
@@ -724,7 +710,6 @@
     <resources>
         <image name="home_top_arrow.png" width="20" height="20"/>
         <image name="m_note_close.png" width="40" height="40"/>
-        <image name="md_home_add.png" width="42" height="42"/>
         <image name="md_home_search.png" width="42" height="42"/>
         <image name="note_info_output.png" width="43" height="43"/>
         <image name="note_info_remove.png" width="43.5" height="43.5"/>

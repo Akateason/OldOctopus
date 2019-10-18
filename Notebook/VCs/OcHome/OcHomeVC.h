@@ -25,7 +25,6 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
 @property (weak, nonatomic) IBOutlet UIButton *btUser;
 @property (weak, nonatomic) IBOutlet UIButton *btSearch;
-@property (weak, nonatomic) IBOutlet UIButton *btAdd;
 @property (weak, nonatomic) IBOutlet UIView *midBar;
 @property (weak, nonatomic) IBOutlet UILabel *lbMyNotes;
 @property (weak, nonatomic) IBOutlet UILabel *lbAll;

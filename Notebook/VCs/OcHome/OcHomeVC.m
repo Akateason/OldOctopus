@@ -17,14 +17,12 @@
 #import "OcHomeVC+Notifications.h"
 #import "SchBarPositiveTransition.h"
 #import "SettingSave.h"
-
-static const float kFlex_loft_sync_animate = 10.f ;
-
-
+#import "HomeAddButton.h"
 
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @property (strong, nonatomic) MoveNoteToBookVC *moveVC ;
+@property (strong, nonatomic) HomeAddButton *btAdd ;
 @end
 
 @implementation OcHomeVC
@@ -374,6 +372,10 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     return _transition ;
 }
 
+- (HomeAddButton *)btAdd {
+    
+}
+
 #pragma mark - UIViewControllerTransitioningDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
@@ -445,7 +447,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 }
 
 - (int)currentBookType {
-    return self.currentBook.vType ;
+    return (int)(self.currentBook.vType) ;
 }
 
 #pragma mark - OcAllBookVCDelegate <NSObject>

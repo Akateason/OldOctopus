@@ -83,9 +83,9 @@
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     [self.btAdd bk_whenTapped:^{
-        
+
         [weakSelf.btAdd oct_buttonClickAnimationComplete:^{
-            
+
             [weakSelf addBtOnClick:weakSelf.btAdd] ;
         }] ;
     }] ;
