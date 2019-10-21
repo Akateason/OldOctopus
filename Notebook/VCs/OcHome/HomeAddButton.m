@@ -7,6 +7,7 @@
 //
 
 #import "HomeAddButton.h"
+//#import
 
 @implementation HomeAddButton
 
@@ -31,17 +32,10 @@
             make.edges.equalTo(self) ;
         }] ;
         
-        @weakify(self)
-        [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
-            @strongify(self)
-            
-            UIImage *bg = [[UIImage imageNamed:@"home_add_bg_light"] xt_imageWithTintColor:themeColor] ;
-            self.imgBg = [[UIImageView alloc] initWithImage:bg] ;
-        }] ;
+
+        self.imgBg.xt_theme_imageColor = k_md_themeColor ;
     }
     return self;
 }
-
-
 
 @end

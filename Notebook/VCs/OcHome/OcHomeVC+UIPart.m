@@ -54,6 +54,11 @@
         make.size.mas_equalTo(CGSizeMake(50., 50.)) ;
     }] ;
     
+    self.btAdd.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.12].CGColor;
+    self.btAdd.layer.shadowOffset = CGSizeMake(0, 7.5) ;
+    self.btAdd.layer.shadowOpacity = 15 ;
+    self.btAdd.layer.shadowRadius = 5 ;
+    
     
     // 按钮
     if ([XTIcloudUser hasLogin]) {
