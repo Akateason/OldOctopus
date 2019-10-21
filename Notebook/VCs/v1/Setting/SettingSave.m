@@ -9,7 +9,7 @@
 #import "SettingSave.h"
 #import <XTlib/XTlib.h>
 
-static NSString *const kUD_SettingSave_KEY = @"kUD_SettingSave_KEY" ;
+static NSString *const kUD_SettingSave_KEY = @"kUD_SettingSave_KEY_v2" ;
 
 @implementation SettingSave
 
