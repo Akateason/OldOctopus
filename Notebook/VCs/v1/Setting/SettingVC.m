@@ -142,7 +142,7 @@
     }] ;
     
     NSString *givenName = [XTIcloudUser displayUserName] ;    
-    self.lbName.text = givenName ;
+    self.lbName.text = givenName.length > 0 ? givenName : @"已登录" ;
     
     self.lbVersionNum = ({
         UILabel *lb = [UILabel new] ;

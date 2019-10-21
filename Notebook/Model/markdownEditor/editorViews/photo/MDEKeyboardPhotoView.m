@@ -208,8 +208,8 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
         bt.xt_theme_backgroundColor = k_md_bgColor ;
     }
     
-    self.height_list.constant = k_open_Unspash ? 150. : 100. ;
-    self.btUnsplash.hidden = !k_open_Unspash ;
+    self.height_list.constant = 150. ;
+    self.btUnsplash.hidden = NO ;
 }
 
 

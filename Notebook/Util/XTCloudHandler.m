@@ -83,12 +83,23 @@ XT_SINGLETON_M(XTCloudHandler)
                     case CKApplicationPermissionStatusCouldNotComplete:{
                         //无法完成
                         NSLog(@"CKApplicationPermissionStatusCouldNotComplete");
+                        if (k_debugmode_findme) {
+                            [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"CKApplicationPermissionStatusCouldNotComplete" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                                
+                            }] ;
+                        }
+
                         completion(NO) ;
                         break;
                     }
                     case CKApplicationPermissionStatusDenied:{
                         //拒绝
                         NSLog(@"CKApplicationPermissionStatusDenied");
+                        if (k_debugmode_findme) {
+                            [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"CKApplicationPermissionStatusDenied" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                                
+                            }] ;
+                        }
                         completion(NO) ;
                         break;
                     }
@@ -120,10 +131,20 @@ XT_SINGLETON_M(XTCloudHandler)
                     }
                     case CKApplicationPermissionStatusDenied:{
                         //已经拒绝
+                        if (k_debugmode_findme) {
+                            [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"statusForApplicationPermission 已经拒绝" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                                
+                            }] ;
+                        }
                         break;
                     }
                     case CKApplicationPermissionStatusCouldNotComplete:{
-                        //无法获取状态
+                        if (k_debugmode_findme) {
+                            //无法获取状态
+                            [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"statusForApplicationPermission 无法获取状态" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                                
+                            }] ;
+                        }
                         break;
                     }
                     default:
@@ -140,20 +161,32 @@ XT_SINGLETON_M(XTCloudHandler)
             }
             case CKAccountStatusCouldNotDetermine:{
                 //无法获取账户信息
-                [SVProgressHUD showInfoWithStatus:@"无法获取账户信息"] ;
+                if (k_debugmode_findme) {
+                    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"无法获取账户信息" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                        
+                    }] ;
+                }
                 NSLog(@"无法获取账户信息");
                 break;
             }
             case CKAccountStatusNoAccount:{
                 //当前无登录账户
-//                [SVProgressHUD showInfoWithStatus:@"当前无登录账户"] ;
+                if (k_debugmode_findme) {
+                    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"当前无登录账户" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                        
+                    }] ;
+                }
                 NSLog(@"当前无登录账户");
                 break;
             }
             case CKAccountStatusRestricted:{
                 //账户被禁用此功能
-                [SVProgressHUD showInfoWithStatus:@"账户被禁用此功能"] ;
-                NSLog(@"账户被禁用此功能");
+                NSLog(@"accountStatus 账户被禁用此功能");
+                if (k_debugmode_findme) {
+                    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"账户被禁用此功能" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                        
+                    }] ;
+                }
                 break;
             }
             default:
@@ -179,8 +212,7 @@ XT_SINGLETON_M(XTCloudHandler)
     [self.container requestApplicationPermission:(CKApplicationPermissionUserDiscoverability) completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
         // 这里要 提醒用户开 icloud drive
         @strongify(self)
-        if (error || applicationPermissionStatus == CKApplicationPermissionStatusDenied) {
-
+        if (error) {
 //            [self alertCallUserToIcloud:nil] ;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (k_debugmode_findme) {
@@ -220,12 +252,19 @@ XT_SINGLETON_M(XTCloudHandler)
                 if (error || !userInfo) {
                     // 获取不到用户信息, 但不报错 !. 说明没有打开找到我, web端打开权限.
                     XTIcloudUser *user = [XTIcloudUser new] ;
-                    user.userRecordName = userInfo.userRecordID.recordName ;
+                    user.userRecordName = recordID.recordName ;
                     user.familyName = @"" ;
                     user.givenName = @"" ;
                     user.name = @"小章鱼" ;
                     [XTArchive archiveSomething:user path:[XTIcloudUser pathForUserSave]] ;
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        if (k_debugmode_findme) {
+                            [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"获取不到用户信息" message:recordID.recordName cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
+                                
+                            }] ;
+                        }
+
+                        
                         blkUser(user) ;
                     }) ;
                 }
