@@ -31,7 +31,7 @@ static NSString *const kUD_SettingSave_KEY = @"kUD_SettingSave_KEY" ;
         save.editor_lightHeightRate = 1.7 ;
         save.editor_md_ulistSymbol = @"-" ;
         save.editor_isLooseList = TRUE ;
-        save.theme_isChangeWithSystemDarkmode = FALSE ;
+        save.theme_isChangeWithSystemDarkmode = TRUE ;
         
         sSave = save ;
     }
