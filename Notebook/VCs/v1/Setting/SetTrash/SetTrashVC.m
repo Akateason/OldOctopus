@@ -24,25 +24,20 @@
 
 // 清空
 - (void)clearAllTrash {
-    [[OctMBPHud sharedInstance] show] ;
-    
-    @weakify(self)
     [Note deleteTheseNotes:self.list fromICloudComplete:^(bool success) {
-        @strongify(self)
-        if (success) {
-            for (Note *aNote in self.list) {
-                [aNote xt_deleteModel] ;
-            }
-        }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.list = [Note xt_findWhere:@"isDeleted == 1 AND icRecordName NOT LIKE 'mac-note%%'"] ;
-            [self.collectionView reloadData] ;
-            
-            [[OctMBPHud sharedInstance] hide] ;
-        }) ;
-
     }] ;
+    
+    for (Note *aNote in self.list) {
+        [aNote xt_deleteModel] ;
+    }
+    
+    self.list = @[] ;
+    //[Note xt_findWhere:@"isDeleted == 1 AND icRecordName NOT LIKE 'mac-note%%'"] ;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData] ;
+    }) ;
+    
 }
 
 - (void)prepareUI {

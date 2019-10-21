@@ -12,9 +12,4 @@
 
 ![](https://octopus.smcdn.cn/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/d4559c06d3a38b1fdbfb0ea9ba183854.png)
 
-第四步，将 iCloud 设置页面（如上图）下拉至最后，点击 **找到我**。
-
-![](https://octopus.smcdn.cn/basic/_a9c0ab14a845ac6ed61b710e60555386/md5/0908be10ee8c5896a6c9c7a1a44f3130.png)
-
-进入后打开小章鱼权限，来获取你的 iCloud 姓名。
-若以上操作均不可行，可通过web访问Apple iCloud官网调整权限[浏览器访问 https://www.icloud.com/settings/](https://www.icloud.com/settings/)，点击 **管理可以找到我的App**。
+第四步，将 iCloud 设置页面（如上图）下拉至最后，点击 **找到我**，让小章鱼获取用户姓名。 部分用户没有这一项也不影响使用。（旧版本部分用户存在无法登录的问题，请更新至新版本即可使用。）
