@@ -46,8 +46,14 @@
     self.btSearch.touchExtendInset  = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     self.btSearch.xt_theme_imageColor = k_md_iconColor ;    
 
-    self.btAdd.touchExtendInset     = UIEdgeInsetsMake(-15, -15, -15, -15) ;
-    self.btAdd.xt_theme_imageColor = k_md_iconColor ;
+    
+    [self.view addSubview:self.btAdd] ;
+    [self.btAdd mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-25) ;
+        make.bottom.equalTo(self.view).offset(-45) ;
+        make.size.mas_equalTo(CGSizeMake(50., 50.)) ;
+    }] ;
+    
     
     // 按钮
     if ([XTIcloudUser hasLogin]) {

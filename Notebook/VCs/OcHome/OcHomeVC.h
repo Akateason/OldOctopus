@@ -12,7 +12,7 @@
 #import <XTlib/XTStretchSegment.h>
 #import "NewBookVC.h"
 #import <Lottie/Lottie.h>
-
+#import "HomeAddButton.h"
 
 // lastBook
 // @key     kUDCached_lastBook_RecID
@@ -44,6 +44,8 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (strong, nonatomic)   UIView              *btBooksSmall_All  ;
 // 同步转圈
 //@property (strong, nonatomic) LOTAnimationView          *animationSync ;
+// 加号
+@property (strong, nonatomic) HomeAddButton *btAdd ;
 
 // data
 @property (copy, nonatomic)     NSArray             *bookList ;

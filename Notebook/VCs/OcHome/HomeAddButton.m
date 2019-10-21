@@ -18,7 +18,7 @@
         self.frame = CGRectMake(0, 0, 50, 50) ;
         
         UIColor *themeColor = XT_GET_MD_THEME_COLOR_KEY(k_md_themeColor) ;
-        UIImage *bg = [[UIImage imageNamed:@"home_add_bg_light"] imageWithTintColor:themeColor] ;
+        UIImage *bg = [[UIImage imageNamed:@"home_add_bg_light"] xt_imageWithTintColor:themeColor] ;
         self.imgBg = [[UIImageView alloc] initWithImage:bg] ;
         [self addSubview:self.imgBg] ;
         [self.imgBg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -35,7 +35,7 @@
         [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
             @strongify(self)
             
-            UIImage *bg = [[UIImage imageNamed:@"home_add_bg_light"] imageWithTintColor:themeColor] ;
+            UIImage *bg = [[UIImage imageNamed:@"home_add_bg_light"] xt_imageWithTintColor:themeColor] ;
             self.imgBg = [[UIImageView alloc] initWithImage:bg] ;
         }] ;
     }

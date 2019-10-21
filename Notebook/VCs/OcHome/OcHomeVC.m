@@ -17,12 +17,12 @@
 #import "OcHomeVC+Notifications.h"
 #import "SchBarPositiveTransition.h"
 #import "SettingSave.h"
-#import "HomeAddButton.h"
+
 
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @property (strong, nonatomic) MoveNoteToBookVC *moveVC ;
-@property (strong, nonatomic) HomeAddButton *btAdd ;
+
 @end
 
 @implementation OcHomeVC
@@ -373,7 +373,11 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 }
 
 - (HomeAddButton *)btAdd {
-    
+    if (!_btAdd) {
+        HomeAddButton *bt = [[HomeAddButton alloc] init] ;
+        _btAdd = bt ;        
+    }
+    return _btAdd ;
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
