@@ -92,7 +92,15 @@
     // Do any additional setup after loading the view.
     self.list = [Note xt_findWhere:@"isDeleted == 1 AND icRecordName NOT LIKE 'mac-note%%'"] ;
     
-    
+    @weakify(self)
+    [[RACObserve(self, list) map:^id _Nullable(NSArray *list) {
+        return @(list.count > 0) ;
+    }] subscribeNext:^(NSNumber *x) {
+        @strongify(self)
+        BOOL enable = [x intValue] ;
+        self.btClear.enabled = enable ;
+        self.btClear.alpha = enable ? 1 : .3 ;
+    }] ;
 }
 
 #pragma mark - UICollectionViewDataSource <NSObject>
@@ -142,10 +150,7 @@
             [self.collectionView deleteItemsAtIndexPaths:@[indexPath]] ;
             
             [Note deleteThisNoteFromICloud:aNote complete:^(bool success) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.list = [Note xt_findWhere:@"isDeleted == 1 AND icRecordName NOT LIKE 'mac-note%%'"] ;
-                    [self.collectionView reloadData] ;
-                }) ;
+                
             }] ;
         }
     }] ;
@@ -172,10 +177,6 @@
         }
     }] ;
 }
-
-
-
-
 
 
 @end
