@@ -295,6 +295,7 @@
 		8FF32ABA230F8CE500C1C835 /* smallTopbar_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF32AB9230F8CE500C1C835 /* smallTopbar_shadow@2x.png */; };
 		8FF32ABC230F8D1300C1C835 /* bt_s_t_all@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF32ABB230F8D1300C1C835 /* bt_s_t_all@2x.png */; };
 		8FF32AC0230FCEC400C1C835 /* OcAllBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF32ABF230FCEC400C1C835 /* OcAllBookVC.m */; };
+		8FF93DC6235EED7200C6B5CD /* URLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF93DC5235EED7200C6B5CD /* URLProtocol.m */; };
 		8FFAE089229BD22500CDAC47 /* md_l_math@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */; };
 		8FFAE0E2229CDAF400CDAC47 /* asm-mips.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE08D229CDAF400CDAC47 /* asm-mips.plist */; };
 		8FFAE0E3229CDAF400CDAC47 /* metaslang.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE08E229CDAF400CDAC47 /* metaslang.plist */; };
@@ -820,6 +821,8 @@
 		8FF32ABB230F8D1300C1C835 /* bt_s_t_all@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_s_t_all@2x.png"; sourceTree = "<group>"; };
 		8FF32ABE230FCEC400C1C835 /* OcAllBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OcAllBookVC.h; sourceTree = "<group>"; };
 		8FF32ABF230FCEC400C1C835 /* OcAllBookVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OcAllBookVC.m; sourceTree = "<group>"; };
+		8FF93DC4235EED7200C6B5CD /* URLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLProtocol.h; sourceTree = "<group>"; };
+		8FF93DC5235EED7200C6B5CD /* URLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLProtocol.m; sourceTree = "<group>"; };
 		8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_l_math@2x.png"; sourceTree = "<group>"; };
 		8FFAE08D229CDAF400CDAC47 /* asm-mips.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "asm-mips.plist"; sourceTree = "<group>"; };
 		8FFAE08E229CDAF400CDAC47 /* metaslang.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = metaslang.plist; sourceTree = "<group>"; };
@@ -1334,6 +1337,8 @@
 				8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */,
 				8F97514222D7A8BD0012F403 /* OctMBPHud.h */,
 				8F97514322D7A8BD0012F403 /* OctMBPHud.m */,
+				8FF93DC4235EED7200C6B5CD /* URLProtocol.h */,
+				8FF93DC5235EED7200C6B5CD /* URLProtocol.m */,
 				8F1D1C0222E9822300C3B700 /* IapUtil.h */,
 				8F1D1C0322E9822300C3B700 /* IapUtil.m */,
 				8F81B83D22F95C9E00DFFEDB /* AppstoreCommentUtil.h */,
@@ -2398,6 +2403,7 @@
 				8FBA0421228BC0E900EED229 /* HomeVC+Util.m in Sources */,
 				8FC431272265CCAF0002C9A1 /* SearchVC.m in Sources */,
 				8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */,
+				8FF93DC6235EED7200C6B5CD /* URLProtocol.m in Sources */,
 				8F18B24422BB90130073552A /* HomePadVC.m in Sources */,
 				8FAE3AC222CFBB130054F3BB /* OctGuidingVC.m in Sources */,
 				8FBBD533231688E4005E7B41 /* OcHomeVC+Notifications.m in Sources */,

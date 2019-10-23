@@ -136,6 +136,9 @@
         make.height.equalTo(@.5) ;
     }] ;
     
+
+    
+    
     WEAK_SELF
     [self.btClose bk_whenTapped:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
@@ -150,14 +153,17 @@
         NSString *versionNum = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ;
         NSString *buildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] ;
         lb.text = XT_STR_FORMAT(@"v %@ (%@) %@",versionNum,buildNum, (k_Is_Internal_Testing) ? @"内测" : @"") ;        
-        lb.font = [UIFont systemFontOfSize:12] ;
-        [self.table addSubview:lb] ;
-        [lb mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view.mas_bottom).offset(-25) ;
-            make.centerX.equalTo(self.view) ;
-        }] ;
+        lb.font = [UIFont systemFontOfSize:12.] ;
+        lb.textAlignment = NSTextAlignmentCenter ;
+//        lb.backgroundColor = [UIColor redColor] ;
         lb ;
     }) ;
+    
+    self.lbVersionNum.height = 100 ;
+    self.lbVersionNum.width = self.view.bounds.size.width ;
+    self.table.tableFooterView = self.lbVersionNum ;
+
+    
     
     self.userHead.userInteractionEnabled = self.lbName.userInteractionEnabled = YES ;
     

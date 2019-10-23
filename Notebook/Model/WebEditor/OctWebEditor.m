@@ -23,7 +23,8 @@
 #import "HomePadVC.h"
 #import "_NoInputAccessoryView.h"
 #import "UnsplashPhoto.h"
-
+#import <NSURLProtocol+WKWebViewSupport.h>
+#import "URLProtocol.h"
 
 @interface OctWebEditor () {
     NSArray<NSString *> *_disabledActions ;
@@ -128,6 +129,15 @@ XT_SINGLETON_M(OctWebEditor)
         @strongify(self)
         [self reloadWKWebview] ;
     }] ;
+    
+    
+    // wkwebview urlprotocol
+    if (k_open_WkWebview_URLProtocol) {
+        [NSURLProtocol wk_registerScheme:@"http"];
+        [NSURLProtocol wk_registerScheme:@"https"];
+        [NSURLProtocol registerClass:[URLProtocol class]];
+    }
+    
 }
 
 - (void)hideSystemToolBar {

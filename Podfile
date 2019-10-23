@@ -29,6 +29,8 @@ pod 'XTIAP',:path => '../XTIAP/'
   pod 'FTPopOverMenu'
 #  pod 'YYKeyboardManager'
 #  pod 'IAPHelper'
+  pod 'WKWebViewWithURLProtocol'
+
 
 
   

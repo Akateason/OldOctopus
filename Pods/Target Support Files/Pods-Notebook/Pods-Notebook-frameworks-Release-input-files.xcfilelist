@@ -22,6 +22,7 @@ ${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/UIFontWDCustomLoader/UIFontWDCustomLoader.framework
 ${BUILT_PRODUCTS_DIR}/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework
 ${BUILT_PRODUCTS_DIR}/Valet/Valet.framework
+${BUILT_PRODUCTS_DIR}/WKWebViewWithURLProtocol/WKWebViewWithURLProtocol.framework
 ${BUILT_PRODUCTS_DIR}/XTBase/XTBase.framework
 ${BUILT_PRODUCTS_DIR}/XTColor/XTColor.framework
 ${BUILT_PRODUCTS_DIR}/XTFMDB/XTFMDB.framework

@@ -32,6 +32,8 @@
 #import "AppstoreCommentUtil.h"
 #import "OctWebEditor+OctToolbarUtil.h"
 
+
+
 @interface MarkdownVC () <WKScriptMessageHandler>
 @property (strong, nonatomic) XTCameraHandler   *cameraHandler ;
 @property (strong, nonatomic) Note              *aNote ;
@@ -116,6 +118,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
+    
+
     
     
     self.view.xt_maskToBounds = YES ;
