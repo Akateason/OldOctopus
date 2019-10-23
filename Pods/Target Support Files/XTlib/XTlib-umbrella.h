@@ -32,6 +32,7 @@
 #import "XTPACameraGroupCell.h"
 #import "XTPACameraGroupVC.h"
 #import "XTPACropImageVC.h"
+#import "XTImageItem.h"
 #import "XTPAConfig.h"
 #import "XTPhotoAlbum.h"
 #import "XTSegment.h"

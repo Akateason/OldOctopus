@@ -11,6 +11,7 @@
 #import <XTlib/XTlib.h>
 #import <XTIAP/XTIAP.h>
 #import "IapUtil.h"
+#import <XTlib/XTImageItem.h>
 
 @implementation OctRequestUtil
 
@@ -52,17 +53,25 @@
     }] ;
 }
 
-+ (void)uploadImage:(UIImage *)image
++ (void)uploadImage:(XTImageItem *)item
            progress:(nullable void (^)(float progress))progressValueBlock
            complete:(void (^)(NSString *urlString))completion {
     
 //    NSString *url = @"https://shimo.im/octopus-api/files?uploadType=media" ;
     NSString *url = [self requestLinkWithNail:@"files?uploadType=media"] ;
-    NSData *data = UIImageJPEGRepresentation(image, 1) ;
+    NSData *data = item.data ;
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
     NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
+    
+    NSString *contentType ;
+    switch (item.imgType) {
+        case XTImageItem_type_png: contentType = @"image/png" ; break;
+        case XTImageItem_type_gif: contentType = @"image/gif" ; break;
+        case XTImageItem_type_jpeg: contentType = @"image/jpeg" ; break;
+        default: break;
+    }
     NSDictionary *header = @{@"Authorization" : code,
-                             @"Content-Type":@"image/jpeg"} ;
+                             @"Content-Type":contentType} ;
     NSLog(@"upload url : %@\nheader : %@",url,header) ;
     
     [XTRequest uploadFileWithData:data urlStr:url header:header progress:^(float flt) {

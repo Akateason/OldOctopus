@@ -18,6 +18,8 @@
 #import "GuidingICloud.h"
 #import "IapUtil.h"
 
+#import <XTlib/XTImageItem.h>
+
 @implementation OctWebEditor (OctToolbarUtil)
 
 - (CGFloat)keyboardHeight {
@@ -41,7 +43,7 @@
 - (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView  {
     @weakify(self)
     MDEKeyboardPhotoView *photoView =
-    [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - OctToolbarHeight WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
+    [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - OctToolbarHeight WhenUserPressedPhotoOnList:^(XTImageItem * _Nonnull image) {
         
         @strongify(self)
         if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
@@ -50,13 +52,13 @@
             return ;
         }
         
-        [self sendImageLocalPathWithImage:image] ;
+        [self sendImageLocalPathWithImageItem:image] ;
         
-    } cameraOnPressed:^(UIImage * _Nonnull image) {
+    } cameraOnPressed:^(XTImageItem * _Nonnull image) {
         // 照相生命周期问题, 交给VC处理
 
         
-    } albumOnPressed:^(UIImage * _Nonnull image) {
+    } albumOnPressed:^(XTImageItem * _Nonnull image) {
         @strongify(self)
         if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
             [self subscription] ;
@@ -64,7 +66,7 @@
             return ;
         }
         
-        [self sendImageLocalPathWithImage:image] ;
+        [self sendImageLocalPathWithImageItem:image] ;
     } linkPressed:^{
         @strongify(self)
         [self nativeCallJSWithFunc:@"addLink" json:nil completion:^(NSString *val, NSError *error) {
@@ -83,27 +85,26 @@
     return photoView ;
 }
 
-- (void)sendImageLocalPathWithImage:(UIImage *)image {
+- (void)sendImageLocalPathWithImageItem:(XTImageItem *)imageItem {
     WebPhoto *photo = [WebPhoto new] ;
     photo.fromNoteClientID = self.note_clientID ;
-    // todo 图片类型
     photo.localPath = XT_STR_FORMAT(@"%d_%lld",self.note_clientID,[NSDate xt_getNowTick]) ;
-    NSData *data = UIImageJPEGRepresentation(image, 0.5) ;
     
-    float mb = [self mdFileSize:[data length]] ;
+    float mb = [self mdFileSize:[imageItem.data length]] ;
     if (mb > 5.) {
         [SVProgressHUD showErrorWithStatus:@"超过限制\n请控制上传图片大小在5MB以内"] ;
         return ;
     }
     
-    BOOL success = [data writeToFile:photo.realPath atomically:YES] ;
+    // 暂存本地
+    BOOL success = [imageItem.data writeToFile:photo.realPath atomically:YES] ;
     if (success) {
         [photo xt_insert] ;
-    
+        
         @weakify(self)
-        [self nativeCallJSWithFunc:@"insertImage" json:@{@"src":photo.realPath} completion:^(NSString *val, NSError *error) {
+        [self nativeCallJSWithFunc:@"insertImage" json:@{@"src":photo.realPath} completion:^(NSString *val, NSError *error) { // 替换编辑器中
             @strongify(self)
-            [self uploadWebPhoto:photo image:image] ;
+            [self uploadWebPhoto:photo image:imageItem] ; // 上传
         }] ;
     }        
 }
@@ -115,9 +116,9 @@
 }
 
 
-- (void)uploadWebPhoto:(WebPhoto *)photo image:(UIImage *)image {
+- (void)uploadWebPhoto:(WebPhoto *)photo image:(XTImageItem *)item {
     @weakify(self)
-    [self uploadImage:image complete:^(NSString *url) {
+    [self uploadImage:item complete:^(NSString *url) {
         if (url.length) {
             NSLog(@"图片上传成功 : %@",url) ;
             photo.url = url ;
@@ -143,10 +144,10 @@
     }] ;
 }
 
-- (void)uploadImage:(UIImage *)image
+- (void)uploadImage:(XTImageItem *)item
            complete:(void(^)(NSString *url))completion {
     
-    [OctRequestUtil uploadImage:image progress:nil complete:completion] ;
+    [OctRequestUtil uploadImage:item progress:nil complete:completion] ;
 }
 
 - (void)toolbarDidSelectUndo {

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+@class XTImageItem ;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getShareHtmlLink:(NSString *)html
                 complete:(void (^)(NSString *urlString))completion ;
 
-+ (void)uploadImage:(UIImage *)image
++ (void)uploadImage:(XTImageItem *)image
            progress:(nullable void (^)(float progress))progressValueBlock
            complete:(void (^)(NSString *urlString))completion ;
 

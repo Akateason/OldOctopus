@@ -87,23 +87,24 @@
 }
 
 - (MDEKeyboardPhotoView *)toolbarDidSelectPhotoView  {
-    @weakify(self)
-    MDEKeyboardPhotoView *photoView =
-    [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - OctToolbarHeight WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
-        @strongify(self)
-        [self uploadImage:image] ;
-    } cameraOnPressed:^(UIImage * _Nonnull image) {
-        @strongify(self)
-        [self uploadImage:image] ;
-    } albumOnPressed:^(UIImage * _Nonnull image) {
-        @strongify(self)
-        [self uploadImage:image] ;
-    } linkPressed:^{        
-        
-    } unsplashPressed:^{
-        
-    }] ;
-    return photoView ;
+    return nil ;
+//    @weakify(self)
+//    MDEKeyboardPhotoView *photoView =
+//    [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - OctToolbarHeight WhenUserPressedPhotoOnList:^(UIImage * _Nonnull image) {
+//        @strongify(self)
+//        [self uploadImage:image] ;
+//    } cameraOnPressed:^(UIImage * _Nonnull image) {
+//        @strongify(self)
+//        [self uploadImage:image] ;
+//    } albumOnPressed:^(UIImage * _Nonnull image) {
+//        @strongify(self)
+//        [self uploadImage:image] ;
+//    } linkPressed:^{
+//
+//    } unsplashPressed:^{
+//
+//    }] ;
+//    return photoView ;
 }
 - (void)uploadImage:(UIImage *)image {
 //    dispatch_async(dispatch_get_main_queue(), ^{

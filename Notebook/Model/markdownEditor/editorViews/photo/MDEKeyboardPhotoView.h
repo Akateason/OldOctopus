@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <XTlib/XTlib.h>
 
-
+@class XTImageItem ;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)showViewFromCtrller:(UIViewController *)ctrller
                            kbheight:(CGFloat)height
-         WhenUserPressedPhotoOnList:(void(^)(UIImage *image))blkPressedPhotoList
-                    cameraOnPressed:(void(^)(UIImage *image))blkPressCameraBt
-                     albumOnPressed:(void(^)(UIImage *image))blkPressAlbum
+         WhenUserPressedPhotoOnList:(void(^)(XTImageItem *image))blkPressedPhotoList
+                    cameraOnPressed:(void(^)(XTImageItem *image))blkPressCameraBt
+                     albumOnPressed:(void(^)(XTImageItem *image))blkPressAlbum
                         linkPressed:(void(^)(void))linkPressed
                     unsplashPressed:(void(^)(void))unsplashPressed ;
 

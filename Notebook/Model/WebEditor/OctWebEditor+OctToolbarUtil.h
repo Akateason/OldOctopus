@@ -7,7 +7,7 @@
 //
 
 #import "OctWebEditor.h"
-@class WebPhoto ;
+@class WebPhoto, XTImageItem ;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)uploadWebPhoto:(WebPhoto *)photo image:(UIImage *)image ;
 - (void)hideKeyboard ;
 - (void)openKeyboard ;
-- (void)sendImageLocalPathWithImage:(UIImage *)image ;
+- (void)sendImageLocalPathWithImageItem:(XTImageItem *)imageItem ;
 
 - (void)subscription ;
 @end

@@ -145,11 +145,11 @@
         
         
         @weakify(self)
-        [self.cameraHandler openCameraFromController:self takePhoto:^(UIImage *imageResult) {
+        [self.cameraHandler openCameraFromController:self takePhoto:^(XTImageItem *imageResult) {
             if (!imageResult) return;
             
             @strongify(self)
-            [self.editor sendImageLocalPathWithImage:imageResult] ;
+            [self.editor sendImageLocalPathWithImageItem:imageResult] ;
         }] ;
     }] ;
     

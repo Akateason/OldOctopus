@@ -13,7 +13,7 @@
 #import <Photos/Photos.h>
 #import "MDEKPhotoViewCell.h"
 
-typedef void(^BlkCollectionFlowPressed)(UIImage *image);
+typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
 
 @interface MDEKeyboardPhotoView () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (strong, nonatomic) UIViewController *ctrller ;
@@ -32,9 +32,9 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 
 + (instancetype)showViewFromCtrller:(UIViewController *)ctrller
                            kbheight:(CGFloat)height
-         WhenUserPressedPhotoOnList:(void(^)(UIImage *image))blkPressedPhotoList
-                    cameraOnPressed:(void(^)(UIImage *image))blkPressCameraBt
-                     albumOnPressed:(void(^)(UIImage *image))blkPressAlbum
+         WhenUserPressedPhotoOnList:(void(^)(XTImageItem *image))blkPressedPhotoList
+                    cameraOnPressed:(void(^)(XTImageItem *image))blkPressCameraBt
+                     albumOnPressed:(void(^)(XTImageItem *image))blkPressAlbum
                         linkPressed:(void(^)(void))linkPressed
                     unsplashPressed:(void(^)(void))unsplashPressed {
     
@@ -75,11 +75,11 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     return photoView ;
 }
 
-- (void)albumAddCrop:(void(^)(UIImage *image))blkGetImage {
+- (void)albumAddCrop:(void(^)(XTImageItem *imageItem))blkGetImage {
     XTPAConfig *config = [[XTPAConfig alloc] init];
     config.albumSelectedMaxCount = 1;
     
-    [XTPhotoAlbumVC openAlbumWithConfig:config fromCtrller:self.ctrller willDismiss:NO getResult:^(NSArray<UIImage *> *_Nonnull imageList, NSArray<PHAsset *> *_Nonnull assetList, XTPhotoAlbumVC *vc) {
+    [XTPhotoAlbumVC openAlbumWithConfig:config fromCtrller:self.ctrller willDismiss:NO getResult:^(NSArray<XTImageItem *> *_Nonnull imageList, NSArray<PHAsset *> *_Nonnull assetList, XTPhotoAlbumVC *vc) {
         if (!imageList) return;
         
         dispatch_async(dispatch_get_main_queue(), ^{
