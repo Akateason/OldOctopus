@@ -263,18 +263,19 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
         options.resizeMode             = PHImageRequestOptionsResizeModeFast;
         options.synchronous            = YES;
         @weakify(self)
-        [self.manager requestImageForAsset:photo
-                                targetSize:PHImageManagerMaximumSize
-                               contentMode:PHImageContentModeDefault
-                                   options:options
-                             resultHandler:^(UIImage *result, NSDictionary *info) {
-                                 @strongify(self)
-                                 if (result) {
-                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                         self.blkFlowPressed(result) ;
-                                     }) ;
-                                 }
-                             }] ;
+        [self.manager requestImageDataForAsset:photo
+                                       options:options
+                                 resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+                                             
+            @strongify(self)
+            if (imageData) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    XTImageItem *item = [[XTImageItem alloc] initWithData:imageData info:info] ;
+                    self.blkFlowPressed(item) ;
+                }) ;
+            }
+
+        }] ;
     }) ;
 }
 
