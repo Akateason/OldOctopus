@@ -15,20 +15,20 @@
 static NSString *const kUD_Key_AppReview_Date = @"kUD_Key_AppReview_Date" ;
 
 + (void)setup {
-    if ([XT_USERDEFAULT_GET_VAL(kUD_Key_AppReview_Date) longLongValue] == 0) {
-        XT_USERDEFAULT_SET_VAL(@([[NSDate date] xt_getTick]), kUD_Key_AppReview_Date) ;
-    }
+//    if ([XT_USERDEFAULT_GET_VAL(kUD_Key_AppReview_Date) longLongValue] == 0) {
+//        XT_USERDEFAULT_SET_VAL(@([[NSDate date] xt_getTick]), kUD_Key_AppReview_Date) ;
+//    }
 }
 
 + (void)jumpReviewAfterNoteRead {
-    NSDate *now = [NSDate date] ;
-    NSDate *cache = [NSDate xt_getDateWithTick:[XT_USERDEFAULT_GET_VAL(kUD_Key_AppReview_Date) longLongValue]] ;
-    NSTimeInterval time = [now timeIntervalSinceDate:cache] ;
-    int days = abs(((int)time)/(3600*24)) ;
-    if (days > 7) {
-        XT_USERDEFAULT_SET_VAL(@([[NSDate date] xt_getTick]), kUD_Key_AppReview_Date) ;
-        [self goReview] ;
-    }
+//    NSDate *now = [NSDate date] ;
+//    NSDate *cache = [NSDate xt_getDateWithTick:[XT_USERDEFAULT_GET_VAL(kUD_Key_AppReview_Date) longLongValue]] ;
+//    NSTimeInterval time = [now timeIntervalSinceDate:cache] ;
+//    int days = abs(((int)time)/(3600*24)) ;
+//    if (days > 7) {
+//        XT_USERDEFAULT_SET_VAL(@([[NSDate date] xt_getTick]), kUD_Key_AppReview_Date) ;
+//        [self goReview] ;
+//    }
 }
 
 /** Request StoreKit to ask the user for an app review. This may or may not show any UI.

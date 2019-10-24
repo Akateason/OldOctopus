@@ -52,7 +52,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupIcloudEvent] ; // get User. Then Pull or Sync .
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
-    [self setupAppComment] ;
+//    [self setupAppComment] ;
     
     [self setupNotePreviewPicture] ;
 }
@@ -71,7 +71,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 }
 
 - (void)setupAppComment {
-    [AppstoreCommentUtil setup] ;
+//    [AppstoreCommentUtil setup] ;
 }
 
 /**

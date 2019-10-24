@@ -404,7 +404,7 @@ return;}
     }] ;
     
     
-    [AppstoreCommentUtil jumpReviewAfterNoteRead] ;
+//    [AppstoreCommentUtil jumpReviewAfterNoteRead] ;
 }
 
 
