@@ -90,13 +90,7 @@ static int kLimitCount = 70 ;
     
     if (hasPic) {
         NSArray *list = [WebModel convertjsonStringToJsonObj:note.previewPicture] ;
-        NSString *strUrl = list.firstObject ;
-        strUrl = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSURL *imgUrl = [NSURL URLWithString:strUrl] ;
-        
-        [_img sd_setImageWithURL:imgUrl completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            
-        }] ;
+        [self loadImageListloop:list index:0] ;
     }
     else {
         NSString *content = [Note filterMD:note.content] ;
@@ -118,7 +112,23 @@ static int kLimitCount = 70 ;
 }
 
 
-
+- (void)loadImageListloop:(NSArray *)list index:(int)index {
+    NSString *strUrl = list[index] ;
+    strUrl = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
+    NSURL *imgUrl = [NSURL URLWithString:strUrl] ;
+    __block int aIdx = index ;
+    [_img sd_setImageWithURL:imgUrl completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if (error || image == nil) {
+            if (index < list.count - 1) {
+                aIdx ++ ;
+            }
+            else {
+                aIdx = 0 ;
+            }
+            [self loadImageListloop:list index:aIdx] ;
+        }
+    }] ;
+}
 
 
 

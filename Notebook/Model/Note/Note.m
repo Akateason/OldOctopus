@@ -277,6 +277,31 @@
         
         [results addObject:tmpStr] ;
     }
+    
+    IMAGE_REG = @"/<img.*?src=\"(.*?)\".*?\\/?>/i" ;
+    regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
+    matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
+    for (NSTextCheckingResult *result in matsImage) {
+        NSString *strRes = [content substringWithRange:result.range] ;
+        [results addObject:strRes] ;
+    }
+            
+    IMAGE_REG = @"/^\\!\\[([^\\]]+?)(\\\\*)\\](?:\\[([^\\]]*?)(\\\\*)\\])?/" ;
+    regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
+    matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
+    for (NSTextCheckingResult *result in matsImage) {
+        NSString *strRes = [content substringWithRange:result.range] ;
+        [results addObject:strRes] ;
+    }
+    
+    IMAGE_REG = @"/^( {0,3}\[)([^\\]]+?)(\\\\*)(\\]: *)(<?)([^\\s>]+)(>?)(?:( +)([\"'(]?)([^\\n\"'\\(\\)]+)\\9)?( *)$/" ;
+    regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
+    matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
+    for (NSTextCheckingResult *result in matsImage) {
+        NSString *strRes = [content substringWithRange:result.range] ;
+        [results addObject:strRes] ;
+    }
+    
     return [results yy_modelToJSONString] ;
 }
 
