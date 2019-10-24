@@ -178,7 +178,15 @@
     } forControlEvents:(UIControlEventTouchUpInside)] ;
 }
 
-- (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight {
+- (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight fromCtrller:(UIViewController *)ctrller {
+    
+//    [ctrller.view addSubview:self] ;
+//    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.left.right.equalTo(ctrller.view) ;
+//        make.height.equalTo(@(keyboardHeight - OctToolbarHeight)) ;
+//    }] ;
+//    ???
+    
     for (UIView *window in [UIApplication sharedApplication].windows) {
         if ([window isKindOfClass:NSClassFromString(@"UIRemoteKeyboardWindow")]) {
             [window addSubview:self] ;
@@ -188,6 +196,7 @@
             }] ;
         }
     }
+    
 }
 
 @end

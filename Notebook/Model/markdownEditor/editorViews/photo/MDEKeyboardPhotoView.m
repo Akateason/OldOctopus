@@ -145,11 +145,17 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
     self.collectionView.delegate = self ;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
-    
-    float cellHeight = ([GlobalDisplaySt sharedInstance].containerSize.width - 15.) / 3.7 ;
     self.top_collection.constant = 10 ;
     self.bottom_collection.constant = 10 ;
-
+    
+    float cellHeight ;
+    if (IS_IPAD) {
+        cellHeight = 100 ;
+    }
+    else {
+        cellHeight = ([GlobalDisplaySt sharedInstance].containerSize.width - 15.) / 3.7 ;
+    }
+    
     layout.itemSize = CGSizeMake(cellHeight, cellHeight) ;
     layout.minimumInteritemSpacing = 5.0f ;
     self.h_collection.constant = cellHeight ;

@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *areas;
 
-- (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight ;
+- (void)addMeAboveKeyboardViewWithKeyboardHeight:(float)keyboardHeight fromCtrller:(UIViewController *)ctrller ;
 - (void)renderWithlist:(NSArray *)list ;
 
 - (void)renderWithModel:(MarkdownModel *)model ;

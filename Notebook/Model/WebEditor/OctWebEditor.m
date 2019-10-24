@@ -80,8 +80,8 @@ XT_SINGLETON_M(OctWebEditor)
             [self.toolBar hideAllBoards] ;
             self.toolBar.hidden = YES ;
         }
-        else if (param < 160.) { // smart keyboard . 160根据shimo name:YYKeyboardInHardwareKeyboardModeNotification 拿到.
-            self->keyboardHeight = param = 512. ;
+        else if (param < 160.) { // ipad smart keyboard . 160根据shimo name:YYKeyboardInHardwareKeyboardModeNotification 拿到.
+            self->keyboardHeight = param = 370. ;
             [self.toolBar setSmartKeyboardState:YES] ;
             [self openKeyboardToolBar] ;
         }
@@ -115,6 +115,13 @@ XT_SINGLETON_M(OctWebEditor)
         
     }] ;
     
+//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+//        @strongify(self)
+//        [self.toolBar removeFromSuperview] ;
+//
+//        [self openKeyboardToolBar] ;
+//    }] ;
+    
     [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {
         @strongify(self)
         WebPhoto *photo = [WebPhoto xt_findWhere:XT_STR_FORMAT(@"fromNoteClientID == '%@'",self.aNote.icRecordName)].firstObject ;
@@ -147,8 +154,8 @@ XT_SINGLETON_M(OctWebEditor)
 
 - (void)openKeyboardToolBar {
     self.toolBar.top = 2000 ;
-    self.toolBar.width = APP_WIDTH ;
-    
+    self.toolBar.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
+    self.toolBar.height = OctToolbarHeight ;
     
     [UIView animateWithDuration:.3 animations:^{
         self.toolBar.top = APP_HEIGHT - self->keyboardHeight ;

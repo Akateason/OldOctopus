@@ -94,12 +94,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     
-    self.bounds = CGRectMake(0, 0, [UIView currentScreenBoundsDependOnOrientation].size.width, OctToolbarHeight) ;
+//    float gWid = [GlobalDisplaySt sharedInstance].containerSize.width ;
+    
+    self.bounds = CGRectMake(0, 0, APP_WIDTH, OctToolbarHeight) ;
     
     [self setNeedsLayout] ;
     [self layoutIfNeeded] ;
     
-    self.underLineView.width = self.btInlineStyle.width - 4 ;
+    self.underLineView.width = ( !IS_IPAD ) ? self.btInlineStyle.width - 4 : 50. ;
     self.underLineView.centerX = self.smartKeyboardState ? (self.width / 5. / 2. + 17) : (self.width / 6. / 2. + 17) ;
     self.underLineView.top = 38. ;
         
@@ -124,6 +126,14 @@
         make.bottom.left.right.equalTo(self) ;
         make.height.equalTo(@0.5) ;
     }];
+    
+    @weakify(self)
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        self.underLineView.width = ( !IS_IPAD ) ? self.btInlineStyle.width - 4 : 50. ;
+        
+    }] ;
+
 }
 
 
@@ -147,7 +157,7 @@
     [self hideAllBoards] ;
     [self moveUnderLineFromView:sender] ;
     // add inline board .
-    [self.inlineBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight] ;
+    [self.inlineBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight fromCtrller:self.delegate.fromEditor.xt_viewController] ;
     
     [self renderWithParaType:[OctWebEditor sharedInstance].typeBlkList inlineList:[OctWebEditor sharedInstance].typeInlineList] ;
 }

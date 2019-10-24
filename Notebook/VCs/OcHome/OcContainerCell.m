@@ -75,6 +75,10 @@
         @strongify(self)
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.noteList.count == 0) {
+                return ;
+            }
+            
             self.contentCollection.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
             self.contentCollection.mj_offsetY = 0 ;
             [self.contentCollection xt_loadNewInfoInBackGround:YES] ;
