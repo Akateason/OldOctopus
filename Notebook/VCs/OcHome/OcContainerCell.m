@@ -26,12 +26,11 @@
     self.contentCollection.dataSource = (id<UICollectionViewDataSource>)self ;
     self.contentCollection.delegate = (id<UICollectionViewDelegate>)self ;
     self.contentCollection.xt_Delegate = (id<UICollectionViewXTReloader>)self ;
-//    self.contentCollection.xt_refreshType = XTRefreshType_gifImages ;
+    
     [self.contentCollection xt_setup] ;
     self.contentCollection.mj_footer = nil ;
-
+    
     self.contentCollection.xt_theme_backgroundColor = k_md_backColor ;
-//    self.contentCollection.backgroundColor = [UIColor yellowColor] ;
     
     self.contentCollection.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
     

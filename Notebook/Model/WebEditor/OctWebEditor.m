@@ -414,7 +414,7 @@ static const float kOctEditorToolBarHeight = 41. ;
     NSString *js = XT_STR_FORMAT(@"WebViewBridgeCallback({\"method\":\"%@\"}, %@)",func,json) ;
     [_webView evaluateJavaScript:js completionHandler:^(id _Nullable val, NSError * _Nullable error) {
         DLogINFO(@"js : %@\nreturn : %@",js,val) ;
-        if (error) DLogERR(@"%@", error) ;
+        if (error) DLogERR(@"js error! : %@", error) ;
         if (completion) completion(val, error) ;
     }] ;    
 }
