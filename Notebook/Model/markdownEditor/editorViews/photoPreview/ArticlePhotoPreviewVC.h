@@ -23,9 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MdInlineModel *modelImage ;
 
-+ (instancetype)showFromCtrller:(UIViewController *)fromCtrller
-                          model:(MdInlineModel *)model
-                  deleteOnClick:(void(^)(ArticlePhotoPreviewVC *vc))deleteOnClick ;
+
 
 @end
 

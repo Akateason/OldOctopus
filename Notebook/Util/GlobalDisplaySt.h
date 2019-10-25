@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 typedef enum : NSUInteger {
     SC_Home_mode_default_iPhone_2_collumn = 32,
     SC_Home_mode_iPad_Horizon_6_collumn = 40 ,
-    SC_Home_mode_iPad_Verical_4_collumn
+    SC_Home_mode_iPad_Verical_4_collumn ,
+    SC_Home_mode_iPad_Spilit_4_collumn ,
+    
 } SC_Home_mode_Type ;
 
 @interface GlobalDisplaySt : NSObject

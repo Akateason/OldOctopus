@@ -613,7 +613,7 @@ return;}
         _editor.bottom = self.view.bottom ;
         _editor.left = self.view.left ;
         _editor.top = APP_STATUSBAR_HEIGHT ;
-        _editor.width = self.view.width ;
+        _editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
         _editor.height = self.view.height - APP_STATUSBAR_HEIGHT ;
         
         [self.view insertSubview:_editor atIndex:0] ;

@@ -74,6 +74,14 @@ XT_SINGLETON_M(GlobalDisplaySt)
         layout.minimumLineSpacing = 35. ;
         layout.sectionInset = UIEdgeInsetsMake(35., 20., 35., 20.) ;
     }
+    else if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Spilit_4_collumn) {
+        float wid = ( self.containerSize.width - 10. * 5. ) / 4. ;
+        float height = wid  / 345. * 432. ;
+        layout.itemSize = CGSizeMake(wid, height) ;
+        layout.minimumInteritemSpacing = 10. ;
+        layout.minimumLineSpacing = 10. ;
+        layout.sectionInset = UIEdgeInsetsMake(10., 10., 10., 10.) ;
+    }
     
     else {
         float wid = ( self.containerSize.width - 10. * 3. ) / 2. ;

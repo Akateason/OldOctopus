@@ -31,6 +31,7 @@
     CGPoint             _contentOffsetBeforeScroll ;
     NSString            *_currentLinkUrl ;
     BOOL                _isFirstTimeLoad ;
+    float               fCacheSmarkKeyboardHeight ;
 }
 @property (strong, nonatomic) RACSubject *editorCrashSignal ;
 
@@ -74,25 +75,40 @@ XT_SINGLETON_M(OctWebEditor)
         CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue] ;
         
         // get keyboard height
-        self->keyboardHeight = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
-        float param = (self->keyboardHeight == kOctEditorToolBarHeight) ? 0 : self->keyboardHeight ;
-        if (!param) {
+        float kbh = APP_HEIGHT - (endKeyboardRect.origin.y - kOctEditorToolBarHeight) ;
+        kbh = (kbh == kOctEditorToolBarHeight) ? 0 : kbh ;
+        if (!kbh) {
             [self.toolBar hideAllBoards] ;
             self.toolBar.hidden = YES ;
         }
-        else if (param < 160.) { // ipad smart keyboard . 160根据shimo name:YYKeyboardInHardwareKeyboardModeNotification 拿到.
-            self->keyboardHeight = param = 370. ;
+        else if (kbh < 160.) { // ipad smart keyboard . 160根据shimo name:YYKeyboardInHardwareKeyboardModeNotification 拿到.
+            self->fCacheSmarkKeyboardHeight = kbh ;
             [self.toolBar setSmartKeyboardState:YES] ;
-            [self openKeyboardToolBar] ;
+            [self openKeyboardToolBar:kbh] ;
         }
         else {
             [self.toolBar setSmartKeyboardState:NO] ;
-            [self openKeyboardToolBar] ;
+            [self openKeyboardToolBar:kbh] ;
         }
         
         if (self.toolBar.hidden == NO) [self.toolBar refresh] ;
         
-        [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(param).stringValue completion:^(NSString *val, NSError *error) {}] ;
+        self->keyboardHeight = kbh ;
+        [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(kbh).stringValue completion:^(NSString *val, NSError *error) {}] ;
+    }] ;
+    
+    [[RACObserve(self.toolBar, selectedPosition) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        if (self.toolBar.smartKeyboardState == YES) {
+            int position = [x intValue] ;
+            float kbh = position == 0 ? self->fCacheSmarkKeyboardHeight : 370. ;
+            self->keyboardHeight = kbh ;
+            [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(kbh).stringValue completion:^(NSString *val, NSError *error) {}] ;
+            
+            self.toolBar.top = APP_HEIGHT - kbh ;
+            [self.toolBar setNeedsLayout] ;
+            [self.toolBar layoutIfNeeded] ;
+        }
     }] ;
         
     
@@ -115,12 +131,6 @@ XT_SINGLETON_M(OctWebEditor)
         
     }] ;
     
-//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-//        @strongify(self)
-//        [self.toolBar removeFromSuperview] ;
-//
-//        [self openKeyboardToolBar] ;
-//    }] ;
     
     [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {
         @strongify(self)
@@ -152,13 +162,13 @@ XT_SINGLETON_M(OctWebEditor)
     [accessoryView removeInputAccessoryViewFromWKWebView:self.webView] ;
 }
 
-- (void)openKeyboardToolBar {
+- (void)openKeyboardToolBar:(float)kbHeight {
     self.toolBar.top = 2000 ;
     self.toolBar.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
     self.toolBar.height = OctToolbarHeight ;
     
     [UIView animateWithDuration:.3 animations:^{
-        self.toolBar.top = APP_HEIGHT - self->keyboardHeight ;
+        self.toolBar.top = APP_HEIGHT - kbHeight ;
         
         self.toolBar.hidden = NO ;
         [self.toolBar setNeedsLayout] ;

@@ -28,29 +28,20 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
                            json:(NSString *)json
                   deleteOnClick:(void(^)(ArticlePhotoPreviewVC *vc))deleteOnClick
 {
-    ArticlePhotoPreviewVC *view = [[ArticlePhotoPreviewVC alloc] initWithFrame:APPFRAME] ;
+    CGRect rect = CGRectMake(0, 0, [GlobalDisplaySt sharedInstance].containerSize.width, [GlobalDisplaySt sharedInstance].containerSize.height) ;
+    ArticlePhotoPreviewVC *view = [[ArticlePhotoPreviewVC alloc] initWithFrame:rect] ;
     NSDictionary *dic = [WebModel convertjsonStringToJsonObj:json] ;
     view.src = dic[@"token"][@"src"] ;
     
     [view prepareUI] ;
-        
+    
     [fromView addSubview:view] ;
     view.blkDelete = deleteOnClick ;
     return view ;
 }
 
 
-//+ (instancetype)showFromCtrller:(UIViewController *)fromCtrller
-//                  model:(MdInlineModel *)model
-//          deleteOnClick:(void(^)(ArticlePhotoPreviewVC *vc))deleteOnClick
-//{
-//    ArticlePhotoPreviewVC *vc = [[ArticlePhotoPreviewVC alloc] init] ;
-//    vc.modelImage = (MdInlineModel *)model ;
-//    [vc setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//    [fromCtrller presentViewController:vc animated:YES completion:^{}] ;
-//    vc.blkDelete = deleteOnClick ;
-//    return vc ;
-//}
+
 
 
 - (void)prepareUI {

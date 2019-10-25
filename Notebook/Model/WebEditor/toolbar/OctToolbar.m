@@ -64,8 +64,10 @@
 }
 
 - (void)reset {
-    self.selectedPosition = self.smartKeyboardState ? 1 : 0 ;
-    self.underLineView.centerX = self.smartKeyboardState ? (self.width / 5. / 2. + 17) : (self.width / 6. / 2. + 17) ;
+    self.selectedPosition = 0 ;
+    //self.smartKeyboardState ? 1 : 0 ;
+    self.underLineView.centerX = (self.width / 6. / 2. + 17) ;
+    //self.smartKeyboardState ? (self.width / 5. / 2. + 17) : (self.width / 6. / 2. + 17) ;
     self.underLineView.top = 38. ;
 }
 
@@ -208,8 +210,6 @@
 
 - (void)setSmartKeyboardState:(BOOL)smartKeyboardState {
     _smartKeyboardState = smartKeyboardState ;
-    
-    self.btShowKeyboard.hidden = smartKeyboardState ;
 }
 
 #pragma mark - prop

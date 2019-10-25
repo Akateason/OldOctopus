@@ -155,10 +155,13 @@
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;    
+    NoteBooks *book = self.xt_model ;
+    OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
+    if (self.noteList.count == 0 || indexPath.row > self.noteList.count - 1) {
+        return cell ;
+    }
     Note *note = self.noteList[indexPath.row] ;
     [cell xt_configure:note indexPath:indexPath] ;
-    NoteBooks *book = self.xt_model ;
     cell.recentState = book.vType == Notebook_Type_recent ;
     return cell ;
 }

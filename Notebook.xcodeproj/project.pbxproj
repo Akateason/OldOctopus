@@ -268,7 +268,6 @@
 		8FE0ADC522E96D6B0011C173 /* iap_icon_output@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0ADC422E96D6B0011C173 /* iap_icon_output@2x.png */; };
 		8FE0ADC922E971E60011C173 /* IAPPayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0ADC722E971E60011C173 /* IAPPayCell.m */; };
 		8FE0ADCA22E971E60011C173 /* IAPPayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0ADC822E971E60011C173 /* IAPPayCell.xib */; };
-		8FE0B93B236177C1009DB178 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0B93A236177C0009DB178 /* web.zip */; };
 		8FE5A3D9224B6CE800947D14 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE5A3D8224B6CE800947D14 /* HomeVC.m */; };
 		8FE5A3DB224B6E4000947D14 /* md_tb_bt_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE5A3DA224B6E3F00947D14 /* md_tb_bt_photo@2x.png */; };
 		8FE5A3E1224B82E600947D14 /* bt_home_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE5A3E0224B82E500947D14 /* bt_home_add@2x.png */; };
@@ -295,6 +294,7 @@
 		8FF32ABA230F8CE500C1C835 /* smallTopbar_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF32AB9230F8CE500C1C835 /* smallTopbar_shadow@2x.png */; };
 		8FF32ABC230F8D1300C1C835 /* bt_s_t_all@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF32ABB230F8D1300C1C835 /* bt_s_t_all@2x.png */; };
 		8FF32AC0230FCEC400C1C835 /* OcAllBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF32ABF230FCEC400C1C835 /* OcAllBookVC.m */; };
+		8FF7C3772362E0B0000D2E65 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8FF7C3762362E0AF000D2E65 /* web.zip */; };
 		8FF93DC6235EED7200C6B5CD /* URLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF93DC5235EED7200C6B5CD /* URLProtocol.m */; };
 		8FFAE089229BD22500CDAC47 /* md_l_math@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */; };
 		8FFAE0E2229CDAF400CDAC47 /* asm-mips.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE08D229CDAF400CDAC47 /* asm-mips.plist */; };
@@ -782,7 +782,6 @@
 		8FE0ADC622E971E60011C173 /* IAPPayCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAPPayCell.h; sourceTree = "<group>"; };
 		8FE0ADC722E971E60011C173 /* IAPPayCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IAPPayCell.m; sourceTree = "<group>"; };
 		8FE0ADC822E971E60011C173 /* IAPPayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IAPPayCell.xib; sourceTree = "<group>"; };
-		8FE0B93A236177C0009DB178 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8FE5A3D7224B6CE800947D14 /* HomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVC.h; sourceTree = "<group>"; };
 		8FE5A3D8224B6CE800947D14 /* HomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeVC.m; sourceTree = "<group>"; };
 		8FE5A3DA224B6E3F00947D14 /* md_tb_bt_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_photo@2x.png"; sourceTree = "<group>"; };
@@ -821,6 +820,7 @@
 		8FF32ABB230F8D1300C1C835 /* bt_s_t_all@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_s_t_all@2x.png"; sourceTree = "<group>"; };
 		8FF32ABE230FCEC400C1C835 /* OcAllBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OcAllBookVC.h; sourceTree = "<group>"; };
 		8FF32ABF230FCEC400C1C835 /* OcAllBookVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OcAllBookVC.m; sourceTree = "<group>"; };
+		8FF7C3762362E0AF000D2E65 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8FF93DC4235EED7200C6B5CD /* URLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLProtocol.h; sourceTree = "<group>"; };
 		8FF93DC5235EED7200C6B5CD /* URLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLProtocol.m; sourceTree = "<group>"; };
 		8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_l_math@2x.png"; sourceTree = "<group>"; };
@@ -1214,7 +1214,7 @@
 				8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8FE0B93A236177C0009DB178 /* web.zip */,
+				8FF7C3762362E0AF000D2E65 /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -2091,7 +2091,7 @@
 				8F1296FE22C9ABA200939DD6 /* theme_dark@2x.png in Resources */,
 				8FEA9E48225B2713002A756B /* emojisJson.json in Resources */,
 				8FFAE0EA229CDAF400CDAC47 /* pdf.plist in Resources */,
-				8FE0B93B236177C1009DB178 /* web.zip in Resources */,
+				8FF7C3772362E0B0000D2E65 /* web.zip in Resources */,
 				8F71E21F22AB8EAB0009BE62 /* light.json in Resources */,
 				8F79A85F22EADAC80077329A /* theme_lock@2x.png in Resources */,
 				8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */,
@@ -2652,7 +2652,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Notebook/OctPrefixHeader.pch;
@@ -2662,7 +2662,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2683,7 +2683,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Notebook/OctPrefixHeader.pch;
@@ -2693,7 +2693,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
