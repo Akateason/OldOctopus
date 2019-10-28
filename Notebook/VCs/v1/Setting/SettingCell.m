@@ -19,13 +19,14 @@
 #import "XTCloudHandler.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "SetTrashVC.h"
-
+#import "AppDelegate.h"
 
 @implementation SettingCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    self.act.hidden = YES ;
     self.selectionStyle = 0 ;
     self.xt_theme_backgroundColor = k_md_bgColor ; //k_md_drawerSelectedColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .9) ;
@@ -99,6 +100,23 @@
     else if ([title containsString:@"垃圾"]) {
         [SetTrashVC showFromCtller:self.xt_viewController] ;
     }
+    else if ([title containsString:@"同步"]) {
+        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+            IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
+            [self.xt_navigationController pushViewController:vc animated:YES] ;
+            
+            return ;
+        }
+        
+        self.act.hidden = NO ;
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
+        [self.act startAnimating] ;
+        WEAK_SELF
+        [appDelegate.launchingEvents pullAllComplete:^{
+            [weakSelf.act stopAnimating] ;
+            weakSelf.act.hidden = YES ;
+        }] ;
+    }
 }
 
 + (CGFloat)xt_cellHeight {
@@ -125,6 +143,7 @@
     else if ([title containsString:@"主题"]) {
         self.rightTip.text = [MDThemeConfiguration sharedInstance].currentFormatLanguage ;
     }
+    
     
 }
 

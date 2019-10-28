@@ -19,14 +19,14 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Vk-9X-577" customClass="KeyboardViewButton">
                             <rect key="frame" x="0.0" y="0.0" width="89.5" height="60"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="加粗" image="md_tb_bt_bold.png">
+                            <state key="normal" title="重点" image="md_tb_bt_bold.png">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jpg-uu-RCc" customClass="KeyboardViewButton">
                             <rect key="frame" x="89.5" y="0.0" width="90" height="60"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="斜体" image="md_tb_bt_italic.png">
+                            <state key="normal" title="强调" image="md_tb_bt_italic.png">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                         </button>

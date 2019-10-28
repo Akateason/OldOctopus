@@ -48,6 +48,16 @@
 	</array>
 	<array>
 		<dict>
+			<key>t</key>
+			<string>同步iCloud</string>
+			<key>p</key>
+			<string></string>
+			<key>r</key>
+			<string></string>
+		</dict>
+	</array>
+	<array>
+		<dict>
 			<key>p</key>
 			<string>ld_reply</string>
 			<key>t</key>

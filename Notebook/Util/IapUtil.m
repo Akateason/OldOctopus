@@ -88,6 +88,7 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
     }
     
     [self fetchIapSubscriptionDate:^(long long tick) {}] ;
+    DDLogDebug(@"不是vip");
     return NO ;
 }
 

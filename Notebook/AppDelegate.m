@@ -57,7 +57,9 @@
         // 设置本地
         [IapUtil saveIapSubscriptionDate:tick] ;
         // 订阅成功之后 pull all
-        [self.launchingEvents pullAll] ;
+        [self.launchingEvents pullAllComplete:^{
+            
+        }] ;
         // finish transaction
         [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
         // Notificate
@@ -148,7 +150,9 @@
             @weakify(self)
             [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
                 @strongify(self)
-                [self.launchingEvents pullAll] ;
+                [self.launchingEvents pullAllComplete:^{
+                    
+                }] ;
             }] ;
         }] ;
     }

@@ -216,6 +216,13 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 }
 
 - (void)pullAll {
+    WEAK_SELF
+    [self pullAllComplete:^{
+        [weakSelf createDefaultBookAndNotes] ;
+    }] ;
+}
+
+- (void)pullAllComplete:(void(^)(void))completion {
     NSLog(@"pullall") ;
     
     [NoteBooks getFromServerComplete:^(bool hasData) {
@@ -227,8 +234,13 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             }
             NSLog(@"pullall done") ;
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ; // pull all in first time
-            
-            [self createDefaultBookAndNotes] ;
+                                    
+            if (completion) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"pullall complete") ;
+                    completion() ;
+                }) ;
+            }
         }] ;
     }] ;
 }
