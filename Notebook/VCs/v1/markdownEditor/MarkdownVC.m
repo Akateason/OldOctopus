@@ -119,9 +119,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-
-    
-    
     self.view.xt_maskToBounds = YES ;
     [self.editor toolBar] ;
     [[OctWebEditor sharedInstance] setSideFlex] ;
@@ -173,7 +170,7 @@
       deliverOnMainThread]
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
-         self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;         
+         self.editor.themeStr = [MDThemeConfiguration sharedInstance].currentThemeKey ;
      }] ;
     
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Make_Big_Photo object:nil] throttle:.5] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
@@ -182,7 +179,6 @@
         NSString *json = x.object ;
         [self snapShotFullScreen:json] ;
     }] ;
-    
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -403,7 +399,6 @@ return;}
         [self.editor leavePage] ;
     }] ;
     
-    
 //    [AppstoreCommentUtil jumpReviewAfterNoteRead] ;
 }
 
@@ -423,8 +418,6 @@ return;}
         [Note createNewNote:self.aNote] ;
         XT_USERDEFAULT_SET_VAL(newNote.icRecordName, kUDCached_lastNote_RecID) ;
         [self.delegate addNoteComplete:self.aNote] ;
-        
-        
 //        self.editor.aNote = newNote ;
         [self.editor setValue:newNote forKey:@"_aNote"] ;
     }
@@ -460,14 +453,12 @@ return;}
     self.editor.aNote = nil ;
 }
 
-
 #pragma mark - UI
 
 - (void)prepareUI {
     [self editor] ;
     
     self.editor.xt_theme_backgroundColor = k_md_bgColor ;
-    
     
     self.fd_prefersNavigationBarHidden = YES ;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -689,5 +680,49 @@ return;}
     }
     return _snapBgView;
 }
+
+
+
+#pragma mark - UIkeyCommand iPad
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (NSArray<UIKeyCommand *>*)keyCommands {
+    return @[
+             [UIKeyCommand keyCommandWithInput:@"N"
+                                 modifierFlags:UIKeyModifierCommand
+                                        action:@selector(selectTab:)
+                          discoverabilityTitle:@"新建笔记"],
+             [UIKeyCommand keyCommandWithInput:@"B"
+                                 modifierFlags:UIKeyModifierCommand
+                                        action:@selector(selectTab:)
+                          discoverabilityTitle:@"新建笔记本"],
+             [UIKeyCommand keyCommandWithInput:@"R"
+                                 modifierFlags:UIKeyModifierCommand
+                                        action:@selector(selectTab:)
+                          discoverabilityTitle:@"手动同步iCloud"],
+             ] ;
+}
+
+- (void)selectTab:(UIKeyCommand *)sender {
+    NSString *title = sender.discoverabilityTitle;
+    NSLog(@"%@",title) ;
+
+//    if ([title isEqualToString:@"新建笔记"]) {
+//        [self addNoteOnClick] ;
+//    }
+//    else if ([title isEqualToString:@"新建笔记本"]) {
+//        [self addBookOnClick] ;
+//    }
+//    else if ([title containsString:@"手动同步"]) {
+//        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
+//        [appdelegate.launchingEvents pullAllComplete:^{
+//            [SVProgressHUD showSuccessWithStatus:@"手动同步完成"] ;
+//        }] ;
+//    }
+}
+
 
 @end
