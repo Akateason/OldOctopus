@@ -110,6 +110,7 @@
 		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
 		8F50A1AA236842EE006E8C3D /* MarkdownVC+Keycommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */; };
+		8F50A1AC2368467A006E8C3D /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F50A1AB23684679006E8C3D /* web.zip */; };
 		8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */; };
 		8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F56FE94228556B50030D3F9 /* OutputPreviewsNailView.m */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
@@ -295,7 +296,6 @@
 		8FF32ABA230F8CE500C1C835 /* smallTopbar_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF32AB9230F8CE500C1C835 /* smallTopbar_shadow@2x.png */; };
 		8FF32ABC230F8D1300C1C835 /* bt_s_t_all@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF32ABB230F8D1300C1C835 /* bt_s_t_all@2x.png */; };
 		8FF32AC0230FCEC400C1C835 /* OcAllBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF32ABF230FCEC400C1C835 /* OcAllBookVC.m */; };
-		8FF7C3772362E0B0000D2E65 /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8FF7C3762362E0AF000D2E65 /* web.zip */; };
 		8FF93DC6235EED7200C6B5CD /* URLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF93DC5235EED7200C6B5CD /* URLProtocol.m */; };
 		8FFAE089229BD22500CDAC47 /* md_l_math@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */; };
 		8FFAE0E2229CDAF400CDAC47 /* asm-mips.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE08D229CDAF400CDAC47 /* asm-mips.plist */; };
@@ -549,6 +549,7 @@
 		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
 		8F50A1A8236842EE006E8C3D /* MarkdownVC+Keycommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownVC+Keycommand.h"; sourceTree = "<group>"; };
 		8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownVC+Keycommand.m"; sourceTree = "<group>"; };
+		8F50A1AB23684679006E8C3D /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8F50AAA02276A3D500B32B5B /* XTMarkdownParser+Fetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XTMarkdownParser+Fetcher.h"; sourceTree = "<group>"; };
 		8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XTMarkdownParser+Fetcher.m"; sourceTree = "<group>"; };
 		8F56FE93228556B50030D3F9 /* OutputPreviewsNailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputPreviewsNailView.h; sourceTree = "<group>"; };
@@ -823,7 +824,6 @@
 		8FF32ABB230F8D1300C1C835 /* bt_s_t_all@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_s_t_all@2x.png"; sourceTree = "<group>"; };
 		8FF32ABE230FCEC400C1C835 /* OcAllBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OcAllBookVC.h; sourceTree = "<group>"; };
 		8FF32ABF230FCEC400C1C835 /* OcAllBookVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OcAllBookVC.m; sourceTree = "<group>"; };
-		8FF7C3762362E0AF000D2E65 /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
 		8FF93DC4235EED7200C6B5CD /* URLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLProtocol.h; sourceTree = "<group>"; };
 		8FF93DC5235EED7200C6B5CD /* URLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLProtocol.m; sourceTree = "<group>"; };
 		8FFAE088229BD22500CDAC47 /* md_l_math@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_l_math@2x.png"; sourceTree = "<group>"; };
@@ -1217,7 +1217,7 @@
 				8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */,
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
-				8FF7C3762362E0AF000D2E65 /* web.zip */,
+				8F50A1AB23684679006E8C3D /* web.zip */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
@@ -2096,7 +2096,7 @@
 				8F1296FE22C9ABA200939DD6 /* theme_dark@2x.png in Resources */,
 				8FEA9E48225B2713002A756B /* emojisJson.json in Resources */,
 				8FFAE0EA229CDAF400CDAC47 /* pdf.plist in Resources */,
-				8FF7C3772362E0B0000D2E65 /* web.zip in Resources */,
+				8F50A1AC2368467A006E8C3D /* web.zip in Resources */,
 				8F71E21F22AB8EAB0009BE62 /* light.json in Resources */,
 				8F79A85F22EADAC80077329A /* theme_lock@2x.png in Resources */,
 				8F7A84952244F7DA0099E905 /* md_tb_bt_h@2x.png in Resources */,
