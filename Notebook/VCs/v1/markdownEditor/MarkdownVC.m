@@ -31,7 +31,7 @@
 #import "MDEKeyboardPhotoView.h"
 #import "AppstoreCommentUtil.h"
 #import "OctWebEditor+OctToolbarUtil.h"
-
+#import "MarkdownVC+Keycommand.h"
 
 
 @interface MarkdownVC () <WKScriptMessageHandler>
@@ -682,47 +682,6 @@ return;}
 }
 
 
-
-#pragma mark - UIkeyCommand iPad
-
-- (BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (NSArray<UIKeyCommand *>*)keyCommands {
-    return @[
-             [UIKeyCommand keyCommandWithInput:@"N"
-                                 modifierFlags:UIKeyModifierCommand
-                                        action:@selector(selectTab:)
-                          discoverabilityTitle:@"新建笔记"],
-             [UIKeyCommand keyCommandWithInput:@"B"
-                                 modifierFlags:UIKeyModifierCommand
-                                        action:@selector(selectTab:)
-                          discoverabilityTitle:@"新建笔记本"],
-             [UIKeyCommand keyCommandWithInput:@"R"
-                                 modifierFlags:UIKeyModifierCommand
-                                        action:@selector(selectTab:)
-                          discoverabilityTitle:@"手动同步iCloud"],
-             ] ;
-}
-
-- (void)selectTab:(UIKeyCommand *)sender {
-    NSString *title = sender.discoverabilityTitle;
-    NSLog(@"%@",title) ;
-
-//    if ([title isEqualToString:@"新建笔记"]) {
-//        [self addNoteOnClick] ;
-//    }
-//    else if ([title isEqualToString:@"新建笔记本"]) {
-//        [self addBookOnClick] ;
-//    }
-//    else if ([title containsString:@"手动同步"]) {
-//        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
-//        [appdelegate.launchingEvents pullAllComplete:^{
-//            [SVProgressHUD showSuccessWithStatus:@"手动同步完成"] ;
-//        }] ;
-//    }
-}
 
 
 @end

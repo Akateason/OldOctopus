@@ -109,6 +109,7 @@
 		8F446378231651D2000C1DDF /* theme_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F446377231651D2000C1DDF /* theme_select@2x.png */; };
 		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
+		8F50A1AA236842EE006E8C3D /* MarkdownVC+Keycommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */; };
 		8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */; };
 		8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F56FE94228556B50030D3F9 /* OutputPreviewsNailView.m */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
@@ -546,6 +547,8 @@
 		8F446377231651D2000C1DDF /* theme_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_select@2x.png"; sourceTree = "<group>"; };
 		8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
 		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
+		8F50A1A8236842EE006E8C3D /* MarkdownVC+Keycommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownVC+Keycommand.h"; sourceTree = "<group>"; };
+		8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownVC+Keycommand.m"; sourceTree = "<group>"; };
 		8F50AAA02276A3D500B32B5B /* XTMarkdownParser+Fetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XTMarkdownParser+Fetcher.h"; sourceTree = "<group>"; };
 		8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XTMarkdownParser+Fetcher.m"; sourceTree = "<group>"; };
 		8F56FE93228556B50030D3F9 /* OutputPreviewsNailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputPreviewsNailView.h; sourceTree = "<group>"; };
@@ -1260,6 +1263,8 @@
 			children = (
 				8F679DFA2232436B008DE1BC /* MarkdownVC.h */,
 				8F679DFB2232436B008DE1BC /* MarkdownVC.m */,
+				8F50A1A8236842EE006E8C3D /* MarkdownVC+Keycommand.h */,
+				8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */,
 				8FEA80D522D0725F00703272 /* share */,
 				8F2C760D2282D39400A6DC89 /* articlePreview */,
 			);
@@ -2455,6 +2460,7 @@
 				8FC9DB8922BCB04D003A78D9 /* GlobalDisplaySt.m in Sources */,
 				8FD234AD233A1CAE001003C8 /* UnsplashPhoto.m in Sources */,
 				8FDA736D230A7D5200EEDC57 /* OcNoteCell.m in Sources */,
+				8F50A1AA236842EE006E8C3D /* MarkdownVC+Keycommand.m in Sources */,
 				8FBA041E228A98B200EED229 /* HrView.m in Sources */,
 				8F173DCE22A4D02900FA4D8D /* UIViewController+SlidingController.m in Sources */,
 				8F33B053230E6D9D00BF4B5E /* HomeAddButton.m in Sources */,
