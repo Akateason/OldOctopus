@@ -89,7 +89,7 @@
 
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
     [super xt_configure:book indexPath:indexPath] ;
-        
+    
 }
 
 - (void)renderWithBook:(NoteBooks *)book complete:(void(^)(void))completion {

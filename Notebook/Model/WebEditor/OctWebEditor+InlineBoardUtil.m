@@ -15,6 +15,10 @@
     [self nativeCallJSWithFunc:@"paragraph" json:nil completion:^(NSString *val, NSError *error) {
         
     }] ;
+    
+    [self nativeCallJSWithFunc:@"clearAllFormat" json:nil completion:^(NSString *val, NSError *error) {
+        
+    }] ;
 }
 
 - (void)toolbarDidSelectH1 {

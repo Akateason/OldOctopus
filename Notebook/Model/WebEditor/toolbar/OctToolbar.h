@@ -45,8 +45,9 @@ static float OctToolbarHeight = 41.f ;
 - (void)refresh ;
 - (void)hideAllBoards ;
 
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *toolbarBts;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *toolbarBts ;
 
+- (void)openPhotoPart ;
 
 @end
 

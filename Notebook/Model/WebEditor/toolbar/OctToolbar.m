@@ -28,6 +28,10 @@
 
 @implementation OctToolbar
 
+- (void)openPhotoPart {
+    [self photoAc:self.btPhoto] ;
+}
+
 - (UIButton *)makeButton:(NSString *)imgStr {
     UIButton *bt = [UIButton new] ;
     [bt setImage:[UIImage imageNamed:imgStr] forState:0] ;
@@ -53,9 +57,6 @@
     else if (model.type < MarkdownInlineUnknown) {
         [self.blockBoard renderWithModel:model] ;
     }
-    
-    self.btUndo.enabled = self.delegate.fromEditor.undoManager.canUndo ;
-    self.btRedo.enabled = self.delegate.fromEditor.undoManager.canRedo ;
 }
 
 - (void)clearUI {
@@ -96,8 +97,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib] ;
     
-//    float gWid = [GlobalDisplaySt sharedInstance].containerSize.width ;
-    
     self.bounds = CGRectMake(0, 0, APP_WIDTH, OctToolbarHeight) ;
     
     [self setNeedsLayout] ;
@@ -106,7 +105,7 @@
     self.underLineView.width = ( !IS_IPAD ) ? self.btInlineStyle.width - 4 : 50. ;
     self.underLineView.centerX = self.smartKeyboardState ? (self.width / 5. / 2. + 17) : (self.width / 6. / 2. + 17) ;
     self.underLineView.top = 38. ;
-        
+    
     self.xt_theme_backgroundColor = k_md_bgColor ;
     
     for (UIButton *bt in self.toolbarBts) {

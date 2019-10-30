@@ -11,7 +11,26 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OctWebEditor (BlockBoardUtil)
+- (void)toolbarDidSelectUList ;
+- (void)toolbarDidSelectOrderlist ;
 
+- (void)toolbarDidSelectLeftTab ;
+- (void)toolbarDidSelectRightTab ;
+
+- (void)toolbarDidSelectTaskList ;
+- (void)toolbarDidSelectQuoteBlock ;
+
+- (void)toolbarDidSelectSepLine ;
+
+- (void)toolbarDidSelectCodeBlock ;
+- (void)toolbarDidSelectMathBlock ;
+
+- (void)toolbarDidSelectTable ;
+- (void)toolbarDidSelectHtml ;
+- (void)toolbarDidSelectVegaChart ;
+- (void)toolbarDidSelectFlowChart ;
+- (void)toolbarDidSelectSequnceDiag ;
+- (void)toolbarDidSelectMermaid ;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownVC (Keycommand)
 
+- (void)callbackKeycommand:(UIKeyCommand *)sender ;
+    
 @end
 
 NS_ASSUME_NONNULL_END

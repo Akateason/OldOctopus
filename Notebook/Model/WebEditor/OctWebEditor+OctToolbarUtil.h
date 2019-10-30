@@ -19,6 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sendImageLocalPathWithImageItem:(XTImageItem *)imageItem ;
 
 - (void)subscription ;
+
+
+- (void)toolbarDidSelectUndo ;
+- (void)toolbarDidSelectRedo ;
+
 @end
 
 NS_ASSUME_NONNULL_END

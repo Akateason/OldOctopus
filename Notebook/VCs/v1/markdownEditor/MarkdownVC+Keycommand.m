@@ -7,9 +7,13 @@
 //
 
 #import "MarkdownVC+Keycommand.h"
-
+#import "OctWebEditor.h"
+#import "OctWebEditor+OctToolbarUtil.h"
+#import "OctWebEditor+InlineBoardUtil.h"
+#import "OctWebEditor+BlockBoardUtil.h"
 
 @implementation MarkdownVC (Keycommand)
+
 
 
 #pragma mark - UIkeyCommand iPad
@@ -33,12 +37,12 @@
                                         action:@selector(selectTab:)
                           discoverabilityTitle:@"重做"],
              
-             [UIKeyCommand keyCommandWithInput:@"M"
-                                 modifierFlags:UIKeyModifierCommand
+             [UIKeyCommand keyCommandWithInput:@"C"
+                                 modifierFlags:UIKeyModifierCommand | UIKeyModifierShift
                                         action:@selector(selectTab:)
                           discoverabilityTitle:@"以Markdown格式拷贝"],
-             [UIKeyCommand keyCommandWithInput:@"H"
-                                 modifierFlags:UIKeyModifierCommand
+             [UIKeyCommand keyCommandWithInput:@"C"
+                                 modifierFlags:UIKeyModifierCommand | UIKeyModifierControl | UIKeyModifierShift
                                         action:@selector(selectTab:)
                           discoverabilityTitle:@"以Html格式拷贝"],
              [UIKeyCommand keyCommandWithInput:@"V"
@@ -46,16 +50,16 @@
                                         action:@selector(selectTab:)
                           discoverabilityTitle:@"粘贴纯文本"],
              
-             [UIKeyCommand keyCommandWithInput:@"P"
-                    modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate
+             [UIKeyCommand keyCommandWithInput:@"V"
+                    modifierFlags:UIKeyModifierCommand | UIKeyModifierShift
                            action:@selector(selectTab:)
              discoverabilityTitle:@"重复段落"],
-             [UIKeyCommand keyCommandWithInput:@"B"
-                    modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate
+             [UIKeyCommand keyCommandWithInput:@"N"
+                    modifierFlags:UIKeyModifierCommand
                            action:@selector(selectTab:)
              discoverabilityTitle:@"新建段落"],
              [UIKeyCommand keyCommandWithInput:@"D"
-                    modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate
+                    modifierFlags:UIKeyModifierCommand | UIKeyModifierShift
                            action:@selector(selectTab:)
              discoverabilityTitle:@"删除段落"],
              
@@ -101,11 +105,11 @@
              [UIKeyCommand keyCommandWithInput:@"B"
                     modifierFlags:UIKeyModifierCommand
                            action:@selector(selectTab:)
-             discoverabilityTitle:@"加粗"],
+             discoverabilityTitle:@"重点"],
              [UIKeyCommand keyCommandWithInput:@"I"
                     modifierFlags:UIKeyModifierCommand
                            action:@selector(selectTab:)
-             discoverabilityTitle:@"斜体"],
+             discoverabilityTitle:@"强调"],
              [UIKeyCommand keyCommandWithInput:@"`"
                     modifierFlags:UIKeyModifierCommand
                            action:@selector(selectTab:)
@@ -114,6 +118,10 @@
                     modifierFlags:UIKeyModifierCommand
                            action:@selector(selectTab:)
              discoverabilityTitle:@"删除线"],
+             [UIKeyCommand keyCommandWithInput:@"U"
+                    modifierFlags:UIKeyModifierCommand
+                           action:@selector(selectTab:)
+             discoverabilityTitle:@"下划线"],
              [UIKeyCommand keyCommandWithInput:@"L"
                     modifierFlags:UIKeyModifierCommand
                            action:@selector(selectTab:)
@@ -177,17 +185,142 @@
 }
 
 - (void)selectTab:(UIKeyCommand *)sender {
+    [self.subjectIpadKeyboardCommand sendNext:sender] ;
+}
+
+
+- (void)callbackKeycommand:(UIKeyCommand *)sender {
+    
     NSString *title = sender.discoverabilityTitle;
-    NSLog(@"%@",title) ;
+    NSLog(@"---- 快捷键 ---- %@",title) ;
+//    [SVProgressHUD showWithStatus:title] ;
+    
+    
     if ([title isEqualToString:@"全选"]) {
-        
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"selectAll" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
     }
     else if ([title isEqualToString:@"撤销"]) {
-        
+        [[OctWebEditor sharedInstance] toolbarDidSelectUndo] ;
     }
     else if ([title isEqualToString:@"重做"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectRedo] ;
+    }
+    
+    else if ([title isEqualToString:@"以Markdown格式拷贝"]) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"copyAsMarkdown" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
+    else if ([title isEqualToString:@"以Html格式拷贝"]) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"copyAsHtml" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
+    else if ([title isEqualToString:@"粘贴纯文本"]) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"pasteAsPlainText" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
+    
+    else if ([title isEqualToString:@"重复段落"]) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"duplicate" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
+    else if ([title isEqualToString:@"新建段落"]) {
+        NSDictionary *dic = @{@"location":@"after",
+                              @"text":@"",
+                              @"outMost":@(TRUE)} ;
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"insertParagraph" json:dic completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
+    else if ([title isEqualToString:@"删除段落"]) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"deleteParagraph" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
+    
+    else if ([title isEqualToString:@"标题1"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectH1] ;
+    }
+    else if ([title isEqualToString:@"标题2"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectH2] ;
+    }
+    else if ([title isEqualToString:@"标题3"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectH3] ;
+    }
+    else if ([title isEqualToString:@"标题4"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectH4] ;
+    }
+    else if ([title isEqualToString:@"标题5"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectH5] ;
+    }
+    else if ([title isEqualToString:@"标题6"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectH6] ;
+    }
+    
+    else if ([title isEqualToString:@"升级标题"]) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"upgradeTitle" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
+    else if ([title isEqualToString:@"降级标题"]) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"degradeTitle" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
+    
+    else if ([title isEqualToString:@"水平分割线"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectSepLine] ;
+    }
+    
+    else if ([title isEqualToString:@"重点"]) { // bold
+        [[OctWebEditor sharedInstance] toolbarDidSelectBold] ;
+    }
+    else if ([title isEqualToString:@"强调"]) { // italic
+        [[OctWebEditor sharedInstance] toolbarDidSelectItalic] ;
+    }
+    else if ([title isEqualToString:@"行内代码"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectInlineCode] ;
+    }
+    else if ([title isEqualToString:@"删除线"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectDeletion] ;
+    }
+    else if ([title isEqualToString:@"下划线"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectUnderline] ;
+    }
+    else if ([title isEqualToString:@"链接"]) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"addLink" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
+    else if ([title isEqualToString:@"图片"]) {
+        [[OctWebEditor sharedInstance].toolBar openPhotoPart] ;
+    }
+    else if ([title isEqualToString:@"清除样式"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectClearToCleanPara] ;
+    }
+    
+    else if ([title isEqualToString:@"表格"]) {
         
     }
+    else if ([title isEqualToString:@"代码块"]) {
+        
+    }
+    else if ([title isEqualToString:@"引用块"]) {
+        
+    }
+    else if ([title isEqualToString:@"数学公式块"]) {
+        
+    }
+    else if ([title isEqualToString:@"HTML块"]) {
+        
+    }
+    
+    
     
     
     

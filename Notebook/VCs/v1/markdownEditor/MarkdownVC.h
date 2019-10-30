@@ -61,4 +61,6 @@
 
 + (CGFloat)getEditorLeftIpad ;
 
+@property (strong, nonatomic) RACSubject *subjectIpadKeyboardCommand ;
+
 @end

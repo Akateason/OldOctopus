@@ -241,6 +241,11 @@
         [self clearArticleInIpad] ;
     }] ;
     
+    [[[self.subjectIpadKeyboardCommand throttle:.4] deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        [self callbackKeycommand:x] ;
+    }] ;
+    
     [[[self.outputPhotoSubject throttle:.4] deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
         @strongify(self)
         
@@ -681,6 +686,12 @@ return;}
     return _snapBgView;
 }
 
+- (RACSubject *)subjectIpadKeyboardCommand {
+    if (!_subjectIpadKeyboardCommand) {
+        _subjectIpadKeyboardCommand = [RACSubject new] ;
+    }
+    return _subjectIpadKeyboardCommand ;
+}
 
 
 
