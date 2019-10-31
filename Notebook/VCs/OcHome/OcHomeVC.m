@@ -40,8 +40,6 @@
     [GlobalDisplaySt sharedInstance].containerSize = appDelegate.window.size ;
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     
-    [[OctWebEditor sharedInstance] setSideFlex] ;
-    
     [self xt_prepareUI] ;
 }
 
