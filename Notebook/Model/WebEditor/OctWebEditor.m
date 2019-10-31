@@ -33,8 +33,10 @@
     BOOL                _isFirstTimeLoad ;
     float               fCacheSmarkKeyboardHeight ;
 }
-@property (strong, nonatomic) RACSubject *editorCrashSignal ;
 
+/// crash signal . 1. 编辑器内部引发,  2. 导致webkit引发
+@property (strong, nonatomic) RACSubject *editorCrashSignal ;
+@property (strong, nonatomic) RACSubject *wkwebCrashSignal  ;
 @end
 
 
@@ -148,6 +150,10 @@ XT_SINGLETON_M(OctWebEditor)
         [self reloadWKWebview] ;
     }] ;
     
+    [[self.wkwebCrashSignal throttle:.6] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        [self reloadWKWebview] ;
+    }] ;
     
     // wkwebview urlprotocol
     if (k_open_WkWebview_URLProtocol) {
@@ -230,6 +236,7 @@ XT_SINGLETON_M(OctWebEditor)
 }
 
 #pragma mark - WKScriptMessageHandler delegate
+
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message {
 //    NSString *name = message.name ; // 就是上边注入到 JS 的哪个名字，在这里是 nativeMethod
@@ -268,8 +275,6 @@ XT_SINGLETON_M(OctWebEditor)
         self.typeInlineList = list ;
     }
     else if ([func isEqualToString:@"selectImage"]) {
-
-        
         [self.toolBar hideAllBoards] ;
         self.toolBar.hidden = YES ;
         [self hideKeyboard] ;
@@ -399,6 +404,13 @@ static const float kOctEditorToolBarHeight = 41. ;
     return _editorCrashSignal ;
 }
 
+- (RACSubject *)wkwebCrashSignal {
+    if (!_wkwebCrashSignal) {
+        _wkwebCrashSignal = [RACSubject subject] ;
+    }
+    return _wkwebCrashSignal ;
+}
+
 - (void)setThemeStr:(NSString *)themeStr {
     _themeStr = themeStr ;
     
@@ -406,7 +418,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 #pragma mark --
-#pragma mark - func
+#pragma mark - Func
 
 - (void)nativeCallJSWithFunc:(NSString *)func
                         json:(id)obj
@@ -435,8 +447,7 @@ static const float kOctEditorToolBarHeight = 41. ;
         if (error) {
             DLogERR(@"js error! : %@", error) ;
             if (error.code == 4 && [error.domain isEqualToString:@"WKErrorDomain"]) {
-                
-                
+                [self.wkwebCrashSignal sendNext:@1] ;
             }
         }
         if (completion) completion(val, error) ;
