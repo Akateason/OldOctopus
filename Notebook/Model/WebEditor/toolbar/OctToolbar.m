@@ -145,12 +145,14 @@
 }
 
 - (void)hideAllBoards {
-    [self.inlineBoard removeFromSuperview] ;
-    _inlineBoard = nil ;
-    [self.photoView.scrollView removeFromSuperview] ;
-    _photoView = nil ;
-    [self.blockBoard.scrollView removeFromSuperview] ;
-    _blockBoard = nil ;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.inlineBoard removeFromSuperview] ;
+        _inlineBoard = nil ;
+        [self.photoView.scrollView removeFromSuperview] ;
+        _photoView = nil ;
+        [self.blockBoard.scrollView removeFromSuperview] ;
+        _blockBoard = nil ;
+//    }) ;
 }
 
 - (IBAction)inlinestyleAc:(UIButton *)sender {

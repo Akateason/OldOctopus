@@ -46,7 +46,7 @@
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:settignVC] ;
     
     if ([GlobalDisplaySt sharedInstance].vType >= SC_Home_mode_iPad_Horizon_6_collumn) {
-        settignVC.preferredContentSize = CGSizeMake(400, 550) ;
+        settignVC.preferredContentSize = CGSizeMake(400, 700) ;
         navVC.modalPresentationStyle = UIModalPresentationPopover ;
         UIPopoverPresentationController *popVC = navVC.popoverPresentationController ;
         popVC.sourceView = fromView ; // contentController.view ;

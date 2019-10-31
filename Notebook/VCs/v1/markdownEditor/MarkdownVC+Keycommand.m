@@ -133,10 +133,10 @@
              [UIKeyCommand keyCommandWithInput:@"R"
                     modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate
                            action:@selector(selectTab:)
-             discoverabilityTitle:@"清除样式"],
+             discoverabilityTitle:@"清除样式(行内/段落)"],
              
              [UIKeyCommand keyCommandWithInput:@"T"
-                    modifierFlags:UIKeyModifierCommand
+                    modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate
                            action:@selector(selectTab:)
              discoverabilityTitle:@"表格"],
              [UIKeyCommand keyCommandWithInput:@"C"
@@ -174,10 +174,7 @@
                            action:@selector(selectTab:)
              discoverabilityTitle:@"切换Loose/Tight列表"],
              
-             [UIKeyCommand keyCommandWithInput:@"0"
-                    modifierFlags:UIKeyModifierCommand
-                           action:@selector(selectTab:)
-             discoverabilityTitle:@"段落"],
+             
              
              
              
@@ -300,26 +297,40 @@
     else if ([title isEqualToString:@"图片"]) {
         [[OctWebEditor sharedInstance].toolBar openPhotoPart] ;
     }
-    else if ([title isEqualToString:@"清除样式"]) {
+    else if ([title isEqualToString:@"清除样式(行内/段落)"]) {
         [[OctWebEditor sharedInstance] toolbarDidSelectClearToCleanPara] ;
     }
     
     else if ([title isEqualToString:@"表格"]) {
-        
+        [[OctWebEditor sharedInstance] toolbarDidSelectTable] ;
     }
     else if ([title isEqualToString:@"代码块"]) {
-        
+        [[OctWebEditor sharedInstance] toolbarDidSelectCodeBlock] ;
     }
     else if ([title isEqualToString:@"引用块"]) {
-        
+        [[OctWebEditor sharedInstance] toolbarDidSelectQuoteBlock] ;
     }
     else if ([title isEqualToString:@"数学公式块"]) {
-        
+        [[OctWebEditor sharedInstance] toolbarDidSelectMathBlock] ;
     }
     else if ([title isEqualToString:@"HTML块"]) {
-        
+        [[OctWebEditor sharedInstance] toolbarDidSelectHtml] ;
     }
     
+    else if ([title isEqualToString:@"有序列表"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectOrderlist] ;
+    }
+    else if ([title isEqualToString:@"无序列表"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectUList] ;
+    }
+    else if ([title isEqualToString:@"任务列表"]) {
+        [[OctWebEditor sharedInstance] toolbarDidSelectTaskList] ;
+    }
+    else if ([title isEqualToString:@"切换Loose/Tight列表"]) {
+        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"toggleListItemType" json:nil completion:^(NSString *val, NSError *error) {
+            
+        }] ;
+    }
     
     
     

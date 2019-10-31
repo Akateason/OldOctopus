@@ -112,11 +112,12 @@ XT_SINGLETON_M(OctWebEditor)
     }] ;
         
     
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification *_Nullable x) {
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification *_Nullable x) {
+        
         @strongify(self)
         self.toolBar.hidden = YES ;
-        [self.toolBar hideAllBoards] ;
         self.toolBar.top = 2000 ;
+        [self.toolBar hideAllBoards] ;
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Unsplash_Photo_Selected object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {

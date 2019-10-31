@@ -36,14 +36,13 @@ static int kLimitCount = 70 ;
     self.sepLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, .05) ;
     self.lbContent.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     self.lbDate.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
-//    self.img.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_textColor, 0.03) ;
+    
     self.img.backgroundColor = [UIColor colorWithWhite:0 alpha:.03] ;
     self.img.xt_borderWidth = .25 ;
     self.img.xt_cornerRadius = 2. ;
     
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
     self.xt_theme_backgroundColor = k_md_bgColor ;
-//    self.backgroundColor = [UIColor blueColor] ;
     
     [self.btMore xt_enlargeButtonsTouchArea] ;
     WEAK_SELF
@@ -125,15 +124,19 @@ static int kLimitCount = 70 ;
     __block int aIdx = index ;
     [_img sd_setImageWithURL:imgUrl completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if (error != nil) {
-            if (index < list.count - 1) {
-                aIdx ++ ;
-            }
-            else {
+//            if (index < list.count - 1) {
+//                aIdx ++ ;
+//
+//                [self loadImageListloop:list index:aIdx indexPath:indexPath note:note] ;
+//            }
+//            else {
                 note.previewPicture = nil ;
-                [self xt_configure:note indexPath:indexPath] ;
-                return ;
-            }
-            [self loadImageListloop:list index:aIdx indexPath:indexPath note:note] ;
+                if ([((Note *)self.xt_model).icRecordName isEqualToString:note.icRecordName] ) {
+                    [self xt_configure:note indexPath:indexPath] ;
+                }
+                
+//                return ;
+//            }
         }
     }] ;
 }

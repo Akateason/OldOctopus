@@ -51,7 +51,7 @@
 			<key>t</key>
 			<string>同步iCloud</string>
 			<key>p</key>
-			<string></string>
+			<string>setting_sync</string>
 			<key>r</key>
 			<string></string>
 		</dict>

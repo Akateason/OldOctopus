@@ -111,6 +111,7 @@
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
 		8F50A1AA236842EE006E8C3D /* MarkdownVC+Keycommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */; };
 		8F50A1AE23696F6F006E8C3D /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F50A1AD23696F6F006E8C3D /* web.zip */; };
+		8F50A1B2236AAF84006E8C3D /* setting_sync@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F50A1B1236AAF84006E8C3D /* setting_sync@2x.png */; };
 		8F50AAA22276A3D500B32B5B /* XTMarkdownParser+Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */; };
 		8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F56FE94228556B50030D3F9 /* OutputPreviewsNailView.m */; };
 		8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F579FDD222E54A500C54929 /* CloudKit.framework */; };
@@ -550,6 +551,7 @@
 		8F50A1A8236842EE006E8C3D /* MarkdownVC+Keycommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownVC+Keycommand.h"; sourceTree = "<group>"; };
 		8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownVC+Keycommand.m"; sourceTree = "<group>"; };
 		8F50A1AD23696F6F006E8C3D /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
+		8F50A1B1236AAF84006E8C3D /* setting_sync@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_sync@2x.png"; sourceTree = "<group>"; };
 		8F50AAA02276A3D500B32B5B /* XTMarkdownParser+Fetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XTMarkdownParser+Fetcher.h"; sourceTree = "<group>"; };
 		8F50AAA12276A3D500B32B5B /* XTMarkdownParser+Fetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XTMarkdownParser+Fetcher.m"; sourceTree = "<group>"; };
 		8F56FE93228556B50030D3F9 /* OutputPreviewsNailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OutputPreviewsNailView.h; sourceTree = "<group>"; };
@@ -1355,6 +1357,7 @@
 		8F7A843B2240C7340099E905 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				8F50A1B1236AAF84006E8C3D /* setting_sync@2x.png */,
 				8FD234A9233A09C0001003C8 /* unsplash_icon@2x.png */,
 				8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */,
 				8FD653DB2317D3F50033B89D /* ld_bt_staging_s@2x.png */,
@@ -2040,6 +2043,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F50A1B2236AAF84006E8C3D /* setting_sync@2x.png in Resources */,
 				8F2901E9231CE827008D479D /* theme_b_sunshine@2x.png in Resources */,
 				8FFAE12D229CDAF400CDAC47 /* active4d.plist in Resources */,
 				8FFAE126229CDAF400CDAC47 /* objectivec.plist in Resources */,

@@ -130,6 +130,7 @@
     NSString *title = model[@"t"] ;
     self.lbTitle.text = title ;
     self.rightTip.text = model[@"r"] ;
+    self.rightCorner.hidden = NO ;
     
     if ([title containsString:@"订阅"]) {
         WEAK_SELF
@@ -143,8 +144,12 @@
     else if ([title containsString:@"主题"]) {
         self.rightTip.text = [MDThemeConfiguration sharedInstance].currentFormatLanguage ;
     }
-    
-    
+    else if ([title containsString:@"同步"]) {
+        [IapUtil iapVipUserIsValid:^(BOOL isValid) {
+            if (!isValid) self.rightTip.text = @"Pro" ;
+        }] ;
+        self.rightCorner.hidden = YES ;
+    }
 }
 
 - (void)setSepLineMode:(SettingCellSeperateLine_Mode)sepLineMode {
