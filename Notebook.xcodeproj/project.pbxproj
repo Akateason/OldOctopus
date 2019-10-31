@@ -2652,7 +2652,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Notebook/OctPrefixHeader.pch;
@@ -2683,7 +2683,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Notebook/OctPrefixHeader.pch;
