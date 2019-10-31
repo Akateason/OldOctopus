@@ -93,10 +93,7 @@ static int kLimitCount = 70 ;
         [self loadImageListloop:list index:0 indexPath:indexPath note:note] ;
     }
     else {
-        NSString *content = [Note filterMD:note.content] ;
-        if (!content || !content.length) content = @"美好的故事，从小章鱼开始..." ;
-        if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
-        _lbContent.attributedText = [[NSAttributedString alloc] initWithString:content] ;
+        [self renderClearTextState:note] ;
     }
     
     self.topMark.hidden = !note.isTop ;
@@ -111,6 +108,13 @@ static int kLimitCount = 70 ;
     [self.bgShadow layoutIfNeeded] ;
 }
 
+- (void)renderClearTextState:(Note *)note {
+    NSString *content = [Note filterMD:note.content] ;
+   if (!content || !content.length) content = @"美好的故事，从小章鱼开始..." ;
+   if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
+   _lbContent.attributedText = [[NSAttributedString alloc] initWithString:content] ;
+}
+
 
 - (void)loadImageListloop:(NSArray *)list
                     index:(int)index
@@ -122,18 +126,20 @@ static int kLimitCount = 70 ;
     
     strUrl = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
     NSURL *imgUrl = [NSURL URLWithString:strUrl] ;
-    __block int aIdx = index ;
-    [_img sd_setImageWithURL:imgUrl completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+//    __block int aIdx = index ;
+    
+    @weakify(self)
+    [self.img sd_setImageWithURL:imgUrl completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        @strongify(self)
         if (error != nil) {
-            if (index < list.count - 1) {
-                aIdx ++ ;
+            
+            if ([note.icRecordName isEqualToString:((Note *)self.xt_model).icRecordName]) {
+                            
+                BOOL hasPic = NO ;
+                self.img.hidden = !hasPic ;
+                self.sepLine.hidden = self.lbContent.hidden = self.bgShadow.hidden = hasPic ;
+                [self renderClearTextState:note] ;
             }
-            else {
-                note.previewPicture = nil ;
-                [self xt_configure:note indexPath:indexPath] ;
-                return ;
-            }
-            [self loadImageListloop:list index:aIdx indexPath:indexPath note:note] ;
         }
     }] ;
 }
