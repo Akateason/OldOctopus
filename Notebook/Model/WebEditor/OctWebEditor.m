@@ -156,11 +156,10 @@ XT_SINGLETON_M(OctWebEditor)
     }] ;
     
     // wkwebview urlprotocol
-    if (k_open_WkWebview_URLProtocol) {
-        [NSURLProtocol wk_registerScheme:@"http"];
-        [NSURLProtocol wk_registerScheme:@"https"];
-        [NSURLProtocol registerClass:[URLProtocol class]];
-    }
+    [NSURLProtocol wk_registerScheme:@"http"];
+    [NSURLProtocol wk_registerScheme:@"https"];
+    [NSURLProtocol registerClass:[URLProtocol class]];
+    
     
 }
 

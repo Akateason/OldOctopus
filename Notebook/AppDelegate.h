@@ -17,15 +17,13 @@ static const int k_Subscript_Test_On = 0 ;
 // debug for icloud 用户找到我, 上线时关闭, 内测找到我不能登录的用户时打开.
 static const int k_debugmode_findme = 0 ;
 
-// debug for 拦截 wkwebView 请你 / 是否打开url拦截
-static const int k_open_WkWebview_URLProtocol = 1 ;
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow          *window ;
 @property (strong, nonatomic) LaunchingEvents   *launchingEvents ;
 
-@property (nonatomic)         int               padDisplayMode ;
+
 @end
 
 
