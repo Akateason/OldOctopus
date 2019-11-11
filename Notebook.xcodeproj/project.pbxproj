@@ -204,6 +204,7 @@
 		8F90189622E9BDE600D1BA4B /* IapPaySuccessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */; };
 		8F931B9B228E89F800F73219 /* home_top_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9A228E89F800F73219 /* home_top_note@2x.png */; };
 		8F931B9D228E90CF00F73219 /* home_cell_top_corner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9C228E90CF00F73219 /* home_cell_top_corner@2x.png */; };
+		8F96A3D423794AA5001742B9 /* OcHomeVC+Keycommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F96A3D323794AA5001742B9 /* OcHomeVC+Keycommand.m */; };
 		8F97514422D7A8BD0012F403 /* OctMBPHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F97514322D7A8BD0012F403 /* OctMBPHud.m */; };
 		8F99DBD322E1928E00A39F99 /* empty_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F99DBD222E1928D00A39F99 /* empty_bottom@2x.png */; };
 		8F99DBD622E194D400A39F99 /* HomeTrashEmptyPHView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F99DBD522E194D400A39F99 /* HomeTrashEmptyPHView.m */; };
@@ -690,6 +691,8 @@
 		8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IapPaySuccessCell.xib; sourceTree = "<group>"; };
 		8F931B9A228E89F800F73219 /* home_top_note@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_top_note@2x.png"; sourceTree = "<group>"; };
 		8F931B9C228E90CF00F73219 /* home_cell_top_corner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_cell_top_corner@2x.png"; sourceTree = "<group>"; };
+		8F96A3D223794AA5001742B9 /* OcHomeVC+Keycommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OcHomeVC+Keycommand.h"; sourceTree = "<group>"; };
+		8F96A3D323794AA5001742B9 /* OcHomeVC+Keycommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OcHomeVC+Keycommand.m"; sourceTree = "<group>"; };
 		8F97514222D7A8BD0012F403 /* OctMBPHud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctMBPHud.h; sourceTree = "<group>"; };
 		8F97514322D7A8BD0012F403 /* OctMBPHud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctMBPHud.m; sourceTree = "<group>"; };
 		8F99DBD222E1928D00A39F99 /* empty_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty_bottom@2x.png"; sourceTree = "<group>"; };
@@ -1691,6 +1694,8 @@
 			children = (
 				8FDA7358230A53FC00EEDC57 /* OcHomeVC.h */,
 				8FDA7359230A53FC00EEDC57 /* OcHomeVC.m */,
+				8F96A3D223794AA5001742B9 /* OcHomeVC+Keycommand.h */,
+				8F96A3D323794AA5001742B9 /* OcHomeVC+Keycommand.m */,
 				8FBBD531231688E4005E7B41 /* OcHomeVC+Notifications.h */,
 				8FBBD532231688E4005E7B41 /* OcHomeVC+Notifications.m */,
 				8F6E9B8F230CE4400011D935 /* OcHomeVC+UIPart.h */,
@@ -2478,6 +2483,7 @@
 				8F1357F42292A33F00F5F874 /* OctToolBarInlineView.m in Sources */,
 				8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,
+				8F96A3D423794AA5001742B9 /* OcHomeVC+Keycommand.m in Sources */,
 				8FEBC28822A68BEB004EB0F5 /* OctWebEditor+InlineBoardUtil.m in Sources */,
 				8FB2EFDE22DC2BAF00B294F1 /* MarkdownEditor+BlockBoardUtil.m in Sources */,
 				8F81B83F22F95C9E00DFFEDB /* AppstoreCommentUtil.m in Sources */,
@@ -2662,7 +2668,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Notebook/OctPrefixHeader.pch;
@@ -2693,7 +2699,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Notebook/OctPrefixHeader.pch;

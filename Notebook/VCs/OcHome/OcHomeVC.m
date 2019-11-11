@@ -17,7 +17,7 @@
 #import "OcHomeVC+Notifications.h"
 #import "SchBarPositiveTransition.h"
 #import "SettingSave.h"
-
+#import "OcHomeVC+Keycommand.h"
 
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
@@ -65,6 +65,11 @@
         @strongify(self)
         // 内测验证码
         [UserTestCodeVC getMeFrom:self] ;
+    }] ;
+    
+    [[[[self.subjectKeycommand throttle:.6] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        [self keycommandCallback:x] ;
     }] ;
     
 }
@@ -160,38 +165,6 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 
 - (void)btAddOnClick {
     [self addNoteOnClick] ;
-
-//    FTPopOverMenuConfiguration *configuration = [FTPopOverMenuConfiguration defaultConfiguration];
-//    configuration.menuRowHeight = 75. ;
-//    configuration.menuWidth = 145. ;
-//    configuration.textColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) ;
-//    configuration.textFont = [UIFont systemFontOfSize:17] ;
-//    configuration.backgroundColor = XT_GET_MD_THEME_COLOR_KEY(k_md_hudColor) ;
-//    configuration.borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
-//    configuration.borderWidth = .25 ;
-//    configuration.separatorColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .2) ;
-//    configuration.separatorInset = UIEdgeInsetsMake(0, 20, 0, 20) ;
-//    configuration.shadowColor = [UIColor colorWithWhite:0 alpha:.15] ; //XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .15) ; // Default is black
-//    configuration.shadowOpacity = 1; // Default is 0 - choose anything between 0 to 1 to show actual shadow, e.g. 0.2
-//    configuration.shadowRadius = 30; // Default is 5
-//    configuration.shadowOffsetX = 0;
-//    configuration.shadowOffsetY = 15;
-//    configuration.menuIconMargin = 20 ;
-//    configuration.menuTextMargin = 17 ;
-//    configuration.selectedCellBackgroundColor = [UIColor colorWithWhite:0 alpha:0.05] ;
-//
-//    @weakify(self)
-//    [FTPopOverMenu showForSender:self.btAdd withMenuArray:@[@"笔记",@"笔记本"] imageArray:@[@"home_add_note",@"home_add_book"] configuration:configuration doneBlock:^(NSInteger selectedIndex) {
-//        @strongify(self)
-//        if (selectedIndex == 0) {        // new note
-//            [self addNoteOnClick] ;
-//        }
-//        else if (selectedIndex == 1) {   // new book
-//            [self addBookOnClick] ;
-//        }
-//    } dismissBlock:^{
-//
-//    }] ;
 }
 
 - (void)addNoteOnClick {
@@ -380,6 +353,13 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     return _btAdd ;
 }
 
+- (RACSubject *)subjectKeycommand {
+    if (!_subjectKeycommand) {
+        _subjectKeycommand = [RACSubject subject] ;
+    }
+    return _subjectKeycommand ;
+}
+
 #pragma mark - UIViewControllerTransitioningDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
@@ -542,44 +522,8 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     }
 }
 
-#pragma mark - UIkeyCommand iPad
 
-- (BOOL)canBecomeFirstResponder {
-    return YES;
-}
 
-- (NSArray<UIKeyCommand *>*)keyCommands {
-    return @[
-             [UIKeyCommand keyCommandWithInput:@"N"
-                                 modifierFlags:UIKeyModifierCommand
-                                        action:@selector(selectTab:)
-                          discoverabilityTitle:@"新建笔记"],
-             [UIKeyCommand keyCommandWithInput:@"B"
-                                 modifierFlags:UIKeyModifierCommand
-                                        action:@selector(selectTab:)
-                          discoverabilityTitle:@"新建笔记本"],
-             [UIKeyCommand keyCommandWithInput:@"R"
-                                 modifierFlags:UIKeyModifierCommand
-                                        action:@selector(selectTab:)
-                          discoverabilityTitle:@"手动同步iCloud"],
-             ] ;
-}
 
-- (void)selectTab:(UIKeyCommand *)sender {
-    NSString *title = sender.discoverabilityTitle;
-    NSLog(@"%@",title) ;
-    if ([title isEqualToString:@"新建笔记"]) {
-        [self addNoteOnClick] ;
-    }
-    else if ([title isEqualToString:@"新建笔记本"]) {
-        [self addBookOnClick] ;
-    }
-    else if ([title containsString:@"手动同步"]) {
-        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
-        [appdelegate.launchingEvents pullAllComplete:^{
-            [SVProgressHUD showSuccessWithStatus:@"手动同步完成"] ;
-        }] ;
-    }
-}
 
 @end

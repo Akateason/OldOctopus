@@ -1,6 +1,6 @@
 {
   "name": "XTBase",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "summary": "base of XTBase",
   "description": "iOS rapid utils from XTlib.",
   "homepage": "https://github.com/Akateason/XTBase",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/Akateason/XTBase.git",
-    "tag": "1.2.0"
+    "tag": "1.2.2"
   },
   "source_files": [
     "XTBase/XTBase/**/*.{h,m}",

@@ -87,6 +87,8 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
  OcNoteCell call back
  */
 - (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView ;
+
+@property (strong, nonatomic) RACSubject *subjectKeycommand ;
 @end
 
 
