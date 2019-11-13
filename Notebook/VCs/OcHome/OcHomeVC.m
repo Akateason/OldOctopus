@@ -22,7 +22,7 @@
 @interface OcHomeVC () <UICollectionViewDelegate,UICollectionViewDataSource,XTStretchSegmentDelegate, XTStretchSegmentDataSource>
 @property (strong, nonatomic) SchBarPositiveTransition  *transition ;
 @property (strong, nonatomic) MoveNoteToBookVC *moveVC ;
-
+@property (strong, nonatomic) RACSubject *subjectTraitCollectionDidChange ; // 解决TraitCollectionDidChange多次触发.
 @end
 
 @implementation OcHomeVC
@@ -46,9 +46,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
+    self.subjectTraitCollectionDidChange = [RACSubject subject] ;
     self.bookList = @[] ;
     [self getAllBooks] ;
     [self xt_setupNotifications] ;
+    
     
     @weakify(self)
     [[[RACSignal interval:6 onScheduler:[RACScheduler mainThreadScheduler]]
@@ -72,7 +74,38 @@
         [self keycommandCallback:x] ;
     }] ;
     
+    [[[[self.subjectTraitCollectionDidChange throttle:.4] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+
+        if (@available(iOS 12.0, *)) {
+            SettingSave *sSave = [SettingSave fetch] ;
+            if (sSave.theme_isChangeWithSystemDarkmode) {
+                if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark
+                    &&
+                    ![GlobalDisplaySt sharedInstance].currentSystemIsDarkMode) { // dark
+                    
+                    [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
+                    [GlobalDisplaySt sharedInstance].currentSystemIsDarkMode = YES ;
+                }
+                else if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleLight
+                         &&
+                         [GlobalDisplaySt sharedInstance].currentSystemIsDarkMode) { // light
+                    
+                    [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
+                    [GlobalDisplaySt sharedInstance].currentSystemIsDarkMode = NO ;
+                }
+            }
+        }
+        else {
+            // Fallback on earlier versnions
+        }
+    }] ;
+    
+    if (@available(iOS 12.0, *)) [GlobalDisplaySt sharedInstance].currentSystemIsDarkMode = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ;
+    else [GlobalDisplaySt sharedInstance].currentSystemIsDarkMode = NO ;
 }
+
+
 
 
 #pragma mark - Funcs
@@ -477,20 +510,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection] ;
     
-    if (@available(iOS 12.0, *)) {
-        SettingSave *sSave = [SettingSave fetch] ;
-        if (sSave.theme_isChangeWithSystemDarkmode) {
-            if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) { // dark
-                [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:YES] ;
-            }
-            else { // light
-                [[MDThemeConfiguration sharedInstance] setThemeDayOrNight:NO] ;
-            }
-        }
-    }
-    else {
-        // Fallback on earlier versnions
-    }
+    [self.subjectTraitCollectionDidChange sendNext:@1] ;
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

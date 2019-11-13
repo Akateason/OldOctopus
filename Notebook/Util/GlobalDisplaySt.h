@@ -30,6 +30,8 @@ XT_SINGLETON_H(GlobalDisplaySt)
 @property (nonatomic) BOOL isPopOverFromIpad ; // 从ipad弹出的 气泡窗口,  控制topFLex 为0 ;
 @property (nonatomic) BOOL isInNewBookVC ;
 
+@property (nonatomic) BOOL currentSystemIsDarkMode ;
+
 - (UICollectionViewFlowLayout *)homeContentLayout ;
 
 

@@ -26,9 +26,6 @@
          self.segmentBooks.titleColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .6) ;
          self.segmentBooks.titleSelectedColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .8) ;
          
-            
-        
-        
          [self refreshAll] ;
      }] ;
             
@@ -54,7 +51,6 @@
         [self getAllBooks] ;
         
         [self.btUser setImage:[UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] forState:0] ;
-
     }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationImportFileIn object:nil]
@@ -92,10 +88,7 @@
                 OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:idp] ;
                 [cell.contentCollection reloadData] ;
             });
-            
-            
         }) ;
-        
     }] ;
 }
 

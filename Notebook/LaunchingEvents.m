@@ -57,6 +57,8 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupNotePreviewPicture] ;
 }
 
+
+
 - (void)setupNotePreviewPicture {
     [Note addPreviewPictureInLaunchingTime] ;
 }

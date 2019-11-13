@@ -189,7 +189,6 @@
 static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [[OctMBPHud sharedInstance] hide] ;
-
 }
 
 
