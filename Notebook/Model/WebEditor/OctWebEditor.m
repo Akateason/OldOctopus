@@ -318,9 +318,9 @@ XT_SINGLETON_M(OctWebEditor)
 - (void)setupHTMLEditor {
     if (![HiddenUtil getEditorLoadWay]) {
         //group
-        NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
+        NSString *path = XT_LIBRARY_PATH_TRAIL_(@"web/index.html") ;
         NSURL *fileURL = [NSURL fileURLWithPath:path] ;
-        NSString *basePath = [XTArchive getDocumentsPath] ;
+        NSString *basePath = [XTArchive getLibraryPath] ;
         NSURL *baseURL = [NSURL fileURLWithPath:basePath] ;
         [self.webView loadFileURL:fileURL allowingReadAccessToURL:baseURL] ;
     }

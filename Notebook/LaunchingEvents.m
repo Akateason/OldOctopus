@@ -83,11 +83,11 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; // +++
 - (void)setupWebZipPackageAndSetupWebView {
     // 图片缓存目录
-    NSString *picPath = XT_DOCUMENTS_PATH_TRAIL_(@"pic") ;
+    NSString *picPath = XT_LIBRARY_PATH_TRAIL_(@"pic") ;
     [XTFileManager createFolder:picPath] ;
     
     // zip包解压目录
-    NSString *pathIndex = XT_DOCUMENTS_PATH_TRAIL_(@"web/index.html") ;
+    NSString *pathIndex = XT_LIBRARY_PATH_TRAIL_(@"web/index.html") ;
     
     NSString *currentVersion = [CommonFunc getVersionStrOfMyAPP] ;
     NSString *currentBuildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] ;
@@ -97,11 +97,11 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
     BOOL isNotNewVersion = [combineVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending ;
     
     if (![XTFileManager isFileExist:pathIndex] || !isNotNewVersion) {
-        NSString *lastFolderPath = XT_DOCUMENTS_PATH_TRAIL_(@"web") ;
+        NSString *lastFolderPath = XT_LIBRARY_PATH_TRAIL_(@"web") ;
         [XTFileManager deleteFile:lastFolderPath] ;
         
         NSString *zipPath = [[NSBundle mainBundle] pathForResource:@"web" ofType:@"zip"] ;
-        NSString *unzipPath = [XTArchive getDocumentsPath] ; // unzip
+        NSString *unzipPath = [XTArchive getLibraryPath] ; // unzip
         [SSZipArchive unzipFileAtPath:zipPath toDestination:unzipPath delegate:(id <SSZipArchiveDelegate>)self];
         XT_USERDEFAULT_SET_VAL(currentVersion, kMark_UNZip_Operation) ;
     }

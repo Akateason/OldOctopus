@@ -182,13 +182,26 @@
     }] ;
 }
 
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     
+    NSArray *list = [Note xt_findWhere:@"isDeleted == 0"] ;
+    for (Note *aNote in list) {
+        @autoreleasepool {
+            NSString *path = XT_DOCUMENTS_PATH_TRAIL_(XT_STR_FORMAT(@"%@.md",aNote.icRecordName)) ;
+            [aNote.content writeToFile:path atomically:YES encoding:(NSUTF8StringEncoding) error:nil] ;
+        }
+    }
 }
 
 static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [[OctMBPHud sharedInstance] hide] ;
+    
+    // clear documents
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *folder = [XTArchive getDocumentsPath] ;
+    [fileManager removeItemAtPath:folder error:nil];
 }
 
 

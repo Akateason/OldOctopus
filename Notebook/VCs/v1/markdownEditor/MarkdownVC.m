@@ -541,7 +541,7 @@ return;}
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\t" withString:@"\t"] ;
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""] ;
     
-    NSString *path = XT_DOCUMENTS_PATH_TRAIL_(@"pic.html") ;
+    NSString *path = XT_LIBRARY_PATH_TRAIL_(@"pic.html") ;
     [htmlString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil] ;
     NSURL *url = [NSURL fileURLWithPath:path] ;
     

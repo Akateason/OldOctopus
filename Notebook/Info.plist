@@ -81,6 +81,8 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>请允许小章鱼访问您的蓝牙</string>
 	<key>NSCameraUsageDescription</key>

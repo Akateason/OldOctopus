@@ -103,7 +103,7 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
 - (NSString *)getPicFilePath {
     NSString *picUrl = self.request.URL.absoluteString ;
     picUrl = [picUrl MD5] ; // base64会带'/', 影响了folder
-    picUrl = XT_DOCUMENTS_PATH_TRAIL_(XT_STR_FORMAT(@"pic/%@",picUrl)) ;
+    picUrl = XT_LIBRARY_PATH_TRAIL_(XT_STR_FORMAT(@"pic/%@",picUrl)) ;
     return picUrl ;
 }
 

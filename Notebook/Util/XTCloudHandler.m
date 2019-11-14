@@ -500,7 +500,7 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
     }
     
     CKFetchRecordZoneChangesOperation *operation ;
-    CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+    CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_LIBRARY_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
 //    NSLog(@"previousToken : %@",previousToken) ;
     
     if (@available(iOS 12.0, *)) {
@@ -529,13 +529,13 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
 //            NSLog(@"previous : %@",previousToken) ;
 //            NSLog(@"change : %@",serverChangeToken) ;
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [XTArchive archiveSomething:serverChangeToken path:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+                [XTArchive archiveSomething:serverChangeToken path:XT_LIBRARY_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
             });
         }
         else {
             if (recordZoneError.code == 21) { // CKErrorChangeTokenExpired
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    [XTFileManager deleteFile:XT_DOCUMENTS_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
+                    [XTFileManager deleteFile:XT_LIBRARY_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;
                 }) ;
             }
         }
