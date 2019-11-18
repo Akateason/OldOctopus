@@ -130,15 +130,18 @@ static int kLimitCount = 70 ;
     @weakify(self)
     [self.img sd_setImageWithURL:imgUrl completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         @strongify(self)
-        if (error != nil) {
+        
+        BOOL notThisRow = indexPath.row != self.xt_indexPath.row ;
+        
+        if (error != nil || notThisRow) {
             if ([note.icRecordName isEqualToString:((Note *)self.xt_model).icRecordName]) {
-                            
                 BOOL hasPic = NO ;
                 self.img.hidden = !hasPic ;
                 self.sepLine.hidden = self.lbContent.hidden = self.bgShadow.hidden = hasPic ;
                 [self renderClearTextState:note] ;
             }
         }
+        
     }] ;
 }
 
