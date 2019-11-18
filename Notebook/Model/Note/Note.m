@@ -18,7 +18,7 @@
     _content = content ;
     
     self.baseContent = [content base64EncodedString] ;
-    self.searchContent = [self.class filterSqliteString:content] ;
+    self.searchContent = [self.class getSearchContent:content] ;
     self.previewPicture = [self.class getMDImageWithContent:content] ;
 }
 
@@ -67,7 +67,7 @@
         _icRecordName = [XTCloudHandler sharedInstance].createUniqueIdentifier ;
         _noteBookId = bookID ?: @"" ;
         _content = content ;
-        _searchContent = [self.class filterSqliteString:content] ;
+        _searchContent = [self.class getSearchContent:content] ;
         _title = title ;
         _baseContent = [content base64EncodedString] ;
         _createDateOnServer = [[NSDate date] xt_getTick] ;
@@ -257,6 +257,54 @@
     return title ;
 }
 
++ (NSString *)getSearchContent:(NSString *)content {
+    content = [self contentReplaceAllImages:content] ;
+    content = [self filterSqliteString:content] ;
+    return content ;
+}
+
++ (NSString *)contentReplaceAllImages:(NSString *)content {
+    if (!content || !content.length) return nil ;
+    
+    NSString *IMAGE_REG = @"(\\!\\[)(.*?)(\\\\*)\\]\\((.*?)(\\\\*)\\)" ;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
+    NSArray *matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
+    for (NSTextCheckingResult *result in matsImage) {
+        content = [content stringByReplacingCharactersInRange:result.range withString:[self generateSpaceString:result.range.length]] ;
+    }
+    
+    IMAGE_REG = @"/<img.*?src=\"(.*?)\".*?\\/?>/i" ;
+    regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
+    matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
+    for (NSTextCheckingResult *result in matsImage) {
+        content = [content stringByReplacingCharactersInRange:result.range withString:[self generateSpaceString:result.range.length]] ;
+    }
+    
+    IMAGE_REG = @"/^\\!\\[([^\\]]+?)(\\\\*)\\](?:\\[([^\\]]*?)(\\\\*)\\])?/" ;
+    regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
+    matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
+    for (NSTextCheckingResult *result in matsImage) {
+        content = [content stringByReplacingCharactersInRange:result.range withString:[self generateSpaceString:result.range.length]] ;
+    }
+    
+    IMAGE_REG = @"/^( {0,3}\[)([^\\]]+?)(\\\\*)(\\]: *)(<?)([^\\s>]+)(>?)(?:( +)([\"'(]?)([^\\n\"'\\(\\)]+)\\9)?( *)$/" ;
+    regex = [NSRegularExpression regularExpressionWithPattern:IMAGE_REG options:0 error:nil] ;
+    matsImage = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)] ;
+    for (NSTextCheckingResult *result in matsImage) {
+        content = [content stringByReplacingCharactersInRange:result.range withString:[self generateSpaceString:result.range.length]] ;
+    }
+    
+    return content ;
+}
+
++ (NSString *)generateSpaceString:(NSInteger)length {
+    NSMutableString *tmpStr = [NSMutableString stringWithCapacity:length] ;
+    for (NSInteger i = 0; i < length; i++) {
+        [tmpStr appendString:@" "] ;
+    }
+    return tmpStr ;
+}
+
 // 获取 所有图片url数组
 + (NSString *)getMDImageWithContent:(NSString *)content {
     if (!content || !content.length) return nil ;
@@ -312,7 +360,6 @@
     
     [list enumerateObjectsUsingBlock:^(Note *note, NSUInteger idx, BOOL * _Nonnull stop) {
         note.previewPicture = [self getMDImageWithContent:note.content] ;
-//        [records addObject:note.record] ;
     }] ;
     if (!list || !list.count) return ;
     

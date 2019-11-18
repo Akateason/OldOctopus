@@ -59,6 +59,7 @@
 
 
 + (NSString *)filterSqliteString:(NSString *)markdownStr ;
++ (NSString *)contentReplaceAllImages:(NSString *)content ;
 + (NSString *)getTitleWithContent:(NSString *)content ;
 
 + (NSString *)filterMD:(NSString *)originString ;
