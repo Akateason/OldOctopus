@@ -102,9 +102,6 @@ static int kLimitCount = 70 ;
 
     [self setNeedsLayout] ;
     [self layoutIfNeeded] ;
-    
-    [self.bgShadow setNeedsLayout] ;
-    [self.bgShadow layoutIfNeeded] ;
 }
 
 - (void)renderClearTextState:(Note *)note {
@@ -121,11 +118,14 @@ static int kLimitCount = 70 ;
                      note:(Note *)note {
     
     NSString *strUrl = list[index] ;
-    if (!list || !strUrl) return ;
+    if (!list || !strUrl) {
+        [self hiddenPicRenderText] ;
+
+        return ;
+    }
     
     strUrl = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
     NSURL *imgUrl = [NSURL URLWithString:strUrl] ;
-//    __block int aIdx = index ;
     
     @weakify(self)
     [self.img sd_setImageWithURL:imgUrl completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
@@ -135,17 +135,18 @@ static int kLimitCount = 70 ;
         
         if (error != nil || notThisRow) {
             if ([note.icRecordName isEqualToString:((Note *)self.xt_model).icRecordName]) {
-                BOOL hasPic = NO ;
-                self.img.hidden = !hasPic ;
-                self.sepLine.hidden = self.lbContent.hidden = self.bgShadow.hidden = hasPic ;
-                [self renderClearTextState:note] ;
+                [self hiddenPicRenderText] ;
             }
         }
-        
     }] ;
 }
 
-
+- (void)hiddenPicRenderText {
+    BOOL hasPic = NO ;
+    self.img.hidden = !hasPic ;
+    self.sepLine.hidden = self.lbContent.hidden = self.bgShadow.hidden = hasPic ;
+    [self renderClearTextState:note] ;
+}
 
 - (void)setTextForSearching:(NSString *)textForSearching {
     _textForSearching = textForSearching ;
