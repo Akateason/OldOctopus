@@ -119,7 +119,7 @@ static int kLimitCount = 70 ;
     
     NSString *strUrl = list[index] ;
     if (!list || !strUrl) {
-        [self hiddenPicRenderText] ;
+        [self hiddenPicRenderText:note] ;
 
         return ;
     }
@@ -135,13 +135,13 @@ static int kLimitCount = 70 ;
         
         if (error != nil || notThisRow) {
             if ([note.icRecordName isEqualToString:((Note *)self.xt_model).icRecordName]) {
-                [self hiddenPicRenderText] ;
+                [self hiddenPicRenderText:note] ;
             }
         }
     }] ;
 }
 
-- (void)hiddenPicRenderText {
+- (void)hiddenPicRenderText:(Note *)note {
     BOOL hasPic = NO ;
     self.img.hidden = !hasPic ;
     self.sepLine.hidden = self.lbContent.hidden = self.bgShadow.hidden = hasPic ;
