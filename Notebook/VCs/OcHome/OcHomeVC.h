@@ -34,6 +34,10 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *height_midBar;
 @property (weak, nonatomic) IBOutlet UIButton *btAllNote;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *top_midBar;
+
+
+
 /**
  topbar的变化State Y - 短， N - 长， default - 长;
  */
@@ -81,6 +85,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
  @param directionUp : up - YES, down - NO.
  */
 - (void)containerCellDraggingDirection:(BOOL)directionUp ;
+- (void)containerCellDraggingCurrentMovingDistance:(float)currentDistance ;
 - (void)containerCellDidSelectedNote:(Note *)note ;
 
 /**

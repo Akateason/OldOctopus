@@ -324,7 +324,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
             
             // hidden or show
             self.height_midBar.constant = newMidHeight ;
-            self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = uiStatus_TopBar_turnSmall ? 0. : 1. ;
+
             self.segmentBooks.alpha = self.btBooksSmall_All.alpha = uiStatus_TopBar_turnSmall ? 1 : 0 ;
             
         } completion:^(BOOL finished) {
@@ -413,6 +413,44 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
         //    if (!directionUp) {NSLog(@"下")}
         //    else {NSLog(@"上")} ;
     }
+}
+
+- (void)containerCellDraggingCurrentMovingDistance:(float)currentDistance {
+    NSLog(@"currentDistance : %@", @(currentDistance)) ;
+    
+    if (currentDistance > 134.) {
+        self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = 0 ;
+
+        if (currentDistance > 190.) {
+            self.segmentBooks.alpha = self.btBooksSmall_All.alpha = 1 ;
+        }
+        else {
+            float alpha1 = ( (currentDistance - 134.) / (190. - 134.) ) + .4 ;
+            self.segmentBooks.alpha = self.btBooksSmall_All.alpha = alpha1 ;
+            self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = 1 - alpha1 - .2 ;
+        }
+                 
+    }
+    else {
+        if (currentDistance < 0) {
+            self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = 1 ;
+            self.segmentBooks.alpha = self.btBooksSmall_All.alpha = 0 ;
+
+            return ;
+        }
+        
+        if (currentDistance < 51.) {
+            self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = 1 ;
+            self.segmentBooks.alpha = self.btBooksSmall_All.alpha = 0 ;
+            return ;
+        }
+        
+        // else
+        float alpha1 = ( (134. - currentDistance) / 134. ) + .6 ;
+        self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = alpha1 ;
+        self.segmentBooks.alpha = self.btBooksSmall_All.alpha = 1 - alpha1 - .2 ;
+    }
+    
 }
 
 - (void)containerCellDidSelectedNote:(Note *)note {
