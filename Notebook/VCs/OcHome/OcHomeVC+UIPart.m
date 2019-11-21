@@ -115,12 +115,28 @@
             make.size.mas_equalTo(CGSizeMake(32, 32)) ;
         }] ;
 
-        UIImageView *shadowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"smallTopbar_shadow"]] ;
-        [obj addSubview:shadowImage] ;
-        [shadowImage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.left.equalTo(obj) ;
-            make.width.equalTo(@4) ;
+//        UIImageView *shadowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"smallTopbar_shadow"]] ;
+//        [obj addSubview:shadowImage] ;
+//        [shadowImage mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.bottom.left.equalTo(obj) ;
+//            make.width.equalTo(@4) ;
+//        }] ;
+        
+        UIView *shadow = [UIView new] ;
+        shadow.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.15] ;
+        [obj addSubview:shadow] ;
+        [shadow mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(obj).offset(4) ;
+            make.top.equalTo(@10) ;
+            make.bottom.equalTo(@-10) ;
+            make.width.equalTo(@.5) ;
         }] ;
+                
+//        shadow.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5].CGColor;
+        shadow.layer.shadowOffset = CGSizeMake(-2, 0) ;
+        shadow.layer.shadowOpacity = 1 ; // 0-1
+        shadow.layer.shadowRadius = 1.5 ;
+        
         
         obj.alpha = 0 ;
         [self.view addSubview:obj] ;
