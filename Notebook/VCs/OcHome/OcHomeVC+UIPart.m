@@ -114,13 +114,6 @@
             make.center.equalTo(obj) ;
             make.size.mas_equalTo(CGSizeMake(32, 32)) ;
         }] ;
-
-//        UIImageView *shadowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"smallTopbar_shadow"]] ;
-//        [obj addSubview:shadowImage] ;
-//        [shadowImage mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.bottom.left.equalTo(obj) ;
-//            make.width.equalTo(@4) ;
-//        }] ;
         
         UIView *shadow = [UIView new] ;
         shadow.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.15] ;
