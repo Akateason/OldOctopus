@@ -18,6 +18,7 @@
 
 @interface OctGuidingVC () {
     long ld_currentIndex ;
+    
 }
 @property (copy, nonatomic) NSArray *vcList ;
 @property (nonatomic, strong) EllipsePageControl *pageCtrl ;
@@ -25,17 +26,36 @@
 
 @implementation OctGuidingVC
 
+
+
 + (instancetype)getMe {
-    NSString *currentVersion = [CommonFunc getVersionStrOfMyAPP] ;
-    NSString *versionCached = XT_USERDEFAULT_GET_VAL(kKey_markForGuidingDisplay) ;
-    if ([currentVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending) return nil ;
+    //  小版本更新就更新
+//    NSString *currentVersion = [CommonFunc getVersionStrOfMyAPP] ;
+//    NSString *versionCached = XT_USERDEFAULT_GET_VAL(kKey_markForGuidingDisplay) ;
+//    if ([currentVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending) return nil ;
     
-    XT_USERDEFAULT_SET_VAL(currentVersion, kKey_markForGuidingDisplay) ;
+    //  安装app第一次打开则更新
+    NSString *versionCached = XT_USERDEFAULT_GET_VAL(kKey_markForGuidingDisplay) ;
+    if (versionCached != nil && versionCached.length > 0) {
+        return nil ;
+    }
+    
+    XT_USERDEFAULT_SET_VAL([CommonFunc getVersionStrOfMyAPP], kKey_markForGuidingDisplay) ;
+
     NSDictionary *option = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:0] forKey:UIPageViewControllerOptionInterPageSpacingKey] ;
     OctGuidingVC *pageVC = [[OctGuidingVC alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:option] ;
     pageVC.view.xt_theme_backgroundColor = k_md_bgColor ;
     return pageVC ;
 }
+
++ (instancetype)getMeForce {
+    NSDictionary *option = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:0] forKey:UIPageViewControllerOptionInterPageSpacingKey] ;
+    OctGuidingVC *pageVC = [[OctGuidingVC alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:option] ;
+    pageVC.kForce = YES ;
+    pageVC.view.xt_theme_backgroundColor = k_md_bgColor ;
+    return pageVC ;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad] ;
@@ -122,6 +142,11 @@
 #pragma mark - SingleGuidVCDelegate <NSObject>
 
 - (void)startOnClick {
+    if (self.kForce) {
+        [self dismissViewControllerAnimated:YES completion:nil] ;
+        return ;
+    }
+        
     AppDelegate *appDelegaete = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
     appDelegaete.window.rootViewController = [OcHomeVC getMe] ;
     [appDelegaete.window makeKeyAndVisible] ;

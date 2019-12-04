@@ -23,6 +23,7 @@
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import "OctWebEditor.h"
 #import "HiddenUtil.h"
+#import "OctGuidingVC.h"
 
 @interface SettingVC () <UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *lbTitle;
@@ -152,12 +153,18 @@
         lb.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
         NSString *versionNum = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ;
         NSString *buildNum = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] ;
-        lb.text = XT_STR_FORMAT(@"v %@ (%@) %@",versionNum,buildNum, (k_Is_Internal_Testing) ? @"内测" : @"") ;        
+        lb.text = XT_STR_FORMAT(@"v %@ (%@) %@ 小章鱼©",versionNum,buildNum, (k_Is_Internal_Testing) ? @"内测" : @"") ;
         lb.font = [UIFont systemFontOfSize:12.] ;
         lb.textAlignment = NSTextAlignmentCenter ;
-//        lb.backgroundColor = [UIColor redColor] ;
+
         lb ;
     }) ;
+    self.lbVersionNum.userInteractionEnabled = YES ;
+    [self.lbVersionNum bk_whenTapped:^{
+        OctGuidingVC *vc = [OctGuidingVC getMeForce] ;
+        vc.modalPresentationStyle = UIModalPresentationFullScreen ;
+        [weakSelf.navigationController presentViewController:vc animated:YES completion:nil] ;
+    }] ;
     
     self.lbVersionNum.height = 100 ;
     self.lbVersionNum.width = self.view.bounds.size.width ;

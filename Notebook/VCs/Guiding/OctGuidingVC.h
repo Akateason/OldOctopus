@@ -12,8 +12,9 @@ static NSString *const kKey_markForGuidingDisplay = @"kKey_markForGuidingDisplay
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OctGuidingVC : UIPageViewController
-
+@property (nonatomic) BOOL kForce ;
 + (instancetype)getMe ;
++ (instancetype)getMeForce ;
 
 @end
 
