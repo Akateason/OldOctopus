@@ -3,20 +3,22 @@ target 'Notebook' do
 
   use_frameworks!
 
-#  pod 'XTlib'
-#  pod 'XTlib/Animations'
-#  pod 'XTlib/CustomUIs'
+  pod 'XTBase'
+  pod 'XTlib'
+  pod 'XTlib/Animations'
+  pod 'XTlib/CustomUIs'
+  pod 'XTIAP'
 
-pod 'XTBase',:path => '../XTBase/'
-pod 'XTlib',:path => '../XTlib/'
-pod 'XTlib/Animations',:path => '../XTlib/'
-pod 'XTlib/CustomUIs',:path => '../XTlib/'
-pod 'XTIAP',:path => '../XTIAP/'
+#pod 'XTBase',:path => '../XTBase/'
+#pod 'XTlib',:path => '../XTlib/'
+#pod 'XTlib/Animations',:path => '../XTlib/'
+#pod 'XTlib/CustomUIs',:path => '../XTlib/'
+#pod 'XTIAP',:path => '../XTIAP/'
 
 
   pod 'IQKeyboardManager'
   pod 'SDWebImage','<=4.4.6'
-  pod 'Bugly'
+  pod 'Bugly','2.5.0'
   pod 'EllipsePageControl'
   pod 'lottie-ios','2.5.3'
   pod 'iosMath'

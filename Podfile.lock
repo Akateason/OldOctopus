@@ -33,23 +33,23 @@ PODS:
   - CHTCollectionViewWaterfallLayout (0.9.7):
     - CHTCollectionViewWaterfallLayout/ObjC (= 0.9.7)
   - CHTCollectionViewWaterfallLayout/ObjC (0.9.7)
-  - CocoaLumberjack (3.5.3):
-    - CocoaLumberjack/Core (= 3.5.3)
-  - CocoaLumberjack/Core (3.5.3)
+  - CocoaLumberjack (3.6.0):
+    - CocoaLumberjack/Core (= 3.6.0)
+  - CocoaLumberjack/Core (3.6.0)
   - EllipsePageControl (0.0.4)
   - FDFullscreenPopGesture (1.1)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - FTPopOverMenu (2.0.8)
+  - FTPopOverMenu (2.0.9)
   - iosMath (0.9.4)
-  - IQKeyboardManager (6.4.0)
+  - IQKeyboardManager (6.5.4)
   - JTMaterialSwitch (1.1)
   - lottie-ios (2.5.3)
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
-  - MGSwipeTableCell (1.6.9)
-  - MJRefresh (3.2.0)
+  - MGSwipeTableCell (1.6.11)
+  - MJRefresh (3.2.3)
   - MSDynamicsDrawerViewController (1.5.1)
   - ReactiveObjC (3.1.1)
   - RSKImageCropper (2.2.3)
@@ -73,7 +73,8 @@ PODS:
     - "UITableView+FDTemplateLayoutCell"
     - Valet (= 2.4.2)
     - YYModel
-  - XTColor (1.0.4)
+  - XTColor (1.1.0):
+    - XTBase
   - XTFMDB (2.0.6):
     - FMDB
     - YYModel
@@ -106,7 +107,7 @@ PODS:
   - YYModel (1.0.4)
 
 DEPENDENCIES:
-  - Bugly
+  - Bugly (= 2.5.0)
   - CocoaLumberjack
   - EllipsePageControl
   - FTPopOverMenu
@@ -120,11 +121,11 @@ DEPENDENCIES:
   - SDWebImage (<= 4.4.6)
   - SSZipArchive
   - WKWebViewWithURLProtocol
-  - XTBase (from `../XTBase/`)
-  - XTIAP (from `../XTIAP/`)
-  - XTlib (from `../XTlib/`)
-  - XTlib/Animations (from `../XTlib/`)
-  - XTlib/CustomUIs (from `../XTlib/`)
+  - XTBase
+  - XTIAP
+  - XTlib
+  - XTlib/Animations
+  - XTlib/CustomUIs
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -155,38 +156,33 @@ SPEC REPOS:
     - "UITableView+FDTemplateLayoutCell"
     - Valet
     - WKWebViewWithURLProtocol
+    - XTBase
     - XTColor
     - XTFMDB
+    - XTIAP
+    - XTlib
     - XTReq
     - XTTable
     - YYModel
-
-EXTERNAL SOURCES:
-  XTBase:
-    :path: "../XTBase/"
-  XTIAP:
-    :path: "../XTIAP/"
-  XTlib:
-    :path: "../XTlib/"
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CHTCollectionViewWaterfallLayout: 9d11068fafecac106695bb5a5d6d0f738483b598
-  CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
+  CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   EllipsePageControl: d6c436006d72119c6cbba45af6648d15a7af7d3a
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  FTPopOverMenu: 79f3de38b61fae6fbe9d6115ae8ec1c187a37c36
+  FTPopOverMenu: 82782ddb42712fcd7747d072afd8f5e8cb2303eb
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
-  IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
+  IQKeyboardManager: 72b359cd7e777e3a984cedbe05f8da45320cbb63
   JTMaterialSwitch: cad8093c3773ff9f6c60005c98d269eb869b5e04
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MGSwipeTableCell: 17349a8b56c81245bd77671251eb8aa9d486d46b
-  MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
+  MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
+  MJRefresh: 2b1214a2dc8f4df4c5dcb028ea2ad4e245425fb7
   MSDynamicsDrawerViewController: 2874df90f5e9453dc7d4e32f8038b50615d4baa7
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
@@ -198,7 +194,7 @@ SPEC CHECKSUMS:
   Valet: 14463ef24fab8fd5809044ecedb61484b799fdd6
   WKWebViewWithURLProtocol: f7f2b367c40680105794a068ed2bb2cd5922c27c
   XTBase: 0789ccadf33d685bc1bd37871fedc0fc715d027f
-  XTColor: 0151b3b61e3b1de2dc29fcdb4a0a22758c8a38df
+  XTColor: 2f9cb9260812471c711e765677065edc81f96152
   XTFMDB: 0891f3355697ebbc3d75f373bcda34329f2d5d94
   XTIAP: 890fb3ebedefe6b4da331f416d486e02e6ea0c13
   XTlib: 2543a90c9dcdcf46be429150bcb9608b14c46ad8
@@ -206,6 +202,6 @@ SPEC CHECKSUMS:
   XTTable: 71154f0f7e883546d83a3b377f919369fc7d1ece
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 741e53227cb04ff1dd417f99341c7a81dc3ddaf7
+PODFILE CHECKSUM: 74cc8c216a79fdc2bd52d02fab16f9ef25683913
 
 COCOAPODS: 1.7.5

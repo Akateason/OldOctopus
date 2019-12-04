@@ -4,10 +4,10 @@
 //子类化 RxWebViewController 如果有必要
 //---------------------------------------------------------------------//
 
-//#import "RootCtrl.h"
-#import <RxWebViewController/RxWebViewController.h>
+#import "RootCtrl.h"
+//#import <RxWebViewController/RxWebViewController.h>
+//#import <WebKit/WebKit.h>
 
-
-@interface MyWebController : RxWebViewController
+@interface MyWebController : RootCtrl
 
 @end

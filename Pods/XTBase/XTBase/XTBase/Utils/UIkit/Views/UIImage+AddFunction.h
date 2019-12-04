@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
+__attribute__((deprecated("Class UIImage (AddFunction) is deprecated , use UIImage (XT) instead!!!")))
 
 @interface UIImage (AddFunction)
 

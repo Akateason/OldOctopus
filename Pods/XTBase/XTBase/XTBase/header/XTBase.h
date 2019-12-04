@@ -23,26 +23,7 @@
 #import "XTlibConst.h"
 
 // Root
-#import "UITableView+XTPlaceHolder.h"
-#import "UITableView+XTReloader.h"
-#import "UITableViewCell+XT.h"
-#import "RootTableView.h"
-#import "RootTableCell.h"
-#import "RootRefreshHeader.h"
-#import "RootRefreshFooter.h"
-#import "RootCollectionCell.h"
-#import "RootCollectionView.h"
-#import "UICollectionView+XT.h"
-#import "UICollectionViewCell+XT.h"
-
 #import "RootCustomView.h"
-//#import "MyNavCtrller.h"
-//#import "MySearchBar.h"
-//#import "MyTabbar.h"
-//#import "MyTabbarCtrller.h"
-//#import "XTTextField.h"
-//#import "MyTextView.h"
-//#import "MyWebController.h"
 #import "RootCtrl.h"
 
 // Category
@@ -69,6 +50,9 @@
 #import "NSDictionary+XT.h"
 #import "UITextView+XT.h"
 #import "NSAttributedString+XT.h"
+#import "UIImage+XT.h"
+
+
 
 // Util
 #import "NSString+MD5.h"

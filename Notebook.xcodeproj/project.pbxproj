@@ -1008,6 +1008,35 @@
 			path = tableCreator;
 			sourceTree = "<group>";
 		};
+		8F14106D23979ED000325750 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
+				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
+				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
+				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
+				8F81B84022F96D9400DFFEDB /* OctPrefixHeader.pch */,
+				8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */,
+				8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */,
+				8FEA9E47225B2713002A756B /* emojisJson.json */,
+				8F2901F3231E5349008D479D /* introUsePro.md */,
+				8F7A8435223BD1770099E905 /* introUseICloud.md */,
+				8F679E1122363EB7008DE1BC /* intro.md */,
+				8F65DBD5221BECFE0067C321 /* Assets.xcassets */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		8F14106E2397A20400325750 /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				8F65DBD7221BECFE0067C321 /* LaunchScreen.storyboard */,
+				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
+				8FDA735B230A548500EEDC57 /* Home.storyboard */,
+			);
+			path = storyboards;
+			sourceTree = "<group>";
+		};
 		8F173D7C22A1385F00FA4D8D /* WebEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1217,29 +1246,16 @@
 		8F65DBCB221BECFC0067C321 /* Notebook */ = {
 			isa = PBXGroup;
 			children = (
-				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
-				8F81B84022F96D9400DFFEDB /* OctPrefixHeader.pch */,
-				8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */,
-				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
-				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
 				8F50A1AD23696F6F006E8C3D /* web.zip */,
-				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
-				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
-				8F65DBD2221BECFC0067C321 /* Main.storyboard */,
-				8FDA735B230A548500EEDC57 /* Home.storyboard */,
-				8F9BECBF227043E800EAEAD2 /* userhead_sync_animate.json */,
-				8FEA9E47225B2713002A756B /* emojisJson.json */,
-				8F2901F3231E5349008D479D /* introUsePro.md */,
-				8F7A8435223BD1770099E905 /* introUseICloud.md */,
-				8F679E1122363EB7008DE1BC /* intro.md */,
+				8F14106D23979ED000325750 /* SupportingFiles */,
+				8F14106E2397A20400325750 /* storyboards */,
 				8F79AE74226881AC00E8FD0D /* Util */,
 				8F41EEC3225B3B5200D9CD35 /* Vendor */,
-				8F7A843B2240C7340099E905 /* source */,
+				8F7A843B2240C7340099E905 /* sourceImages */,
 				8F626342221C02030066A429 /* Model */,
 				8FACF6C2221D2AF70067DDA4 /* VCs */,
-				8F65DBD5221BECFE0067C321 /* Assets.xcassets */,
-				8F65DBD7221BECFE0067C321 /* LaunchScreen.storyboard */,
 				8F65DBDA221BECFE0067C321 /* Info.plist */,
+				8F579FDC222E547F00C54929 /* Notebook.entitlements */,
 				8F65DBDB221BECFE0067C321 /* main.m */,
 			);
 			path = Notebook;
@@ -1357,7 +1373,7 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		8F7A843B2240C7340099E905 /* source */ = {
+		8F7A843B2240C7340099E905 /* sourceImages */ = {
 			isa = PBXGroup;
 			children = (
 				8F50A1B1236AAF84006E8C3D /* setting_sync@2x.png */,
@@ -1484,7 +1500,7 @@
 				8F7A843C2240C7460099E905 /* check-box-off@2x.png */,
 				8F7A843D2240C7470099E905 /* check-box-on@2x.png */,
 			);
-			path = source;
+			path = sourceImages;
 			sourceTree = "<group>";
 		};
 		8F8089572281976100AA13BA /* toolbar */ = {
@@ -2671,7 +2687,7 @@
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Notebook/OctPrefixHeader.pch;
+				GCC_PREFIX_HEADER = Notebook/SupportingFiles/OctPrefixHeader.pch;
 				INFOPLIST_FILE = Notebook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2702,7 +2718,7 @@
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Notebook/OctPrefixHeader.pch;
+				GCC_PREFIX_HEADER = Notebook/SupportingFiles/OctPrefixHeader.pch;
 				INFOPLIST_FILE = Notebook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
