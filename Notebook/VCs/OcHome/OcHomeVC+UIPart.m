@@ -125,7 +125,6 @@
             make.width.equalTo(@.5) ;
         }] ;
                 
-//        shadow.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5].CGColor;
         shadow.layer.shadowOffset = CGSizeMake(-2, 0) ;
         shadow.layer.shadowOpacity = 1 ; // 0-1
         shadow.layer.shadowRadius = 1.5 ;
@@ -145,8 +144,13 @@
         obj ;
     }) ;
     
+    
     [self.btAllNote bk_addEventHandler:^(id sender) {
-        [weakSelf goToAllBookVC] ;
+        
+        [weakSelf.lbAll oct_buttonClickAnimationComplete:^{
+            [weakSelf goToAllBookVC] ;
+        }] ;
+        
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     
@@ -229,9 +233,14 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == self.bookCollectionView) {
-        self.currentBook = self.bookList[indexPath.row] ;
-        [self refreshBars] ;
-        [self moveMainCollection] ;
+        OcBookCell *cell = (OcBookCell *)[collectionView cellForItemAtIndexPath:indexPath] ;
+        WEAK_SELF
+        [cell.viewForBookIcon oct_buttonClickAnimationComplete:^{
+            weakSelf.currentBook = weakSelf.bookList[indexPath.row] ;
+            [weakSelf refreshBars] ;
+            [weakSelf moveMainCollection] ;
+        }] ;
+        
     }
     else if (collectionView == self.mainCollectionView) {
         

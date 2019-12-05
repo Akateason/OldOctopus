@@ -10,7 +10,7 @@
 #import "MDThemeConfiguration.h"
 #import <XTlib/XTlib.h>
 #import <QuartzCore/QuartzCore.h>
-
+#import "SettingSave.h"
 
 @implementation UIView (OctupusExtension)
 
@@ -147,15 +147,41 @@
 - (void)oct_buttonClickAnimationWithScale:(float)scale
                                  complete:(void(^)(void))completion {
     
-    [UIView animateWithDuration:0.2 delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
-        self.transform = CGAffineTransformMakeScale(scale, scale) ;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.1 animations:^{
-            self.transform = CGAffineTransformIdentity;
+    SettingSave *sSave = [SettingSave fetch] ;
+    float duration = 0.2 ;
+    switch (sSave.animate_duration) {
+        case -1: duration = 0.5 ; break;
+        case  0: duration = 0.2 ; break;
+        case  1: duration = 0.1 ; break;
+    }
+    
+    if (sSave.animate_isSpring) {
+        [UIView animateWithDuration:duration / 2. delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+
+            self.transform = CGAffineTransformMakeScale(scale, scale) ;
+
         } completion:^(BOOL finished) {
-            if (completion) completion() ;
+                                    
+            [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.1 initialSpringVelocity:30 options:UIViewAnimationOptionLayoutSubviews animations:^{
+
+                self.transform = CGAffineTransformIdentity;
+
+            } completion:^(BOOL finished) {
+                if (completion) completion() ;
+            }] ;
         }] ;
-    }] ;
+    }
+    else {
+        [UIView animateWithDuration:duration / 2. delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+            self.transform = CGAffineTransformMakeScale(scale, scale) ;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:duration animations:^{
+                self.transform = CGAffineTransformIdentity;
+            } completion:^(BOOL finished) {
+                if (completion) completion() ;
+            }] ;
+        }] ;
+    }
 }
 
 

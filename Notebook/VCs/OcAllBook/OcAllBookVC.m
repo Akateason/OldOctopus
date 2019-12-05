@@ -59,9 +59,13 @@
     WEAK_SELF
     [self.btClose xt_enlargeButtonsTouchArea] ;
     [self.btClose bk_addEventHandler:^(id sender) {
-        [weakSelf dismissViewControllerAnimated:YES completion:^{
-            [weakSelf.delegate ocAllBookVCDidClose] ;
+        
+        [weakSelf.btClose oct_buttonClickAnimationComplete:^{
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                [weakSelf.delegate ocAllBookVCDidClose] ;
+            }] ;
         }] ;
+                
     } forControlEvents:(UIControlEventTouchUpInside)] ;
 }
 
@@ -97,7 +101,7 @@
     return cell ;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)funcCollectionViewDidSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NoteBooks *book = self.bookList[indexPath.row] ;
     if (book.vType == Notebook_Type_add) {
         @weakify(self)
@@ -111,7 +115,7 @@
                                  [self getAllBooks] ;
                                  
                                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                     [collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredVertically) animated:YES] ;
+                                     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0] atScrollPosition:(UICollectionViewScrollPositionCenteredVertically) animated:YES] ;
                                      [self.delegate addedABook:aBook] ;
                                  }) ;
                                  
@@ -124,6 +128,16 @@
         [self dismissViewControllerAnimated:YES completion:^{
         }] ;
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    OcBookCell *cell = (OcBookCell *)[collectionView cellForItemAtIndexPath:indexPath] ;
+    WEAK_SELF
+    [cell.viewForBookIcon oct_buttonClickAnimationComplete:^{
+        
+        [weakSelf funcCollectionViewDidSelectItemAtIndexPath:indexPath] ;
+    }] ;
 }
 
 
