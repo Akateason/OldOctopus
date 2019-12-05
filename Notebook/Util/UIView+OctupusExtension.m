@@ -135,6 +135,11 @@
     return theImage;
 }
 
+
+
+
+
+
 - (void)oct_buttonClickAnimationComplete:(void(^)(void))completion {
     [self oct_buttonClickAnimationWithScale:1.2 complete:completion] ;
 }
@@ -142,7 +147,7 @@
 - (void)oct_buttonClickAnimationWithScale:(float)scale
                                  complete:(void(^)(void))completion {
     
-    [UIView animateWithDuration:.2 delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+    [UIView animateWithDuration:0.2 delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
         self.transform = CGAffineTransformMakeScale(scale, scale) ;
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.1 animations:^{

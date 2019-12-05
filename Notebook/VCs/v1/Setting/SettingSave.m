@@ -33,6 +33,9 @@ static NSString *const kUD_SettingSave_KEY = @"kUD_SettingSave_KEY_v2" ;
         save.editor_isLooseList = TRUE ;
         save.theme_isChangeWithSystemDarkmode = TRUE ;
         
+        save.animate_duration = 0 ;
+        save.animate_isSpring = FALSE ;
+        
         sSave = save ;
     }
     return sSave ;
