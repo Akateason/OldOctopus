@@ -9,7 +9,7 @@
 #import "BasicVC.h"
 #import "HomeEmptyPHView.h"
 #import "OctWebEditor.h"
-
+#import <XTlib/XTPhotoAlbum.h>
 
 
 @protocol MarkdownVCDelegate <NSObject>
@@ -35,6 +35,9 @@
 @property (weak, nonatomic) id<MarkdownVCDelegate>              delegate ;
 @property (strong, nonatomic) HomeEmptyPHView                   *emptyView ;
 @property (strong, nonatomic) OctWebEditor                      *editor ;
+@property (strong, nonatomic) XTCameraHandler                   *cameraHandler ;
+@property (strong, nonatomic) RACSubject                        *subjectIpadKeyboardCommand ;
+@property (strong, nonatomic) Note                              *aNote ;
 
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
 @property (weak, nonatomic) IBOutlet UIButton *btBack;
@@ -42,6 +45,12 @@
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
 @property (weak, nonatomic) IBOutlet UIButton *btShare;
+
+@property (nonatomic)         BOOL              isInTrash ;
+@property (nonatomic)         BOOL              isInShare ;
+@property (nonatomic)         BOOL              isNewFromIpad ;
+@property (nonatomic)         BOOL              isCreateEmptyNote ;
+@property (nonatomic)         BOOL              isSnapshoting ;
 
 
 + (instancetype)newWithNote:(Note *)note
@@ -61,6 +70,10 @@
 
 + (CGFloat)getEditorLeftIpad ;
 
-@property (strong, nonatomic) RACSubject *subjectIpadKeyboardCommand ;
+
+- (void)createNewNote ;
+- (void)updateMyNote ;
+- (void)snapShotFullScreen:(NSString *)htmlString ;
+- (void)clearArticleInIpad ;
 
 @end

@@ -64,6 +64,7 @@
 		8F1357F62292A55500F5F874 /* OctToolBarInlineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1357F52292A55500F5F874 /* OctToolBarInlineView.xib */; };
 		8F1357F92292AA4200F5F874 /* KeyboardViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1357F82292AA4200F5F874 /* KeyboardViewButton.m */; };
 		8F1357FB2292AE0C00F5F874 /* tb_para_clean@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1357FA2292AE0C00F5F874 /* tb_para_clean@2x.png */; };
+		8F141071239A2BAD00325750 /* MarkdownVC+Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F141070239A2BAD00325750 /* MarkdownVC+Notification.m */; };
 		8F173D7B22A1385B00FA4D8D /* OctWebEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F173D7A22A1385B00FA4D8D /* OctWebEditor.m */; };
 		8F173DCE22A4D02900FA4D8D /* UIViewController+SlidingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F173DCA22A4D02900FA4D8D /* UIViewController+SlidingController.m */; };
 		8F173DCF22A4D02900FA4D8D /* NHSlidingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F173DCC22A4D02900FA4D8D /* NHSlidingController.m */; };
@@ -488,6 +489,8 @@
 		8F1357F72292AA4200F5F874 /* KeyboardViewButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewButton.h; sourceTree = "<group>"; };
 		8F1357F82292AA4200F5F874 /* KeyboardViewButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewButton.m; sourceTree = "<group>"; };
 		8F1357FA2292AE0C00F5F874 /* tb_para_clean@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tb_para_clean@2x.png"; sourceTree = "<group>"; };
+		8F14106F239A2BAD00325750 /* MarkdownVC+Notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownVC+Notification.h"; sourceTree = "<group>"; };
+		8F141070239A2BAD00325750 /* MarkdownVC+Notification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownVC+Notification.m"; sourceTree = "<group>"; };
 		8F173D7922A1385B00FA4D8D /* OctWebEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctWebEditor.h; sourceTree = "<group>"; };
 		8F173D7A22A1385B00FA4D8D /* OctWebEditor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctWebEditor.m; sourceTree = "<group>"; };
 		8F173DCA22A4D02900FA4D8D /* UIViewController+SlidingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SlidingController.m"; sourceTree = "<group>"; };
@@ -1284,6 +1287,8 @@
 			children = (
 				8F679DFA2232436B008DE1BC /* MarkdownVC.h */,
 				8F679DFB2232436B008DE1BC /* MarkdownVC.m */,
+				8F14106F239A2BAD00325750 /* MarkdownVC+Notification.h */,
+				8F141070239A2BAD00325750 /* MarkdownVC+Notification.m */,
 				8F50A1A8236842EE006E8C3D /* MarkdownVC+Keycommand.h */,
 				8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */,
 				8FEA80D522D0725F00703272 /* share */,
@@ -2498,6 +2503,7 @@
 				8F79AE77226881F000E8FD0D /* UIView+OctupusExtension.m in Sources */,
 				8F1357F42292A33F00F5F874 /* OctToolBarInlineView.m in Sources */,
 				8F56FE95228556B50030D3F9 /* OutputPreviewsNailView.m in Sources */,
+				8F141071239A2BAD00325750 /* MarkdownVC+Notification.m in Sources */,
 				8FA232D6224E07C400163685 /* NoteCell.m in Sources */,
 				8F96A3D423794AA5001742B9 /* OcHomeVC+Keycommand.m in Sources */,
 				8FEBC28822A68BEB004EB0F5 /* OctWebEditor+InlineBoardUtil.m in Sources */,

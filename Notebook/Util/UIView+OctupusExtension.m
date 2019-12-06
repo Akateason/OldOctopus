@@ -162,7 +162,7 @@
 
         } completion:^(BOOL finished) {
                                     
-            [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.1 initialSpringVelocity:30 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            [UIView animateWithDuration:duration + .2 delay:0 usingSpringWithDamping:0.1 initialSpringVelocity:100 * duration options:UIViewAnimationOptionLayoutSubviews animations:^{
 
                 self.transform = CGAffineTransformIdentity;
 

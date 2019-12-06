@@ -48,13 +48,15 @@ static int kLimitCount = 70 ;
     WEAK_SELF
     [self.btMore bk_addEventHandler:^(id sender) {
         
-        id vc = weakSelf.xt_viewController ;
-        if ([vc isKindOfClass:[OcHomeVC class]]) {
-            [(OcHomeVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
-        }
-        else if ([vc isKindOfClass:[SearchVC class]]) {
-            [(SearchVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
-        }
+        [weakSelf.btMore oct_buttonClickAnimationComplete:^{
+            id vc = weakSelf.xt_viewController ;
+            if ([vc isKindOfClass:[OcHomeVC class]]) {
+                [(OcHomeVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
+            }
+            else if ([vc isKindOfClass:[SearchVC class]]) {
+                [(SearchVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
+            }
+        }] ;
         
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
