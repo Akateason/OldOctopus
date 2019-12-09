@@ -119,6 +119,37 @@
     [[OctWebEditor sharedInstance] setupSettings] ;
     
     @weakify(self)
+    RACSignal *offsetSignal = RACObserve(self.editor.webView.scrollView, contentOffset) ;
+    
+    RACSignal *validYSignal =
+    [[offsetSignal map:^NSNumber *(NSValue *value) {
+        CGPoint pt = value.CGPointValue ;
+        if (pt.y <= 88.0) {
+            self.topBar.hidden = self.navArea.hidden = NO ;
+        }
+        return @(pt.y) ;
+    }] filter:^BOOL(NSNumber *y) {
+        return y.floatValue > 88.0 ;
+    }] ;
+    
+    [[[validYSignal flattenMap:^__kindof RACSignal *(NSValue *offsetValue) {
+//        NSLog(@"y : %lf", [offsetValue CGPointValue].y) ;
+        @strongify(self)
+        CGPoint point = [self.editor.webView.scrollView.panGestureRecognizer translationInView:self.view] ;
+        
+        return
+        [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            [subscriber sendNext:@(point.y >= 0)] ;
+            return nil ;
+        }] ;
+    }] throttle:0.02] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        BOOL isUp = [x boolValue] ;
+        self.topBar.hidden = self.navArea.hidden = !isUp ;
+    }] ;
+    
+    
+    
     [[[self.subjectIpadKeyboardCommand throttle:.4] deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
         @strongify(self)
         [self callbackKeycommand:x] ;
@@ -282,11 +313,6 @@ return;}
 //    [AppstoreCommentUtil jumpReviewAfterNoteRead] ;
 }
 
-
-
-
-
-
 #pragma mark - Func
 
 - (void)createNewNote {
@@ -398,7 +424,6 @@ return;}
         }] ;
 
     }] ;
-    
 }
 
 - (void)snapShotFullScreen:(NSString *)htmlString {
@@ -466,7 +491,6 @@ return;}
         [self.editor getShareHtml] ;
     }] ;
 }
-
 
 #pragma mark - prop
 
@@ -564,7 +588,5 @@ return;}
     }
     return _subjectIpadKeyboardCommand ;
 }
-
-
 
 @end

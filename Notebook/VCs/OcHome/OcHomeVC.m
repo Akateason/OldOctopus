@@ -429,7 +429,6 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
             self.segmentBooks.alpha = self.btBooksSmall_All.alpha = alpha1 ;
             self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = 1 - alpha1 - .2 ;
         }
-                 
     }
     else {
         if (currentDistance < 0) {
@@ -579,9 +578,5 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
             return @"UIUserInterfaceSizeClassUnspecified";
     }
 }
-
-
-
-
 
 @end

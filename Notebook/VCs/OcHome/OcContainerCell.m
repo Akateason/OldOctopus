@@ -58,7 +58,6 @@
          BOOL directionIsVerical = (fabs(translation.y) > fabs(translation.x)) ;
          BOOL overDistance = offsetY.floatValue > 134. ;
         
-        
          BOOL scrollUpDirection = translation.y < 0 ;
          
          if ( directionIsVerical ) {
