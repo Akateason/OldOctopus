@@ -238,8 +238,8 @@ XT_SINGLETON_M(OctWebEditor)
 
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message {
-//    NSString *name = message.name ; // 就是上边注入到 JS 的哪个名字，在这里是 nativeMethod
-    NSString *body = message.body ;       // 就是 JS 调用 Native 时，传过来的 value
+//    NSString *name = message.name ;
+    NSString *body = message.body ;
     
     NSDictionary *ret = [WebModel convertjsonStringToJsonObj:body] ;
     NSString *func = ret[@"method"] ;
@@ -417,7 +417,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 #pragma mark --
-#pragma mark - Func
+#pragma mark - Bridge
 
 - (void)nativeCallJSWithFunc:(NSString *)func
                         json:(id)obj
@@ -453,6 +453,8 @@ static const float kOctEditorToolBarHeight = 41. ;
     }] ;    
 }
 
+#pragma mark - Func
+
 - (void)getMarkdown:(void(^)(NSString *markdown))complete {
     [self nativeCallJSWithFunc:@"getMarkdown" json:nil completion:^(NSString *val, NSError *error) {
         if ([val isEqualToString:@"\n"]) val = nil ;
@@ -483,7 +485,7 @@ static const float kOctEditorToolBarHeight = 41. ;
 }
 
 #pragma mark --
-#pragma mark - wkwebview delegate
+#pragma mark - WKWebview Delegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self setupJSCoreWhenFinishLoad] ;
@@ -495,8 +497,7 @@ static const float kOctEditorToolBarHeight = 41. ;
         
         [self removeInputAccessoryViewFromWKWebView:webView] ;
         [self hookWKContentViewFuncCanPerformAction] ;
-        
-        
+                
         [self.toolBar setNeedsLayout] ;
         [self.toolBar layoutIfNeeded] ;
         [self.toolBar reset] ;

@@ -34,10 +34,13 @@
 #import "MarkdownVC+Keycommand.h"
 
 
-@interface MarkdownVC () <WKScriptMessageHandler>
-
+@interface MarkdownVC () <WKScriptMessageHandler, UIScrollViewDelegate>
+{
+    CGFloat beginContentY;          //开始滑动的位置
+    CGFloat endContentY;            //结束滑动的位置
+}
 @property (copy, nonatomic)   NSString          *myBookID ;
-@property (strong, nonatomic) WKWebView         *webView ;
+@property (strong, nonatomic) WKWebView         *webView ; // 导出
 @property (strong, nonatomic) UIView            *snapBgView ;
 @property (strong, nonatomic) OutputPreviewsNailView *nail ;
 @property (nonatomic)         float             snapDuration ;
@@ -51,6 +54,36 @@
 + (CGFloat)getEditorLeftIpad {
     return - [OctWebEditor sharedInstance].sideWid + k_side_margin ;
 }
+
+#pragma mark - editor scrollview delegate
+static const CGFloat kValueOfDragging = 25.0 ;
+
+// 当开始滚动视图时，执行该方法。一次有效滑动（开始滑动，滑动一小段距离，只要手指不松开，只算一次滑动），只执行一次。
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    //获取开始位置
+    beginContentY = scrollView.contentOffset.y;
+}
+
+// 滑动scrollView，并且手指离开时执行。一次有效滑动，只执行一次。
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    //获取结束位置
+    endContentY = scrollView.contentOffset.y;
+    SettingSave *sSave = [SettingSave fetch] ;
+    float duration = [sSave currentAnimationDuration] ;
+    if (endContentY - beginContentY > kValueOfDragging) {
+        [UIView animateWithDuration:duration animations:^{
+            self.heightForNavBar.constant = self.heightForBar.constant = 0 ;
+        }] ;
+    }
+    else if (endContentY-beginContentY < -kValueOfDragging) {
+        [UIView animateWithDuration:duration animations:^{
+            self.heightForBar.constant = 55 + APP_STATUSBAR_HEIGHT ;
+            self.heightForNavBar.constant = 55 ;
+        }] ;
+    }
+}
+
+
 
 #pragma mark - Life
 // 当 bookID == nil 时, 笔记在暂存区创建
@@ -119,34 +152,35 @@
     [[OctWebEditor sharedInstance] setupSettings] ;
     
     @weakify(self)
-    RACSignal *offsetSignal = RACObserve(self.editor.webView.scrollView, contentOffset) ;
-    
-    RACSignal *validYSignal =
-    [[offsetSignal map:^NSNumber *(NSValue *value) {
-        CGPoint pt = value.CGPointValue ;
-        if (pt.y <= 88.0) {
-            self.topBar.hidden = self.navArea.hidden = NO ;
-        }
-        return @(pt.y) ;
-    }] filter:^BOOL(NSNumber *y) {
-        return y.floatValue > 88.0 ;
-    }] ;
-    
-    [[[validYSignal flattenMap:^__kindof RACSignal *(NSValue *offsetValue) {
-//        NSLog(@"y : %lf", [offsetValue CGPointValue].y) ;
-        @strongify(self)
-        CGPoint point = [self.editor.webView.scrollView.panGestureRecognizer translationInView:self.view] ;
-        
-        return
-        [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-            [subscriber sendNext:@(point.y >= 0)] ;
-            return nil ;
-        }] ;
-    }] throttle:0.02] subscribeNext:^(id  _Nullable x) {
-        @strongify(self)
-        BOOL isUp = [x boolValue] ;
-        self.topBar.hidden = self.navArea.hidden = !isUp ;
-    }] ;
+    self.editor.webView.scrollView.delegate = self ;
+//    RACSignal *offsetSignal = RACObserve(self.editor.webView.scrollView, contentOffset) ;
+//
+//    RACSignal *validYSignal =
+//    [[offsetSignal map:^NSNumber *(NSValue *value) {
+//        CGPoint pt = value.CGPointValue ;
+//        if (pt.y <= 88.0) {
+//            self.topBar.hidden = self.navArea.hidden = NO ;
+//        }
+//        return @(pt.y) ;
+//    }] filter:^BOOL(NSNumber *y) {
+//        return y.floatValue > 88.0 ;
+//    }] ;
+//
+//    [[[validYSignal flattenMap:^__kindof RACSignal *(NSValue *offsetValue) {
+////        NSLog(@"y : %lf", [offsetValue CGPointValue].y) ;
+//        @strongify(self)
+//        CGPoint point = [self.editor.webView.scrollView.panGestureRecognizer translationInView:self.view] ;
+//
+//        return
+//        [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+//            [subscriber sendNext:@(point.y >= 0)] ;
+//            return nil ;
+//        }] ;
+//    }] throttle:0.02] subscribeNext:^(id  _Nullable x) {
+//        @strongify(self)
+//        BOOL isUp = [x boolValue] ;
+//        self.topBar.hidden = self.navArea.hidden = !isUp ;
+//    }] ;
     
     
     

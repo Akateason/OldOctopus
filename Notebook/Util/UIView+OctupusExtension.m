@@ -148,12 +148,7 @@
                                  complete:(void(^)(void))completion {
     
     SettingSave *sSave = [SettingSave fetch] ;
-    float duration = 0.2 ;
-    switch (sSave.animate_duration) {
-        case -1: duration = 0.5 ; break;
-        case  0: duration = 0.2 ; break;
-        case  1: duration = 0.1 ; break;
-    }
+    float duration = [sSave currentAnimationDuration] ;
     
     if (sSave.animate_isSpring) {
         [UIView animateWithDuration:duration / 2. delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{

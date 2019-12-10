@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btBack;
 @property (weak, nonatomic) IBOutlet UIView *navArea;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForNavBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
 @property (weak, nonatomic) IBOutlet UIButton *btShare;
 

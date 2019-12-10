@@ -41,5 +41,15 @@ static NSString *const kUD_SettingSave_KEY = @"kUD_SettingSave_KEY_v2" ;
     return sSave ;
 }
 
+- (CGFloat)currentAnimationDuration {
+    CGFloat duration = 0.2 ;
+    switch (self.animate_duration) {
+        case -1: duration = 0.5 ; break;
+        case  0: duration = 0.2 ; break;
+        case  1: duration = 0.1 ; break;
+    }
+
+    return duration ;
+}
 
 @end

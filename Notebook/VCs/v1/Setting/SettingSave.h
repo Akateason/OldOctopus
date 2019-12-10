@@ -34,6 +34,10 @@
 - (void)save ;
 + (instancetype)fetch ;
 
+
+- (CGFloat)currentAnimationDuration ;
+
+
 @end
 
 

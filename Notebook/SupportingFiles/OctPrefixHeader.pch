@@ -24,6 +24,7 @@
 #import "OctNotificationHeader.h"
 #import "AppDelegate.h"
 #import "OctMBPHud.h"
+#import "SettingSave.h"
 
 #define LOG_LEVEL_DEF ddLogLevel
 #import <CocoaLumberjack.h>
