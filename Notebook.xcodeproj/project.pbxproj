@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8F00DD73226F0F780028B5BA /* launchingImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F00DD72226F0F780028B5BA /* launchingImage@2x.png */; };
+		8F044F3823A229D900060F17 /* home_setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F044F3723A229D900060F17 /* home_setting@2x.png */; };
+		8F044F3B23A22E2400060F17 /* h_list_sort_square@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F044F3923A22E2300060F17 /* h_list_sort_square@2x.png */; };
+		8F044F3C23A22E2400060F17 /* h_list_sort_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F044F3A23A22E2400060F17 /* h_list_sort_line@2x.png */; };
 		8F05C57922754C200047CC04 /* XTMarkdownParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F05C57822754C200047CC04 /* XTMarkdownParser.m */; };
 		8F05C57C22754CD40047CC04 /* XTMarkdownParser+Regular.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F05C57B22754CD40047CC04 /* XTMarkdownParser+Regular.m */; };
 		8F05C57F22754F150047CC04 /* XTMarkdownParser+ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F05C57E22754F150047CC04 /* XTMarkdownParser+ImageUtil.m */; };
@@ -414,6 +417,9 @@
 /* Begin PBXFileReference section */
 		3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Notebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F00DD72226F0F780028B5BA /* launchingImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchingImage@2x.png"; sourceTree = "<group>"; };
+		8F044F3723A229D900060F17 /* home_setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_setting@2x.png"; sourceTree = "<group>"; };
+		8F044F3923A22E2300060F17 /* h_list_sort_square@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h_list_sort_square@2x.png"; sourceTree = "<group>"; };
+		8F044F3A23A22E2400060F17 /* h_list_sort_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h_list_sort_line@2x.png"; sourceTree = "<group>"; };
 		8F05C57722754C200047CC04 /* XTMarkdownParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTMarkdownParser.h; sourceTree = "<group>"; };
 		8F05C57822754C200047CC04 /* XTMarkdownParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTMarkdownParser.m; sourceTree = "<group>"; };
 		8F05C57A22754CD40047CC04 /* XTMarkdownParser+Regular.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XTMarkdownParser+Regular.h"; sourceTree = "<group>"; };
@@ -1381,6 +1387,9 @@
 		8F7A843B2240C7340099E905 /* sourceImages */ = {
 			isa = PBXGroup;
 			children = (
+				8F044F3A23A22E2400060F17 /* h_list_sort_line@2x.png */,
+				8F044F3923A22E2300060F17 /* h_list_sort_square@2x.png */,
+				8F044F3723A229D900060F17 /* home_setting@2x.png */,
 				8F50A1B1236AAF84006E8C3D /* setting_sync@2x.png */,
 				8FD234A9233A09C0001003C8 /* unsplash_icon@2x.png */,
 				8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */,
@@ -2074,9 +2083,11 @@
 				8FFAE12D229CDAF400CDAC47 /* active4d.plist in Resources */,
 				8FFAE126229CDAF400CDAC47 /* objectivec.plist in Resources */,
 				8F2901F4231E5349008D479D /* introUsePro.md in Resources */,
+				8F044F3C23A22E2400060F17 /* h_list_sort_line@2x.png in Resources */,
 				8FE5A3DB224B6E4000947D14 /* md_tb_bt_photo@2x.png in Resources */,
 				8FFAE0F5229CDAF400CDAC47 /* asp-vb.plist in Resources */,
 				8FFAE11B229CDAF400CDAC47 /* haskell.plist in Resources */,
+				8F044F3B23A22E2400060F17 /* h_list_sort_square@2x.png in Resources */,
 				8F6C95D422CFBE6C00AF5302 /* SingleGuidVC.xib in Resources */,
 				8F931B9B228E89F800F73219 /* home_top_note@2x.png in Resources */,
 				8FFAE109229CDAF400CDAC47 /* actionscript3.plist in Resources */,
@@ -2156,6 +2167,7 @@
 				8F7A84452244BA9D0099E905 /* nav_back_item@2x.png in Resources */,
 				8FFAE119229CDAF400CDAC47 /* lilypond.plist in Resources */,
 				8FF32ABC230F8D1300C1C835 /* bt_s_t_all@2x.png in Resources */,
+				8F044F3823A229D900060F17 /* home_setting@2x.png in Resources */,
 				8FFAE0F7229CDAF400CDAC47 /* eztpl.plist in Resources */,
 				8F6E9B96230CF5FF0011D935 /* book_bg_big@2x.png in Resources */,
 				8FFAE10F229CDAF400CDAC47 /* mel.plist in Resources */,

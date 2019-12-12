@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -128,31 +128,43 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xt-Fh-ad5">
-                                        <rect key="frame" x="20" y="11" width="26" height="26"/>
+                                        <rect key="frame" x="20" y="13.666666666666664" width="22" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="26" id="khg-yr-aTi"/>
-                                            <constraint firstAttribute="height" constant="26" id="rzj-a3-A1q"/>
+                                            <constraint firstAttribute="width" constant="22" id="khg-yr-aTi"/>
+                                            <constraint firstAttribute="height" constant="22" id="rzj-a3-A1q"/>
                                         </constraints>
-                                        <state key="normal" image="uhead_light.png"/>
+                                        <state key="normal" image="home_setting.png"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIO-Yy-xSv">
-                                        <rect key="frame" x="339" y="14.666666666666664" width="20" height="20"/>
+                                        <rect key="frame" x="338" y="14" width="21" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="3MV-HR-9kI"/>
-                                            <constraint firstAttribute="height" constant="20" id="He1-H3-fhB"/>
+                                            <constraint firstAttribute="width" constant="21" id="3MV-HR-9kI"/>
+                                            <constraint firstAttribute="height" constant="21" id="He1-H3-fhB"/>
                                         </constraints>
                                         <state key="normal" image="md_home_search.png"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlb-pQ-GP3">
+                                        <rect key="frame" x="298" y="14.666666666666664" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="J2m-uM-BAk"/>
+                                            <constraint firstAttribute="height" constant="20" id="Mja-Sq-Dby"/>
+                                        </constraints>
+                                        <state key="normal" image="h_list_sort_line.png"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45098039220000002" green="0.63529411759999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="4Xt-Fh-ad5" firstAttribute="top" secondItem="yn3-xC-D1q" secondAttribute="top" constant="11" id="6eH-46-tEb"/>
+                                    <constraint firstItem="vlb-pQ-GP3" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="1hh-eT-zGL"/>
                                     <constraint firstAttribute="height" constant="49" id="CiI-KX-zrB"/>
                                     <constraint firstItem="4Xt-Fh-ad5" firstAttribute="leading" secondItem="yn3-xC-D1q" secondAttribute="leading" constant="20" id="bWY-xL-qFb"/>
+                                    <constraint firstItem="4Xt-Fh-ad5" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="bax-f6-cKe"/>
+                                    <constraint firstItem="VIO-Yy-xSv" firstAttribute="leading" secondItem="vlb-pQ-GP3" secondAttribute="trailing" constant="20" id="eAU-KE-3J6"/>
+                                    <constraint firstItem="VIO-Yy-xSv" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="gNh-hT-aNP"/>
                                     <constraint firstItem="3lK-Z4-ncy" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="gTE-ND-87Z"/>
                                     <constraint firstItem="VIO-Yy-xSv" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="hD7-JH-3q9"/>
                                     <constraint firstItem="3lK-Z4-ncy" firstAttribute="centerX" secondItem="yn3-xC-D1q" secondAttribute="centerX" id="hzv-qW-TT1"/>
                                     <constraint firstAttribute="trailing" secondItem="VIO-Yy-xSv" secondAttribute="trailing" constant="16" id="n30-6R-FNO"/>
+                                    <constraint firstItem="3lK-Z4-ncy" firstAttribute="centerY" secondItem="yn3-xC-D1q" secondAttribute="centerY" id="xpP-JC-6nb"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bJo-41-Tbx">
@@ -189,6 +201,7 @@
                         <outlet property="bookCollectionView" destination="57U-wi-15D" id="Nc4-Mm-3te"/>
                         <outlet property="btAllNote" destination="72M-AJ-CX8" id="HNQ-0N-wMY"/>
                         <outlet property="btSearch" destination="VIO-Yy-xSv" id="E7P-rf-hN6"/>
+                        <outlet property="btSortWay" destination="vlb-pQ-GP3" id="3bJ-Bm-fjk"/>
                         <outlet property="btUser" destination="4Xt-Fh-ad5" id="uOq-Hv-slA"/>
                         <outlet property="height_midBar" destination="8eE-jD-0Xg" id="55q-LT-sjm"/>
                         <outlet property="img_lbAllRight" destination="qAF-dF-MG3" id="59I-nP-0Id"/>
@@ -709,12 +722,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="h_list_sort_line.png" width="40" height="40"/>
+        <image name="home_setting.png" width="44" height="44"/>
         <image name="home_top_arrow.png" width="20" height="20"/>
         <image name="m_note_close.png" width="40" height="40"/>
         <image name="md_home_search.png" width="42" height="42"/>
         <image name="note_info_output.png" width="43" height="43"/>
         <image name="note_info_remove.png" width="43.5" height="43.5"/>
-        <image name="uhead_light.png" width="64" height="64"/>
         <image name="unsplash_icon.png" width="40" height="40"/>
     </resources>
 </document>

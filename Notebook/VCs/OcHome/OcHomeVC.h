@@ -33,6 +33,7 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
 @property (weak, nonatomic) IBOutlet UICollectionView *mainCollectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *height_midBar;
 @property (weak, nonatomic) IBOutlet UIButton *btAllNote;
+@property (weak, nonatomic) IBOutlet UIButton *btSortWay;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top_midBar;
 

@@ -59,16 +59,9 @@
     self.btAdd.layer.shadowOpacity = 15 ;
     self.btAdd.layer.shadowRadius = 5 ;
     
-    
-    // 按钮
-    if ([XTIcloudUser hasLogin]) {
-        [self.btUser setImage:[UIImage imageNamed:XT_STR_FORMAT(@"uhead_%@",[MDThemeConfiguration sharedInstance].currentThemeKey)] forState:0] ;
-    }
-    else {
-        [self.btUser setImage:[UIImage imageNamed:@"icon_user_not_login"] forState:0] ;
-    }
-    
-
+    [self.btUser xt_enlargeButtonsTouchArea] ;
+    self.btSearch.touchExtendInset = UIEdgeInsetsMake(-10, -10, -10, -10);
+    self.btSortWay.touchExtendInset = UIEdgeInsetsMake(-10, -10, -10, -10);
     
     
     
