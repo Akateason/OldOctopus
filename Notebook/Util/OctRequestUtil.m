@@ -138,7 +138,7 @@
     
     [XTRequest reqWithUrl:url mode:XTRequestMode_GET_MODE header:header parameters:nil rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
         long long tick = [json[@"expired_at"] longLongValue] ;
-//        NSLog(@"expired_at %lld",tick) ;
+        NSLog(@"getIapInfo %@",json) ;
         complete(tick, YES) ;
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         complete(0, NO) ;
@@ -212,25 +212,25 @@
 
 
 
-//+ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete {
-//    if (![XTIcloudUser hasLogin]) {
-//        // 未登录
-//        return ;
-//    }
-//
-//    NSString *url = [self requestLinkWithNail:@"users/orders"] ;
-//    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
-//    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
-//    NSDictionary *header = @{@"Authorization" : code,
-//                              @"Content-Type":@"application/json"
-//                             } ;
-//    body = [@{@"body":body} yy_modelToJSONString] ;
-//    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:nil rawBody:body hud:NO success:^(id json, NSURLResponse *response) {
-//        complete(YES) ;
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        complete(NO) ;
-//    }] ;
-//}
++ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete {
+    if (![XTIcloudUser hasLogin]) {
+        // 未登录
+        return ;
+    }
+
+    NSString *url = [self requestLinkWithNail:@"users/orders"] ;
+    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
+    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
+    NSDictionary *header = @{@"Authorization" : code,
+                              @"Content-Type":@"application/json"
+                             } ;
+    body = [@{@"body":body} yy_modelToJSONString] ;
+    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:nil rawBody:body hud:NO success:^(id json, NSURLResponse *response) {
+        complete(YES) ;
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        complete(NO) ;
+    }] ;
+}
 
 
 + (void)restoreOnServer {

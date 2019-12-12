@@ -37,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getIapInfo:(void(^)(long long tick, BOOL success))complete ;
 
 //todo deprecated
-//+ (void)setIapInfoExpireDateTick:(long long)tick
-//                        complete:(void(^)(BOOL success))complete ;
++ (void)setIapInfoExpireDateTick:(long long)tick
+                        complete:(void(^)(BOOL success))complete ;
 
 // 后台验证订单
 + (void)checkReciptOnServer:(NSString *)receipt64
@@ -47,8 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // 保存订单信息
-//todo deprecated
-//+ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete ;
++ (void)saveOrders:(NSString *)body complete:(void(^)(BOOL success))complete ;
 
 // 恢复购买 后台 api, 根据返回值处理, 如果成功则更新本地, 不成功启动本地restore.
 + (void)restoreOnServer ;

@@ -162,6 +162,9 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
+  install_framework "${PODS_ROOT}/AipOcrSdk/AipOcrSdk/Classes/AipBase.framework"
+  install_framework "${PODS_ROOT}/AipOcrSdk/AipOcrSdk/Classes/AipOcrSdk.framework"
+  install_framework "${PODS_ROOT}/AipOcrSdk/AipOcrSdk/Classes/IdcardQuality.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework"
@@ -198,6 +201,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
+  install_framework "${PODS_ROOT}/AipOcrSdk-release/AipOcrSdk-release/Classes/AipBase.framework"
+  install_framework "${PODS_ROOT}/AipOcrSdk-release/AipOcrSdk-release/Classes/AipOcrSdk.framework"
+  install_framework "${PODS_ROOT}/AipOcrSdk-release/AipOcrSdk-release/Classes/IdcardQuality.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework"

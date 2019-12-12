@@ -14,6 +14,20 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - AipOcrSdk (0.1.0):
+    - AipOcrSdk/AipBase (= 0.1.0)
+    - AipOcrSdk/AipOcrSdk (= 0.1.0)
+    - AipOcrSdk/IdcardQuality (= 0.1.0)
+  - AipOcrSdk-release (0.1.0):
+    - AipOcrSdk-release/AipBase (= 0.1.0)
+    - AipOcrSdk-release/AipOcrSdk (= 0.1.0)
+    - AipOcrSdk-release/IdcardQuality (= 0.1.0)
+  - AipOcrSdk-release/AipBase (0.1.0)
+  - AipOcrSdk-release/AipOcrSdk (0.1.0)
+  - AipOcrSdk-release/IdcardQuality (0.1.0)
+  - AipOcrSdk/AipBase (0.1.0)
+  - AipOcrSdk/AipOcrSdk (0.1.0)
+  - AipOcrSdk/IdcardQuality (0.1.0)
   - BlocksKit (2.2.5):
     - BlocksKit/All (= 2.2.5)
   - BlocksKit/All (2.2.5):
@@ -107,6 +121,8 @@ PODS:
   - YYModel (1.0.4)
 
 DEPENDENCIES:
+  - AipOcrSdk
+  - AipOcrSdk-release
   - Bugly (= 2.5.0)
   - CocoaLumberjack
   - EllipsePageControl
@@ -130,6 +146,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - AipOcrSdk
+    - AipOcrSdk-release
     - BlocksKit
     - Bugly
     - CHTCollectionViewWaterfallLayout
@@ -167,6 +185,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  AipOcrSdk: 6d471b3f02ec0a440aa96ea45752298ee3b26d49
+  AipOcrSdk-release: 57ea374e399730d0e787d33325a5a322ad6e2be2
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   CHTCollectionViewWaterfallLayout: 9d11068fafecac106695bb5a5d6d0f738483b598
@@ -202,6 +222,6 @@ SPEC CHECKSUMS:
   XTTable: 71154f0f7e883546d83a3b377f919369fc7d1ece
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 74cc8c216a79fdc2bd52d02fab16f9ef25683913
+PODFILE CHECKSUM: 956fed96e73f6c02e4bba16d9d5e2816331ca87c
 
 COCOAPODS: 1.7.5

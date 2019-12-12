@@ -25,7 +25,9 @@
 @implementation AppDelegate
 
 - (void)test {
-
+//
+//    [OctRequestUtil setIapInfoExpireDateTick:1976146575000 complete:^(BOOL success) {
+//    }] ;
     
 }
 
