@@ -27,6 +27,8 @@
 #import <Photos/Photos.h>
 #import "AppstoreCommentUtil.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <AipOcrSdk/AipOcrSdk.h>
+
 
 
 
@@ -55,9 +57,13 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 //    [self setupAppComment] ;
     
     [self setupNotePreviewPicture] ;
+    
+    [self setupOCR] ;
 }
 
-
+- (void)setupOCR {
+    [[AipOcrService shardService] authWithAK:@"E2YNlPToQx7Am0hv25kdbgwr" andSK:@"V5XGN3R01D1miu7Wb6YN9GxAUzrxqWnG"];
+}
 
 - (void)setupNotePreviewPicture {
     [Note addPreviewPictureInLaunchingTime] ;

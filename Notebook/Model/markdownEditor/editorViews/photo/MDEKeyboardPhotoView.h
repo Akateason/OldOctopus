@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *btViewAlbum;
 @property (weak, nonatomic) IBOutlet UIView *btLink;
 @property (weak, nonatomic) IBOutlet UIView *btUnsplash;
+@property (weak, nonatomic) IBOutlet UIView *btOCR;
+
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *lightLabels;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *iconImgs;
@@ -34,7 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
                     cameraOnPressed:(void(^)(XTImageItem *image))blkPressCameraBt
                      albumOnPressed:(void(^)(XTImageItem *image))blkPressAlbum
                         linkPressed:(void(^)(void))linkPressed
-                    unsplashPressed:(void(^)(void))unsplashPressed ;
+                    unsplashPressed:(void(^)(void))unsplashPressed
+                         ocrPressed:(void(^)(void))ocrPressed ; 
 
 @end
 

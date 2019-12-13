@@ -26,12 +26,14 @@
 #import <NSURLProtocol+WKWebViewSupport.h>
 #import "URLProtocol.h"
 
-@interface OctWebEditor () {
+@interface OctWebEditor ()<UIScrollViewDelegate> {
     NSArray<NSString *> *_disabledActions ;
-    CGPoint             _contentOffsetBeforeScroll ;
     NSString            *_currentLinkUrl ;
     BOOL                _isFirstTimeLoad ;
     float               fCacheSmarkKeyboardHeight ;
+        
+    CGFloat beginContentY;          //开始滑动的位置
+    CGFloat endContentY;            //结束滑动的位置
 }
 
 /// crash signal . 1. 编辑器内部引发,  2. 导致webkit引发
@@ -159,8 +161,6 @@ XT_SINGLETON_M(OctWebEditor)
     [NSURLProtocol wk_registerScheme:@"http"];
     [NSURLProtocol wk_registerScheme:@"https"];
     [NSURLProtocol registerClass:[URLProtocol class]];
-    
-    
 }
 
 - (void)hideSystemToolBar {
@@ -232,12 +232,13 @@ XT_SINGLETON_M(OctWebEditor)
         make.edges.equalTo(self) ;
     }] ;
     [_webView.configuration.userContentController addScriptMessageHandler:(id <WKScriptMessageHandler>)self name:@"WebViewBridge"] ;
+    
+    _webView.scrollView.delegate = self ;
 }
 
 #pragma mark - WKScriptMessageHandler delegate
 
-- (void)userContentController:(WKUserContentController *)userContentController
-      didReceiveScriptMessage:(WKScriptMessage *)message {
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
 //    NSString *name = message.name ;
     NSString *body = message.body ;
     
@@ -515,10 +516,26 @@ static const float kOctEditorToolBarHeight = 41. ;
 #pragma mark --
 #pragma mark - scrollview delegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    scrollView.contentOffset = _contentOffsetBeforeScroll;
-    scrollView.delegate = nil;
+static const CGFloat kValueOfDragging = 25.0 ;
+// 当开始滚动视图时，执行该方法。一次有效滑动（开始滑动，滑动一小段距离，只要手指不松开，只算一次滑动），只执行一次。
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    //获取开始位置
+    beginContentY = scrollView.contentOffset.y;
 }
+
+// 滑动scrollView，并且手指离开时执行。一次有效滑动，只执行一次。
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    //获取结束位置
+    endContentY = scrollView.contentOffset.y;
+        
+    if (endContentY - beginContentY > kValueOfDragging) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kEditor_Scrolling_NavHidden object:nil] ;
+    }
+    else if (endContentY-beginContentY < -kValueOfDragging) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kEditor_Scrolling_NavShow object:nil] ;
+    }
+}
+
 
 #pragma mark --
 #pragma mark - util
@@ -617,8 +634,15 @@ static const float kOctEditorToolBarHeight = 41. ;
 // 禁止键盘弹起时滚动 webView
 - (void)disableAdjustScrollViewWithUserInteracting:(id)contentView {
     WKWebView *webView = [contentView valueForKey:@"_webView"];
-    _contentOffsetBeforeScroll = webView.scrollView.contentOffset;
-    webView.scrollView.delegate = self;
+    CGPoint contentOffsetBeforeScroll = webView.scrollView.contentOffset;
+    @weakify(webView)
+    [[[RACObserve(webView.scrollView, contentOffset)
+       take:1]
+      deliverOnMainThread]
+     subscribeNext:^(id  _Nullable x) {
+        @strongify(webView)
+        webView.scrollView.contentOffset = contentOffsetBeforeScroll;
+    }] ;
 }
 
 /**

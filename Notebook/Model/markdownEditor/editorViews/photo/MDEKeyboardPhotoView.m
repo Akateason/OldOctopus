@@ -12,6 +12,9 @@
 #import <XTlib/XTPhotoAlbum.h>
 #import <Photos/Photos.h>
 #import "MDEKPhotoViewCell.h"
+#import "OctWebEditor.h"
+#import "OctWebEditor+OctToolbarUtil.h"
+
 
 typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
 
@@ -36,7 +39,8 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
                     cameraOnPressed:(void(^)(XTImageItem *image))blkPressCameraBt
                      albumOnPressed:(void(^)(XTImageItem *image))blkPressAlbum
                         linkPressed:(void(^)(void))linkPressed
-                    unsplashPressed:(void(^)(void))unsplashPressed {
+                    unsplashPressed:(void(^)(void))unsplashPressed
+                         ocrPressed:(void(^)(void))ocrPressed {
     
     MDEKeyboardPhotoView *photoView = [MDEKeyboardPhotoView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
     [photoView setupCollections:height] ;
@@ -54,7 +58,7 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
     }] ;
     [photoView.btViewAlbum bk_whenTapped:^{
         @strongify(photoView)
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{                        
             [photoView albumAddCrop:blkPressAlbum] ;
         }) ;
     }] ;
@@ -67,6 +71,12 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
     [photoView.btUnsplash bk_whenTapped:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             unsplashPressed() ;
+        }) ;
+    }] ;
+    
+    [photoView.btOCR bk_whenTapped:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ocrPressed() ;
         }) ;
     }] ;
     
@@ -214,8 +224,8 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
         bt.xt_theme_backgroundColor = k_md_bgColor ;
     }
     
-    self.height_list.constant = 150. ;
-    self.btUnsplash.hidden = NO ;
+    self.height_list.constant = 200. ;
+    
 }
 
 

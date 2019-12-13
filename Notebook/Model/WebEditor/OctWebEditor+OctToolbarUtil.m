@@ -17,7 +17,8 @@
 #import "UnsplashVC.h"
 #import "GuidingICloud.h"
 #import "IapUtil.h"
-
+#import <AipOcrSdk/AipOcrSdk.h>
+#import "OCRUtil.h"
 #import <XTlib/XTImageItem.h>
 
 @implementation OctWebEditor (OctToolbarUtil)
@@ -56,8 +57,6 @@
         
     } cameraOnPressed:^(XTImageItem * _Nonnull image) {
         // 照相生命周期问题, 交给VC处理
-
-        
     } albumOnPressed:^(XTImageItem * _Nonnull image) {
         @strongify(self)
         if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
@@ -65,7 +64,7 @@
             
             return ;
         }
-        
+        self.toolBar.selectedPosition = 0 ;
         [self sendImageLocalPathWithImageItem:image] ;
     } linkPressed:^{
         @strongify(self)
@@ -79,8 +78,52 @@
     
             return ;
         }
-        
+        [self.toolBar hideAllBoards] ;
+        self.toolBar.selectedPosition = 0 ;
+
         [UnsplashVC showMeFrom:self.xt_viewController] ;
+    } ocrPressed:^{
+        @strongify(self)
+        
+        __block UIViewController *vc = [AipGeneralVC ViewControllerWithHandler:^(UIImage *image) {
+            
+            NSDictionary *options = @{@"language_type": @"CHN_ENG", @"detect_direction": @"true"};
+            [[AipOcrService shardService] detectTextBasicFromImage:image
+                                                       withOptions:options
+                                                    successHandler:^(id result) {
+                
+                NSLog(@"ocr : %@", result);
+                NSString *message = [OCRUtil parseResult:result] ;
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [vc dismissViewControllerAnimated:YES completion:nil] ;
+                    
+                    NSDictionary *dic = @{@"location":@"",
+                                          @"text":message,
+                                          @"outMost":@1
+                    } ;
+                    [self nativeCallJSWithFunc:@"insertParagraph" json:dic completion:^(NSString *val, NSError *error) {
+                        
+                    }] ;
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self.toolBar hideAllBoards] ;
+                        self.toolBar.selectedPosition = 0 ;
+                    }) ;
+                }] ;
+                
+                
+            } failHandler:^(NSError *err) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    NSString *msg = [NSString stringWithFormat:@"%li:%@", (long)[err code], [err localizedDescription]];
+                    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"识别失败" message:msg cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil fromWithView:self CallBackBlock:nil] ;
+                    
+                    [vc dismissViewControllerAnimated:YES completion:nil] ;
+                    [self.toolBar hideAllBoards] ;
+                    self.toolBar.selectedPosition = 0 ;
+                }];
+            }];
+        }];
+        [self.xt_viewController presentViewController:vc animated:YES completion:nil];
     }] ;
     return photoView ;
 }
@@ -171,6 +214,7 @@
     [IAPSubscriptionVC showMePresentedInFromCtrller:vc fromSourceView:self.toolBar.btPhoto isPresentState:YES] ;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.toolBar.selectedPosition = 0 ;
         [self.toolBar hideAllBoards] ;
         [self.webView resignFirstResponder] ;
     }) ;

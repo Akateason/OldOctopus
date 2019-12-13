@@ -113,6 +113,7 @@
 		8F446378231651D2000C1DDF /* theme_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F446377231651D2000C1DDF /* theme_select@2x.png */; };
 		8F4829802248CB880005BC56 /* md_tb_bt_undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */; };
 		8F4829812248CB880005BC56 /* md_tb_bt_redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */; };
+		8F4B19E523A37DAA002C1C29 /* OCRUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B19E423A37DAA002C1C29 /* OCRUtil.m */; };
 		8F50A1AA236842EE006E8C3D /* MarkdownVC+Keycommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */; };
 		8F50A1AE23696F6F006E8C3D /* web.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8F50A1AD23696F6F006E8C3D /* web.zip */; };
 		8F50A1B2236AAF84006E8C3D /* setting_sync@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F50A1B1236AAF84006E8C3D /* setting_sync@2x.png */; };
@@ -558,6 +559,8 @@
 		8F446377231651D2000C1DDF /* theme_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme_select@2x.png"; sourceTree = "<group>"; };
 		8F48297E2248CB870005BC56 /* md_tb_bt_undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_undo@2x.png"; sourceTree = "<group>"; };
 		8F48297F2248CB880005BC56 /* md_tb_bt_redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "md_tb_bt_redo@2x.png"; sourceTree = "<group>"; };
+		8F4B19E323A37DAA002C1C29 /* OCRUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCRUtil.h; sourceTree = "<group>"; };
+		8F4B19E423A37DAA002C1C29 /* OCRUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCRUtil.m; sourceTree = "<group>"; };
 		8F50A1A8236842EE006E8C3D /* MarkdownVC+Keycommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkdownVC+Keycommand.h"; sourceTree = "<group>"; };
 		8F50A1A9236842EE006E8C3D /* MarkdownVC+Keycommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MarkdownVC+Keycommand.m"; sourceTree = "<group>"; };
 		8F50A1AD23696F6F006E8C3D /* web.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = web.zip; sourceTree = "<group>"; };
@@ -1380,6 +1383,8 @@
 				8F1D1C0322E9822300C3B700 /* IapUtil.m */,
 				8F81B83D22F95C9E00DFFEDB /* AppstoreCommentUtil.h */,
 				8F81B83E22F95C9E00DFFEDB /* AppstoreCommentUtil.m */,
+				8F4B19E323A37DAA002C1C29 /* OCRUtil.h */,
+				8F4B19E423A37DAA002C1C29 /* OCRUtil.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -2477,6 +2482,7 @@
 				8FEBC28522A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.m in Sources */,
 				8FF32AC0230FCEC400C1C835 /* OcAllBookVC.m in Sources */,
 				8F7B2ECC22C6134F000018DE /* SetThemeVC.m in Sources */,
+				8F4B19E523A37DAA002C1C29 /* OCRUtil.m in Sources */,
 				8F7B2EC922C5F83E000018DE /* SettingSave.m in Sources */,
 				8FEBC28B22A68C72004EB0F5 /* OctWebEditor+BlockBoardUtil.m in Sources */,
 				8F6E9B94230CF5080011D935 /* BookBgView.m in Sources */,
