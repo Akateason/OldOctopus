@@ -73,18 +73,18 @@
         }] ;
     } unsplashPressed:^{
         @strongify(self)
-        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-            [self subscription] ;
-    
-            return ;
-        }
         [self.toolBar hideAllBoards] ;
         self.toolBar.selectedPosition = 0 ;
 
         [UnsplashVC showMeFrom:self.xt_viewController] ;
     } ocrPressed:^{
         @strongify(self)
-        
+        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
+            [self subscription] ;
+            
+            return ;
+        }
+
         __block UIViewController *vc = [AipGeneralVC ViewControllerWithHandler:^(UIImage *image) {
             
             NSDictionary *options = @{@"language_type": @"CHN_ENG", @"detect_direction": @"true"};

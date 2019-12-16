@@ -22,8 +22,6 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
 @property (strong, nonatomic) UIViewController *ctrller ;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *h_collection;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top_collection;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom_collection;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height_list;
 
 @property (copy, nonatomic) BlkCollectionFlowPressed blkFlowPressed ;
 @property (strong, nonatomic) PHImageManager *manager;
@@ -156,8 +154,7 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal ;
     self.top_collection.constant = 10 ;
-    self.bottom_collection.constant = 10 ;
-    
+            
     float cellHeight ;
     if (IS_IPAD) {
         cellHeight = 100 ;
@@ -224,7 +221,8 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
         bt.xt_theme_backgroundColor = k_md_bgColor ;
     }
     
-    self.height_list.constant = 200. ;
+    
+    
     
 }
 
