@@ -308,6 +308,7 @@
                 <outletCollection property="bts" destination="21H-CS-dsx" id="Wd3-Ju-XIx"/>
                 <outletCollection property="iconImgs" destination="gbN-BF-HXb" id="jN8-1r-m4E"/>
                 <outletCollection property="darkLabels" destination="vgR-Sh-nhH" id="Z3T-n8-O6h"/>
+                <outletCollection property="darkLabels" destination="tac-kg-edh" id="vHE-4C-MQM"/>
             </connections>
             <point key="canvasLocation" x="136.80000000000001" y="238.83058470764618"/>
         </view>
