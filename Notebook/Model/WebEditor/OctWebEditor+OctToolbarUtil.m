@@ -84,7 +84,10 @@
             
             return ;
         }
-                
+        
+        [self.toolBar hideAllBoards] ;
+        self.toolBar.selectedPosition = 0 ;
+        
         __block UIViewController *vc = [AipGeneralVC ViewControllerWithHandler:^(UIImage *image) {
             
             NSDictionary *options = @{@"language_type": @"CHN_ENG", @"detect_direction": @"true"};
@@ -105,10 +108,6 @@
                         
                     }] ;
                     
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        self.toolBar.selectedPosition = 0 ;
-                        [self.toolBar hideAllBoards] ;
-                    }) ;
                 }] ;
                 
                 
@@ -118,8 +117,6 @@
                     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"识别失败" message:msg cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil fromWithView:self CallBackBlock:nil] ;
                     
                     [vc dismissViewControllerAnimated:YES completion:nil] ;
-                    self.toolBar.selectedPosition = 0 ;
-                    [self.toolBar hideAllBoards] ;
                 }];
             }];
         }];
