@@ -104,10 +104,8 @@ static int kLimitCount = 70 ;
 }
 
 - (void)renderClearTextState:(Note *)note {
-    NSString *content = [Note filterMD:note.content] ;
-   if (!content || !content.length) content = @"美好的故事，从小章鱼开始..." ;
-   if (content.length > kLimitCount) content = [[content substringToIndex:kLimitCount] stringByAppendingString:@" ..."] ;
-   _lbContent.attributedText = [[NSAttributedString alloc] initWithString:content] ;
+  
+   _lbContent.attributedText = [[NSAttributedString alloc] initWithString:[note displayDesciptionString]] ;
 }
 
 

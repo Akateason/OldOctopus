@@ -72,6 +72,9 @@
 // 启动时, 检查所有笔记并加入预览图
 + (void)addPreviewPictureInLaunchingTime ;
 
+
+- (NSString *)displayDesciptionString ;
+
 @end
 
 

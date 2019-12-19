@@ -214,14 +214,13 @@
 
 + (NSString *)filterMD:(NSString *)originString {
     NSString *MARKER_REG = @"[\\*\\_$`~]+" ;
-    NSString *HEADER_REG = @"^ {0,3}#{1,6} *" ;
     NSString *BULLET_LIST_REG = @"^([*+-]\\s+)" ;
     NSString *TASK_LIST_REG = @"^(\[[x\\s]{1}\\]\\s+)" ;
     NSString *IMAGE_REG = @"(\\!\\[)(.*?)(\\\\*)\\]\\((.*?)(\\\\*)\\)" ;
     NSString *LINK_REG = @"(\\[)((?:\\[[^\\]]*\\]|[^\\[\\]]|\\](?=[^\\[]*\\]))*?)(\\\\*)\\]\\((.*?)(\\\\*)\\)" ;
     NSString *CHECK_BOX = @"^\\[([ x])\\] +" ;
     
-    NSArray *list = @[MARKER_REG,HEADER_REG,BULLET_LIST_REG,TASK_LIST_REG,IMAGE_REG,LINK_REG,CHECK_BOX] ;
+    NSArray *list = @[MARKER_REG,BULLET_LIST_REG,TASK_LIST_REG,IMAGE_REG,LINK_REG,CHECK_BOX] ;
     NSMutableString *tmpString = [originString mutableCopy] ;
     for (int i = 0; i < list.count; i++) {
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:list[i] options:0 error:nil] ;
@@ -229,6 +228,8 @@
     }
     tmpString = [tmpString stringByReplacingOccurrencesOfString:@"\n" withString:@" "].mutableCopy ;
     tmpString = [tmpString stringByReplacingOccurrencesOfString:@" " withString:@""].mutableCopy ;
+    tmpString = [tmpString stringByReplacingOccurrencesOfString:@"#" withString:@""].mutableCopy ;
+
     return tmpString ;
 }
 
@@ -356,7 +357,7 @@
 // 启动时, 检查所有笔记并加入预览图, 第一把只在本地改动
 + (void)addPreviewPictureInLaunchingTime {
     NSArray *list = [Note xt_findWhere:@"previewPicture is NULL or previewPicture == ''"] ;
-    NSMutableArray *records = [@[] mutableCopy] ;
+//    NSMutableArray *records = [@[] mutableCopy] ;
     
     [list enumerateObjectsUsingBlock:^(Note *note, NSUInteger idx, BOOL * _Nonnull stop) {
         note.previewPicture = [self getMDImageWithContent:note.content] ;
@@ -365,6 +366,20 @@
     
     [Note xt_updateList:list whereByProp:@"icRecordName"] ;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
+}
+
+- (NSString *)displayDesciptionString {
+    NSString *content = [Note filterMD:self.content] ;
+    if (!content || !content.length) content = @"美好的故事，从小章鱼开始..." ;
+    
+    NSString *title = [Note filterMD:self.title] ;
+    if (title.length < content.length && title.length > 0) {
+        content = [content substringFromIndex:title.length] ;
+    }
+        
+    if (content.length > 70) content = [[content substringToIndex:70] stringByAppendingString:@" ..."] ;
+    
+    return content ;
 }
 
 #pragma mark - db
