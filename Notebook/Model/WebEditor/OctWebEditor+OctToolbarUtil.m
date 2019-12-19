@@ -88,34 +88,36 @@
         [self.toolBar hideAllBoards] ;
         self.toolBar.selectedPosition = 0 ;
         
+        
+        
         __block UIViewController *vc = [AipGeneralVC ViewControllerWithHandler:^(UIImage *image) {
-            
+
             NSDictionary *options = @{@"language_type": @"CHN_ENG", @"detect_direction": @"true"};
             [[AipOcrService shardService] detectTextBasicFromImage:image
                                                        withOptions:options
                                                     successHandler:^(id result) {
-                
+
                 NSLog(@"ocr : %@", result);
                 NSString *message = [OCRUtil parseResult:result] ;
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [vc dismissViewControllerAnimated:YES completion:nil] ;
-                    
+
                     NSDictionary *dic = @{@"location":@"",
                                           @"text":message,
                                           @"outMost":@1
                     } ;
                     [self nativeCallJSWithFunc:@"insertParagraph" json:dic completion:^(NSString *val, NSError *error) {
-                        
+
                     }] ;
-                    
+
                 }] ;
-                
-                
+
+
             } failHandler:^(NSError *err) {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     NSString *msg = [NSString stringWithFormat:@"%li:%@", (long)[err code], [err localizedDescription]];
                     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"识别失败" message:msg cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil fromWithView:self CallBackBlock:nil] ;
-                    
+
                     [vc dismissViewControllerAnimated:YES completion:nil] ;
                 }];
             }];
