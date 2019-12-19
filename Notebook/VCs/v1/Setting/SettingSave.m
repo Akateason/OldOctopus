@@ -26,6 +26,7 @@ static NSString *const kUD_SettingSave_KEY = @"kUD_SettingSave_KEY_v2" ;
         save.sort_isNoteUpdateTime = FALSE ;
         save.sort_isBookUpdateTime = TRUE ;
         save.sort_isNewestFirst = TRUE ;
+        save.homePageCellDisplayWay_isLine = FALSE ;
         
         save.editor_autoAddBracket = TRUE ;
         save.editor_lightHeightRate = 1.7 ;

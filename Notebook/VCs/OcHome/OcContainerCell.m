@@ -12,8 +12,11 @@
 #import "SettingSave.h"
 #import "HomeEmptyPHView.h"
 #import "OcHomeEmptyVC.h"
+#import "OcLineNoteCell.h"
 
-//static const int kNotesContainerPageSize = 10 ;
+@interface OcContainerCell ()
+@property (nonatomic) BOOL isLine ;
+@end
 
 @implementation OcContainerCell
 
@@ -23,6 +26,7 @@
     self.noteList = @[] ;
     
     [OcNoteCell xt_registerNibFromCollection:self.contentCollection] ;
+    [OcLineNoteCell xt_registerNibFromCollection:self.contentCollection] ;
     self.contentCollection.dataSource = (id<UICollectionViewDataSource>)self ;
     self.contentCollection.delegate = (id<UICollectionViewDelegate>)self ;
     self.contentCollection.xt_Delegate = (id<UICollectionViewXTReloader>)self ;
@@ -74,27 +78,13 @@
              }
          }
     }] ;
-    
-    
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (self.noteList.count == 0) {
-                return ;
-            }
-            
-            self.contentCollection.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
-            self.contentCollection.mj_offsetY = 0 ;
-            [self.contentCollection xt_loadNewInfoInBackGround:YES] ;
-        }) ;
-        
-    }] ;
 }
 
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
     [super xt_configure:book indexPath:indexPath] ;
     
+    SettingSave *ssave = [SettingSave fetch] ;
+    self.isLine = ssave.homePageCellDisplayWay_isLine ;
 }
 
 - (void)renderWithBook:(NoteBooks *)book complete:(void(^)(void))completion {
@@ -161,14 +151,29 @@
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NoteBooks *book = self.xt_model ;
-    OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
-    if (self.noteList.count == 0 || indexPath.row > self.noteList.count - 1) {
+    
+    if (self.isLine) {
+        OcLineNoteCell *cell = [OcLineNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
+        if (self.noteList.count == 0 || indexPath.row > self.noteList.count - 1) {
+            return cell ;
+        }
+        Note *note = self.noteList[indexPath.row] ;
+        [cell xt_configure:note indexPath:indexPath] ;
+//        cell.recentState = book.vType == Notebook_Type_recent ;
         return cell ;
     }
-    Note *note = self.noteList[indexPath.row] ;
-    [cell xt_configure:note indexPath:indexPath] ;
-    cell.recentState = book.vType == Notebook_Type_recent ;
-    return cell ;
+    else {
+        OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
+        if (self.noteList.count == 0 || indexPath.row > self.noteList.count - 1) {
+            return cell ;
+        }
+        Note *note = self.noteList[indexPath.row] ;
+        [cell xt_configure:note indexPath:indexPath] ;
+        cell.recentState = book.vType == Notebook_Type_recent ;
+        return cell ;
+    }
+    
+    return nil ;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

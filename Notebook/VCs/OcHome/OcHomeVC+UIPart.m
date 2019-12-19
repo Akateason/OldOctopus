@@ -63,10 +63,29 @@
     self.btSearch.touchExtendInset = UIEdgeInsetsMake(-10, -10, -10, -10);
     self.btSortWay.touchExtendInset = UIEdgeInsetsMake(-10, -10, -10, -10);
     
-    
-    
-    
     WEAK_SELF
+    SettingSave *ssave = [SettingSave fetch] ;
+    
+    [self.btSortWay setImage:ssave.homePageCellDisplayWay_isLine ? [UIImage imageNamed:@"h_list_sort_line"] : [UIImage imageNamed:@"h_list_sort_square"] forState:0] ;
+    
+    [self.btSortWay bk_addEventHandler:^(id sender) {
+        
+        [weakSelf.btSortWay setImage:ssave.homePageCellDisplayWay_isLine ? [UIImage imageNamed:@"h_list_sort_line"] : [UIImage imageNamed:@"h_list_sort_square"] forState:0] ;
+
+        [weakSelf.btSortWay oct_buttonClickAnimationComplete:^{
+            
+            ssave.homePageCellDisplayWay_isLine = !ssave.homePageCellDisplayWay_isLine ;
+            [ssave save] ;
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_SortWay_Changed object:nil] ;
+        }] ;
+        
+
+    } forControlEvents:(UIControlEventTouchUpInside)] ;
+
+    
+    
+    
     [self.btUser bk_addEventHandler:^(id sender) {
         
         [weakSelf.btUser oct_buttonClickAnimationComplete:^{

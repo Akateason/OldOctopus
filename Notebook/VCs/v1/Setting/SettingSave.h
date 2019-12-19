@@ -17,6 +17,8 @@
 @property (nonatomic) BOOL sort_isBookUpdateTime ; // 0 updateTime 1 createTime 笔记本
 @property (nonatomic) BOOL sort_isNoteUpdateTime ; // 0 updateTime 1 createTime 笔记
 
+@property (nonatomic) BOOL homePageCellDisplayWay_isLine ; // 0 square, 1 line
+
 // animation
 @property (nonatomic) int animate_duration ; //-1,0,1  慢,正常,快
 @property (nonatomic) BOOL animate_isSpring ;

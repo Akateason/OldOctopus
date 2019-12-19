@@ -19,6 +19,7 @@ static NSString *const kNote_User_Open_Camera = @"kNote_User_Open_Camera" ;
 
 // home vc
 static NSString *const kNote_SizeClass_Changed = @"kNote_SizeClass_Changed" ;
+static NSString *const kNote_SortWay_Changed = @"kNote_SortWay_Changed" ;
 static NSString *const kNote_ClickNote_In_Pad = @"kNote_ClickNote_In_Pad" ;
 static NSString *const kNote_new_Note_In_Pad = @"kNote_new_Note_In_Pad" ;
 static NSString *const kNote_book_Changed = @"kNote_book_Changed" ;

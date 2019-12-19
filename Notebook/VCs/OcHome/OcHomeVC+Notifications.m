@@ -98,22 +98,40 @@
         [self getAllBooksIfNeeded] ;
     }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
+    
+    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SortWay_Changed object:nil]
+        merge:
+        [[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil]
+        ] takeUntil:self.rac_willDeallocSignal]
+      deliverOnMainThread]
+     subscribeNext:^(id  _Nullable x) {
+                @strongify(self)
         
         NSIndexPath *idp = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
-        [self.mainCollectionView reloadData] ;
+                
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:idp] ;
+            [cell.contentCollection reloadData] ;
+            
+            
+            if (cell.noteList.count == 0) {
+                return ;
+            }
+            
+            [cell.contentCollection setCollectionViewLayout:[[GlobalDisplaySt sharedInstance] homeContentLayout] animated:YES] ;
+            cell.contentCollection.mj_offsetY = 0 ;
+            [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+
+        });
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.mainCollectionView reloadData] ;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.mainCollectionView scrollToItemAtIndexPath:idp atScrollPosition:(UICollectionViewScrollPositionNone) animated:NO] ;
             
-
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:idp] ;
-                [cell.contentCollection reloadData] ;
-            });
         }) ;
+
     }] ;
+    
 }
 
 

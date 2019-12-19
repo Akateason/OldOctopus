@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OcLineNoteCell" id="gTV-IL-0wX" customClass="OcLineNoteCell">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="132"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="132"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9RB-ex-1wI">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="iNL-Ha-2Wd"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ACd-cH-tOR">
+                        <rect key="frame" x="15" y="0.5" width="370" height="131"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqa-vK-g8a">
+                                <rect key="frame" x="352" y="98" width="18" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="IcR-hO-x9n"/>
+                                    <constraint firstAttribute="height" constant="18" id="Xo4-Iw-PS7"/>
+                                </constraints>
+                                <state key="normal" image="md_ed_more_2.png"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小章鱼使用技巧💡，技巧文字" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndi-zp-WxY">
+                                <rect key="frame" x="0.0" y="15" width="256" height="25.5"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小章鱼是一款用于优美、流畅写作笔记和文章的应用。上手是非常容易…下来就展示给你。 您还可以[订阅我们的每月电子通讯](http://eepurl.com/dvs38P)" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dpq-34-AFy">
+                                <rect key="frame" x="0.0" y="50.5" width="256" height="42"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vwd-3l-iBr">
+                                <rect key="frame" x="0.0" y="98" width="18" height="18"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="gdH-Rr-4r3"/>
+                                    <constraint firstAttribute="width" constant="18" id="zXm-Y9-xTI"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKQ-TD-T2D">
+                                <rect key="frame" x="28" y="100" width="25.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9SE-hz-AA1">
+                                <rect key="frame" x="265" y="18" width="105" height="73"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9SE-hz-AA1" secondAttribute="height" multiplier="193:134" id="EP3-XC-8be"/>
+                                    <constraint firstAttribute="height" constant="73" id="mJR-0C-pfF"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="9SE-hz-AA1" secondAttribute="trailing" id="3jb-9b-dGq"/>
+                            <constraint firstItem="NKQ-TD-T2D" firstAttribute="centerY" secondItem="vwd-3l-iBr" secondAttribute="centerY" id="LmD-4N-tMY"/>
+                            <constraint firstItem="Ndi-zp-WxY" firstAttribute="leading" secondItem="ACd-cH-tOR" secondAttribute="leading" id="TTS-rx-O0l"/>
+                            <constraint firstItem="Ndi-zp-WxY" firstAttribute="top" secondItem="ACd-cH-tOR" secondAttribute="top" constant="15" id="YDy-k7-9DJ"/>
+                            <constraint firstAttribute="bottom" secondItem="vwd-3l-iBr" secondAttribute="bottom" constant="15" id="bE7-Wi-Rng"/>
+                            <constraint firstItem="9SE-hz-AA1" firstAttribute="top" secondItem="ACd-cH-tOR" secondAttribute="top" constant="18" id="d04-lv-j1Z"/>
+                            <constraint firstItem="NKQ-TD-T2D" firstAttribute="leading" secondItem="ACd-cH-tOR" secondAttribute="leading" constant="28" id="eNt-bh-gLH"/>
+                            <constraint firstItem="Dpq-34-AFy" firstAttribute="leading" secondItem="ACd-cH-tOR" secondAttribute="leading" id="iMn-m8-0jg"/>
+                            <constraint firstItem="vwd-3l-iBr" firstAttribute="leading" secondItem="ACd-cH-tOR" secondAttribute="leading" id="lPU-B0-RiQ"/>
+                            <constraint firstAttribute="trailing" secondItem="Ndi-zp-WxY" secondAttribute="trailing" constant="114" id="mNU-7p-fVm"/>
+                            <constraint firstAttribute="trailing" secondItem="Dpq-34-AFy" secondAttribute="trailing" constant="114" id="nm1-W0-DWl"/>
+                            <constraint firstItem="Dpq-34-AFy" firstAttribute="top" secondItem="Ndi-zp-WxY" secondAttribute="bottom" constant="10" id="p5S-Vq-us7"/>
+                            <constraint firstAttribute="trailing" secondItem="aqa-vK-g8a" secondAttribute="trailing" id="peq-fQ-sOQ"/>
+                            <constraint firstAttribute="bottom" secondItem="aqa-vK-g8a" secondAttribute="bottom" constant="15" id="svL-rb-BUz"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gaP-sb-P5Q">
+                        <rect key="frame" x="0.0" y="131.5" width="400" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="1N5-YR-3fj"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ACd-cH-tOR" secondAttribute="trailing" constant="15" id="EsW-jC-Zle"/>
+                <constraint firstAttribute="trailing" secondItem="gaP-sb-P5Q" secondAttribute="trailing" id="HZg-n5-7Wq"/>
+                <constraint firstAttribute="trailing" secondItem="9RB-ex-1wI" secondAttribute="trailing" id="I1C-H0-lh1"/>
+                <constraint firstItem="9RB-ex-1wI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="JX3-oz-GJq"/>
+                <constraint firstItem="gaP-sb-P5Q" firstAttribute="top" secondItem="ACd-cH-tOR" secondAttribute="bottom" id="K3L-gs-YYP"/>
+                <constraint firstItem="9RB-ex-1wI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Vqv-rN-PsZ"/>
+                <constraint firstItem="ACd-cH-tOR" firstAttribute="top" secondItem="9RB-ex-1wI" secondAttribute="bottom" id="cC7-IW-BcE"/>
+                <constraint firstItem="gaP-sb-P5Q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="g1h-Tb-s2N"/>
+                <constraint firstAttribute="bottom" secondItem="gaP-sb-P5Q" secondAttribute="bottom" id="hoA-Wx-5Qr"/>
+                <constraint firstItem="ACd-cH-tOR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="pDN-do-yYE"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <connections>
+                <outlet property="bottomLine" destination="gaP-sb-P5Q" id="jGc-XJ-gBf"/>
+                <outlet property="btMore" destination="aqa-vK-g8a" id="qFN-By-MPi"/>
+                <outlet property="container" destination="ACd-cH-tOR" id="dKe-kc-0ae"/>
+                <outlet property="lbDate" destination="NKQ-TD-T2D" id="XgO-Ff-CDU"/>
+                <outlet property="lbDesc" destination="Dpq-34-AFy" id="0MD-rv-LPV"/>
+                <outlet property="lbTitle" destination="Ndi-zp-WxY" id="Olq-68-j63"/>
+                <outlet property="pic" destination="9SE-hz-AA1" id="bfN-dp-vSc"/>
+                <outlet property="topLine" destination="9RB-ex-1wI" id="egg-ws-h2g"/>
+                <outlet property="viewBook" destination="vwd-3l-iBr" id="QCO-re-VRa"/>
+            </connections>
+            <point key="canvasLocation" x="73.913043478260875" y="120.53571428571428"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="md_ed_more_2.png" width="36" height="36"/>
+    </resources>
+</document>
