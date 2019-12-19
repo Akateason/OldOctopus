@@ -81,7 +81,6 @@
 
     SettingSave *ssave = [SettingSave fetch] ;
     self.isLine = ssave.homePageCellDisplayWay_isLine ;
-
     
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.6)  ;
     self.imgSearch.xt_theme_imageColor = k_md_iconColor ;
@@ -97,11 +96,8 @@
     self.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     
     self.collectionView.customNoDataView = [UIView new] ;
-    
-    
+        
     self.collectionView.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
-    
-
 }
 
 - (void)viewDidAppear:(BOOL)animated {

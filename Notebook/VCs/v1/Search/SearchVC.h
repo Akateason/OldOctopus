@@ -25,12 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)showSearchVCFrom:(UIViewController *)fromCtrller ;
 
-#pragma mark - OcNoteCell call back  self.xt_viewcontroller
-/**
- OcNoteCell call back
- */
-- (void)noteCellDidSelectedBtMore:(Note *)aNote fromView:(UIView *)fromView ;
-
 @end
 
 NS_ASSUME_NONNULL_END

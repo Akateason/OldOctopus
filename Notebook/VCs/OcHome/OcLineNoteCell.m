@@ -40,9 +40,6 @@ static int kLimitCount = 70 ;
             if ([vc isKindOfClass:[OcHomeVC class]]) {
                 [(OcHomeVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
             }
-            else if ([vc isKindOfClass:[SearchVC class]]) {
-                [(SearchVC *)weakSelf.xt_viewController noteCellDidSelectedBtMore:weakSelf.xt_model fromView:weakSelf.btMore] ;
-            }
         }] ;
         
     } forControlEvents:(UIControlEventTouchUpInside)] ;
