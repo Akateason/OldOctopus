@@ -13,11 +13,12 @@
 #import "SearchEmptyVC.h"
 #import "SchBarPositiveTransition.h"
 #import "OcNoteCell.h"
-
+#import "OcLineNoteCell.h"
 
 @interface SearchVC () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
 @property (strong, nonatomic) SearchEmptyVC *phVC ;
+@property (nonatomic) BOOL isLine ;
 @end
 
 @implementation SearchVC
@@ -78,13 +79,16 @@
     
     self.tf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"搜索笔记" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:color}];
 
-    
+    SettingSave *ssave = [SettingSave fetch] ;
+    self.isLine = ssave.homePageCellDisplayWay_isLine ;
+
     
     self.btCancel.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, 0.6)  ;
     self.imgSearch.xt_theme_imageColor = k_md_iconColor ;
     self.imgSearch.alpha = .6 ;
     
     [OcNoteCell xt_registerNibFromCollection:self.collectionView] ;
+    [OcLineNoteCell xt_registerNibFromCollection:self.collectionView] ;
     [self.collectionView xt_setup] ;
     self.collectionView.dataSource = self ;
     self.collectionView.delegate = self ;
@@ -96,6 +100,8 @@
     
     
     self.collectionView.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
+    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -136,11 +142,24 @@
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
-    cell.btMore.hidden = YES ;
-    [cell xt_configure:self.listResult[indexPath.row] indexPath:indexPath] ;
-    cell.textForSearching = self.tf.text ;
-    return cell ;
+    
+    if (self.isLine) {
+        OcLineNoteCell *cell = [OcLineNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
+        cell.btMore.hidden = YES ;
+        Note *note = self.listResult[indexPath.row] ;
+        [cell xt_configure:note indexPath:indexPath] ;
+        cell.textForSearching = self.tf.text ;
+        return cell ;
+    }
+    else {
+        OcNoteCell *cell = [OcNoteCell xt_fetchFromCollection:collectionView indexPath:indexPath] ;
+        cell.btMore.hidden = YES ;
+        [cell xt_configure:self.listResult[indexPath.row] indexPath:indexPath] ;
+        cell.textForSearching = self.tf.text ;
+        return cell ;
+    }
+
+    return nil ;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

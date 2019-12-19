@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OcLineNoteCell : UICollectionViewCell
@@ -21,9 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *lbDate;
 @property (weak, nonatomic) IBOutlet UIImageView *pic;
 
+@property (weak, nonatomic) IBOutlet UILabel *lbBook;
+@property (weak, nonatomic) IBOutlet UIImageView *imgBook;
+
+@property (weak, nonatomic) IBOutlet UIImageView *topMark;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tail_title;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tail_desc;
 
 
-
+@property (copy, nonatomic)     NSString    *textForSearching ;
 
 @end
 

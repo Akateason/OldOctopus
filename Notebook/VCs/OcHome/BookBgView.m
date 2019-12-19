@@ -76,7 +76,7 @@
         }
         
         UIImage *image = [UIImage imageNamed:imgStr] ;
-        image = [image imageWithTintColor:XT_GET_MD_THEME_COLOR_KEY(k_md_iconColor)] ;                        
+        image = [image xt_imageWithTintColor:XT_GET_MD_THEME_COLOR_KEY(k_md_iconColor)] ;
         self.imageBookView.image = image ;
 
         self.imageBookView.hidden = NO ;
