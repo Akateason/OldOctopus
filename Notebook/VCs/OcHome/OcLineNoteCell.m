@@ -28,7 +28,7 @@
     _lbDesc.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .6) ;
     _lbDate.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .3) ;
     _container.xt_theme_backgroundColor = k_md_bgColor ;
-
+    _viewBook.backgroundColor = nil ;
     _pic.xt_cornerRadius = 4. ;
     
     [self.btMore xt_enlargeButtonsTouchArea] ;
@@ -166,6 +166,13 @@
         }] ;
         self.lbDesc.attributedText = attr ;
     }
+}
+
+- (void)setRecentState:(BOOL)recentState {
+    _recentState = recentState ;
+        
+    _lead_lbDate.constant = recentState ? 28. : 0. ;
+    _viewBook.hidden = !recentState ;
 }
 
 @end

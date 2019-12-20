@@ -84,7 +84,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row ;
-    if (row > 0) {
+    if (row > 1) {
         if (![XTIcloudUser hasLogin]) {
             NSLog(@"未登录") ;
             [GuidingICloud show] ;

@@ -28,7 +28,7 @@
 - (void)setThemeStr:(NSString *)str {
     self.imageView.image = [UIImage imageNamed:STR_FORMAT(@"theme_%@",str)] ;
     self.imageView.xt_borderColor = XT_GET_MD_THEME_COLOR_KEY_A(k_md_textColor, .1) ;
-    self.lbTip.hidden = [str isEqualToString:@"light"] ;
+    self.lbTip.hidden = [str isEqualToString:@"light"] || [str isEqualToString:@"dark"] ;
     self.lbColorName.text = [[MDThemeConfiguration sharedInstance] formatLanguageForKey:str] ;
 }
 

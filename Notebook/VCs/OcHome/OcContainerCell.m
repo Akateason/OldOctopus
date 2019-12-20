@@ -106,6 +106,8 @@
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
     [super xt_configure:book indexPath:indexPath] ;
     
+    SettingSave *ssave = [SettingSave fetch] ;
+    self.isLine = ssave.homePageCellDisplayWay_isLine ;
 }
 
 - (void)renderWithBook:(NoteBooks *)book complete:(void(^)(void))completion {
@@ -180,6 +182,7 @@
         }
         Note *note = self.noteList[indexPath.row] ;
         [cell xt_configure:note indexPath:indexPath] ;
+        cell.recentState = book.vType == Notebook_Type_recent ;
         return cell ;
     }
     else {

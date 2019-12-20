@@ -32,8 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lead_container;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tail_container;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lead_lbDate;
 
 @property (copy, nonatomic)     NSString    *textForSearching ;
+@property (nonatomic)           BOOL        recentState ;
 
 @end
 
