@@ -149,7 +149,9 @@
                 <outlet property="lbDate" destination="NKQ-TD-T2D" id="XgO-Ff-CDU"/>
                 <outlet property="lbDesc" destination="Dpq-34-AFy" id="0MD-rv-LPV"/>
                 <outlet property="lbTitle" destination="Ndi-zp-WxY" id="Olq-68-j63"/>
+                <outlet property="lead_container" destination="pDN-do-yYE" id="EPT-qP-WyT"/>
                 <outlet property="pic" destination="9SE-hz-AA1" id="bfN-dp-vSc"/>
+                <outlet property="tail_container" destination="EsW-jC-Zle" id="Rj4-8D-8hJ"/>
                 <outlet property="tail_desc" destination="nm1-W0-DWl" id="Xfm-C7-l8D"/>
                 <outlet property="tail_title" destination="mNU-7p-fVm" id="9rR-6V-F2h"/>
                 <outlet property="topLine" destination="9RB-ex-1wI" id="egg-ws-h2g"/>

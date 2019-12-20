@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tail_title;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tail_desc;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lead_container;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tail_container;
 
 @property (copy, nonatomic)     NSString    *textForSearching ;
 

@@ -12,7 +12,7 @@
 #import "SearchVC.h"
 
 
-static int kLimitCount = 70 ;
+
 
 @implementation OcLineNoteCell
 
@@ -87,6 +87,10 @@ static int kLimitCount = 70 ;
     
     [self setNeedsLayout] ;
     [self layoutIfNeeded] ;
+    
+    if ([GlobalDisplaySt sharedInstance].vType > SC_Home_mode_default_iPhone_2_collumn) {
+        _lead_container.constant = _tail_container.constant = [GlobalDisplaySt sharedInstance].containerSize.width / 8. ;
+    }
 }
 
 

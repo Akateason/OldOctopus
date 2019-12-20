@@ -59,6 +59,7 @@ XT_SINGLETON_M(GlobalDisplaySt)
 - (UICollectionViewFlowLayout *)homeContentLayout {
     SettingSave *ssave = [SettingSave fetch] ;
     if (ssave.homePageCellDisplayWay_isLine) {
+        NSLog(@"------------ is line") ;
         return [self lineLayout] ;
     }
     
@@ -100,27 +101,13 @@ XT_SINGLETON_M(GlobalDisplaySt)
     return layout ;
 }
 
-
 - (UICollectionViewFlowLayout *)lineLayout {
-
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init] ;
-    
     layout.itemSize = CGSizeMake(self.containerSize.width, 132.) ;
     layout.minimumInteritemSpacing = 10. ;
     layout.minimumLineSpacing = 10. ;
     layout.sectionInset = UIEdgeInsetsMake(10., 0., 10., 0.) ;
-    
     return layout ;
-
-    if ([GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Horizon_6_collumn ||
-        [GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Verical_4_collumn ||
-        [GlobalDisplaySt sharedInstance].vType == SC_Home_mode_iPad_Spilit_4_collumn) {
-                        
-    }
-    else {
-
-    }
 }
-
 
 @end

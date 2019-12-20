@@ -108,26 +108,15 @@
                 @strongify(self)
         
         NSIndexPath *idp = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
-                
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:idp] ;
-            [cell.contentCollection reloadData] ;
-            
-            
-            if (cell.noteList.count == 0) {
-                return ;
-            }
-            
-            [cell.contentCollection setCollectionViewLayout:[[GlobalDisplaySt sharedInstance] homeContentLayout] animated:YES] ;
-            cell.contentCollection.mj_offsetY = 0 ;
-            [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
-
-        });
-        
         [self.mainCollectionView reloadData] ;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.mainCollectionView scrollToItemAtIndexPath:idp atScrollPosition:(UICollectionViewScrollPositionNone) animated:NO] ;
             
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:idp] ;
+                    [cell.contentCollection reloadData] ;
+                });
         }) ;
 
     }] ;

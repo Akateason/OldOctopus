@@ -78,13 +78,34 @@
              }
          }
     }] ;
+    
+    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SortWay_Changed object:nil]
+        merge:
+        [[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_SizeClass_Changed object:nil]
+        ] takeUntil:self.rac_willDeallocSignal]
+      deliverOnMainThread]
+     subscribeNext:^(id  _Nullable x) {
+                @strongify(self)
+                
+        SettingSave *ssave = [SettingSave fetch] ;
+        self.isLine = ssave.homePageCellDisplayWay_isLine ;
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+            [self.contentCollection setCollectionViewLayout:[[GlobalDisplaySt sharedInstance] homeContentLayout] animated:YES] ;
+            self.contentCollection.mj_offsetY = 0 ;
+            if (self.noteList.count > 0) {
+                [self.contentCollection xt_loadNewInfoInBackGround:YES] ;
+            }
+        }) ;
+        
+    }] ;
+
 }
 
 - (void)xt_configure:(NoteBooks *)book indexPath:(NSIndexPath *)indexPath {
     [super xt_configure:book indexPath:indexPath] ;
     
-    SettingSave *ssave = [SettingSave fetch] ;
-    self.isLine = ssave.homePageCellDisplayWay_isLine ;
 }
 
 - (void)renderWithBook:(NoteBooks *)book complete:(void(^)(void))completion {
@@ -159,7 +180,6 @@
         }
         Note *note = self.noteList[indexPath.row] ;
         [cell xt_configure:note indexPath:indexPath] ;
-//        cell.recentState = book.vType == Notebook_Type_recent ;
         return cell ;
     }
     else {

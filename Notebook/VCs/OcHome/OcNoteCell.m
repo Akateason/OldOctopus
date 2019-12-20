@@ -6,7 +6,7 @@
 //  Copyright © 2019 teason23. All rights reserved.
 //
 
-static int kLimitCount = 70 ;
+
 
 #import "OcNoteCell.h"
 #import "WebModel.h"
