@@ -427,7 +427,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
         else {
             float alpha1 = ( (currentDistance - 134.) / (190. - 134.) ) + .4 ;
             self.segmentBooks.alpha = self.btBooksSmall_All.alpha = alpha1 ;
-            self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = 1 - alpha1 - .2 ;
+            self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = MAX((1 - alpha1 - .2), .1) ;             
         }
     }
     else {
@@ -447,7 +447,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
         // else
         float alpha1 = ( (134. - currentDistance) / 134. ) + .6 ;
         self.btAllNote.alpha = self.lbMyNotes.alpha = self.lbAll.alpha = self.img_lbAllRight.alpha = self.bookCollectionView.alpha = alpha1 ;
-        self.segmentBooks.alpha = self.btBooksSmall_All.alpha = 1 - alpha1 - .2 ;
+        self.segmentBooks.alpha = self.btBooksSmall_All.alpha = MAX((1 - alpha1 - .2), .1) ;
     }
     
 }
