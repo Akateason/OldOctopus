@@ -325,8 +325,11 @@ return;}
     if (self.editor.articleAreTheSame) XT_HIDE_HUD_RETURN
     if (![self.editor.aNote.icRecordName isEqualToString:self.aNote.icRecordName]) XT_HIDE_HUD_RETURN
     
+        
     NSString *markdown = self.editor.aNote.content ;
     NSString *title = [Note getTitleWithContent:markdown] ;
+    
+    if (![markdown length]) XT_HIDE_HUD_RETURN
     
     self.aNote.content = markdown ;
     self.aNote.title = title ;
