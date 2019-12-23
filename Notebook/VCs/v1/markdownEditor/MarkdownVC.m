@@ -329,7 +329,7 @@ return;}
     NSString *markdown = self.editor.aNote.content ;
     NSString *title = [Note getTitleWithContent:markdown] ;
     
-    if (![markdown length]) XT_HIDE_HUD_RETURN
+    if (![markdown length] || [markdown isEqualToString:@"\n"]) XT_HIDE_HUD_RETURN
     
     self.aNote.content = markdown ;
     self.aNote.title = title ;
