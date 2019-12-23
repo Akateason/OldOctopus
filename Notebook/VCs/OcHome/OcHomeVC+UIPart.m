@@ -196,7 +196,7 @@
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
-            [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+            [cell refresh] ;
         }) ;
     }) ;
 }
@@ -274,7 +274,7 @@
     if (collectionView != self.mainCollectionView) return ;
     
     // 滚动开始时, 刷新mainCollection 的 container
-    [((OcContainerCell *)cell).contentCollection xt_loadNewInfoInBackGround:YES] ;
+    [(OcContainerCell *)cell refresh] ;        
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {

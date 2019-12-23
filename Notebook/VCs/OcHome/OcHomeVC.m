@@ -160,7 +160,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
                 OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
-                [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+                [cell refresh] ;
             }) ;
         }) ;
         
@@ -242,7 +242,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
     [Note updateMyNote:aNote] ;
     
     OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0]] ;
-    [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+    [cell refresh] ;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [cell.contentCollection setContentOffset:CGPointZero animated:YES] ;
@@ -488,12 +488,12 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 
 - (void)addNoteComplete:(Note *)aNote {
     OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
-    [cell.contentCollection xt_loadNewInfoInBackGround:NO] ;
+    [cell refresh] ;
 }
 
 - (void)editNoteComplete:(Note *)aNote {
     OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
-    [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+    [cell refresh] ;
 }
 
 - (NSString *)currentBookID {
@@ -538,7 +538,7 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 - (void)ocAllBookVCDidClose {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
     OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
-    [cell.contentCollection xt_loadNewInfoInBackGround:YES] ;
+    [cell refresh] ;
 }
 
 #define SIZECLASS_2_STR(sizeClass) [[self class] sizeClassInt2Str:sizeClass]

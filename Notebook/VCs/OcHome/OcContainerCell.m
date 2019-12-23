@@ -32,6 +32,7 @@
     self.contentCollection.xt_Delegate = (id<UICollectionViewXTReloader>)self ;
     
     [self.contentCollection xt_setup] ;
+    self.contentCollection.mj_header = nil ;
     self.contentCollection.mj_footer = nil ;
     
     self.contentCollection.xt_theme_backgroundColor = k_md_backColor ;
@@ -95,7 +96,7 @@
             [self.contentCollection setCollectionViewLayout:[[GlobalDisplaySt sharedInstance] homeContentLayout] animated:YES] ;
             self.contentCollection.mj_offsetY = 0 ;
             if (self.noteList.count > 0) {
-                [self.contentCollection xt_loadNewInfoInBackGround:YES] ;
+                [self refresh] ;
             }
         }) ;
         
@@ -205,12 +206,13 @@
 }
 
 
-#pragma mark - UICollectionViewXTReloader <NSObject>
 
-- (void)collectionView:(UICollectionView *)collection loadNew:(void (^)(void))endRefresh {
+- (void)refresh {
+    WEAK_SELF
     [self renderWithBook:self.xt_model complete:^{
-        endRefresh() ;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.contentCollection reloadData] ;
+        }) ;
     }] ;
 }
-
 @end
