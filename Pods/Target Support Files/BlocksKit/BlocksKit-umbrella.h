@@ -46,7 +46,7 @@
 #import "UIPopoverController+BlocksKit.h"
 #import "UITextField+BlocksKit.h"
 #import "UIView+BlocksKit.h"
-#import "UIWebView+BlocksKit.h"
+
 
 FOUNDATION_EXPORT double BlocksKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char BlocksKitVersionString[];
