@@ -329,16 +329,6 @@
     return sourceImage;
 }
 
-// 相册获取
-+ (UIImage *)fetchFromLibrary:(ALAsset *)asset {
-    ALAssetRepresentation *repr = [asset defaultRepresentation];
-    CGImageRef orgImage         = [repr fullScreenImage];
-    //    UIImage *fullImage = [UIImage imageWithCGImage:orgImage scale:0.4 orientation:(UIImageOrientation)[repr orientation]] ;
-    UIImage *fullImage = [UIImage imageWithCGImage:orgImage scale:1.0 orientation:UIImageOrientationUp];
-
-    return fullImage;
-}
-
 #pragma mark--
 #pragma mark - 5.拍完照片的自适应旋转(和相机一起用)
 + (UIImage *)fixOrientation:(UIImage *)aImage {

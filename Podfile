@@ -2,10 +2,10 @@ target 'Notebook' do
 
   use_frameworks!
 
-  
-  pod 'AipOcrSdk-release', :configurations => ['Release']
-  pod 'AipOcrSdk', :configurations => ['Debug']
-  
+  #mac不支持 以下
+  #pod 'AipOcrSdk-release', :configurations => ['Release']
+  #pod 'AipOcrSdk', :configurations => ['Debug']
+  #pod 'Bugly','2.5.0'
 
 
   
@@ -25,7 +25,6 @@ target 'Notebook' do
 
   pod 'IQKeyboardManager'
   pod 'SDWebImage','<=4.4.6'
-  pod 'Bugly','2.5.0'
   pod 'EllipsePageControl'
   pod 'lottie-ios','2.5.3'
   pod 'iosMath'

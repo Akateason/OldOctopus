@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+
 
 __attribute__((deprecated("Class UIImage (AddFunction) is deprecated , use UIImage (XT) instead!!!")))
 
@@ -39,9 +39,6 @@ __attribute__((deprecated("Class UIImage (AddFunction) is deprecated , use UIIma
 
 // 压缩图片质量
 + (UIImage *)compressQualityWithOriginImage:(UIImage *)sourceImage;
-
-// 相册获取
-+ (UIImage *)fetchFromLibrary:(ALAsset *)asset;
 
 //5.拍完照片的自适应旋转(和相机一起用)
 + (UIImage *)fixOrientation:(UIImage *)aImage;

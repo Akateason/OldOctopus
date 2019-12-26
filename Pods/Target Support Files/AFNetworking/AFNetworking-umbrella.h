@@ -29,7 +29,6 @@
 #import "UIProgressView+AFNetworking.h"
 #import "UIRefreshControl+AFNetworking.h"
 
-
 FOUNDATION_EXPORT double AFNetworkingVersionNumber;
 FOUNDATION_EXPORT const unsigned char AFNetworkingVersionString[];
 

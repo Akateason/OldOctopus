@@ -7,7 +7,7 @@
 //
 
 #import "XTPAlbumCell.h"
-#import <AssetsLibrary/AssetsLibrary.h>
+
 #import <XTBase/XTBase.h>
 
 

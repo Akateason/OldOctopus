@@ -17,6 +17,12 @@ XT_SINGLETON_M(GlobalDisplaySt)
 - (void)correctCurrentCondition:(UIViewController *)ctrller {
 //    DLogINFO(@"traitCollection : %@",ctrller.traitCollection) ;
     
+#ifdef k_Is_Mac_Environment
+    [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_iPad_Horizon_6_collumn ;
+    return ;
+#endif
+    
+    
     if (IS_IPAD) {
         if (ctrller.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact &&
             ctrller.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular ) {
@@ -52,6 +58,10 @@ XT_SINGLETON_M(GlobalDisplaySt)
 
 
 - (BOOL)isPopOverFromIpad {
+#ifdef k_Is_Mac_Environment
+    return YES ;
+#endif
+    
     return IS_IPAD ;
 }
 

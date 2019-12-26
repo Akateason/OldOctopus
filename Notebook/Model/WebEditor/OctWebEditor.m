@@ -220,7 +220,9 @@ XT_SINGLETON_M(OctWebEditor)
 - (void)createWebView {
     NSAssert(!_webView, @"The web view must not exist when this method is called!") ;
     WKWebViewConfiguration *config = [WKWebViewConfiguration new] ;
+#ifndef k_Is_Mac_Environment
     [config.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"] ;
+#endif
     _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:config] ;
 
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight ;

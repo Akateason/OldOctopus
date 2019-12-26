@@ -16,7 +16,6 @@
 #import <UserNotifications/UserNotifications.h>
 #import <XTReq/XTReq.h>
 #import "MDThemeConfiguration.h"
-#import <Bugly/Bugly.h>
 #import "AppDelegate.h"
 #import "OctGuidingVC.h"
 #import "MDNavVC.h"
@@ -27,8 +26,12 @@
 #import <Photos/Photos.h>
 #import "AppstoreCommentUtil.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-#import <AipOcrSdk/AipOcrSdk.h>
 
+
+#ifndef k_Is_Mac_Environment
+#import <Bugly/Bugly.h>
+#import <AipOcrSdk/AipOcrSdk.h>
+#endif
 
 
 
@@ -40,7 +43,9 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate {
     
+#ifndef k_Is_Mac_Environment
     [Bugly startWithAppId:@"8abe605307"] ;
+#endif
 
     self.appDelegate = appDelegate ;
     [self setupCocoaLumberjack] ;
@@ -62,7 +67,9 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 }
 
 - (void)setupOCR {
+#ifndef k_Is_Mac_Environment
     [[AipOcrService shardService] authWithAK:@"E2YNlPToQx7Am0hv25kdbgwr" andSK:@"V5XGN3R01D1miu7Wb6YN9GxAUzrxqWnG"];
+#endif
 }
 
 - (void)setupNotePreviewPicture {

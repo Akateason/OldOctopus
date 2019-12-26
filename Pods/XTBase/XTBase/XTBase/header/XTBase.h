@@ -29,7 +29,6 @@
 // Category
 #import "UIFont+FontAdapter.h"
 #import "NSNumber+Round.h"
-#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "NSDate+XTTick.h"
 #import "NSDate+NSCalendar.h"
 #import "NSObject+Reflection.h"

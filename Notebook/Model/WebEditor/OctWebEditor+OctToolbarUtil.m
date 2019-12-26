@@ -17,7 +17,12 @@
 #import "UnsplashVC.h"
 #import "GuidingICloud.h"
 #import "IapUtil.h"
+
+#ifndef k_Is_Mac_Environment
 #import <AipOcrSdk/AipOcrSdk.h>
+#endif
+
+
 #import "OCRUtil.h"
 #import <XTlib/XTImageItem.h>
 
@@ -88,7 +93,7 @@
         [self.toolBar hideAllBoards] ;
         self.toolBar.selectedPosition = 0 ;
         
-        
+#ifndef k_Is_Mac_Environment
         
         __block UIViewController *vc = [AipGeneralVC ViewControllerWithHandler:^(UIImage *image) {
 
@@ -122,10 +127,11 @@
                 }];
             }];
         }];
-                    
+
         vc.modalPresentationStyle = UIModalPresentationFullScreen ;
         [self.xt_viewController presentViewController:vc animated:YES completion:nil] ;
-        
+
+#endif
         
     }] ;
     return photoView ;

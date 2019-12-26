@@ -11,7 +11,6 @@
 #import "DeviceSysHeader.h"
 #import <SDWebImage/SDImageCache.h>
 #import "XTFileManager.h"
-#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "UIImage+AddFunction.h"
 #import  "sys/utsname.h"
 #import <Photos/Photos.h>

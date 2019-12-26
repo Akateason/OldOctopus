@@ -45,7 +45,6 @@
 #import "RootCtrl.h"
 #import "UIAlertController+XTAddition.h"
 #import "UIViewController+XTAddition.h"
-#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "MySearchBar.h"
 #import "MyTabbar.h"
 #import "MyTextView.h"

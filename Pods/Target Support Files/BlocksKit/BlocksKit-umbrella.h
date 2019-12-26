@@ -47,7 +47,6 @@
 #import "UITextField+BlocksKit.h"
 #import "UIView+BlocksKit.h"
 
-
 FOUNDATION_EXPORT double BlocksKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char BlocksKitVersionString[];
 
