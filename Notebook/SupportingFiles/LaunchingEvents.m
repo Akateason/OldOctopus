@@ -28,7 +28,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 
-#ifndef k_Is_Mac_Environment
+#ifdef ISIOS
 #import <Bugly/Bugly.h>
 #import <AipOcrSdk/AipOcrSdk.h>
 #endif
@@ -43,7 +43,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate {
     
-#ifndef k_Is_Mac_Environment
+#ifdef ISIOS
     [Bugly startWithAppId:@"8abe605307"] ;
 #endif
 
@@ -67,7 +67,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 }
 
 - (void)setupOCR {
-#ifndef k_Is_Mac_Environment
+#ifdef ISIOS
     [[AipOcrService shardService] authWithAK:@"E2YNlPToQx7Am0hv25kdbgwr" andSK:@"V5XGN3R01D1miu7Wb6YN9GxAUzrxqWnG"];
 #endif
 }

@@ -18,7 +18,7 @@
 #import "GuidingICloud.h"
 #import "IapUtil.h"
 
-#ifndef k_Is_Mac_Environment
+#ifdef ISIOS
 #import <AipOcrSdk/AipOcrSdk.h>
 #endif
 
@@ -93,7 +93,7 @@
         [self.toolBar hideAllBoards] ;
         self.toolBar.selectedPosition = 0 ;
         
-#ifndef k_Is_Mac_Environment
+#ifdef ISIOS
         
         __block UIViewController *vc = [AipGeneralVC ViewControllerWithHandler:^(UIImage *image) {
 

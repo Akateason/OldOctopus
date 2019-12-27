@@ -8,8 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "LaunchingEvents.h"
 
-// 适配 mac 环境. ios环境注销
-#define k_Is_Mac_Environment        1
+
+
 
 // 内测模式下, 内购全部打开.
 static const int k_Is_Internal_Testing = 0 ;  // 是否打开内测, 0默认关闭,  1打开内测

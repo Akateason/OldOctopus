@@ -17,7 +17,7 @@ XT_SINGLETON_M(GlobalDisplaySt)
 - (void)correctCurrentCondition:(UIViewController *)ctrller {
 //    DLogINFO(@"traitCollection : %@",ctrller.traitCollection) ;
     
-#ifdef k_Is_Mac_Environment
+#ifdef ISMAC
     [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_iPad_Horizon_6_collumn ;
     return ;
 #endif
@@ -58,7 +58,7 @@ XT_SINGLETON_M(GlobalDisplaySt)
 
 
 - (BOOL)isPopOverFromIpad {
-#ifdef k_Is_Mac_Environment
+#ifdef ISMAC
     return YES ;
 #endif
     
