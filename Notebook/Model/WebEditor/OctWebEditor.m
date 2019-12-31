@@ -218,7 +218,7 @@ XT_SINGLETON_M(OctWebEditor)
 }
 
 - (void)createWebView {
-    NSAssert(!_webView, @"The web view must not exist when this method is called!") ;
+//    NSAssert(!_webView, @"The web view must not exist when this method is called!") ;
     WKWebViewConfiguration *config = [WKWebViewConfiguration new] ;
 #ifdef ISIOS
     [config.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"] ;

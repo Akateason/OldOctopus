@@ -790,7 +790,7 @@
 		8FFBBB43224A4FE500A304C7 /* md_tb_bt_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB42224A4FE500A304C7 /* md_tb_bt_camera@2x.png */; };
 		8FFBBB49224B278000A304C7 /* MDEKPhotoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFBBB47224B278000A304C7 /* MDEKPhotoViewCell.m */; };
 		8FFBBB4A224B278000A304C7 /* MDEKPhotoViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFBBB48224B278000A304C7 /* MDEKPhotoViewCell.xib */; };
-		C371690FA8B8F8976235DDEE /* Pods_Notebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3601B363EB43E08DA40EB840 /* Pods_Notebook.framework */; };
+		C371690FA8B8F8976235DDEE /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1351,7 +1351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FE0ADAB22E8466E0011C173 /* StoreKit.framework in Frameworks */,
-				C371690FA8B8F8976235DDEE /* Pods_Notebook.framework in Frameworks */,
+				C371690FA8B8F8976235DDEE /* (null) in Frameworks */,
 				8F579FDE222E54A500C54929 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3596,7 +3596,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3637,7 +3637,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				FRAMEWORK_SEARCH_PATHS = (
