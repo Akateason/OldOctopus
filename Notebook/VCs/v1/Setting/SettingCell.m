@@ -20,6 +20,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "SetTrashVC.h"
 #import "AppDelegate.h"
+#import "LikeUsView.h"
 
 @implementation SettingCell
 
@@ -115,6 +116,13 @@
         [appDelegate.launchingEvents pullAllComplete:^{
             [weakSelf.act stopAnimating] ;
             weakSelf.act.hidden = YES ;
+        }] ;
+    }
+    else if ([title containsString:@"喜欢小章鱼"]) {
+        LikeUsView *likeView = [LikeUsView xt_newFromNib] ;
+        [self.xt_viewController.view addSubview:likeView] ;
+        [likeView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.xt_viewController.view) ;
         }] ;
     }
 }

@@ -59,6 +59,14 @@
 	<array>
 		<dict>
 			<key>p</key>
+			<string>setting_like_app</string>
+			<key>t</key>
+			<string>喜欢小章鱼</string>
+			<key>r</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>p</key>
 			<string>ld_reply</string>
 			<key>t</key>
 			<string>反馈与建议</string>

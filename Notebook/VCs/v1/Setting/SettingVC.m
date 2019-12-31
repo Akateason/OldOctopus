@@ -210,6 +210,10 @@
     else if (section == 2) {
         cell.sepLineMode = SettingCellSeperateLine_Mode_ALL_FULL ;
     }
+    else if (section == 3) {
+        if (row == 0) cell.sepLineMode = SettingCellSeperateLine_Mode_Top ;
+        else if (row == 1) cell.sepLineMode = SettingCellSeperateLine_Mode_Bottom ;
+    }
     return cell ;
 }
 
