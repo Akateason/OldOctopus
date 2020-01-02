@@ -7,6 +7,7 @@
 //
 
 #import "LikeUsView.h"
+#import "AppstoreCommentUtil.h"
 
 @implementation LikeUsView
 
@@ -31,6 +32,8 @@
         NSString *urlStr = @"https://fankui.shimo.im/?type=create&tags[]=5cd3dc0c27f63b001104c052" ;
         NSURL *url = [NSURL URLWithString:urlStr] ;
         [[UIApplication sharedApplication] openURL:url];
+        
+//        [AppstoreCommentUtil sendMailForReplyBugsFromCtrller:weakSelf.xt_viewController] ;
         
         [weakSelf removeFromSuperview] ;
     }];

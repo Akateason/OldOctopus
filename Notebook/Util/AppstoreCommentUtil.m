@@ -9,27 +9,9 @@
 #import "AppstoreCommentUtil.h"
 #import <StoreKit/StoreKit.h>
 #import <XTlib/XTlib.h>
+#import <MessageUI/MessageUI.h>
 
 @implementation AppstoreCommentUtil
-
-static NSString *const kUD_Key_AppReview_Date = @"kUD_Key_AppReview_Date" ;
-
-+ (void)setup {
-//    if ([XT_USERDEFAULT_GET_VAL(kUD_Key_AppReview_Date) longLongValue] == 0) {
-//        XT_USERDEFAULT_SET_VAL(@([[NSDate date] xt_getTick]), kUD_Key_AppReview_Date) ;
-//    }
-}
-
-+ (void)jumpReviewAfterNoteRead {
-//    NSDate *now = [NSDate date] ;
-//    NSDate *cache = [NSDate xt_getDateWithTick:[XT_USERDEFAULT_GET_VAL(kUD_Key_AppReview_Date) longLongValue]] ;
-//    NSTimeInterval time = [now timeIntervalSinceDate:cache] ;
-//    int days = abs(((int)time)/(3600*24)) ;
-//    if (days > 7) {
-//        XT_USERDEFAULT_SET_VAL(@([[NSDate date] xt_getTick]), kUD_Key_AppReview_Date) ;
-//        [self goReview] ;
-//    }
-}
 
 /** Request StoreKit to ask the user for an app review. This may or may not show any UI.
  *
@@ -46,5 +28,39 @@ static NSString *const kUD_Key_AppReview_Date = @"kUD_Key_AppReview_Date" ;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]] ;
 }
 
++ (void)sendMailForReplyBugsFromCtrller:(UIViewController *)fromCtrller {
+    
+    MFMailComposeViewController *mailCompose = [[MFMailComposeViewController alloc] init];
+    if (!mailCompose) {
+        NSLog(@"用户未设置系统邮件客户端") ;
+        return ;
+    }
+    mailCompose.mailComposeDelegate = self.class ;
+    //设置主题
+    [mailCompose setSubject:@"反馈给小章鱼"];
+    
+    //添加收件人
+    NSArray *toRecipients = [NSArray arrayWithObjects:@"xietianchen@shimo.im",nil];
+    [mailCompose setToRecipients: toRecipients];
+    
+    //富文本为 isHTML：YES  字符串isHTML：NO
+    NSString *emailBody = @"我的邮件";
+    [mailCompose setMessageBody:emailBody isHTML:NO];
+    [fromCtrller presentViewController:mailCompose animated:NO completion:^{
+        
+    }];
+}
+
+#pragma mark - mail compose delegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+ didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    if (result) {
+        NSLog(@"Result : %d",result);
+    }
+    if (error) {
+        NSLog(@"Error : %@",error);
+    }
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
