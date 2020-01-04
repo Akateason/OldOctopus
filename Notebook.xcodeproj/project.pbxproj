@@ -622,6 +622,7 @@
 		8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA2295B22646F4D00D736E2 /* info_right@2x.png */; };
 		8FA232D6224E07C400163685 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA232D4224E07C400163685 /* NoteCell.m */; };
 		8FA232D7224E07C400163685 /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232D5224E07C400163685 /* NoteCell.xib */; };
+		8FA63EE223C0A68900967376 /* LikeUsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7309EF23BB2A1700D64825 /* LikeUsView.m */; };
 		8FA69D982328EBDD00284071 /* home_cell_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */; };
 		8FAE3ABD22CF54F50054F3BB /* OctRequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */; };
 		8FAE3AC222CFBB130054F3BB /* OctGuidingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3AC122CFBB130054F3BB /* OctGuidingVC.m */; };
@@ -1102,7 +1103,7 @@
 		8F7B2ECF22C616CA000018DE /* ThemeCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCollectCell.xib; sourceTree = "<group>"; };
 		8F7B2ED222C61D0B000018DE /* midnight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = midnight.json; sourceTree = "<group>"; };
 		8F7B2ED322C61D0B000018DE /* sunshine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sunshine.json; sourceTree = "<group>"; };
-		8F7C0E7F23B4BB640042D87F /* Mac端.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mac端.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F7C0E7F23B4BB640042D87F /* 小章鱼笔记.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "小章鱼笔记.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7C0E8023B4BB640042D87F /* NotebookMac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NotebookMac-Info.plist"; path = "/Users/teason23/Documents/iOS/shimo/Notebook/NotebookMac-Info.plist"; sourceTree = "<absolute>"; };
 		8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_reverse_item@2x.png"; sourceTree = "<group>"; };
 		8F81B83D22F95C9E00DFFEDB /* AppstoreCommentUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppstoreCommentUtil.h; sourceTree = "<group>"; };
@@ -1678,7 +1679,7 @@
 				8F65DBC9221BECFC0067C321 /* Notebook.app */,
 				8F65DBE1221BECFE0067C321 /* NotebookTests.xctest */,
 				8F65DBEC221BECFE0067C321 /* NotebookUITests.xctest */,
-				8F7C0E7F23B4BB640042D87F /* Mac端.app */,
+				8F7C0E7F23B4BB640042D87F /* 小章鱼笔记.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2482,7 +2483,7 @@
 			);
 			name = NotebookMac;
 			productName = Notebook;
-			productReference = 8F7C0E7F23B4BB640042D87F /* Mac端.app */;
+			productReference = 8F7C0E7F23B4BB640042D87F /* 小章鱼笔记.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -3343,6 +3344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FA63EE223C0A68900967376 /* LikeUsView.m in Sources */,
 				8F7C0CF223B4BB640042D87F /* OcHomeVC+UIPart.m in Sources */,
 				8F7C0CF323B4BB640042D87F /* MDThemeConfiguration.m in Sources */,
 				8F7C0CF423B4BB640042D87F /* SettingCellHeader.m in Sources */,
@@ -3777,10 +3779,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 27;
-				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3801,8 +3804,10 @@
 				);
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
-				PRODUCT_NAME = "Mac端";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.shimo.desktop.octopus;
+				PRODUCT_NAME = "小章鱼笔记";
+				PROVISIONING_PROFILE_SPECIFIER = octopusiOS_appstore;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = octopus_ios_mac_cataly;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Notebook/Notebook-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3818,10 +3823,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 27;
-				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3842,8 +3848,10 @@
 				);
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
-				PRODUCT_NAME = "Mac端";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.shimo.desktop.octopus;
+				PRODUCT_NAME = "小章鱼笔记";
+				PROVISIONING_PROFILE_SPECIFIER = octopusiOS_appstore;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = octopus_ios_mac_cataly;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Notebook/Notebook-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
