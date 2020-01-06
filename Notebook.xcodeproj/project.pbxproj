@@ -623,6 +623,8 @@
 		8FA232D6224E07C400163685 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA232D4224E07C400163685 /* NoteCell.m */; };
 		8FA232D7224E07C400163685 /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232D5224E07C400163685 /* NoteCell.xib */; };
 		8FA63EE223C0A68900967376 /* LikeUsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7309EF23BB2A1700D64825 /* LikeUsView.m */; };
+		8FA63EE623C32A7E00967376 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA63EE523C32A7E00967376 /* MenuController.m */; };
+		8FA63EE723C32C6C00967376 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA63EE523C32A7E00967376 /* MenuController.m */; };
 		8FA69D982328EBDD00284071 /* home_cell_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */; };
 		8FAE3ABD22CF54F50054F3BB /* OctRequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */; };
 		8FAE3AC222CFBB130054F3BB /* OctGuidingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3AC122CFBB130054F3BB /* OctGuidingVC.m */; };
@@ -1138,6 +1140,8 @@
 		8FA232D3224E07C400163685 /* NoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
 		8FA232D4224E07C400163685 /* NoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
 		8FA232D5224E07C400163685 /* NoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
+		8FA63EE423C32A7E00967376 /* MenuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
+		8FA63EE523C32A7E00967376 /* MenuController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
 		8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_cell_shadow@2x.png"; sourceTree = "<group>"; };
 		8FAE3ABB22CF54F50054F3BB /* OctRequestUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctRequestUtil.h; sourceTree = "<group>"; };
 		8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctRequestUtil.m; sourceTree = "<group>"; };
@@ -1687,6 +1691,7 @@
 		8F65DBCB221BECFC0067C321 /* Notebook */ = {
 			isa = PBXGroup;
 			children = (
+				8FA63EE323C32A0700967376 /* Menu */,
 				8F50A1AD23696F6F006E8C3D /* web.zip */,
 				8F14106D23979ED000325750 /* SupportingFiles */,
 				8F14106E2397A20400325750 /* storyboards */,
@@ -2036,6 +2041,15 @@
 				8FE5A3EF224CA86A00947D14 /* LDNotebookCell.xib */,
 			);
 			path = subviews;
+			sourceTree = "<group>";
+		};
+		8FA63EE323C32A0700967376 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				8FA63EE423C32A7E00967376 /* MenuController.h */,
+				8FA63EE523C32A7E00967376 /* MenuController.m */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		8FACF6C2221D2AF70067DDA4 /* VCs */ = {
@@ -3252,6 +3266,7 @@
 				8FD234A8233A0754001003C8 /* UnsplashVC.m in Sources */,
 				8F5E27C022CDCC360012AB22 /* EmojiChooseVC.m in Sources */,
 				8F679E2E2238FA58008DE1BC /* MdBlockModel.m in Sources */,
+				8FA63EE623C32A7E00967376 /* MenuController.m in Sources */,
 				8F41EECF225B47AE00D9CD35 /* MoveNoteToBookVC.m in Sources */,
 				8F1D1BFE22E9786700C3B700 /* IAPInfoBottomCell.m in Sources */,
 				8F0FDECB2293EB7700915C21 /* OctToolbarBlockView.m in Sources */,
@@ -3344,6 +3359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FA63EE723C32C6C00967376 /* MenuController.m in Sources */,
 				8FA63EE223C0A68900967376 /* LikeUsView.m in Sources */,
 				8F7C0CF223B4BB640042D87F /* OcHomeVC+UIPart.m in Sources */,
 				8F7C0CF323B4BB640042D87F /* MDThemeConfiguration.m in Sources */,

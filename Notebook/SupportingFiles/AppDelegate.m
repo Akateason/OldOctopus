@@ -16,6 +16,7 @@
 #import "OctRequestUtil.h"
 #import <XTIAP/XTIAP.h>
 #import "OcHomeVC.h"
+#import "MenuController.h"
 
 
 @interface AppDelegate ()
@@ -237,6 +238,19 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
     }
     return UIInterfaceOrientationMaskPortrait;
 }
+
+#pragma mark --
+#pragma mark - menu
+
+- (void)buildMenuWithBuilder:(id<UIMenuBuilder>)builder {
+//    if builder.system == .main {
+//        menuController = MenuController(with: builder)
+//    }
+
+    MenuController *menuCtrl = [[MenuController alloc] initWithBuilder:builder] ;
+    
+}
+
 
 @end
  
