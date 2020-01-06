@@ -52,6 +52,15 @@
     [self xt_setupNotifications] ;
     
     
+    [UIApplication sharedApplication].connectedScenes
+    
+    UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.forEach { windowScene in
+        windowScene.sizeRestrictions?.minimumSize = CGSize(width: 480, height: 640)
+        windowScene.sizeRestrictions?.maximumSize = CGSize(width: 480, height: 640)
+    }
+    
+
+    
     @weakify(self)
     [[[RACSignal interval:6 onScheduler:[RACScheduler mainThreadScheduler]]
       takeUntil:self.rac_willDeallocSignal]

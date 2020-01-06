@@ -29,6 +29,10 @@
 
 
 + (instancetype)getMe {
+    if (ISMAC) {
+        return nil ;
+    }
+    
     //  小版本更新就更新
 //    NSString *currentVersion = [CommonFunc getVersionStrOfMyAPP] ;
 //    NSString *versionCached = XT_USERDEFAULT_GET_VAL(kKey_markForGuidingDisplay) ;
