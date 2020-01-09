@@ -8,6 +8,7 @@
 
 #import "OctWebEditor+MenuNotification.h"
 #import "OctWebEditor+OctToolbarUtil.h"
+#import "OctWebEditor+InlineBoardUtil.h"
 
 
 
@@ -48,22 +49,22 @@
             }] ;
         }
         else if ([funcName isEqualToString:@"actionTitle1"]) {
-            
+            [self toolbarDidSelectH1] ;
         }
         else if ([funcName isEqualToString:@"actionTitle2"]) {
-            
+            [self toolbarDidSelectH2] ;
         }
         else if ([funcName isEqualToString:@"actionTitle3"]) {
-            
+            [self toolbarDidSelectH3] ;
         }
         else if ([funcName isEqualToString:@"actionTitle4"]) {
-            
+            [self toolbarDidSelectH4] ;
         }
         else if ([funcName isEqualToString:@"actionTitle5"]) {
-            
+            [self toolbarDidSelectH5] ;
         }
         else if ([funcName isEqualToString:@"actionTitle6"]) {
-            
+            [self toolbarDidSelectH6] ;
         }
         else if ([funcName isEqualToString:@"actionUpTitle"]) {
             
