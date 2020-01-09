@@ -44,4 +44,13 @@ static NSString *const kEditor_Scrolling_NavHidden = @"kEditor_Scrolling_NavHidd
 // unsplash
 static NSString *const kNote_Unsplash_Photo_Selected = @"kNote_Unsplash_Photo_Selected" ;
 
+
+// Mac Menu
+static NSString *const kNote_Menu_addNote = @"kNote_Menu_addNote" ;
+static NSString *const kNote_Menu_addBook = @"kNote_Menu_addBook" ;
+
+static NSString *const kNote_Menu_Edit_Group = @"kNote_Menu_Edit_Group" ;
+
+
+
 #endif /* OctNotificationHeader_h */

@@ -25,6 +25,7 @@
 #import "UnsplashPhoto.h"
 #import <NSURLProtocol+WKWebViewSupport.h>
 #import "URLProtocol.h"
+#import "OctWebEditor+MenuNotification.h"
 
 @interface OctWebEditor ()<UIScrollViewDelegate> {
     NSArray<NSString *> *_disabledActions ;
@@ -135,6 +136,9 @@ XT_SINGLETON_M(OctWebEditor)
         [self hideKeyboard] ;
         
     }] ;
+    
+    
+    [self setupMenuNotification] ;
     
     
     [[[RACSignal interval:5 onScheduler:[RACScheduler mainThreadScheduler]] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSDate * _Nullable x) {

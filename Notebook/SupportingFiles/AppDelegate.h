@@ -25,6 +25,8 @@ static const int k_debugmode_findme = 0 ;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow          *window ;
 @property (strong, nonatomic) LaunchingEvents   *launchingEvents ;
+
+
 @end
 
 

@@ -23,6 +23,11 @@
 }
 
 - (NSArray<UIKeyCommand *>*)keyCommands {
+    if (ISMAC) {
+        return @[] ;
+    }
+    
+    
     return @[
              [UIKeyCommand keyCommandWithInput:@"A"
                                  modifierFlags:UIKeyModifierCommand

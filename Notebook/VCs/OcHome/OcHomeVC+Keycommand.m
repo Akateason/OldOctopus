@@ -15,6 +15,10 @@
 }
 
 - (NSArray<UIKeyCommand *>*)keyCommands {
+    if (ISMAC) {
+        return @[] ;
+    }
+    
     return @[
              [UIKeyCommand keyCommandWithInput:@"N"
                                  modifierFlags:UIKeyModifierCommand
@@ -53,5 +57,3 @@
 }
 
 @end
-
-

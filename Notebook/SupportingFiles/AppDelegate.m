@@ -16,8 +16,6 @@
 #import "OctRequestUtil.h"
 #import <XTIAP/XTIAP.h>
 #import "OcHomeVC.h"
-#import "MenuController.h"
-
 
 @interface AppDelegate ()
 
@@ -31,7 +29,6 @@
 //    }] ;
     
 }
-
 
 // 处理收据结果,处理订阅时间
 - (void)dealRecieptTransaction:(SKPaymentTransaction *)transaction
@@ -81,7 +78,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//    if (IS_IPAD) [[UIApplication sharedApplication] setStatusBarHidden:YES] ;
+    self.window.windowScene.titlebar.titleVisibility = UITitlebarTitleVisibilityHidden;//隐藏顶栏
     
     IapUtil *iap = [IapUtil new] ;
     [iap setup] ;
@@ -125,7 +122,6 @@
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
     [self.launchingEvents setup:application appdelegate:self] ;
     
-    
     // set Root Controller START
     OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
     if (guidVC != nil) {
@@ -139,7 +135,6 @@
         [self.window makeKeyAndVisible] ;
     }
     // set Root Controller END
-    
     
     // 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
     NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
@@ -185,9 +180,7 @@
     }] ;
 }
 
-
 - (void)applicationWillResignActive:(UIApplication *)application {
-    
     NSArray *list = [Note xt_findWhere:@"isDeleted == 0"] ;
     for (Note *aNote in list) {
         @autoreleasepool {
@@ -207,8 +200,6 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
     [fileManager removeItemAtPath:folder error:nil];
 }
 
-
-//file:///private/var/mobile/Containers/Data/Application/929D7113-DCE0-4F39-9436-D85BFD644DC6/Documents/Inbox/%E7%BC%96%E8%BE%91%E5%99%A8%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1.md
 //导入文件,默认导入到当前的笔记本,如果是最近或者垃圾桶,进入暂存区. 导入之后打开此笔记.
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     return [self.launchingEvents application:app openURL:url options:options] ;
@@ -219,6 +210,10 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 #pragma mark - screen rotate
 
 - (BOOL)shouldAutorotate {
+    if (ISMAC) {
+        return NO ;
+    }
+    
     if (IS_IPAD) {
         return YES ;
     }
@@ -226,6 +221,10 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    if (ISMAC) {
+        return UIInterfaceOrientationMaskPortrait ;
+    }
+    
     if (IS_IPAD) {
         return UIInterfaceOrientationMaskAll ;
     }
@@ -233,6 +232,10 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)nowWindow {
+    if (ISMAC) {
+        return UIInterfaceOrientationMaskPortrait ;
+    }
+    
     if (IS_IPAD) {
         return UIInterfaceOrientationMaskAll ;
     }
@@ -240,17 +243,167 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 }
 
 #pragma mark --
-#pragma mark - menu
+#pragma mark - Mac Menu
 
 - (void)buildMenuWithBuilder:(id<UIMenuBuilder>)builder {
-//    if builder.system == .main {
-//        menuController = MenuController(with: builder)
-//    }
-
-    MenuController *menuCtrl = [[MenuController alloc] initWithBuilder:builder] ;
+    [super buildMenuWithBuilder:builder];
     
+    if (builder.system == UIMenuSystem.mainSystem) {
+        [builder removeMenuForIdentifier:UIMenuFormat] ;
+        [builder removeMenuForIdentifier:UIMenuEdit] ;
+                
+        // 文件
+        UIKeyCommand *newNote = [UIKeyCommand commandWithTitle:@"新建笔记" image:nil action:@selector(actonNewNote) input:@"N" modifierFlags:UIKeyModifierCommand | UIKeyModifierShift propertyList:nil];
+        UIKeyCommand *newBook = [UIKeyCommand commandWithTitle:@"新建笔记本" image:nil action:@selector(actonNewBook) input:@"N" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIMenu *openMenu = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.file" options:UIMenuOptionsDisplayInline children:@[newNote,newBook]];
+        [builder insertChildMenu:openMenu atStartOfMenuForIdentifier:UIMenuFile];
+        
+        // 编辑
+        UIKeyCommand *allSelect = [UIKeyCommand commandWithTitle:@"全选" image:nil action:@selector(actionAllSelect) input:@"A" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *undo = [UIKeyCommand commandWithTitle:@"撤销" image:nil action:@selector(actionUndo) input:@"Z" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *redo = [UIKeyCommand commandWithTitle:@"重做" image:nil action:@selector(actionRedo) input:@"Z" modifierFlags:UIKeyModifierCommand | UIKeyModifierShift propertyList:nil];
+        UIMenu *editMenuGroup1 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.edit.g1" options:UIMenuOptionsDisplayInline children:@[allSelect,undo,redo]];
+        
+        UIKeyCommand *paraRepeat = [UIKeyCommand commandWithTitle:@"重复段落" image:nil action:@selector(actionParaRepeat) input:@"P" modifierFlags:UIKeyModifierCommand | UIKeyModifierShift propertyList:nil] ;
+        UIKeyCommand *paraNew = [UIKeyCommand commandWithTitle:@"新建段落" image:nil action:@selector(actionParaNew) input:@"B" modifierFlags:UIKeyModifierCommand | UIKeyModifierShift propertyList:nil] ;
+        UIKeyCommand *paraDelete = [UIKeyCommand commandWithTitle:@"删除段落" image:nil action:@selector(actionParaDelete) input:@"D" modifierFlags:UIKeyModifierCommand | UIKeyModifierShift propertyList:nil] ;
+        UIMenu *editMenuGroup2 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.edit.g2" options:UIMenuOptionsDisplayInline children:@[paraRepeat,paraNew,paraDelete]] ;
+                
+        UIMenu *editMenu = [UIMenu menuWithTitle:@"编辑" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.edit" options:nil children:@[editMenuGroup1, editMenuGroup2]] ;
+        [builder insertSiblingMenu:editMenu afterMenuForIdentifier:UIMenuFile];
+        
+        // 段落
+        UIKeyCommand *title1 = [UIKeyCommand commandWithTitle:@"标题1" image:nil action:@selector(actionTitle1) input:@"1" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *title2 = [UIKeyCommand commandWithTitle:@"标题2" image:nil action:@selector(actionTitle2) input:@"2" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *title3 = [UIKeyCommand commandWithTitle:@"标题3" image:nil action:@selector(actionTitle3) input:@"3" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *title4 = [UIKeyCommand commandWithTitle:@"标题4" image:nil action:@selector(actionTitle4) input:@"4" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *title5 = [UIKeyCommand commandWithTitle:@"标题5" image:nil action:@selector(actionTitle5) input:@"5" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *title6 = [UIKeyCommand commandWithTitle:@"标题6" image:nil action:@selector(actionTitle6) input:@"6" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIMenu *paraMenuGroup1 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.para.group1" options:UIMenuOptionsDisplayInline children:@[title1,title2,title3,title4,title5,title6]] ;
+
+        UIKeyCommand *upTitle = [UIKeyCommand commandWithTitle:@"升级标题" image:nil action:@selector(actionUpTitle) input:@"+" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *downTitle = [UIKeyCommand commandWithTitle:@"升级标题" image:nil action:@selector(actionDownTitle) input:@"-" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIMenu *paraMenuGroup2 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.para.group2" options:UIMenuOptionsDisplayInline children:@[upTitle,downTitle]] ;
+
+        UIKeyCommand *form = [UIKeyCommand commandWithTitle:@"表格" image:nil action:@selector(actionForm) input:@"T" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *codeBlock = [UIKeyCommand commandWithTitle:@"代码块" image:nil action:@selector(actionCodeBlock) input:@"C" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate propertyList:nil];
+        UIKeyCommand *quote = [UIKeyCommand commandWithTitle:@"引用块" image:nil action:@selector(actionQuote) input:@"Q" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate propertyList:nil];
+        UIKeyCommand *math = [UIKeyCommand commandWithTitle:@"数学公式块" image:nil action:@selector(actionMath) input:@"M" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate propertyList:nil];
+        UIKeyCommand *html = [UIKeyCommand commandWithTitle:@"HTML块" image:nil action:@selector(actionHtml) input:@"J" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate propertyList:nil];
+        UIMenu *paraMenuGroup3 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.para.group3" options:UIMenuOptionsDisplayInline children:@[form,codeBlock,quote,math,html]] ;
+
+        UIKeyCommand *oList = [UIKeyCommand commandWithTitle:@"有序列表" image:nil action:@selector(actionOList) input:@"O" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate propertyList:nil];
+        UIKeyCommand *uList = [UIKeyCommand commandWithTitle:@"无序列表" image:nil action:@selector(actionUList) input:@"U" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate propertyList:nil];
+        UIKeyCommand *tList = [UIKeyCommand commandWithTitle:@"任务列表" image:nil action:@selector(actionTList) input:@"X" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate propertyList:nil];
+        UIMenu *paraMenuGroup4 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.para.group4" options:UIMenuOptionsDisplayInline children:@[oList,uList,tList]] ;
+        
+        UIKeyCommand *switchList = [UIKeyCommand commandWithTitle:@"切换loose/tight列表" image:nil action:@selector(actionSwitchList) input:@"L" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate propertyList:nil];
+        UIMenu *paraMenuGroup5 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.para.group5" options:UIMenuOptionsDisplayInline children:@[switchList]] ;
+
+        UIKeyCommand *para = [UIKeyCommand commandWithTitle:@"段落" image:nil action:@selector(actionOpenPara) input:@"O" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *sepline = [UIKeyCommand commandWithTitle:@"水平分割线" image:nil action:@selector(actionSepline) input:@"-" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate propertyList:nil];
+        UIMenu *paraMenuGroup6 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.para.group6" options:UIMenuOptionsDisplayInline children:@[para,sepline]] ;
+
+        UIMenu *paraMenu = [UIMenu menuWithTitle:@"段落" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.para" options:nil children:@[paraMenuGroup1, paraMenuGroup2,paraMenuGroup3,paraMenuGroup4,paraMenuGroup5,paraMenuGroup6]] ;
+        [builder insertSiblingMenu:paraMenu afterMenuForIdentifier:@"im.shimo.chuxin.octupus.Notebook.menu.edit"];
+
+        
+    }
 }
 
+- (void)actonNewNote {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_addNote object:nil] ;
+}
+
+- (void)actonNewBook {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_addBook object:nil] ;
+}
+
+- (void)actionAllSelect {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionUndo {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionRedo {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionParaRepeat {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionParaNew {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionParaDelete {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionTitle1 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionTitle2 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionTitle3 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionTitle4 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionTitle5 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionTitle6 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionUpTitle {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionDownTitle {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionForm {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionCodeBlock {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionQuote {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionMath {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionHtml {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionOList {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionUList {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionTList {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionSwitchList {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionOpenPara {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+- (void)actionSepline {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
 
 @end
  
