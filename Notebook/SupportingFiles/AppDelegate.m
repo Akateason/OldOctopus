@@ -161,24 +161,24 @@
     return YES ;
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-
-    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
-    NSString *alertBody = cloudKitNotification.alertBody;
-    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
-        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID] ;
-    }
-    
-    [self.launchingEvents icloudSync:^{
-        completionHandler(UIBackgroundFetchResultNewData);
-    }] ;
-}
-
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    [self.launchingEvents icloudSync:^{
-        completionHandler(UIBackgroundFetchResultNewData);
-    }] ;
-}
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+//
+//    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
+//    NSString *alertBody = cloudKitNotification.alertBody;
+//    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+//        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID] ;
+//    }
+//
+//    [self.launchingEvents icloudSync:^{
+//        completionHandler(UIBackgroundFetchResultNewData);
+//    }] ;
+//}
+//
+//- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+//    [self.launchingEvents icloudSync:^{
+//        completionHandler(UIBackgroundFetchResultNewData);
+//    }] ;
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     NSArray *list = [Note xt_findWhere:@"isDeleted == 0"] ;
@@ -307,6 +307,20 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
         UIMenu *paraMenu = [UIMenu menuWithTitle:@"段落" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.para" options:nil children:@[paraMenuGroup1, paraMenuGroup2,paraMenuGroup3,paraMenuGroup4,paraMenuGroup5,paraMenuGroup6]] ;
         [builder insertSiblingMenu:paraMenu afterMenuForIdentifier:@"im.shimo.chuxin.octupus.Notebook.menu.edit"];
 
+        // 样式
+        UIKeyCommand *bold = [UIKeyCommand commandWithTitle:@"重点" image:nil action:@selector(actionBold) input:@"B" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *italic = [UIKeyCommand commandWithTitle:@"强调" image:nil action:@selector(actionItalic) input:@"I" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *inlineCode = [UIKeyCommand commandWithTitle:@"行内代码" image:nil action:@selector(actionInlineCode) input:@"`" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *delLine = [UIKeyCommand commandWithTitle:@"删除线" image:nil action:@selector(actionDeleteLine) input:@"D" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *link = [UIKeyCommand commandWithTitle:@"链接" image:nil action:@selector(actionLink) input:@"L" modifierFlags:UIKeyModifierCommand propertyList:nil];
+        UIKeyCommand *picture = [UIKeyCommand commandWithTitle:@"图片" image:nil action:@selector(actionPicture) input:@"I" modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate  propertyList:nil];
+        UIMenu *styleMenuGroup1 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.style.group1" options:UIMenuOptionsDisplayInline children:@[bold,italic,inlineCode,delLine,link,picture]] ;
+        
+        UIKeyCommand *clearStyle = [UIKeyCommand commandWithTitle:@"清除样式" image:nil action:@selector(actionClearStyle) input:@"R" modifierFlags:UIKeyModifierCommand | UIKeyModifierShift  propertyList:nil];
+        UIMenu *styleMenuGroup2 = [UIMenu menuWithTitle:@"" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.style.group2" options:UIMenuOptionsDisplayInline children:@[clearStyle]] ;
+        UIMenu *styleMenu = [UIMenu menuWithTitle:@"样式" image:nil identifier:@"im.shimo.chuxin.octupus.Notebook.menu.style" options:nil children:@[styleMenuGroup1, styleMenuGroup2]] ;
+        [builder insertSiblingMenu:styleMenu afterMenuForIdentifier:@"im.shimo.chuxin.octupus.Notebook.menu.para"];
+
         
     }
 }
@@ -405,5 +419,34 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
     [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
 }
 
+- (void)actionBold {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionItalic {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+
+}
+
+- (void)actionInlineCode {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionDeleteLine {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionLink {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionPicture {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
+- (void)actionClearStyle {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Menu_Edit_Group object:NSStringFromSelector(_cmd)] ;
+}
+
 @end
- 
+

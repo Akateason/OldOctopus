@@ -59,8 +59,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupIcloudEvent] ; // get User. Then Pull or Sync .
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
-//    [self setupAppComment] ;
-    
+
     [self setupNotePreviewPicture] ;
     
     [self setupOCR] ;
@@ -85,9 +84,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [DDLog addLogger:fileLogger] ;
 }
 
-- (void)setupAppComment {
-//    [AppstoreCommentUtil setup] ;
-}
+
 
 /**
  1. setupWebZipPackage
