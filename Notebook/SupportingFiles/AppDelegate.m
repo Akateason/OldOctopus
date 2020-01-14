@@ -77,8 +77,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+#ifdef ISMAC
     self.window.windowScene.titlebar.titleVisibility = UITitlebarTitleVisibilityHidden;//隐藏顶栏
+    self.window.windowScene.sizeRestrictions.minimumSize = CGSizeMake(1034, 808) ;
+#endif
     
     IapUtil *iap = [IapUtil new] ;
     [iap setup] ;
