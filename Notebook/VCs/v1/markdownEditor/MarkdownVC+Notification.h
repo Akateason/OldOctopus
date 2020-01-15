@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MarkdownVC (Notification)
 
+- (void)setupNotifications ;
+
 @end
 
 NS_ASSUME_NONNULL_END

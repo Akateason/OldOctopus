@@ -74,6 +74,10 @@ XT_SINGLETON_M(OctWebEditor)
     @weakify(self)
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.02] deliverOnMainThread] subscribeNext:^(NSNotification *_Nullable x) {
         @strongify(self)
+#ifdef ISMAC
+        return ;
+#endif
+        
         if (!self.window) return ;
         
         NSDictionary *info = [x userInfo] ;
@@ -102,6 +106,8 @@ XT_SINGLETON_M(OctWebEditor)
         [self nativeCallJSWithFunc:@"setKeyboardHeight" json:@(kbh).stringValue completion:^(NSString *val, NSError *error) {}] ;
     }] ;
     
+    
+#ifndef ISMAC
     [[RACObserve(self.toolBar, selectedPosition) deliverOnMainThread] subscribeNext:^(id  _Nullable x) {
         @strongify(self)
         if (self.toolBar.smartKeyboardState == YES) {
@@ -115,7 +121,7 @@ XT_SINGLETON_M(OctWebEditor)
             [self.toolBar layoutIfNeeded] ;
         }
     }] ;
-        
+
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification *_Nullable x) {
         
@@ -124,6 +130,7 @@ XT_SINGLETON_M(OctWebEditor)
         self.toolBar.top = 2000 ;
         [self.toolBar hideAllBoards] ;
     }] ;
+#endif
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Unsplash_Photo_Selected object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -173,6 +180,7 @@ XT_SINGLETON_M(OctWebEditor)
 }
 
 - (void)openKeyboardToolBar:(float)kbHeight {
+#ifndef ISMAC
     self.toolBar.top = 2000 ;
     self.toolBar.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
     self.toolBar.height = OctToolbarHeight ;
@@ -188,6 +196,7 @@ XT_SINGLETON_M(OctWebEditor)
     if (self.toolBar.smartKeyboardState) {
         [self.toolBar reset] ;
     }
+#endif
 }
 
 - (void)setSideFlex {
@@ -317,9 +326,11 @@ XT_SINGLETON_M(OctWebEditor)
         }
     }
     
+#ifndef ISMAC
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.toolBar renderWithParaType:self.typeBlkList inlineList:self.typeInlineList] ;
     }) ;
+#endif
 }
 
 - (void)setupHTMLEditor {
@@ -504,10 +515,12 @@ static const float kOctEditorToolBarHeight = 41. ;
         
         [self removeInputAccessoryViewFromWKWebView:webView] ;
         [self hookWKContentViewFuncCanPerformAction] ;
-                
+
+#ifndef ISMAC
         [self.toolBar setNeedsLayout] ;
         [self.toolBar layoutIfNeeded] ;
         [self.toolBar reset] ;
+#endif
     }) ;
 }
 
@@ -722,8 +735,10 @@ static const CGFloat kValueOfDragging = 25.0 ;
     [[NSNotificationCenter defaultCenter] removeObserver:self] ;
     
     [SVProgressHUD showErrorWithStatus:@"系统出现异常,自动刷新页面"] ;
-    
+
+#ifndef ISMAC
     [self.toolBar removeFromSuperview] ;
+#endif
     
     [_webView removeFromSuperview] ;
     _webView = nil ;

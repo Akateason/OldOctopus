@@ -32,6 +32,7 @@
 #import "AppstoreCommentUtil.h"
 #import "OctWebEditor+OctToolbarUtil.h"
 #import "MarkdownVC+Keycommand.h"
+#import "MarkdownVC+Notification.h"
 
 
 @interface MarkdownVC () <WKScriptMessageHandler>
@@ -119,6 +120,8 @@
     
     SettingSave *sSave = [SettingSave fetch] ;
     float duration = [sSave currentAnimationDuration] ;
+    
+    [self setupNotifications] ;
     
     @weakify(self)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kEditor_Scrolling_NavShow object:nil] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -493,11 +496,10 @@ return;}
     if (!_editor) {
         _editor = [OctWebEditor sharedInstance] ;
         _editor.bottom = self.view.bottom ;
-        _editor.left = self.view.left ;
         _editor.top = APP_STATUSBAR_HEIGHT ;
         _editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
-        _editor.height = self.view.height - APP_STATUSBAR_HEIGHT ;
-        
+        _editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
+                
         [self.view insertSubview:_editor atIndex:0] ;
     }
     return _editor ;
