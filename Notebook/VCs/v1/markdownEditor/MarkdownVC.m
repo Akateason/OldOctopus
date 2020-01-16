@@ -48,6 +48,12 @@
 
 @implementation MarkdownVC
 
+- (void)test {
+    UIDocumentPickerExtensionViewController *docVC = [[UIDocumentPickerExtensionViewController alloc] init] ;
+    [self presentViewController:docVC animated:YES completion:nil];
+
+}
+
 + (CGFloat)getEditorLeftIpad {
     return - [OctWebEditor sharedInstance].sideWid + k_side_margin ;
 }
@@ -214,6 +220,8 @@
     [self.view addGestureRecognizer:pan];
     // 禁止使用系统自带的滑动手势
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+    
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -249,6 +257,12 @@
         [self leaveOut] ; //
     }
 }
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated] ;
+//
+//    [self test] ;
+//}
 
 #define XT_HIDE_HUD        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
 [[OctMBPHud sharedInstance] hide] ;\

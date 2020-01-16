@@ -17,6 +17,8 @@
 #import <XTIAP/XTIAP.h>
 #import "OcHomeVC.h"
 
+#import <AppKit/AppKit.h>
+
 @interface AppDelegate ()
 
 @end
@@ -27,6 +29,11 @@
 //
 //    [OctRequestUtil setIapInfoExpireDateTick:1976146575000 complete:^(BOOL success) {
 //    }] ;
+    
+//    NSOpenPanel *oPanel = [NSOpenPanel openPanel] ;
+//    oPanel.canchoose
+    
+//    UIDocumentPickerExtensionViewController *docVC = [[UIDocumentPickerExtensionViewController alloc] init] ;
     
 }
 
