@@ -17,7 +17,9 @@
 #import <XTIAP/XTIAP.h>
 #import "OcHomeVC.h"
 
+#ifdef ISMAC
 #import <AppKit/AppKit.h>
+#endif
 
 @interface AppDelegate ()
 
@@ -219,10 +221,10 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 #pragma mark - screen rotate
 
 - (BOOL)shouldAutorotate {
-    if (ISMAC) {
-        return NO ;
-    }
-    
+#ifdef ISMAC
+    return NO ;
+#endif
+        
     if (IS_IPAD) {
         return YES ;
     }
@@ -230,9 +232,10 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    if (ISMAC) {
-        return UIInterfaceOrientationMaskPortrait ;
-    }
+#ifdef ISMAC
+    return UIInterfaceOrientationMaskPortrait ;
+#endif
+    
     
     if (IS_IPAD) {
         return UIInterfaceOrientationMaskAll ;
@@ -241,9 +244,10 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)nowWindow {
-    if (ISMAC) {
-        return UIInterfaceOrientationMaskPortrait ;
-    }
+#ifdef ISMAC
+    return UIInterfaceOrientationMaskPortrait ;
+#endif
+
     
     if (IS_IPAD) {
         return UIInterfaceOrientationMaskAll ;

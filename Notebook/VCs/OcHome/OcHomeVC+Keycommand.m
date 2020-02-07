@@ -15,9 +15,10 @@
 }
 
 - (NSArray<UIKeyCommand *>*)keyCommands {
-    if (ISMAC) {
-        return @[] ;
-    }
+#ifdef ISMAC
+    return @[] ;
+#endif
+    
     
     return @[
              [UIKeyCommand keyCommandWithInput:@"N"
