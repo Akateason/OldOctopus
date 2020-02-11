@@ -608,6 +608,8 @@
 		8F931B9D228E90CF00F73219 /* home_cell_top_corner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9C228E90CF00F73219 /* home_cell_top_corner@2x.png */; };
 		8F96A3D423794AA5001742B9 /* OcHomeVC+Keycommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F96A3D323794AA5001742B9 /* OcHomeVC+Keycommand.m */; };
 		8F97514422D7A8BD0012F403 /* OctMBPHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F97514322D7A8BD0012F403 /* OctMBPHud.m */; };
+		8F98F1AD23C589D2006EDB45 /* OctWebEditor+MenuNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F98F1AC23C589D2006EDB45 /* OctWebEditor+MenuNotification.m */; };
+		8F98F1AE23C58A5C006EDB45 /* OctWebEditor+MenuNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F98F1AC23C589D2006EDB45 /* OctWebEditor+MenuNotification.m */; };
 		8F99DBD322E1928E00A39F99 /* empty_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F99DBD222E1928D00A39F99 /* empty_bottom@2x.png */; };
 		8F99DBD622E194D400A39F99 /* HomeTrashEmptyPHView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F99DBD522E194D400A39F99 /* HomeTrashEmptyPHView.m */; };
 		8F99DBD822E194F000A39F99 /* HomeTrashEmptyPHView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F99DBD722E194F000A39F99 /* HomeTrashEmptyPHView.xib */; };
@@ -622,6 +624,7 @@
 		8FA2295C22646F4E00D736E2 /* info_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA2295B22646F4D00D736E2 /* info_right@2x.png */; };
 		8FA232D6224E07C400163685 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA232D4224E07C400163685 /* NoteCell.m */; };
 		8FA232D7224E07C400163685 /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA232D5224E07C400163685 /* NoteCell.xib */; };
+		8FA63EE223C0A68900967376 /* LikeUsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7309EF23BB2A1700D64825 /* LikeUsView.m */; };
 		8FA69D982328EBDD00284071 /* home_cell_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA69D972328EBDD00284071 /* home_cell_shadow@2x.png */; };
 		8FAE3ABD22CF54F50054F3BB /* OctRequestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3ABC22CF54F50054F3BB /* OctRequestUtil.m */; };
 		8FAE3AC222CFBB130054F3BB /* OctGuidingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE3AC122CFBB130054F3BB /* OctGuidingVC.m */; };
@@ -1102,7 +1105,7 @@
 		8F7B2ECF22C616CA000018DE /* ThemeCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemeCollectCell.xib; sourceTree = "<group>"; };
 		8F7B2ED222C61D0B000018DE /* midnight.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = midnight.json; sourceTree = "<group>"; };
 		8F7B2ED322C61D0B000018DE /* sunshine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sunshine.json; sourceTree = "<group>"; };
-		8F7C0E7F23B4BB640042D87F /* Mac端.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mac端.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F7C0E7F23B4BB640042D87F /* 小章鱼笔记.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "小章鱼笔记.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F7C0E8023B4BB640042D87F /* NotebookMac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NotebookMac-Info.plist"; path = "/Users/teason23/Documents/iOS/shimo/Notebook/NotebookMac-Info.plist"; sourceTree = "<absolute>"; };
 		8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_reverse_item@2x.png"; sourceTree = "<group>"; };
 		8F81B83D22F95C9E00DFFEDB /* AppstoreCommentUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppstoreCommentUtil.h; sourceTree = "<group>"; };
@@ -1118,6 +1121,8 @@
 		8F96A3D323794AA5001742B9 /* OcHomeVC+Keycommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OcHomeVC+Keycommand.m"; sourceTree = "<group>"; };
 		8F97514222D7A8BD0012F403 /* OctMBPHud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctMBPHud.h; sourceTree = "<group>"; };
 		8F97514322D7A8BD0012F403 /* OctMBPHud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctMBPHud.m; sourceTree = "<group>"; };
+		8F98F1AB23C589D2006EDB45 /* OctWebEditor+MenuNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OctWebEditor+MenuNotification.h"; sourceTree = "<group>"; };
+		8F98F1AC23C589D2006EDB45 /* OctWebEditor+MenuNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OctWebEditor+MenuNotification.m"; sourceTree = "<group>"; };
 		8F99DBD222E1928D00A39F99 /* empty_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "empty_bottom@2x.png"; sourceTree = "<group>"; };
 		8F99DBD422E194D400A39F99 /* HomeTrashEmptyPHView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeTrashEmptyPHView.h; sourceTree = "<group>"; };
 		8F99DBD522E194D400A39F99 /* HomeTrashEmptyPHView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeTrashEmptyPHView.m; sourceTree = "<group>"; };
@@ -1484,6 +1489,8 @@
 				8F08FB6022A8C1FD008AB6A6 /* webModel */,
 				8F173D7922A1385B00FA4D8D /* OctWebEditor.h */,
 				8F173D7A22A1385B00FA4D8D /* OctWebEditor.m */,
+				8F98F1AB23C589D2006EDB45 /* OctWebEditor+MenuNotification.h */,
+				8F98F1AC23C589D2006EDB45 /* OctWebEditor+MenuNotification.m */,
 				8F6BD0A5232657F700087388 /* _NoInputAccessoryView.h */,
 				8F6BD0A6232657F700087388 /* _NoInputAccessoryView.m */,
 				8FEBC28322A68B9D004EB0F5 /* OctWebEditor+OctToolbarUtil.h */,
@@ -1678,7 +1685,7 @@
 				8F65DBC9221BECFC0067C321 /* Notebook.app */,
 				8F65DBE1221BECFE0067C321 /* NotebookTests.xctest */,
 				8F65DBEC221BECFE0067C321 /* NotebookUITests.xctest */,
-				8F7C0E7F23B4BB640042D87F /* Mac端.app */,
+				8F7C0E7F23B4BB640042D87F /* 小章鱼笔记.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2482,7 +2489,7 @@
 			);
 			name = NotebookMac;
 			productName = Notebook;
-			productReference = 8F7C0E7F23B4BB640042D87F /* Mac端.app */;
+			productReference = 8F7C0E7F23B4BB640042D87F /* 小章鱼笔记.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -3295,6 +3302,7 @@
 				8FC9DB8922BCB04D003A78D9 /* GlobalDisplaySt.m in Sources */,
 				8FD234AD233A1CAE001003C8 /* UnsplashPhoto.m in Sources */,
 				8FDA736D230A7D5200EEDC57 /* OcNoteCell.m in Sources */,
+				8F98F1AD23C589D2006EDB45 /* OctWebEditor+MenuNotification.m in Sources */,
 				8F50A1AA236842EE006E8C3D /* MarkdownVC+Keycommand.m in Sources */,
 				8FBA041E228A98B200EED229 /* HrView.m in Sources */,
 				8F173DCE22A4D02900FA4D8D /* UIViewController+SlidingController.m in Sources */,
@@ -3343,6 +3351,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F98F1AE23C58A5C006EDB45 /* OctWebEditor+MenuNotification.m in Sources */,
+				8FA63EE223C0A68900967376 /* LikeUsView.m in Sources */,
 				8F7C0CF223B4BB640042D87F /* OcHomeVC+UIPart.m in Sources */,
 				8F7C0CF323B4BB640042D87F /* MDThemeConfiguration.m in Sources */,
 				8F7C0CF423B4BB640042D87F /* SettingCellHeader.m in Sources */,
@@ -3777,10 +3787,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 27;
-				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3801,8 +3812,10 @@
 				);
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
-				PRODUCT_NAME = "Mac端";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.shimo.desktop.octopus;
+				PRODUCT_NAME = "小章鱼笔记";
+				PROVISIONING_PROFILE_SPECIFIER = octopusiOS_appstore;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = octopus_ios_mac_cataly;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Notebook/Notebook-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3818,10 +3831,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 27;
-				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3842,8 +3856,10 @@
 				);
 				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
-				PRODUCT_NAME = "Mac端";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.shimo.desktop.octopus;
+				PRODUCT_NAME = "小章鱼笔记";
+				PROVISIONING_PROFILE_SPECIFIER = octopusiOS_appstore;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = octopus_ios_mac_cataly;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Notebook/Notebook-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

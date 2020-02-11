@@ -23,6 +23,10 @@
 }
 
 - (NSArray<UIKeyCommand *>*)keyCommands {
+#ifdef ISMAC
+    return @[] ;
+#endif
+            
     return @[
              [UIKeyCommand keyCommandWithInput:@"A"
                                  modifierFlags:UIKeyModifierCommand

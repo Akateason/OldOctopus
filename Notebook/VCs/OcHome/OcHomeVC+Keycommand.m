@@ -15,6 +15,11 @@
 }
 
 - (NSArray<UIKeyCommand *>*)keyCommands {
+#ifdef ISMAC
+    return @[] ;
+#endif
+    
+    
     return @[
              [UIKeyCommand keyCommandWithInput:@"N"
                                  modifierFlags:UIKeyModifierCommand
@@ -53,5 +58,3 @@
 }
 
 @end
-
-

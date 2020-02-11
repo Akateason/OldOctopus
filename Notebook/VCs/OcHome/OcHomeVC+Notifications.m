@@ -121,6 +121,21 @@
 
     }] ;
     
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Menu_addNote object:nil] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        if (self.view.window) {
+            [self addNoteOnClick] ;
+        }
+    }] ;
+    
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Menu_addBook object:nil] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        if (self.view.window) {
+            [self addBookOnClick] ;
+        }
+    }] ;
+    
+    
 }
 
 

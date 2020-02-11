@@ -52,6 +52,11 @@
     [self xt_setupNotifications] ;
     
     
+
+    
+    
+
+    
     @weakify(self)
     [[[RACSignal interval:6 onScheduler:[RACScheduler mainThreadScheduler]]
       takeUntil:self.rac_willDeallocSignal]

@@ -32,6 +32,7 @@
 #import "AppstoreCommentUtil.h"
 #import "OctWebEditor+OctToolbarUtil.h"
 #import "MarkdownVC+Keycommand.h"
+#import "MarkdownVC+Notification.h"
 
 
 @interface MarkdownVC () <WKScriptMessageHandler>
@@ -46,6 +47,12 @@
 @end
 
 @implementation MarkdownVC
+
+- (void)test {
+    UIDocumentPickerExtensionViewController *docVC = [[UIDocumentPickerExtensionViewController alloc] init] ;
+    [self presentViewController:docVC animated:YES completion:nil];
+
+}
 
 + (CGFloat)getEditorLeftIpad {
     return - [OctWebEditor sharedInstance].sideWid + k_side_margin ;
@@ -119,6 +126,8 @@
     
     SettingSave *sSave = [SettingSave fetch] ;
     float duration = [sSave currentAnimationDuration] ;
+    
+    [self setupNotifications] ;
     
     @weakify(self)
     [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kEditor_Scrolling_NavShow object:nil] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
@@ -211,6 +220,8 @@
     [self.view addGestureRecognizer:pan];
     // 禁止使用系统自带的滑动手势
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+    
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -246,6 +257,12 @@
         [self leaveOut] ; //
     }
 }
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated] ;
+//
+//    [self test] ;
+//}
 
 #define XT_HIDE_HUD        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
 [[OctMBPHud sharedInstance] hide] ;\
@@ -493,11 +510,10 @@ return;}
     if (!_editor) {
         _editor = [OctWebEditor sharedInstance] ;
         _editor.bottom = self.view.bottom ;
-        _editor.left = self.view.left ;
         _editor.top = APP_STATUSBAR_HEIGHT ;
         _editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;
-        _editor.height = self.view.height - APP_STATUSBAR_HEIGHT ;
-        
+        _editor.height = [GlobalDisplaySt sharedInstance].containerSize.height - APP_STATUSBAR_HEIGHT ;
+                
         [self.view insertSubview:_editor atIndex:0] ;
     }
     return _editor ;
