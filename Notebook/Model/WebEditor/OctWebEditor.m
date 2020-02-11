@@ -604,7 +604,7 @@ static const CGFloat kValueOfDragging = 25.0 ;
         if (method) {
             IMP original = method_getImplementation(method);
             IMP override = imp_implementationWithBlock(^void(id me, void *arg0, BOOL arg1, BOOL arg2, BOOL arg3, id arg4) {
-                WKWebView *webView = [me valueForKey:@"_webView"];
+                WKWebView *webView = [self getWebView:me];
                 if ([webView.superview isKindOfClass:[OctWebEditor class]]) {
                     [self disableAdjustScrollViewWithUserInteracting:me];
                     ((void (*)(id, SEL, void *, BOOL, BOOL, BOOL, id))original)(me, selector, arg0, TRUE, arg2, arg3, arg4);
@@ -620,7 +620,7 @@ static const CGFloat kValueOfDragging = 25.0 ;
         if (method) {
             IMP original = method_getImplementation(method);
             IMP override = imp_implementationWithBlock(^void(id me, void *arg0, BOOL arg1, BOOL arg2, id arg3) {
-                WKWebView *webView = [me valueForKey:@"_webView"];
+                WKWebView *webView = [self getWebView:me];
                 if ([webView.superview isKindOfClass:[OctWebEditor class]]) {
                     [self disableAdjustScrollViewWithUserInteracting:me];
                     ((void (*)(id, SEL, void *, BOOL, BOOL, id))original)(me, selector, arg0, TRUE, arg2, arg3);
@@ -635,7 +635,7 @@ static const CGFloat kValueOfDragging = 25.0 ;
 
 // 禁止键盘弹起时滚动 webView
 - (void)disableAdjustScrollViewWithUserInteracting:(id)contentView {
-    WKWebView *webView = [contentView valueForKey:@"_webView"];
+    WKWebView *webView = [self getWebView:me];
     CGPoint contentOffsetBeforeScroll = webView.scrollView.contentOffset;
     @weakify(webView)
     [[[RACObserve(webView.scrollView, contentOffset)
@@ -693,6 +693,22 @@ static const CGFloat kValueOfDragging = 25.0 ;
         });
         method_setImplementation(method, override);
     }
+}
+
+- (nullable WKWebView *)getWebView:(id)contentView {
+    WKWebView *webView;
+    SEL webviewSelector = NSSelectorFromString(@"webView");
+    if ([contentView respondsToSelector:webviewSelector]) {
+        // iOS 13.4 及更新版本通过 [WKContentView webview] 方法获取 WKWebView
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        webView = [contentView performSelector:webviewSelector];
+#pragma clang diagnostic pop
+    } else {
+        // iOS 13.4 之前通过 WKContentView._webView 获取 WKWebView
+        webView = [contentView valueForKey:@"_webView"];
+    }
+    return webView;
 }
 
 - (BOOL)isDisabledAction:(SEL) action {
