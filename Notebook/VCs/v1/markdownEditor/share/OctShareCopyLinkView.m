@@ -22,7 +22,7 @@
     [onView addSubview:share] ;
     share.tf.text = link ;
     [share mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(onView.window) ;
+        make.edges.equalTo(onView) ;
     }] ;
     share.completion = completeBlk ;
 }
