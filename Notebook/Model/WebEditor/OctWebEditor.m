@@ -635,7 +635,7 @@ static const CGFloat kValueOfDragging = 25.0 ;
 
 // 禁止键盘弹起时滚动 webView
 - (void)disableAdjustScrollViewWithUserInteracting:(id)contentView {
-    WKWebView *webView = [self getWebView:me];
+    WKWebView *webView = [self getWebView:contentView];
     CGPoint contentOffsetBeforeScroll = webView.scrollView.contentOffset;
     @weakify(webView)
     [[[RACObserve(webView.scrollView, contentOffset)
