@@ -1,4 +1,8 @@
 
+source 'https://github.com/CocoaPods/Specs.git'
+
+
+
 def commonPods
       pod 'XTBase'
       pod 'XTlib'

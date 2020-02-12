@@ -16,9 +16,16 @@
 
 XTBase is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
-
 ```ruby
 pod "XTBase"
+```
+
+setup 
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+    [[XTlibConfig sharedInstance] defaultConfiguration];        
+    return YES;
+}
 ```
 ## Useage
 

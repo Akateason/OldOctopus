@@ -12,5 +12,8 @@
 @implementation XTlibConfig
 XT_SINGLETON_M(XTlibConfig);
 
-
+- (void)defaultConfiguration {
+    self.isDebug = YES ;
+    self.isShowControllerLifeCycle = YES ;
+}
 @end

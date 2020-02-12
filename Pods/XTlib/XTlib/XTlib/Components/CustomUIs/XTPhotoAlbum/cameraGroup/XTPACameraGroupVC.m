@@ -7,7 +7,7 @@
 //
 
 #import "XTPACameraGroupVC.h"
-
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "XTPACameraGroupCell.h"
 #import <Photos/Photos.h>
 #import <XTBase/XTBase.h>
