@@ -123,6 +123,7 @@
     [self.editor toolBar] ;
     [[OctWebEditor sharedInstance] setSideFlex] ;
     [[OctWebEditor sharedInstance] setupSettings] ;
+    [OctWebEditor sharedInstance].note_clientID = self.aNote.pkid;
     
     SettingSave *sSave = [SettingSave fetch] ;
     float duration = [sSave currentAnimationDuration] ;
@@ -313,7 +314,7 @@ return;}
         [self.editor leavePage] ;
     }] ;
     
-//    [AppstoreCommentUtil jumpReviewAfterNoteRead] ;
+
 }
 
 #pragma mark - Func
@@ -325,6 +326,9 @@ return;}
         Note *newNote = [[Note alloc] initWithBookID:self.myBookID content:markdown title:title] ;
         self.aNote = newNote ;
         [Note createNewNote:self.aNote] ;
+
+        [OctWebEditor sharedInstance].note_clientID = self.aNote.pkid;
+        
         XT_USERDEFAULT_SET_VAL(newNote.icRecordName, kUDCached_lastNote_RecID) ;
         [self.delegate addNoteComplete:self.aNote] ;
         [self.editor setValue:newNote forKey:@"_aNote"] ;

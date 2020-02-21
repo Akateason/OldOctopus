@@ -11,9 +11,9 @@ def commonPods
       pod 'XTIAP'
 
     #pod 'XTBase',:path => '../XTBase/'
-    #pod 'XTlib',:path => '../XTlib/'
-    #pod 'XTlib/Animations',:path => '../XTlib/'
-    #pod 'XTlib/CustomUIs',:path => '../XTlib/'
+    #pod 'XTlib',:path => '../../teason_project/XTlib/'
+    #pod 'XTlib/Animations',:path => '../../teason_project/XTlib/'
+    #pod 'XTlib/CustomUIs',:path => '../../teason_project/XTlib/'
     #pod 'XTIAP',:path => '../XTIAP/'
 
       pod 'IQKeyboardManager'

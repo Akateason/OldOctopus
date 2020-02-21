@@ -27,7 +27,7 @@
     SearchVC *vc = [SearchVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:self.class] controllerIdentifier:@"SearchVC"] ;
     MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:vc] ;
     fromCtrller.definesPresentationContext = YES;
-    navVC.transitioningDelegate = (id<UIViewControllerTransitioningDelegate>)fromCtrller ; // !!
+    navVC.transitioningDelegate = (id<UIViewControllerTransitioningDelegate>)fromCtrller ;
     navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext ;
     [fromCtrller presentViewController:navVC animated:YES completion:^{}] ;
 }

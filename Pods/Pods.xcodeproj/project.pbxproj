@@ -7522,6 +7522,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = D0C141A82594B689781303EDE07149E6 /* Products */;
@@ -9493,6 +9494,42 @@
 			};
 			name = Debug;
 		};
+		1E85DD5BA04C0A1B1BD7A61C62708FE5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCD043F9774EF27ED9DDB27A88370C6A /* XTlib.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/XTlib/XTlib-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/XTlib/XTlib-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/XTlib/XTlib.modulemap";
+				PRODUCT_MODULE_NAME = XTlib;
+				PRODUCT_NAME = XTlib;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		248DEA7E0ECA7C1B15225A94932B7B19 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7BB48E4F42430DBC429D7D6B659CB308 /* IQKeyboardManager.xcconfig */;
@@ -10105,41 +10142,6 @@
 				MODULEMAP_FILE = "Target Support Files/XTReq/XTReq.modulemap";
 				PRODUCT_MODULE_NAME = XTReq;
 				PRODUCT_NAME = XTReq;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		53413A5F9379EEEC99CA61221B81795F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BCD043F9774EF27ED9DDB27A88370C6A /* XTlib.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/XTlib/XTlib-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/XTlib/XTlib-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/XTlib/XTlib.modulemap";
-				PRODUCT_MODULE_NAME = XTlib;
-				PRODUCT_NAME = XTlib;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -11487,6 +11489,43 @@
 			};
 			name = Release;
 		};
+		BCC5017CD70AB64B438A608924E21FA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCD043F9774EF27ED9DDB27A88370C6A /* XTlib.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/XTlib/XTlib-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/XTlib/XTlib-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/XTlib/XTlib.modulemap";
+				PRODUCT_MODULE_NAME = XTlib;
+				PRODUCT_NAME = XTlib;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		BFB8FFA0DFF9E3C3FC5A426E6C02FBBF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9612F9B0E1A8EADF27E889A037837E9F /* BlocksKit.xcconfig */;
@@ -11653,42 +11692,6 @@
 				MODULEMAP_FILE = "Target Support Files/FMDB/FMDB.modulemap";
 				PRODUCT_MODULE_NAME = FMDB;
 				PRODUCT_NAME = FMDB;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		C9E4143A05232FE484C2A7B8DEE7B352 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BCD043F9774EF27ED9DDB27A88370C6A /* XTlib.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/XTlib/XTlib-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/XTlib/XTlib-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/XTlib/XTlib.modulemap";
-				PRODUCT_MODULE_NAME = XTlib;
-				PRODUCT_NAME = XTlib;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -12230,8 +12233,8 @@
 		49B9E0E71D654431B38A0443D308AA23 /* Build configuration list for PBXNativeTarget "XTlib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				53413A5F9379EEEC99CA61221B81795F /* Debug */,
-				C9E4143A05232FE484C2A7B8DEE7B352 /* Release */,
+				1E85DD5BA04C0A1B1BD7A61C62708FE5 /* Debug */,
+				BCC5017CD70AB64B438A608924E21FA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -15,6 +15,7 @@
     [super awakeFromNib] ;
     
     self.hud.xt_cornerRadius = 12.0 ;
+    self.hud.xt_maskToBounds = YES ;
     self.lb5Star.textColor = UIColorHex(@"0090ff") ;
     [self.btReply setTitleColor:UIColorHex(@"0090ff") forState:0] ;
     [self.btLater setTitleColor:UIColorHex(@"0090ff") forState:0] ;

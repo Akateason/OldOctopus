@@ -95,11 +95,11 @@ PODS:
   - XTIAP (1.1.1):
     - XTBase
     - XTReq
-  - XTlib (1.9.2):
-    - XTlib/base (= 1.9.2)
-  - XTlib/Animations (1.9.2):
+  - XTlib (1.9.8):
+    - XTlib/base (= 1.9.8)
+  - XTlib/Animations (1.9.8):
     - XTlib/base
-  - XTlib/base (1.9.2):
+  - XTlib/base (1.9.8):
     - BlocksKit
     - FDFullscreenPopGesture
     - XTBase
@@ -107,7 +107,7 @@ PODS:
     - XTFMDB (> 2.0.0)
     - XTReq (> 1.3.0)
     - XTTable
-  - XTlib/CustomUIs (1.9.2):
+  - XTlib/CustomUIs (1.9.8):
     - CHTCollectionViewWaterfallLayout
     - RSKImageCropper
     - XTlib/base
@@ -217,11 +217,11 @@ SPEC CHECKSUMS:
   XTColor: 2f9cb9260812471c711e765677065edc81f96152
   XTFMDB: 0891f3355697ebbc3d75f373bcda34329f2d5d94
   XTIAP: 890fb3ebedefe6b4da331f416d486e02e6ea0c13
-  XTlib: 2543a90c9dcdcf46be429150bcb9608b14c46ad8
+  XTlib: 5c812d9336616f774652f0678a91992b3bf39ae7
   XTReq: f5added0278758ca358f62a3de30a118f1b6d94a
   XTTable: 71154f0f7e883546d83a3b377f919369fc7d1ece
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 9a326e3c6cf624317a6fee12ba963c026c5a241c
+PODFILE CHECKSUM: f952c54cb5182c85f8174b20b95d6765a0d8f169
 
 COCOAPODS: 1.8.4

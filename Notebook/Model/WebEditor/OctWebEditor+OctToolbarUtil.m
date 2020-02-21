@@ -142,13 +142,12 @@
     photo.fromNoteClientID = self.note_clientID ;
     photo.localPath = XT_STR_FORMAT(@"%d_%lld",self.note_clientID,[NSDate xt_getNowTick]) ;
     
-    float mb = [self mdFileSize:[imageItem.data length]] ;
-    if (mb > 5.) {
-        [SVProgressHUD showErrorWithStatus:@"超过限制\n请控制上传图片大小在5MB以内"] ;
-        return ;
-    }
+//    float mb = [self mdFileSize:[imageItem.data length]] ;
+//    if (mb > 5.) {
+//        [SVProgressHUD showErrorWithStatus:@"超过限制\n请控制上传图片大小在5MB以内"] ;
+//        return ;
+//    }
     
-    // 暂存本地
     BOOL success = [imageItem.data writeToFile:photo.realPath atomically:YES] ;
     if (success) {
         [photo xt_insert] ;
@@ -185,7 +184,7 @@
                         [photo xt_deleteModel] ; // 上传成功,删除photo
                     }
                     else {
-                        NSLog(@"replaceImage FAIL err") ;
+                        NSLog(@"replaceImage FAIL err 图片替换失败") ;
                     }
                 }] ;
             }) ;

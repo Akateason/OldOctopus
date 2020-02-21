@@ -11,6 +11,21 @@
 
 @implementation OcHomeVC (Notifications)
 
+- (void)renderCurrentCell:(NSIndexPath *)idp {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.mainCollectionView scrollToItemAtIndexPath:idp atScrollPosition:(UICollectionViewScrollPositionNone) animated:NO] ;
+    
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+                //cellForItemAtIndexPath 此方法
+                //The cell object at the corresponding index path or nil if the cell is not visible or indexPath is out of range.
+                OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:idp] ;
+                [cell.contentCollection reloadData] ;
+                            
+            });
+    });
+}
+
 - (void)xt_setupNotifications {
     
     // BOOK RELATIVE NOTIFICATES
@@ -110,14 +125,18 @@
         NSIndexPath *idp = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
         [self.mainCollectionView reloadData] ;
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.mainCollectionView scrollToItemAtIndexPath:idp atScrollPosition:(UICollectionViewScrollPositionNone) animated:NO] ;
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:idp] ;
-                    [cell.contentCollection reloadData] ;
-                });
-        }) ;
+        //解决bug --- 由于cellForItemAtIndexPath 此方法 无法得到不在当前屏幕下的cell.
+        if (!self.view.window) {
+            [[self rac_signalForSelector:@selector(viewWillAppear:)] subscribeNext:^(RACTuple * _Nullable x) {
+                @strongify(self)
+                [self renderCurrentCell:idp] ;
+            }] ;
+        }
+        else {
+            [self renderCurrentCell:idp] ;
+        }
+        
+        
 
     }] ;
     

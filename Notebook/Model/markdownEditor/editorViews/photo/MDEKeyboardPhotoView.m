@@ -284,8 +284,19 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
             @strongify(self)
             if (imageData) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    XTImageItem *item = [[XTImageItem alloc] initWithData:imageData info:info] ;
-                    self.blkFlowPressed(item) ;
+                    if ([XTImageItem imageIsHeicType:info]) {
+                        CIImage *ciImage = [CIImage imageWithData:imageData];
+                        CIContext *context = [CIContext context];
+                        NSData *jpgData = [context JPEGRepresentationOfImage:ciImage colorSpace:ciImage.colorSpace options:@{}];
+                        XTImageItem *item = [[XTImageItem alloc] initWithData:jpgData info:info] ;
+                        item.imgType = XTImageItem_type_jpeg;
+                        self.blkFlowPressed(item) ;
+                    }
+                    else {
+                        XTImageItem *item = [[XTImageItem alloc] initWithData:imageData info:info] ;
+                        self.blkFlowPressed(item) ;
+                    }
+
                 }) ;
             }
 
