@@ -86,18 +86,29 @@
     self.imgSearch.xt_theme_imageColor = k_md_iconColor ;
     self.imgSearch.alpha = .6 ;
     
+    
+    self.collectionView = ({
+        UICollectionView *cv = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[GlobalDisplaySt sharedInstance] homeContentLayout]];
+        [self.view addSubview:cv];
+        [cv mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.left.right.equalTo(self.view);
+            make.top.equalTo(self.topArea.mas_bottom);
+        }];
+        cv;
+    });
+    
     [OcNoteCell xt_registerNibFromCollection:self.collectionView] ;
     [OcLineNoteCell xt_registerNibFromCollection:self.collectionView] ;
     [self.collectionView xt_setup] ;
     self.collectionView.dataSource = self ;
     self.collectionView.delegate = self ;
-
+    
     self.collectionView.xt_theme_backgroundColor = k_md_backColor ;
     self.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag ;
     
     self.collectionView.customNoDataView = [UIView new] ;
         
-    self.collectionView.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
+//    self.collectionView.collectionViewLayout = [[GlobalDisplaySt sharedInstance] homeContentLayout] ;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

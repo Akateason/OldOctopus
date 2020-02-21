@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *tf;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topFlex;
 @property (weak, nonatomic) IBOutlet UIImageView *imgSearch;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property (strong, nonatomic) UICollectionView *collectionView;
 
 
 
