@@ -119,6 +119,7 @@
         }] ;
     }
     else if ([title containsString:@"喜欢小章鱼"]) {
+        //暂时注销 - SettingItems.plist
         LikeUsView *likeView = [LikeUsView xt_newFromNib] ;
         [self.xt_viewController.view addSubview:likeView] ;
         [likeView mas_makeConstraints:^(MASConstraintMaker *make) {

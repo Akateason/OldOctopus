@@ -32,7 +32,7 @@
     
     NSString *userIDStr = XT_STR_FORMAT(@"用户id : %@, 点击复制uid",[XTIcloudUser userInCacheSyncGet].userRecordName) ;
     
-    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@) - %@ - %@",versionNum,buildNum,inviroment,editorState) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅",@"编辑器加载本地zip或者开发者url",devLinkStr,userIDStr] callBackBlock:^(NSInteger btnIndex) {
+    [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:UIAlertControllerStyleAlert title:@"😝😝😝" message:XT_STR_FORMAT(@"%@(%@) - %@ - %@",versionNum,buildNum,inviroment,editorState) cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"清空本地数据",@"清空iCloud数据",@"清空iCloud消息订阅",@"编辑器加载本地zip或者开发者url",devLinkStr,userIDStr,@"one Code"] callBackBlock:^(NSInteger btnIndex) {
         
         if (btnIndex == 1) {
             [self clearLocal] ;
@@ -51,6 +51,9 @@
         }
         else if (btnIndex == 6) {
             [self copyUserIDLink] ;
+        }
+        else if (btnIndex == 7) {
+            [self inputCode];
         }
         
     }] ;
@@ -149,5 +152,33 @@ static NSString *const k_UD_Developer_Mac_Tune_Link = @"k_UD_Developer_Mac_Tune_
 + (void)setDeveloperMacLink:(NSString *)link {
     XT_USERDEFAULT_SET_VAL(link, k_UD_Developer_Mac_Tune_Link) ;
 }
+
+
+
+
+// input code
++ (void)inputCode {
+    [UIAlertController xt_showTextFieldAlertWithTitle:@"inpout you code" subtitle:nil cancel:@"cancel" commit:@"ok" placeHolder:nil fromWithView:nil callback:^(BOOL isConfirm, NSString *text) {
+        
+        
+        NSString *dateStr = [[NSDate date] xt_getStrWithFormat:kTIME_STR_FORMAT_YYYYMMdd];
+        long long result = 123 * [dateStr integerValue];
+        
+        if (result == [text longLongValue]) {
+            long long tick = [[NSDate date] xt_getTick];
+            tick*=2;
+            XT_USERDEFAULT_SET_VAL(@(tick), @"kUD_Iap_ExpireDate") ;
+            [SVProgressHUD showSuccessWithStatus:@"已免费"] ;
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:@"error"] ;
+        }
+        
+        
+    }];
+    
+    
+}
+
 
 @end
