@@ -46,6 +46,12 @@ static NSString *const kUD_Iap_ExpireDate = @"kUD_Iap_ExpireDate" ;
 }
 
 + (void)geteIapStateFromSever {
+    long long localTick = [XT_USERDEFAULT_GET_VAL(kUD_Iap_ExpireDate) longLongValue] ;
+    long long nowTick = [[NSDate date] xt_getTick] ;
+    if (nowTick <= localTick) {
+        return;
+    }
+    
     [OctRequestUtil getIapInfo:^(long long tick, BOOL success) {
         if (success) {
             XT_USERDEFAULT_SET_VAL(@(tick), kUD_Iap_ExpireDate) ;
