@@ -15,7 +15,6 @@ XT_SINGLETON_M(GlobalDisplaySt)
 
 
 - (void)correctCurrentCondition:(UIViewController *)ctrller {
-//    DLogINFO(@"traitCollection : %@",ctrller.traitCollection) ;
     
 #ifdef ISMAC
     [GlobalDisplaySt sharedInstance].vType = SC_Home_mode_iPad_Horizon_6_collumn ;

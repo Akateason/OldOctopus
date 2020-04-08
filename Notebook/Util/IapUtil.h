@@ -16,28 +16,26 @@ static NSString *const k_IAP_ID_YEAR  = @"iap.octopus.year.90" ;
 
 
 @interface IapUtil : NSObject
-- (void)setup ;
+//- (void)setup ;
 
-- (void)buy:(NSString *)identifier ;
-- (void)productInfo:(NSString *)identifier complete:(void(^)(SKProduct *product))completion ;
+//- (void)buy:(NSString *)identifier ;
+//- (void)productInfo:(NSString *)identifier complete:(void(^)(SKProduct *product))completion ;
 
-+ (void)saveIapSubscriptionDate:(long long)tick ;
+//+ (void)saveIapSubscriptionDate:(long long)tick ;
 
 // 获得iap超出时间 如果本地没有 去服务端调
-+ (void)fetchIapSubscriptionDate:(void(^)(long long tick))fetchBlk ;
+//+ (void)fetchIapSubscriptionDate:(void(^)(long long tick))fetchBlk ;
 
 // 每次启动, 调一把 以服务端为准
-+ (void)geteIapStateFromSever ;
-
-
+//+ (void)geteIapStateFromSever ;
 
 // 是否vip异步
-+ (void)iapVipUserIsValid:(void(^)(BOOL isValid))completionBlk ;
-// 是否vip同步
-+ (BOOL)isIapVipFromLocalAndRequestIfLocalNotExist ;
-
-
-+ (void)askCheckReceiptApiComplete:(void(^)(BOOL success, long long tick))complete ;
+//+ (void)iapVipUserIsValid:(void(^)(BOOL isValid))completionBlk ;
+//// 是否vip同步
+//+ (BOOL)isIapVipFromLocalAndRequestIfLocalNotExist ;
+//
+//
+//+ (void)askCheckReceiptApiComplete:(void(^)(BOOL success, long long tick))complete ;
 
 @end
 
