@@ -35,14 +35,14 @@
     self.btManage.xt_borderWidth = .5 ;
     self.btManage.xt_cornerRadius = 6 ;
     
-    [IapUtil fetchIapSubscriptionDate:^(long long tick) {
-        NSLog(@"订阅有效期至 %@",[NSDate xt_getStrWithTick:tick / 1000. format:kTIME_STR_FORMAT_YYYYMMddHHmmss]) ;
-        
-        NSString *dateString = [NSDate xt_getStrWithTick:tick / 1000. format:kTIME_STR_FORMAT_yyyyMMdd_CHINESE_SPACE] ;
-        self.lbTip.text = XT_STR_FORMAT(@"订阅有效期至 %@\n我们将会在以上的订阅时间到期时自动续期",dateString) ;
-        
-        if (k_Is_Internal_Testing) self.lbTip.text = @"小章鱼内测版, 可体验全部功能, 期待你的反馈" ;
-    }] ;
+//    [IapUtil fetchIapSubscriptionDate:^(long long tick) {
+//        NSLog(@"订阅有效期至 %@",[NSDate xt_getStrWithTick:tick / 1000. format:kTIME_STR_FORMAT_YYYYMMddHHmmss]) ;
+//
+//        NSString *dateString = [NSDate xt_getStrWithTick:tick / 1000. format:kTIME_STR_FORMAT_yyyyMMdd_CHINESE_SPACE] ;
+//        self.lbTip.text = XT_STR_FORMAT(@"订阅有效期至 %@\n我们将会在以上的订阅时间到期时自动续期",dateString) ;
+//
+//        if (k_Is_Internal_Testing) self.lbTip.text = @"小章鱼内测版, 可体验全部功能, 期待你的反馈" ;
+//    }] ;
     
 }
 

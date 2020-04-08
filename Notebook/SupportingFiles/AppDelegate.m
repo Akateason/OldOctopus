@@ -27,59 +27,9 @@
 @implementation AppDelegate
 
 - (void)test {
-//
-//    [OctRequestUtil setIapInfoExpireDateTick:1976146575000 complete:^(BOOL success) {
-//    }] ;
-    
-//    NSOpenPanel *oPanel = [NSOpenPanel openPanel] ;
-//    oPanel.canchoose
-    
-//    UIDocumentPickerExtensionViewController *docVC = [[UIDocumentPickerExtensionViewController alloc] init] ;
     
 }
 
-// 处理收据结果,处理订阅时间
-- (void)dealRecieptTransaction:(SKPaymentTransaction *)transaction
-                    expireTick:(long long)tick
-                      complete:(BOOL)complete
-{
-    DLogINFO(@"处理订单 : %@", transaction.transactionIdentifier) ;
-
-    if (complete) {
-        NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(tick / 1000.0)] ;
-        DLogINFO(@"新订单截止到 : %@", resExpiraDate) ;
-        if (!tick && !complete) {
-            DLogERR(@"拿不到收据 : %@",transaction) ;
-            // finish transaction
-            [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; //
-            return ;
-        }
-        
-        if ([resExpiraDate compare:[NSDate date]] == NSOrderedAscending) {
-            DLogERR(@"订单已经过期 : %@",transaction) ;
-            // finish transaction
-            [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
-            return ;
-        }
-
-        // success
-        // 设置本地
-        [IapUtil saveIapSubscriptionDate:tick] ;
-        // 订阅成功之后 pull all
-        [self.launchingEvents pullAllComplete:^{
-            
-        }] ;
-        // finish transaction
-        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
-        // Notificate
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
-        DLogINFO(@"订单订阅成功 : %@", transaction.transactionIdentifier) ;
-    }
-    else {
-        DLogERR(@"验证收据失败 transaction : %@",transaction) ;
-        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ; // 如果不成功，下次还会接受到此transaction .
-    }
-}
 
 
 
@@ -89,44 +39,6 @@
     self.window.windowScene.titlebar.titleVisibility = UITitlebarTitleVisibilityHidden;//隐藏顶栏
     self.window.windowScene.sizeRestrictions.minimumSize = CGSizeMake(1034, 808) ;
 #endif
-    
-    IapUtil *iap = [IapUtil new] ;
-    [iap setup] ;
-    [IapUtil geteIapStateFromSever] ;
-    
-    // SKPaymentQueue callback
-    [XTIAP sharedInstance].g_transactionBlock = ^(SKPaymentTransaction *transaction) {
-        DLogINFO(@"transaction UPDATE id : %@",transaction.transactionIdentifier) ;
-        
-//        [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
-        
-        if (transaction.transactionState == SKPaymentTransactionStatePurchased
-            ) {
-            NSLog(@"%@ purchased",transaction.transactionIdentifier) ;
-            [IapUtil askCheckReceiptApiComplete:^(BOOL success, long long tick) {
-                [self dealRecieptTransaction:transaction expireTick:tick complete:success] ;
-            }] ;
-        }
-        else if (transaction.transactionState == SKPaymentTransactionStateRestored) {
-            NSLog(@"%@ restored",transaction.transactionIdentifier) ;
-            [IapUtil askCheckReceiptApiComplete:^(BOOL success, long long tick) {
-                [self dealRecieptTransaction:transaction expireTick:tick complete:success] ;
-            }] ;
-        }
-        else if (transaction.transactionState == SKPaymentTransactionStatePurchasing) {
-            [[OctMBPHud sharedInstance] hide] ;
-            NSLog(@"%@ purchasing",transaction.transactionIdentifier) ;
-        }
-        else if (transaction.transactionState == SKPaymentTransactionStateDeferred) {
-            NSLog(@"%@ deferred",transaction.transactionIdentifier) ;
-        }
-        else if (transaction.transactionState == SKPaymentTransactionStateFailed) {
-            NSLog(@"%@ failed",transaction.transactionIdentifier) ;
-            DLogERR(@"订阅失败error : %@", transaction.error) ;
-            [[SKPaymentQueue defaultQueue] finishTransaction:transaction] ;
-        }
-    } ;
-    
     
     // lauching events
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
@@ -171,24 +83,24 @@
     return YES ;
 }
 
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-//
-//    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
-//    NSString *alertBody = cloudKitNotification.alertBody;
-//    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
-//        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID] ;
-//    }
-//
-//    [self.launchingEvents icloudSync:^{
-//        completionHandler(UIBackgroundFetchResultNewData);
-//    }] ;
-//}
-//
-//- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-//    [self.launchingEvents icloudSync:^{
-//        completionHandler(UIBackgroundFetchResultNewData);
-//    }] ;
-//}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+
+    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
+    NSString *alertBody = cloudKitNotification.alertBody;
+    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID] ;
+    }
+
+    [self.launchingEvents icloudSync:^{
+        completionHandler(UIBackgroundFetchResultNewData);
+    }] ;
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    [self.launchingEvents icloudSync:^{
+        completionHandler(UIBackgroundFetchResultNewData);
+    }] ;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     NSArray *list = [Note xt_findWhere:@"isDeleted == 0"] ;

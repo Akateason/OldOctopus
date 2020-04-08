@@ -14,7 +14,7 @@
 #import "OctRequestUtil.h"
 
 @implementation IAPPayCell
-
+/*
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -125,6 +125,6 @@
     }] ;
 }
 
-
+*/
 
 @end

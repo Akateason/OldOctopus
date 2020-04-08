@@ -45,7 +45,6 @@
     
     self.btTheme.xt_theme_imageColor = k_md_iconColor ;
     [self.btTheme xt_enlargeButtonsTouchArea] ;
-    self.btTheme.hidden = ![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist] ;
     
     @weakify(self)
     [self.btTheme bk_whenTapped:^{

@@ -69,45 +69,10 @@
         NSURL *url = [NSURL URLWithString:urlStr] ;
         [[UIApplication sharedApplication] openURL:url];
     }
-    else if ([title containsString:@"订阅"]) {
-        if ([XTIcloudUser hasLogin]) {
-            [IapUtil iapVipUserIsValid:^(BOOL isValid) {
-                
-                if (k_Subscript_Test_On) { // 测试连续订阅
-                    IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
-                    [self.xt_navigationController pushViewController:vc animated:YES] ;
-                    
-                    return ;
-                }
-                
-                if (isValid) {
-                    IAPSuccessSubscriptionVC *vc = [IAPSuccessSubscriptionVC getMe] ;
-                    [self.xt_navigationController pushViewController:vc animated:YES] ;
-                }
-                else {
-                    IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
-                    [self.xt_navigationController pushViewController:vc animated:YES] ;
-                }
-            }] ;
-        }
-        else {
-            IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
-            [self.xt_navigationController pushViewController:vc animated:YES] ;
-
-            
-        }
-    }
     else if ([title containsString:@"垃圾"]) {
         [SetTrashVC showFromCtller:self.xt_viewController] ;
     }
     else if ([title containsString:@"同步"]) {
-        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-            IAPSubscriptionVC *vc = [IAPSubscriptionVC getMe] ;
-            [self.xt_navigationController pushViewController:vc animated:YES] ;
-            
-            return ;
-        }
-        
         self.act.hidden = NO ;
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
         [self.act startAnimating] ;
@@ -140,22 +105,13 @@
     self.rightTip.text = model[@"r"] ;
     self.rightCorner.hidden = NO ;
     
-    if ([title containsString:@"订阅"]) {
-        WEAK_SELF
-        [IapUtil iapVipUserIsValid:^(BOOL isValid) {
-            weakSelf.rightTip.text = isValid ? @"已订阅" : model[@"r"] ;
-        }] ;
-    }
-    else if ([title containsString:@"垃圾桶"]) {
+    if ([title containsString:@"垃圾桶"]) {
         self.rightTip.text = XT_STR_FORMAT(@"%d",[Note xt_countWhere:@"isDeleted == 1 AND icRecordName NOT LIKE 'mac-note%%'"]) ;
     }
     else if ([title containsString:@"主题"]) {
         self.rightTip.text = [MDThemeConfiguration sharedInstance].currentFormatLanguage ;
     }
     else if ([title containsString:@"同步"]) {
-        [IapUtil iapVipUserIsValid:^(BOOL isValid) {
-            if (!isValid) self.rightTip.text = @"Pro" ;
-        }] ;
         self.rightCorner.hidden = YES ;
     }
 }

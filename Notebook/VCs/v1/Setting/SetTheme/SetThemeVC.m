@@ -90,18 +90,11 @@
             
             return ;
         }
-        
-        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-            [IAPSubscriptionVC showMePresentedInFromCtrller:self fromSourceView:collectionView isPresentState:YES] ;
-            
-            return ;
-        }        
     }
     
     [[MDThemeConfiguration sharedInstance] changeTheme:self.themes[indexPath.row]] ;
     [self.collectionView reloadData] ;
-    
-    
+        
     SettingItemCell *cell = [self.table cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] ;
     [cell.swt removeFromSuperview] ;
     cell.swt = nil ;

@@ -232,44 +232,44 @@
 }
 
 
-+ (void)restoreOnServer {
- 
-    NSString *url = [self requestLinkWithNail:@"users/action/restore-subscribe"] ;
-    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
-    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
-    NSDictionary *header = @{@"Authorization" : code,
-                             @"Content-Type":@"application/json"} ;
-    NSDictionary *para = @{@"system":@"ios"} ;
-        
-    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:para rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
-        
-        long long tick = [json[@"expired_at"] longLongValue] ;
-        
-        if (tick > 0) {
-            NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(tick / 1000.0)] ;
-            DLogINFO(@"恢复 新订单截止到 : %@", resExpiraDate) ;
-            if ([resExpiraDate compare:[NSDate date]] == NSOrderedAscending) {
-                DLogERR(@"恢复 订单已经过期 or 之前没有收据") ;
-                [[XTIAP sharedInstance] restore] ;
-                
-                return ;
-            }
-            
-            // 恢复成功, 更新本地.
-            [IapUtil saveIapSubscriptionDate:tick] ;
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
-        }
-        else {
-            // fail 调用本地restore
-            [[XTIAP sharedInstance] restore] ;
-        }
-
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        // fail 调用本地restore
-        [[XTIAP sharedInstance] restore] ;
-    }] ;
-
-}
+//+ (void)restoreOnServer {
+//
+//    NSString *url = [self requestLinkWithNail:@"users/action/restore-subscribe"] ;
+//    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
+//    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
+//    NSDictionary *header = @{@"Authorization" : code,
+//                             @"Content-Type":@"application/json"} ;
+//    NSDictionary *para = @{@"system":@"ios"} ;
+//
+//    [XTRequest reqWithUrl:url mode:XTRequestMode_POST_MODE header:header parameters:para rawBody:nil hud:NO success:^(id json, NSURLResponse *response) {
+//
+//        long long tick = [json[@"expired_at"] longLongValue] ;
+//
+//        if (tick > 0) {
+//            NSDate *resExpiraDate = [NSDate xt_getDateWithTick:(tick / 1000.0)] ;
+//            DLogINFO(@"恢复 新订单截止到 : %@", resExpiraDate) ;
+//            if ([resExpiraDate compare:[NSDate date]] == NSOrderedAscending) {
+//                DLogERR(@"恢复 订单已经过期 or 之前没有收据") ;
+//                [[XTIAP sharedInstance] restore] ;
+//
+//                return ;
+//            }
+//
+//            // 恢复成功, 更新本地.
+//            [IapUtil saveIapSubscriptionDate:tick] ;
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kNote_iap_purchased_done object:nil] ;
+//        }
+//        else {
+//            // fail 调用本地restore
+//            [[XTIAP sharedInstance] restore] ;
+//        }
+//
+//
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        // fail 调用本地restore
+//        [[XTIAP sharedInstance] restore] ;
+//    }] ;
+//
+//}
 
 @end

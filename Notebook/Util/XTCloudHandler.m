@@ -337,9 +337,7 @@ XT_SINGLETON_M(XTCloudHandler)
         return ;
     }
     
-    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        return ;
-    }
+    
     
     self.isSyncingOnICloud = YES ;
     CKModifyRecordsOperation *modifyRecordsOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recInsertOrUpdateList recordIDsToDelete:recDeleteList];
@@ -361,9 +359,7 @@ XT_SINGLETON_M(XTCloudHandler)
         return ;
     }
     
-    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        return ;
-    }
+    
     
     self.isSyncingOnICloud = YES ;
     CKRecordID *recId = [[CKRecordID alloc] initWithRecordName:recordID zoneID:self.zoneID] ;
@@ -404,9 +400,7 @@ XT_SINGLETON_M(XTCloudHandler)
         return ;
     }
     
-    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        return ;
-    }
+    
     
     self.isSyncingOnICloud = YES ;
     
@@ -459,9 +453,7 @@ XT_SINGLETON_M(XTCloudHandler)
         return ;
     }
     
-    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        return ;
-    }
+    
     
     self.isSyncingOnICloud = YES ;
     
@@ -494,9 +486,7 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
         return ;
     }
     
-    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        return ;
-    }
+    
     
     CKFetchRecordZoneChangesOperation *operation ;
     CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_LIBRARY_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;

@@ -412,9 +412,7 @@ return;}
                            note:self.aNote
                        webModel:self.editor.webInfo
                  outputCallback:^(NoteInfoVC * _Nonnull infoVC) {
-        
-        if (![weakSelf isVIPandLogin:infoVC.btOutput]) return ;
-        
+                        
         [weakSelf.editor hideKeyboard] ;
         [infoVC dismissViewControllerAnimated:YES completion:nil] ;
         
@@ -482,18 +480,7 @@ return;}
     }
 }
 
-- (BOOL)isVIPandLogin:(UIView *)sourceView {
-    if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-        [IAPSubscriptionVC showMePresentedInFromCtrller:self fromSourceView:sourceView isPresentState:YES] ;
-        
-        return NO ;
-    }
-    return YES ;
-}
-
 - (IBAction)shareAction:(UIButton *)sender {
-    if (![self isVIPandLogin:sender]) return ;
-    
     [sender oct_buttonClickAnimationComplete:^{
         [self.editor hideKeyboard] ;
         [[OctMBPHud sharedInstance] show] ;

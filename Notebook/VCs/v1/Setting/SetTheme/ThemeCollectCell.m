@@ -35,15 +35,7 @@
     self.imgLock.image = on ? [UIImage imageNamed:@"theme_select"] : [UIImage imageNamed:@"theme_lock"] ;
     self.imgLock.xt_completeRound = on ;
     self.imgLock.backgroundColor = on ? XT_GET_MD_THEME_COLOR_KEY(k_md_themeColor) : nil ;
-    
-    BOOL isVip = [IapUtil isIapVipFromLocalAndRequestIfLocalNotExist] ;
-    
-    if (isVip) {
-        self.imgLock.hidden = !on ;
-    }
-    else {
-        self.imgLock.hidden = NO ;
-    }
+    self.imgLock.hidden = !on ;
 }
 
 @end

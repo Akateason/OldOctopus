@@ -52,23 +52,12 @@
     [MDEKeyboardPhotoView showViewFromCtrller:self.xt_viewController kbheight:keyboardHeight - OctToolbarHeight WhenUserPressedPhotoOnList:^(XTImageItem * _Nonnull image) {
         
         @strongify(self)
-        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-            [self subscription] ;
-    
-            return ;
-        }
-        
         [self sendImageLocalPathWithImageItem:image] ;
         
     } cameraOnPressed:^(XTImageItem * _Nonnull image) {
         // 照相生命周期问题, 交给VC处理
     } albumOnPressed:^(XTImageItem * _Nonnull image) {
         @strongify(self)
-        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-            [self subscription] ;
-            
-            return ;
-        }
         self.toolBar.selectedPosition = 0 ;
         [self sendImageLocalPathWithImageItem:image] ;
     } linkPressed:^{
@@ -84,12 +73,6 @@
         [UnsplashVC showMeFrom:self.xt_viewController] ;
     } ocrPressed:^{
         @strongify(self)
-        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-            [self subscription] ;
-            
-            return ;
-        }
-        
         [self.toolBar hideAllBoards] ;
         self.toolBar.selectedPosition = 0 ;
         

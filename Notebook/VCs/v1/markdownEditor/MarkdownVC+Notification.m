@@ -25,14 +25,7 @@
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_User_Open_Camera object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-            
-        if (![IapUtil isIapVipFromLocalAndRequestIfLocalNotExist]) {
-            [self.editor subscription] ;
-    
-            return ;
-        }
-        
-        
+
         @weakify(self)
         [self.cameraHandler openCameraFromController:self takePhoto:^(XTImageItem *imageResult) {
             if (!imageResult) return;
