@@ -10,7 +10,6 @@
 #import "ThemeCollectCell.h"
 #import "SettingNavBar.h"
 #import "GuidingICloud.h"
-#import "IapUtil.h"
 #import "IAPSubscriptionVC.h"
 #import "SettingItemCell.h"
 #import "SettingSave.h"

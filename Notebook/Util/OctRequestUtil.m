@@ -10,7 +10,6 @@
 #import "XTCloudHandler.h"
 #import <XTlib/XTlib.h>
 #import <XTIAP/XTIAP.h>
-#import "IapUtil.h"
 #import <XTlib/XTImageItem.h>
 
 @implementation OctRequestUtil

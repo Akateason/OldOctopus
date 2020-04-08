@@ -9,7 +9,6 @@
 #import "ThemeCollectCell.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
-#import "IapUtil.h"
 
 @implementation ThemeCollectCell
 

@@ -16,7 +16,7 @@
 #import "MarkdownVC.h"
 #import "UnsplashVC.h"
 #import "GuidingICloud.h"
-#import "IapUtil.h"
+
 
 #ifdef ISIOS
 #import <AipOcrSdk/AipOcrSdk.h>

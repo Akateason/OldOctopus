@@ -15,7 +15,6 @@
 #import "NoteBooks.h"
 #import "LDSepLineCell.h"
 #import "HomeVC.h"
-#import "IapUtil.h"
 #import "AppDelegate.h"
 
 @interface LDHeadView ()

@@ -14,7 +14,6 @@
 #import "SetEditorVC.h"
 #import <SafariServices/SafariServices.h>
 #import "IAPSubscriptionVC.h"
-#import "IapUtil.h"
 #import "IAPSuccessSubscriptionVC.h"
 #import "XTCloudHandler.h"
 #import <MBProgressHUD/MBProgressHUD.h>

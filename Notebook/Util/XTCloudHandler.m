@@ -9,7 +9,6 @@
 #import "XTCloudHandler.h"
 #import <CommonCrypto/CommonRandom.h>
 #import "GuidingICloud.h"
-#import "IapUtil.h"
 
 
 @implementation XTIcloudUser
