@@ -21,7 +21,7 @@
 - (long long)xt_getTick {
     NSTimeInterval timeInterval2 = [self timeIntervalSince1970];
     long long time               = (long long)((double)timeInterval2 * kUnitConversion);
-    //    NSLog(@"xt_tick :%lld",time) ;
+    //    xt_LOG_DEBUG(@"xt_tick :%lld",time) ;
     return time;
 }
 
@@ -73,12 +73,12 @@
     // 把日期字符串格式化为日期对象
     NSDate *curDate     = [NSDate date];
     NSTimeInterval time = -[self timeIntervalSinceDate:curDate];
-    //    NSLog(@"[curDate getYear] : %d",[curDate getYear]) ;
-    //    NSLog(@"[date getYear] : %d",[date getYear]) ;
-    //    NSLog(@"[curDate getMonth] : %d",[curDate getMonth]) ;
-    //    NSLog(@"[date getMonth] : %d",[date getMonth]) ;
-    //    NSLog(@"[curDate getDay] : %d",[curDate getDay]) ;
-    //    NSLog(@"[date getDay] : %d",[date getDay]) ;
+    //    xt_LOG_DEBUG(@"[curDate getYear] : %d",[curDate getYear]) ;
+    //    xt_LOG_DEBUG(@"[date getYear] : %d",[date getYear]) ;
+    //    xt_LOG_DEBUG(@"[curDate getMonth] : %d",[curDate getMonth]) ;
+    //    xt_LOG_DEBUG(@"[date getMonth] : %d",[date getMonth]) ;
+    //    xt_LOG_DEBUG(@"[curDate getDay] : %d",[curDate getDay]) ;
+    //    xt_LOG_DEBUG(@"[date getDay] : %d",[date getDay]) ;
     //    int year = (int)([curDate getYear] - [date getYear]);
     //    int month = (int)([curDate getMonth] - [date getMonth]);
     //    int day = (int)([curDate getDay] - [date getDay]);

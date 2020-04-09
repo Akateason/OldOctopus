@@ -11,20 +11,27 @@
 #ifndef XTlibConst_h
 #define XTlibConst_h
 
-#define NSLog(format, ...) \
- do { \
-    if ([XTlibConfig sharedInstance].isDebug) {  \
-            fprintf(stderr, "\n<---🏀🏀🏀🏀🏀\n");                                                                                                 \
-            fprintf(stderr, "<%s : %d> %s\n",                                           \
-            [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],  \
-            __LINE__, __func__);                                                        \
-            (NSLog)((format), ##__VA_ARGS__);                                                                                                 \
-            fprintf(stderr, "🏀🏀🏀🏀🏀--->\n\n");                                                                                                 \
-    } \
-    else { \
-        (NSLog)((format), ##__VA_ARGS__); \
-    } \
-} while(0); \
+
+#define LOG_LEVEL_DEF ddLogLevel
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#ifdef DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+#endif
+#define __FILENAME__                    (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define xt_LOG_INFO(format, ...)       DDLogInfo((@"[INFO🍎]\t[%s]\t""[%s]\t""[%d]\n" format @"\n============================================================================================================================"), __FILENAME__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define xt_LOG_DEBUG(format, ...)      DDLogError((@"[DEBUG🐛]\t[%s]\t""[%s]\t""[%d]\n" format @"\n============================================================================================================================"), __FILENAME__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+
+
+
+
+
+
+
+
+
 
 
 

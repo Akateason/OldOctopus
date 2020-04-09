@@ -7,7 +7,7 @@
 //
 
 #import "XTJson.h"
-
+#import "XTlibConst.h"
 
 @implementation XTJson
 
@@ -18,7 +18,7 @@
                                                  options:0
                                                    error:&error];
     if (!jsonObj) {
-        NSLog(@"error : %@", error);
+        xt_LOG_DEBUG(@"error : %@", error);
         return nil;
     }
     else {
@@ -37,7 +37,7 @@
         jsonStr = [[NSString alloc] initWithData:jsonData
                                         encoding:NSUTF8StringEncoding];
         if (!jsonStr) {
-            NSLog(@"error : %@", error);
+            xt_LOG_DEBUG(@"error : %@", error);
             return nil;
         }
         else {
@@ -45,7 +45,7 @@
         }
     }
     else {
-        NSLog(@"IS NOT KIND OF JSON OBJECT");
+        xt_LOG_DEBUG(@"IS NOT KIND OF JSON OBJECT");
         return nil;
     }
 }

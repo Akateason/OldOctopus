@@ -12,6 +12,10 @@
 
 #import "XTAnimation.h"
 #import "GradientButton.h"
+#import "XTLargeImageCompressUtil.h"
+#import "XTTiledLargeImageView.h"
+#import "XTTiledLayer.h"
+#import "SDWebImageManager+largeImage.h"
 #import "ParallaxHeaderView.h"
 #import "UIImage+ImageEffects.h"
 #import "PlaceHolderTextView.h"
@@ -39,7 +43,6 @@
 #import "XTSIAlertView.h"
 #import "XTStretchSegCell.h"
 #import "XTStretchSegment.h"
-#import "XTZoomPicture.h"
 #import "XTlib.h"
 
 FOUNDATION_EXPORT double XTlibVersionNumber;

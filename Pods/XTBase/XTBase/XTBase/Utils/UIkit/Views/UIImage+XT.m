@@ -9,7 +9,7 @@
 #import "UIImage+XT.h"
 #import <QuartzCore/QuartzCore.h>
 #import <Accelerate/Accelerate.h>
-
+#import "XTlibConst.h"
 
 
 @implementation UIImage (XT)
@@ -226,7 +226,7 @@
     newImage = UIGraphicsGetImageFromCurrentImageContext();
 
     if (newImage == nil) {
-        NSLog(@"scale image fail");
+        xt_LOG_DEBUG(@"scale image fail");
     }
 
     UIGraphicsEndImageContext();
@@ -274,7 +274,7 @@
 
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     if (newImage == nil) {
-        NSLog(@"scale image fail");
+        xt_LOG_DEBUG(@"scale image fail");
     }
 
     UIGraphicsEndImageContext();
@@ -466,7 +466,7 @@
     pixelBuffer = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
 
     if (pixelBuffer == NULL)
-        NSLog(@"No pixelbuffer");
+        xt_LOG_DEBUG(@"No pixelbuffer");
 
     outBuffer.data     = pixelBuffer;
     outBuffer.width    = CGImageGetWidth(img);
@@ -484,15 +484,15 @@
     //perform convolution
     error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer2, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
     if (error) {
-        NSLog(@"error from convolution %ld", error);
+        xt_LOG_DEBUG(@"error from convolution %ld", error);
     }
     error = vImageBoxConvolve_ARGB8888(&outBuffer2, &inBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
     if (error) {
-        NSLog(@"error from convolution %ld", error);
+        xt_LOG_DEBUG(@"error from convolution %ld", error);
     }
     error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
     if (error) {
-        NSLog(@"error from convolution %ld", error);
+        xt_LOG_DEBUG(@"error from convolution %ld", error);
     }
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();

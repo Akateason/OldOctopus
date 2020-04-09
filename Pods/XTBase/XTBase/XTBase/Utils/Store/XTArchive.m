@@ -7,7 +7,7 @@
 //
 
 #import "XTArchive.h"
-
+#import "XTlibConst.h"
 
 @implementation XTArchive
 
@@ -15,7 +15,7 @@
                     path:(NSString *)path {
     BOOL success = [NSKeyedArchiver archiveRootObject:something toFile:path];
     if (success) {
-        NSLog(@"xtArchive : %@\n success in path : %@", something, path);
+        xt_LOG_DEBUG(@"%@\n success in path : %@", something, path);
     }
 }
 

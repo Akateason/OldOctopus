@@ -15,15 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface XTlibConfig : NSObject
 XT_SINGLETON_H(XTlibConfig);
 
-// 所有log总开关.
-@property (nonatomic) BOOL isDebug;
-// 控制Ctrl生命周期是否打印.
+// 控制Ctrl生命周期是否打印. default NO
 @property (nonatomic) BOOL isShowControllerLifeCycle;
 
 
 // 在AppDelegate. didFinishLaunchingWithOptions 加入默认配置.
-- (void)defaultConfiguration ;
-
+- (void)defaultConfiguration;
 @end
 
 NS_ASSUME_NONNULL_END

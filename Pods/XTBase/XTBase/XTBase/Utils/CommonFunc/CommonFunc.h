@@ -7,41 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
+
 
 
 @interface CommonFunc : NSObject
 
-#pragma mark - save images to library
 
-+ (void)saveImageToLibrary:(UIImage *)savedImage complete:(void(^)(bool success))complete ;
+#pragma mark - Get top
++ (UIViewController *)topVC ;
++ (UIWindow *)topWindow ;
 
-#pragma mark - current appname / version
 
+#pragma mark - App Info
++ (NSDictionary *)getAppInfo ;
 + (NSString *)getAppName;
-
 + (NSString *)getVersionStrOfMyAPP;
-
 + (NSString *)getBuildVersion;
 
-#pragma mark - update the latest version if neccessary .
-
-//+ (void)updateLatestVersion ;
-
-#pragma mark - give app a Score
-
-+ (void)scoringMyAppWithAppStoreID:(NSString *)appstoreID;
-
-#pragma mark - CLLocation  get current location
-
-+ (CLLocationCoordinate2D)getLocation;
-
-#pragma mark - 关闭应用
-
-+ (void)shutDownAppWithCtrller:(UIViewController *)ctrller;
-
-#pragma mark - 设备名
+#pragma mark - Device Info
 - (NSString *)getDeviceName ;
 + (BOOL)getIsIpad ;
++ (void)shutDownAppWithCtrller:(UIViewController *)ctrller;
 
 @end

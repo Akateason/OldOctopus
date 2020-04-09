@@ -1,16 +1,17 @@
 # XTBase
 
 ## Doc
-1. Utils
+### architecture
 
-* Foundation
-* UIkit                  
-* Store
-* Security
+- XTBase 
+    - Utils
+        - Security
+        - UIkit
+        - Foundation
+        - CommonFunc
+        - Store
+    - Header
 
-## Requirements
-
-`iOS 8.0` or later
 
 ## Installation
 
@@ -20,15 +21,13 @@ it, simply add the following line to your Podfile:
 pod "XTBase"
 ```
 
-setup 
+## Useage
 ```
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     [[XTlibConfig sharedInstance] defaultConfiguration];        
     return YES;
 }
 ```
-## Useage
-
 ## Author
 
 teason, akateason@qq.com

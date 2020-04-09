@@ -150,3 +150,43 @@ static NSString *const kSeperateLine = @"/";
 }
 
 @end
+
+
+@implementation UIView (XTTouchEvent)
+
+- (void)xt_whenTouches:(NSUInteger)numberOfTouches
+                tapped:(NSUInteger)numberOfTaps
+               handler:(void (^)(void))block {
+    if (!block) return;
+        
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] init];
+    [gesture.rac_gestureSignal subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        if (x.state == UIGestureRecognizerStateRecognized) block();
+    }];
+        
+    gesture.numberOfTouchesRequired = numberOfTouches;
+    gesture.numberOfTapsRequired = numberOfTaps;
+
+    [self.gestureRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (![obj isKindOfClass:[UITapGestureRecognizer class]]) return;
+
+        UITapGestureRecognizer *tap = obj;
+        BOOL rightTouches = (tap.numberOfTouchesRequired == numberOfTouches);
+        BOOL rightTaps = (tap.numberOfTapsRequired == numberOfTaps);
+        if (rightTouches && rightTaps) {
+            [gesture requireGestureRecognizerToFail:tap];
+        }
+    }];
+
+    [self addGestureRecognizer:gesture];
+}
+
+- (void)xt_whenTapped:(void (^)(void))block {
+    [self xt_whenTouches:1 tapped:1 handler:block];
+}
+
+- (void)xt_whenDoubleTapped:(void (^)(void))block {
+    [self xt_whenTouches:2 tapped:1 handler:block];
+}
+
+@end

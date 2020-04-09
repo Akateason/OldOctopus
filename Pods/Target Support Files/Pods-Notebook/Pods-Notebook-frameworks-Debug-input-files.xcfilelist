@@ -3,7 +3,6 @@ ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${PODS_ROOT}/AipOcrSdk/AipOcrSdk/Classes/AipBase.framework
 ${PODS_ROOT}/AipOcrSdk/AipOcrSdk/Classes/AipOcrSdk.framework
 ${PODS_ROOT}/AipOcrSdk/AipOcrSdk/Classes/IdcardQuality.framework
-${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework
 ${BUILT_PRODUCTS_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework
 ${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework
 ${BUILT_PRODUCTS_DIR}/EllipsePageControl/EllipsePageControl.framework
@@ -31,8 +30,8 @@ ${BUILT_PRODUCTS_DIR}/XTColor/XTColor.framework
 ${BUILT_PRODUCTS_DIR}/XTFMDB/XTFMDB.framework
 ${BUILT_PRODUCTS_DIR}/XTIAP/XTIAP.framework
 ${BUILT_PRODUCTS_DIR}/XTReq/XTReq.framework
+${BUILT_PRODUCTS_DIR}/XTRouter/XTRouter.framework
 ${BUILT_PRODUCTS_DIR}/XTTable/XTTable.framework
 ${BUILT_PRODUCTS_DIR}/XTlib/XTlib.framework
 ${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework
-${BUILT_PRODUCTS_DIR}/iosMath/iosMath.framework
 ${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework

@@ -9,7 +9,7 @@
 #import "ValetManager.h"
 #import <Valet/Valet.h>
 #import <UIKit/UIDevice.h>
-
+#import "XTlibConst.h"
 
 @interface ValetManager ()
 @property (strong, nonatomic) VALValet *myValet;
@@ -52,7 +52,7 @@ XT_SINGLETON_M(ValetManager);
 - (BOOL)prepareUUID {
     if ([self.myValet containsObjectForKey:@"UUID"]) return YES;
     NSString *uuid = [UIDevice currentDevice].identifierForVendor.UUIDString;
-    NSLog(@"uuid : %@", uuid);
+    xt_LOG_INFO(@"uuid : %@", uuid);
     return [self.myValet setString:uuid forKey:@"UUID"];
 }
 

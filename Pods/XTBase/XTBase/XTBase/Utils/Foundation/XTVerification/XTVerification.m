@@ -7,7 +7,7 @@
 //
 
 #import "XTVerification.h"
-
+#import "XTlibConfig.h"
 
 @implementation XTVerification
 
@@ -34,8 +34,6 @@
 + (BOOL)validateCarNo:(NSString *)carNo {
     NSString *carRegex   = @"^[\u4e00-\u9fa5]{1}[a-zA-Z]{1}[a-zA-Z_0-9]{4}[a-zA-Z_0-9_\u4e00-\u9fa5]$";
     NSPredicate *carTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", carRegex];
-    NSLog(@"carTest is %@", carTest);
-
     return [carTest evaluateWithObject:carNo];
 }
 

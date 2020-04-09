@@ -17,10 +17,8 @@ def commonPods
     #pod 'XTIAP',:path => '../XTIAP/'
 
       pod 'IQKeyboardManager'
-      pod 'SDWebImage','<=4.4.6'
       pod 'EllipsePageControl'
-      pod 'lottie-ios','2.5.3'
-      pod 'iosMath'
+      pod 'lottie-ios','2.5.3'      
       pod 'MSDynamicsDrawerViewController'
       pod 'SSZipArchive'
       pod 'JTMaterialSwitch'
