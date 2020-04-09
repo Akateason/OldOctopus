@@ -261,7 +261,7 @@ XT_SINGLETON_M(OctWebEditor)
     NSString *func = ret[@"method"] ;
     NSDictionary *jsonDic = ret[@"params"] ;
     NSString *json = [jsonDic yy_modelToJSONString] ;
-    DLogINFO(@"WebViewBridge Func : %@\njson : %@",func,jsonDic) ;
+    DLogERR(@"WebViewBridge Func : %@\njson : %@",func,jsonDic) ;
     
     if ([func isEqualToString:@"change"]) {
         WebModel *model = [WebModel yy_modelWithJSON:jsonDic] ;
@@ -460,7 +460,7 @@ static const float kOctEditorToolBarHeight = 41. ;
     
     NSString *js = XT_STR_FORMAT(@"WebViewBridgeCallback({\"method\":\"%@\"}, %@)",func,json) ;
     [_webView evaluateJavaScript:js completionHandler:^(id _Nullable val, NSError * _Nullable error) {
-        DLogINFO(@"js : %@\nreturn : %@",js,val) ;
+        DLogERR(@"js : %@\nreturn : %@",js,val) ;
         if (error) {
             DLogERR(@"js error! : %@", error) ;
             if (error.code == 4 && [error.domain isEqualToString:@"WKErrorDomain"]) {
