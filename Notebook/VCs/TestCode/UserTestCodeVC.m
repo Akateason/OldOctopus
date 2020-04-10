@@ -34,7 +34,7 @@ static NSString *k_UD_Inner_Test_Done = @"k_UD_Inner_Test_Done" ;
     self.view.backgroundColor = [UIColor lightGrayColor] ;
     
     WEAK_SELF
-    [self.btGoNow bk_addEventHandler:^(id sender) {
+    [self.btGoNow xt_addEventHandler:^(id sender) {
         
         NSString *testCode = self.tfCode.text ;
         if ([testCode containsString:@"octopus"]) {
@@ -62,14 +62,14 @@ static NSString *k_UD_Inner_Test_Done = @"k_UD_Inner_Test_Done" ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     
-    [self.btGetInviteCode bk_addEventHandler:^(id sender) {
+    [self.btGetInviteCode xt_addEventHandler:^(id sender) {
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://shimo.im/octopus"]] ;
         
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     
-    [self.btCancel bk_addEventHandler:^(id sender) {
+    [self.btCancel xt_addEventHandler:^(id sender) {
         
         AppDelegate *app = [UIApplication sharedApplication].delegate ;
         UIWindow *window = app.window ;

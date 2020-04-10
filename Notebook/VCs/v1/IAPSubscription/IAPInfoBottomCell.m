@@ -9,7 +9,7 @@
 #import "IAPInfoBottomCell.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
-#import <BlocksKit+UIKit.h>
+
 
 @implementation IAPInfoBottomCell
 
@@ -33,7 +33,7 @@
     
     self.lbPrivacy.userInteractionEnabled = self.lbService.userInteractionEnabled = YES ;
     WEAK_SELF
-    [self.lbPrivacy bk_whenTapped:^{
+    [self.lbPrivacy xt_whenTapped:^{
         [weakSelf.lbPrivacy oct_buttonClickAnimationComplete:^{
             NSString *urlStr = @"https://shimo.im/octopus#/privacy" ;
             NSURL *url = [NSURL URLWithString:urlStr] ;
@@ -41,7 +41,7 @@
         }] ;
     }] ;
     
-    [self.lbService bk_whenTapped:^{
+    [self.lbService xt_whenTapped:^{
         [weakSelf.lbService oct_buttonClickAnimationComplete:^{
             NSString *urlStr = @"https://shimo.im/octopus#/terms" ;
             NSURL *url = [NSURL URLWithString:urlStr] ;

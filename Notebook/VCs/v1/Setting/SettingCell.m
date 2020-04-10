@@ -8,7 +8,6 @@
 
 #import "SettingCell.h"
 #import "MDThemeConfiguration.h"
-#import <BlocksKit+UIKit.h>
 #import "SetGeneralVC.h"
 #import "SetThemeVC.h"
 #import "SetEditorVC.h"
@@ -36,7 +35,7 @@
     self.topLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     self.bottomLine.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_iconColor, .2) ;
     WEAK_SELF
-    [self bk_whenTapped:^{
+    [self xt_whenTapped:^{
         
         [weakSelf.icon oct_buttonClickAnimationComplete:^{
             [weakSelf cellDidSelect] ;

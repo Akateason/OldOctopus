@@ -58,7 +58,7 @@
     
     WEAK_SELF
     [self.btClose xt_enlargeButtonsTouchArea] ;
-    [self.btClose bk_addEventHandler:^(id sender) {
+    [self.btClose xt_addEventHandler:^(id sender) {
         
         [weakSelf.btClose oct_buttonClickAnimationComplete:^{
             [weakSelf dismissViewControllerAnimated:YES completion:^{

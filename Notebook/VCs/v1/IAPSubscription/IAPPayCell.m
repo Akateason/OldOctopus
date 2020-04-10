@@ -34,7 +34,7 @@
     self.lbRestore.attributedText = attrStr ;
     self.lbRestore.userInteractionEnabled = YES ;
     
-    [self.lbRestore bk_whenTapped:^{
+    [self.lbRestore xt_whenTapped:^{
         
         if (![XTIcloudUser hasLogin]) {
 //            [SVProgressHUD showInfoWithStatus:@"请登录"] ;

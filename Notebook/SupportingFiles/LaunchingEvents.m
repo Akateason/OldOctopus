@@ -147,14 +147,13 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
 
 - (void)setupDB {
 #ifdef DEBUG
-    [XTlibConfig sharedInstance].isDebug    = YES;
-//    [XTFMDBBase sharedInstance].isDebugMode = YES;
+    [XTlibConfig sharedInstance].isShowControllerLifeCycle = YES;
+    [XTFMDBBase sharedInstance].isDebugMode = YES;
     [[XTFMDBBase sharedInstance] configureDBWithPath:OCTUPUS_DB_Location_Dev];
     NSLog(@"db path : %@",OCTUPUS_DB_Location_Dev) ;
     [XTRequest shareInstance].isDebug = YES ;
     
 #else
-    [XTlibConfig sharedInstance].isDebug    = NO;
     [[XTFMDBBase sharedInstance] configureDBWithPath:OCTUPUS_DB_Location];
 #endif
     

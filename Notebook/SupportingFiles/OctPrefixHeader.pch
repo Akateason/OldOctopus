@@ -28,12 +28,6 @@
 #define LOG_LEVEL_DEF ddLogLevel
 #import <CocoaLumberjack.h>
 
-#ifdef DEBUG
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
-#else
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
-#endif
-
 
 
 #define DLogINFO(format, ...) DDLogInfo((@"\n\nINFO[文件名:%s]\n""[函数名:%s]\n""[行号:%d]\n" format), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);

@@ -8,7 +8,6 @@
 
 #import "TableCreatorView.h"
 #import <XTlib/XTlib.h>
-#import <BlocksKit+UIKit.h>
 #import "MDThemeConfiguration.h"
 
 @implementation TableCreatorView

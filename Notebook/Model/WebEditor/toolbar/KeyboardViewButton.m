@@ -9,7 +9,7 @@
 #import "KeyboardViewButton.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
-#import <BlocksKit+UIKit.h>
+
 
 @implementation KeyboardViewButton
 
@@ -27,7 +27,7 @@
     }] ;
     
     WEAK_SELF
-    [self bk_addEventHandler:^(id sender) {
+    [self xt_addEventHandler:^(id sender) {
         weakSelf.layer.transform = CATransform3DMakeScale(1.1, 1.1, 1) ;
         [UIView animateWithDuration:.2 animations:^{
             weakSelf.layer.transform = CATransform3DIdentity ;

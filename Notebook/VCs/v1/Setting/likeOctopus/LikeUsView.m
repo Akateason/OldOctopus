@@ -25,11 +25,11 @@
     self.backgroundColor = [UIColor colorWithWhite:0 alpha:.2] ;
     
     WEAK_SELF
-    [self.btLater bk_whenTapped:^{
+    [self.btLater xt_whenTapped:^{
         [weakSelf removeFromSuperview] ;
     }];
     
-    [self.btReply bk_whenTapped:^{
+    [self.btReply xt_whenTapped:^{
         NSString *urlStr = @"https://fankui.shimo.im/?type=create&tags[]=5cd3dc0c27f63b001104c052" ;
         NSURL *url = [NSURL URLWithString:urlStr] ;
         [[UIApplication sharedApplication] openURL:url];
@@ -40,14 +40,14 @@
     }];
     
     self.goStoreView.userInteractionEnabled = YES ;
-    [self.goStoreView bk_whenTapped:^{
+    [self.goStoreView xt_whenTapped:^{
         NSString *str = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?action=write-review", @"1455174888"] ;
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
         
         [weakSelf removeFromSuperview] ;
     }];
     
-    [self.btBackground bk_whenTapped:^{
+    [self.btBackground xt_whenTapped:^{
         [weakSelf removeFromSuperview] ;
     }] ;
     

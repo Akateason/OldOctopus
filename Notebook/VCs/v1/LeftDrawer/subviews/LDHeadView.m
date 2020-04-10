@@ -9,7 +9,7 @@
 #import "LDHeadView.h"
 #import "XTCloudHandler.h"
 #import "MDThemeConfiguration.h"
-#import <BlocksKit+UIKit.h>
+
 #import "LDNotebookCell.h"
 #import "Note.h"
 #import "NoteBooks.h"
@@ -47,7 +47,7 @@
     [self.btTheme xt_enlargeButtonsTouchArea] ;
     
     @weakify(self)
-    [self.btTheme bk_whenTapped:^{
+    [self.btTheme xt_whenTapped:^{
         @strongify(self)
         
         UIView *circle = [UIView new] ;
@@ -74,14 +74,14 @@
     }] ;
                 
     self.userHead.userInteractionEnabled = self.lbName.userInteractionEnabled = YES ;
-    [self.userHead bk_whenTapped:^{
+    [self.userHead xt_whenTapped:^{
         @strongify(self)
         if (![XTIcloudUser hasLogin]) {
             [[XTCloudHandler sharedInstance] alertCallUserToIcloud:self.xt_viewController] ;
         }
     }] ;
     
-    [self.lbName bk_whenTapped:^{
+    [self.lbName xt_whenTapped:^{
         @strongify(self)
         if (![XTIcloudUser hasLogin]) {
             [[XTCloudHandler sharedInstance] alertCallUserToIcloud:self.xt_viewController] ;

@@ -8,7 +8,7 @@
 
 #import "OctShareCopyLinkView.h"
 #import <XTlib/XTlib.h>
-#import <BlocksKit+UIKit.h>
+
 #import "MDThemeConfiguration.h"
 
 

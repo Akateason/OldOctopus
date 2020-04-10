@@ -51,11 +51,11 @@
     popVC.xt_theme_backgroundColor = k_md_bgColor ;
     
     @weakify(vc)
-    [vc.btCreate bk_addEventHandler:^(id sender) {
+    [vc.btCreate xt_addEventHandler:^(id sender) {
         @strongify(vc)
         blkChanged(vc.lbEmoji.text, vc.tfName.text) ;
     } forControlEvents:UIControlEventTouchUpInside] ;
-    [vc.btCancel bk_addEventHandler:^(id sender) {
+    [vc.btCancel xt_addEventHandler:^(id sender) {
         blkCancel();
     } forControlEvents:UIControlEventTouchUpInside] ;
     
@@ -107,12 +107,12 @@
     self.lbEmoji.text = [EmojiJson randomADistinctEmojiWithBooklist:booklist] ;
 
     WEAK_SELF
-    [self.lbEmoji bk_whenTapped:^{
+    [self.lbEmoji xt_whenTapped:^{
         [weakSelf.tfName resignFirstResponder] ;
         [EmojiChooseVC showMeFrom:weakSelf fromView:weakSelf.lbEmoji] ;
     }] ;
     
-    [self.btBg bk_whenTapped:^{
+    [self.btBg xt_whenTapped:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     

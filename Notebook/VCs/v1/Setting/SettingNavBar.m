@@ -8,7 +8,6 @@
 
 #import "SettingNavBar.h"
 #import "MDThemeConfiguration.h"
-#import <BlocksKit+UIKit.h>
 #import "GlobalDisplaySt.h"
 
 @interface SettingNavBar ()
@@ -52,7 +51,7 @@
             make.centerY.equalTo(self) ;
         }] ;
         WEAK_SELF
-        [back bk_whenTapped:^{
+        [back xt_whenTapped:^{
             [weakSelf.xt_navigationController popViewControllerAnimated:YES] ;
         }] ;
         self.back = back ;
@@ -68,7 +67,7 @@
             make.right.equalTo(self).offset(-20) ;
             make.centerY.equalTo(self) ;
         }] ;
-        [close bk_whenTapped:^{
+        [close xt_whenTapped:^{
             [weakSelf.xt_viewController dismissViewControllerAnimated:YES completion:nil] ;
         }] ;
     }

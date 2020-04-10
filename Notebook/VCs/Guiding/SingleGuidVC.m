@@ -9,7 +9,6 @@
 #import "SingleGuidVC.h"
 #import "MDThemeConfiguration.h"
 #import <XTlib/XTlib.h>
-#import <BlocksKit+UIKit.h>
 
 @interface SingleGuidVC ()
 
@@ -62,7 +61,7 @@
         
         self.btStart.userInteractionEnabled = YES ;
         WEAK_SELF
-        [self.btStart bk_whenTapped:^{
+        [self.btStart xt_whenTapped:^{
             [weakSelf.delegate startOnClick] ;
         }] ;
 

@@ -46,7 +46,7 @@
     
     [self.btMore xt_enlargeButtonsTouchArea] ;
     WEAK_SELF
-    [self.btMore bk_addEventHandler:^(id sender) {
+    [self.btMore xt_addEventHandler:^(id sender) {
         
         [weakSelf.btMore oct_buttonClickAnimationComplete:^{
             id vc = weakSelf.xt_viewController ;

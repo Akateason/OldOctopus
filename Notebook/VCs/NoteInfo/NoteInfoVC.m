@@ -74,19 +74,19 @@ typedef void(^BlkRemove)(NoteInfoVC *infoVC) ;
     }
     
     WEAK_SELF
-    [self.btOutput bk_addEventHandler:^(id sender) {
+    [self.btOutput xt_addEventHandler:^(id sender) {
         weakSelf.blkOutput(weakSelf) ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btRemove bk_addEventHandler:^(id sender) {
+    [self.btRemove xt_addEventHandler:^(id sender) {
         weakSelf.blkRemove(weakSelf) ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btClose bk_addEventHandler:^(id sender) {
+    [self.btClose xt_addEventHandler:^(id sender) {
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btBg bk_whenTapped:^{
+    [self.btBg xt_whenTapped:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     

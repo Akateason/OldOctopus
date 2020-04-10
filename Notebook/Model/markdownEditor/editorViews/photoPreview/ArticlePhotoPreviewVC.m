@@ -7,8 +7,8 @@
 //
 
 #import "ArticlePhotoPreviewVC.h"
-#import <XTlib/XTZoomPicture.h>
 #import "MdInlineModel.h"
+#import <XTlib/XTZoomPicture.h>
 
 typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
 
@@ -47,18 +47,22 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
 - (void)prepareUI {
     self.deleteButton.hidden = YES ;
     self.downloadButton.hidden = YES ;
-    
-    
-    
+            
     @weakify(self)
-    self.zoomPic = [[XTZoomPicture alloc] initWithFrame:self.bounds imageUrl:self.src tapped:^{
-        @strongify(self)
-        [self removeFromSuperview] ;
-    } loadComplete:^{
+    XTZoomPicture *zp = [[XTZoomPicture alloc] initWithFrame:self.bounds];
+    zp.backgroundColor = [UIColor blackColor];
+    [zp.imageView sd_setImageWithURL:[NSURL URLWithString:self.src] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         @strongify(self)
         self.downloadButton.hidden = NO ;
         self.deleteButton.hidden = NO ;
-    }] ;
+    }];
+        
+    [zp onTapped:^{
+        [self removeFromSuperview] ;
+    }];
+        
+    self.zoomPic = zp;
+    
     if (![self.src hasPrefix:@"http"]) {
         NSData *data = [NSData dataWithContentsOfFile:self.src] ;
         UIImage *image = [UIImage imageWithData:data] ;
@@ -66,6 +70,9 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     }
     
     [self addSubview:self.zoomPic] ;
+    [self.zoomPic mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
     
     self.deleteButton = ({
         UIButton *bt = [UIButton new] ;
@@ -101,19 +108,17 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     
     
     WEAK_SELF
-    [self.deleteButton bk_whenTapped:^{
+    [self.deleteButton xt_whenTapped:^{
         weakSelf.blkDelete(weakSelf) ;
     }] ;
     
-    [self.downloadButton bk_whenTapped:^{
+    [self.downloadButton xt_whenTapped:^{
         
         UIImage *imgSave = [weakSelf.zoomPic valueForKey:@"backImage"] ;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [CommonFunc saveImageToLibrary:imgSave complete:^(bool success) {
-                
+            [XTPhotoSaver saveImage:imgSave inAlbum:@"小章鱼" complete:^(BOOL bSave) {
                 [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
-                
-            }] ;
+            }];
         }) ;
         
     }] ;

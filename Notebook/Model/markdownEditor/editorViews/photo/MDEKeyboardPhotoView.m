@@ -8,7 +8,7 @@
 
 #import "MDEKeyboardPhotoView.h"
 #import <XTlib/XTlib.h>
-#import <BlocksKit+UIKit.h>
+
 #import <XTlib/XTPhotoAlbum.h>
 #import <Photos/Photos.h>
 #import "MDEKPhotoViewCell.h"
@@ -48,31 +48,31 @@ typedef void(^BlkCollectionFlowPressed)(XTImageItem *image);
     [photoView setupUIs] ;
     
     @weakify(photoView)
-    [photoView.btViewCamera bk_whenTapped:^{
+    [photoView.btViewCamera xt_whenTapped:^{
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_User_Open_Camera object:nil] ;
         }) ;
     }] ;
-    [photoView.btViewAlbum bk_whenTapped:^{
+    [photoView.btViewAlbum xt_whenTapped:^{
         @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{                        
             [photoView albumAddCrop:blkPressAlbum] ;
         }) ;
     }] ;
-    [photoView.btLink bk_whenTapped:^{
+    [photoView.btLink xt_whenTapped:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             linkPressed() ;
         }) ;
     }] ;
     
-    [photoView.btUnsplash bk_whenTapped:^{
+    [photoView.btUnsplash xt_whenTapped:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             unsplashPressed() ;
         }) ;
     }] ;
     
-    [photoView.btOCR bk_whenTapped:^{
+    [photoView.btOCR xt_whenTapped:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             ocrPressed() ;
         }) ;

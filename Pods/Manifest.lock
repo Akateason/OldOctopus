@@ -60,7 +60,7 @@ PODS:
   - "UITableView+FDTemplateLayoutCell (1.6)"
   - Valet (2.4.2)
   - WKWebViewWithURLProtocol (0.1.0)
-  - XTBase (1.5.0):
+  - XTBase (1.6.1):
     - CocoaLumberjack (= 3.6.1)
     - Masonry
     - MJRefresh
@@ -80,11 +80,11 @@ PODS:
   - XTIAP (1.1.1):
     - XTBase
     - XTReq
-  - XTlib (2.0.2):
-    - XTlib/base (= 2.0.2)
-  - XTlib/Animations (2.0.2):
+  - XTlib (2.0.5):
+    - XTlib/base (= 2.0.5)
+  - XTlib/Animations (2.0.5):
     - XTlib/base
-  - XTlib/base (2.0.2):
+  - XTlib/base (2.0.5):
     - FDFullscreenPopGesture
     - XTBase
     - XTColor
@@ -93,7 +93,7 @@ PODS:
     - XTReq (> 1.3.0)
     - XTRouter
     - XTTable
-  - XTlib/CustomUIs (2.0.2):
+  - XTlib/CustomUIs (2.0.5):
     - CHTCollectionViewWaterfallLayout
     - RSKImageCropper
     - XTlib/base
@@ -125,11 +125,11 @@ DEPENDENCIES:
   - MSDynamicsDrawerViewController
   - SSZipArchive
   - WKWebViewWithURLProtocol
-  - XTBase
+  - XTBase (from `../../xtcProjects/XTBase/`)
   - XTIAP
-  - XTlib
-  - XTlib/Animations
-  - XTlib/CustomUIs
+  - XTlib (from `../../xtcProjects/XTlib/`)
+  - XTlib/Animations (from `../../xtcProjects/XTlib/`)
+  - XTlib/CustomUIs (from `../../xtcProjects/XTlib/`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -160,15 +160,19 @@ SPEC REPOS:
     - "UITableView+FDTemplateLayoutCell"
     - Valet
     - WKWebViewWithURLProtocol
-    - XTBase
     - XTColor
     - XTFMDB
     - XTIAP
-    - XTlib
     - XTReq
     - XTRouter
     - XTTable
     - YYModel
+
+EXTERNAL SOURCES:
+  XTBase:
+    :path: "../../xtcProjects/XTBase/"
+  XTlib:
+    :path: "../../xtcProjects/XTlib/"
 
 SPEC CHECKSUMS:
   AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
@@ -198,16 +202,16 @@ SPEC CHECKSUMS:
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   Valet: 14463ef24fab8fd5809044ecedb61484b799fdd6
   WKWebViewWithURLProtocol: f7f2b367c40680105794a068ed2bb2cd5922c27c
-  XTBase: a923c1bccae9415ea563f8260f154e1b329dafb0
+  XTBase: b4f46c9c1c9a18c891571beeb2457ca1cdca5758
   XTColor: 2f9cb9260812471c711e765677065edc81f96152
   XTFMDB: 887cd4674e50d8c303635c45d8004070c6f76196
   XTIAP: 890fb3ebedefe6b4da331f416d486e02e6ea0c13
-  XTlib: 5a951682fe97615799b8ccacb32c24cbed7ffd76
+  XTlib: f670db9b33a2f5b56b4c3ced83ddb61f932f5a18
   XTReq: 521ce757e41f742b1513ee9c2dd7fb139a780e52
   XTRouter: 389d1e740b1021f5218eacbb1da3fc7ebc3ca2bf
   XTTable: 71154f0f7e883546d83a3b377f919369fc7d1ece
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 83d16b33363ea7b7150c4dd98303a1959f2bba74
+PODFILE CHECKSUM: ed375ed78f7f21b5e982cd7730404a2c4e39cb6e
 
 COCOAPODS: 1.9.1

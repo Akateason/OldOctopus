@@ -73,9 +73,10 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
     [XTRequest downLoadFileWithSavePath:[self getPicFilePath]
                           fromUrlString:self.request.URL.absoluteString
                                  header:nil
+                             autoResume:YES
                        downLoadProgress:^(float progressVal) {
-
-    } success:^(NSURLResponse *response, id dataFile) {
+        
+    } success:^(NSURLResponse * _Nonnull response, id  _Nonnull dataFile) {
         @strongify(self)
 
         [NSKeyedArchiver archiveRootObject:response toFile:[self getPicURLResponsePath]];
@@ -86,12 +87,10 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
 
         [dataFile writeToFile:[self getPicFilePath] atomically:YES] ;
         [self.client URLProtocolDidFinishLoading:self];
-        
-    } failure:^(NSURLSessionDownloadTask *task, NSError *error) {
+    } failure:^(NSURLSessionDownloadTask * _Nonnull task, NSError * _Nonnull error) {
         @strongify(self)
         [self.client URLProtocol:self didFailWithError:error];
-
-    }] ;
+    }];
 }
 
 - (void)stopLoading {

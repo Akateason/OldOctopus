@@ -16,7 +16,6 @@
 #import "XTCloudHandler.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
 #import "Note.h"
 #import "NoteBooks.h"
 #import "UIView+OctupusExtension.h"
@@ -88,7 +87,7 @@
     }] ;
     
     // 清数据 暗开关
-    [self.view bk_whenTouches:2 tapped:7 handler:^{
+    [self.view xt_whenTouches:2 tapped:7 handler:^{
         [HiddenUtil showAlert] ;
     }] ;
 }
@@ -141,7 +140,7 @@
     
     
     WEAK_SELF
-    [self.btClose bk_whenTapped:^{
+    [self.btClose xt_whenTapped:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
@@ -160,7 +159,7 @@
         lb ;
     }) ;
     self.lbVersionNum.userInteractionEnabled = YES ;
-    [self.lbVersionNum bk_whenTapped:^{
+    [self.lbVersionNum xt_whenTapped:^{
         OctGuidingVC *vc = [OctGuidingVC getMeForce] ;
         vc.modalPresentationStyle = UIModalPresentationFullScreen ;
         [weakSelf.navigationController presentViewController:vc animated:YES completion:nil] ;
@@ -174,11 +173,11 @@
     
     self.userHead.userInteractionEnabled = self.lbName.userInteractionEnabled = YES ;
     
-    [self.userHead bk_whenTapped:^{
+    [self.userHead xt_whenTapped:^{
         if (![XTIcloudUser hasLogin]) [[XTCloudHandler sharedInstance] alertCallUserToIcloud:weakSelf] ;
     }] ;
     
-    [self.lbName bk_whenTapped:^{
+    [self.lbName xt_whenTapped:^{
         if (![XTIcloudUser hasLogin]) [[XTCloudHandler sharedInstance] alertCallUserToIcloud:weakSelf] ;
     }] ;
 }

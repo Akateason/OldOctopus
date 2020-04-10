@@ -273,7 +273,7 @@
     self.btAdd.touchExtendInset = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     self.btAdd.xt_theme_imageColor = k_md_themeColor ;
     @weakify(self)
-    [self.btAdd bk_addEventHandler:^(id sender) {
+    [self.btAdd xt_addEventHandler:^(id sender) {
         @strongify(self)
         
         @weakify(self)
@@ -285,7 +285,7 @@
     
     self.btMore.touchExtendInset = UIEdgeInsetsMake(-15, -15, -15, -15) ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
-    [self.btMore bk_addEventHandler:^(id sender) {
+    [self.btMore xt_addEventHandler:^(id sender) {
         @strongify(self)
         
         @weakify(self)
@@ -296,7 +296,7 @@
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     self.btLeftDraw.userInteractionEnabled = YES ;
-    [self.btLeftDraw bk_whenTapped:^{
+    [self.btLeftDraw xt_whenTapped:^{
         @strongify(self)
         
         @weakify(self)
@@ -307,7 +307,7 @@
     }] ;
     
     self.nameOfNoteBook.userInteractionEnabled = YES ;
-    [self.nameOfNoteBook bk_whenTapped:^{
+    [self.nameOfNoteBook xt_whenTapped:^{
         @strongify(self)
         
         @weakify(self)
@@ -511,7 +511,7 @@
     if (!_phView) {
         _phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         WEAK_SELF
-        [_phView.area bk_whenTapped:^{
+        [_phView.area xt_whenTapped:^{
             Note *aNote = [[Note alloc] initWithBookID:self.leftVC.currentBook.icRecordName content:@"" title:@""] ;            
             [weakSelf newNoteCombineFunc:aNote] ;
         }] ;
@@ -524,7 +524,7 @@
         SearchEmptyVC *vc = [SearchEmptyVC getCtrllerFromNIB] ;
         [vc viewDidLoad] ;
         _sEmptyVC = vc ;
-        [_sEmptyVC.view bk_whenTapped:^{
+        [_sEmptyVC.view xt_whenTapped:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_new_Note_In_Pad object:nil] ;
         }] ;
     }

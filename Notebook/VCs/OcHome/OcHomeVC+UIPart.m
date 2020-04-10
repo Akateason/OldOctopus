@@ -68,7 +68,7 @@
     
     [self.btSortWay setImage:ssave.homePageCellDisplayWay_isLine ? [UIImage imageNamed:@"h_list_sort_line"] : [UIImage imageNamed:@"h_list_sort_square"] forState:0] ;
     
-    [self.btSortWay bk_addEventHandler:^(id sender) {
+    [self.btSortWay xt_addEventHandler:^(id sender) {
         
         [weakSelf.btSortWay setImage:ssave.homePageCellDisplayWay_isLine ? [UIImage imageNamed:@"h_list_sort_line"] : [UIImage imageNamed:@"h_list_sort_square"] forState:0] ;
 
@@ -86,7 +86,7 @@
     
     
     
-    [self.btUser bk_addEventHandler:^(id sender) {
+    [self.btUser xt_addEventHandler:^(id sender) {
         
         [weakSelf.btUser oct_buttonClickAnimationComplete:^{
             
@@ -96,7 +96,7 @@
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     
-    [self.btSearch bk_addEventHandler:^(id sender) {
+    [self.btSearch xt_addEventHandler:^(id sender) {
         
         [weakSelf.btSearch oct_buttonClickAnimationComplete:^{
             
@@ -105,7 +105,7 @@
         
     } forControlEvents:UIControlEventTouchUpInside] ;
     
-    [self.btAdd bk_whenTapped:^{
+    [self.btAdd xt_whenTapped:^{
 
         [weakSelf.btAdd oct_buttonClickAnimationComplete:^{
 
@@ -149,7 +149,7 @@
             make.width.equalTo(@46) ;
         }] ;
 
-        [obj bk_whenTapped:^{
+        [obj xt_whenTapped:^{
             [weakSelf goToAllBookVC] ;
         }] ;
         
@@ -157,7 +157,7 @@
     }) ;
     
     
-    [self.btAllNote bk_addEventHandler:^(id sender) {
+    [self.btAllNote xt_addEventHandler:^(id sender) {
         
         [weakSelf.lbAll oct_buttonClickAnimationComplete:^{
             [weakSelf goToAllBookVC] ;

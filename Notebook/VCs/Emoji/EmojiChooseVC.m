@@ -60,59 +60,59 @@
     self.searchData = [EmojiJsonManager sharedInstance].allList ;
     
     WEAK_SELF
-    [self.btClose bk_addEventHandler:^(id sender) {
+    [self.btClose xt_addEventHandler:^(id sender) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.lbHistory bk_whenTapped:^{
+    [self.lbHistory xt_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
                                             animated:YES] ;
         [weakSelf moveSelectedUnderLine:weakSelf.lbHistory] ;
     }] ;
-    [self.lbPeople bk_whenTapped:^{
+    [self.lbPeople xt_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
                                             animated:YES] ;
         [weakSelf moveSelectedUnderLine:weakSelf.lbPeople] ;
     }] ;
-    [self.lbAnimal bk_whenTapped:^{
+    [self.lbAnimal xt_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
                                             animated:YES] ;
         [weakSelf moveSelectedUnderLine:weakSelf.lbAnimal] ;
     }] ;
-    [self.lbFood bk_whenTapped:^{
+    [self.lbFood xt_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:3] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
                                             animated:YES] ;
         [weakSelf moveSelectedUnderLine:weakSelf.lbFood] ;
     }] ;
-    [self.lbActive bk_whenTapped:^{
+    [self.lbActive xt_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:4] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
                                             animated:YES] ;
         [weakSelf moveSelectedUnderLine:weakSelf.lbActive] ;
     }] ;
-    [self.lbPlace bk_whenTapped:^{
+    [self.lbPlace xt_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:5] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
                                             animated:YES] ;
         [weakSelf moveSelectedUnderLine:weakSelf.lbPlace] ;
     }] ;
-    [self.lbObject bk_whenTapped:^{
+    [self.lbObject xt_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:6] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
                                             animated:YES] ;
         [weakSelf moveSelectedUnderLine:weakSelf.lbObject] ;
     }] ;
-    [self.lbSymbol bk_whenTapped:^{
+    [self.lbSymbol xt_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:7] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
                                             animated:YES] ;
         [weakSelf moveSelectedUnderLine:weakSelf.lbSymbol] ;
     }] ;
-    [self.lbFlag bk_whenTapped:^{
+    [self.lbFlag xt_whenTapped:^{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:8] ;
         [weakSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionTop)
                                             animated:YES] ;

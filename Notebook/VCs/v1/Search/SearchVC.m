@@ -40,7 +40,7 @@
     [self.tf becomeFirstResponder] ;
     
     @weakify(self)
-    [self.btCancel bk_addEventHandler:^(id sender) {
+    [self.btCancel xt_addEventHandler:^(id sender) {
         @strongify(self)
         [self.tf resignFirstResponder] ;
         [self dismissViewControllerAnimated:YES completion:nil] ;

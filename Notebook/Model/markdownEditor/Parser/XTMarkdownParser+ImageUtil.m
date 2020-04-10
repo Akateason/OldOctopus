@@ -58,15 +58,15 @@
     
     [imageModelList enumerateObjectsUsingBlock:^(MdInlineModel * _Nonnull imgModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        NSString *imgUrl = [imgModel imageUrl] ;
-        
-        NSInteger loc = imgModel.range.location + imgModel.range.length + idx ;
-        UIImage *imgResult = [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:imgUrl] ;
-        if (!imgResult) {
-            imgResult = self.imgManager.imagePlaceHolder ;
-        }
-        NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
-        [str insertAttributedString:attrAttach atIndex:loc] ;
+//        NSString *imgUrl = [imgModel imageUrl] ;
+//
+//        NSInteger loc = imgModel.range.location + imgModel.range.length + idx ;
+////        UIImage *imgResult = [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:imgUrl] ;
+//        if (!imgResult) {
+//            imgResult = self.imgManager.imagePlaceHolder ;
+//        }
+//        NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
+//        [str insertAttributedString:attrAttach atIndex:loc] ;
         
     }] ;
     
@@ -93,26 +93,26 @@
     
     [imageModelList enumerateObjectsUsingBlock:^(MdInlineModel * _Nonnull imgModel, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        NSString *imgUrl = [imgModel imageUrl] ;
-        
-        NSInteger loc = imgModel.range.location + imgModel.range.length ;
-        UIImage *imgResult = [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:imgUrl] ;
-        if (!imgResult) {
-            imgResult = self.imgManager.imagePlaceHolder ;
-            @weakify(self)
-            [self.imgManager imageWithUrlStr:imgUrl complete:^(UIImage * _Nonnull image) {
-                @strongify(self)
-                
-                NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
-                [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
-                
-
-                [self parseTextAndGetModelsInCurrentCursor:str.string textView:textView] ;
-            }] ;
-        }
-        
-        NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
-        [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
+//        NSString *imgUrl = [imgModel imageUrl] ;
+//
+//        NSInteger loc = imgModel.range.location + imgModel.range.length ;
+//        UIImage *imgResult = [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:imgUrl] ;
+//        if (!imgResult) {
+//            imgResult = self.imgManager.imagePlaceHolder ;
+//            @weakify(self)
+//            [self.imgManager imageWithUrlStr:imgUrl complete:^(UIImage * _Nonnull image) {
+//                @strongify(self)
+//
+//                NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
+//                [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
+//
+//
+//                [self parseTextAndGetModelsInCurrentCursor:str.string textView:textView] ;
+//            }] ;
+//        }
+//
+//        NSAttributedString *attrAttach = [self attrbuteStringWithInlineImageModel:imgModel image:imgResult] ;
+//        [str replaceCharactersInRange:NSMakeRange(loc, 1) withAttributedString:attrAttach] ;
     }] ;
     [str endEditing] ;
     

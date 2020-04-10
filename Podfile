@@ -4,17 +4,17 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 
 def commonPods
-      pod 'XTBase'
-      pod 'XTlib'
-      pod 'XTlib/Animations'
-      pod 'XTlib/CustomUIs'
+#      pod 'XTBase'
+#      pod 'XTlib'
+#      pod 'XTlib/Animations'
+#      pod 'XTlib/CustomUIs'
       pod 'XTIAP'
 
-    #pod 'XTBase',:path => '../XTBase/'
-    #pod 'XTlib',:path => '../../teason_project/XTlib/'
-    #pod 'XTlib/Animations',:path => '../../teason_project/XTlib/'
-    #pod 'XTlib/CustomUIs',:path => '../../teason_project/XTlib/'
-    #pod 'XTIAP',:path => '../XTIAP/'
+    pod 'XTBase',:path => '../../xtcProjects/XTBase/'
+    pod 'XTlib',:path => '../../xtcProjects/XTlib/'
+    pod 'XTlib/Animations',:path => '../../xtcProjects/XTlib/'
+    pod 'XTlib/CustomUIs',:path => '../../xtcProjects/XTlib/'
+#    pod 'XTIAP',:path => '../XTIAP/'
 
       pod 'IQKeyboardManager'
       pod 'EllipsePageControl'

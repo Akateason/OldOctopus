@@ -98,7 +98,7 @@ static int kPage_UnsplashVC = 1 ;
     
     
     WEAK_SELF
-    [self.btClose bk_addEventHandler:^(id sender) {
+    [self.btClose xt_addEventHandler:^(id sender) {
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
 }

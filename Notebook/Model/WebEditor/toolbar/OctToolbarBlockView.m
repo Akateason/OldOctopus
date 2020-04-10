@@ -10,7 +10,7 @@
 #import "KeyboardViewButton.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
-#import <BlocksKit+UIKit.h>
+
 #import "MarkdownModel.h"
 #import "OctToolbar.h"
 
@@ -98,78 +98,78 @@
 
     
     WEAK_SELF
-    [self.btUlist bk_addEventHandler:^(UIButton *sender) {
+    [self.btUlist xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectUList] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btOlist bk_addEventHandler:^(UIButton *sender) {
+    [self.btOlist xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectOrderlist] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btLeftTab bk_addEventHandler:^(UIButton *sender) {
+    [self.btLeftTab xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectLeftTab] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btRightTabg bk_addEventHandler:^(UIButton *sender) {
+    [self.btRightTabg xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectRightTab] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btTaskList bk_addEventHandler:^(UIButton *sender) {
+    [self.btTaskList xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectTaskList] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btQuote bk_addEventHandler:^(UIButton *sender) {
+    [self.btQuote xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectQuoteBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btSepline bk_addEventHandler:^(UIButton *sender) {
+    [self.btSepline xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectSepLine] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btCodeBlock bk_addEventHandler:^(UIButton *sender) {
+    [self.btCodeBlock xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectCodeBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btMath bk_addEventHandler:^(UIButton *sender) {
+    [self.btMath xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectMathBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btTable bk_addEventHandler:^(UIButton *sender) {
+    [self.btTable xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectTable] ;
         [weakSelf.scrollView removeFromSuperview] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
 
-    [self.btHtml bk_addEventHandler:^(UIButton *sender) {
+    [self.btHtml xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectHtml] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
-    [self.btVegaChart bk_addEventHandler:^(UIButton *sender) {
+    [self.btVegaChart xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectVegaChart] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
-    [self.btFlowChart bk_addEventHandler:^(UIButton *sender) {
+    [self.btFlowChart xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectFlowChart] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
-    [self.btSequnceDiag bk_addEventHandler:^(UIButton *sender) {
+    [self.btSequnceDiag xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectSequnceDiag] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
-    [self.btMermaid bk_addEventHandler:^(UIButton *sender) {
+    [self.btMermaid xt_addEventHandler:^(UIButton *sender) {
 
         [weakSelf.blkBoard_Delegate toolbarDidSelectMermaid] ;
     } forControlEvents:UIControlEventTouchUpInside] ;

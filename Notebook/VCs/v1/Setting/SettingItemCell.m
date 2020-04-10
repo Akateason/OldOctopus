@@ -9,7 +9,6 @@
 #import "SettingItemCell.h"
 #import "MDThemeConfiguration.h"
 #import "SettingSave.h"
-#import <BlocksKit+UIKit.h>
 
 @implementation SettingItemCell
 

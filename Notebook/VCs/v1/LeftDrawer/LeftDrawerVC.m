@@ -99,12 +99,12 @@ typedef void(^BlkTapBookCell)(void);
     
     @weakify(self)
     // 清数据 暗开关
-    [self.table bk_whenTouches:2 tapped:7 handler:^{
+    [self.table xt_whenTouches:2 tapped:7 handler:^{
         [HiddenUtil showAlert] ;
     }] ;
     
     [self.btSetting xt_enlargeButtonsTouchArea] ;
-    [self.btSetting bk_whenTapped:^{
+    [self.btSetting xt_whenTapped:^{
         @strongify(self)
         
         @weakify(self)
