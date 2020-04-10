@@ -18,7 +18,6 @@
 #import "MDThemeConfiguration.h"
 #import "XTCloudHandler.h"
 #import "UIView+OctupusExtension.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
 #import <XTlib/XTlib.h>
 #import "GlobalDisplaySt.h"
 #import "OctNotificationHeader.h"
