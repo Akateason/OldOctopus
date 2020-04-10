@@ -80,11 +80,11 @@ PODS:
   - XTIAP (1.1.1):
     - XTBase
     - XTReq
-  - XTlib (2.0.1):
-    - XTlib/base (= 2.0.1)
-  - XTlib/Animations (2.0.1):
+  - XTlib (2.0.2):
+    - XTlib/base (= 2.0.2)
+  - XTlib/Animations (2.0.2):
     - XTlib/base
-  - XTlib/base (2.0.1):
+  - XTlib/base (2.0.2):
     - FDFullscreenPopGesture
     - XTBase
     - XTColor
@@ -93,7 +93,7 @@ PODS:
     - XTReq (> 1.3.0)
     - XTRouter
     - XTTable
-  - XTlib/CustomUIs (2.0.1):
+  - XTlib/CustomUIs (2.0.2):
     - CHTCollectionViewWaterfallLayout
     - RSKImageCropper
     - XTlib/base
@@ -202,7 +202,7 @@ SPEC CHECKSUMS:
   XTColor: 2f9cb9260812471c711e765677065edc81f96152
   XTFMDB: 887cd4674e50d8c303635c45d8004070c6f76196
   XTIAP: 890fb3ebedefe6b4da331f416d486e02e6ea0c13
-  XTlib: b69fd61470c645ee719de8dffc783f04349e0bed
+  XTlib: 5a951682fe97615799b8ccacb32c24cbed7ffd76
   XTReq: 521ce757e41f742b1513ee9c2dd7fb139a780e52
   XTRouter: 389d1e740b1021f5218eacbb1da3fc7ebc3ca2bf
   XTTable: 71154f0f7e883546d83a3b377f919369fc7d1ece
