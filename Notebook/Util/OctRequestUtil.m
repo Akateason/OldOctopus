@@ -35,6 +35,8 @@
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
     NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
     NSDictionary *header = @{@"Authorization" : code} ;
+    
+    NSURLSessionUploadTask *task =
     [XTRequest uploadFileWithData:data urlStr:url header:header progress:^(float flt) {
         
     } success:^(NSURLResponse *response, id responseObject) {
@@ -50,13 +52,13 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completion(nil) ;
     }] ;
+    [task resume];
 }
 
 + (void)uploadImage:(XTImageItem *)item
            progress:(nullable void (^)(float progress))progressValueBlock
            complete:(void (^)(NSString *urlString))completion {
     
-//    NSString *url = @"https://shimo.im/octopus-api/files?uploadType=media" ;
     NSString *url = [self requestLinkWithNail:@"files?uploadType=media"] ;
     NSData *data = item.data ;
     NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName?:@"Default") ;
@@ -73,8 +75,9 @@
                              @"Content-Type":contentType} ;
     NSLog(@"upload url : %@\nheader : %@",url,header) ;
     
+    NSURLSessionUploadTask *task =
     [XTRequest uploadFileWithData:data urlStr:url header:header progress:^(float flt) {
-        
+        xt_LOG_DEBUG(@"上传: %@",@(flt));
     } success:^(NSURLResponse *response, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSString *url = responseObject[@"key"] ;
@@ -90,6 +93,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         completion(nil) ;
     }] ;
+    [task resume];
 }
 
 + (NSString *)formalLinkHead {
