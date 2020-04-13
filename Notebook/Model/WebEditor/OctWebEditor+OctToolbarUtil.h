@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OctWebEditor (OctToolbarUtil)
 
-- (void)uploadWebPhoto:(WebPhoto *)photo image:(UIImage *)image ;
+- (void)uploadWebPhoto:(WebPhoto *)photo image:(XTImageItem *)image ;
 - (void)hideKeyboard ;
 - (void)openKeyboard ;
 - (void)sendImageLocalPathWithImageItem:(XTImageItem *)imageItem ;
