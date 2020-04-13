@@ -44,9 +44,9 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate {
     
-//#ifdef ISIOS
-//    [Bugly startWithAppId:@"8abe605307"] ;
-//#endif
+#ifdef ISIOS
+    [Bugly startWithAppId:@"8abe605307"] ;
+#endif
     [self configUmeng];
     
     self.appDelegate = appDelegate ;
