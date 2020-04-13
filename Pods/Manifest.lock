@@ -58,6 +58,9 @@ PODS:
   - SVProgressHUD (2.2.5)
   - UIFontWDCustomLoader (0.1.0)
   - "UITableView+FDTemplateLayoutCell (1.6)"
+  - UMCAnalytics (6.1.0):
+    - UMCCommon
+  - UMCCommon (2.1.4)
   - Valet (2.4.2)
   - WKWebViewWithURLProtocol (0.1.0)
   - XTBase (1.6.1):
@@ -80,11 +83,11 @@ PODS:
   - XTIAP (1.1.1):
     - XTBase
     - XTReq
-  - XTlib (2.0.5):
-    - XTlib/base (= 2.0.5)
-  - XTlib/Animations (2.0.5):
+  - XTlib (2.0.6):
+    - XTlib/base (= 2.0.6)
+  - XTlib/Animations (2.0.6):
     - XTlib/base
-  - XTlib/base (2.0.5):
+  - XTlib/base (2.0.6):
     - FDFullscreenPopGesture
     - XTBase
     - XTColor
@@ -93,7 +96,7 @@ PODS:
     - XTReq (> 1.3.0)
     - XTRouter
     - XTTable
-  - XTlib/CustomUIs (2.0.5):
+  - XTlib/CustomUIs (2.0.6):
     - CHTCollectionViewWaterfallLayout
     - RSKImageCropper
     - XTlib/base
@@ -124,6 +127,8 @@ DEPENDENCIES:
   - MGSwipeTableCell
   - MSDynamicsDrawerViewController
   - SSZipArchive
+  - UMCAnalytics
+  - UMCCommon
   - WKWebViewWithURLProtocol
   - XTBase (from `../../xtcProjects/XTBase/`)
   - XTIAP
@@ -158,6 +163,8 @@ SPEC REPOS:
     - SVProgressHUD
     - UIFontWDCustomLoader
     - "UITableView+FDTemplateLayoutCell"
+    - UMCAnalytics
+    - UMCCommon
     - Valet
     - WKWebViewWithURLProtocol
     - XTColor
@@ -200,18 +207,20 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UIFontWDCustomLoader: 233f0f83e543b8f24a6299d7fc773be9d704fe22
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
+  UMCAnalytics: 3503f179f7af932b30af9ac161ac11fb48fa72b6
+  UMCCommon: b0703b0053323f598e01670ea702b8eb1e66e611
   Valet: 14463ef24fab8fd5809044ecedb61484b799fdd6
   WKWebViewWithURLProtocol: f7f2b367c40680105794a068ed2bb2cd5922c27c
   XTBase: b4f46c9c1c9a18c891571beeb2457ca1cdca5758
   XTColor: 2f9cb9260812471c711e765677065edc81f96152
   XTFMDB: 887cd4674e50d8c303635c45d8004070c6f76196
   XTIAP: 890fb3ebedefe6b4da331f416d486e02e6ea0c13
-  XTlib: f670db9b33a2f5b56b4c3ced83ddb61f932f5a18
+  XTlib: 7a383468c44a660126e191ddef7546b37efc8ed9
   XTReq: 521ce757e41f742b1513ee9c2dd7fb139a780e52
   XTRouter: 389d1e740b1021f5218eacbb1da3fc7ebc3ca2bf
   XTTable: 71154f0f7e883546d83a3b377f919369fc7d1ece
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: ed375ed78f7f21b5e982cd7730404a2c4e39cb6e
+PODFILE CHECKSUM: dac739f6c1d3548c2686626372b5c5725cbfc9a5
 
 COCOAPODS: 1.9.1

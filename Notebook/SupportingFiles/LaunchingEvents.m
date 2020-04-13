@@ -26,6 +26,7 @@
 #import <Photos/Photos.h>
 #import "AppstoreCommentUtil.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <UMCommon/UMCommon.h>
 
 
 #ifdef ISIOS
@@ -43,10 +44,11 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate {
     
-#ifdef ISIOS
-    [Bugly startWithAppId:@"8abe605307"] ;
-#endif
-
+//#ifdef ISIOS
+//    [Bugly startWithAppId:@"8abe605307"] ;
+//#endif
+    [self configUmeng];
+    
     self.appDelegate = appDelegate ;
     [self setupCocoaLumberjack] ;
     [[MDThemeConfiguration sharedInstance] setup] ;
@@ -63,6 +65,11 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupNotePreviewPicture] ;
     
     [self setupOCR] ;
+}
+
+- (void)configUmeng {
+    [UMConfigure initWithAppkey:@"5e93d5dddbc2ec07e86bc025" channel:@"App Store"];
+    
 }
 
 - (void)setupOCR {

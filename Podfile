@@ -27,6 +27,9 @@ def commonPods
       pod 'CocoaLumberjack'
       pod 'FTPopOverMenu'
       pod 'WKWebViewWithURLProtocol'
+      pod 'UMCCommon'
+      pod 'UMCAnalytics'
+
 end
 
 

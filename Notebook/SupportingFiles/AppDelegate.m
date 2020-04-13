@@ -58,7 +58,7 @@
     }
     // set Root Controller END
     
-    // 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
+    //Fix: 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
     NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
     if ([num intValue] != 1) {
         

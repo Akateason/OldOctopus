@@ -1,6 +1,6 @@
 {
   "name": "XTlib",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "summary": "a rapid develop lib for iOS",
   "description": "XTlib. a rapid develop lib for iOS .",
   "homepage": "https://github.com/Akateason/XTlib",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/Akateason/XTlib.git",
-    "tag": "2.0.5"
+    "tag": "2.0.6"
   },
   "default_subspecs": "base",
   "subspecs": [
