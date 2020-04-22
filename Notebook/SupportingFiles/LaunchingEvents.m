@@ -289,7 +289,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     path = [[NSBundle bundleForClass:self.class] pathForResource:@"introUsePro" ofType:@"md"] ;
     data = [[NSData alloc] initWithContentsOfFile:path];
     str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
-    Note *notePro = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"小章鱼 Pro 版"] ;
+    Note *notePro = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"小章鱼更多功能"] ;
     notePro.isSendOnICloud = NO ;
     notePro.icRecordName = @"iOS-note-pro-intro" ; // 默认文章介绍 id
     [notePro xt_insert] ;

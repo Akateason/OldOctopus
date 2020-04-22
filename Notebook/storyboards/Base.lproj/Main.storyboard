@@ -401,8 +401,8 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="部分主题需要订阅「小章鱼 Pro」才能使用。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxl-VV-aR2">
-                                <rect key="frame" x="20" y="161" width="279" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="更多精彩主题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxl-VV-aR2">
+                                <rect key="frame" x="20" y="161" width="84" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="8PN-34-ykm"/>
                                 </constraints>
