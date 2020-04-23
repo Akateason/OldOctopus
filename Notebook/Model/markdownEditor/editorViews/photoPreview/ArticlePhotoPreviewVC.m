@@ -114,7 +114,7 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     
     [self.downloadButton xt_whenTapped:^{
         
-        UIImage *imgSave = [weakSelf.zoomPic valueForKey:@"backImage"] ;
+        UIImage *imgSave = weakSelf.zoomPic.imageView.image;
         dispatch_async(dispatch_get_main_queue(), ^{
             [XTPhotoSaver saveImage:imgSave inAlbum:@"小章鱼" complete:^(BOOL bSave) {
                 [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
