@@ -71,7 +71,13 @@
          @strongify(self)
         NSURL *url = x.object ;
         NSString *path = url.path ;
-        NSString *md = [[NSString alloc] initWithContentsOfFile:path encoding:(NSUTF8StringEncoding) error:nil] ;
+        NSError *error;
+        NSString *md = [[NSString alloc] initWithContentsOfFile:path encoding:(NSUTF8StringEncoding) error:&error] ;
+        if (error) {
+            NSLog(@"err: %@",error);
+            return;
+        }
+        
         NSString *title = [Note getTitleWithContent:md] ;
         //1. 判断是否是documents目录下的已经存在的文章 ?
         NSString *documentsPath = [XTArchive getDocumentsPath] ;
