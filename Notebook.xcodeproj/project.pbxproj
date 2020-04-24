@@ -667,6 +667,7 @@
 		8FDA7369230A7BF700EEDC57 /* OcContainerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FDA7367230A7BF700EEDC57 /* OcContainerCell.xib */; };
 		8FDA736D230A7D5200EEDC57 /* OcNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDA736B230A7D5200EEDC57 /* OcNoteCell.m */; };
 		8FDA736E230A7D5200EEDC57 /* OcNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FDA736C230A7D5200EEDC57 /* OcNoteCell.xib */; };
+		8FDE119C2452CF14005B3132 /* OctImportFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDE119B2452CF14005B3132 /* OctImportFiles.m */; };
 		8FE0ADAB22E8466E0011C173 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FE0ADAA22E8466E0011C173 /* StoreKit.framework */; };
 		8FE0ADB022E945A40011C173 /* IAPSubscriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0ADAF22E945A40011C173 /* IAPSubscriptionVC.m */; };
 		8FE0ADB222E949D20011C173 /* setting_iap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0ADB122E949D20011C173 /* setting_iap@2x.png */; };
@@ -1208,6 +1209,8 @@
 		8FDA736A230A7D5200EEDC57 /* OcNoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OcNoteCell.h; sourceTree = "<group>"; };
 		8FDA736B230A7D5200EEDC57 /* OcNoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OcNoteCell.m; sourceTree = "<group>"; };
 		8FDA736C230A7D5200EEDC57 /* OcNoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OcNoteCell.xib; sourceTree = "<group>"; };
+		8FDE119A2452CF14005B3132 /* OctImportFiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctImportFiles.h; sourceTree = "<group>"; };
+		8FDE119B2452CF14005B3132 /* OctImportFiles.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OctImportFiles.m; sourceTree = "<group>"; };
 		8FE0ADAA22E8466E0011C173 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8FE0ADAE22E945A40011C173 /* IAPSubscriptionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAPSubscriptionVC.h; sourceTree = "<group>"; };
 		8FE0ADAF22E945A40011C173 /* IAPSubscriptionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IAPSubscriptionVC.m; sourceTree = "<group>"; };
@@ -1653,6 +1656,7 @@
 		8F626342221C02030066A429 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8FDE11992452CDD7005B3132 /* ImportFiles */,
 				8FD234A22339FFA9001003C8 /* Unsplash */,
 				8F173D7C22A1385F00FA4D8D /* WebEditor */,
 				8FEA9E49225B274C002A756B /* EmojiJson */,
@@ -2212,6 +2216,15 @@
 				8FC62E9923A77BD4001BFA81 /* OcLineNoteCell.xib */,
 			);
 			path = OcHome;
+			sourceTree = "<group>";
+		};
+		8FDE11992452CDD7005B3132 /* ImportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				8FDE119A2452CF14005B3132 /* OctImportFiles.h */,
+				8FDE119B2452CF14005B3132 /* OctImportFiles.m */,
+			);
+			path = ImportFiles;
 			sourceTree = "<group>";
 		};
 		8FE0ADAD22E945860011C173 /* IAPSubscription */ = {
@@ -3215,6 +3228,7 @@
 				8F0CB78D22E9BBB400480DD4 /* IAPSuccessSubscriptionVC.m in Sources */,
 				8F679E2B2238FA17008DE1BC /* MdOtherModel.m in Sources */,
 				8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */,
+				8FDE119C2452CF14005B3132 /* OctImportFiles.m in Sources */,
 				8FEA9E4C225B27C1002A756B /* EmojiJson.m in Sources */,
 				8F6863C922671D0600261626 /* LDSepLineCell.m in Sources */,
 				8F7B2EC522C5E6F9000018DE /* SettingItemCell.m in Sources */,

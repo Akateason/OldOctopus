@@ -8,6 +8,8 @@
 
 #import "OcHomeVC+Notifications.h"
 #import "MarkdownVC.h"
+#import "OctImportFiles.h"
+
 
 @implementation OcHomeVC (Notifications)
 
@@ -70,47 +72,38 @@
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
         NSURL *url = x.object ;
-        NSString *path = url.path ;
-        NSError *error;
-        NSString *md = [[NSString alloc] initWithContentsOfFile:path encoding:(NSUTF8StringEncoding) error:&error] ;
-        if (error) {
-            NSLog(@"err: %@",error);
-            return;
-        }
+        NSString *path = url.path;
         
-        NSString *title = [Note getTitleWithContent:md] ;
-        //1. 判断是否是documents目录下的已经存在的文章 ?
-        NSString *documentsPath = [XTArchive getDocumentsPath] ;
-        if ([path containsString:documentsPath]) {
-        // 是否在docments目录下
-            NSString *uniqueKey = [[path componentsSeparatedByString:documentsPath] lastObject] ;
-            uniqueKey = [uniqueKey substringFromIndex:1] ;
-            uniqueKey = [uniqueKey substringToIndex:uniqueKey.length - 3] ;
-            NSLog(@"%@",uniqueKey) ;
-            Note *bNote = [Note xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",uniqueKey)] ;
-            if (bNote) {
-                //3. 如果文章已存在, 则打开已存在的文章进行编辑
-                // 已存在
-                [MarkdownVC newWithNote:bNote bookID:bNote.noteBookId fromCtrller:self] ;
+        // 获取导入的内容之后.
+        [OctImportFiles getMDContentOnImportedFiles:url completion:^(NSString * _Nonnull contentStr) {
+                        
+            NSString *title = [Note getTitleWithContent:contentStr] ;
+            //1. 判断是否是documents目录下的已经存在的文章 ?
+            NSString *documentsPath = [XTArchive getDocumentsPath] ;
+            if ([path containsString:documentsPath]) {
+            // 2. 是否在docments目录下
+                NSString *uniqueKey = [[path componentsSeparatedByString:documentsPath] lastObject] ;
+                uniqueKey = [uniqueKey substringFromIndex:1] ;
+                uniqueKey = [uniqueKey substringToIndex:uniqueKey.length - 3] ;
+                NSLog(@"%@",uniqueKey) ;
+                Note *bNote = [Note xt_findFirstWhere:XT_STR_FORMAT(@"icRecordName == '%@'",uniqueKey)] ;
+                if (bNote) {
+                    //3. 如果文章已存在, 则打开已存在的文章进行编辑
+                    // 已存在
+                    [MarkdownVC newWithNote:bNote bookID:bNote.noteBookId fromCtrller:self] ;
 
-                return ;
+                    return ;
+                }
             }
-            else {
-                // 不存在, 则新建
-            }
-        }
-        else {
-            // 不在docments目录下, 则新建
-        }
+                
+
+            //4. 不存在, 则新建文章
+            Note *aNote = [[Note alloc] initWithBookID:self.currentBook.icRecordName content:contentStr title:title] ;
+            [Note createNewNote:aNote] ;
+            [self getAllBooks] ;
+            [MarkdownVC newWithNote:aNote bookID:self.currentBook.icRecordName fromCtrller:self] ;
+        }];
         
-        //4. 则新建文章
-         Note *aNote = [[Note alloc] initWithBookID:self.currentBook.icRecordName content:md title:title] ;
-         [Note createNewNote:aNote] ;
-         
-         [self getAllBooks] ;
-         [MarkdownVC newWithNote:aNote bookID:self.currentBook.icRecordName fromCtrller:self] ;
-    
-
      }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Default_Note_And_Book_Updated object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
