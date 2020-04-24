@@ -37,6 +37,7 @@
         } else {
             completion(nil);
         }
+        [url stopAccessingSecurityScopedResource];
     }
 }
 
