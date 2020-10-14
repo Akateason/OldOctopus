@@ -11,6 +11,8 @@
 #import "YYModel.h"
 #import "XTReqConst.h"
 #import "XTRequest+UrlString.h"
+#import "XTUploadSessionManager.h"
+#import "XTDownloadSessionManager.h"
 
 @implementation XTRequest
 
@@ -264,9 +266,9 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     });
-
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager             = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    XTUploadSessionManager *manager = [XTUploadSessionManager shareInstance];
+    
     NSURL *URL                               = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request             = [NSMutableURLRequest requestWithURL:URL];
     request.timeoutInterval = 60;
@@ -284,7 +286,7 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
             }
         }
     }
-
+    
     __block NSURLSessionUploadTask *uploadTask =
         [manager uploadTaskWithRequest:request fromData:fileData progress:^(NSProgress *_Nonnull uploadProgress) {
             if (progressValueBlock) progressValueBlock(uploadProgress.fractionCompleted);
@@ -308,7 +310,7 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
                                                  urlStr:(NSString *)urlStr
                                                  header:(NSDictionary *)header
                                                 bodyDic:(NSDictionary *)body
-                                               progress:(nullable void (^)(float progressVal))progressValueBlock
+                                               progress:(void (^)(float progressVal))progressValueBlock
                                                 success:(void (^)(NSURLResponse *response, id responseObject))success
                                                 failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail {
     
@@ -333,8 +335,8 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
         }
     }
     
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]] ;
-
+    XTUploadSessionManager *manager = [XTUploadSessionManager shareInstance];
+    
     __block NSURLSessionUploadTask *uploadTask =
     [manager uploadTaskWithStreamedRequest:request
                                   progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -371,8 +373,9 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     });
-
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    XTDownloadSessionManager *manager = [XTDownloadSessionManager shareInstance];
+    
     NSURL *url                   = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     if (header) {
@@ -383,7 +386,7 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
     }
 
     __block NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress *_Nonnull downloadProgress) {
-        XTREQLog(@"url: %@ \n下载进度：%.0f％", urlString, downloadProgress.fractionCompleted * 100);
+        XTREQLog(@"url: %@ \nDownload PGS：%.0f％", urlString, downloadProgress.fractionCompleted * 100);
         if (progress) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 progress(downloadProgress.fractionCompleted);

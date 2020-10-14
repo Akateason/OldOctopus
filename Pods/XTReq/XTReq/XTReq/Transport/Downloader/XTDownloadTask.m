@@ -10,7 +10,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <ReactiveObjC/ReactiveObjC.h>
 #import "XTDownloadTask+Extension.h"
-
+#import "XTReqConst.h"
 
 typedef void(^BlkDownloadProgress)(XTDownloadTask *task, float pgs);
 typedef void(^BlkDownloadTaskComplete)(XTDownloadTask *task, XTReqTaskState state, NSError *error);
@@ -18,7 +18,7 @@ typedef void(^BlkDownloadTaskComplete)(XTDownloadTask *task, XTReqTaskState stat
 @interface XTDownloadTask ()
 @property (copy, nonatomic)   BlkDownloadProgress       blkDownloadPgs;
 @property (copy, nonatomic)   BlkDownloadTaskComplete   blkCompletion;
-@property (nonatomic, strong) AFURLSessionManager       *manager;
+@property (nonatomic, strong) AFHTTPSessionManager      *manager;
 @property (nonatomic, assign) NSInteger                 currentLength;
 @property (nonatomic, assign) NSInteger                 fileLength;
 @property (nonatomic, strong) NSFileHandle              *fileHandle;
@@ -57,10 +57,13 @@ typedef void(^BlkDownloadTaskComplete)(XTDownloadTask *task, XTReqTaskState stat
 
 #pragma mark - getter
 
-- (AFURLSessionManager *)manager {
+- (AFHTTPSessionManager *)manager {
     if (!_manager) {
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        _manager                                           = [[AFHTTPSessionManager alloc] initWithBaseURL:nil];
+        _manager.requestSerializer                         = [AFHTTPRequestSerializer serializer];
+        _manager.responseSerializer                        = [AFHTTPResponseSerializer serializer];
+        _manager.responseSerializer.acceptableContentTypes = nil; // let AFN accept all content-types .  https://stackoverflow.com/questions/28983213/afnetworking-accept-all-content-types
+        _manager.operationQueue.maxConcurrentOperationCount = 5;
     }
     return _manager;
 }
@@ -86,10 +89,10 @@ typedef void(^BlkDownloadTaskComplete)(XTDownloadTask *task, XTReqTaskState stat
                                                 downloadProgress:nil
                                                completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
             @strongify(self)
-            NSLog(@"🌞DownloadTask complete : %@ \n\n error.Desc : %@",response,error.localizedDescription);
+            XTREQLog(@"🌞DownloadTaskID %@ complete : %@ \n\n error.Desc : %@\n\nerror: %@",self.strURL,response,error.localizedDescription, error);
             
             BOOL isComplete;
-            if (error && error.code == -1005) { // 网络中断
+            if (error) { 
                 isComplete = NO;
                 self.state = XTReqTaskStateFailed;
             }
@@ -103,6 +106,10 @@ typedef void(^BlkDownloadTaskComplete)(XTDownloadTask *task, XTReqTaskState stat
                     _sessionDownloadTask = nil;
                 } else {
                     isComplete = self.state == XTReqTaskStateSuccessed;
+                    if (!isComplete) {
+                        isComplete = statusCode == 200 || statusCode == 206 ;
+                        if (isComplete && self.state != XTReqTaskStateSuccessed) self.state = XTReqTaskStateSuccessed;
+                    }                                        
                 }
             }
                         
@@ -111,7 +118,9 @@ typedef void(^BlkDownloadTaskComplete)(XTDownloadTask *task, XTReqTaskState stat
                 self.currentLength = 0;
                 self.fileLength = 0;
                 // close FileHandle
-                [self.fileHandle closeFile];
+                if (self.fileHandle != nil) {
+                    [self.fileHandle closeFile];
+                }
                 self.fileHandle = nil;
                 self.manager = nil;
             }
@@ -137,6 +146,14 @@ typedef void(^BlkDownloadTaskComplete)(XTDownloadTask *task, XTReqTaskState stat
         [self.manager setDataTaskDidReceiveDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSData * _Nonnull data) {
             @strongify(self)
             // 指定数据的写入位置 -- 文件内容的最后面
+            if (!self.fileHandle) {
+                self.state = XTReqTaskStateFailed;
+                return;
+            }
+            
+            // Fatal Exception: NSFileHandleOperationException
+            //*** -[NSConcreteFileHandle seekToEndOfFile]: Resource temporarily unavailable
+            // __37-[XTDownloadTask sessionDownloadTask]_block_invoke.125
             [self.fileHandle seekToEndOfFile];
             [self.fileHandle writeData:data];
             
@@ -167,7 +184,7 @@ typedef void(^BlkDownloadTaskComplete)(XTDownloadTask *task, XTReqTaskState stat
 
 - (void)offlineResume {
     if (self.state == XTReqTaskStateSuccessed) {
-        NSLog(@"已下载");
+        XTREQLog(@"id:%@ HAS ALREADY DOWNLOADED !",self.strURL);
         return;
     }
     
@@ -176,12 +193,16 @@ typedef void(^BlkDownloadTaskComplete)(XTDownloadTask *task, XTReqTaskState stat
     self.currentLength = currentLength;
     
     [self.sessionDownloadTask resume];
+    
+    XTREQLog(@"downloadTask: %@ RESUME",self.strURL);
 }
 
 - (void)offlinePause {
     self.state = XTReqTaskStatePaused;
     [_sessionDownloadTask suspend];
     _sessionDownloadTask = nil; // clear
+    
+    XTREQLog(@"downloadTask: %@ PAUSE",self.strURL);
 }
 
 - (void)invalidTask {

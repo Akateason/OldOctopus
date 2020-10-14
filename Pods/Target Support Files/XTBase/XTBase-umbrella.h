@@ -55,6 +55,7 @@
 #import "UIImage+AddFunction.h"
 #import "UIImage+XT.h"
 #import "UIImageView+QNExtention.h"
+#import "UIImageView+XtHugeImageDownsize.h"
 #import "UILabel+Addition.h"
 #import "UILabel+Calculate.h"
 #import "UIResponder+ChainHandler.h"
