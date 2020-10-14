@@ -39,6 +39,10 @@
 
 NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCompleteAllPageRefresh" ;
 
+@interface LaunchingEvents ()
+@property (strong, nonatomic) SceneDelegate *sceneDelegate;
+@end
+
 @implementation LaunchingEvents
 
 + (instancetype)currentEvents {
@@ -49,7 +53,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 #pragma mark - did finish launching
 
 - (void)setup:(UIWindow *)window scenceDelegate:(SceneDelegate *)sDelegate {
-    
+    self.sceneDelegate = sDelegate;
 #ifdef ISIOS
     [Bugly startWithAppId:@"8abe605307"] ;
 #endif
@@ -57,7 +61,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
         
     [self setupCocoaLumberjack] ;
     [[MDThemeConfiguration sharedInstance] setup] ;
-    [self setupWebZipPackageAndSetupWebView:sDelegate] ;
+    [self setupWebZipPackageAndSetupWebView] ;
     [self setupRemoteNotification:[UIApplication sharedApplication]] ;
     [self setupDB] ;
     [self setupNaviStyle] ;
@@ -66,9 +70,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupIcloudEvent] ; // get User. Then Pull or Sync .
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
-
     [self setupNotePreviewPicture] ;
-    
     [self setupOCR] ;
     
     [self setupRootWindow:window];
@@ -144,7 +146,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
  */
 static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; // +++
 
-- (void)setupWebZipPackageAndSetupWebView:(SceneDelegate *)sceneDelegate {
+- (void)setupWebZipPackageAndSetupWebView {
     // 图片缓存目录
     NSString *picPath = XT_LIBRARY_PATH_TRAIL_(@"pic") ;
     [XTFileManager createFolder:picPath] ;
@@ -169,7 +171,7 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
         XT_USERDEFAULT_SET_VAL(currentVersion, kMark_UNZip_Operation) ;
     }
     else {
-        [self setupWebView:sceneDelegate] ;
+        [self setupWebView] ;
     }
 }
 
@@ -177,13 +179,13 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
  SSZipArchiveDelegate
  */
 - (void)zipArchiveDidUnzipArchiveAtPath:(NSString *)path zipInfo:(unz_global_info)zipInfo unzippedPath:(NSString *)unzippedPath {
-    [self setupWebView:[FetchWindowUtil sceneDelegate]] ;
+    [self setupWebView] ;
 }
 
-- (void)setupWebView:(SceneDelegate *)sceneDelegate {
+- (void)setupWebView {
     OctWebEditor *editor = [[OctWebEditor alloc] init];
     [editor setup];
-    sceneDelegate.webEditor = editor;
+    self.sceneDelegate.webEditor = editor;
     
     //[[OctWebEditor currentOctWebEditor] setup];
 }
