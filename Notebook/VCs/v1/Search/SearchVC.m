@@ -40,11 +40,12 @@
     [self.tf becomeFirstResponder] ;
     
     @weakify(self)
-    [self.btCancel xt_addEventHandler:^(id sender) {
+    [[self.btCancel rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         [self.tf resignFirstResponder] ;
         [self dismissViewControllerAnimated:YES completion:nil] ;
-    } forControlEvents:UIControlEventTouchUpInside] ;
+    }];
+    
     
     [[[self.tf.rac_textSignal throttle:.3]
       deliverOnMainThread]

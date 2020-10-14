@@ -26,7 +26,7 @@
 #import <Photos/Photos.h>
 #import "AppstoreCommentUtil.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-#import <UMCommon/UMCommon.h>
+#import <UMCommon/UMConfigure.h>
 
 
 #ifdef ISIOS

@@ -63,53 +63,52 @@
     self.btSearch.touchExtendInset = UIEdgeInsetsMake(-10, -10, -10, -10);
     self.btSortWay.touchExtendInset = UIEdgeInsetsMake(-10, -10, -10, -10);
     
-    WEAK_SELF
-    SettingSave *ssave = [SettingSave fetch] ;
     
+    SettingSave *ssave = [SettingSave fetch] ;
     [self.btSortWay setImage:ssave.homePageCellDisplayWay_isLine ? [UIImage imageNamed:@"h_list_sort_line"] : [UIImage imageNamed:@"h_list_sort_square"] forState:0] ;
     
-    [self.btSortWay xt_addEventHandler:^(id sender) {
-        
-        [weakSelf.btSortWay setImage:ssave.homePageCellDisplayWay_isLine ? [UIImage imageNamed:@"h_list_sort_line"] : [UIImage imageNamed:@"h_list_sort_square"] forState:0] ;
+    @weakify(self)
+    [[self.btSortWay rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        [self.btSortWay setImage:ssave.homePageCellDisplayWay_isLine ? [UIImage imageNamed:@"h_list_sort_line"] : [UIImage imageNamed:@"h_list_sort_square"] forState:0] ;
 
-        [weakSelf.btSortWay oct_buttonClickAnimationComplete:^{
+        [self.btSortWay oct_buttonClickAnimationComplete:^{
             
             ssave.homePageCellDisplayWay_isLine = !ssave.homePageCellDisplayWay_isLine ;
             [ssave save] ;
 
             [[NSNotificationCenter defaultCenter] postNotificationName:kNote_SortWay_Changed object:nil] ;
         }] ;
-        
-
-    } forControlEvents:(UIControlEventTouchUpInside)] ;
-
+    }];
     
-    
-    
-    [self.btUser xt_addEventHandler:^(id sender) {
-        
-        [weakSelf.btUser oct_buttonClickAnimationComplete:^{
-            
-            [SettingVC getMeFromCtrller:weakSelf fromView:weakSelf.btUser] ;
+    [[self.btUser rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        @weakify(self)
+        [self.btUser oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [SettingVC getMeFromCtrller:self fromView:self.btUser] ;
         }] ;
-        
-    } forControlEvents:(UIControlEventTouchUpInside)] ;
+
+    }];
+
+ 
     
     
-    [self.btSearch xt_addEventHandler:^(id sender) {
-        
-        [weakSelf.btSearch oct_buttonClickAnimationComplete:^{
-            
-            [SearchVC showSearchVCFrom:weakSelf] ;
+    [[self.btSearch rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        @weakify(self)
+        [self.btSearch oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [SearchVC showSearchVCFrom:self] ;
         }] ;
-        
-    } forControlEvents:UIControlEventTouchUpInside] ;
+    }];
     
     [self.btAdd xt_whenTapped:^{
-
-        [weakSelf.btAdd oct_buttonClickAnimationComplete:^{
-
-            [weakSelf addBtOnClick:weakSelf.btAdd] ;
+        @strongify(self)
+        @weakify(self)
+        [self.btAdd oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self addBtOnClick:self.btAdd] ;
         }] ;
     }] ;
     
@@ -150,7 +149,7 @@
         }] ;
 
         [obj xt_whenTapped:^{
-            [weakSelf goToAllBookVC] ;
+            [self goToAllBookVC] ;
         }] ;
         
         obj ;
@@ -158,9 +157,11 @@
     
     
     [self.btAllNote xt_addEventHandler:^(id sender) {
-        
-        [weakSelf.lbAll oct_buttonClickAnimationComplete:^{
-            [weakSelf goToAllBookVC] ;
+        @strongify(self)
+        @weakify(self)
+        [self.lbAll oct_buttonClickAnimationComplete:^{
+            @strongify(self)
+            [self goToAllBookVC] ;
         }] ;
         
     } forControlEvents:(UIControlEventTouchUpInside)] ;

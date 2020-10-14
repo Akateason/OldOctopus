@@ -50,8 +50,8 @@
 #import "UITextView+XT.h"
 #import "NSAttributedString+XT.h"
 #import "UIImage+XT.h"
-
-
+#import "UIControl+XTAddition.h"
+#import "UIImageView+XtHugeImageDownsize.h"
 
 // Util
 #import "NSString+MD5.h"
@@ -61,6 +61,7 @@
 #import "XTFileManager.h"
 #import "XTArchive.h"
 #import "ValetManager.h"
+#import "XTPhotoSaver.h"
 #import "XTJson.h"
 #import "XTVerification.h"
 #import "XTMutableArray.h"

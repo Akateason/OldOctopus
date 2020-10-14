@@ -10,12 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import <Accelerate/Accelerate.h>
 #import "XTlibConst.h"
-
+#import <ReactiveObjC/ReactiveObjC.h>
 
 @implementation UIImage (XT)
-
-
-
 
 - (UIImage *)xt_cutImageWithCircleWithBorderWidth:(CGFloat)margin
                                       borderColor:(UIColor *)borderColor {
@@ -537,6 +534,7 @@
     return [UIImage imageWithData:data] ;
 }
 
-
-
 @end
+
+
+

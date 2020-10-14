@@ -44,12 +44,12 @@
     self.fd_prefersNavigationBarHidden = YES ;
     
     @weakify(self)
-    [self.btBack xt_addEventHandler:^(id sender) {
+    [[self.btBack rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         [self.navigationController popViewControllerAnimated:YES] ;
-    } forControlEvents:(UIControlEventTouchUpInside)] ;
+    }] ;
     
-    [self.btClear xt_addEventHandler:^(id sender) {
+    [[self.btClear rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         @weakify(self)
         [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"此操作将会清空垃圾桶内所有笔记，而且不可恢复。确认要清空吗？" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"确认清空" otherButtonTitles:nil fromWithView:self.btClear CallBackBlock:^(NSInteger btnIndex) {
@@ -58,8 +58,7 @@
                 [self clearAllTrash] ;
             }
         }] ;
-        
-    } forControlEvents:(UIControlEventTouchUpInside)] ;
+    }] ;
     
     self.btBack.xt_theme_imageColor = k_md_iconColor ;
     self.lbTitle.xt_theme_textColor = XT_MAKE_theme_color(k_md_textColor, .9) ;
@@ -132,9 +131,6 @@
         }
         
     }] ;
-    
-    
-    
 
 }
 

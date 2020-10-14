@@ -21,8 +21,12 @@
 #import "XTCacheRequest.h"
 #import "XTResponseDBModel.h"
 #import "XTReqTask.h"
+#import "XTDownloadOperation.h"
+#import "XTDownloadSessionManager.h"
 #import "XTDownloadTask+Extension.h"
 #import "XTDownloadTask.h"
+#import "XTUploadOperation.h"
+#import "XTUploadSessionManager.h"
 #import "XTUploadTask.h"
 
 FOUNDATION_EXPORT double XTReqVersionNumber;

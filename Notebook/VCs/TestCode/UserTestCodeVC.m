@@ -33,13 +33,14 @@ static NSString *k_UD_Inner_Test_Done = @"k_UD_Inner_Test_Done" ;
     
     self.view.backgroundColor = [UIColor lightGrayColor] ;
     
-    WEAK_SELF
-    [self.btGoNow xt_addEventHandler:^(id sender) {
+    @weakify(self)
+    [[self.btGoNow rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
         
         NSString *testCode = self.tfCode.text ;
         if ([testCode containsString:@"octopus"]) {
             XT_USERDEFAULT_SET_VAL(@1, k_UD_Inner_Test_Done) ;
-            [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
+            [self dismissViewControllerAnimated:YES completion:^{}] ;
             return ;
         }
         
@@ -52,24 +53,19 @@ static NSString *k_UD_Inner_Test_Done = @"k_UD_Inner_Test_Done" ;
         [OctRequestUtil verifyCode:testCode completion:^(bool success) {
             if (success) {
                 XT_USERDEFAULT_SET_VAL(@1, k_UD_Inner_Test_Done) ;
-                [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
+                [self dismissViewControllerAnimated:YES completion:^{}] ;
             }
             else {
                 [SVProgressHUD showErrorWithStatus:@"验证码错误~~"] ;
             }
         }] ;
+    }];
         
-    } forControlEvents:UIControlEventTouchUpInside] ;
-    
-    
-    [self.btGetInviteCode xt_addEventHandler:^(id sender) {
-        
+    [[self.btGetInviteCode rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://shimo.im/octopus"]] ;
-        
-    } forControlEvents:UIControlEventTouchUpInside] ;
+    }];
     
-    
-    [self.btCancel xt_addEventHandler:^(id sender) {
+    [[self.btCancel rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         
         AppDelegate *app = [UIApplication sharedApplication].delegate ;
         UIWindow *window = app.window ;
@@ -79,7 +75,7 @@ static NSString *k_UD_Inner_Test_Done = @"k_UD_Inner_Test_Done" ;
             exit(0) ;
         }] ;
         
-    } forControlEvents:UIControlEventTouchUpInside] ;
+    }] ;
     
     
 }

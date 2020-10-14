@@ -28,7 +28,7 @@ def commonPods
       pod 'FTPopOverMenu'
       pod 'WKWebViewWithURLProtocol'
       pod 'UMCCommon'
-      pod 'UMCAnalytics'
+#      pod 'UMCAnalytics'
 
 end
 

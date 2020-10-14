@@ -96,11 +96,11 @@ static int kPage_UnsplashVC = 1 ;
     self.lbTitle.xt_theme_textColor = k_md_textColor ;
     self.btClose.xt_theme_imageColor = k_md_iconColor ;
     
-    
-    WEAK_SELF
-    [self.btClose xt_addEventHandler:^(id sender) {
-        [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
-    } forControlEvents:(UIControlEventTouchUpInside)] ;
+    @weakify(self)
+    [[self.btClose rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        [self dismissViewControllerAnimated:YES completion:nil] ;
+    }];
 }
 
 #pragma mark - collection
