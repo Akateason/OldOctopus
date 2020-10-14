@@ -47,13 +47,13 @@ PODS:
   - Masonry (1.1.0)
   - MBProgressHUD (1.1.0)
   - MGSwipeTableCell (1.6.11)
-  - MJRefresh (3.3.1)
+  - MJRefresh (3.5.0)
   - MSDynamicsDrawerViewController (1.5.1)
   - ReactiveObjC (3.1.1)
-  - RSKImageCropper (2.2.3)
-  - SDWebImage (5.7.1):
-    - SDWebImage/Core (= 5.7.1)
-  - SDWebImage/Core (5.7.1)
+  - RSKImageCropper (3.0.0)
+  - SDWebImage (5.9.3):
+    - SDWebImage/Core (= 5.9.3)
+  - SDWebImage/Core (5.9.3)
   - SSZipArchive (2.2.2)
   - SVProgressHUD (2.2.5)
   - UIFontWDCustomLoader (0.1.0)
@@ -63,7 +63,7 @@ PODS:
   - UMCCommon (2.1.4)
   - Valet (2.4.2)
   - WKWebViewWithURLProtocol (0.1.0)
-  - XTBase (1.6.1):
+  - XTBase (1.7.2):
     - CocoaLumberjack (= 3.6.1)
     - Masonry
     - MJRefresh
@@ -130,11 +130,11 @@ DEPENDENCIES:
   - UMCAnalytics
   - UMCCommon
   - WKWebViewWithURLProtocol
-  - XTBase (from `../../xtcProjects/XTBase/`)
+  - XTBase
   - XTIAP
-  - XTlib (from `../../xtcProjects/XTlib/`)
-  - XTlib/Animations (from `../../xtcProjects/XTlib/`)
-  - XTlib/CustomUIs (from `../../xtcProjects/XTlib/`)
+  - XTlib
+  - XTlib/Animations
+  - XTlib/CustomUIs
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -167,19 +167,15 @@ SPEC REPOS:
     - UMCCommon
     - Valet
     - WKWebViewWithURLProtocol
+    - XTBase
     - XTColor
     - XTFMDB
     - XTIAP
+    - XTlib
     - XTReq
     - XTRouter
     - XTTable
     - YYModel
-
-EXTERNAL SOURCES:
-  XTBase:
-    :path: "../../xtcProjects/XTBase/"
-  XTlib:
-    :path: "../../xtcProjects/XTlib/"
 
 SPEC CHECKSUMS:
   AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
@@ -198,11 +194,11 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
-  MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   MSDynamicsDrawerViewController: 2874df90f5e9453dc7d4e32f8038b50615d4baa7
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
-  RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
-  SDWebImage: 5d4cf6afccd9ac1d2ee701ed0c4917cbb1b80536
+  RSKImageCropper: 81f449b4df96bdaf28e1ad6dcce28dcda2235458
+  SDWebImage: a31ee8e90a97303529e03fb0c333eae0eacb88e9
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UIFontWDCustomLoader: 233f0f83e543b8f24a6299d7fc773be9d704fe22
@@ -211,7 +207,7 @@ SPEC CHECKSUMS:
   UMCCommon: b0703b0053323f598e01670ea702b8eb1e66e611
   Valet: 14463ef24fab8fd5809044ecedb61484b799fdd6
   WKWebViewWithURLProtocol: f7f2b367c40680105794a068ed2bb2cd5922c27c
-  XTBase: b4f46c9c1c9a18c891571beeb2457ca1cdca5758
+  XTBase: d5a80b48cf09bd2d6beba41b8c6b49132b00123d
   XTColor: 2f9cb9260812471c711e765677065edc81f96152
   XTFMDB: 887cd4674e50d8c303635c45d8004070c6f76196
   XTIAP: 890fb3ebedefe6b4da331f416d486e02e6ea0c13
@@ -221,6 +217,6 @@ SPEC CHECKSUMS:
   XTTable: 71154f0f7e883546d83a3b377f919369fc7d1ece
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: dac739f6c1d3548c2686626372b5c5725cbfc9a5
+PODFILE CHECKSUM: 96dfa74249c810497b0de1fb1e68f6756e50c6b3
 
 COCOAPODS: 1.9.1
