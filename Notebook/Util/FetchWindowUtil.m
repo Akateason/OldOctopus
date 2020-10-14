@@ -7,7 +7,7 @@
 //
 
 #import "FetchWindowUtil.h"
-#import "SceneDelegate.h"
+
 
 @implementation FetchWindowUtil
 
@@ -23,6 +23,21 @@
     } else {
         AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
         return appDelegate.window;
+    }
+    return nil;
+}
+
++ (SceneDelegate *)sceneDelegate {
+    if (@available(iOS 13.0, *)) {
+        NSSet<UIScene *> * scenes = [[UIApplication sharedApplication] connectedScenes];
+        for (UIScene *scene in scenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive) {
+                SceneDelegate *sDelegate = (SceneDelegate *)((UIWindowScene *)scene.delegate);
+                return sDelegate;
+            }
+        }
+    } else {
+        return nil;
     }
     return nil;
 }

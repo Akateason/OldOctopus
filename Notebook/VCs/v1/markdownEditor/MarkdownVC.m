@@ -54,7 +54,7 @@
 }
 
 + (CGFloat)getEditorLeftIpad {
-    return - [OctWebEditor sharedInstance].sideWid + k_side_margin ;
+    return - [OctWebEditor currentOctWebEditor].sideWid + k_side_margin ;
 }
 
 #pragma mark - Life
@@ -120,9 +120,9 @@
     
     self.view.xt_maskToBounds = YES ;
     [self.editor toolBar] ;
-    [[OctWebEditor sharedInstance] setSideFlex] ;
-    [[OctWebEditor sharedInstance] setupSettings] ;
-    [OctWebEditor sharedInstance].note_clientID = self.aNote.pkid;
+    [[OctWebEditor currentOctWebEditor] setSideFlex] ;
+    [[OctWebEditor currentOctWebEditor] setupSettings] ;
+    [OctWebEditor currentOctWebEditor].note_clientID = self.aNote.pkid;
     
     SettingSave *sSave = [SettingSave fetch] ;
     float duration = [sSave currentAnimationDuration] ;
@@ -326,7 +326,7 @@ return;}
         self.aNote = newNote ;
         [Note createNewNote:self.aNote] ;
 
-        [OctWebEditor sharedInstance].note_clientID = self.aNote.pkid;
+        [OctWebEditor currentOctWebEditor].note_clientID = self.aNote.pkid;
         
         XT_USERDEFAULT_SET_VAL(newNote.icRecordName, kUDCached_lastNote_RecID) ;
         [self.delegate addNoteComplete:self.aNote] ;
@@ -493,12 +493,12 @@ return;}
 - (void)setCanBeEdited:(BOOL)canBeEdited {
     _canBeEdited = canBeEdited ;
     
-    [[OctWebEditor sharedInstance] setEditable:canBeEdited] ;
+    [[OctWebEditor currentOctWebEditor] setEditable:canBeEdited] ;
 }
 
 - (OctWebEditor *)editor {
     if (!_editor) {
-        _editor = [OctWebEditor sharedInstance] ;
+        _editor = [OctWebEditor currentOctWebEditor] ;
         _editor.bottom = self.view.bottom ;
         _editor.top = APP_STATUSBAR_HEIGHT ;
         _editor.width = [GlobalDisplaySt sharedInstance].containerSize.width ;

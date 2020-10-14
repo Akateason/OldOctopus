@@ -198,35 +198,35 @@
     
     
     if ([title isEqualToString:@"全选"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"selectAll" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"selectAll" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
     else if ([title isEqualToString:@"撤销"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectUndo] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectUndo] ;
     }
     else if ([title isEqualToString:@"重做"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectRedo] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectRedo] ;
     }
     
     else if ([title isEqualToString:@"以Markdown格式拷贝"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"copyAsMarkdown" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"copyAsMarkdown" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
     else if ([title isEqualToString:@"以Html格式拷贝"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"copyAsHtml" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"copyAsHtml" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
     else if ([title isEqualToString:@"粘贴纯文本"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"pasteAsPlainText" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"pasteAsPlainText" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
     
     else if ([title isEqualToString:@"重复段落"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"duplicate" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"duplicate" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
@@ -234,104 +234,104 @@
         NSDictionary *dic = @{@"location":@"after",
                               @"text":@"",
                               @"outMost":@(TRUE)} ;
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"insertParagraph" json:dic completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"insertParagraph" json:dic completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
     else if ([title isEqualToString:@"删除段落"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"deleteParagraph" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"deleteParagraph" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
     
     else if ([title isEqualToString:@"标题1"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectH1] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectH1] ;
     }
     else if ([title isEqualToString:@"标题2"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectH2] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectH2] ;
     }
     else if ([title isEqualToString:@"标题3"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectH3] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectH3] ;
     }
     else if ([title isEqualToString:@"标题4"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectH4] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectH4] ;
     }
     else if ([title isEqualToString:@"标题5"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectH5] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectH5] ;
     }
     else if ([title isEqualToString:@"标题6"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectH6] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectH6] ;
     }
     
     else if ([title isEqualToString:@"升级标题"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"upgradeTitle" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"upgradeTitle" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
     else if ([title isEqualToString:@"降级标题"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"degradeTitle" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"degradeTitle" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
     
     else if ([title isEqualToString:@"水平分割线"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectSepLine] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectSepLine] ;
     }
     
     else if ([title isEqualToString:@"重点"]) { // bold
-        [[OctWebEditor sharedInstance] toolbarDidSelectBold] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectBold] ;
     }
     else if ([title isEqualToString:@"强调"]) { // italic
-        [[OctWebEditor sharedInstance] toolbarDidSelectItalic] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectItalic] ;
     }
     else if ([title isEqualToString:@"行内代码"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectInlineCode] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectInlineCode] ;
     }
     else if ([title isEqualToString:@"删除线"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectDeletion] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectDeletion] ;
     }
     else if ([title isEqualToString:@"下划线"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectUnderline] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectUnderline] ;
     }
     else if ([title isEqualToString:@"链接"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"addLink" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"addLink" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }
     else if ([title isEqualToString:@"图片"]) {
-        [[OctWebEditor sharedInstance].toolBar openPhotoPart] ;
+        [[OctWebEditor currentOctWebEditor].toolBar openPhotoPart] ;
     }
     else if ([title isEqualToString:@"清除样式(行内/段落)"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectClearToCleanPara] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectClearToCleanPara] ;
     }
     
     else if ([title isEqualToString:@"表格"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectTable] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectTable] ;
     }
     else if ([title isEqualToString:@"代码块"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectCodeBlock] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectCodeBlock] ;
     }
     else if ([title isEqualToString:@"引用块"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectQuoteBlock] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectQuoteBlock] ;
     }
     else if ([title isEqualToString:@"数学公式块"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectMathBlock] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectMathBlock] ;
     }
     else if ([title isEqualToString:@"HTML块"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectHtml] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectHtml] ;
     }
     
     else if ([title isEqualToString:@"有序列表"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectOrderlist] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectOrderlist] ;
     }
     else if ([title isEqualToString:@"无序列表"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectUList] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectUList] ;
     }
     else if ([title isEqualToString:@"任务列表"]) {
-        [[OctWebEditor sharedInstance] toolbarDidSelectTaskList] ;
+        [[OctWebEditor currentOctWebEditor] toolbarDidSelectTaskList] ;
     }
     else if ([title isEqualToString:@"切换Loose/Tight列表"]) {
-        [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"toggleListItemType" json:nil completion:^(NSString *val, NSError *error) {
+        [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"toggleListItemType" json:nil completion:^(NSString *val, NSError *error) {
             
         }] ;
     }

@@ -95,7 +95,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated] ;
     
-    [[OctWebEditor sharedInstance] setupSettings] ;
+    [[OctWebEditor currentOctWebEditor] setupSettings] ;
     [self.table reloadData] ;
 }
 

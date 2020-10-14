@@ -27,6 +27,8 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <UMCommon/UMConfigure.h>
 #import "OcHomeVC.h"
+#import "SceneDelegate.h"
+
 
 #ifdef ISIOS
 #import <Bugly/Bugly.h>
@@ -39,11 +41,14 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 @implementation LaunchingEvents
 
-XT_SINGLETON_M(LaunchingEvents)
++ (instancetype)currentEvents {
+    SceneDelegate *sDelegate = [FetchWindowUtil sceneDelegate];
+    return sDelegate.launchingEvents;
+}
 
 #pragma mark - did finish launching
 
-- (void)setup:(UIWindow *)window {
+- (void)setup:(UIWindow *)window scenceDelegate:(SceneDelegate *)sDelegate {
     
 #ifdef ISIOS
     [Bugly startWithAppId:@"8abe605307"] ;
@@ -52,7 +57,7 @@ XT_SINGLETON_M(LaunchingEvents)
         
     [self setupCocoaLumberjack] ;
     [[MDThemeConfiguration sharedInstance] setup] ;
-    [self setupWebZipPackageAndSetupWebView] ;
+    [self setupWebZipPackageAndSetupWebView:sDelegate] ;
     [self setupRemoteNotification:[UIApplication sharedApplication]] ;
     [self setupDB] ;
     [self setupNaviStyle] ;
@@ -138,7 +143,8 @@ XT_SINGLETON_M(LaunchingEvents)
  2. setupWebView
  */
 static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; // +++
-- (void)setupWebZipPackageAndSetupWebView {
+
+- (void)setupWebZipPackageAndSetupWebView:(SceneDelegate *)sceneDelegate {
     // 图片缓存目录
     NSString *picPath = XT_LIBRARY_PATH_TRAIL_(@"pic") ;
     [XTFileManager createFolder:picPath] ;
@@ -163,7 +169,7 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
         XT_USERDEFAULT_SET_VAL(currentVersion, kMark_UNZip_Operation) ;
     }
     else {
-        [self setupWebView] ;
+        [self setupWebView:sceneDelegate] ;
     }
 }
 
@@ -171,11 +177,15 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
  SSZipArchiveDelegate
  */
 - (void)zipArchiveDidUnzipArchiveAtPath:(NSString *)path zipInfo:(unz_global_info)zipInfo unzippedPath:(NSString *)unzippedPath {
-    [self setupWebView] ;
+    [self setupWebView:[FetchWindowUtil sceneDelegate]] ;
 }
 
-- (void)setupWebView {
-    [[OctWebEditor sharedInstance] setup] ;
+- (void)setupWebView:(SceneDelegate *)sceneDelegate {
+    OctWebEditor *editor = [[OctWebEditor alloc] init];
+    [editor setup];
+    sceneDelegate.webEditor = editor;
+    
+    //[[OctWebEditor currentOctWebEditor] setup];
 }
 
 

@@ -51,7 +51,7 @@
     }
     else if ([title containsString:@"手动同步"]) {
         
-        [[LaunchingEvents sharedInstance] pullAllComplete:^{
+        [[LaunchingEvents currentEvents] pullAllComplete:^{
             [SVProgressHUD showSuccessWithStatus:@"手动同步完成"] ;
         }] ;
     }

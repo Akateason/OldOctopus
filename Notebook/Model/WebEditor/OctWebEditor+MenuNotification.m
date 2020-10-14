@@ -25,7 +25,7 @@
             
         NSString *funcName = x.object ;
         if ([funcName isEqualToString:@"actionAllSelect"]) {
-            [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"selectAll" json:nil completion:^(NSString *val, NSError *error) {
+            [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"selectAll" json:nil completion:^(NSString *val, NSError *error) {
             }] ;
         }
         else if ([funcName isEqualToString:@"actionUndo"]) {
@@ -35,18 +35,18 @@
             [self toolbarDidSelectRedo] ;
         }
         else if ([funcName isEqualToString:@"actionParaRepeat"]) {
-            [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"duplicate" json:nil completion:^(NSString *val, NSError *error) {
+            [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"duplicate" json:nil completion:^(NSString *val, NSError *error) {
             }] ;
         }
         else if ([funcName isEqualToString:@"actionParaNew"]) {
             NSDictionary *dic = @{@"location":@"after",
                                   @"text":@"",
                                   @"outMost":@(TRUE)} ;
-            [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"insertParagraph" json:dic completion:^(NSString *val, NSError *error) {
+            [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"insertParagraph" json:dic completion:^(NSString *val, NSError *error) {
             }] ;
         }
         else if ([funcName isEqualToString:@"actionParaDelete"]) {
-            [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"deleteParagraph" json:nil completion:^(NSString *val, NSError *error) {
+            [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"deleteParagraph" json:nil completion:^(NSString *val, NSError *error) {
             }] ;
         }
         else if ([funcName isEqualToString:@"actionTitle1"]) {
@@ -68,11 +68,11 @@
             [self toolbarDidSelectH6] ;
         }
         else if ([funcName isEqualToString:@"actionUpTitle"]) {
-            [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"upgradeTitle" json:nil completion:^(NSString *val, NSError *error) {
+            [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"upgradeTitle" json:nil completion:^(NSString *val, NSError *error) {
             }] ;
         }
         else if ([funcName isEqualToString:@"actionDownTitle"]) {
-            [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"degradeTitle" json:nil completion:^(NSString *val, NSError *error) {
+            [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"degradeTitle" json:nil completion:^(NSString *val, NSError *error) {
             }] ;
         }
         else if ([funcName isEqualToString:@"actionForm"]) {
@@ -100,14 +100,14 @@
             [self toolbarDidSelectTaskList] ;
         }
         else if ([funcName isEqualToString:@"actionSwitchList"]) {
-            [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"toggleListItemType" json:nil completion:^(NSString *val, NSError *error) {
+            [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"toggleListItemType" json:nil completion:^(NSString *val, NSError *error) {
             }] ;
         }
         else if ([funcName isEqualToString:@"actionOpenPara"]) {
             NSDictionary *dic = @{@"location":@"after",
                                   @"text":@"",
                                   @"outMost":@(TRUE)} ;
-            [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"insertParagraph" json:dic completion:^(NSString *val, NSError *error) {
+            [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"insertParagraph" json:dic completion:^(NSString *val, NSError *error) {
             }] ;
         }
         else if ([funcName isEqualToString:@"actionSepline"]) {

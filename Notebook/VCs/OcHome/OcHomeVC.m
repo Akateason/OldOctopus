@@ -62,7 +62,7 @@
      subscribeNext:^(NSDate * _Nullable x) {
          @strongify(self)
          if (self.view.window) {             
-             [[LaunchingEvents sharedInstance] icloudSync:^{}] ;
+             [[LaunchingEvents currentEvents] icloudSync:^{}] ;
          }
      }] ;
     

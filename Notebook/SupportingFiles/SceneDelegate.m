@@ -13,7 +13,8 @@
 #import "OctMBPHud.h"
 #import "OctRequestUtil.h"
 #import "OcHomeVC.h"
-
+#import "OctWebEditor.h"
+#import "LaunchingEvents.h"
 
 @implementation SceneDelegate
 
@@ -21,7 +22,7 @@
     
     // lauching events
     self.launchingEvents = [[LaunchingEvents alloc] init] ;
-    [self.launchingEvents setup:self.window] ;
+    [self.launchingEvents setup:self.window scenceDelegate:self] ;
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene  API_AVAILABLE(ios(13.0)){

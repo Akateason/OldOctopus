@@ -161,7 +161,7 @@
     // add inline board .
     [self.inlineBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight fromCtrller:self.delegate.fromEditor.xt_viewController] ;
     
-    [self renderWithParaType:[OctWebEditor sharedInstance].typeBlkList inlineList:[OctWebEditor sharedInstance].typeInlineList] ;
+    [self renderWithParaType:[OctWebEditor currentOctWebEditor].typeBlkList inlineList:[OctWebEditor currentOctWebEditor].typeInlineList] ;
 }
 
 - (IBAction)listAc:(UIButton *)sender {
@@ -171,7 +171,7 @@
     // add block board .
     [self.blockBoard addMeAboveKeyboardViewWithKeyboardHeight:self.delegate.keyboardHeight] ;
     
-    [self renderWithParaType:[OctWebEditor sharedInstance].typeBlkList inlineList:[OctWebEditor sharedInstance].typeInlineList] ;
+    [self renderWithParaType:[OctWebEditor currentOctWebEditor].typeBlkList inlineList:[OctWebEditor currentOctWebEditor].typeInlineList] ;
 }
 
 - (IBAction)photoAc:(UIButton *)sender {

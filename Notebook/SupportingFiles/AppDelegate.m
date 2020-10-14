@@ -15,6 +15,7 @@
 #import "OctRequestUtil.h"
 #import <XTIAP/XTIAP.h>
 #import "OcHomeVC.h"
+#import "LaunchingEvents.h"
 
 #ifdef ISMAC
 #import <AppKit/AppKit.h>
@@ -31,20 +32,15 @@
 }
 
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options  API_AVAILABLE(ios(13.0)){
-    
     return [UISceneConfiguration configurationWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-#ifdef ISMAC
-    self.window.windowScene.titlebar.titleVisibility = UITitlebarTitleVisibilityHidden;//隐藏顶栏
-    self.window.windowScene.sizeRestrictions.minimumSize = CGSizeMake(1034, 808) ;
-#endif
+//#ifdef ISMAC
+//    self.window.windowScene.titlebar.titleVisibility = UITitlebarTitleVisibilityHidden;//隐藏顶栏
+//    self.window.windowScene.sizeRestrictions.minimumSize = CGSizeMake(1034, 808) ;
+//#endif
     
-    // lauching events
-//    self.launchingEvents = [[LaunchingEvents alloc] init] ;
-//    [self.launchingEvents setup] ;
-
     [self test] ;
     
     return YES ;
@@ -57,14 +53,14 @@
     if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
         CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID] ;
     }
-
-    [self.launchingEvents icloudSync:^{
+    
+    [[LaunchingEvents currentEvents] icloudSync:^{
         completionHandler(UIBackgroundFetchResultNewData);
     }] ;
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    [self.launchingEvents icloudSync:^{
+    [[LaunchingEvents currentEvents] icloudSync:^{
         completionHandler(UIBackgroundFetchResultNewData);
     }] ;
 }
@@ -91,7 +87,7 @@ static NSString *const kUD_Guiding_mark = @"kUD_Guiding_mark" ;
 
 //导入文件,默认导入到当前的笔记本,如果是最近或者垃圾桶,进入暂存区. 导入之后打开此笔记.
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    return [self.launchingEvents application:app openURL:url options:options] ;
+    return [[LaunchingEvents currentEvents] application:app openURL:url options:options] ;
 }
 
 

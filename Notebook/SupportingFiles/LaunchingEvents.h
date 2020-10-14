@@ -10,6 +10,7 @@
 #define OCTUPUS_DB_Location_Dev         XT_LIBRARY_PATH_TRAIL_(@"noteDB")
 #define OCTUPUS_DB_Location             XT_LIBRARY_PATH_TRAIL_(@"noteDB_product")
 
+
 #import <Foundation/Foundation.h>
 
 
@@ -19,15 +20,15 @@ extern NSString *const kNotificationImportFileIn ;
 
 static NSString *const kUD_OCT_PullAll_Done = @"kUD_OCT_PullAll_Done" ;
 
-@class UIApplication, AppDelegate ;
+@class UIApplication, AppDelegate, SceneDelegate;
 
 
 
 @interface LaunchingEvents : NSObject 
 
-XT_SINGLETON_H(LaunchingEvents)
++ (instancetype)currentEvents;
 
-- (void)setup:(UIWindow *)window;
+- (void)setup:(UIWindow *)window scenceDelegate:(SceneDelegate *)sDelegate ;
 
 - (void)icloudSync:(void(^)(void))completeBlk ;
 - (void)pullAll ;

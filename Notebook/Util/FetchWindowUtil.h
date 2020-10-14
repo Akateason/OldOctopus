@@ -7,11 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SceneDelegate.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FetchWindowUtil : NSObject
+
 + (UIWindow *)fetchMainWindow;
+
++ (SceneDelegate *)sceneDelegate;
+
 @end
 
 NS_ASSUME_NONNULL_END

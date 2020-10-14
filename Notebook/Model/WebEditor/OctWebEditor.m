@@ -45,7 +45,10 @@
 
 @implementation OctWebEditor
 
-XT_SINGLETON_M(OctWebEditor)
++ (instancetype)currentOctWebEditor {
+    SceneDelegate *sDelegate = [FetchWindowUtil sceneDelegate];
+    return sDelegate.webEditor;
+}
 
 #pragma mark --
 #pragma mark - life
@@ -214,7 +217,7 @@ XT_SINGLETON_M(OctWebEditor)
 
 
 - (void)setEditable:(BOOL)editable {
-    [[OctWebEditor sharedInstance] nativeCallJSWithFunc:@"setEditable" json:[@(editable) stringValue] completion:^(NSString *val, NSError *error) {
+    [[OctWebEditor currentOctWebEditor] nativeCallJSWithFunc:@"setEditable" json:[@(editable) stringValue] completion:^(NSString *val, NSError *error) {
         
     }] ;
 }

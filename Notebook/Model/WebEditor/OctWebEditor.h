@@ -22,6 +22,8 @@ static const float k_side_margin = 100. ;
     CGFloat keyboardHeight ;
 }
 
++ (instancetype)currentOctWebEditor;
+
 #pragma mark - Func
 /**
  Native call JS.
@@ -55,7 +57,7 @@ static const float k_side_margin = 100. ;
 // close
 - (void)leavePage ;
 
-XT_SINGLETON_H(OctWebEditor)
+
 
 #pragma mark - props
 

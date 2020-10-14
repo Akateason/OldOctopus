@@ -19,6 +19,7 @@
 #import "SetTrashVC.h"
 #import "AppDelegate.h"
 #import "LikeUsView.h"
+#import "LaunchingEvents.h"
 
 @implementation SettingCell
 
@@ -75,7 +76,7 @@
         self.act.hidden = NO ;
         [self.act startAnimating] ;
         WEAK_SELF
-        [[LaunchingEvents sharedInstance] pullAllComplete:^{
+        [[LaunchingEvents currentEvents] pullAllComplete:^{
             [weakSelf.act stopAnimating] ;
             weakSelf.act.hidden = YES ;
         }] ;
