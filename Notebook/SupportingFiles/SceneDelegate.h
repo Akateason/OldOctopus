@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
 @property (strong, nonatomic) LaunchingEvents *launchingEvents;
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) OctWebEditor *webEditor;
 @end
 
 NS_ASSUME_NONNULL_END

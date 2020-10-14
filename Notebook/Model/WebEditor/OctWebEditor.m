@@ -47,7 +47,7 @@
 
 + (instancetype)currentOctWebEditor {
     SceneDelegate *sDelegate = [FetchWindowUtil sceneDelegate];
-    return sDelegate.webEditor;
+    return sDelegate.launchingEvents.webEditor;
 }
 
 #pragma mark --

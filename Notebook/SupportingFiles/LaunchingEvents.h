@@ -25,8 +25,9 @@ static NSString *const kUD_OCT_PullAll_Done = @"kUD_OCT_PullAll_Done" ;
 
 
 @interface LaunchingEvents : NSObject 
-
+@property (strong, nonatomic) OctWebEditor *webEditor;
 + (instancetype)currentEvents;
+
 
 - (void)setup:(UIWindow *)window scenceDelegate:(SceneDelegate *)sDelegate ;
 

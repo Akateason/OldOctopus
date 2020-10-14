@@ -185,9 +185,7 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
 - (void)setupWebView {
     OctWebEditor *editor = [[OctWebEditor alloc] init];
     [editor setup];
-    self.sceneDelegate.webEditor = editor;
-    
-    //[[OctWebEditor currentOctWebEditor] setup];
+    self.webEditor = editor;
 }
 
 
