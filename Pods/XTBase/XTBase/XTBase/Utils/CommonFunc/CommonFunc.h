@@ -25,7 +25,8 @@
 + (NSString *)getBuildVersion;
 
 #pragma mark - Device Info
-- (NSString *)getDeviceName ;
++ (NSString *)getDeviceInfo;
++ (NSString *)getDeviceName;
 + (BOOL)getIsIpad ;
 + (void)shutDownAppWithCtrller:(UIViewController *)ctrller;
 

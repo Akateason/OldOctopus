@@ -4,16 +4,16 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 
 def commonPods
-#      pod 'XTBase'
-#      pod 'XTlib'
-#      pod 'XTlib/Animations'
-#      pod 'XTlib/CustomUIs'
+      pod 'XTBase'
+      pod 'XTlib'
+      pod 'XTlib/Animations'
+      pod 'XTlib/CustomUIs'
       pod 'XTIAP'
 
-    pod 'XTBase',:path => '../../xtcProjects/XTBase/'
-    pod 'XTlib',:path => '../../xtcProjects/XTlib/'
-    pod 'XTlib/Animations',:path => '../../xtcProjects/XTlib/'
-    pod 'XTlib/CustomUIs',:path => '../../xtcProjects/XTlib/'
+#    pod 'XTBase',:path => '../../xtcProjects/XTBase/'
+#    pod 'XTlib',:path => '../../xtcProjects/XTlib/'
+#    pod 'XTlib/Animations',:path => '../../xtcProjects/XTlib/'
+#    pod 'XTlib/CustomUIs',:path => '../../xtcProjects/XTlib/'
 #    pod 'XTIAP',:path => '../XTIAP/'
 
       pod 'IQKeyboardManager'
@@ -28,7 +28,7 @@ def commonPods
       pod 'FTPopOverMenu'
       pod 'WKWebViewWithURLProtocol'
       pod 'UMCCommon'
-      pod 'UMCAnalytics'
+#      pod 'UMCAnalytics'
 
 end
 

@@ -58,9 +58,8 @@
 
 /// image to data
 - (NSData *)xt_imageToData ;
-// data to image
+/// data to image
 - (UIImage *)xt_dataToImage:(NSData *)data ;
-
 
 @end
 
