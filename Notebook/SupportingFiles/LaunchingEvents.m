@@ -16,7 +16,6 @@
 #import <UserNotifications/UserNotifications.h>
 #import <XTReq/XTReq.h>
 #import "MDThemeConfiguration.h"
-#import "AppDelegate.h"
 #import "OctGuidingVC.h"
 #import "MDNavVC.h"
 #import "WebPhotoHandler.h"
@@ -27,7 +26,7 @@
 #import "AppstoreCommentUtil.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <UMCommon/UMConfigure.h>
-
+#import "OcHomeVC.h"
 
 #ifdef ISIOS
 #import <Bugly/Bugly.h>
@@ -40,20 +39,21 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 @implementation LaunchingEvents
 
+XT_SINGLETON_M(LaunchingEvents)
+
 #pragma mark - did finish launching
 
-- (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate {
+- (void)setup:(UIWindow *)window {
     
 #ifdef ISIOS
     [Bugly startWithAppId:@"8abe605307"] ;
 #endif
-    [self configUmeng];
-    
-    self.appDelegate = appDelegate ;
+//    [self configUmeng];
+        
     [self setupCocoaLumberjack] ;
     [[MDThemeConfiguration sharedInstance] setup] ;
     [self setupWebZipPackageAndSetupWebView] ;
-    [self setupRemoteNotification:application] ;
+    [self setupRemoteNotification:[UIApplication sharedApplication]] ;
     [self setupDB] ;
     [self setupNaviStyle] ;
     [self setupIqKeyboard] ;
@@ -65,6 +65,46 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupNotePreviewPicture] ;
     
     [self setupOCR] ;
+    
+    [self setupRootWindow:window];
+    
+    [self doWhenLaunchedWindow];
+}
+
+- (void)setupRootWindow:(UIWindow *)window {
+    OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
+    if (guidVC != nil) {
+        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
+        window.rootViewController = navVC ;
+        [window makeKeyAndVisible] ;
+    }
+    else {
+        UIViewController *vc = [OcHomeVC getMe] ;
+        window.rootViewController = vc ;
+        [window makeKeyAndVisible] ;
+    }
+}
+
+- (void)doWhenLaunchedWindow {
+    //Fix: 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
+    NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
+    if ([num intValue] != 1) {
+
+        @weakify(self)
+        [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]] take:3] subscribeNext:^(NSDate * _Nullable x) {
+            @strongify(self)
+            NSNumber *num1 = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
+            if ([num1 intValue] == 1) return ;
+
+            @weakify(self)
+            [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+                @strongify(self)
+                [self pullAllComplete:^{
+
+                }] ;
+            }] ;
+        }] ;
+    }
 }
 
 - (void)configUmeng {

@@ -24,6 +24,7 @@
 #import "AppDelegate.h"
 #import "OctMBPHud.h"
 #import "SettingSave.h"
+#import "FetchWindowUtil.h"
 
 #define LOG_LEVEL_DEF ddLogLevel
 #import <CocoaLumberjack.h>

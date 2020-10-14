@@ -150,8 +150,7 @@
      subscribeNext:^(NSDate * _Nullable x) {
          @strongify(self)
          if (self.view.window) {
-             LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
-             [events icloudSync:^{}] ;
+             [[LaunchingEvents sharedInstance] icloudSync:^{}] ;
          }
      }] ;
     

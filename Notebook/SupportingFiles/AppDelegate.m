@@ -30,9 +30,10 @@
     
 }
 
-
-
-
+- (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options  API_AVAILABLE(ios(13.0)){
+    
+    return [UISceneConfiguration configurationWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef ISMAC
@@ -41,43 +42,9 @@
 #endif
     
     // lauching events
-    self.launchingEvents = [[LaunchingEvents alloc] init] ;
-    [self.launchingEvents setup:application appdelegate:self] ;
-    
-    // set Root Controller START
-    OctGuidingVC *guidVC = [OctGuidingVC getMe] ;
-    if (guidVC != nil) {
-        MDNavVC *navVC = [[MDNavVC alloc] initWithRootViewController:guidVC] ;
-        self.window.rootViewController = navVC ;
-        [self.window makeKeyAndVisible] ;        
-    }
-    else {
-        UIViewController *vc = [OcHomeVC getMe] ;
-        self.window.rootViewController = vc ;
-        [self.window makeKeyAndVisible] ;
-    }
-    // set Root Controller END
-    
-    //Fix: 容错处理, 有时会出现icloud用户无法获取的情况(网络问题). 导致第一次无数据.
-    NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
-    if ([num intValue] != 1) {
-        
-        @weakify(self)
-        [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]] take:3] subscribeNext:^(NSDate * _Nullable x) {
-            @strongify(self)
-            NSNumber *num1 = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
-            if ([num1 intValue] == 1) return ;
-            
-            @weakify(self)
-            [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-                @strongify(self)
-                [self.launchingEvents pullAllComplete:^{
-                    
-                }] ;
-            }] ;
-        }] ;
-    }
-    
+//    self.launchingEvents = [[LaunchingEvents alloc] init] ;
+//    [self.launchingEvents setup] ;
+
     [self test] ;
     
     return YES ;

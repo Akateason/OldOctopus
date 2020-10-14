@@ -602,6 +602,8 @@
 		8F7C0E7A23B4BB640042D87F /* actionscript.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FFAE0AD229CDAF400CDAC47 /* actionscript.plist */; };
 		8F7C8EC222C1F70F005731FA /* nav_back_reverse_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C8EC122C1F70E005731FA /* nav_back_reverse_item@2x.png */; };
 		8F81B83F22F95C9E00DFFEDB /* AppstoreCommentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F81B83E22F95C9E00DFFEDB /* AppstoreCommentUtil.m */; };
+		8F839ECC2536AB49007FD212 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F839ECB2536AB49007FD212 /* SceneDelegate.m */; };
+		8F839F172536FB0A007FD212 /* FetchWindowUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F839F162536FB0A007FD212 /* FetchWindowUtil.m */; };
 		8F90189522E9BDE600D1BA4B /* IapPaySuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F90189322E9BDE600D1BA4B /* IapPaySuccessCell.m */; };
 		8F90189622E9BDE600D1BA4B /* IapPaySuccessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */; };
 		8F931B9B228E89F800F73219 /* home_top_note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F931B9A228E89F800F73219 /* home_top_note@2x.png */; };
@@ -1115,6 +1117,10 @@
 		8F81B83E22F95C9E00DFFEDB /* AppstoreCommentUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppstoreCommentUtil.m; sourceTree = "<group>"; };
 		8F81B84022F96D9400DFFEDB /* OctPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctPrefixHeader.pch; sourceTree = "<group>"; };
 		8F81B84122F96F2600DFFEDB /* OctNotificationHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctNotificationHeader.h; sourceTree = "<group>"; };
+		8F839ECA2536AB49007FD212 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		8F839ECB2536AB49007FD212 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		8F839F152536FB0A007FD212 /* FetchWindowUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchWindowUtil.h; sourceTree = "<group>"; };
+		8F839F162536FB0A007FD212 /* FetchWindowUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchWindowUtil.m; sourceTree = "<group>"; };
 		8F90189222E9BDE600D1BA4B /* IapPaySuccessCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IapPaySuccessCell.h; sourceTree = "<group>"; };
 		8F90189322E9BDE600D1BA4B /* IapPaySuccessCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IapPaySuccessCell.m; sourceTree = "<group>"; };
 		8F90189422E9BDE600D1BA4B /* IapPaySuccessCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IapPaySuccessCell.xib; sourceTree = "<group>"; };
@@ -1464,6 +1470,8 @@
 			children = (
 				8F65DBCC221BECFC0067C321 /* AppDelegate.h */,
 				8F65DBCD221BECFC0067C321 /* AppDelegate.m */,
+				8F839ECA2536AB49007FD212 /* SceneDelegate.h */,
+				8F839ECB2536AB49007FD212 /* SceneDelegate.m */,
 				8FB7290E225EF703003A73C1 /* LaunchingEvents.h */,
 				8FB7290F225EF703003A73C1 /* LaunchingEvents.m */,
 				8F81B84022F96D9400DFFEDB /* OctPrefixHeader.pch */,
@@ -1839,6 +1847,8 @@
 				8F81B83E22F95C9E00DFFEDB /* AppstoreCommentUtil.m */,
 				8F4B19E323A37DAA002C1C29 /* OCRUtil.h */,
 				8F4B19E423A37DAA002C1C29 /* OCRUtil.m */,
+				8F839F152536FB0A007FD212 /* FetchWindowUtil.h */,
+				8F839F162536FB0A007FD212 /* FetchWindowUtil.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -3226,6 +3236,7 @@
 				8FE5A3E4224CA4CC00947D14 /* LeftDrawerVC.m in Sources */,
 				8F07D653224CCED4005BA86D /* NoteBooks.m in Sources */,
 				8F0CB78D22E9BBB400480DD4 /* IAPSuccessSubscriptionVC.m in Sources */,
+				8F839F172536FB0A007FD212 /* FetchWindowUtil.m in Sources */,
 				8F679E2B2238FA17008DE1BC /* MdOtherModel.m in Sources */,
 				8F7A84A22248AB7A0099E905 /* MDEditUrlView.m in Sources */,
 				8FDE119C2452CF14005B3132 /* OctImportFiles.m in Sources */,
@@ -3270,6 +3281,7 @@
 				8FF93DC6235EED7200C6B5CD /* URLProtocol.m in Sources */,
 				8F18B24422BB90130073552A /* HomePadVC.m in Sources */,
 				8FAE3AC222CFBB130054F3BB /* OctGuidingVC.m in Sources */,
+				8F839ECC2536AB49007FD212 /* SceneDelegate.m in Sources */,
 				8FBBD533231688E4005E7B41 /* OcHomeVC+Notifications.m in Sources */,
 				8F12970122C9B77200939DD6 /* SetEditorVC.m in Sources */,
 				8FB2EFDF22DC2BAF00B294F1 /* MarkdownEditor+InlineBoardUtil.m in Sources */,

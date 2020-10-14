@@ -36,8 +36,7 @@
 #pragma mark - life
 
 - (void)prepareUI {
-    AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
-    [GlobalDisplaySt sharedInstance].containerSize = appDelegate.window.size ;
+    [GlobalDisplaySt sharedInstance].containerSize = [FetchWindowUtil fetchMainWindow].size ;
     [[GlobalDisplaySt sharedInstance] correctCurrentCondition:self] ;
     
     [self xt_prepareUI] ;
@@ -62,9 +61,8 @@
       takeUntil:self.rac_willDeallocSignal]
      subscribeNext:^(NSDate * _Nullable x) {
          @strongify(self)
-         if (self.view.window) {
-             LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
-             [events icloudSync:^{}] ;
+         if (self.view.window) {             
+             [[LaunchingEvents sharedInstance] icloudSync:^{}] ;
          }
      }] ;
     

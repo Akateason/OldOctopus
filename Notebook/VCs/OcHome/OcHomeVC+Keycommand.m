@@ -50,8 +50,8 @@
         [self addBookOnClick] ;
     }
     else if ([title containsString:@"手动同步"]) {
-        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
-        [appdelegate.launchingEvents pullAllComplete:^{
+        
+        [[LaunchingEvents sharedInstance] pullAllComplete:^{
             [SVProgressHUD showSuccessWithStatus:@"手动同步完成"] ;
         }] ;
     }

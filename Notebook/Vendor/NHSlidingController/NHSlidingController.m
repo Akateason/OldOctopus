@@ -51,8 +51,8 @@ static const CGFloat slidingSpeed = 1500.0;
 - (void)viewDidLoad {
     [super viewDidLoad] ;
     
-    AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
-    [self setupTheViewWithSize:appDelegate.window.size] ;
+    UIWindow *window = [FetchWindowUtil fetchMainWindow];
+    [self setupTheViewWithSize:window.size] ;
     
     [self setupTheGestureRecognizers] ;
 }

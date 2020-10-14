@@ -24,8 +24,11 @@ static NSString *const kUD_OCT_PullAll_Done = @"kUD_OCT_PullAll_Done" ;
 
 
 @interface LaunchingEvents : NSObject 
-@property (strong, nonatomic) AppDelegate *appDelegate ;
-- (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate ;
+
+XT_SINGLETON_H(LaunchingEvents)
+
+- (void)setup:(UIWindow *)window;
+
 - (void)icloudSync:(void(^)(void))completeBlk ;
 - (void)pullAll ;
 - (void)pullAllComplete:(void(^)(void))completion ;

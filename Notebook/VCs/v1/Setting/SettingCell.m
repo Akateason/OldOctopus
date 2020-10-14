@@ -73,10 +73,9 @@
     }
     else if ([title containsString:@"同步"]) {
         self.act.hidden = NO ;
-        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
         [self.act startAnimating] ;
         WEAK_SELF
-        [appDelegate.launchingEvents pullAllComplete:^{
+        [[LaunchingEvents sharedInstance] pullAllComplete:^{
             [weakSelf.act stopAnimating] ;
             weakSelf.act.hidden = YES ;
         }] ;

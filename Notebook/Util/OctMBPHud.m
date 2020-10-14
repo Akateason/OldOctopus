@@ -16,16 +16,14 @@ XT_SINGLETON_M(OctMBPHud)
 - (void)show {
 #ifdef DEBUG
 #else
-    AppDelegate *app = [UIApplication sharedApplication].delegate ;
-    [MBProgressHUD showHUDAddedTo:app.window animated:YES] ;
+    [MBProgressHUD showHUDAddedTo:[FetchWindowUtil fetchMainWindow] animated:YES] ;
 #endif
 }
 
 - (void)hide {
 #ifdef DEBUG
 #else
-    AppDelegate *app = [UIApplication sharedApplication].delegate ;
-    [MBProgressHUD hideHUDForView:app.window animated:YES] ;
+    [MBProgressHUD hideHUDForView:[FetchWindowUtil fetchMainWindow] animated:YES] ;
 #endif
 }
 

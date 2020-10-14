@@ -151,10 +151,9 @@
         return ;
     }
         
-    AppDelegate *appDelegaete = (AppDelegate *)([UIApplication sharedApplication].delegate) ;
-    appDelegaete.window.rootViewController = [OcHomeVC getMe] ;
-    [appDelegaete.window makeKeyAndVisible] ;
-    [appDelegaete.window makeKeyAndVisible] ;
+    UIWindow *window = [FetchWindowUtil fetchMainWindow];
+    window.rootViewController = [OcHomeVC getMe] ;
+    [window makeKeyAndVisible] ;
 }
 
 @end

@@ -82,8 +82,8 @@ XT_SINGLETON_M(GuidingICloud)
         Note *aNote = [Note xt_findFirstWhere:@"icRecordName == 'iOS-note-guide'"] ;
         if (aNote.content) {
             if (!weakSelf.fromCtrller) {
-                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
-                UINavigationController *navVC = (UINavigationController *)(appDelegate.window.rootViewController) ;
+                UIWindow *window = [FetchWindowUtil fetchMainWindow];
+                UINavigationController *navVC = (UINavigationController *)(window.rootViewController) ;
                 weakSelf.fromCtrller = navVC.topViewController ;
             }
             

@@ -67,8 +67,8 @@ static NSString *k_UD_Inner_Test_Done = @"k_UD_Inner_Test_Done" ;
     
     [[self.btCancel rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         
-        AppDelegate *app = [UIApplication sharedApplication].delegate ;
-        UIWindow *window = app.window ;
+        
+        UIWindow *window = [FetchWindowUtil fetchMainWindow] ;
         [UIView animateWithDuration:.1 animations:^{
             window.alpha = 0 ;
         } completion:^(BOOL finished) {
