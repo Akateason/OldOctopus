@@ -310,7 +310,7 @@ XT_SINGLETON_M(OctWebEditor)
         [[NSNotificationCenter defaultCenter] postNotificationName:kNote_pad_Editor_OnClick object:nil] ;
     }
     else if ([func isEqualToString:@"sendShareHtml"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Send_Share_Html object:ret[@"params"]] ;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kNote_Editor_Send_Share_Html object:ret[@"params"]] ;
     }
     else if ([func isEqualToString:@"editorCrash"]) {
         [self.editorCrashSignal sendNext:@1] ;

@@ -383,10 +383,10 @@ return;}
     
     self.btBack.xt_theme_imageColor = k_md_iconColor ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
-    self.btShare.xt_theme_imageColor = k_md_iconColor ;
+//    self.btShare.xt_theme_imageColor = k_md_iconColor ;
     [self.btBack xt_enlargeButtonsTouchArea] ;
     [self.btMore xt_enlargeButtonsTouchArea] ;
-    [self.btShare xt_enlargeButtonsTouchArea] ;
+//    [self.btShare xt_enlargeButtonsTouchArea] ;
     
     self.navArea.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;
     self.topBar.xt_theme_backgroundColor = XT_MAKE_theme_color(k_md_bgColor, .8) ;            
@@ -480,13 +480,13 @@ return;}
     }
 }
 
-- (IBAction)shareAction:(UIButton *)sender {
-    [sender oct_buttonClickAnimationComplete:^{
-        [self.editor hideKeyboard] ;
-        [[OctMBPHud sharedInstance] show] ;
-        [self.editor getShareHtml] ;
-    }] ;
-}
+//- (IBAction)shareAction:(UIButton *)sender {
+//    [sender oct_buttonClickAnimationComplete:^{
+//        [self.editor hideKeyboard] ;
+//        [[OctMBPHud sharedInstance] show] ;
+//        [self.editor getShareHtml] ;
+//    }] ;
+//}
 
 #pragma mark - prop
 

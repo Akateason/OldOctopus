@@ -91,35 +91,35 @@
         self.btBack.hidden = isOn ;
     }] ;
     
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Send_Share_Html object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        
-        self.isInShare = YES ;
-        [[OctMBPHud sharedInstance] hide] ;
-        
-        @weakify(self)
-        NSString *html = x.object ;
-        [OctRequestUtil getShareHtmlLink:html complete:^(NSString * _Nonnull urlString) {
-            @strongify(self)
-            if (urlString) {
-                NSLog(@"getShareHtmlLink : %@", urlString) ;
-                [self.editor hideKeyboard] ;
-                
-                @weakify(self)
-                [OctShareCopyLinkView showOnView:self.view
-                                            link:urlString
-                                        complete:^(BOOL ok) {
-                    @strongify(self)
-                    self.isInShare = NO ;
-                    if (ok) {
-                        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                        pasteboard.string = urlString ;
-                        [SVProgressHUD showSuccessWithStatus:@"分享链接已经复制到剪贴板"] ;
-                    }
-                }] ;
-            }
-        }] ;
-    }] ;
+//    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Editor_Send_Share_Html object:nil] takeUntil:self.rac_willDeallocSignal] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
+//        @strongify(self)
+//
+//        self.isInShare = YES ;
+//        [[OctMBPHud sharedInstance] hide] ;
+//
+//        @weakify(self)
+//        NSString *html = x.object ;
+//        [OctRequestUtil getShareHtmlLink:html complete:^(NSString * _Nonnull urlString) {
+//            @strongify(self)
+//            if (urlString) {
+//                NSLog(@"getShareHtmlLink : %@", urlString) ;
+//                [self.editor hideKeyboard] ;
+//
+//                @weakify(self)
+//                [OctShareCopyLinkView showOnView:self.view
+//                                            link:urlString
+//                                        complete:^(BOOL ok) {
+//                    @strongify(self)
+//                    self.isInShare = NO ;
+//                    if (ok) {
+//                        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//                        pasteboard.string = urlString ;
+//                        [SVProgressHUD showSuccessWithStatus:@"分享链接已经复制到剪贴板"] ;
+//                    }
+//                }] ;
+//            }
+//        }] ;
+//    }] ;
     
     [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNote_Delete_Note_In_Pad object:nil] deliverOnMainThread] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)

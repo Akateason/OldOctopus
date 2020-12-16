@@ -45,7 +45,7 @@
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForNavBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
-@property (weak, nonatomic) IBOutlet UIButton *btShare;
+//@property (weak, nonatomic) IBOutlet UIButton *btShare;
 
 @property (nonatomic)         BOOL              isInTrash ;
 @property (nonatomic)         BOOL              isInShare ;
