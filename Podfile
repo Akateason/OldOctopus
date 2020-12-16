@@ -10,15 +10,9 @@ def commonPods
       pod 'XTlib/CustomUIs'
       pod 'XTIAP'
 
-#    pod 'XTBase',:path => '../../xtcProjects/XTBase/'
-#    pod 'XTlib',:path => '../../xtcProjects/XTlib/'
-#    pod 'XTlib/Animations',:path => '../../xtcProjects/XTlib/'
-#    pod 'XTlib/CustomUIs',:path => '../../xtcProjects/XTlib/'
-#    pod 'XTIAP',:path => '../XTIAP/'
-
       pod 'IQKeyboardManager'
       pod 'EllipsePageControl'
-      pod 'lottie-ios','2.5.3'      
+      pod 'lottie-ios','2.5.3'
       pod 'MSDynamicsDrawerViewController'
       pod 'SSZipArchive'
       pod 'JTMaterialSwitch'
@@ -28,6 +22,7 @@ def commonPods
       pod 'FTPopOverMenu'
       pod 'WKWebViewWithURLProtocol'
       pod 'UMCCommon'
+      
 #      pod 'UMCAnalytics'
 
 end

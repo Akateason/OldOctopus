@@ -50,15 +50,19 @@ PODS:
   - MJRefresh (3.5.0)
   - MSDynamicsDrawerViewController (1.5.1)
   - ReactiveObjC (3.1.1)
-  - RSKImageCropper (3.0.0)
-  - SDWebImage (5.9.3):
-    - SDWebImage/Core (= 5.9.3)
-  - SDWebImage/Core (5.9.3)
+  - RSKImageCropper (3.0.1)
+  - SDWebImage (5.10.0):
+    - SDWebImage/Core (= 5.10.0)
+  - SDWebImage/Core (5.10.0)
   - SSZipArchive (2.2.3)
   - SVProgressHUD (2.2.5)
   - UIFontWDCustomLoader (0.1.0)
   - "UITableView+FDTemplateLayoutCell (1.6)"
-  - UMCCommon (7.1.3)
+  - UMAPM (1.1.0)
+  - UMCCommon (7.2.5):
+    - UMAPM
+    - UMDevice
+  - UMDevice (1.1.0)
   - Valet (2.4.2)
   - WKWebViewWithURLProtocol (0.1.0)
   - XTBase (1.7.2):
@@ -160,7 +164,9 @@ SPEC REPOS:
     - SVProgressHUD
     - UIFontWDCustomLoader
     - "UITableView+FDTemplateLayoutCell"
+    - UMAPM
     - UMCCommon
+    - UMDevice
     - Valet
     - WKWebViewWithURLProtocol
     - XTBase
@@ -193,13 +199,15 @@ SPEC CHECKSUMS:
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   MSDynamicsDrawerViewController: 2874df90f5e9453dc7d4e32f8038b50615d4baa7
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
-  RSKImageCropper: 81f449b4df96bdaf28e1ad6dcce28dcda2235458
-  SDWebImage: a31ee8e90a97303529e03fb0c333eae0eacb88e9
+  RSKImageCropper: 617b4976e4a0ca18f3ce84f6cfa5945e574b51a3
+  SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UIFontWDCustomLoader: 233f0f83e543b8f24a6299d7fc773be9d704fe22
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
-  UMCCommon: 0cb2629b93884531621100ed66ff2bca8b181f1f
+  UMAPM: 2b966cff744dccdd9e2ed99efafce280be30833c
+  UMCCommon: f7480d316381612f90cdde3a3c0f39a7e2c0a788
+  UMDevice: 28d21a568c8e8322e5a03bbd53b138d0c098d3b3
   Valet: 14463ef24fab8fd5809044ecedb61484b799fdd6
   WKWebViewWithURLProtocol: f7f2b367c40680105794a068ed2bb2cd5922c27c
   XTBase: d5a80b48cf09bd2d6beba41b8c6b49132b00123d
@@ -212,6 +220,6 @@ SPEC CHECKSUMS:
   XTTable: 71154f0f7e883546d83a3b377f919369fc7d1ece
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 1ca7f903fe1f1d57327f3efdec26344ae0c99159
+PODFILE CHECKSUM: 860efc5c9d6ed51e65931267f6c6089a7aba6945
 
 COCOAPODS: 1.9.1

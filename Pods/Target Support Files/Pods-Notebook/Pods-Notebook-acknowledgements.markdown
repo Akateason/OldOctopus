@@ -534,9 +534,19 @@ SOFTWARE.
 
 
 
+## UMAPM
+
+Copyright 2011 - 2020 umeng.com. All rights reserved.
+
+
 ## UMCCommon
 
-Copyright 2011 - 2019 umeng.com. All rights reserved.
+Copyright 2011 - 2020 umeng.com. All rights reserved.
+
+
+## UMDevice
+
+Copyright 2011 - 2020 umeng.com. All rights reserved.
 
 
 ## Valet

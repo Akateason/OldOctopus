@@ -2498,7 +2498,7 @@
 				8F7C0CF123B4BB640042D87F /* Sources */,
 				8F7C0D6E23B4BB640042D87F /* Frameworks */,
 				8F7C0D7223B4BB640042D87F /* Resources */,
-				8F7C0E7B23B4BB640042D87F /* [CP] Embed Pods Frameworks */,
+				385BCCF17C85D093D5831D2E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3151,6 +3151,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Notebook/Pods-Notebook-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		385BCCF17C85D093D5831D2E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NotebookMac/Pods-NotebookMac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NotebookMac/Pods-NotebookMac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NotebookMac/Pods-NotebookMac-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8F7C0CF023B4BB640042D87F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3171,23 +3188,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8F7C0E7B23B4BB640042D87F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NotebookMac/Pods-NotebookMac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NotebookMac/Pods-NotebookMac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NotebookMac/Pods-NotebookMac-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DB2C7E1C05E390AEB9D1482F /* [CP] Check Pods Manifest.lock */ = {
@@ -3654,7 +3654,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3673,7 +3673,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3694,7 +3694,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notebook/Notebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = Z35T9799TW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3713,7 +3713,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = im.shimo.chuxin.octupus.Notebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
