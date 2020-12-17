@@ -120,6 +120,7 @@ XT_SINGLETON_M(XTCloudHandler)
                     }
                     case CKApplicationPermissionStatusGranted:{
                         //授权过了
+                        completion(YES);
                         break;
                     }
                     case CKApplicationPermissionStatusDenied:{
@@ -391,7 +392,7 @@ XT_SINGLETON_M(XTCloudHandler)
         return ;
     }
 
-    self.isSyncingOnICloud = YES ;
+    
     
     CKDatabase *database = self.container.privateCloudDatabase ;
     if (!predicate) predicate = [NSPredicate predicateWithValue:YES] ;
@@ -406,7 +407,6 @@ XT_SINGLETON_M(XTCloudHandler)
         [tmplist addObject:record] ;
     }] ;
     [operation setQueryCompletionBlock:^(CKQueryCursor * _Nullable cursor, NSError * _Nullable operationError) {
-        self.isSyncingOnICloud = NO ;
         completionHandler(tmplist, operationError) ;
     }] ;
     [database addOperation:operation] ;
@@ -500,7 +500,6 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
     operation.database = self.container.privateCloudDatabase ;
     operation.fetchAllChanges = YES ;
     operation.recordChangedBlock = ^(CKRecord * _Nonnull record) {
-        if (record) self.isSyncingOnICloud = YES ;
         recordChangedBlock(record) ;
     } ;
     
@@ -523,8 +522,7 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
     
     operation.recordWithIDWasDeletedBlock = recordWithIDWasDeletedBlock ;
     
-    operation.fetchRecordZoneChangesCompletionBlock = ^(NSError * _Nullable operationError) {
-        self.isSyncingOnICloud = NO ;
+    operation.fetchRecordZoneChangesCompletionBlock = ^(NSError * _Nullable operationError) {        
         if (operationError) NSLog(@"operationError : %@",operationError) ;
         fetchRecordZoneChangesCompletionBlock(operationError) ;
     } ;

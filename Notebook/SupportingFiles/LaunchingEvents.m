@@ -58,12 +58,10 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [self setupNaviStyle] ;
     [self setupIqKeyboard] ;
     [self setupLoadingHomePage] ;
-    [self setupIcloudEvent] ; // get User. Then Pull or Sync .
+    [self setupIcloudLoginAndDoEvent] ; // get User. Then Pull or Sync .
     [self uploadAllLocalDataIfNotUploaded] ;
     [self setupHudStyle] ;
-
     [self setupNotePreviewPicture] ;
-    
     [self setupOCR] ;
 }
 
@@ -91,7 +89,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
     [DDLog addLogger:fileLogger] ;
 }
 
-
+#pragma mark --
 
 /**
  1. setupWebZipPackage
@@ -138,9 +136,6 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
     [[OctWebEditor sharedInstance] setup] ;
 }
 
-
-
-
 - (void)setupRemoteNotification:(UIApplication *)application {
     // 官方文档一致(无视这条警告)
     //    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
@@ -149,15 +144,14 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
     [application registerForRemoteNotifications] ;
 }
 
-
-
+#pragma mark --
 
 - (void)setupDB {
 #ifdef DEBUG
     [XTlibConfig sharedInstance].isShowControllerLifeCycle = NO;
-    [XTFMDBBase sharedInstance].isDebugMode = NO;
+    [XTFMDBBase sharedInstance].isDebugMode = YES;
     [[XTFMDBBase sharedInstance] configureDBWithPath:OCTUPUS_DB_Location_Dev];
-//    NSLog(@"db path : %@",OCTUPUS_DB_Location_Dev) ;
+    NSLog(@"db path : %@",OCTUPUS_DB_Location_Dev) ;
     [XTRequest shareInstance].isDebug = NO;
     
 #else
@@ -179,17 +173,21 @@ static NSString *const kMark_UNZip_Operation = @"kMark_UNZip_Operation_new" ; //
     [[XTFMDBBase sharedInstance] dbUpgradeTable:Note.class paramsAdd:@[@"previewPicture"] version:9] ;
 }
 
+#pragma mark --
+
 - (void)setupNaviStyle {
     [[UIApplication sharedApplication] keyWindow].tintColor = [UIColor whiteColor] ;
-    
-    
 }
+
+#pragma mark --
 
 - (void)setupIqKeyboard {
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager] ;
     manager.enable             = YES ; // 控制整个功能是否启用。
     manager.enableAutoToolbar  = NO ;  // 控制是否显示键盘上的工具条
 }
+
+#pragma mark --
 
 NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 
@@ -198,11 +196,12 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     NSString *versionCached = XT_USERDEFAULT_GET_VAL(kKey_markForGuidingDisplay) ;
     if ([currentVersion compare:versionCached options:NSNumericSearch] != NSOrderedDescending) return ;
     
-    [self createDefaultBookAndNotes] ;
+    [self createDefaultBookAndNotes];
 }
 
+#pragma mark --
 
-- (void)setupIcloudEvent {
+- (void)setupIcloudLoginAndDoEvent {
     [[XTCloudHandler sharedInstance] setup:^(BOOL success) {
         
         if (success) {
@@ -221,47 +220,56 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     }] ;
 }
 
+#pragma mark --
+#pragma mark - pull and sync
+
 - (void)pullOrSync {
     BOOL fstTimeLaunch = [XT_USERDEFAULT_GET_VAL(kFirstTimeLaunch) intValue] ;
-    
-    if (!fstTimeLaunch) {
-        [self pullAll] ;
-    }
-    else {
-        [self icloudSync:nil] ;
-    }
-    // Set Rootwindow when did become active .
-}
-
-- (void)pullAll {
     WEAK_SELF
     [self pullAllComplete:^{
-        [weakSelf createDefaultBookAndNotes] ;
+        if (!fstTimeLaunch) {
+            [weakSelf createDefaultBookAndNotes] ;
+        }
     }] ;
 }
 
 - (void)pullAllComplete:(void(^)(void))completion {
-    NSLog(@"pullall") ;
+    NSLog(@"pullall start") ;
+    [XTCloudHandler sharedInstance].isSyncingOnICloud = YES;
     
     [NoteBooks getFromServerComplete:^(bool hasData) {
         
-        [Note getFromServerComplete:^{
-            if ([Note xt_count]) {
-                XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
-                XT_USERDEFAULT_SET_VAL(@1, kUD_OCT_PullAll_Done) ;
-            }
-            NSLog(@"pullall done") ;
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ; // pull all in first time
-                                    
-            if (completion) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSLog(@"pullall complete") ;
-                    completion() ;
-                }) ;
+        [Note getFromServerComplete:^(bool isPullAll){
+                        
+            [XTCloudHandler sharedInstance].isSyncingOnICloud = NO;
+            
+            if (isPullAll) { // pull all done.
+                if ([Note xt_count]) {
+                    XT_USERDEFAULT_SET_VAL(@1, kFirstTimeLaunch) ;
+                    XT_USERDEFAULT_SET_VAL(@1, kUD_OCT_PullAll_Done) ;
+                }
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ; // pull all in first time
+                                        
+                NSLog(@"pullall complete") ;
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion() ;
+                    }) ;
+                }
+            } else { // sync
+                [self icloudSync:^{
+                    if (completion) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion() ;
+                        }) ;
+                    }
+                }] ;
             }
         }] ;
     }] ;
 }
+
 
 - (void)createDefaultBookAndNotes {
 //    book default
@@ -314,6 +322,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 }
 
 - (void)icloudSync:(void(^)(void))completeBlk {
+    [XTCloudHandler sharedInstance].isSyncingOnICloud = YES;
+    
     __block BOOL hasSthChanged = NO ;
     
     [[XTCloudHandler sharedInstance] syncOperationEveryRecord:^(CKRecord *record) {
@@ -350,11 +360,14 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         }
         
     } allComplete:^(NSError *operationError) {
+        [XTCloudHandler sharedInstance].isSyncingOnICloud = NO;
         
         if (!operationError && hasSthChanged) [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationSyncCompleteAllPageRefresh object:nil] ;
         if (completeBlk) completeBlk() ;
     }] ;
 }
+
+#pragma mark --
 
 - (void)uploadAllLocalDataIfNotUploaded {
     

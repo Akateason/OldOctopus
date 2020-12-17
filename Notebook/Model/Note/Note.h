@@ -54,8 +54,8 @@
 
 + (void)deleteAllNoteComplete:(void(^)(bool success))completion ;
 
-+ (void)getFromServerComplete:(void(^)(void))completion ;
 
++ (void)getFromServerComplete:(void(^)(BOOL isPullAll))completion;
 
 
 + (NSString *)filterSqliteString:(NSString *)markdownStr ;

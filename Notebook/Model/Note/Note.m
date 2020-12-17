@@ -54,7 +54,6 @@
     note.title = record[@"title"] ;
     note.isTop = [record[@"isTop"] intValue] ;
     note.comeFrom = record[@"comeFrom"] ;
-    note.previewPicture = record[@"previewPicture"] ;
     return note ;
 }
 
@@ -195,7 +194,7 @@
     }] ;
 }
 
-+ (void)getFromServerComplete:(void(^)(void))completion {
++ (void)getFromServerComplete:(void(^)(BOOL isPullAll))completion {
     
     [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"Note" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
         NSMutableArray *tmplist = [@[] mutableCopy] ;
@@ -207,8 +206,14 @@
             [tmplist addObject:aNote] ;
         }] ;
         
-        [Note xt_insertOrReplaceWithList:tmplist] ;
-        completion() ;
+        
+        if ([Note xt_count] < tmplist.count) {
+            [Note xt_insertOrReplaceWithList:tmplist] ;
+            completion(YES) ;
+        } else {
+            completion(NO);
+        }
+                
     }] ;
 }
 
@@ -351,7 +356,21 @@
         [results addObject:strRes] ;
     }
     
-    return [results yy_modelToJSONString] ;
+    if (results.count > 2) {
+        @autoreleasepool {
+            NSMutableArray *tmplist = [@[] mutableCopy];
+            int idx = 0;
+            for (NSString *strRes in results) {
+                NSString *str = [strRes stringByReplacingOccurrencesOfString:@"'" withString:@""];
+                [tmplist addObject:str];
+                idx++;
+                if (idx == 2) break;
+            }
+            results = tmplist;
+        }
+    }
+    
+    return [results yy_modelToJSONString];
 }
 
 // 启动时, 检查所有笔记并加入预览图, 第一把只在本地改动
