@@ -56,10 +56,12 @@
             make.edges.equalTo(self.btStart) ;
         }] ;
         self.btStart.textColor = [UIColor whiteColor] ;
+        self.btStart.backgroundColor = UIColorHex(@"F55333") ;
         self.btStart.userInteractionEnabled = YES ;
-
-        
-        self.btStart.userInteractionEnabled = YES ;
+        self.btStart.hidden = NO;
+        self.btStart.xt_cornerRadius = 4.0;
+        self.btStart.xt_maskToBounds = YES;
+                
         WEAK_SELF
         [self.btStart xt_whenTapped:^{
             [weakSelf.delegate startOnClick] ;

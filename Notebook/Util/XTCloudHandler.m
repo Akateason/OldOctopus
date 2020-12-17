@@ -10,7 +10,6 @@
 #import <CommonCrypto/CommonRandom.h>
 #import "GuidingICloud.h"
 
-
 @implementation XTIcloudUser
 
 + (NSString *)pathForUserSave {
@@ -49,12 +48,7 @@ XT_initWithCoderRuntimeCls(XTIcloudUser)
 
 static NSString *const kIdContainer = @"iCloud.container.id.octupus" ;
 
-@interface XTCloudHandler ()
-@property (nonatomic) BOOL isSyncingOnICloud ;
-@end
-
 @implementation XTCloudHandler
-
 XT_SINGLETON_M(XTCloudHandler)
 
 - (NSString *)createUniqueIdentifier {
@@ -212,7 +206,6 @@ XT_SINGLETON_M(XTCloudHandler)
         // 这里要 提醒用户开 icloud drive
         @strongify(self)
         if (error) {
-//            [self alertCallUserToIcloud:nil] ;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (k_debugmode_findme) {
                     [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleAlert) title:@"用户未打开icloud drive" message:XT_STR_FORMAT(@"%@",error) cancelButtonTitle:@"ok" destructiveButtonTitle:nil otherButtonTitles:nil callBackBlock:^(NSInteger btnIndex) {
@@ -227,7 +220,8 @@ XT_SINGLETON_M(XTCloudHandler)
 
         @weakify(self)
         // 获取iCloud用户ID
-        [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) { //<CKRecordID: 0x2831b5dc0; recordName=_074e9bb2241e7f6cb71878cb5a543325, zoneID=_defaultZone:__defaultOwner__>
+        [self.container fetchUserRecordIDWithCompletionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
+            ///<CKRecordID: 0x2831b5dc0; recordName=_074e9bb2241e7f6cb71878cb5a543325, zoneID=_defaultZone:__defaultOwner__>
             @strongify(self)
             if (!recordID) {
 
@@ -244,10 +238,10 @@ XT_SINGLETON_M(XTCloudHandler)
             }
             
             // 获取用户名
-            @weakify(self)
+            //@weakify(self)
             [self.container discoverUserIdentityWithUserRecordID:recordID completionHandler:^(CKUserIdentity * _Nullable userInfo, NSError * _Nullable error) {
                 
-//                @strongify(self)
+                //@strongify(self)
                 if (error || !userInfo) {
                     // 获取不到用户信息, 但不报错 !. 说明没有打开找到我, web端打开权限.
                     XTIcloudUser *user = [XTIcloudUser new] ;
@@ -291,7 +285,7 @@ XT_SINGLETON_M(XTCloudHandler)
 
 - (void)alertCallUserToIcloud:(UIViewController *)vc {
     dispatch_async(dispatch_get_main_queue(), ^{
-        GuidingICloud *guid = [GuidingICloud showFromCtrller:vc] ;
+        [GuidingICloud showFromCtrller:vc] ;
     }) ;
 }
 
@@ -336,9 +330,7 @@ XT_SINGLETON_M(XTCloudHandler)
         NSLog(@"未登录") ;
         return ;
     }
-    
-    
-    
+            
     self.isSyncingOnICloud = YES ;
     CKModifyRecordsOperation *modifyRecordsOperation = [[CKModifyRecordsOperation alloc] initWithRecordsToSave:recInsertOrUpdateList recordIDsToDelete:recDeleteList];
     modifyRecordsOperation.savePolicy = CKRecordSaveAllKeys;
@@ -358,10 +350,9 @@ XT_SINGLETON_M(XTCloudHandler)
         NSLog(@"未登录") ;
         return ;
     }
-    
-    
-    
+            
     self.isSyncingOnICloud = YES ;
+    
     CKRecordID *recId = [[CKRecordID alloc] initWithRecordName:recordID zoneID:self.zoneID] ;
     CKFetchRecordsOperation *operate = [[CKFetchRecordsOperation alloc] init] ;
     operate.database = self.container.privateCloudDatabase ;
@@ -399,9 +390,7 @@ XT_SINGLETON_M(XTCloudHandler)
         NSLog(@"未登录") ;
         return ;
     }
-    
-    
-    
+
     self.isSyncingOnICloud = YES ;
     
     CKDatabase *database = self.container.privateCloudDatabase ;
@@ -453,8 +442,7 @@ XT_SINGLETON_M(XTCloudHandler)
         return ;
     }
     
-    
-    
+        
     self.isSyncingOnICloud = YES ;
     
     CKDatabase *database = self.container.privateCloudDatabase ;
@@ -486,7 +474,10 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
         return ;
     }
     
-    
+    if (self.isSyncingOnICloud) {
+        NSLog(@"正在同步") ;
+        return;
+    }
     
     CKFetchRecordZoneChangesOperation *operation ;
     CKServerChangeToken *previousToken = [XTArchive unarchiveSomething:XT_LIBRARY_PATH_TRAIL_(kKeyForPreviousServerChangeToken)] ;

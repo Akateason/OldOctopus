@@ -10,24 +10,19 @@
 #import <XTlib/XTlib.h>
 #import <CloudKit/CloudKit.h>
 
-
 @interface XTIcloudUser : NSObject <NSCoding>
-
 @property (copy, nonatomic) NSString *userRecordName ;
 @property (copy, nonatomic) NSString *name ;
 @property (copy, nonatomic) NSString *givenName ;
 @property (copy, nonatomic) NSString *familyName ;
-
-
-
 + (NSString *)pathForUserSave ;
 + (instancetype)userInCacheSyncGet ;
 + (BOOL)hasLogin ; // 未登录时, 只能纯本地使用.
-
 + (NSString *)displayUserName ; // 未登录返回 默认名字.
-
-
 @end
+
+
+
 
 
 
@@ -39,7 +34,7 @@
 XT_SINGLETON_H(XTCloudHandler)
 @property (strong, nonatomic) CKContainer *container ;
 @property (strong, nonatomic) CKRecordZoneID *zoneID ;
-@property (readonly, nonatomic) BOOL isSyncingOnICloud ;
+@property (readwrite, nonatomic) BOOL isSyncingOnICloud ;
 
 - (void)setup:(void(^)(BOOL success))completion ;
 - (NSString *)createUniqueIdentifier ;
@@ -50,7 +45,6 @@ XT_SINGLETON_H(XTCloudHandler)
 - (void)syncOperationEveryRecord:(void (^)(CKRecord *record))recordChangedBlock
                           delete:(void (^)(CKRecordID *recordID, CKRecordType recordType))recordWithIDWasDeletedBlock
                      allComplete:(void (^)(NSError *operationError))fetchRecordZoneChangesCompletionBlock ;
-
 
 
 // Fetch list (no use)
@@ -82,16 +76,6 @@ completionHandler:(void (^)(CKRecord *  record, NSError *  error))completionHand
 // Subcript
 - (void)saveSubscription ;
 - (void)deleteAllSubscriptionCompletion:(void(^)(BOOL success))completion ;
-
-// Ref
-//- (void)setReferenceWithReferenceKey:(NSString *)key
-//                   andSourceRecordID:(NSString *)sourceRecordID
-//                   andTargetRecordID:(NSString *)targetRecordID ;
-//
-//- (void)searchRefWithRefRecId:(CKRecordID *)refrecID ;
-//
-//- (void)searchReferWithRefID:(CKRecordID *)refrecID
-//                  sourceType:(NSString *)sourceType ;
 
 @end
 

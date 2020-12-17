@@ -29,11 +29,9 @@
 
 
 + (instancetype)getMe {
-    return nil ;
-    
-#ifdef ISMAC
-    return nil ;
-#endif
+//#ifdef ISMAC
+//    return nil ;
+//#endif
     
     //  小版本更新就更新
 //    NSString *currentVersion = [CommonFunc getVersionStrOfMyAPP] ;
