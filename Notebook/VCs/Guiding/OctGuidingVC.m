@@ -29,6 +29,8 @@
 
 
 + (instancetype)getMe {
+    return nil ;
+    
 #ifdef ISMAC
     return nil ;
 #endif

@@ -14,17 +14,13 @@
 @implementation OcHomeVC (Notifications)
 
 - (void)renderCurrentCell:(NSIndexPath *)idp {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.mainCollectionView scrollToItemAtIndexPath:idp atScrollPosition:(UICollectionViewScrollPositionNone) animated:NO] ;
+    [self.mainCollectionView setContentOffset:CGPointMake(idp.row * CGRectGetWidth(self.view.bounds), 0)];
     
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-                //cellForItemAtIndexPath 此方法
-                //The cell object at the corresponding index path or nil if the cell is not visible or indexPath is out of range.
-                OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:idp] ;
-                [cell.contentCollection reloadData] ;
-                            
-            });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //cellForItemAtIndexPath 此方法
+        //The cell object at the corresponding index path or nil if the cell is not visible or indexPath is out of range.
+        OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:idp] ;
+        [cell.contentCollection reloadData] ;
     });
 }
 

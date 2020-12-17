@@ -187,17 +187,14 @@
 
 
 - (void)moveMainCollection {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        if (self.mainCollectionView.xt_currentIndexPath.row == self.bookCurrentIdx) return ;
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
-        [self.mainCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
-            [cell refresh] ;
-        }) ;
+    if (self.mainCollectionView.xt_currentIndexPath.row == self.bookCurrentIdx) return ;
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
+    [self.mainCollectionView setContentOffset:CGPointMake(self.bookCurrentIdx * CGRectGetWidth(self.view.bounds), 0)];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
+        [cell refresh] ;
     }) ;
 }
 

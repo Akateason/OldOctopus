@@ -8,18 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-
-
 @interface OcContainerCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *contentCollection ;
-
-
 @property (copy, nonatomic) NSArray *noteList ;
-
 - (void)refresh ;
-
 @end
 
-NS_ASSUME_NONNULL_END
+

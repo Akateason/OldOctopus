@@ -160,10 +160,10 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.bookCurrentIdx inSection:0] ;
-            [self.mainCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionCenteredHorizontally) animated:NO] ;
+            
+            [self.mainCollectionView setContentOffset:CGPointMake(self.bookCurrentIdx * CGRectGetWidth(self.view.bounds), 0)];
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
                 OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:indexPath] ;
                 [cell refresh] ;
             }) ;
