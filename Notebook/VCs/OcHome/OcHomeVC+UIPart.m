@@ -70,7 +70,7 @@
     
     [self.btSortWay xt_addEventHandler:^(id sender) {
         
-        [weakSelf.btSortWay setImage:ssave.homePageCellDisplayWay_isLine ? [UIImage imageNamed:@"h_list_sort_line"] : [UIImage imageNamed:@"h_list_sort_square"] forState:0] ;
+        [weakSelf.btSortWay setImage:!ssave.homePageCellDisplayWay_isLine ? [UIImage imageNamed:@"h_list_sort_line"] : [UIImage imageNamed:@"h_list_sort_square"] forState:0] ;
 
         [weakSelf.btSortWay oct_buttonClickAnimationComplete:^{
             
