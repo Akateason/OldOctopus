@@ -55,21 +55,13 @@
       takeUntil:self.rac_willDeallocSignal]
      subscribeNext:^(NSNumber *offsetY) {
          @strongify(self)
-//         NSLog(@"offset : %@",offsetY) ;
-//         NSLog(@"self : %@",self) ;
          CGPoint translation = [self.contentCollection.panGestureRecognizer translationInView:self] ;
-         CGPoint velocity = [self.contentCollection.panGestureRecognizer velocityInView:self] ;
-//         BOOL velocityOverThis = (fabs(velocity.y) > 600) ;
          BOOL directionIsVerical = (fabs(translation.y) > fabs(translation.x)) ;
          BOOL overDistance = offsetY.floatValue > 134. ;
         
          BOOL scrollUpDirection = translation.y < 0 ;
          
          if ( directionIsVerical ) {
-//             NSLog(@"v : %@",@(velocity.y)) ;
-             // progress state ..
-             [(OcHomeVC *)self.xt_viewController containerCellDraggingCurrentMovingDistance:offsetY.floatValue] ;
-             
              // ending state
              if (scrollUpDirection) {
                  if (overDistance) [(OcHomeVC *)self.xt_viewController containerCellDraggingDirection:YES] ;

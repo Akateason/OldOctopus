@@ -86,7 +86,6 @@ static NSString *const kUDCached_lastBook_RecID = @"kUDCached_lastBook_RecID" ;
  @param directionUp : up - YES, down - NO.
  */
 - (void)containerCellDraggingDirection:(BOOL)directionUp ;
-- (void)containerCellDraggingCurrentMovingDistance:(float)currentDistance ;
 - (void)containerCellDidSelectedNote:(Note *)note ;
 
 /**
