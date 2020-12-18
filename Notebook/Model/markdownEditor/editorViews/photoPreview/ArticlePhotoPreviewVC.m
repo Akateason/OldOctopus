@@ -51,10 +51,13 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     @weakify(self)
     XTZoomPicture *zp = [[XTZoomPicture alloc] initWithFrame:self.bounds];
     zp.backgroundColor = [UIColor blackColor];
+    @weakify(zp)
     [zp.imageView sd_setImageWithURL:[NSURL URLWithString:self.src] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         @strongify(self)
+        @strongify(zp)
         self.downloadButton.hidden = NO ;
         self.deleteButton.hidden = NO ;
+        [zp reset];
     }];
         
     [zp onTapped:^{
