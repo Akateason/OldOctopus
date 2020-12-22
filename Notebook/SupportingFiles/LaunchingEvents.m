@@ -66,8 +66,9 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 }
 
 - (void)configUmeng {
-    [UMConfigure initWithAppkey:@"5e93d5dddbc2ec07e86bc025" channel:@"App Store"];
-    
+#ifndef DEBUG
+//    [UMConfigure initWithAppkey:@"5e93d5dddbc2ec07e86bc025" channel:@"App Store"];
+#endif
 }
 
 - (void)setupOCR {
@@ -215,6 +216,8 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
                     
                 }
             }] ;
+        } else {
+            NSLog(@"login failed");
         }
         
     }] ;
@@ -370,6 +373,10 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 #pragma mark --
 
 - (void)uploadAllLocalDataIfNotUploaded {
+    if (![XTIcloudUser hasLogin]) {
+        NSLog(@"未登录") ;
+        return ;
+    }
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring] ;
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {

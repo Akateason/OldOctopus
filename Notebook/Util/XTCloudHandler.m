@@ -68,6 +68,7 @@ XT_SINGLETON_M(XTCloudHandler)
 
 - (void)setup:(void(^)(BOOL success))completion {
     [self.container accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError * _Nullable error) {
+        NSLog(@"accountStatus: %ld \n err: %@", (long)accountStatus , error);
         
         void  (^requestPremission)(void) = ^{
             [self.container requestApplicationPermission:CKApplicationPermissionUserDiscoverability completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError * _Nullable error) {
@@ -120,7 +121,7 @@ XT_SINGLETON_M(XTCloudHandler)
                     }
                     case CKApplicationPermissionStatusGranted:{
                         //授权过了
-                        completion(YES);
+                        NSLog(@"授权过了");
                         break;
                     }
                     case CKApplicationPermissionStatusDenied:{
@@ -130,6 +131,7 @@ XT_SINGLETON_M(XTCloudHandler)
                                 
                             }] ;
                         }
+                        completion(NO);
                         break;
                     }
                     case CKApplicationPermissionStatusCouldNotComplete:{
@@ -139,6 +141,7 @@ XT_SINGLETON_M(XTCloudHandler)
                                 
                             }] ;
                         }
+                        completion(NO);
                         break;
                     }
                     default:
