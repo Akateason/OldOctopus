@@ -21,6 +21,7 @@
 }
 
 + (BOOL)hasLogin {
+    if (!self.userInCacheSyncGet) xt_LOG_DEBUG(@"未登录");
     return self.userInCacheSyncGet != nil ;
 }
 
@@ -122,6 +123,7 @@ XT_SINGLETON_M(XTCloudHandler)
                     case CKApplicationPermissionStatusGranted:{
                         //授权过了
                         NSLog(@"授权过了");
+                        requestPremission();
                         break;
                     }
                     case CKApplicationPermissionStatusDenied:{
@@ -331,7 +333,6 @@ XT_SINGLETON_M(XTCloudHandler)
         complete:(void(^)(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error))modifyRecordsCompletionBlock {
     
     if (![XTIcloudUser hasLogin]) {
-        NSLog(@"未登录") ;
         return ;
     }
             
@@ -351,7 +352,6 @@ XT_SINGLETON_M(XTCloudHandler)
   completionHandler:(void (^)(CKRecord * _Nullable record, NSError * _Nullable error))completionHandler {
     
     if (![XTIcloudUser hasLogin]) {
-        NSLog(@"未登录") ;
         return ;
     }
             
@@ -391,7 +391,6 @@ XT_SINGLETON_M(XTCloudHandler)
             completionHandler:(void (^)(NSArray<CKRecord *> *results, NSError *error))completionHandler {
     
     if (![XTIcloudUser hasLogin]) {
-        NSLog(@"未登录") ;
         return ;
     }
 
@@ -441,7 +440,6 @@ XT_SINGLETON_M(XTCloudHandler)
 
 - (void)deleteAllSubscriptionCompletion:(void(^)(BOOL success))completion {
     if (![XTIcloudUser hasLogin]) {
-        NSLog(@"未登录") ;
         return ;
     }
     
@@ -473,7 +471,6 @@ static NSString *const kKeyForPreviousServerChangeToken = @"kKeyForPreviousServe
                      allComplete:(void (^)(NSError *operationError))fetchRecordZoneChangesCompletionBlock
 {
     if (![XTIcloudUser hasLogin]) {
-        NSLog(@"未登录") ;
         return ;
     }
     

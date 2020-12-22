@@ -221,6 +221,27 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         }
         
     }] ;
+    
+    // 处理偶现登录失败
+    NSNumber *num = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
+    if ([num intValue] != 1) {
+        @weakify(self)
+        [[[[RACSignal interval:8 onScheduler:[RACScheduler mainThreadScheduler]]
+           skip:1]
+          take:10]
+         subscribeNext:^(NSDate * _Nullable x) {
+            @strongify(self)
+            NSNumber *num1 = XT_USERDEFAULT_GET_VAL(kUD_OCT_PullAll_Done) ;
+            if ([num1 intValue] == 1) return ;
+            
+            @weakify(self)
+            [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
+                @strongify(self)
+                [[XTCloudHandler sharedInstance] saveSubscription] ;
+                [self pullOrSync] ;
+            }] ;
+        }] ;
+    }
 }
 
 #pragma mark --
@@ -373,8 +394,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
 #pragma mark --
 
 - (void)uploadAllLocalDataIfNotUploaded {
-    if (![XTIcloudUser hasLogin]) {
-        NSLog(@"未登录") ;
+    if (![XTIcloudUser hasLogin]) {        
         return ;
     }
     

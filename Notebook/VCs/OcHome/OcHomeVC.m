@@ -61,12 +61,16 @@
     [[[RACSignal interval:7 onScheduler:[RACScheduler mainThreadScheduler]]
       takeUntil:self.rac_willDeallocSignal]
      subscribeNext:^(NSDate * _Nullable x) {
-         @strongify(self)
-         if (self.view.window) {
-             LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
-             [events icloudSync:^{}] ;
-         }
-     }] ;
+        @strongify(self)
+        if (![XTIcloudUser hasLogin]) {            
+            return ;
+        }
+        
+        if (self.view.window) {
+            LaunchingEvents *events = ((AppDelegate *)[UIApplication sharedApplication].delegate).launchingEvents ;
+            [events icloudSync:^{}] ;
+        }
+    }] ;
     
     [[[self rac_signalForSelector:@selector(viewDidAppear:)] throttle:1] subscribeNext:^(RACTuple * _Nullable x) {
         @strongify(self)

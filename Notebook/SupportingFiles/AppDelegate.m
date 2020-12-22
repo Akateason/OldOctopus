@@ -57,6 +57,8 @@
         [self.window makeKeyAndVisible] ;
     }
     // set Root Controller END
+    
+    
         
     [self test] ;
     
