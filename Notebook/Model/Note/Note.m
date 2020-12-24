@@ -51,7 +51,7 @@
     note.content = record[@"content"] ;
     note.isDeleted = [record[@"isDeleted"] intValue] ;
     note.noteBookId = record[@"noteBookId"] ;
-    note.title = record[@"title"] ;
+    note.title = [self filterTitle:record[@"title"]] ;
     note.isTop = [record[@"isTop"] intValue] ;
     note.comeFrom = record[@"comeFrom"] ;
     return note ;
@@ -67,7 +67,7 @@
         _noteBookId = bookID ?: @"" ;
         _content = content ;
         _searchContent = [self.class getSearchContent:content] ;
-        _title = title ;
+        _title = [self.class filterTitle:title] ;
         _baseContent = [content base64EncodedString] ;
         _createDateOnServer = [[NSDate date] xt_getTick] ;
         _modifyDateOnServer = _createDateOnServer ;
@@ -121,7 +121,7 @@
     NSDictionary *dic = @{@"content" : aNote.content,
                           @"isDeleted" : @(aNote.isDeleted),
                           @"noteBookId" : aNote.noteBookId,
-                          @"title" : aNote.title,
+                          @"title" : [self filterTitle:aNote.title],
                           @"isTop" : @(aNote.isTop),
                           @"previewPicture" : aNote.previewPicture
                           } ;
@@ -239,9 +239,10 @@
 }
 
 + (NSString *)filterTitle:(NSString *)title {
-    if (title.length > 7) {
-        return [title substringToIndex:6] ;
+    if (title.length > 50) {
+        return [title substringToIndex:49] ;
     }
+    title = [self filterSqliteString:title];
     return title ;
 }
 
@@ -260,6 +261,7 @@
             break ;
         }
     }
+    title = [self filterTitle:title];
     return title ;
 }
 

@@ -237,7 +237,7 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
             @weakify(self)
             [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
                 @strongify(self)
-                [[XTCloudHandler sharedInstance] saveSubscription] ;
+                // [[XTCloudHandler sharedInstance] saveSubscription] ;
                 [self pullOrSync] ;
             }] ;
         }] ;
