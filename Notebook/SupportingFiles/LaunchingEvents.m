@@ -67,7 +67,7 @@ NSString *const kNotificationSyncCompleteAllPageRefresh = @"kNotificationSyncCom
 
 - (void)configUmeng {
 #ifndef DEBUG
-//    [UMConfigure initWithAppkey:@"5e93d5dddbc2ec07e86bc025" channel:@"App Store"];
+    [UMConfigure initWithAppkey:@"5e93d5dddbc2ec07e86bc025" channel:@"App Store"];
 #endif
 }
 
