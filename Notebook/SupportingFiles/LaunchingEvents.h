@@ -27,9 +27,7 @@ static NSString *const kUD_OCT_PullAll_Done = @"kUD_OCT_PullAll_Done" ;
 @property (strong, nonatomic) AppDelegate *appDelegate ;
 - (void)setup:(UIApplication *)application appdelegate:(AppDelegate *)appDelegate ;
 - (void)icloudSync:(void(^)(void))completeBlk ;
-- (void)pullAll ;
 - (void)pullAllComplete:(void(^)(void))completion ;
-
 - (void)pullOrSync ;
 
 

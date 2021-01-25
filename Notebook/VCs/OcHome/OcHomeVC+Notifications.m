@@ -47,8 +47,8 @@
     
     [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil]
         takeUntil:self.rac_willDeallocSignal]
+       throttle:1]
        deliverOnMainThread]
-      throttle:1.]
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
          NSLog(@"go sync list") ;

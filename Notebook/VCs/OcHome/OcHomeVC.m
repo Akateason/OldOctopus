@@ -137,17 +137,14 @@
     [self.mainCollectionView reloadData] ;
 }
 
-static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_Note_Info_Time" ;
+static NSString *const kCache_Last_Count_Book = @"oct_Cache_Last_Count_Book";
+
 - (void)getAllBooks {
     NoteBooks *bookRecent = [NoteBooks createOtherBookWithType:Notebook_Type_recent] ;
     NoteBooks *bookStage = [NoteBooks createOtherBookWithType:Notebook_Type_staging] ;
     NSMutableArray *tmplist = [@[bookRecent,bookStage] mutableCopy] ;
     
     [NoteBooks fetchAllNoteBook:^(NSArray<NoteBooks *> * _Nonnull array) {
-        if (array.count > 0) {
-            XT_USERDEFAULT_SET_VAL(@([[NSDate date] xt_getTick]), kCache_Last_Update_Note_Info_Time) ;
-        }
-        
         [tmplist addObjectsFromArray:array] ;
         self.bookList = tmplist ;
         
@@ -160,6 +157,10 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
         }
         
         [self refreshAll] ;
+        
+        if (self.bookList.count > 0) {
+            XT_USERDEFAULT_SET_VAL(@(self.bookList.count), kCache_Last_Count_Book);
+        }
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
@@ -179,18 +180,13 @@ static NSString *const kCache_Last_Update_Note_Info_Time = @"kCache_Last_Update_
 }
 
 - (void)getAllBooksIfNeeded {
-    NSNumber *lastTick = XT_USERDEFAULT_GET_VAL(kCache_Last_Update_Note_Info_Time) ;
-    NSDate *lastUpdateTime = [NSDate xt_getDateWithTick:lastTick.longLongValue] ;
-    NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:lastUpdateTime] ;
-    if (time < 5) {
-        NSLog(@"未超过时间, 不刷新book, %@s之内刷新过了",@(time)) ;
-        return ;
+    NSNumber *lastBookCount = XT_USERDEFAULT_GET_VAL(kCache_Last_Count_Book);
+    if (self.bookList.count != [lastBookCount integerValue]) {
+        [self getAllBooks];
+    } else {
+        NSLog(@"book.count未变化, 不刷新book") ;
     }
-    
-    [self getAllBooks] ;
 }
-
-
 
 - (NoteBooks *)nextUsefulBook {
     NSString *value = XT_USERDEFAULT_GET_VAL(kUDCached_lastBook_RecID) ;
