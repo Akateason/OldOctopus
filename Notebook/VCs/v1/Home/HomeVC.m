@@ -483,19 +483,19 @@
     [self.table reloadData] ;
 }
 
-- (void)editNoteComplete:(Note *)aNote {
-    NSMutableArray *tmplist = [self.listNotes mutableCopy] ;
-    [self.listNotes enumerateObjectsUsingBlock:^(Note  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.icRecordName isEqualToString:aNote.icRecordName]) {
-            [tmplist removeObjectAtIndex:idx] ;
-            [tmplist insertObject:aNote atIndex:0] ;
-            *stop = YES;
-            return;
-        }
-    }] ;
-    self.listNotes = tmplist ;
-    [self.table reloadData] ;
-}
+//- (void)editNoteComplete:(Note *)aNote {
+//    NSMutableArray *tmplist = [self.listNotes mutableCopy] ;
+//    [self.listNotes enumerateObjectsUsingBlock:^(Note  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([obj.icRecordName isEqualToString:aNote.icRecordName]) {
+//            [tmplist removeObjectAtIndex:idx] ;
+//            [tmplist insertObject:aNote atIndex:0] ;
+//            *stop = YES;
+//            return;
+//        }
+//    }] ;
+//    self.listNotes = tmplist ;
+//    [self.table reloadData] ;
+//}
 
 - (NSString *)currentBookID {
     return self.leftVC.currentBook.icRecordName ;

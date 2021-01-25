@@ -149,7 +149,13 @@
         }
     }] ;
     
-    
+    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotification_Note_Edited object:nil]
+         deliverOnMainThread]
+     subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
+        [cell refresh] ;
+    }];
 }
 
 

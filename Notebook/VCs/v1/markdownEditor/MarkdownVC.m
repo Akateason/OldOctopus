@@ -354,7 +354,9 @@ return;}
     self.aNote.content = markdown ;
     self.aNote.title = title ;
     [Note updateMyNote:self.aNote] ;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(editNoteComplete:)]) [self.delegate editNoteComplete:self.aNote] ;
+        
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_Note_Edited object:self.aNote];
+    
     XT_HIDE_HUD
 }
 

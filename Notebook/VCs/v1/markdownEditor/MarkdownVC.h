@@ -11,10 +11,11 @@
 #import "OctWebEditor.h"
 #import <XTlib/XTPhotoAlbum.h>
 
+static NSString *const kNotification_Note_Edited = @"oct_Notification_Note_Edited";
 
 @protocol MarkdownVCDelegate <NSObject>
 - (void)addNoteComplete:(Note *)aNote ;
-- (void)editNoteComplete:(Note *)aNote ;
+// editNoteComplete:(Note *)aNote  // fix搜索进入首页不回调,这里不用delegate
 - (NSString *)currentBookID ;
 - (int)currentBookType ;
 @end

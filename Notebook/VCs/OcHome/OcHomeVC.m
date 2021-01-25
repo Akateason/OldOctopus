@@ -458,10 +458,6 @@ static NSString *const kCache_Last_Count_Book = @"oct_Cache_Last_Count_Book";
     [cell refresh] ;
 }
 
-- (void)editNoteComplete:(Note *)aNote {
-    OcContainerCell *cell = (OcContainerCell *)[self.mainCollectionView cellForItemAtIndexPath:self.mainCollectionView.xt_currentIndexPath] ;
-    [cell refresh] ;
-}
 
 - (NSString *)currentBookID {
     return self.currentBook.icRecordName ;
