@@ -15,6 +15,7 @@
 #import "OcNoteCell.h"
 #import "OcLineNoteCell.h"
 
+
 @interface SearchVC () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
 @property (strong, nonatomic) SearchEmptyVC *phVC ;
@@ -59,6 +60,15 @@
     
     SearchEmptyVC *phVC = [SearchEmptyVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
     self.phVC = phVC ;
+    
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotification_Note_Edited object:nil]
+         deliverOnMainThread]
+      throttle:0.3]
+     subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+         [self render] ;
+    }];
+    
 }
 
 - (void)handleSwipeFrom:(id)gest {
