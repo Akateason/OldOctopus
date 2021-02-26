@@ -302,29 +302,29 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
     book.isSendOnICloud = NO ;
     [book xt_insert] ;
 //    introUseICloud
-//    NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"introUseICloud" ofType:@"md"] ;
-//    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-//    NSString *str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
-//    Note *noteICloud = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"如何打开iCloud?"] ;
-//    noteICloud.isSendOnICloud = NO ;
-//    noteICloud.icRecordName = @"iOS-note-guide" ; // 默认文章介绍 id
-//    [noteICloud xt_insert] ;
+    NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:@"introUseICloud" ofType:@"md"] ;
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSString *str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
+    Note *noteICloud = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"如何打开iCloud?"] ;
+    noteICloud.isSendOnICloud = NO ;
+    noteICloud.icRecordName = @"iOS-note-guide" ; // 默认文章介绍 id
+    [noteICloud xt_insert] ;
 //    intro
-//    path = [[NSBundle bundleForClass:self.class] pathForResource:@"intro" ofType:@"md"] ;
-//    data = [[NSData alloc] initWithContentsOfFile:path];
-//    str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
-//    Note *note = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"欢迎使用小章鱼🐙"] ;
-//    note.isSendOnICloud = NO ;
-//    note.icRecordName = @"iOS-note-intro" ; // 默认文章介绍 id
-//    [note xt_insert] ;
+    path = [[NSBundle bundleForClass:self.class] pathForResource:@"intro" ofType:@"md"] ;
+    data = [[NSData alloc] initWithContentsOfFile:path];
+    str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
+    Note *note = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"欢迎使用小章鱼🐙"] ;
+    note.isSendOnICloud = NO ;
+    note.icRecordName = @"iOS-note-intro" ; // 默认文章介绍 id
+    [note xt_insert] ;
 //    introPro
-//    path = [[NSBundle bundleForClass:self.class] pathForResource:@"introUsePro" ofType:@"md"] ;
-//    data = [[NSData alloc] initWithContentsOfFile:path];
-//    str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
-//    Note *notePro = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"小章鱼更多功能"] ;
-//    notePro.isSendOnICloud = NO ;
-//    notePro.icRecordName = @"iOS-note-pro-intro" ; // 默认文章介绍 id
-//    [notePro xt_insert] ;
+    path = [[NSBundle bundleForClass:self.class] pathForResource:@"introUsePro" ofType:@"md"] ;
+    data = [[NSData alloc] initWithContentsOfFile:path];
+    str = [[NSString alloc] initWithData:data encoding:(NSUTF8StringEncoding)] ;
+    Note *notePro = [[Note alloc] initWithBookID:book.icRecordName content:str title:@"小章鱼更多功能"] ;
+    notePro.isSendOnICloud = NO ;
+    notePro.icRecordName = @"iOS-note-pro-intro" ; // 默认文章介绍 id
+    [notePro xt_insert] ;
 
 
 //  Upload default items .
@@ -336,12 +336,12 @@ NSString *const kFirstTimeLaunch = @"kFirstTimeLaunch" ;
         if (!error) {
             book.isSendOnICloud = YES ;
             [book xt_update] ;
-//            note.isSendOnICloud = YES ;
-//            [note xt_update] ;
-//            noteICloud.isSendOnICloud = YES ;
-//            [noteICloud xt_update] ;
-//            notePro.isSendOnICloud = YES ;
-//            [notePro xt_update] ;
+            note.isSendOnICloud = YES ;
+            [note xt_update] ;
+            noteICloud.isSendOnICloud = YES ;
+            [noteICloud xt_update] ;
+            notePro.isSendOnICloud = YES ;
+            [notePro xt_update] ;
         }
     }] ;
     
