@@ -53,7 +53,9 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
     
     NSString *path = [self getPicFilePath] ;
     if ([XTFileManager isFileExist:path]) {
-        NSURLResponse *response = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPicURLResponsePath]] ;
+        NSURLResponse *response = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getPicURLResponsePath]];
+        if (!response) return ;
+        
         [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
         
         NSData *dataFile = [NSData dataWithContentsOfFile:path] ;
