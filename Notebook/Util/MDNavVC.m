@@ -16,8 +16,7 @@
 @implementation MDNavVC
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [super viewDidLoad];    
     
     UIImage *backBtn = [UIImage imageNamed:@"nav_back_item" inBundle:[NSBundle bundleForClass:self.class] compatibleWithTraitCollection:nil];
     self.navigationBar.backIndicatorImage = backBtn;
@@ -27,22 +26,11 @@
     self.navigationBar.backgroundColor = [UIColor whiteColor] ;
     
     
-//    [self.navigationBar setBackgroundImage:<#(nullable UIImage *)#> forBarMetrics:<#(UIBarMetrics)#>]
     self.navigationBar.barTintColor = [UIColor whiteColor] ;
     UIImage *whiteLine = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(APP_WIDTH, 2)] ;
     [self.navigationBar setBackgroundImage:whiteLine forBarMetrics:UIBarMetricsDefault];
     self.navigationBar.shadowImage = [UIImage new] ;
 
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

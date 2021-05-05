@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <XTlib/XTlib.h>
-#import "XTCloudHandler.h"
 #import <XTFMDB/XTFMDB.h>
 
 typedef enum : NSUInteger {
@@ -27,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic)       BOOL     canUpload ;
 @property (nonatomic)       BOOL     isOnSelect ;
 @property (copy, nonatomic) NSString *icRecordName ;
-@property (strong, nonatomic) CKRecord *record ;
+//@property (strong, nonatomic) CKRecord *record ;
 @property (nonatomic)       long long modifyDateOnServer ;
 @property (nonatomic)       long long createDateOnServer ;
 
@@ -45,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)fetchAllNoteBook:(void(^)(NSArray<NoteBooks *> *array))completion ;
 
-+ (NoteBooks *)recordToNoteBooks:(CKRecord *)record ;
+//+ (NoteBooks *)recordToNoteBooks:(CKRecord *)record ;
 
 - (instancetype)initWithName:(NSString *)name
                        emoji:(NSString *)emoji ;

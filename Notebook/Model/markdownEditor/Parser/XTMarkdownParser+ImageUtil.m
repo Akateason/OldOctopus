@@ -10,9 +10,6 @@
 #import "MDThemeConfiguration.h"
 #import "model/MdInlineModel.h"
 #import "MarkdownEditor.h"
-#import "XTCloudHandler.h"
-
-
 
 @implementation XTMarkdownParser (ImageUtil)
 
@@ -178,21 +175,21 @@
             success:(void (^)(NSURLResponse *response, id responseObject))success
             failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail {
     
-    NSString *url = @"https://shimo.im/octopus-api/files?uploadType=media" ;
-    NSData *data = UIImageJPEGRepresentation(image, 1) ;
-    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName) ;
-    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
-    NSDictionary *header = @{@"Authorization" : code,
-                             @"Content-Type":@"image/jpeg"
-                             } ;
-    
-    [XTRequest uploadFileWithData:data urlStr:url header:header progress:^(float flt) {
-        progressValueBlock(flt) ;
-    } success:^(NSURLResponse *response, id responseObject) {
-        success(response, responseObject) ;
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        fail(task, error) ;
-    }] ;
+//    NSString *url = @"https://shimo.im/octopus-api/files?uploadType=media" ;
+//    NSData *data = UIImageJPEGRepresentation(image, 1) ;
+//    NSString *strToEnc = STR_FORMAT(@"%@:123456",[XTIcloudUser userInCacheSyncGet].userRecordName) ;
+//    NSString *code = STR_FORMAT(@"Basic %@",[strToEnc base64EncodedString]) ;
+//    NSDictionary *header = @{@"Authorization" : code,
+//                             @"Content-Type":@"image/jpeg"
+//                             } ;
+//
+//    [XTRequest uploadFileWithData:data urlStr:url header:header progress:^(float flt) {
+//        progressValueBlock(flt) ;
+//    } success:^(NSURLResponse *response, id responseObject) {
+//        success(response, responseObject) ;
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        fail(task, error) ;
+//    }] ;
 }
 
 @end

@@ -12,11 +12,8 @@
 #import <XTlib/XTPhotoAlbum.h>
 #import "AppDelegate.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
-#import "ArticleInfoVC.h"
 #import <UIViewController+CWLateralSlide.h>
 #import "XTMarkdownParser+Fetcher.h"
-#import "OutputPreviewVC.h"
-#import "OutputPreviewsNailView.h"
 
 @interface MarkdownVC ()
 @property (weak, nonatomic) IBOutlet UIButton *btMore;
@@ -26,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightForBar;
 @property (strong, nonatomic) MarkdownEditor    *textView ;
 @property (strong, nonatomic) XTCameraHandler   *handler;
-@property (strong, nonatomic) ArticleInfoVC     *infoVC ;
 
 @property (strong, nonatomic) Note *aNote ;
 @property (copy, nonatomic) NSString *myBookID ;
@@ -55,35 +51,7 @@
     
     if (self.aNote) self.textView.text = self.aNote.content ;
     
-    @weakify(self)
-    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNOTIFICATION_NAME_EDITOR_DID_CHANGE object:nil] takeUntil:self.rac_willDeallocSignal] throttle:.6] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        // Update Your Note
-        [self updateMyNote] ;
-        if (!self.thisArticleHasChanged) self.thisArticleHasChanged = YES ;
-    }] ;
     
-    [[[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationSyncCompleteAllPageRefresh object:nil] takeUntil:self.rac_willDeallocSignal] throttle:3] deliverOnMainThread] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        // Sync your note
-        if (!self.aNote) return ;
-        
-        __block Note *noteFromIcloud = [Note xt_findFirstWhere: XT_STR_FORMAT(@"icRecordName == '%@'",self.aNote.icRecordName)] ;
-        if ([noteFromIcloud.content isEqualToString:self.aNote.content]) return ; // 如果内容一样,不处理
-        
-        self.aNote = noteFromIcloud ;
-        [self.textView.parser parseTextAndGetModelsInCurrentCursor:self.aNote.content textView:self.textView] ;
-        MarkdownModel *model = [self.textView.parser modelForModelListInlineFirst] ;
-        [self.textView doSomethingWhenUserSelectPartOfArticle:model] ;
-    }] ;
-    
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:kNotificationForThemeColorDidChanged object:nil]
-       takeUntil:self.rac_willDeallocSignal]
-      deliverOnMainThread]
-     subscribeNext:^(NSNotification * _Nullable x) {
-         @strongify(self)
-         [self.textView parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
-     }] ;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -178,7 +146,6 @@
 
     [self.topBar setNeedsDisplay] ;
     [self.topBar layoutIfNeeded] ;
-    [self.topBar oct_addBlurBg] ;
 }
 
 - (IBAction)backAction:(id)sender {
@@ -186,70 +153,9 @@
 }
 
 - (IBAction)moreAction:(id)sender {
-    if (self.textView.isFirstResponder) [self.textView resignFirstResponder] ;
-    
-    [self infoVC] ;
-    self.infoVC.distance = self.movingDistance ;
-    self.infoVC.aNote = self.aNote ;
-    self.infoVC.parser = self.textView.parser ;
-    WEAK_SELF
-    self.infoVC.blkDelete = ^{
-        [weakSelf.navigationController popViewControllerAnimated:YES] ;
-    } ;
-    
-    self.infoVC.blkOutput = ^{
-        if (weakSelf.textView.isFirstResponder) {
-            [weakSelf.textView resignFirstResponder] ;
-            [weakSelf.textView parseAllTextFinishedThenRenderLeftSideAndToolbar] ;
-            //@issue 预览之前, 把 所有, 左边展示的 mark 去掉 .
-        }
-        
-       dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf snapShotFullScreen] ;
-        }) ;
-    } ;
-    
-    CWLateralSlideConfiguration *conf = [CWLateralSlideConfiguration configurationWithDistance:self.movingDistance maskAlpha:0.1 scaleY:1 direction:CWDrawerTransitionFromRight backImage:nil] ;
-    self.infoVC.view.width = self.movingDistance ;
-    [self cw_showDrawerViewController:self.infoVC animationType:0 configuration:conf] ;
 }
 
 
-- (void)snapShotFullScreen {
-    self.navArea.hidden = YES ;
-    
-    CGFloat flexTop = APP_STATUSBAR_HEIGHT + 55 ;
-    CGFloat textHeight = self.textView.contentSize.height + flexTop ;
-    
-    OutputPreviewsNailView *nail = [OutputPreviewsNailView makeANail] ;
-    nail.top = textHeight ;
-    [self.view addSubview:nail] ;
-    
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(APP_WIDTH, textHeight + nail.height), YES, [UIScreen mainScreen].scale) ;
-    
-    CGPoint savedContentOffset = self.textView.contentOffset;
-    CGRect savedFrame = self.textView.frame;
-    
-    self.textView.mj_offsetY = - 55 ;
-    self.textView.frame = CGRectMake(30, 0, self.textView.contentSize.width , self.textView.contentSize.height) ;
-    self.view.frame = CGRectMake(0, 0, APP_WIDTH , textHeight + nail.height) ;
-    
-    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()] ;
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext() ;
-    UIGraphicsEndImageContext() ;
-    
-    self.navArea.hidden = NO ;
-    self.textView.contentOffset = savedContentOffset;
-    self.textView.frame = savedFrame;
-    self.view.frame = APPFRAME ;
-    [nail removeFromSuperview] ;
-    nail = nil ;
-    
-    if (!image) return ;
-    
-    [self dismissViewControllerAnimated:YES completion:nil] ;
-    [OutputPreviewVC showFromCtrller:self imageOutput:image] ;
-}
 
 #pragma mark - prop
 
@@ -267,16 +173,6 @@
        });
     }
     return _textView;
-}
-
-- (ArticleInfoVC *)infoVC{
-    if(!_infoVC){
-        _infoVC = ({
-            ArticleInfoVC * object = [ArticleInfoVC getCtrllerFromNIBWithBundle:[NSBundle bundleForClass:self.class]] ;
-            object;
-       });
-    }
-    return _infoVC;
 }
 
 - (CGFloat)movingDistance {

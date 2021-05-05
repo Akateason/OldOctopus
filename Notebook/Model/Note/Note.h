@@ -15,7 +15,7 @@
 
 @interface Note : NSObject
 @property (nonatomic)       BOOL     isSendOnICloud ;
-@property (strong, nonatomic) CKRecord *record ;
+//@property (strong, nonatomic) CKRecord *record ;
 @property (copy, nonatomic) NSString *icRecordName ;
 @property (nonatomic)       long long modifyDateOnServer ;
 @property (nonatomic)       long long createDateOnServer ;
@@ -32,7 +32,7 @@
 @property (copy, nonatomic) NSString *comeFrom ; // 发自
 
 
-+ (instancetype)recordToNote:(CKRecord *)record ;
+//+ (instancetype)recordToNote:(CKRecord *)record ;
 
 - (instancetype)initWithBookID:(NSString *)bookID
                        content:(NSString *)content

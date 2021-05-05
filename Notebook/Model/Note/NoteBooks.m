@@ -11,33 +11,33 @@
 
 @implementation NoteBooks
 
-- (CKRecord *)record {
-    if (!_record) {
-        CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
-        _record = [[CKRecord alloc] initWithRecordType:@"NoteBook" recordID:recordID] ;
-    }
-    [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
-    [_record setObject:_emoji forKey:@"emoji"] ;
-    [_record setObject:_name forKey:@"name"] ;
-    
-    return _record ;
-}
-
-+ (NoteBooks *)recordToNoteBooks:(CKRecord *)record {
-    NoteBooks *book = [NoteBooks new] ;
-    book.icRecordName = record.recordID.recordName ;
-    book.emoji = record[@"emoji"] ;
-    book.isDeleted = [record[@"isDeleted"] intValue] ;
-    book.name = record[@"name"] ;
-    return book ;
-}
+//- (CKRecord *)record {
+//    if (!_record) {
+//        CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:_icRecordName zoneID:[XTCloudHandler sharedInstance].zoneID] ;
+//        _record = [[CKRecord alloc] initWithRecordType:@"NoteBook" recordID:recordID] ;
+//    }
+//    [_record setObject:@(_isDeleted) forKey:@"isDeleted"] ;
+//    [_record setObject:_emoji forKey:@"emoji"] ;
+//    [_record setObject:_name forKey:@"name"] ;
+//
+//    return _record ;
+//}
+//
+//+ (NoteBooks *)recordToNoteBooks:(CKRecord *)record {
+//    NoteBooks *book = [NoteBooks new] ;
+//    book.icRecordName = record.recordID.recordName ;
+//    book.emoji = record[@"emoji"] ;
+//    book.isDeleted = [record[@"isDeleted"] intValue] ;
+//    book.name = record[@"name"] ;
+//    return book ;
+//}
 
 - (instancetype)initWithName:(NSString *)name
                        emoji:(NSString *)emoji {
     
     self = [super init] ;
     if (self) {
-        _icRecordName = [XTCloudHandler sharedInstance].createUniqueIdentifier ;
+//        _icRecordName = [XTCloudHandler sharedInstance].createUniqueIdentifier ;
         _emoji = [@{@"native":emoji} yy_modelToJSONString] ;
         _isDeleted = 0 ;
         _name = name ;
@@ -84,19 +84,19 @@
     book.isSendOnICloud = NO ;
     [book xt_insert] ;
     
-    [[XTCloudHandler sharedInstance] insert:book.record completionHandler:^(CKRecord *record, NSError *error) {
-        if (!error) {
-            // succcess
-            book.isSendOnICloud = YES ;
-            book.createDateOnServer = [record.creationDate xt_getTick] ;
-            book.modifyDateOnServer = [record.modificationDate xt_getTick] ;
-            [book xt_update] ;
-        }
-        else {
-            // false
-            
-        }
-    }] ;
+//    [[XTCloudHandler sharedInstance] insert:book.record completionHandler:^(CKRecord *record, NSError *error) {
+//        if (!error) {
+//            // succcess
+//            book.isSendOnICloud = YES ;
+//            book.createDateOnServer = [record.creationDate xt_getTick] ;
+//            book.modifyDateOnServer = [record.modificationDate xt_getTick] ;
+//            [book xt_update] ;
+//        }
+//        else {
+//            // false
+//
+//        }
+//    }] ;
 }
 
 + (void)updateMyBook:(NoteBooks *)book {
@@ -107,41 +107,41 @@
                           @"isDeleted" : @(book.isDeleted),
                           @"name" : book.name
                           } ;
-    [[XTCloudHandler sharedInstance] updateWithRecId:book.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
-        
-        if (!error) {
-            // succcess
-            book.isSendOnICloud = YES ;
-            [book xt_update] ;
-        }
-        else {
-            // false
-            
-        }
-    }] ;        
+//    [[XTCloudHandler sharedInstance] updateWithRecId:book.icRecordName updateDic:dic completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+//
+//        if (!error) {
+//            // succcess
+//            book.isSendOnICloud = YES ;
+//            [book xt_update] ;
+//        }
+//        else {
+//            // false
+//
+//        }
+//    }] ;
 }
 
 + (void)getFromServerComplete:(void(^)(bool hasData))completion {
     
-    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
-        
-        if (!results.count) {
-            completion(NO) ;
-            return ;
-        }
-        
-        NSMutableArray *tmplist = [@[] mutableCopy] ;
-        [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NoteBooks *aBook = [NoteBooks recordToNoteBooks:obj] ;
-            aBook.createDateOnServer = [obj.creationDate xt_getTick] ;
-            aBook.modifyDateOnServer = [obj.modificationDate xt_getTick] ;
-            aBook.isSendOnICloud = YES ;
-            [tmplist addObject:aBook] ;
-        }] ;
-        
-        [NoteBooks xt_insertOrReplaceWithList:tmplist] ;
-        completion(YES) ;
-    }] ;
+//    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
+//
+//        if (!results.count) {
+//            completion(NO) ;
+//            return ;
+//        }
+//
+//        NSMutableArray *tmplist = [@[] mutableCopy] ;
+//        [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            NoteBooks *aBook = [NoteBooks recordToNoteBooks:obj] ;
+//            aBook.createDateOnServer = [obj.creationDate xt_getTick] ;
+//            aBook.modifyDateOnServer = [obj.modificationDate xt_getTick] ;
+//            aBook.isSendOnICloud = YES ;
+//            [tmplist addObject:aBook] ;
+//        }] ;
+//
+//        [NoteBooks xt_insertOrReplaceWithList:tmplist] ;
+//        completion(YES) ;
+//    }] ;
 }
 
 + (void)deleteBook:(NoteBooks *)book done:(void(^)(void))doneblk {
@@ -158,17 +158,17 @@
 }
 
 + (void)deleteAllNoteBookComplete:(void(^)(bool success))completion {
-    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
-        NSMutableArray *tmplist = [@[] mutableCopy] ;
-        [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [tmplist addObject:obj.recordID] ;
-        }] ;
-        
-        [[XTCloudHandler sharedInstance] saveList:nil deleteList:tmplist complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
-            
-            completion(!error) ;
-        }] ;
-    }] ;
+//    [[XTCloudHandler sharedInstance] fetchListWithTypeName:@"NoteBook" completionHandler:^(NSArray<CKRecord *> *results, NSError *error) {
+//        NSMutableArray *tmplist = [@[] mutableCopy] ;
+//        [results enumerateObjectsUsingBlock:^(CKRecord * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            [tmplist addObject:obj.recordID] ;
+//        }] ;
+//        
+//        [[XTCloudHandler sharedInstance] saveList:nil deleteList:tmplist complete:^(NSArray *savedRecords, NSArray *deletedRecordIDs, NSError *error) {
+//            
+//            completion(!error) ;
+//        }] ;
+//    }] ;
 }
 
 

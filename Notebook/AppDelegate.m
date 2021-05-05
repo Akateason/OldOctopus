@@ -8,18 +8,14 @@
 
 #import "AppDelegate.h"
 #import <XTlib/XTlib.h>
-#import "XTCloudHandler.h"
 
 @interface AppDelegate ()
-// <UNUserNotificationCenterDelegate>
 
 @end
 
 @implementation AppDelegate
 
 - (void)test {
-    NSLog(@"test : %@", [[[NSNumberFormatter alloc] init] numberFromString:@"a"]) ;
-    NSLog(@"t : %d", ![[[NSNumberFormatter alloc] init] numberFromString:@"a"] ) ;
     
 }
 
@@ -31,38 +27,5 @@
     [self test] ;
     return YES;
 }
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-
-    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
-    NSString *alertBody = cloudKitNotification.alertBody;
-    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
-        CKRecordID *recordID = [(CKQueryNotification *)cloudKitNotification recordID] ;
-    }
-    
-    [self.launchingEvents icloudSync:^{
-        completionHandler(UIBackgroundFetchResultNewData);
-    }] ;
-}
-
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    [self.launchingEvents icloudSync:^{
-        completionHandler(UIBackgroundFetchResultNewData);
-    }] ;
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application{
-    if (![XTIcloudUser userInCacheSyncGet]) {
-        [[XTCloudHandler sharedInstance] fetchUser:^(XTIcloudUser *user) {
-            [self.launchingEvents pullAll] ;
-        }] ;
-    }
-}
-
-
 
 @end
