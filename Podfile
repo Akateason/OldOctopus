@@ -10,7 +10,6 @@ target 'Notebook' do
   pod 'IQKeyboardManager'
   pod 'CWLateralSlide'
   pod 'SDWebImage'
-  pod 'Bugly'
   pod 'EllipsePageControl'
   pod 'lottie-ios','2.5.3'
   pod 'iosMath'

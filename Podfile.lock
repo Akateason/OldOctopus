@@ -14,7 +14,6 @@ PODS:
   - AFNetworking/Serialization (4.0.0)
   - AFNetworking/UIKit (4.0.0):
     - AFNetworking/NSURLSession
-  - Bugly (2.5.90)
   - CHTCollectionViewWaterfallLayout (0.9.8):
     - CHTCollectionViewWaterfallLayout/ObjC (= 0.9.8)
   - CHTCollectionViewWaterfallLayout/ObjC (0.9.8)
@@ -93,7 +92,6 @@ PODS:
   - YYModel (1.0.4)
 
 DEPENDENCIES:
-  - Bugly
   - CWLateralSlide
   - EllipsePageControl
   - iosMath
@@ -107,7 +105,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AFNetworking
-    - Bugly
     - CHTCollectionViewWaterfallLayout
     - CocoaLumberjack
     - CWLateralSlide
@@ -139,7 +136,6 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: d9fdf484a3c723ec3c558a41cc5754c7e845ee77
-  Bugly: 88bc32c0acc6fef7b74d610f0319ee7560d6b9fe
   CHTCollectionViewWaterfallLayout: 5f241d2480ab4939aa0d1ad4981de9eef1fbe60d
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
   CWLateralSlide: 8939c8dea91a24e40d0793553118cb57cd67f64b
@@ -169,6 +165,6 @@ SPEC CHECKSUMS:
   XTTable: 71154f0f7e883546d83a3b377f919369fc7d1ece
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 7377bddbaffe9d083523a5e00485cda90f971d32
+PODFILE CHECKSUM: 5635d712fc52104a14a99543e32f3e06aab9f028
 
 COCOAPODS: 1.10.1
