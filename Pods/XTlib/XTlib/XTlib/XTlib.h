@@ -5,6 +5,12 @@
 //  Created by xtc on 2018/1/29.
 //  Copyright © 2018年 teason. All rights reserved.
 //
+// 在podfile中本地配置
+//pod 'XTBase',:path => '../XTBase/'
+//pod 'XTlib',:path => '../XTlib/'
+//pod 'XTlib/Animations',:path => '../XTlib/'
+//pod 'XTlib/CustomUIs',:path => '../XTlib/'
+
 
 #ifndef XTlib_h
 #define XTlib_h
@@ -12,24 +18,6 @@
 
 // Base
 #import <XTBase/XTBase.h>
-
-// UIs
-//#import "XTZoomPicture.h"
-//#import "ParallaxHeaderView.h"
-//#import "PlaceHolderTextView.h"
-////#import "XTBarrageItemView.h"
-//#import "XTlineSpaceLabel.h"
-//#import "XTLoopScrollView.h"
-//#import "XTMultipleTables.h"
-//#import "XTTableViewRootHandler.h"
-//#import "XTNetReloader.h"
-//#import "XTSegment.h"
-//#import "XTStretchSegment.h"
-//#import "XTSIAlertView.h"
-//#import "XTPhotoAlbum.h"
-
-// Animation
-//#import "XTAnimation.h"
 
 // DataBase
 #import <XTFMDB/XTFMDB.h>
@@ -40,5 +28,8 @@
 // Request
 #import <XTReq/XTReq.h>
 
+// table collection
+#import <XTTable/XTTable.h>
+#import <XTTable/XTCollection.h>
 
 #endif /* XTlib_h */

@@ -39,22 +39,24 @@
 
     
     WEAK_SELF
-    [self.btCancel bk_whenTapped:^{
+    [self.btCancel xt_whenTapped:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil] ;
     }] ;
     
-    [self.btSave bk_whenTapped:^{
+    [self.btSave xt_whenTapped:^{
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [CommonFunc saveImageToLibrary:weakSelf.outpuImage complete:^(bool success) {
-                [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [weakSelf dismissViewControllerAnimated:YES completion:^{
-                    }] ;
-                });
-                
-            }] ;
+            
+            
+//            [CommonFunc saveImageToLibrary:weakSelf.outpuImage complete:^(bool success) {
+//                [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
+//
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    [weakSelf dismissViewControllerAnimated:YES completion:^{
+//                    }] ;
+//                });
+//
+//            }] ;
         }) ;
         
         
@@ -62,10 +64,8 @@
     
     
     CGRect rect = CGRectMake(0, 0, APP_WIDTH - 30, APP_HEIGHT - APP_STATUSBAR_HEIGHT - APP_NAVIGATIONBAR_HEIGHT - 40) ;
-    XTZoomPicture *zoomPic = [[XTZoomPicture alloc] initWithFrame:rect backImage:self.outpuImage tapped:^{
-        
-    }] ;
-    zoomPic.frame = CGRectMake(15, APP_NAVIGATIONBAR_HEIGHT + APP_STATUSBAR_HEIGHT + 20, rect.size.width, rect.size.height) ;
+    XTZoomPicture *zoomPic = [[XTZoomPicture alloc] initWithFrame:CGRectMake(15, APP_NAVIGATIONBAR_HEIGHT + APP_STATUSBAR_HEIGHT + 20, rect.size.width, rect.size.height)];
+    zoomPic.imageView.image = self.outpuImage;
     [self.view addSubview:zoomPic] ;
 }
 

@@ -41,7 +41,7 @@ typedef void(^BlkMoveBook)(NoteBooks *book);
     self.booklist = [NoteBooks xt_findWhere:@"isOnSelect == 0 AND isDeleted == 0"] ;
     
     WEAK_SELF
-    [self.btClose bk_addEventHandler:^(id sender) {
+    [self.btClose xt_addEventHandler:^(id sender) {
         [weakSelf dismissViewControllerAnimated:YES completion:^{}] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
 }

@@ -74,13 +74,25 @@
     options.resizeMode             = PHImageRequestOptionsResizeModeFast;
     options.synchronous            = YES;
     for (PHAsset *asset in resultAssets) {
-        [self.manager requestImageForAsset:asset
-                                targetSize:PHImageManagerMaximumSize
-                               contentMode:PHImageContentModeDefault
-                                   options:options
-                             resultHandler:^void(UIImage *image, NSDictionary *info) {
-                                 if (image) [images addObject:image];
-                             }];
+        [self.manager requestImageDataForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+            
+            if (imageData) {
+                XTImageItem *item ;
+                BOOL isHEIF = [XTImageItem imageIsHeicType:info] ;
+                if (isHEIF) {
+                    CIImage *ciImage = [CIImage imageWithData:imageData];
+                    CIContext *context = [CIContext context];
+                    NSData *jpgData = [context JPEGRepresentationOfImage:ciImage colorSpace:ciImage.colorSpace options:@{}];
+                    item = [[XTImageItem alloc] initWithData:jpgData info:info];
+                    item.imgType = XTImageItem_type_jpeg;
+                } else {
+                    item = [[XTImageItem alloc] initWithData:imageData info:info];
+                }
+                
+                [images addObject:item];
+            }
+            
+        }] ;
     }
 
     if (self.configuration.albumSelectedMaxCount > 20) [SVProgressHUD dismiss];

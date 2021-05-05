@@ -10,7 +10,6 @@
 #import "KeyboardViewButton.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
-#import <BlocksKit+UIKit.h>
 #import "MarkdownModel.h"
 
 @implementation OctToolbarBlockView
@@ -77,47 +76,47 @@
     
     
     WEAK_SELF
-    [self.btUlist bk_addEventHandler:^(UIButton *sender) {
+    [self.btUlist xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectUList] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btOlist bk_addEventHandler:^(UIButton *sender) {
+    [self.btOlist xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectOrderlist] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btLeftTab bk_addEventHandler:^(UIButton *sender) {
+    [self.btLeftTab xt_addEventHandler:^(UIButton *sender) {
 //        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectLeftTab] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btRightTabg bk_addEventHandler:^(UIButton *sender) {
+    [self.btRightTabg xt_addEventHandler:^(UIButton *sender) {
 //        sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectRightTab] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btTaskList bk_addEventHandler:^(UIButton *sender) {
+    [self.btTaskList xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectTaskList] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btQuote bk_addEventHandler:^(UIButton *sender) {
+    [self.btQuote xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectQuoteBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btSepline bk_addEventHandler:^(UIButton *sender) {
+    [self.btSepline xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectSepLine] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btCodeBlock bk_addEventHandler:^(UIButton *sender) {
+    [self.btCodeBlock xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectCodeBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btMath bk_addEventHandler:^(UIButton *sender) {
+    [self.btMath xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.blkBoard_Delegate toolbarDidSelectMathBlock] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;

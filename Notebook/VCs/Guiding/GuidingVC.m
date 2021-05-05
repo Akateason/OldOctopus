@@ -96,7 +96,7 @@
     
     
     WEAK_SELF
-    [guidView.lbStart bk_whenTapped:^{
+    [guidView.lbStart xt_whenTapped:^{
 //        [weakSelf dismissViewControllerAnimated:YES completion:^{
 //        }] ;
         HomeVC *homeVC = [HomeVC getCtrllerFromStory:@"Main" bundle:[NSBundle bundleForClass:weakSelf.class] controllerIdentifier:@"HomeVC"] ;

@@ -7,7 +7,6 @@
 //
 
 #import "GuidingICloud.h"
-#import <BlocksKit+UIKit.h>
 #import "MDThemeConfiguration.h"
 #import "Note.h"
 #import "MarkdownVC.h"
@@ -61,12 +60,12 @@ XT_SINGLETON_M(GuidingICloud)
     }] ;
     
     WEAK_SELF
-    [self.btOpen bk_whenTapped:^{
+    [self.btOpen xt_whenTapped:^{
         NSURL *url = [NSURL URLWithString:@"App-Prefs:root=CASTLE"];
         [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
     }] ;
     
-    [self.lbHowToOpen bk_whenTapped:^{
+    [self.lbHowToOpen xt_whenTapped:^{
         Note *aNote = [Note xt_findFirstWhere:@"icRecordName == 'iOS-note-guide'"] ;
         if (aNote.content) {
             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate ;
@@ -77,7 +76,7 @@ XT_SINGLETON_M(GuidingICloud)
         }
     }] ;
     
-    [self.btClose bk_whenTapped:^{
+    [self.btClose xt_whenTapped:^{
         [weakSelf removeFromSuperview] ;
     }] ;
     

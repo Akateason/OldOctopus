@@ -15,17 +15,12 @@
  
  @param percent 0 ~ 1
  */
-+ (UIColor *)colorBetweengGradientColor:(UIColor *)startColor
-                               andColor:(UIColor *)endColor
-                                percent:(CGFloat)percent ;
++ (UIColor *)xt_colorBetweengGradientColor:(UIColor *)startColor
+                                  andColor:(UIColor *)endColor
+                                   percent:(CGFloat)percent ;
 
-@end
-
-
-@interface UIColor (HexString)
-
-+ (UIColor *)colorWithHexString:(NSString *)color ;
-+ (UIColor *)colorWithHexString:(NSString *)color
-                          alpha:(float)alpha ;
++ (UIColor *)xt_colorWithHexString:(NSString *)color ;
++ (UIColor *)xt_colorWithHexString:(NSString *)color
+                             alpha:(float)alpha ;
 
 @end

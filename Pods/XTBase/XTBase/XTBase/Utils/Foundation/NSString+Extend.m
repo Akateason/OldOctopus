@@ -9,7 +9,7 @@
 #import "NSString+Extend.h"
 #import "NSDate+XTTick.h"
 #import "FastCodeHeader.h"
-
+#import "XTlibConst.h"
 
 @implementation NSString (Extend)
 
@@ -71,7 +71,7 @@ static NSString *const kSingleQuotes = @"&SingleQuotes&";
 - (NSString *)encodeTransferredMeaningForSingleQuotes {
     NSString *content = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     content           = [content stringByReplacingOccurrencesOfString:@"\'" withString:kSingleQuotes];
-    NSLog(@"content : %@", content);
+    xt_LOG_DEBUG(@"content : %@", content);
     return content;
 }
 

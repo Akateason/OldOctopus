@@ -9,7 +9,6 @@
 #import "OctToolBarInlineView.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
-#import <BlocksKit+UIKit.h>
 #import "MarkdownModel.h"
 #import "KeyboardViewButton.h"
 
@@ -98,62 +97,62 @@
     
     
     WEAK_SELF
-    [self.btBold bk_addEventHandler:^(UIButton *sender) {
+    [self.btBold xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectBold] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btItalic bk_addEventHandler:^(UIButton *sender) {
+    [self.btItalic xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectItalic] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btDeletion bk_addEventHandler:^(UIButton *sender) {
+    [self.btDeletion xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectDeletion] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btInlineCode bk_addEventHandler:^(UIButton *sender) {
+    [self.btInlineCode xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectInlineCode] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.bth1 bk_addEventHandler:^(UIButton *sender) {
+    [self.bth1 xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH1] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.bth2 bk_addEventHandler:^(UIButton *sender) {
+    [self.bth2 xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH2] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.bth3 bk_addEventHandler:^(UIButton *sender) {
+    [self.bth3 xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH3] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.bth4 bk_addEventHandler:^(UIButton *sender) {
+    [self.bth4 xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH4] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.bth5 bk_addEventHandler:^(UIButton *sender) {
+    [self.bth5 xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH5] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.bth6 bk_addEventHandler:^(UIButton *sender) {
+    [self.bth6 xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectH6] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btParaClean bk_addEventHandler:^(UIButton *sender) {
+    [self.btParaClean xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectClearToCleanPara] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
-    [self.btLink bk_addEventHandler:^(UIButton *sender) {
+    [self.btLink xt_addEventHandler:^(UIButton *sender) {
         sender.selected = !sender.selected ;
         [weakSelf.inlineBoard_Delegate toolbarDidSelectLink] ;
         [weakSelf removeFromSuperview] ;

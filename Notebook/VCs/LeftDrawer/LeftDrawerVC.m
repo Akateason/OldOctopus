@@ -125,14 +125,14 @@ typedef void(^BlkTapBookCell)(void);
     
     self.bottomArea.userInteractionEnabled = YES ;
     @weakify(self)
-    [self.bottomArea bk_whenTapped:^{
+    [self.bottomArea xt_whenTapped:^{
         @strongify(self)
         [self setCurrentBook:self.bookTrash] ;
         self.blkBookChanged(self.bookTrash) ;
         self.blkTapped() ;
     }] ;
     
-    [self.btReply bk_whenTapped:^{
+    [self.btReply xt_whenTapped:^{
         @strongify(self)
         [self dismissViewControllerAnimated:YES completion:^{
             [self.delegate reply] ;
@@ -140,7 +140,7 @@ typedef void(^BlkTapBookCell)(void);
     }] ;
     
     // 清数据 暗开关
-    [self.bottomArea bk_whenTouches:2 tapped:7 handler:^{
+    [self.bottomArea xt_whenTouches:2 tapped:7 handler:^{
         [HiddenUtil showAlert] ;
     }] ;
 }

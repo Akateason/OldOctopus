@@ -28,7 +28,6 @@
 #import "RSKInternalUtility.h"
 #import "UIImage+RSKImageCropper.h"
 #import "CGGeometry+RSKImageCropper.h"
-#import "UIApplication+RSKImageCropper.h"
 
 static const CGFloat kResetAnimationDuration = 0.4;
 static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
@@ -38,7 +37,6 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 @property (assign, nonatomic) BOOL originalNavigationControllerNavigationBarHidden;
 @property (strong, nonatomic) UIImage *originalNavigationControllerNavigationBarShadowImage;
 @property (copy, nonatomic) UIColor *originalNavigationControllerViewBackgroundColor;
-@property (assign, nonatomic) BOOL originalStatusBarHidden;
 
 @property (strong, nonatomic) RSKImageScrollView *imageScrollView;
 @property (strong, nonatomic) RSKTouchView *overlayView;
@@ -161,16 +159,6 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 {
     [super viewWillAppear:animated];
     
-    if ([self respondsToSelector:@selector(prefersStatusBarHidden)] == NO) {
-        
-        UIApplication *application = [UIApplication rsk_sharedApplication];
-        if (application) {
-            
-            self.originalStatusBarHidden = application.statusBarHidden;
-            [application setStatusBarHidden:YES];
-        }
-    }
-    
     self.originalNavigationControllerNavigationBarHidden = self.navigationController.navigationBarHidden;
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
@@ -189,15 +177,6 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    if ([self respondsToSelector:@selector(prefersStatusBarHidden)] == NO) {
-        
-        UIApplication *application = [UIApplication rsk_sharedApplication];
-        if (application) {
-            
-            [application setStatusBarHidden:self.originalStatusBarHidden];
-        }
-    }
     
     [self.navigationController setNavigationBarHidden:self.originalNavigationControllerNavigationBarHidden animated:animated];
     self.navigationController.navigationBar.shadowImage = self.originalNavigationControllerNavigationBarShadowImage;
@@ -448,6 +427,7 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     CGAffineTransform imageScrollViewTransform = self.imageScrollView.transform;
     self.imageScrollView.transform = CGAffineTransformIdentity;
     
+    CGPoint imageScrollViewContentOffset = self.imageScrollView.contentOffset;
     CGRect imageScrollViewFrame = self.imageScrollView.frame;
     self.imageScrollView.frame = self.maskRect;
     
@@ -485,6 +465,7 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     cropRect = CGRectApplyAffineTransform(cropRect, CGAffineTransformMakeScale(imageScale, imageScale));
     
     self.imageScrollView.frame = imageScrollViewFrame;
+    self.imageScrollView.contentOffset = imageScrollViewContentOffset;
     self.imageScrollView.transform = imageScrollViewTransform;
     
     return cropRect;
@@ -594,6 +575,7 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
         CGFloat rotation = (rotationAngle - self.rotationAngle);
         CGAffineTransform transform = CGAffineTransformRotate(self.imageScrollView.transform, rotation);
         self.imageScrollView.transform = transform;
+        [self layoutImageScrollView];
     }
 }
 
@@ -630,7 +612,10 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 
 - (void)handleRotation:(UIRotationGestureRecognizer *)gestureRecognizer
 {
-    [self setRotationAngle:(self.rotationAngle + gestureRecognizer.rotation)];
+    CGFloat rotation = gestureRecognizer.rotation;
+    CGAffineTransform transform = CGAffineTransformRotate(self.imageScrollView.transform, rotation);
+    self.imageScrollView.transform = transform;
+    
     gestureRecognizer.rotation = 0;
     
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
@@ -668,7 +653,6 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     }
     
     [self resetRotation];
-    [self resetFrame];
     [self resetZoomScale];
     [self resetContentOffset];
     
@@ -695,11 +679,6 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     }
     
     self.imageScrollView.contentOffset = contentOffset;
-}
-
-- (void)resetFrame
-{
-    [self layoutImageScrollView];
 }
 
 - (void)resetRotation
@@ -764,6 +743,25 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
             [self.delegate imageCropViewControllerDidDisplayImage:self];
         }
     }
+}
+
+- (void)centerImageScrollViewZoomView
+{
+    // center imageScrollView.zoomView as it becomes smaller than the size of the screen
+    
+    CGPoint contentOffset = self.imageScrollView.contentOffset;
+    
+    // center vertically
+    if (self.imageScrollView.contentSize.height < CGRectGetHeight(self.imageScrollView.bounds)) {
+        contentOffset.y = -(CGRectGetHeight(self.imageScrollView.bounds) - self.imageScrollView.contentSize.height) * 0.5f;
+    }
+    
+    // center horizontally
+    if (self.imageScrollView.contentSize.width < CGRectGetWidth(self.imageScrollView.bounds)) {
+        contentOffset.x = -(CGRectGetWidth(self.imageScrollView.bounds) - self.imageScrollView.contentSize.width) * 0.5f;;
+    }
+    
+    self.imageScrollView.contentOffset = contentOffset;
 }
 
 - (void)layoutImageScrollView
@@ -842,7 +840,10 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     
     CGAffineTransform transform = self.imageScrollView.transform;
     self.imageScrollView.transform = CGAffineTransformIdentity;
+    
     self.imageScrollView.frame = frame;
+    [self centerImageScrollViewZoomView];
+    
     self.imageScrollView.transform = transform;
 }
 

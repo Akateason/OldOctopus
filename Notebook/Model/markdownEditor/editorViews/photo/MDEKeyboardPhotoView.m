@@ -8,7 +8,6 @@
 
 #import "MDEKeyboardPhotoView.h"
 #import <XTlib/XTlib.h>
-#import <BlocksKit+UIKit.h>
 #import <XTlib/XTPhotoAlbum.h>
 #import <Photos/Photos.h>
 #import "MDEKPhotoViewCell.h"
@@ -42,21 +41,21 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
     photoView.keyboardHeight = height ;
     
     @weakify(photoView)
-    [photoView.btViewCamera bk_whenTapped:^{
+    [photoView.btViewCamera xt_whenTapped:^{
         @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
             [photoView cameraAddCrop:blkPressCameraBt] ;
 //            [photoView removeFromSuperview] ;
         }) ;
     }] ;
-    [photoView.btViewAlbum bk_whenTapped:^{
+    [photoView.btViewAlbum xt_whenTapped:^{
         @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
             [photoView albumAddCrop:blkPressAlbum] ;
 //            [photoView removeFromSuperview] ;
         }) ;
     }] ;
-    [photoView.btCancel bk_addEventHandler:^(id sender) {
+    [photoView.btCancel xt_addEventHandler:^(id sender) {
         @strongify(photoView)
         dispatch_async(dispatch_get_main_queue(), ^{
             blkCancel() ;
@@ -90,13 +89,10 @@ typedef void(^BlkCollectionFlowPressed)(UIImage *image);
 - (void)cameraAddCrop:(void(^)(UIImage *image))blkGetImage {
     @weakify(self)
     XTCameraHandler *handler = [[XTCameraHandler alloc] init];
-    [handler openCameraFromController:self.ctrller takePhoto:^(UIImage *imageResult) {
+    [handler openCameraFromController:self.ctrller takePhoto:^(XTImageItem * _Nullable imageResult) {
         if (!imageResult) return;
-        
-        @strongify(self)
-//        [XTPACropImageVC showFromCtrller:self.ctrller imageOrigin:imageResult croppedImageCallback:^(UIImage *_Nonnull image){
-            blkGetImage(imageResult) ;
-//        }];
+
+        blkGetImage(imageResult.image) ;
     }];
     self.handler = handler;
 }

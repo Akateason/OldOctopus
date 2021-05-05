@@ -10,7 +10,7 @@
 #import "MDThemeConfiguration.h"
 #import "RegexHighlightView.h"
 #import <XTlib/XTlib.h>
-#import <BlocksKit+UIKit.h>
+
 
 @interface MDCodeBlockEditor () <RegexHighlightViewDelegate>
 @property (strong, nonatomic) RegexHighlightView *highlightView ;
@@ -92,7 +92,7 @@
             make.height.equalTo(@30) ;
         }] ;
         
-        [_btCodeType bk_addEventHandler:^(id sender) {
+        [_btCodeType xt_addEventHandler:^(id sender) {
             WEAK_SELF
             [UIAlertController xt_showAlertCntrollerWithAlertControllerStyle:(UIAlertControllerStyleActionSheet) title:@"代码块语言格式" message:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:kLangugeArray fromWithView:sender CallBackBlock:^(NSInteger btnIndex) {
                 if (btnIndex) {

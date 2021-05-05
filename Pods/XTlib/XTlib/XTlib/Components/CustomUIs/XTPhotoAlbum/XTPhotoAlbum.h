@@ -14,5 +14,7 @@
 #import "XTPhotoAlbumVC.h"
 #import "XTPACameraGroupVC.h"
 #import "XTPACropImageVC.h"
+#import "XTImageItem.h"
+
 
 #endif /* XTPhotoAlbum_h */

@@ -10,7 +10,6 @@
 #import "MDThemeConfiguration.h"
 #import <XTlib/XTlib.h>
 #import "MdListModel.h"
-#import <BlocksKit+UIKit.h>
 #import "MDEditUrlView.h"
 #import "MarkdownEditor+OctToolbarUtil.h"
 #import "MdInlineModel.h"
@@ -425,7 +424,7 @@ static const int kTag_MathView          = 78089 ;
             imgView.contentMode = UIViewContentModeScaleAspectFit ;
             imgView.userInteractionEnabled = YES ;
             WEAK_SELF
-            [imgView bk_whenTapped:^{
+            [imgView xt_whenTapped:^{
                 NSMutableString *tmpStr = [[NSMutableString alloc] initWithString:weakSelf.text] ;
                 !model.taskItemSelected ?
                 [tmpStr replaceCharactersInRange:NSMakeRange(model.range.location + 3, 1) withString:@"x"] :
@@ -504,7 +503,7 @@ static const int kTag_MathView          = 78089 ;
         item.xt_cornerRadius = 3 ;
         
         WEAK_SELF
-        [item bk_whenTapped:^{
+        [item xt_whenTapped:^{
             if (!weakSelf.isFirstResponder) [weakSelf becomeFirstResponder] ;
             weakSelf.selectedRange = NSMakeRange(model.location + model.length - 1, 0)  ;
             [weakSelf parseAllTextFinishedThenRenderLeftSideAndToolbar] ;

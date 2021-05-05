@@ -147,8 +147,8 @@ static XTColorFetcher *_instance ;
         return [self colorRGB:spaceList] ;
     }
     else {
-        if ([UIColor colorWithHexString:jsonStr] && jsonStr) {
-            return [UIColor colorWithHexString:jsonStr] ;
+        if ([UIColor xt_colorWithHexString:jsonStr] && jsonStr) {
+            return [UIColor xt_colorWithHexString:jsonStr] ;
         }
         else {
             if (![self.plistName isEqualToString:kOriginalColorSourceName]) {
@@ -181,7 +181,7 @@ static XTColorFetcher *_instance ;
                                                  alpha:[colorValList[3] floatValue]] ;
     }
     else if (colorValList.count == 2) {
-        return [UIColor colorWithHexString:colorValList[0]
+        return [UIColor xt_colorWithHexString:colorValList[0]
                                      alpha:[colorValList[1] floatValue]] ;
     }
     

@@ -14,6 +14,8 @@
 #import "UIColor+XTColors.h"
 #import "XTColor.h"
 #import "XTColorFetcher.h"
+#import "NSObject+XTColorTheme.h"
+#import "XTThemeConfig.h"
 
 FOUNDATION_EXPORT double XTColorVersionNumber;
 FOUNDATION_EXPORT const unsigned char XTColorVersionString[];

@@ -11,7 +11,7 @@
 
 @implementation UIColor (XTAddition)
 
-+ (UIColor *)colorBetweengGradientColor:(UIColor *)startColor
++ (UIColor *)xt_colorBetweengGradientColor:(UIColor *)startColor
                                andColor:(UIColor *)endColor
                                 percent:(CGFloat)percent
 {
@@ -24,17 +24,11 @@
     return [UIColor colorWithRed:(resultRed) green:(resultGreen) blue:(resultBlue) alpha:(1.0)] ;
 }
 
-@end
-
-
-
-@implementation UIColor (HexString)
-
-+ (UIColor *)colorWithHexString:(NSString *)color {
-    return  color ? [self colorWithHexString:color alpha:1.] : nil ;
++ (UIColor *)xt_colorWithHexString:(NSString *)color {
+    return  color ? [self xt_colorWithHexString:color alpha:1.] : nil ;
 }
 
-+ (UIColor *)colorWithHexString:(NSString *)color alpha:(float)alpha {
++ (UIColor *)xt_colorWithHexString:(NSString *)color alpha:(float)alpha {
     NSString *cString = [[color stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
     // String should be 6 or 8 characters

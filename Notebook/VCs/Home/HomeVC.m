@@ -13,7 +13,6 @@
 #import "Note.h"
 #import "NoteCell.h"
 #import "MarkdownVC.h"
-#import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
 #import "HomeEmptyPHView.h"
 #import "AppDelegate.h"
 #import "LDHeadView.h"
@@ -30,7 +29,7 @@
 #import "HomeVC+Util.h"
 #import <SafariServices/SafariServices.h>
 
-@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate, LeftDrawerVCDelegate>
+@interface HomeVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, MarkdownVCDelegate, SWRevealTableViewCellDataSource, SWRevealTableViewCellDelegate, UIViewControllerTransitioningDelegate, LeftDrawerVCDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topSafeAreaView;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *topArea;
@@ -97,7 +96,7 @@
       deliverOnMainThread]
      subscribeNext:^(NSNotification * _Nullable x) {
          @strongify(self)
-         [self.table cyl_reloadData] ;
+         [self.table reloadData] ;
      }] ;
     
     [[[RACSignal interval:10 onScheduler:[RACScheduler mainThreadScheduler]]
@@ -201,26 +200,26 @@
     [self.btAdd xt_enlargeButtonsTouchArea] ;
     self.btAdd.xt_theme_imageColor = k_md_iconColor ;
     @weakify(self)
-    [self.btAdd bk_addEventHandler:^(id sender) {
+    [self.btAdd xt_addEventHandler:^(id sender) {
         @strongify(self)
         [self addBtOnClick:sender] ;
     } forControlEvents:(UIControlEventTouchUpInside)] ;
     
     [self.btMore xt_enlargeButtonsTouchArea] ;
     self.btMore.xt_theme_imageColor = k_md_iconColor ;
-    [self.btMore bk_addEventHandler:^(id sender) {
+    [self.btMore xt_addEventHandler:^(id sender) {
         @strongify(self)
         [self moreBtOnClick:sender] ;
     } forControlEvents:UIControlEventTouchUpInside] ;
     
     self.lbUser.userInteractionEnabled = YES ;
-    [self.lbUser bk_whenTapped:^{
+    [self.lbUser xt_whenTapped:^{
         @strongify(self)
         [self openDrawer] ;
     }] ;
     
     self.nameOfNoteBook.userInteractionEnabled = YES ;
-    [self.nameOfNoteBook bk_whenTapped:^{
+    [self.nameOfNoteBook xt_whenTapped:^{
         @strongify(self)
         [self openDrawer] ;
     }] ;
@@ -386,7 +385,7 @@
     NSMutableArray *tmplist = [self.listNotes mutableCopy] ;
     [tmplist insertObject:aNote atIndex:0] ;
     self.listNotes = tmplist ;
-    [self.table cyl_reloadData] ;
+    [self.table reloadData] ;
 }
 
 - (void)editNoteComplete:(Note *)aNote {
@@ -400,7 +399,7 @@
         }
     }] ;
     self.listNotes = tmplist ;
-    [self.table cyl_reloadData] ;
+    [self.table reloadData] ;
 }
 
 #pragma mark - prop
@@ -421,7 +420,7 @@
     if (!_phView) {
         _phView = [HomeEmptyPHView xt_newFromNibByBundle:[NSBundle bundleForClass:self.class]] ;
         WEAK_SELF
-        [_phView.area bk_whenTapped:^{
+        [_phView.area xt_whenTapped:^{
             [MarkdownVC newWithNote:nil bookID:weakSelf.leftVC.currentBook.icRecordName fromCtrller:weakSelf] ;
         }] ;
     }

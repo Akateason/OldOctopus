@@ -10,12 +10,11 @@
 #import <UINavigationController+FDFullscreenPopGesture.h>
 #import "NoteCell.h"
 #import "MarkdownVC.h"
-#import <CYLTableViewPlaceHolder/CYLTableViewPlaceHolder.h>
 #import "MDNavVC.h"
 #import "SearchEmptyVC.h"
 #import "SchBarPositiveTransition.h"
 
-@interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate, CYLTableViewPlaceHolderDelegate>
+@interface SearchVC () <UITableViewDelegate, UITableViewDataSource, UITableViewXTReloaderDelegate>
 @property (copy, nonatomic) NSArray *listResult ;
 @property (nonatomic) BOOL isTrash ;
 @end
@@ -43,7 +42,7 @@
     [self.tf becomeFirstResponder] ;
     
     @weakify(self)
-    [self.btCancel bk_addEventHandler:^(id sender) {
+    [self.btCancel xt_addEventHandler:^(id sender) {
         @strongify(self)
         [self.tf resignFirstResponder] ;
         [self dismissViewControllerAnimated:YES completion:nil] ;
@@ -108,7 +107,7 @@
     else
         self.listResult = @[] ;
     
-    [self.table cyl_reloadData] ;
+    [self.table reloadData] ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

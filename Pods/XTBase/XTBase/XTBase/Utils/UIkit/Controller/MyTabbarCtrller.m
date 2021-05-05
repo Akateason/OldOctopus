@@ -7,8 +7,7 @@
 //
 
 #import "MyTabbarCtrller.h"
-//#import "AppDelegate.h"
-
+#import "XTlibConst.h"
 
 @interface MyTabbarCtrller ()
 
@@ -22,7 +21,6 @@
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        //        self.tabBar.tintColor = [UIColor xt_mainColor] ;
         self.delegate = self;
     }
     return self;
@@ -98,7 +96,7 @@
 */
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    NSLog(@"did selectedIndex %@", @(tabBarController.selectedIndex));
+    xt_LOG_DEBUG(@"did selectedIndex %@", @(tabBarController.selectedIndex));
     [self clickItemAnimation:tabBarController];
 
     //  1. to camera .
@@ -124,11 +122,11 @@ static float kScaleSize = 1.35;
                                               NSComparisonResult result = [@(obj1.frame.origin.x) compare:@(obj2.frame.origin.x)];
                                               return result == NSOrderedDescending;
                                           }];
-    //    NSLog(@"resultList  : %@",resultList) ;
+    //    xt_LOG_DEBUG(@"resultList  : %@",resultList) ;
 
     UIView *selectedView = [resultList objectAtIndex:tabBarController.selectedIndex];
     int i                = 0;
-    //    NSLog(@"[view subviews] : %@",[selectedView subviews]) ;
+    //    xt_LOG_DEBUG(@"[view subviews] : %@",[selectedView subviews]) ;
 
     for (id tmp in [selectedView subviews]) {
         if ([tmp isKindOfClass:NSClassFromString(@"UITabBarSwappableImageView")]) break;

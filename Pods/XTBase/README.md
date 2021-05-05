@@ -1,27 +1,33 @@
 # XTBase
 
 ## Doc
-1. Utils
+### architecture
 
-* Foundation
-* UIkit                  
-* Store
-* Security
+- XTBase 
+    - Utils
+        - Security
+        - UIkit
+        - Foundation
+        - CommonFunc
+        - Store
+    - Header
 
-## Requirements
-
-`iOS 8.0` or later
 
 ## Installation
 
 XTBase is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
-
 ```ruby
 pod "XTBase"
 ```
-## Useage
 
+## Useage
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+    [[XTlibConfig sharedInstance] defaultConfiguration];        
+    return YES;
+}
+```
 ## Author
 
 teason, akateason@qq.com

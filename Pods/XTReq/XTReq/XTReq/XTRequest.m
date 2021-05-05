@@ -10,7 +10,9 @@
 #import "SVProgressHUD.h"
 #import "YYModel.h"
 #import "XTReqConst.h"
-
+#import "XTRequest+UrlString.h"
+#import "XTUploadSessionManager.h"
+#import "XTDownloadSessionManager.h"
 
 @implementation XTRequest
 
@@ -173,54 +175,55 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:ACCEPTABLE_CONTENT_TYPES, nil];
         manager.requestSerializer.timeoutInterval         = timeout ?: [XTReqSessionManager shareInstance].timeout;
         manager.completionQueue                           = xt_getCompletionQueue();
-        if (header) {
-            for (NSString *key in header) {
-                [manager.requestSerializer setValue:header[key]
-                                 forHTTPHeaderField:key];
-            }
-        }
+                
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         switch (mode) {
             case XTRequestMode_GET_MODE: {
                 [manager GET:url
-                    parameters:dict
+                  parameters:dict
+                     headers:header
                     progress:nil
-                    success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+                     success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
                         XTREQLog(@"url : %@ \n header : %@\n param : %@ \n resp \n %@", url, header, dict, [responseObject yy_modelToJSONString]);
                         result = responseObject;
                         dispatch_semaphore_signal(semaphore);
-                    }
-                    failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+                }
+                     failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
                         dispatch_semaphore_signal(semaphore);
-                    }];
+                }];
             } break;
             case XTRequestMode_POST_MODE: {
                 [manager POST:url
-                    parameters:dict
-                    progress:nil
-                    success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+                   parameters:dict
+                      headers:header
+                     progress:nil
+                      success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
                         XTREQLog(@"url : %@ \n header : %@\n param : %@ \n resp \n %@ ", url, header, dict, [responseObject yy_modelToJSONString]);
                         result = responseObject;
                         dispatch_semaphore_signal(semaphore);
-                    }
-                    failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+                }
+                      failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
                         dispatch_semaphore_signal(semaphore);
-                    }];
+                }];
             } break;
             case XTRequestMode_PUT_MODE: {
                 [manager PUT:url
-                    parameters:dict
-                    success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+                  parameters:dict
+                     headers:header
+                     success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
                         XTREQLog(@"url : %@ \n header : %@\n param : %@ \n resp \n %@", url, header, dict, [responseObject yy_modelToJSONString]);
                         result = responseObject;
                         dispatch_semaphore_signal(semaphore);
-                    }
-                    failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+                }
+                     failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
                         dispatch_semaphore_signal(semaphore);
-                    }];
+                }];
             } break;
             case XTRequestMode_DELETE_MODE: {
-                [manager DELETE:url parameters:dict success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+                [manager DELETE:url
+                     parameters:dict
+                        headers:header
+                        success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
                     XTREQLog(@"url : %@ \n header : %@\n param : %@ \n resp \n %@", url, header, dict, [responseObject yy_modelToJSONString]);
                     result = responseObject;
                     dispatch_semaphore_signal(semaphore);
@@ -229,7 +232,10 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
                 }];
             } break;
             case XTRequestMode_PATCH_MODE: {
-                [manager PATCH:url parameters:dict success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+                [manager PATCH:url
+                    parameters:dict
+                       headers:header
+                       success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
                     XTREQLog(@"url : %@ \n header : %@\n param : %@ \n resp \n %@", url, header, dict, [responseObject yy_modelToJSONString]);
                     result = responseObject;
                     dispatch_semaphore_signal(semaphore);
@@ -254,24 +260,33 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
 + (NSURLSessionUploadTask *)uploadFileWithData:(NSData *)fileData
                                         urlStr:(NSString *)urlString
                                         header:(NSDictionary *)header
-                                      progress:(nullable void (^)(float))progressValueBlock
+                                      progress:(nullable void (^)(float progressVal))progressValueBlock
                                        success:(void (^)(NSURLResponse *response, id responseObject))success
                                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail {
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     });
-
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager             = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    XTUploadSessionManager *manager = [XTUploadSessionManager shareInstance];
+    
     NSURL *URL                               = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request             = [NSMutableURLRequest requestWithURL:URL];
+    request.timeoutInterval = 60;
     [request setHTTPMethod:@"POST"];
     if (header) {
         for (NSString *key in header) {
-            [request setValue:header[key] forHTTPHeaderField:key];
+            @autoreleasepool {
+                NSString *val;
+                if ([header[key] isKindOfClass:[NSNumber class]]) {
+                    val = [header[key] stringValue];
+                } else {
+                    val = header[key];
+                }
+                [request setValue:val forHTTPHeaderField:key];
+            }
         }
     }
-
+    
     __block NSURLSessionUploadTask *uploadTask =
         [manager uploadTaskWithRequest:request fromData:fileData progress:^(NSProgress *_Nonnull uploadProgress) {
             if (progressValueBlock) progressValueBlock(uploadProgress.fractionCompleted);
@@ -286,21 +301,81 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
             }
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         }];
-    [uploadTask resume];
+
+    return uploadTask;
+}
+
+
++ (NSURLSessionUploadTask *)multipartFormDataUploadPath:(NSString *)path
+                                                 urlStr:(NSString *)urlStr
+                                                 header:(NSDictionary *)header
+                                                bodyDic:(NSDictionary *)body
+                                               progress:(void (^)(float progressVal))progressValueBlock
+                                                success:(void (^)(NSURLResponse *response, id responseObject))success
+                                                failure:(void (^)(NSURLSessionDataTask *task, NSError *error))fail {
+    
+    NSString *fileName = [path lastPathComponent];
+    NSString *mimeType = [XTRequest getFilesMimeTypeFromPath:path];
+    NSMutableURLRequest *request =
+    [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST"
+                                                               URLString:urlStr
+                                                              parameters:body
+                                               constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        [formData appendPartWithFileURL:[NSURL fileURLWithPath:path] name:@"file" fileName:fileName mimeType:mimeType error:nil];
+        
+    } error:nil];
+    request.timeoutInterval = 60;
+    
+    if (header) {
+        for (NSString *key in header.allKeys) {
+            if (![key isEqualToString:@"Content-Type"]) { // 避免Content-Type覆盖,server返回500;
+                [request setValue:header[key] forHTTPHeaderField:key];
+            }
+        }
+    }
+    
+    XTUploadSessionManager *manager = [XTUploadSessionManager shareInstance];
+    
+    __block NSURLSessionUploadTask *uploadTask =
+    [manager uploadTaskWithStreamedRequest:request
+                                  progress:^(NSProgress * _Nonnull uploadProgress) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (progressValueBlock) {
+                progressValueBlock(uploadProgress.fractionCompleted);
+            }
+        });
+    } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if (error) {
+            XTREQLog(@"xt upload Failed: %@", error);
+            if (fail) {
+                fail(uploadTask,error);
+            }
+        } else {
+            XTREQLog(@"xt upload Success: %@", responseObject);
+            if (success) {
+                success(response,responseObject);
+            }
+        }
+    }];
+    
     return uploadTask;
 }
 
 + (NSURLSessionDownloadTask *)downLoadFileWithSavePath:(NSString *)savePath
                                          fromUrlString:(NSString *)urlString
-                                                header:(NSDictionary *)header
-                                      downLoadProgress:(void (^)(float progressVal))progress
+                                                header:(NSDictionary *_Nullable)header
+                                            autoResume:(BOOL)autoResume
+                                      downLoadProgress:(void (^_Nullable)(float progressVal))progress
                                                success:(void (^)(NSURLResponse *response, id dataFile))success
-                                               failure:(void (^)(NSURLSessionDownloadTask *task, NSError *error))fail {
+                                               failure:(void (^_Nullable)(NSURLSessionDownloadTask *task, NSError *error))fail {
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     });
-
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    XTDownloadSessionManager *manager = [XTDownloadSessionManager shareInstance];
+    
     NSURL *url                   = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     if (header) {
@@ -311,8 +386,13 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
     }
 
     __block NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress *_Nonnull downloadProgress) {
-        XTREQLog(@"url: %@ \n下载进度：%.0f％", urlString, downloadProgress.fractionCompleted * 100);
-        if (progress) progress(downloadProgress.fractionCompleted);
+        XTREQLog(@"url: %@ \nDownload PGS：%.0f％", urlString, downloadProgress.fractionCompleted * 100);
+        if (progress) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                progress(downloadProgress.fractionCompleted);
+            });
+        }
+        
     } destination:^NSURL *_Nonnull(NSURL *_Nonnull targetPath, NSURLResponse *_Nonnull response) {
         return [NSURL fileURLWithPath:savePath];
     } completionHandler:^(NSURLResponse *_Nonnull response, NSURL *_Nullable filePath, NSError *_Nullable error) {
@@ -328,9 +408,8 @@ static inline dispatch_queue_t xt_getCompletionQueue() { return dispatch_queue_c
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     }];
-    [downloadTask resume];
+    if ( autoResume )[downloadTask resume];
     return downloadTask;
 }
-
 
 @end

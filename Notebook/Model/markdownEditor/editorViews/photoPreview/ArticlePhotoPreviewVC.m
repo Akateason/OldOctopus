@@ -39,16 +39,18 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     self.downloadButton.hidden = YES ;
     
     @weakify(self)
-    self.zoomPic = [[XTZoomPicture alloc] initWithFrame:APPFRAME imageUrl:self.modelImage.imageUrl tapped:^{
-        @strongify(self)
-        [self dismissViewControllerAnimated:YES completion:nil] ;
-    } loadComplete:^{
-        @strongify(self)
-        self.downloadButton.hidden = NO ;
-        self.deleteButton.hidden = NO ;
-    }] ;
     
-    [self.view addSubview:self.zoomPic] ;
+//    
+//    self.zoomPic = [[XTZoomPicture alloc] initWithFrame:APPFRAME imageUrl:self.modelImage.imageUrl tapped:^{
+//        @strongify(self)
+//        [self dismissViewControllerAnimated:YES completion:nil] ;
+//    } loadComplete:^{
+//        @strongify(self)
+//        self.downloadButton.hidden = NO ;
+//        self.deleteButton.hidden = NO ;
+//    }] ;
+//    
+//    [self.view addSubview:self.zoomPic] ;
     
     self.deleteButton = ({
         UIButton *bt = [UIButton new] ;
@@ -87,19 +89,19 @@ typedef void(^BlkDeleteOnClick)(ArticlePhotoPreviewVC *vc);
     [super viewDidLoad] ;
     
     WEAK_SELF
-    [self.deleteButton bk_whenTapped:^{
+    [self.deleteButton xt_whenTapped:^{
         weakSelf.blkDelete(weakSelf) ;
     }] ;
     
-    [self.downloadButton bk_whenTapped:^{
+    [self.downloadButton xt_whenTapped:^{
         
         UIImage *imgSave = [weakSelf.zoomPic valueForKey:@"backImage"] ;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [CommonFunc saveImageToLibrary:imgSave complete:^(bool success) {
-                
-                    [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
-                
-            }] ;
+//            [CommonFunc saveImageToLibrary:imgSave complete:^(bool success) {
+//
+//                    [SVProgressHUD showSuccessWithStatus:@"已经保存到本地相册"] ;
+//
+//            }] ;
         }) ;
         
     }] ;

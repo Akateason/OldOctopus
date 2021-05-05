@@ -37,11 +37,11 @@
         make.edges.equalTo([UIApplication sharedApplication].delegate.window) ;
     }] ;
     @weakify(vc)
-    [vc.btCreate bk_addEventHandler:^(id sender) {
+    [vc.btCreate xt_addEventHandler:^(id sender) {
         @strongify(vc)
         blkChanged(vc.lbEmoji.text, vc.tfName.text) ;
     } forControlEvents:UIControlEventTouchUpInside] ;
-    [vc.btCancel bk_addEventHandler:^(id sender) {
+    [vc.btCancel xt_addEventHandler:^(id sender) {
         blkCancel();
     } forControlEvents:UIControlEventTouchUpInside] ;
     
@@ -81,7 +81,7 @@
     self.lbEmoji.text = [EmojiJson randomADistinctEmojiWithBooklist:booklist] ;
 
     WEAK_SELF
-    [self.lbEmoji bk_whenTapped:^{
+    [self.lbEmoji xt_whenTapped:^{
         weakSelf.lbEmoji.text = [EmojiJson randomADistinctEmojiWithBooklist:booklist] ;
     }] ;
     

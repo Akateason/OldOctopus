@@ -10,15 +10,24 @@
 #endif
 #endif
 
-#import "NSString+XTReq_Extend.h"
-#import "XTCacheRequest.h"
 #import "XTReq.h"
 #import "XTReqConst.h"
 #import "XTReqSessionManager.h"
+#import "XTRequest+RAC.h"
 #import "XTRequest+Reachability.h"
 #import "XTRequest+UrlString.h"
 #import "XTRequest.h"
+#import "NSString+XTReq_Extend.h"
+#import "XTCacheRequest.h"
 #import "XTResponseDBModel.h"
+#import "XTReqTask.h"
+#import "XTDownloadOperation.h"
+#import "XTDownloadSessionManager.h"
+#import "XTDownloadTask+Extension.h"
+#import "XTDownloadTask.h"
+#import "XTUploadOperation.h"
+#import "XTUploadSessionManager.h"
+#import "XTUploadTask.h"
 
 FOUNDATION_EXPORT double XTReqVersionNumber;
 FOUNDATION_EXPORT const unsigned char XTReqVersionString[];

@@ -9,7 +9,7 @@
 #import "KeyboardViewButton.h"
 #import <XTlib/XTlib.h>
 #import "MDThemeConfiguration.h"
-#import <BlocksKit+UIKit.h>
+
 
 @implementation KeyboardViewButton
 
@@ -23,7 +23,7 @@
     [self setBackgroundImage:grayImage forState:UIControlStateSelected] ;
     
     WEAK_SELF
-    [self bk_addEventHandler:^(id sender) {
+    [self xt_addEventHandler:^(id sender) {
         
         
         weakSelf.layer.transform = CATransform3DMakeScale(1.1, 1.1, 1) ;
