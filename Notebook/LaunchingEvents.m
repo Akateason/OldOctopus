@@ -15,7 +15,6 @@
 #import <UserNotifications/UserNotifications.h>
 #import <XTReq/XTReq.h>
 #import "MDThemeConfiguration.h"
-#import <Bugly/Bugly.h>
 #import "AppDelegate.h"
 #import "MDNavVC.h"
 
